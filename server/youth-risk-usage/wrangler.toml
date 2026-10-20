@@ -1,0 +1,11 @@
+name = "osan-youth-usage"
+main = "worker.mjs"
+compatibility_date = "2026-10-20"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "osan-youth-usage"
+database_id = "REPLACE_WITH_CREATED_DATABASE_ID"
+
+[observability]
+enabled = false

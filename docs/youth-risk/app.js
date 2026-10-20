@@ -269,6 +269,7 @@ async function copyPacket(){if(!ready)return;var text=$("copyPacket").value,revi
 function calculate(){
 var missing=answers.findIndex(function(v){return v===null});if(missing!==-1){alert((missing+1)+"번 문항부터 미응답 또는 미상 항목이 있습니다. 25개 각각 점수를 선택해 주세요.");$("qi"+missing).scrollIntoView({behavior:"smooth",block:"center"});var radio=$("qi"+missing).querySelector("input");radio.focus();return}
 ready=true;
+if(window.siteUsage)window.siteUsage.complete();
 var total=answers.reduce(function(a,b){return a+b},0);
 var domainScores=domains.map(function(d,i){return domainAnswers(i).reduce(function(a,b){return a+b},0)});
 var explicit=getUrgent(),inferred=inferredSignals();
@@ -351,7 +352,7 @@ $("studentName").addEventListener("input",function(){ready=false;clearResult()})
 $("complete").addEventListener("click",calculate);
 $("asideComplete").addEventListener("click",calculate);
 $("safetyChecks").addEventListener("change",updateUrgent);
-$("reset").addEventListener("click",function(){if(!confirm("이름과 평가 점수 및 긴급 체크 항목을 모두 초기화하시겠습니까?"))return;answers.fill(null);ready=false;$("studentName").value="";document.querySelectorAll('input[type="radio"],input[data-urgent]').forEach(function(x){x.checked=false});document.querySelectorAll(".question.has-value").forEach(function(x){x.classList.remove("has-value")});updateProgress();updateUrgent();$("assessment").scrollIntoView({behavior:"smooth"})});
+$("reset").addEventListener("click",function(){if(!confirm("이름과 평가 점수 및 긴급 체크 항목을 모두 초기화하시겠습니까?"))return;answers.fill(null);if(window.siteUsage)window.siteUsage.reset();ready=false;$("studentName").value="";document.querySelectorAll('input[type="radio"],input[data-urgent]').forEach(function(x){x.checked=false});document.querySelectorAll(".question.has-value").forEach(function(x){x.classList.remove("has-value")});updateProgress();updateUrgent();$("assessment").scrollIntoView({behavior:"smooth"})});
 fetch("../resources.csv",{cache:"no-store"}).then(function(r){if(!r.ok)throw Error("자원 불러오기 실패");return r.text()}).then(function(t){csv=parseCsv(t);$("resourceStatus").textContent="연결된 「함께찾는 복지자원」 목록: "+csv.length+"개 서비스 항목 참조 · 연계 전 최신 운영 확인";if(ready){var updatedScores=domains.map(function(d,i){return domainAnswers(i).reduce(function(a,b){return a+b},0)});renderResources(updatedScores);renderCopyPacket(answers.reduce(function(a,b){return a+b},0),updatedScores,getUrgent().concat(inferredSignals()))}}).catch(function(){$("resourceStatus").textContent="복지자원 원본 연결이 일시적으로 불가해 추천기관을 표시하지 않습니다. 전체 검색에서 직접 확인하세요."});
 }
 window.addEventListener("beforeprint",function(){var p=document.createElement("div");p.className="summary-print";p.textContent=$("summaryText").value;$("summaryText").after(p)});
