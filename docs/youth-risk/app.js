@@ -1,46 +1,136 @@
 (function(){
 "use strict";
 var domains=[
-{name:"아동학대·보호",color:"#e84b7a",items:[
-"보호자로부터 신체적·정서적 위협을 받거나 보호가 부족하다고 의심할 만한 구체적인 징후가 관찰됩니다.",
-"학생의 진술·행동·신체 상태에서 학대 또는 성적 피해를 의심할 정황이 발견됩니다.",
-"가정 내 심각한 갈등·방임으로 안전한 거처나 도움을 받을 보호자가 부족해 보입니다."]},
-{name:"학교폭력·또래갈등",color:"#9976d6",items:[
-"반복적인 따돌림·욕설·폭행 등으로 등교 또는 학교생활을 어려워합니다.",
-"금품 요구·협박·성적 괴롭힘 등 또래에게 피해를 당한 정황이 확인됩니다.",
-"다른 학생에게 반복적으로 위협·폭력·괴롭힘 행동을 보이거나 갈등이 심화됩니다."]},
-{name:"자해·자살·정신건강",color:"#ec577d",items:[
-"우울감·불안·무기력·심한 위축이 계속되며 평소 활동과 관계에 변화가 뚜렷합니다.",
-"자해 흔적·죽음에 관한 반복적 언급·자살을 암시하는 표현 등 안전확인이 필요한 신호가 있습니다.",
-"심한 감정 기복·공황 유사 반응·현저한 수면 변화로 일상 기능이 저하됩니다."]},
-{name:"학습·출결",color:"#2f83c3",items:[
-"지각·조퇴·결석이 증가하거나 등교를 지속적으로 피합니다.",
-"기초학습·수업 집중·과제 수행에 어려움이 누적되고 기존 지원만으로 호전되지 않습니다.",
-"학습 의욕과 학교 소속감이 크게 떨어지거나 학업 지속에 대한 포기를 표현합니다."]},
-{name:"행동·품행",color:"#dc9438",items:[
-"분노 조절의 어려움·물건 파손·공격적인 반응이 반복적으로 관찰됩니다.",
-"규칙 위반·무단이탈·타인의 권리 침해가 반복되어 학교생활에 영향을 줍니다.",
-"음주·흡연·위험한 외출 등 건강과 안전을 해칠 가능성이 있는 행동이 발견됩니다."]},
-{name:"장애·발달 및 지원환경",color:"#518cdb",items:[
-"의사소통·주의집중·대인관계의 어려움 때문에 수업이나 생활에 지속적인 지원이 필요합니다.",
-"감각·인지·발달적 특성에 비해 교육환경의 조정이 부족하여 참여나 적응에 어려움이 발생합니다.",
-"필요한 정당한 편의·보조공학·교육·돌봄 지원을 받지 못해 활동 기회가 제한됩니다."]},
-{name:"가족·돌봄",color:"#e57b3c",items:[
-"보호자의 부재·질병·돌봄 여력 부족으로 식사·생활관리·안전확인에 공백이 생깁니다.",
-"가족 갈등·양육 스트레스·보호자 정서 문제로 학생의 학교생활과 정서가 영향을 받습니다.",
-"학생이 가족의 간병·돌봄·가사 책임을 과도하게 떠맡아 학습·휴식에 지장을 받습니다."]},
-{name:"경제·주거",color:"#b881c1",items:[
-"급식 외 식사·의복·위생용품·학습준비물 등 기본생활에 필요한 물품이 부족합니다.",
-"주거 불안정·잦은 이사·비위생적 환경 때문에 건강·안전·학습이 방해받습니다.",
-"경제적 사정으로 의료·치료·교육·생활에 필요한 지원이 연기되거나 중단됩니다."]},
-{name:"관계·사회적 고립",color:"#4e9fd0",items:[
-"친구·교사·가족과의 관계가 급격히 축소되고 혼자 지내는 시간이 늘었습니다.",
-"어려움이 생겼을 때 신뢰하고 도움을 요청할 수 있는 어른이나 지지망이 부족합니다.",
-"대인관계 갈등 또는 사회적 불안으로 교내외 활동 참여를 지속적으로 회피합니다."]},
-{name:"디지털·온라인 위험",color:"#29aa9b",items:[
-"온라인에서 개인정보 유포·협박·사이버 따돌림 등 피해가 의심됩니다.",
-"게임·SNS·영상 이용 때문에 수면·학습·대면관계의 기능 저하가 지속됩니다.",
-"온라인 유해접촉·성적 요구·그루밍·디지털 성착취 등 위험에 노출된 징후가 있습니다."]}
+  {
+    "name": "아동학대·보호",
+    "color": "#e84b7a",
+    "items": [
+      "보호자의 신체적 폭력·정서적 위협 또는 성적 침해를 의심할 구체적 진술·상처·행동 변화가 있습니다.",
+      "필요한 보호·의료·위생을 지속적으로 제공하지 않는 방임이 의심됩니다."
+    ],
+    "hints": [
+      "의심만으로도 안전확인·신고의무를 우선합니다. 진술을 반복 요구하거나 증명을 기다리지 않습니다.",
+      "가난이나 보호자 질병만으로 학대로 채점하지 않습니다. 제공되지 않는 보호와 구체적 정황을 확인합니다."
+    ]
+  },
+  {
+    "name": "학교폭력·또래 안전",
+    "color": "#9976d6",
+    "items": [
+      "따돌림·욕설·폭행·사이버 괴롭힘 등 또래의 괴롭힘 피해 정황이 있습니다.",
+      "금품 요구·협박·성적 괴롭힘 등 강요·착취 피해 정황이 있습니다.",
+      "다른 학생에게 위협·폭력·괴롭힘을 가하여 타인의 안전을 해친 구체적 행동이 있습니다."
+    ],
+    "hints": [
+      "등교 회피 자체는 출결 문항에서 평가합니다. 피해 사실·안전 침해를 이 문항에서 확인합니다.",
+      "단순 의견 차이와 구분합니다. 3번과 같은 괴롭힘 사건만 있으면 중복 가산하지 않습니다. 온라인 성착취는 25번에 우선 기록합니다.",
+      "학생을 가해자로 단정하지 말고 확인된 행동과 피해 보호 필요를 평가합니다."
+    ]
+  },
+  {
+    "name": "자해·정서·정신건강",
+    "color": "#ec577d",
+    "items": [
+      "우울·불안·무기력 등 정서적 고통 때문에 일상 활동에 어려움이 있습니다.",
+      "자해 흔적·자해 진술·죽고 싶다는 표현 등 안전확인이 필요한 신호가 있습니다.",
+      "공황 유사 반응·현저한 수면 변화·현실 판단의 어려움 등으로 일상 기능이 저하됩니다."
+    ],
+    "hints": [
+      "최근 2주를 중심으로 평소 상태와 비교합니다. 단순한 내향성은 점수 근거가 아닙니다.",
+      "단 한 번의 신호도 즉시 직접 안전확인합니다. 이 점수로 자살 가능성을 예측하지 않습니다.",
+      "6번의 정서적 고통만을 다시 채점하지 않습니다. 증상과 기능 변화를 별도로 확인합니다."
+    ]
+  },
+  {
+    "name": "학습·출결",
+    "color": "#2f83c3",
+    "items": [
+      "지각·조퇴·결석 또는 등교 회피로 수업 참여가 줄었습니다.",
+      "수업 이해·기초학습·과제 수행의 어려움이 적절한 지원 후에도 남아 있습니다.",
+      "학업을 지속하기 어렵다는 표현이나 학교 소속감의 저하가 확인됩니다."
+    ],
+    "hints": [
+      "질병·장애·피해 보호·이동 장벽 등 사유를 확인하며 비행으로 해석하지 않습니다.",
+      "성적 순위만으로 채점하지 않습니다. 언어·접근성·학습 기회와 제공된 지원을 확인합니다.",
+      "결석 횟수나 과제 미제출만을 다시 세지 말고 학생의 의사와 학교 경험을 확인합니다."
+    ]
+  },
+  {
+    "name": "행동·건강 안전",
+    "color": "#dc9438",
+    "items": [
+      "물건 파손·충동적인 위험 행동으로 자신 또는 주변의 안전을 해치는 일이 있습니다.",
+      "음주·흡연·약물 오용·위험한 외출 등 건강과 안전을 해치는 행동이 있습니다."
+    ],
+    "hints": [
+      "또래를 향한 폭력은 5번에 우선 기록합니다. 규칙 불순응만으로 채점하지 않습니다.",
+      "소문이나 외모 대신 구체적 관찰·진술을 사용합니다. 의료 응급상황은 즉시 대응합니다."
+    ]
+  },
+  {
+    "name": "장애·발달 및 접근성",
+    "color": "#518cdb",
+    "items": [
+      "의사소통·감각·주의·인지 특성에 맞는 교육환경 조정이 부족하여 참여가 제한됩니다.",
+      "필요한 편의·보조공학·발달 또는 돌봄 서비스를 받지 못해 활동이 제한됩니다."
+    ],
+    "hints": [
+      "진단명 자체는 0~4점의 근거가 아닙니다. 쉬운 설명·감각환경·수업 방식 등 환경 장벽을 평가합니다.",
+      "14번의 교실 조정과 구분해 미충족 서비스·자원 접근을 확인합니다. 비용 장벽만 있으면 21번에 우선 기록합니다."
+    ]
+  },
+  {
+    "name": "가족·돌봄",
+    "color": "#e57b3c",
+    "items": [
+      "보호자 부재·질병·여력 부족으로 식사·생활관리·돌봄 공백이 생깁니다.",
+      "가족 갈등·양육 스트레스로 학생의 정서·학교생활이 영향을 받습니다.",
+      "학생의 간병·가사·가족 돌봄 책임이 학습·휴식·건강을 제한합니다."
+    ],
+    "hints": [
+      "가족 형태를 평가하지 않습니다. 방임 의심은 2번과 별도 안전확인으로 다룹니다.",
+      "학대 의심은 1번을 우선 확인합니다. 가족 갈등의 존재만으로 높게 채점하지 않습니다.",
+      "학생의 선택·부담·지원 욕구를 묻고 돌봄 역할 자체를 문제로 보지 않습니다."
+    ]
+  },
+  {
+    "name": "경제·주거",
+    "color": "#b881c1",
+    "items": [
+      "식사·의복·위생용품·학습준비물 등 필수 생활자원이 부족합니다.",
+      "주거의 불안정·안전하지 않은 환경이 건강·학습을 방해합니다.",
+      "비용 부담으로 필요한 의료·치료·교육·생활 지원을 받지 못합니다."
+    ],
+    "hints": [
+      "소득·수급 여부가 아니라 실제 미충족 욕구를 평가합니다.",
+      "주소·주거 형태는 수집하지 않습니다. 안전한 거처의 확보 필요를 확인합니다.",
+      "19번 물품 부족과 다른 서비스 접근 장벽이 확인될 때 평가합니다."
+    ]
+  },
+  {
+    "name": "관계·지지체계",
+    "color": "#4e9fd0",
+    "items": [
+      "원하는 또래·교내외 활동에 참여하기 어렵고 고립으로 인한 불편을 호소합니다.",
+      "도움이 필요할 때 실제로 연락하고 도움받을 신뢰할 어른·지원체계가 부족합니다."
+    ],
+    "hints": [
+      "혼자 있는 취향이나 장애 자체는 채점하지 않습니다. 6번의 정서 증상만으로 추정하지 않습니다.",
+      "학생이 신뢰하는 사람과 이용 가능한 지원을 확인합니다. 가족 수로 평가하지 않습니다."
+    ]
+  },
+  {
+    "name": "디지털·온라인 안전",
+    "color": "#29aa9b",
+    "items": [
+      "게임·SNS·영상 등의 이용 조절 어려움 때문에 수면·학습·대면 활동에 기능 저하가 있습니다.",
+      "온라인 그루밍·성적 요구·디지털 성착취·협박에 노출된 징후가 있습니다."
+    ],
+    "hints": [
+      "사용 시간만으로 채점하지 않습니다. 사이버 괴롭힘은 3번, 강요·협박 피해는 4번, 성착취는 25번에 우선 기록합니다.",
+      "이미지를 요구·복제하지 않습니다. 단 한 번의 의심도 안전확인·전문기관 협력이 우선입니다."
+    ]
+  }
 ];
 var routes=[
 ["오산시아동보호전문기관","오산세교종합사회복지관","오산시청"],
@@ -54,76 +144,67 @@ var routes=[
 ["오산시청소년상담복지센터","경기도교육청 Wee 프로젝트"],
 ["오산시청소년상담복지센터","경기도교육청 Wee 프로젝트","오산시아동보호전문기관"]
 ];
-var answers=new Array(30).fill(null), ready=false, csv=[], fallback=[
-{기관명:"오산세교종합사회복지관",범주:"오산시",대표전화:"031-290-8501",홈페이지:"https://www.osgwc.or.kr/",서비스명:"통합사례관리 및 서비스 연계"},
-{기관명:"오산시아동보호전문기관",범주:"오산시",대표전화:"",홈페이지:"https://www.osan.go.kr/",서비스명:"피해아동·가족 사례관리(신고는 112)"},
-{기관명:"오산시청소년상담복지센터",범주:"오산시",대표전화:"",홈페이지:"https://www.cyber1388.kr/",서비스명:"청소년 상담·청소년안전망"},
-{기관명:"오산시정신건강복지센터",범주:"오산시",대표전화:"",홈페이지:"https://www.osan.go.kr/",서비스명:"정신건강 상담·사례관리"},
-{기관명:"경기도교육청 Wee 프로젝트",범주:"경기도",대표전화:"",홈페이지:"https://www.goe.go.kr/",서비스명:"Wee클래스·Wee센터"},
-{기관명:"오산시가족센터",범주:"오산시",대표전화:"",홈페이지:"https://www.familynet.or.kr/",서비스명:"가족 상담·돌봄"},
-{기관명:"오산시장애인종합복지관",범주:"오산시",대표전화:"",홈페이지:"https://www.osan.go.kr/",서비스명:"장애인 상담·가족지원"},
-{기관명:"오산시 동 행정복지센터",범주:"오산시",대표전화:"",홈페이지:"https://www.osan.go.kr/",서비스명:"공적급여·위기가구 발굴"}
-];
+var answers=new Array(25).fill(null), ready=false, csv=[], fallback=[];
+function domainAnswers(i){var offset=domains.slice(0,i).reduce(function(n,d){return n+d.items.length},0);return answers.slice(offset,offset+domains[i].items.length)}
 var $=function(id){return document.getElementById(id)};
 var clean=function(t){return String(t==null?"":t).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})};
 function makeQuestions(){
 var section=$("questions"), html="", idx=0;
 domains.forEach(function(d,di){
-html+='<section class="domain-card" aria-labelledby="dt'+di+'"><div class="domain-header"><span class="domain-index">'+(di+1)+'</span><span class="domain-title" id="dt'+di+'">'+clean(d.name)+'</span><span class="domain-count" id="dc'+di+'">0/3문항 · 0/12점</span></div>';
-d.items.forEach(function(q){
-html+='<div class="question" id="qi'+idx+'"><div class="question-text"><span class="question-number">'+String(idx+1).padStart(2,"0")+'</span>'+clean(q)+'</div><div class="options" role="radiogroup" aria-label="'+(idx+1)+'번 문항 점수">';
+html+='<section class="domain-card" aria-labelledby="dt'+di+'"><div class="domain-header"><span class="domain-index">'+(di+1)+'</span><span class="domain-title" id="dt'+di+'">'+clean(d.name)+'</span><span class="domain-count" id="dc'+di+'">0/'+d.items.length+'문항 · 0/'+(d.items.length*4)+'점</span></div>';
+d.items.forEach(function(q, itemIndex){
+html+='<div class="question" id="qi'+idx+'"><div class="question-text" id="qt'+idx+'"><span class="question-number">'+String(idx+1).padStart(2,"0")+'</span>'+clean(q)+'<small class="item-hint" id="qh'+idx+'">'+clean(d.hints[itemIndex])+'</small></div><div class="options" role="radiogroup" aria-labelledby="qt'+idx+'" aria-describedby="qh'+idx+'">';
 for(var v=0;v<=4;v++)html+='<label class="score-choice" title="'+v+'점"><input type="radio" name="q'+idx+'" value="'+v+'" aria-label="'+v+'점"><span>'+v+'</span></label>';
-html+='</div></div>';idx++;
+html+='<label class="score-choice unknown"><input type="radio" name="q'+idx+'" value="unknown"><span>미상</span></label></div></div>';idx++;
 });html+='</section>';
 });section.innerHTML=html;
 section.addEventListener("change",function(e){
 if(!e.target.matches('input[type="radio"]'))return;
-var index=Number(e.target.name.slice(1));answers[index]=Number(e.target.value);
-$("qi"+index).classList.add("has-value");ready=false;updateProgress();clearResult();
+var index=Number(e.target.name.slice(1));if(!Number.isInteger(index)||index<0||index>=25)return;
+var value=e.target.value; if(value!=="unknown"&&!/^[0-4]$/.test(value))return; answers[index]=value==="unknown"?null:Number(value);
+$("qi"+index).classList.add("has-value");ready=false;updateProgress();updateUrgent();clearResult();
 });
 }
 function updateProgress(){
 var filled=answers.filter(function(v){return v!==null}).length;
 var total=answers.reduce(function(a,b){return a+(b===null?0:b)},0);
-$("filled").textContent=filled;$("liveTotal").innerHTML=total+'<small> / 120점 (임시)</small>';
-$("progressBar").style.width=(filled/30*100)+"%";
-$("progressHint").textContent=filled===30?"30문항 응답 완료. 판정 버튼으로 결과를 확인하세요.":(30-filled)+"개 문항이 남았습니다. 미응답 문항에 0점을 자동 부여하지 않습니다.";
+$("filled").textContent=filled;$("liveTotal").innerHTML=total+'<small> / 100점 (임시)</small>';
+$("progressBar").style.width=(filled/25*100)+"%";
+$("progressHint").textContent=filled===25?"25문항 응답 완료. 검토 버튼으로 결과를 확인하세요.":(25-filled)+"개 문항이 남았습니다. 미응답 문항에 0점을 자동 부여하지 않습니다.";
 var s="";
-domains.forEach(function(d,i){var arr=answers.slice(i*3,i*3+3),count=arr.filter(function(v){return v!==null}).length,score=arr.reduce(function(a,b){return a+(b===null?0:b)},0);
-$("dc"+i).textContent=count+"/3문항 · "+score+"/12점";
-s+='<div class="domain-progress-item"><span>'+clean(d.name)+'</span><span class="bar"><i style="width:'+(score/12*100)+'%;background:'+d.color+'"></i></span><strong>'+score+'/12</strong></div>';
+domains.forEach(function(d,i){var arr=domainAnswers(i),count=arr.filter(function(v){return v!==null}).length,score=arr.reduce(function(a,b){return a+(b===null?0:b)},0);
+$("dc"+i).textContent=count+"/"+d.items.length+"문항 · "+score+"/"+(d.items.length*4)+"점";
+s+='<div class="domain-progress-item"><span>'+clean(d.name)+'</span><span class="bar"><i style="width:'+(score/(d.items.length*4)*100)+'%;background:'+d.color+'"></i></span><strong>'+score+'/'+(d.items.length*4)+'</strong></div>';
 });$("domainProgress").innerHTML=s;
 }
 function getUrgent(){return Array.from(document.querySelectorAll("[data-urgent]:checked")).map(function(n){return n.getAttribute("data-urgent")})}
-function updateUrgent(){$("urgentNow").hidden=getUrgent().length===0;ready=false;clearResult()}
-function clearResult(){$("resultBody").innerHTML='<div class="empty-result"><strong>평가 결과를 기다리고 있습니다.</strong><p>30개 문항의 점수를 모두 선택하고 ‘평가 완료’ 버튼을 눌러 주세요.</p></div>';$("resourceList").innerHTML='<div class="empty-result"><p>평가 완료 후 위험영역에 따라 추천기관이 표시됩니다.</p></div>'}
+function inferredSignals(){var found=[];if(answers[0]>0||answers[1]>0)found.push("아동학대·방임 의심: 즉시 안전확인, 신고의무자는 의심 시 지체 없이 신고. 확정이나 총점 산출을 기다리지 않습니다.");if(answers[6]>0)found.push("자해·죽음 관련 신호: 현재 안전을 즉시 직접 확인하고 전문평가에 연결합니다. 임박한 위험·시도·상해 시 112/119 긴급조치.");if(answers[24]>0)found.push("온라인 성착취·협박 신호: 안전확인과 피해 보호, 신고·전문기관 협력 검토.");return found}
+function updateUrgent(){var signals=getUrgent().concat(inferredSignals());$("urgentNow").hidden=signals.length===0;$("urgentNow").textContent=signals.join(" / ")+" 안전조치는 평가 완료와 무관하게 진행하세요.";ready=false;clearResult()}
+function clearResult(){$("resultBody").innerHTML='<div class="empty-result"><strong>평가 결과를 기다리고 있습니다.</strong><p>25개 문항의 점수를 모두 선택하고 ‘평가 완료’ 버튼을 눌러 주세요.</p></div>';$("resourceList").innerHTML='<div class="empty-result"><p>평가 완료 후 위험영역에 따라 추천기관이 표시됩니다.</p></div>'}
 function calculate(){
-var missing=answers.findIndex(function(v){return v===null});if(missing!==-1){alert((missing+1)+"번 문항부터 미응답 항목이 있습니다. 30개 각각 점수를 선택해 주세요.");$("qi"+missing).scrollIntoView({behavior:"smooth",block:"center"});var radio=$("qi"+missing).querySelector("input");radio.focus();return}
+var missing=answers.findIndex(function(v){return v===null});if(missing!==-1){alert((missing+1)+"번 문항부터 미응답 또는 미상 항목이 있습니다. 25개 각각 점수를 선택해 주세요.");$("qi"+missing).scrollIntoView({behavior:"smooth",block:"center"});var radio=$("qi"+missing).querySelector("input");radio.focus();return}
 ready=true;
 var total=answers.reduce(function(a,b){return a+b},0);
-var domainScores=domains.map(function(d,i){return answers.slice(i*3,i*3+3).reduce(function(a,b){return a+b},0)});
-var explicit=getUrgent(),inferred=[];
-if(answers[7]>=3)inferred.push("자해·자살 관련 문항(8번) 고위험 응답: 현시점 안전 여부를 즉시 대면 확인");
-if(answers[1]>=2)inferred.push("학대 의심 관련 문항(2번) 응답: 신고의무·보호조치 검토");
-if(answers[29]>=3)inferred.push("디지털 성착취 위험 관련 문항(30번) 고위험 응답: 안전확인 및 신고·전문기관 협력");
+var domainScores=domains.map(function(d,i){return domainAnswers(i).reduce(function(a,b){return a+b},0)});
+var explicit=getUrgent(),inferred=inferredSignals();
 var urgent=explicit.length>0||inferred.length>0;
-var rank=total<=24?0:total<=49?1:total<=79?2:3;
+var rank=total<=19?0:total<=39?1:total<=59?2:3;
 var names=["관찰·예방 및 경과점검","학교 내 학맞통 검토","학맞통·외부기관 연계 권고","다기관 집중 개입 검토"];
 var description=["전반적인 응답 점수는 낮지만 개별 위험신호와 보호요인을 확인하고 관찰을 지속합니다.","담임·상담교사 등 학교 지원체계를 통해 추가 사정과 학생맞춤통합지원 협의를 검토합니다.","위기영역이 복합적일 가능성이 있어 학교와 복지·상담 전문기관의 공동 사정 및 서비스 연계를 권고합니다.","학교·상담·복지·보건 등 다기관 협력과 집중적인 안전·지원계획 수립을 우선 검토합니다."];
 var who=$("studentName").value.trim(),heading=urgent?"즉시 안전확인 및 보호·신고 검토":names[rank];
-var html='<div class="result-main'+(urgent?' urgent':'')+'"><span class="eyebrow">TEST 평가결과'+(who?' · '+clean(who):'')+'</span><div class="sum">'+total+'<small> / 120점</small></div><h3>'+clean(heading)+'</h3><p>'+clean(urgent?"선택된 안전신호가 우선입니다. 점수판정을 기다리지 말고 필요한 긴급조치를 실시하세요.":description[rank])+'</p><p class="sub">시범 구간: 0~24 / 25~49 / 50~79 / 80~120점. 절단점의 타당도는 검증되지 않았습니다.</p></div>';
+var html='<div class="result-main'+(urgent?' urgent':'')+'"><span class="eyebrow">TEST 평가결과'+(who?' · '+clean(who):'')+'</span><div class="sum">'+total+'<small> / 100점</small></div><h3>'+clean(heading)+'</h3><p>'+clean(urgent?"선택된 안전신호가 우선입니다. 점수 산출을 기다리지 말고 필요한 긴급조치를 실시하세요.":description[rank])+'</p><p class="sub">임의로 설정한 업무 검토 구간(진단·위험 예측·서비스 자격 기준 아님): 0~19 / 20~39 / 40~59 / 60~100점. 절단점의 타당도는 검증되지 않았습니다.</p></div>';
 html+='<div class="routes">';
 if(urgent)html+='<div class="route urgent-route"><strong>🚨 즉시개입 검토</strong><small>현재 안전확보, 112·119, 신고의무 및 보호체계</small></div>';
 html+='<div class="route"><strong>🏫 학맞통 연계</strong><small>담임·상담교사·학교 학생맞춤통합지원 담당 협의</small></div>';
-if(total>24||urgent)html+='<div class="route"><strong>🏥 외부 전문기관 연계</strong><small>청소년상담·정신건강·아동보호 등 위험영역별 연계</small></div>';
+if(total>19||urgent)html+='<div class="route"><strong>🏥 외부 전문기관 연계</strong><small>청소년상담·정신건강·아동보호 등 위험영역별 연계</small></div>';
 html+='<div class="route"><strong>🤝 사례관리 검토</strong><small>욕구사정·보호요인·지원계획 및 재점검</small></div></div>';
-var highs=domainScores.map(function(v,i){return {i:i,s:v}}).sort(function(a,b){return b.s-a.s}).filter(function(x){return x.s>0}).slice(0,3);
+var highs=domainScores.map(function(v,i){return {i:i,s:v}}).sort(function(a,b){return b.s/domains[b.i].items.length-a.s/domains[a.i].items.length}).filter(function(x){return x.s>0}).slice(0,3);
 html+='<div class="result-todo"><b>우선 확인 영역</b><ul>';
 if(highs.length===0)html+='<li>모든 영역 0점 — 응답 근거와 누락된 위험이 없는지 확인하세요.</li>';
-highs.forEach(function(x){html+='<li>'+clean(domains[x.i].name)+' '+x.s+'/12점</li>'});
+highs.forEach(function(x){html+='<li>'+clean(domains[x.i].name)+' '+x.s+'/'+(domains[x.i].items.length*4)+'점 (응답 평균 '+(x.s/domains[x.i].items.length).toFixed(1)+')</li>'});
 if(explicit.length)explicit.forEach(function(x){html+='<li><strong>긴급 체크:</strong> '+clean(x)+'</li>'});
 if(inferred.length)inferred.forEach(function(x){html+='<li><strong>특별 확인:</strong> '+clean(x)+'</li>'});
-html+='</ul><p style="font-size:12px;margin:9px 0 0">총점은 상황 판단을 보조하는 시범 지표입니다. 아동학대 의심은 점수와 무관하게 관련 법령과 기관 신고 절차를 적용합니다.</p></div><div class="print"><button id="printResult" type="button" class="btn btn-muted">결과 인쇄 (현재 기기에서만 처리)</button></div>';
+html+='</ul><p style="font-size:16px;margin:9px 0 0">총점은 상황 판단을 보조하는 시범 지표입니다. 아동학대 의심은 점수와 무관하게 관련 법령과 기관 신고 절차를 적용합니다.</p></div><div class="print"><button id="printResult" type="button" class="btn btn-muted">결과 인쇄 (현재 기기에서만 처리)</button></div>';
 $("resultBody").innerHTML=html;$("printResult").onclick=function(){window.print()};
 renderResources(domainScores);
 $("result").scrollIntoView({behavior:"smooth",block:"start"});
@@ -142,31 +223,34 @@ var keys=rows.shift()||[];return rows.map(function(r){var o={};keys.forEach(func
 function getLink(u){try{var url=new URL(u,location.href);return /^https?:$/.test(url.protocol)?url.href:""}catch(e){return ""}}
 function renderResources(domainScores){
 if(!ready)return;
-var ranked=domainScores.map(function(s,i){return {s:s,i:i}}).sort(function(a,b){return b.s-a.s}).filter(function(x){return x.s>0});
-var selected=ranked.slice(0,4),names=[];
-if(getUrgent().length||answers[1]>=2){names.push("오산시아동보호전문기관")}
-if(answers[7]>=2||ranked.some(function(x){return x.i===2})){names.push("오산시정신건강복지센터")}
+var ranked=domainScores.map(function(s,i){return {s:s,i:i}}).sort(function(a,b){return b.s/domains[b.i].items.length-a.s/domains[a.i].items.length}).filter(function(x){return x.s>0});
+var selected=ranked,names=[];
+if(getUrgent().length)names.push("오산시청소년상담복지센터","오산시아동보호전문기관","오산시정신건강복지센터");
+if(answers[0]>0||answers[1]>0){names.push("오산시아동보호전문기관")}
+if(answers[6]>0||ranked.some(function(x){return x.i===2})){names.push("오산시정신건강복지센터")}
 selected.forEach(function(x){(routes[x.i]||[]).forEach(function(n){if(names.indexOf(n)===-1)names.push(n)})});
-if(!selected.length)names=["오산시청소년상담복지센터","경기도교육청 Wee 프로젝트","오산세교종합사회복지관"];
-names=names.slice(0,9);
+if(!selected.length&&!names.length)names=["오산시청소년상담복지센터","경기도교육청 Wee 프로젝트","오산세교종합사회복지관"];
+names=Array.from(new Set(names));
 var grouped=new Map();
 (csv.length?csv:fallback).forEach(function(row){var key=row["기관명"];if(!grouped.has(key))grouped.set(key,[]);grouped.get(key).push(row)});
 var content="";
 names.forEach(function(name){var entry=grouped.get(name)||fallback.filter(function(r){return r.기관명===name});if(!entry.length)return;
+var reasons=ranked.filter(function(x){return (routes[x.i]||[]).indexOf(name)!==-1}).map(function(x){return domains[x.i].name}).join(" · ")||"안전확인 또는 일반 상담";
 var item=entry[0],services=entry.map(function(r){return r["서비스명"]}).filter(Boolean).slice(0,3).join(" · "),url=getLink(item["홈페이지"]||item["근거URL"]);
-content+='<article class="resource-item"><span class="category">'+clean(item["범주"])+' · 기관별 문의 필요</span><h3>'+clean(name)+'</h3><p>'+clean(services)+'</p>';
+content+='<article class="resource-item"><span class="category">'+clean(item["범주"])+' · 기관별 문의 필요</span><h3>'+clean(name)+'</h3><p>후보 제시 이유: '+clean(reasons)+'</p><p>DB에 등록된 서비스 예시(적합성 확인 필요): </p><p>'+clean(services)+'</p><p>대상: '+clean(entry.map(function(r){return r.지원대상}).filter(Boolean).slice(0,3).join(' · '))+'</p><p>DB 검토일: '+clean(item.최종검토일||'미기재')+' · 운영: '+clean(item.운영확인||'직접 확인 필요')+'</p><p>신청·연계: '+clean(item['신청·연계방법']||'기관 문의')+'</p>';
 if(item["대표전화"])content+='<p>대표전화: '+clean(item["대표전화"])+'</p>';
 if(url)content+='<a href="'+clean(url)+'" target="_blank" rel="noopener noreferrer">기관 안내 보기 ↗</a>';content+='</article>';
 });
 $("resourceList").innerHTML=content||'<div class="empty-result"><p>일치 기관이 없습니다. 전체 복지자원 검색 페이지에서 직접 확인해 주세요.</p></div>';
 }
 function init(){
-makeQuestions();updateProgress();
+document.querySelectorAll("input").forEach(function(n){n.value=n.type==="checkbox"?n.value:"";n.checked=false});makeQuestions();updateProgress();
 $("complete").addEventListener("click",calculate);
 $("asideComplete").addEventListener("click",calculate);
 $("safetyChecks").addEventListener("change",updateUrgent);
 $("reset").addEventListener("click",function(){if(!confirm("이름과 평가 점수 및 긴급 체크 항목을 모두 초기화하시겠습니까?"))return;answers.fill(null);ready=false;$("studentName").value="";document.querySelectorAll('input[type="radio"],input[data-urgent]').forEach(function(x){x.checked=false});document.querySelectorAll(".question.has-value").forEach(function(x){x.classList.remove("has-value")});updateProgress();updateUrgent();$("assessment").scrollIntoView({behavior:"smooth"})});
-fetch("../resources.csv",{cache:"no-store"}).then(function(r){if(!r.ok)throw Error("자원 불러오기 실패");return r.text()}).then(function(t){csv=parseCsv(t);$("resourceStatus").textContent="연결된 「함께찾는 복지자원」 목록: "+csv.length+"개 서비스 항목 참조 · 연계 전 최신 운영 확인";if(ready)renderResources(domains.map(function(d,i){return answers.slice(i*3,i*3+3).reduce(function(a,b){return a+b},0)}))}).catch(function(){$("resourceStatus").textContent="복지자원 원본 연결이 일시적으로 불가해 예시기관으로 표시합니다. 정확한 서비스는 전체 검색에서 확인하세요."});
+fetch("../resources.csv",{cache:"no-store"}).then(function(r){if(!r.ok)throw Error("자원 불러오기 실패");return r.text()}).then(function(t){csv=parseCsv(t);$("resourceStatus").textContent="연결된 「함께찾는 복지자원」 목록: "+csv.length+"개 서비스 항목 참조 · 연계 전 최신 운영 확인";if(ready)renderResources(domains.map(function(d,i){return domainAnswers(i).reduce(function(a,b){return a+b},0)}))}).catch(function(){$("resourceStatus").textContent="복지자원 원본 연결이 일시적으로 불가해 추천기관을 표시하지 않습니다. 전체 검색에서 직접 확인하세요."});
 }
+window.addEventListener("pageshow",function(e){if(e.persisted)location.reload()});
 document.addEventListener("DOMContentLoaded",init);
 })();

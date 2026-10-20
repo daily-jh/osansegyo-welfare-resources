@@ -4,49 +4,51 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#132f56">
-<meta name="description" content="학교·사례관리기관 실무자를 위한 오산 청소년 위기징후 30문항 평가 및 지역자원 연계 TEST 도구">
+<meta name="description" content="학교·사례관리기관 실무자를 위한 오산 청소년 위기징후 25문항 평가 및 지역자원 연계 TEST 도구">
 <title>오산 청소년 위기징후 평가연계 시스템 | TEST</title>
 <link rel="stylesheet" href="style.css">
 <script defer src="app.js"></script>
 </head>
-<body>
+<body><noscript><style>main{display:none}</style><p>문항별 채점에는 JavaScript가 필요합니다. 긴급상황은 평가와 관계없이 112/119로 연락하고 소속기관의 안전·신고 절차를 따르세요.</p></noscript>
 <a class="skip" href="#assessment">평가 문항으로 건너뛰기</a>
 <header class="header"><div class="wrap header-inside">
 <a class="brand" href="./"><span class="mark" aria-hidden="true">✳</span><span>오산 청소년 <em>위기징후</em> 평가연계 시스템<small>학교·사례관리기관 중학생 관찰기반 평가 도구</small></span></a>
-<nav><a href="#assessment">30문항 평가</a><a href="#result">평가 결과</a><a href="#resources">연계기관</a><a href="#guide">이용안내</a></nav>
+<nav><a href="#assessment">25문항 평가</a><a href="#result">평가 결과</a><a href="#resources">연계기관</a><a href="#guide">이용안내</a></nav>
 </div></header>
 <main class="wrap">
 <section class="notice" role="note"><span class="test-badge">TEST 척도 및 시스템</span><div><strong>공식 표준화 검사 또는 진단 도구가 아닌, 현장 활용 검토용 시범 시스템입니다.</strong><p>점수 기준·문항·기관 추천은 검증 전 초안이며, 전문적 판단이나 신고의무를 대체하지 않습니다. 위급상황은 점수와 무관하게 즉시 대응하세요.</p></div></section>
 <section class="intro">
-<div><span class="eyebrow">OSAN YOUTH RISK SCREENING · 2026 TEST</span><h1>30개 문항, <em>각각 0~4점</em><br>위기징후를 구조적으로 살펴봅니다.</h1><p>10개 영역 × 각 3문항 = 30문항. 문항별 평가를 마치면 총점(120점 만점), 영역별 위험도, 즉시 안전확인 및 학맞통·전문기관 연계 방향을 제시합니다.</p></div>
-<div class="intro-stat"><span>평가 구성</span><strong>30<span>문항</span></strong><small>각 0~4점 · 최대 120점</small><div class="thin-line"></div><span>관찰기준</span><b>최근 3개월 원칙</b></div>
+<div><span class="eyebrow">OSAN YOUTH RISK SCREENING · 2026 TEST</span><h1>25개 문항, <em>각각 0~4점</em><br>위기징후를 구조적으로 살펴봅니다.</h1><p>10개 영역 · 총 25문항 × 4점 = 원점수 100점. 문항별 평가를 마치면 총점(100점 만점), 영역별 지원 필요 신호, 즉시 안전확인 및 학맞통·전문기관 연계 방향을 제시합니다.</p></div>
+<div class="intro-stat"><span>평가 구성</span><strong>25<span>문항</span></strong><small>각 0~4점 · 최대 100점</small><div class="thin-line"></div><span>관찰기준</span><b>최근 1개월 중심</b></div>
 </section>
 <div class="layout">
 <div class="left">
-<section class="panel" id="assessment"><div class="panel-head"><div><span class="eyebrow">STEP 01</span><h2>영역별 위기징후 평가 <span class="inline-count">30문항</span></h2><p>실제 관찰·상담 기록을 중심으로 <b>모든 문항에 점수 하나씩</b> 선택해 주세요. 진단명이나 추측만으로 점수를 부여하지 마세요.</p></div></div>
-<div class="privacy"><div><label for="studentName">학생 이름 <span>(선택 입력)</span></label><input id="studentName" type="text" maxlength="30" autocomplete="off" placeholder="입력하지 않아도 평가 가능"></div><div><strong>개인정보는 이름만 입력할 수 있습니다.</strong><p>이름·점수·결과는 서버에 전송하거나 저장하지 않습니다. 브라우저를 닫으면 입력 내용은 사라지며, 화면 캡처·인쇄 시 노출에 유의하세요.</p></div></div>
-<div class="scale"><h3>문항별 점수 기준 · 반드시 각 문항에 하나씩 선택</h3><div class="scale-grid"><div><b>0점</b><small>관찰되지 않음</small></div><div><b>1점</b><small>경미·일시적</small></div><div><b>2점</b><small>반복·지원 필요</small></div><div><b>3점</b><small>빈번·기능저하</small></div><div><b>4점</b><small>매우 심각·안전 우려</small></div></div><p>※ 동일 증상이라도 빈도·지속·기능 저하·안전 수준을 종합해 판정합니다. ‘정보 부족’이면 임의로 0점을 주지 말고 확인 후 입력하세요.</p></div>
-<div id="questions" class="question-sections"></div>
-<div class="eval-actions"><button class="btn btn-muted" id="reset" type="button">입력 초기화</button><button class="btn btn-primary" id="complete" type="button">30문항 평가 완료 · 결과 보기 →</button></div>
-</section>
-<section class="panel safety" id="safety"><div class="panel-head"><span class="eyebrow">STEP 02</span><h2>긴급 안전확인 <span class="warning-tag">점수와 별도</span></h2><p>아래 징후는 총점이 낮아도 즉시 사실관계에 맞는 보호·신고·긴급상담이 필요할 수 있습니다.</p></div>
+<section class="panel safety" id="safety"><div class="panel-head"><span class="eyebrow">SAFETY FIRST</span><h2>긴급 안전확인 <span class="warning-tag">점수와 별도</span></h2><p>아래 징후는 총점이 낮아도 즉시 사실관계에 맞는 보호·신고·긴급상담이 필요할 수 있습니다.</p></div>
 <div id="safetyChecks" class="safety-checks">
 <label><input type="checkbox" data-urgent="현재 자해·자살 시도 또는 구체적인 실행 계획·수단이 확인됨"><span>현재 자해·자살 시도 또는 구체적인 실행 계획·수단이 확인됨</span></label>
-<label><input type="checkbox" data-urgent="아동학대·성폭력 정황과 즉각적인 안전 위협 또는 귀가 위험이 있음"><span>아동학대·성폭력 정황과 즉각적인 안전 위협 또는 귀가 위험이 있음</span></label>
+<label><input type="checkbox" data-urgent="아동학대·성폭력이 의심됨 (즉각적 위해 여부와 무관하게 신고의무 확인)"><span>아동학대·성폭력이 의심됨 (즉각적 위해 여부와 무관하게 신고의무 확인)</span></label>
 <label><input type="checkbox" data-urgent="흉기·중대한 폭력·심각한 상해 등 긴급한 위해 위험이 있음"><span>흉기·중대한 폭력·심각한 상해 등 긴급한 위해 위험이 있음</span></label>
 <label><input type="checkbox" data-urgent="성착취·협박·실종 등으로 현재 안전 확보가 어려움"><span>성착취·협박·실종 등으로 현재 안전 확보가 어려움</span></label>
-</div><div id="urgentNow" class="urgent-inline" hidden>긴급 안전신호가 선택되었습니다. 평가 완료를 기다리지 말고 학생 안전을 확보하고 112/119 등 적절한 긴급조치를 검토하세요. 아동학대 의심 시 사실 확정이나 반복 진술 요구 없이 신고의무와 기관 절차를 따르세요.</div></section>
+</div><div id="urgentNow" class="urgent-inline" role="alert" hidden>긴급 안전신호가 선택되었습니다. 평가 완료를 기다리지 말고 학생 안전을 확보하고 112/119 등 적절한 긴급조치를 검토하세요. 아동학대 의심 시 사실 확정이나 반복 진술 요구 없이 신고의무와 기관 절차를 따르세요.</div></section>
+<section class="panel" id="assessment"><div class="panel-head"><div><span class="eyebrow">STEP 01</span><h2>영역별 위기징후 평가 <span class="inline-count">25문항</span></h2><p>실제 관찰·상담 기록을 중심으로 <b>각 문항에 점수 또는 미상 하나씩</b> 선택해 주세요. 진단명이나 추측만으로 점수를 부여하지 마세요.</p></div></div>
+<div class="privacy"><div><label for="studentName">학생 이름 <span>(선택 입력)</span></label><input id="studentName" type="text" maxlength="30" autocomplete="off" spellcheck="false" placeholder="입력하지 않아도 평가 가능"></div><div><strong>개인정보는 이름만 입력할 수 있습니다.</strong><p>입력값은 브라우저 메모리에서만 처리하며 앱은 서버 전송·브라우저 저장을 하지 않습니다. 사이트 접속 기록은 호스팅 제공자 정책을 따릅니다. 페이지 새로고침 시 입력 내용은 사라지며, 화면 캡처·인쇄 시 노출에 유의하세요.</p></div></div>
+<div class="scale"><h3>문항별 점수 기준 · 반드시 각 문항에 하나씩 선택</h3><div class="scale-grid"><div><b>0점</b><small>확인된 어려움 없음</small></div><div><b>1점</b><small>경미·일시적</small></div><div><b>2점</b><small>반복·지원 필요</small></div><div><b>3점</b><small>빈번·기능저하</small></div><div><b>4점</b><small>심한 기능 제한</small></div></div><p>※ 동일 증상이라도 빈도·지속·기능 저하·안전 수준을 종합해 판정합니다. ‘정보 부족’이면 미상을 선택하고 추가 확인 후 평가하세요.</p></div>
+<div class="scale"><h3>채점 전 확인</h3><p>최근 1개월의 관찰·학생 진술·기존 기록을 함께 확인하되 정서 문항은 최근 2주를 중심으로 봅니다. 안전신호는 시점과 관계없이 현재 안전을 확인하세요. 0점은 충분히 확인했으나 해당 어려움이 없는 경우입니다. 1점 경미·일시 / 2점 반복·지원 필요 / 3점 빈번·기능 저하 / 4점 심한 기능 제한. 이 공통 기준은 미검증 초안이며 안전신호의 빈도 기준이 아닙니다. 미상은 평가 보류이며 총점을 확정하지 않습니다.</p><p>같은 사건·증상만으로 여러 문항을 자동 가산하지 마세요. 서로 다른 피해·기능 제한이 확인될 때만 각각 채점합니다. 문항별 안내를 참고하고 근거는 소속기관의 적법한 기록체계에서 관리하세요.</p></div>
+<section class="scale" aria-labelledby="protectTitle"><h3 id="protectTitle">보호요인 확인 · 비채점</h3><p>안전한 어른·또래, 학생의 강점과 대처방법, 학생이 원하는 지원, 이미 제공 중인 서비스의 효과를 면담에서 확인하세요. 보호요인이 있어도 위험 점수를 차감하거나 안전조치를 생략하지 않습니다. 이 사이트에는 면담 내용을 입력하지 않습니다.</p></section><div id="questions" class="question-sections"></div>
+<div class="eval-actions"><button class="btn btn-muted" id="reset" type="button">입력 초기화</button><button class="btn btn-primary" id="complete" type="button">25문항 평가 완료 · 결과 보기 →</button></div>
+</section>
+
 </div>
 <aside class="right">
 <section class="panel monitor"><div class="panel-head"><span class="eyebrow">LIVE STATUS</span><h2>평가 진행 현황</h2><p>선택할 때마다 문항·영역 점수가 계산됩니다.</p></div>
-<div class="progress-numbers"><strong id="filled">0</strong><span>/ 30문항 응답</span><strong id="liveTotal" class="total">0<small> / 120점 (임시)</small></strong></div>
-<div class="progress-track"><div id="progressBar"></div></div><p id="progressHint" class="hint" aria-live="polite">30개 문항 모두 선택해야 종합 판정이 표시됩니다.</p><div id="domainProgress"></div>
-<div class="aside-action"><button id="asideComplete" class="btn btn-primary" type="button">평가 완료 및 판정 보기 →</button></div></section>
-<section class="panel result-panel" id="result"><div class="panel-head"><span class="eyebrow">STEP 03</span><h2>종합 판정 및 개입방향</h2><p>30개 문항의 점수와 별도 안전확인 항목을 함께 반영합니다.</p></div><div id="resultBody" aria-live="polite"><div class="empty-result"><strong>평가 결과를 기다리고 있습니다.</strong><p>30개 문항의 점수를 모두 선택하고 ‘평가 완료’ 버튼을 눌러 주세요.</p></div></div></section>
+<div class="progress-numbers"><strong id="filled">0</strong><span>/ 25문항 응답</span><strong id="liveTotal" class="total">0<small> / 100점 (임시)</small></strong></div>
+<div class="progress-track"><div id="progressBar"></div></div><p id="progressHint" class="hint" aria-live="polite">25개 문항 모두 선택해야 종합 검토이 표시됩니다.</p><div id="domainProgress"></div>
+<div class="aside-action"><button id="asideComplete" class="btn btn-primary" type="button">평가 완료 및 검토 보기 →</button></div></section>
+<section class="panel result-panel" id="result"><div class="panel-head"><span class="eyebrow">STEP 03</span><h2>종합 검토 및 개입방향</h2><p>25개 문항의 점수와 별도 안전확인 항목을 함께 반영합니다.</p></div><div id="resultBody" aria-live="polite"><div class="empty-result"><strong>평가 결과를 기다리고 있습니다.</strong><p>25개 문항의 점수를 모두 선택하고 ‘평가 완료’ 버튼을 눌러 주세요.</p></div></div></section>
 <section class="panel referrals" id="resources"><div class="panel-head"><span class="eyebrow">STEP 04</span><h2>오산시·경기도 연계기관</h2><p>기존 「함께찾는 복지자원」 데이터를 참조해 기관을 추천합니다.</p></div><div class="resource-body"><p id="resourceStatus" class="hint">복지자원 목록을 불러오는 중입니다.</p><div id="resourceList" class="resource-list"><div class="empty-result"><p>평가 완료 후 위험영역에 따라 추천기관이 표시됩니다.</p></div></div><a class="directory-link" href="../" target="_blank" rel="noopener noreferrer">함께찾는 복지자원 전체 검색 ↗</a><p class="resource-note">기관은 실제 지원 대상·접수·관할·사업 운영 여부를 확인한 뒤 의뢰하세요. 이 시스템은 자동 의뢰하거나 학생 정보를 기관으로 전송하지 않습니다.</p></div></section>
 </aside>
 </div>
-<section id="guide" class="guide"><h2>실무 적용 및 판정 유의사항</h2><div class="guide-grid"><article><b>① 아동 안전 우선</b><p>아동학대·자살위험·폭력·성착취 위험은 점수와 무관하게 안전부터 확보합니다. 아동학대는 교사의 사실 확인·반복 진술 요구를 기다리지 않고 신고의무를 이행합니다.</p></article><article><b>② 학맞통·다기관 협의</b><p>학교 내부 학생맞춤통합지원 체계와 담임·상담교사 등 협력절차를 통해 학생·가정의 복합적 어려움을 검토합니다. 외부기관 의뢰 시 최소정보 공유·법적 근거를 확인합니다.</p></article><article><b>③ TEST 척도 한계</b><p>이 도구는 신뢰도·타당도 및 점수별 절단점이 검증되지 않았습니다. 낙인·진단·불이익 처분이나 단독 판정 근거로 사용하지 마세요.</p></article></div><div class="hotline"><strong>긴급 연락</strong><a href="tel:112">112 <small>경찰·아동학대 의심 신고</small></a><a href="tel:119">119 <small>응급구조</small></a><a href="tel:109">109 <small>자살예방상담</small></a><a href="tel:1388">1388 <small>청소년상담</small></a><a href="tel:117">117 <small>학교폭력 신고·상담</small></a></div></section>
+<p class="evidence-link"><a href="review.html">문항 개편·중복 검토표 및 연구·법제 근거 읽기 →</a></p><section id="guide" class="guide"><h2>실무 적용 및 판정 유의사항</h2><div class="guide-grid"><article><b>① 아동 안전 우선</b><p>아동학대·자살위험·폭력·성착취 위험은 점수와 무관하게 안전부터 확보합니다. 아동학대는 교사의 사실 확인·반복 진술 요구를 기다리지 않고 신고의무를 이행합니다.</p></article><article><b>② 학맞통·다기관 협의</b><p>학교 내부 학생맞춤통합지원 체계와 담임·상담교사 등 협력절차를 통해 학생·가정의 복합적 어려움을 검토합니다. 외부기관 의뢰 시 최소정보 공유·법적 근거를 확인합니다.</p></article><article><b>③ TEST 척도 한계</b><p>이 도구는 신뢰도·타당도 및 점수별 절단점이 검증되지 않았습니다. 낙인·진단·불이익 처분이나 단독 판정 근거로 사용하지 마세요.</p></article></div><div class="hotline"><strong>긴급 연락</strong><a href="tel:112">112 <small>경찰·아동학대 의심 신고</small></a><a href="tel:119">119 <small>응급구조</small></a><a href="tel:+82109?oai_link_source=model_response_hotline">109 <small>자살예방상담</small></a><a href="tel:1388">1388 <small>청소년상담</small></a><a href="tel:117">117 <small>학교폭력 신고·상담</small></a></div></section>
 </main>
 <footer class="footer"><div class="wrap"><strong>오산 청소년 위기징후 평가연계 시스템 · TEST</strong><p>제작 및 저작: <b>오산세교종합사회복지관 김지훈 팀장</b></p><small>© 2026 오산세교종합사회복지관 김지훈 팀장. All rights reserved. | 외부기관의 명칭·상표·원자료는 각 권리자에게 귀속됩니다.<br>문항 및 결과 기준은 검토용 초안이며 전문적 판단·응급 대응·아동학대 신고의무를 대체하지 않습니다.</small></div></footer>
 </body>
