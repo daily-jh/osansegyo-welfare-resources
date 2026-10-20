@@ -33,6 +33,10 @@ def main():
                 'phone':row['대표전화'].strip(),'source':safe_url(row['근거URL']),
                 'reviewed':row['최종검토일'].strip(),'services':[]}
         group=grouped[key]
+        # 기관에 속한 여러 서비스 중 최신 확인일을 표시합니다.
+        row_reviewed=row['최종검토일'].strip()
+        if row_reviewed and row_reviewed > group['reviewed']:
+            group['reviewed']=row_reviewed
         if row['홈페이지'].strip() and safe_url(row['홈페이지'])!=group['site']:
             print(f'Warning: inconsistent website for {name}, row {n}',file=sys.stderr)
         service={'name':row['서비스명'].strip(),'category':row['지원분야'].strip(),
@@ -40,7 +44,8 @@ def main():
                  'method':row['신청·연계방법'].strip(),'operation':row['운영확인'].strip()}
         if service['name'] not in [s['name'] for s in group['services']]:
             group['services'].append(service)
-    output={'date':'2026-10-20','note':'1차 조사 자료입니다. 개별 사업의 신청대상·지원금액·접수기간 및 운영 여부는 반드시 공식 기관에 확인해주세요.',
+    latest_review=max((o['reviewed'] for o in grouped.values() if o['reviewed']),default='미확인')
+    output={'date':latest_review,'note':'최종검토일 기준으로 정리한 복지자원 안내자료입니다. 개별 사업의 신청대상·지원금액·접수기간 및 운영 여부는 반드시 최신 공식 공고로 확인해주세요.',
             'organizations':list(grouped.values())}
     OUTPUT.parent.mkdir(parents=True,exist_ok=True)
     with OUTPUT.open('w',encoding='utf-8') as f:
