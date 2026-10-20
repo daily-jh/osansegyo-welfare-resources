@@ -181,31 +181,67 @@ function getUrgent(){return Array.from(document.querySelectorAll("[data-urgent]:
 function inferredSignals(){var found=[];if(answers[0]>0||answers[1]>0)found.push("아동학대·방임 의심: 즉시 안전확인, 신고의무자는 의심 시 지체 없이 신고. 확정이나 총점 산출을 기다리지 않습니다.");if(answers[6]>0)found.push("자해·죽음 관련 신호: 현재 안전을 즉시 직접 확인하고 전문평가에 연결합니다. 임박한 위험·시도·상해 시 112/119 긴급조치.");if(answers[24]>0)found.push("온라인 성착취·협박 신호: 안전확인과 피해 보호, 신고·전문기관 협력 검토.");return found}
 function updateUrgent(){var signals=getUrgent().concat(inferredSignals());$("urgentNow").hidden=signals.length===0;$("urgentNow").textContent=signals.join(" / ")+" 안전조치는 평가 완료와 무관하게 진행하세요.";ready=false;clearResult()}
 function clearResult(){clearSummary();$("resultBody").innerHTML='<div class="empty-result"><strong>평가 결과를 기다리고 있습니다.</strong><p>25개 문항의 점수를 모두 선택하고 ‘평가 완료’ 버튼을 눌러 주세요.</p></div>';$("resourceList").innerHTML='<div class="empty-result"><p>평가 완료 후 위험영역에 따라 추천기관이 표시됩니다.</p></div>'}
+var aiRevision=0,aiController=null;
 function clearSummary(){
-$("summaryText").value="25개 문항의 점수를 모두 선택하고 평가를 완료하면, 응답에 근거한 종합사항이 표시됩니다. 미상·미응답이 있으면 작성을 보류합니다.";
-$("selectSummary").disabled=true;
+aiRevision++;if(aiController){aiController.abort();aiController=null}
+$("summaryText").value="평가 완료 후 학생의 상황과 우선 지원을 짧게 분석합니다. 미상·미응답이 있으면 작성을 보류합니다.";
+$("summaryEvidence").textContent="평가 완료 후 표시됩니다.";$("analysisSource").textContent="기본 분석 · 외부 AI 호출 없음";$("selectSummary").disabled=true;
+$("aiConsent").checked=false;$("aiAccess").value="";$("aiStatus").textContent=aiConfig()?"평가 완료 후 전송 범위를 확인하고 AI 분석을 선택하세요.":"서버 연결 준비 중입니다. 현재 기본 분석은 외부 AI를 호출하지 않습니다.";if($("analyzeAI"))$("analyzeAI").disabled=true;
 }
 function renderSummary(total,domainScores,signals){
-var subject=$("studentName").value.trim();
-var paragraphs=[(subject?subject+" 학생":"해당 학생")+"에 대한 25문항 응답 합계는 "+total+"/100점입니다. 아래 내용은 평가자의 입력을 요약한 TEST 검토 초안이며, 학생의 실제 상황이나 진단을 확정하지 않습니다."];
-if(signals.length)paragraphs.push("[우선 안전확인] "+signals.join(" / ")+" 총점과 관계없이 현재 안전과 보호 필요를 먼저 확인하고, 해당 신고의무 및 긴급 대응 절차를 적용해야 합니다.");
-var ranked=domainScores.map(function(score,i){return {i:i,s:score,mean:score/domains[i].items.length}}).filter(function(x){return x.s>0}).sort(function(a,b){return b.mean-a.mean||a.i-b.i});
-if(ranked.length){
-var areas=ranked.slice(0,3).map(function(x){return domains[x.i].name+"("+x.s+"/"+(domains[x.i].items.length*4)+"점)"});
-paragraphs.push("[상황 요약] 입력 응답에서 "+ranked.length+"개 영역에 지원 필요 신호가 표시되었습니다. 문항 평균을 기준으로 우선 살펴볼 영역은 "+areas.join(", ")+"입니다. 이는 영역 간 상대적 확인 순서이며 위험 등급은 아닙니다.");
-var labels=["보호자의 폭력·위협·성적 침해 의심","방임 의심","또래·사이버 괴롭힘 피해","강요·협박·착취 피해","또래에게 안전을 해치는 행동","정서적 고통과 일상 어려움","자해·죽음 관련 신호","수면·공황 유사 반응 등 별도 증상과 기능 저하","출결·수업 참여 감소","지원 후에도 남은 학습 어려움","학업 지속·학교 소속감 어려움","파손·충동적 위험 행동","건강·안전을 해치는 행동","교육환경 조정 부족","편의·서비스 접근 제한","돌봄 공백","가족 갈등의 영향","가족돌봄 책임의 부담","필수 생활자원 부족","주거의 불안정·안전 문제","비용에 따른 서비스 이용 제한","원하지 않는 고립·참여 어려움","도움받을 어른·지지체계 부족","디지털 이용 조절에 따른 기능 저하","온라인 성착취·협박 노출 징후"];
-var items=answers.map(function(value,i){return {i:i,v:value}}).filter(function(x){return x.v>0}).sort(function(a,b){return b.v-a.v||a.i-b.i});
-paragraphs.push("[주요 응답 근거] "+items.slice(0,4).map(function(x){return (x.i+1)+"번 "+labels[x.i]+"("+x.v+"점)"}).join("; ")+". 각 응답의 관찰·진술 근거와 중복 채점 여부를 확인해야 합니다.");
-var actions=["안전한 보호와 학대·방임 의심에 대한 신고·보호 절차","피해 보호와 학교의 학교폭력 사안처리 절차","학생의 정서·기능 상태 확인 및 상담·정신건강 전문평가 연결","결석 사유·학습 접근 장벽 확인과 학업 지속 지원","행동이 발생한 맥락과 건강·안전 지원","학생의 특성에 맞는 환경 조정·편의·서비스 접근 지원","돌봄 공백·가족돌봄 부담과 가족지원 욕구 확인","필수 생활·주거·의료 등 미충족 욕구와 공적·민간 지원 확인","학생이 신뢰하는 어른·또래와 실제 도움받을 경로 마련","디지털 피해 보호·이용 조절 지원과 성착취 의심 시 전문기관 협력"];
-paragraphs.push("[지원 방향] "+ranked.slice(0,3).map(function(x){return actions[x.i]}).join("; ")+"을 우선 검토합니다. 학교 학생맞춤통합지원 담당자와 함께 학생의 의견·기존 지원·연계기관의 적합성을 확인하여 계획을 정하는 것이 필요합니다.");
-}else{
-paragraphs.push("[상황 요약] 입력된 25문항은 모두 0점으로, 이번 응답에서는 점수화된 어려움이 보고되지 않았습니다. 이 결과만으로 위험이 없거나 지원이 불필요하다고 판단할 수 없습니다.");
-paragraphs.push("[지원 방향] 관찰·면담 근거와 놓친 어려움이 없는지 확인하고, 학생이 도움을 요청할 수 있는 경로를 안내한 뒤 경과를 살펴보는 것이 필요합니다.");
+var subject=$("studentName").value.trim();var sentences=[];
+var labels=["보호자의 폭력·위협·성적 침해 의심","방임 의심","또래·사이버 괴롭힘 피해","강요·협박·착취 피해","또래에게 위해를 주는 행동","정서적 고통","자해·죽음 관련 신호","수면·공황 등 증상과 기능 저하","출결·참여 감소","지원 후에도 남은 학습 어려움","학업 지속·소속감 어려움","파손·충동적 위험 행동","건강·안전 위험 행동","교육환경 조정 부족","편의·서비스 접근 제한","돌봄 공백","가족 갈등의 영향","가족돌봄 책임의 부담","필수 생활자원 부족","주거 불안정·안전 문제","비용에 따른 서비스 제한","원하지 않는 고립·참여 어려움","도움받을 어른·지지체계 부족","디지털 이용 조절에 따른 기능 저하","온라인 성착취·협박 노출"];
+var strong=answers.map(function(v,i){return {v:v,i:i}}).filter(function(x){return x.v>0}).sort(function(a,b){return b.v-a.v||a.i-b.i});
+var has=function(i){return answers[i]>=2};var high=function(i){return answers[i]>=3};
+var subjectName=subject?subject+" 학생은 ":"이 학생은 ";
+if(!strong.length){sentences.push("이번 응답에서는 점수화된 어려움이 보고되지 않았습니다. 위험이 없다는 뜻은 아니므로 학생이 원하는 도움과 실제 생활 상태를 확인하는 것이 필요합니다.")}
+else{
+if(has(2)&&has(21))sentences.push(subjectName+"또래 괴롭힘 피해와 원하지 않는 고립이 함께 나타나, 학교에서 안전감을 느끼고 관계에 참여하는 데 어려움이 있을 가능성이 있습니다. 피해가 현재도 이어지는지 확인하고 학생이 신뢰할 수 있는 어른과 안전한 관계를 먼저 확보할 필요가 있습니다.");
+else if(has(2)||has(3))sentences.push(subjectName+"또래 피해·협박 관련 응답이 있어 학교와 관계 안에서의 안전을 먼저 살펴볼 상황입니다. 피해 사실과 지속 여부를 확인하고 보호 조치와 상담 지원을 함께 검토할 필요가 있습니다.");
+else if(has(21)&&has(22))sentences.push(subjectName+"원하지 않는 고립과 도움받을 사람의 부족이 함께 나타나, 어려움을 혼자 감당하고 있을 가능성을 살펴볼 필요가 있습니다. 학생이 편하게 연락할 담당자와 실제 도움받을 경로를 마련하는 것이 우선입니다.");
+else if(has(5)&&(has(8)||has(9)))sentences.push(subjectName+"정서적 고통과 학교 참여·학습의 어려움이 함께 나타나, 정서 상태와 학습 부담을 함께 살펴볼 상황입니다. 무엇이 먼저 시작됐는지 단정하기보다 학생의 경험을 듣고 상담과 학습 지원을 조정할 필요가 있습니다.");
+else if(has(15)||has(17))sentences.push(subjectName+"돌봄 공백 또는 가족돌봄 부담 관련 응답이 있어, 충분히 쉬고 학교생활에 참여할 여건을 확인할 필요가 있습니다. 가족 형태를 판단하기보다 현재 누가 어떤 돌봄을 맡는지와 필요한 지원을 살펴봐야 합니다.");
+else sentences.push(subjectName+strong.slice(0,2).map(function(x){return labels[x.i]}).join(" 및 ")+"에 상대적으로 높은 응답을 보였습니다. 해당 문항이 가리키는 생활상의 어려움과 학생이 원하는 변화를 우선 면담할 상황입니다.");
+var additions=[];
+if(has(9)&&!(has(5)&&!has(2)&&!has(3)&&!(has(21)&&has(22))))additions.push("기존 지원 후에도 학습 어려움이 남아 있어 수업 이해·과제 수행에 맞춘 지원의 적합성을 다시 살펴야 합니다.");
+if(has(8)&&!has(5))additions.push("출결·수업 참여가 줄어든 이유를 확인하고, 등교와 수업 참여를 어렵게 하는 장벽을 줄이는 지원이 필요합니다.");
+if(has(23))additions.push("디지털 이용 조절에 따른 생활 기능 저하도 함께 보고되어 수면·학습 리듬과 이용 맥락을 확인할 필요가 있습니다. 다른 어려움의 원인이라고 단정하지 않습니다.");
+if((has(18)||has(19)||has(20)))additions.push("생활·주거·서비스 이용의 미충족 욕구도 확인하여 실제 이용 가능한 자원을 연결할 필요가 있습니다.");
+if((has(13)||has(14)))additions.push("학생의 특성에 맞는 환경 조정과 필요한 편의·서비스가 제공되는지 확인해야 하며, 장애·발달 특성 자체를 문제로 판단하지 않습니다.");
+if(has(16))additions.push("가족 갈등이 학생 생활에 미치는 영향과 학생이 안전하게 도움받을 수 있는 사람을 추가 확인할 필요가 있습니다.");
+if(has(5)&&(has(2)||has(21)))additions.push("관계의 어려움과 정서적 고통이 함께 나타나므로 학생의 감정과 일상 기능도 함께 살펴야 합니다.");
+if(has(4)||has(11)||has(12))additions.push("자신이나 타인의 안전을 해치는 행동의 맥락과 현재 위해 가능성을 확인하고, 처벌 중심의 판단보다 안전 확보와 대체 대처방법을 함께 검토해야 합니다.");
+sentences=sentences.concat(additions.slice(0,2));
+sentences.push("학생이 원하는 도움과 강점·지지자원을 추가로 확인한 뒤 학교 담당자와 우선 지원목표·점검일을 정할 필요가 있습니다.");
 }
-paragraphs.push("[추가 확인] 학생이 원하는 도움, 신뢰할 사람, 강점·대처방법, 기존 서비스 효과는 이 점수로 확인되지 않습니다. 학생과 면담하여 보완하고 담당자·점검일을 정하세요. 점수로 어려움의 원인이나 가족 상황을 추정하지 않습니다.");
-paragraphs.push("[참고 근거] 학교기반 사회적 건강결정요인 검토(Koslouski 외, 2023/2024; DOI: 10.1007/s12310-023-09622-w), 청소년 자해 보호요인 연구(양모현 외, 2024; DOI: 10.16983/KJSP.2024.21.2.203), NICE NG225(2022), WHO 청소년 정신건강·디지털환경 자료(2025), 교육부 학생맞춤통합지원 자료(2026)의 관점을 참고했습니다. 25문항·0~4점·결과 구간·리뷰 문장은 자체 구성한 미검증 TEST입니다. 전체 자료: https://daily-jh.github.io/osansegyo-welfare-resources/youth-risk/#references");
-$("summaryText").value=paragraphs.join("\n\n");$("selectSummary").disabled=false;
+if(signals.length)sentences.unshift("안전 우선: "+signals.join(" / "));
+$("summaryText").value=sentences.join("\n\n");resizeSummary();$("selectSummary").disabled=false;
+var evidence=strong.slice(0,6).map(function(x){return (x.i+1)+"번 "+labels[x.i]+" "+x.v+"점"}).join(" · ")||"25문항 모두 0점";
+$("summaryEvidence").textContent="합계 "+total+"/100점. 주요 근거: "+evidence+". 문항의 연관성은 가설이며 인과관계·진단을 뜻하지 않습니다.";
+$("analysisSource").textContent="기본 분석 · GPT/Gemini 결과 아님";
+updateAIButton();
 }
+function resizeSummary(){var n=$("summaryText");n.style.height="auto";n.style.height=Math.max(220,n.scrollHeight+4)+"px"}
+window.addEventListener("resize",resizeSummary);
+function aiConfig(){var c=window.YOUTH_RISK_AI||{};try{var u=new URL(c.endpoint);if(!c.enabled||u.protocol!=="https:"||!/[a-z]/i.test(c.providerLabel||""))return null;return c}catch(e){return null}}
+function updateAIButton(){$("analyzeAI").disabled=!!aiController||!ready||!aiConfig()||!$("aiConsent").checked||!$("aiAccess").value.trim()}
+async function analyzeWithAI(){
+var config=aiConfig();if(!config||!ready||!$("aiConsent").checked||!$("aiAccess").value.trim())return;
+if(aiController)aiController.abort();var controller=new AbortController();aiController=controller;var revision=aiRevision;
+var timer=setTimeout(function(){controller.abort()},45000);$("analyzeAI").disabled=true;$("aiStatus").textContent="AI가 문항 의미와 응답 간 관계를 분석하고 있습니다. 안전조치는 응답을 기다리지 마세요.";
+try{
+var flags=Array.from(document.querySelectorAll("[data-urgent]")).map(function(n){return n.checked});
+var response=await fetch(config.endpoint,{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+$("aiAccess").value.trim()},body:JSON.stringify({version:"youth-risk-25-v1",answers:answers.slice(),safetyFlags:flags}),signal:controller.signal,credentials:"omit",cache:"no-store",referrerPolicy:"no-referrer"});
+if(!response.ok)throw Error("AI 요청 실패");var result=await response.json();
+if(revision!==aiRevision)return;
+if(typeof result.analysis!=="string"||!result.analysis.trim()||result.analysis.length>5000||typeof result.model!=="string"||typeof result.provider!=="string")throw Error("AI 결과 확인 필요");
+var safety=getUrgent().concat(inferredSignals());$("summaryText").value=(safety.length?"안전 우선: "+safety.join(" / ")+"\n\n":"")+result.analysis.trim();
+resizeSummary();$("analysisSource").textContent="AI 분석 초안 · "+result.provider+" / "+result.model+" · 담당자 검토 필요";
+$("aiStatus").textContent="AI 분석이 완료되었습니다. 사실과 해석을 구분하여 검토하세요.";
+}catch(e){if(revision===aiRevision)$("aiStatus").textContent="AI 분석을 완료하지 못했습니다. 연결·접속 코드·서비스 상태를 확인하세요. 표시 중인 기본 분석 또는 이전 결과는 유지됩니다."}
+finally{clearTimeout(timer);if(revision===aiRevision){aiController=null;updateAIButton()}}
+}
+function initAI(){var c=aiConfig();$("aiControls").hidden=!c;if(c){$("aiStatus").textContent=c.providerLabel+" 분석 서버가 설정되어 있습니다. 전송 항목을 확인한 뒤 선택하여 실행하세요.";$("aiConsentText").textContent="25문항 점수와 안전 체크(이름 제외)를 "+c.providerLabel+" 및 기관 분석 서버로 전송하는 범위를 확인했습니다. 응답에는 민감정보가 포함될 수 있으며 제공자·호스팅 정책이 적용됩니다."}$("analyzeAI").addEventListener("click",analyzeWithAI);$("aiConsent").addEventListener("change",updateAIButton);$("aiAccess").addEventListener("input",updateAIButton)}
 function calculate(){
 var missing=answers.findIndex(function(v){return v===null});if(missing!==-1){alert((missing+1)+"번 문항부터 미응답 또는 미상 항목이 있습니다. 25개 각각 점수를 선택해 주세요.");$("qi"+missing).scrollIntoView({behavior:"smooth",block:"center"});var radio=$("qi"+missing).querySelector("input");radio.focus();return}
 ready=true;
@@ -271,7 +307,7 @@ $("resourceList").innerHTML=content||'<div class="empty-result"><p>일치 기관
 }
 function init(){
 document.querySelectorAll("input").forEach(function(n){n.value=n.type==="checkbox"?n.value:"";n.checked=false});makeQuestions();updateProgress();
-clearSummary();
+clearSummary();initAI();
 $("selectSummary").addEventListener("click",function(){$("summaryText").focus();$("summaryText").select()});
 $("studentName").addEventListener("input",function(){ready=false;clearResult()});
 $("complete").addEventListener("click",calculate);
