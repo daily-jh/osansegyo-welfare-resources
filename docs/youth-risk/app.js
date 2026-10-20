@@ -151,7 +151,7 @@ var clean=function(t){return String(t==null?"":t).replace(/[&<>"']/g,function(c)
 function makeQuestions(){
 var section=$("questions"), html="", idx=0;
 domains.forEach(function(d,di){
-html+='<section class="domain-card" aria-labelledby="dt'+di+'"><div class="domain-header"><span class="domain-index">'+(di+1)+'</span><span class="domain-title" id="dt'+di+'">'+clean(d.name)+'</span><span class="domain-count" id="dc'+di+'">0/'+d.items.length+'문항 · 0/'+(d.items.length*4)+'점</span></div>';
+html+='<section class="domain-card" id="domain'+di+'" aria-labelledby="dt'+di+'"><div class="domain-header"><span class="domain-index">'+(di+1)+'</span><span class="domain-title" id="dt'+di+'">'+clean(d.name)+'</span><span class="domain-count" id="dc'+di+'">0/'+d.items.length+'문항 · 0/'+(d.items.length*4)+'점</span></div>';
 d.items.forEach(function(q, itemIndex){
 html+='<div class="question" id="qi'+idx+'"><div class="question-text" id="qt'+idx+'"><span class="question-number">'+String(idx+1).padStart(2,"0")+'</span>'+clean(q)+'<small class="item-hint" id="qh'+idx+'">'+clean(d.hints[itemIndex])+'</small></div><div class="options" role="radiogroup" aria-labelledby="qt'+idx+'" aria-describedby="qh'+idx+'">';
 for(var v=0;v<=4;v++)html+='<label class="score-choice" title="'+v+'점"><input type="radio" name="q'+idx+'" value="'+v+'" aria-label="'+v+'점"><span>'+v+'</span></label>';
@@ -176,12 +176,14 @@ domains.forEach(function(d,i){var arr=domainAnswers(i),count=arr.filter(function
 $("dc"+i).textContent=count+"/"+d.items.length+"문항 · "+score+"/"+(d.items.length*4)+"점";
 s+='<div class="domain-progress-item"><span>'+clean(d.name)+'</span><span class="bar"><i style="width:'+(score/(d.items.length*4)*100)+'%;background:'+d.color+'"></i></span><strong>'+score+'/'+(d.items.length*4)+'</strong></div>';
 });$("domainProgress").innerHTML=s;
+$("compactProgress").textContent=filled+" / 25 완료 · 미확인 "+(25-filled)+"개";
+$("pendingList").innerHTML="";
 }
 function getUrgent(){return Array.from(document.querySelectorAll("[data-urgent]:checked")).map(function(n){return n.getAttribute("data-urgent")})}
 function questionAt(index){var flat=domains.flatMap(function(d){return d.items});return flat[index]}
 function inferredSignals(){var found=[];[[0,"학대 의심: 현재 안전확인 및 신고의무 이행"],[1,"방임 의심: 현재 안전확인 및 신고의무 이행"],[6,"자해·죽음 관련 신호: 즉시 직접 안전확인과 전문평가, 임박한 위해·상해 시 긴급 대응"],[24,"온라인 성착취·협박 신호: 안전확인과 피해 보호·전문기관 협력"]].forEach(function(pair){var index=pair[0];if(answers[index]>0)found.push((index+1)+"번 문항 · "+questionAt(index)+" ("+answers[index]+"점) → "+pair[1])});return found}
 function updateUrgent(){var signals=getUrgent().concat(inferredSignals());$("urgentNow").hidden=signals.length===0;$("urgentNow").textContent=signals.join(" / ")+" 안전조치는 평가 완료와 무관하게 진행하세요.";ready=false;clearResult()}
-function clearResult(){clearSummary();$("resultBody").innerHTML='<div class="empty-result"><strong>평가 결과를 기다리고 있습니다.</strong><p>25개 문항의 점수를 모두 선택하고 ‘평가 완료’ 버튼을 눌러 주세요.</p></div>';$("resourceList").innerHTML='<div class="empty-result"><p>평가 완료 후 위험영역에 따라 추천기관이 표시됩니다.</p></div>'}
+function clearResult(){clearSummary();$("resourceFilter").disabled=true;$("filterCount").textContent="";$("resultBody").innerHTML='<div class="empty-result"><strong>평가 결과를 기다리고 있습니다.</strong><p>25개 문항의 점수를 모두 선택하고 ‘평가 완료’ 버튼을 눌러 주세요.</p></div>';$("resourceList").innerHTML='<div class="empty-result"><p>평가 완료 후 위험영역에 따라 추천기관이 표시됩니다.</p></div>'}
 var reviewRevision=0;
 function clearSummary(){
 reviewRevision++;
@@ -282,6 +284,9 @@ html+='<div class="route"><strong>🏫 학맞통 연계</strong><small>담임·�
 if(total>19||urgent)html+='<div class="route"><strong>🏥 외부 전문기관 연계</strong><small>청소년상담·정신건강·아동보호 등 위험영역별 연계</small></div>';
 html+='<div class="route"><strong>🤝 사례관리 검토</strong><small>욕구사정·보호요인·지원계획 및 재점검</small></div></div>';
 var highs=domainScores.map(function(v,i){return {i:i,s:v}}).sort(function(a,b){return b.s/domains[b.i].items.length-a.s/domains[a.i].items.length}).filter(function(x){return x.s>0}).slice(0,3);
+
+html+='<div class="overview"><h3>응답을 한눈에 보기</h3><div class="overview-grid"><article><b>안전 확인</b><p>'+ (urgent?'안전신호 '+(explicit.length+inferred.length)+'건 · 총점과 별도로 먼저 확인':'선택된 안전신호 없음 · 안전하다는 확정은 아님')+'</p></article><article><b>먼저 살펴볼 어려움</b><p>'+clean(highs.map(function(x){return domains[x.i].name}).join(' · ')||'점수화된 어려움이 보고되지 않음')+'</p></article><article><b>다음 행동</b><p>'+(urgent?'현재 안전과 해당 문항의 근거를 먼저 확인하고 소속기관 보호 절차를 진행하세요.':'학생이 원하는 도움·응답 근거·기존 지원을 확인한 뒤 학교 담당자와 지원 방향을 협의하세요.')+'</p></article></div><details><summary>10개 영역 결과표 · 문항별 응답 확인</summary><div class="table-scroll"><table class="score-table"><caption>영역마다 문항 수가 달라 평균을 함께 표시합니다. 평균은 위험 등급이 아닙니다.</caption><thead><tr><th scope="col">영역</th><th scope="col">합계 / 최대</th><th scope="col">평균</th><th scope="col">문항별 점수</th></tr></thead><tbody>';
+var offset=0;domains.forEach(function(d,i){var individual=domainAnswers(i).map(function(v,k){return (offset+k+1)+'번 '+v+'점'}).join(' · ');offset+=d.items.length;html+='<tr><th scope="row">'+clean(d.name)+'</th><td>'+domainScores[i]+' / '+(d.items.length*4)+'</td><td>'+(domainScores[i]/d.items.length).toFixed(1)+'</td><td>'+individual+'</td></tr>'});html+='</tbody></table></div></details></div>';
 html+='<div class="result-todo"><b>우선 확인 영역</b><ul>';
 if(highs.length===0)html+='<li>모든 영역 0점 — 응답 근거와 누락된 위험이 없는지 확인하세요.</li>';
 highs.forEach(function(x){html+='<li>'+clean(domains[x.i].name)+' '+x.s+'/'+(domains[x.i].items.length*4)+'점 (응답 평균 '+(x.s/domains[x.i].items.length).toFixed(1)+')</li>'});
@@ -308,6 +313,7 @@ function getLink(u){try{var url=new URL(u,location.href);return /^https?:$/.test
 function renderResources(domainScores){
 if(!ready)return;
 var ranked=domainScores.map(function(s,i){return {s:s,i:i}}).sort(function(a,b){return b.s/domains[b.i].items.length-a.s/domains[a.i].items.length}).filter(function(x){return x.s>0});
+var previous=$("resourceFilter").value;$("resourceFilter").innerHTML='<option value="all">전체 후보</option>'+ranked.map(function(x){return '<option value="'+x.i+'">'+clean(domains[x.i].name)+'</option>'}).join('');if(Array.from($("resourceFilter").options).some(function(o){return o.value===previous}))$("resourceFilter").value=previous;$("resourceFilter").disabled=!csv.length;
 var selected=ranked,names=[];
 if(getUrgent().length)names.push("오산시청소년상담복지센터","오산시아동보호전문기관","오산시정신건강복지센터");
 if(answers[0]>0||answers[1]>0){names.push("오산시아동보호전문기관")}
@@ -321,15 +327,23 @@ var content="";
 names.forEach(function(name){var entry=grouped.get(name)||fallback.filter(function(r){return r.기관명===name});if(!entry.length)return;
 var reasons=ranked.filter(function(x){return (routes[x.i]||[]).indexOf(name)!==-1}).map(function(x){return domains[x.i].name}).join(" · ")||"안전확인 또는 일반 상담";
 var item=entry[0],services=entry.map(function(r){return r["서비스명"]}).filter(Boolean).slice(0,3).join(" · "),url=getLink(item["홈페이지"]||item["근거URL"]);
-content+='<article class="resource-item"><span class="category">'+clean(item["범주"])+' · 기관별 문의 필요</span><h3>'+clean(name)+'</h3><p>후보 제시 이유: '+clean(reasons)+'</p><p>DB에 등록된 서비스 예시(적합성 확인 필요): </p><p>'+clean(services)+'</p><p>대상: '+clean(entry.map(function(r){return r.지원대상}).filter(Boolean).slice(0,3).join(' · '))+'</p><p>DB 검토일: '+clean(item.최종검토일||'미기재')+' · 운영: '+clean(item.운영확인||'직접 확인 필요')+'</p><p>신청·연계: '+clean(item['신청·연계방법']||'기관 문의')+'</p>';
+content+='<article class="resource-item" data-domains="'+ranked.filter(function(x){return (routes[x.i]||[]).indexOf(name)!==-1}).map(function(x){return x.i}).join(',')+'"><span class="category">'+clean(item["범주"])+' · 기관별 문의 필요</span><h3>'+clean(name)+'</h3><p>후보 제시 이유: '+clean(reasons)+'</p><p>DB에 등록된 서비스 예시(적합성 확인 필요): </p><p>'+clean(services)+'</p><p>대상: '+clean(entry.map(function(r){return r.지원대상}).filter(Boolean).slice(0,3).join(' · '))+'</p><p>DB 검토일: '+clean(item.최종검토일||'미기재')+' · 운영: '+clean(item.운영확인||'직접 확인 필요')+'</p><p>신청·연계: '+clean(item['신청·연계방법']||'기관 문의')+'</p>';
 if(item["대표전화"])content+='<p>대표전화: '+clean(item["대표전화"])+'</p>';
 if(url)content+='<a href="'+clean(url)+'" target="_blank" rel="noopener noreferrer">기관 안내 보기 ↗</a>';content+='</article>';
 });
 $("resourceList").innerHTML=content||'<div class="empty-result"><p>일치 기관이 없습니다. 전체 복지자원 검색 페이지에서 직접 확인해 주세요.</p></div>';
+filterResources();
 }
+function filterResources(){var value=$("resourceFilter").value,count=0;document.querySelectorAll("#resourceList .resource-item").forEach(function(n){n.hidden=value!=="all"&&n.dataset.domains.split(',').indexOf(value)===-1;if(!n.hidden)count++});$("filterCount").textContent=count+"개 기관 후보 · 표시 순서는 의뢰 우선순위가 아닙니다. 안전조치는 필터와 무관하게 우선합니다."}
+function findPending(){var pending=[];answers.forEach(function(v,i){if(v===null)pending.push(i)});$("pendingList").innerHTML=pending.length?'<strong>추가 확인이 필요한 '+pending.length+'개 문항</strong><p>미상은 0점으로 바꾸지 말고 근거를 확인한 뒤 채점하세요.</p>'+pending.map(function(i){var unknown=document.querySelector('input[name="q'+i+'"][value="unknown"]').checked;return '<button type="button" class="pending-jump" data-question="'+i+'">'+(i+1)+'번 · '+(unknown?'미상':'미응답')+'</button>'}).join(''):'25문항 채점이 완료되었습니다. 결과 보기를 눌러 주세요.';$("pendingList").scrollIntoView({block:"center"})}
 function init(){
 document.querySelectorAll("input").forEach(function(n){n.value=n.type==="checkbox"?n.value:"";n.checked=false});makeQuestions();updateProgress();
 clearSummary();
+$("domainJump").innerHTML+=domains.map(function(d,i){return '<option value="'+i+'">'+(i+1)+'. '+clean(d.name)+'</option>'}).join('');
+$("domainJump").addEventListener("change",function(){if(this.value!==""){var target=$("domain"+this.value);target.scrollIntoView({block:"start"});target.querySelector("input").focus({preventScroll:true})}});
+$("findPending").onclick=findPending;
+$("pendingList").addEventListener("click",function(e){var b=e.target.closest("[data-question]");if(b){var target=$("qi"+b.dataset.question);target.scrollIntoView({block:"center"});target.querySelector("input").focus({preventScroll:true})}});
+$("resourceFilter").onchange=filterResources;
 $("copyAll").addEventListener("click",copyPacket);
 $("selectPacket").addEventListener("click",function(){$("copyPacket").focus();$("copyPacket").select()});
 $("selectSummary").addEventListener("click",function(){$("summaryText").focus();$("summaryText").select()});
@@ -345,3 +359,4 @@ window.addEventListener("afterprint",function(){document.querySelectorAll(".summ
 window.addEventListener("pageshow",function(e){if(e.persisted)location.reload()});
 document.addEventListener("DOMContentLoaded",init);
 })();
+
