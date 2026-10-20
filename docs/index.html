@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="theme-color" content="#122b3b"/>
+  <meta name="description" content="오산시·경기도·민간 복지자원 기관별 통합 검색 및 사례관리 실무 연계 가이드"/>
+  <title>함께찾는 복지자원 | 오산세교종합사회복지관</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg"/>
+  <link rel="stylesheet" href="assets/styles.css"/>
+  <script defer src="assets/data.js"></script>
+  <script defer src="assets/app.js"></script>
+</head>
+<body>
+  <a href="#searchArea" class="skip-link">검색 영역으로 건너뛰기</a>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="./" aria-label="홈으로 이동">
+        <span class="brand-symbol" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span class="brand-copy"><strong>함께찾는 복지자원</strong><small>OSAN WELFARE RESOURCE GUIDE</small></span>
+      </a>
+      <nav class="top-nav" aria-label="주요 메뉴">
+        <a class="active" href="#searchArea">자원 찾기</a>
+        <a href="#about">이용안내</a>
+        <a href="resources.csv" download>데이터 내려받기 <span aria-hidden="true">↗</span></a>
+      </nav>
+      <span class="nav-mark">2026 RESOURCE DIRECTORY</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-content">
+          <div class="overline"><span class="tiny-dot"></span> 사례관리 실무자를 위한 복지자원 아카이브 <span class="edition">2026 EDITION</span></div>
+          <h1>필요한 복지자원,<br/><em>한곳에서</em> 찾으세요.</h1>
+          <p class="hero-description">기관은 한 번만, 지원서비스는 빠짐없이.<br/>오산시부터 경기도, 전국 민간자원까지<br class="wide-only"/> 사례관리 현장에서 빠르게 검색하고 연결할 수 있도록 정리했습니다.</p>
+          <div class="hero-actions">
+            <a href="#searchArea" class="primary-cta">복지자원 검색하기 <span aria-hidden="true">↗</span></a>
+            <a href="#about" class="hero-text-link">이용 가이드 <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="art-circle art-circle-one"></div><div class="art-circle art-circle-two"></div>
+          <div class="art-grid"></div>
+          <div class="art-float art-float-top"><span class="small-icon peach">✳</span><div><b>가족·아동 지원</b><small>돌봄 · 교육 · 장학</small></div><span class="art-arrow">↗</span></div>
+          <div class="art-float art-float-mid"><span class="small-icon green">⌁</span><div><b>긴급지원 · 사례관리</b><small>생계 · 의료 · 주거</small></div><span class="art-arrow">↗</span></div>
+          <div class="art-float art-float-bottom"><span class="small-icon yellow">◎</span><div><b>지역 네트워크</b><small>오산시 · 경기도 · 민간</small></div><span class="art-arrow">↗</span></div>
+          <span class="art-spark one">✳</span><span class="art-spark two">✦</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats-section">
+      <div class="container stats-box">
+        <div class="stat"><div class="stat-icon navy">▤</div><div><div class="stat-label">등록 기관·체계</div><strong id="statOrgs">—</strong><span class="stat-unit">개</span></div></div>
+        <div class="stat"><div class="stat-icon coral">✳</div><div><div class="stat-label">등록 서비스</div><strong id="statServices">—</strong><span class="stat-unit">개</span></div></div>
+        <div class="stat"><div class="stat-icon olive">⌘</div><div><div class="stat-label">복지자원 범주</div><strong>03</strong><span class="stat-unit">개</span></div></div>
+        <div class="stat stat-date"><div class="stat-label">데이터 1차 검토</div><strong>2026. 10. 20.</strong><small>기관·사업별 신청요건은 별도 확인</small></div>
+      </div>
+    </section>
+
+    <section id="searchArea" class="directory container">
+      <div class="section-head"><div><p class="eyebrow">RESOURCE FINDER <span></span> 복지자원 찾기</p><h2>어떤 지원이 필요하신가요?</h2><p>기관명, 지원대상 또는 필요한 서비스를 입력해 보세요.</p></div><div class="section-decoration">01 <span>/</span> SEARCH</div></div>
+      <div class="search-panel">
+        <form id="searchForm" class="search-box" role="search">
+          <span class="search-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg></span>
+          <label class="visually-hidden" for="keyword">복지자원 검색어</label>
+          <input id="keyword" type="search" autocomplete="off" placeholder="예: 의료비, 위기가정, 중학생, 초록우산, 자립"/>
+          <button type="submit">검색 <span aria-hidden="true">→</span></button>
+        </form>
+        <div class="quick-row"><span>빠른 검색</span><div id="quickTags" class="quick-tags"></div></div>
+      </div>
+
+      <div class="filter-panel">
+        <div class="filter-title-line"><strong>조건별로 찾아보기</strong><button class="reset-link" id="resetFilters" type="button"><span aria-hidden="true">↻</span> 필터 초기화</button></div>
+        <div class="region-tabs" id="regionTabs" role="group" aria-label="자원 범주"><button type="button" class="selected" data-level="전체">전체 보기</button><button type="button" data-level="오산시">01 <b>오산시</b></button><button type="button" data-level="경기도">02 <b>경기도</b></button><button type="button" data-level="민간">03 <b>전국 민간</b></button></div>
+        <div class="filter-controls"><div class="category-wrap"><div class="filter-hint">지원분야</div><div class="category-chips" id="categoryFilters" role="group" aria-label="지원분야 필터"></div></div>
+          <div class="audience-wrap"><label class="filter-hint" for="audienceFilter">지원대상</label><div class="select-wrap"><select id="audienceFilter"><option value="">전체 대상</option><option value="아동">아동</option><option value="청소년">청소년·학생</option><option value="가족">가족·한부모</option><option value="장애">장애인</option><option value="어르신">노인·어르신</option><option value="위기">위기가구</option><option value="기관">복지기관·실무자</option></select></div></div></div>
+      </div>
+
+      <div class="results-toolbar"><div class="results-count"><span class="results-dot"></span><strong id="resultCount">0</strong>개 기관을 찾았습니다 <span id="serviceResultCount" class="result-subcount"></span></div>
+        <div class="toolbar-actions"><label class="favorite-toggle"><input id="favoritesOnly" type="checkbox"/><span>☆ 즐겨찾기만</span></label><select id="sortSelect" aria-label="정렬 기준"><option value="relevance">추천순</option><option value="name">기관명 가나다순</option><option value="services">서비스 많은 순</option></select></div></div>
+      <div id="resultGrid" class="results-grid" aria-live="polite"></div>
+      <div id="emptyState" class="empty-state" hidden><span class="empty-emoji">⌕</span><strong>검색 결과가 없습니다.</strong><p>검색어를 줄이거나 지역·지원분야 필터를 변경해 주세요.</p><button id="emptyReset" type="button">전체 자원 다시 보기 →</button></div>
+      <div class="more-wrap"><button id="loadMore" class="load-more" type="button" hidden>기관 더 보기 <span>↓</span></button></div>
+    </section>
+
+    <section id="about" class="about-section"><div class="container about-layout"><div class="about-lead"><p class="eyebrow light">FIELD NOTE <span></span> 데이터 이용안내</p><h2>자원은 연결될 때<br/><em>더 큰 힘이 됩니다.</em></h2><p>이 자료는 2026년 기준의 실무용 1차 정리본입니다. 기관이 운영하는 서비스와 회차별 지원사업은 반드시 구분하여 확인해 주세요.</p><a href="resources.csv" download class="outline-light">CSV 데이터 다운로드 ↗</a></div><div class="about-notes"><div class="note"><span>01</span><div><strong>기관명 기준 통합</strong><p>같은 기관의 서비스는 하나의 기관 카드에 모아서 표시합니다. 서비스명으로 검색해도 해당 기관을 찾을 수 있습니다.</p></div></div><div class="note"><span>02</span><div><strong>연계 전 공식 공고 확인</strong><p>대상자 선정기준·예산잔액·접수기한·지원한도는 수시로 바뀔 수 있습니다. 기관 공식 홈페이지와 담당자 확인 후 연계해 주세요.</p></div></div><div class="note"><span>03</span><div><strong>대상자 개인정보 입력 금지</strong><p>이 사이트는 공개 복지자원 정보를 검색하기 위한 자료실입니다. 대상자 실명·연락처·상담기록 등 민감한 정보는 입력하지 마세요.</p></div></div></div></div></section>
+  </main>
+  <footer class="site-footer"><div class="container footer-content"><div><div class="footer-brand"><span class="footer-flower">✳</span> 함께찾는 복지자원</div><p>오산세교종합사회복지관 · 사회복지자원 통합 검색 아카이브</p><small>기획·편집·웹사이트 제작: 오산세교종합사회복지관 김지훈 팀장<br/>© 2026 오산세교종합사회복지관 김지훈 팀장. All rights reserved.</small></div><div class="footer-right"><a href="#searchArea">맨 위로 ↑</a><p>기관별 원자료와 상표·로고는 각 권리자에게 귀속됩니다.<br/>지원사업의 신청 가능 여부는 해당 기관에 확인해 주세요.</p></div></div></footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
