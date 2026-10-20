@@ -203,6 +203,7 @@ paragraphs.push("[상황 요약] 입력된 25문항은 모두 0점으로, 이번
 paragraphs.push("[지원 방향] 관찰·면담 근거와 놓친 어려움이 없는지 확인하고, 학생이 도움을 요청할 수 있는 경로를 안내한 뒤 경과를 살펴보는 것이 필요합니다.");
 }
 paragraphs.push("[추가 확인] 학생이 원하는 도움, 신뢰할 사람, 강점·대처방법, 기존 서비스 효과는 이 점수로 확인되지 않습니다. 학생과 면담하여 보완하고 담당자·점검일을 정하세요. 점수로 어려움의 원인이나 가족 상황을 추정하지 않습니다.");
+paragraphs.push("[참고 근거] 학교기반 사회적 건강결정요인 검토(Koslouski 외, 2023/2024; DOI: 10.1007/s12310-023-09622-w), 청소년 자해 보호요인 연구(양모현 외, 2024; DOI: 10.16983/KJSP.2024.21.2.203), NICE NG225(2022), WHO 청소년 정신건강·디지털환경 자료(2025), 교육부 학생맞춤통합지원 자료(2026)의 관점을 참고했습니다. 25문항·0~4점·결과 구간·리뷰 문장은 자체 구성한 미검증 TEST입니다. 전체 자료: https://daily-jh.github.io/osansegyo-welfare-resources/youth-risk/#references");
 $("summaryText").value=paragraphs.join("\n\n");$("selectSummary").disabled=false;
 }
 function calculate(){
