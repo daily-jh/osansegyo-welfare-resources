@@ -13,7 +13,7 @@
 <a class="skip" href="#assessment">평가 문항으로 건너뛰기</a>
 <header class="header"><div class="wrap header-inside">
 <a class="brand" href="./"><span class="mark" aria-hidden="true">✳</span><span>오산 청소년 <em>위기징후</em> 평가연계 시스템<small>학교·사례관리기관 중학생 관찰기반 평가 도구</small></span></a>
-<nav><a href="#assessment">25문항 평가</a><a href="#result">평가 결과</a><a href="#resources">연계기관</a><a href="#guide">이용안내</a></nav>
+<nav><a href="#assessment">25문항 평가</a><a href="#result">평가 결과</a><a href="#summary">종합 리뷰</a><a href="#resources">연계기관</a><a href="#guide">이용안내</a></nav>
 </div></header>
 <main class="wrap">
 <section class="notice" role="note"><span class="test-badge">TEST 척도 및 시스템</span><div><strong>공식 표준화 검사 또는 진단 도구가 아닌, 현장 활용 검토용 시범 시스템입니다.</strong><p>점수 기준·문항·기관 추천은 검증 전 초안이며, 전문적 판단이나 신고의무를 대체하지 않습니다. 위급상황은 점수와 무관하게 즉시 대응하세요.</p></div></section>
@@ -42,9 +42,10 @@
 <aside class="right">
 <section class="panel monitor"><div class="panel-head"><span class="eyebrow">LIVE STATUS</span><h2>평가 진행 현황</h2><p>선택할 때마다 문항·영역 점수가 계산됩니다.</p></div>
 <div class="progress-numbers"><strong id="filled">0</strong><span>/ 25문항 응답</span><strong id="liveTotal" class="total">0<small> / 100점 (임시)</small></strong></div>
-<div class="progress-track"><div id="progressBar"></div></div><p id="progressHint" class="hint" aria-live="polite">25개 문항 모두 선택해야 종합 검토이 표시됩니다.</p><div id="domainProgress"></div>
+<div class="progress-track"><div id="progressBar"></div></div><p id="progressHint" class="hint" aria-live="polite">25개 문항 모두 선택해야 종합 검토가 표시됩니다.</p><div id="domainProgress"></div>
 <div class="aside-action"><button id="asideComplete" class="btn btn-primary" type="button">평가 완료 및 검토 보기 →</button></div></section>
 <section class="panel result-panel" id="result"><div class="panel-head"><span class="eyebrow">STEP 03</span><h2>종합 검토 및 개입방향</h2><p>25개 문항의 점수와 별도 안전확인 항목을 함께 반영합니다.</p></div><div id="resultBody" aria-live="polite"><div class="empty-result"><strong>평가 결과를 기다리고 있습니다.</strong><p>25개 문항의 점수를 모두 선택하고 ‘평가 완료’ 버튼을 눌러 주세요.</p></div></div></section>
+<section class="panel summary-panel" id="summary" aria-labelledby="summaryTitle"><div class="panel-head"><span class="eyebrow">REVIEW</span><h2 id="summaryTitle">종합사항(리뷰)</h2><p>응답에 근거해 주요 어려움·안전확인 사항·지원 방향을 간략히 정리합니다.</p></div><div class="summary-body"><label for="summaryText">평가 응답 종합 리뷰 · 자동 작성 초안</label><textarea id="summaryText" readonly rows="14" aria-describedby="summaryNote">평가 완료 후 종합사항이 표시됩니다.</textarea><p id="summaryNote">진단이나 확정된 사례기록이 아닙니다. 담당자가 학생의 진술·관찰 근거와 대조하여 검토하세요. 응답·이름·안전 체크를 변경하면 기존 리뷰가 초기화됩니다. 선택·복사·인쇄한 자료에는 이름과 민감한 평가 내용이 포함될 수 있으므로 기관의 개인정보 처리 절차를 따르세요.</p><button id="selectSummary" class="btn btn-muted" type="button" disabled>리뷰 전체 선택</button></div></section>
 <section class="panel referrals" id="resources"><div class="panel-head"><span class="eyebrow">STEP 04</span><h2>오산시·경기도 연계기관</h2><p>기존 「함께찾는 복지자원」 데이터를 참조해 기관을 추천합니다.</p></div><div class="resource-body"><p id="resourceStatus" class="hint">복지자원 목록을 불러오는 중입니다.</p><div id="resourceList" class="resource-list"><div class="empty-result"><p>평가 완료 후 위험영역에 따라 추천기관이 표시됩니다.</p></div></div><a class="directory-link" href="../" target="_blank" rel="noopener noreferrer">함께찾는 복지자원 전체 검색 ↗</a><p class="resource-note">기관은 실제 지원 대상·접수·관할·사업 운영 여부를 확인한 뒤 의뢰하세요. 이 시스템은 자동 의뢰하거나 학생 정보를 기관으로 전송하지 않습니다.</p></div></section>
 </aside>
 </div>
