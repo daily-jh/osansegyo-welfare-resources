@@ -1,5 +1,5 @@
-# 이용현황 연결 준비
-현재 배포된 사이트는 연결 대기 상태입니다. 과거 방문 수를 알 수 없으며 숫자를 만들거나 브라우저별 값을 전체 누적으로 표시하지 않습니다.
+# 이용현황 집계 운영
+2026-10-21 Cloudflare Worker와 D1을 연결했습니다. 엔드포인트: https://osan-youth-usage.daily-89.workers.dev/ . 홈페이지 접속 시 방문, 25문항 결과 최초 생성 시 평가 완료를 집계합니다. 연결 이전 수치는 포함하지 않습니다. 계정 토큰은 사이트 코드에 저장하지 않습니다.
 
 ## 관리자 연결 절차
 1. 운영자 Cloudflare 계정에서 Workers/D1 사용 가능 여부와 무료 플랜 한도를 확인합니다. 유료 전환은 별도 승인 사항입니다.
@@ -20,3 +20,4 @@
 
 공식 문서: https://developers.cloudflare.com/d1/worker-api/d1-database/
 요금·한도 확인: https://developers.cloudflare.com/workers/platform/pricing/ 및 https://developers.cloudflare.com/d1/platform/pricing/
+

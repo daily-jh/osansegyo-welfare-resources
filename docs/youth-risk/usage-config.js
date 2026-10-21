@@ -1,2 +1,2 @@
-// Set an HTTPS statistics endpoint only after deploying the server.
-window.YOUTH_USAGE_ENDPOINT = "";
+// Public anonymous event endpoint; never put account tokens here.
+window.YOUTH_USAGE_ENDPOINT = "https://osan-youth-usage.daily-89.workers.dev/";

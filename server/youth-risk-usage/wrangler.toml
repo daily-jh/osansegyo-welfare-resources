@@ -1,11 +1,12 @@
 name = "osan-youth-usage"
 main = "worker.mjs"
-compatibility_date = "2026-10-20"
+compatibility_date = "2026-10-21"
 
 [[d1_databases]]
 binding = "DB"
 database_name = "osan-youth-usage"
-database_id = "REPLACE_WITH_CREATED_DATABASE_ID"
+database_id = "b92182f9-98fa-4ef7-8f42-a8f471eaeb13"
 
 [observability]
-enabled = false
+enabled = true
+
