@@ -1,0 +1,107 @@
+{
+  "date": "2026-10-21",
+  "seed": 20261021,
+  "profiles": 104902,
+  "corpus": "all-zero/all-four + 100 single + 4800 pair profiles + 100000 seeded sparse/middle/dense profiles; challenge cases separate",
+  "clinicalAccuracy": null,
+  "clinicalAccuracyReason": "No real student reference-standard data. Rules are internally specified; pass rates are software conformance, not diagnostic validity.",
+  "checks": {
+    "scoreBounds": {
+      "passed": 104902,
+      "total": 104902,
+      "percent": 100
+    },
+    "safetyRule": {
+      "passed": 104902,
+      "total": 104902,
+      "percent": 100
+    },
+    "positiveEvidence": {
+      "passed": 104902,
+      "total": 104902,
+      "percent": 100
+    },
+    "noInferredAbuse": {
+      "passed": 104902,
+      "total": 104902,
+      "percent": 100
+    },
+    "carerRequires18": {
+      "passed": 104902,
+      "total": 104902,
+      "percent": 100
+    },
+    "schoolRequiresReportedBarrier": {
+      "passed": 104902,
+      "total": 104902,
+      "percent": 100
+    },
+    "safetyFirst": {
+      "passed": 104902,
+      "total": 104902,
+      "percent": 100
+    },
+    "monotoneLevel": {
+      "passed": 94575,
+      "total": 94575,
+      "percent": 100
+    },
+    "monotoneSafety": {
+      "passed": 94575,
+      "total": 94575,
+      "percent": 100
+    },
+    "carerPriorityUsesCore": {
+      "passed": 12,
+      "total": 12,
+      "percent": 100
+    },
+    "combinedProtectionNarrative": {
+      "passed": 1,
+      "total": 1,
+      "percent": 100
+    },
+    "noUnreportedLearningInCarer": {
+      "passed": 1,
+      "total": 1,
+      "percent": 100
+    },
+    "noUnreportedSleepInDigital": {
+      "passed": 1,
+      "total": 1,
+      "percent": 100
+    },
+    "invalidInputRejected": {
+      "passed": 125,
+      "total": 125,
+      "percent": 100
+    },
+    "invalidDomainLayoutRejected": {
+      "passed": 1,
+      "total": 1,
+      "percent": 100
+    }
+  },
+  "syntheticOnly": {
+    "levels": [
+      4443,
+      28642,
+      13486,
+      58331
+    ],
+    "urgentCount": 86614
+  },
+  "domainRuleSensitivity": {
+    "twoItemDomain": [
+      2,
+      2
+    ],
+    "threeItemDomain": [
+      2,
+      2,
+      0
+    ],
+    "bothCountAsSubstantial": true,
+    "interpretation": "item-count operational rule, not domain-average or calibrated severity"
+  }
+}
