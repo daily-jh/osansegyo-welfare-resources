@@ -1,0 +1,555 @@
+[
+  {
+    "org_id": "b45bc16582",
+    "name": "오산세교종합사회복지관",
+    "homepage": "https://www.osgwc.or.kr/",
+    "source_url": "https://www.osgwc.or.kr/",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "031-290-8501",
+      "fax": "031-290-8529",
+      "email": "osgwc8501@daum.net"
+    },
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  },
+  {
+    "org_id": "36cf6918f3",
+    "name": "오산종합사회복지관",
+    "homepage": "https://osanwelfare.co.kr/",
+    "source_url": "https://osanwelfare.co.kr/",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "031-378-2740",
+      "fax": "031-688-1298"
+    },
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  },
+  {
+    "org_id": "2097512abd",
+    "name": "오산남부종합사회복지관",
+    "homepage": "https://www.ossw.or.kr/home/",
+    "source_url": "https://www.ossw.or.kr/home/",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "031-376-6193~6",
+      "fax": "031-376-6287"
+    },
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  },
+  {
+    "org_id": "438b636f15",
+    "name": "오산시 동 행정복지센터",
+    "homepage": "https://www.osan.go.kr/csc/contents.do?mId=0100000000",
+    "source_url": "https://www.osan.go.kr/csc/contents.do?mId=0100000000",
+    "checked_on": "2026-10-22",
+    "fields": {},
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  },
+  {
+    "org_id": "259715c9f4",
+    "name": "오산시청",
+    "homepage": "https://www.osan.go.kr/",
+    "source_url": "https://www.osan.go.kr/",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "031-8036-8036"
+    },
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  },
+  {
+    "org_id": "953caa9fe6",
+    "name": "오산시아동보호전문기관",
+    "homepage": "https://osan.gcps.or.kr/",
+    "source_url": "https://osan.gcps.or.kr/gnosan/json/branchinfo",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "031-8077-9610",
+      "fax": "031-8077-9621",
+      "email": "osan@gnk.or.kr"
+    },
+    "note": "공식 홈페이지 footer 공개 지부정보, index_sq=179"
+  },
+  {
+    "org_id": "6b509a4355",
+    "name": "오산시가족센터",
+    "homepage": "https://osan.familynet.or.kr/center/index.do",
+    "source_url": "https://osan.familynet.or.kr/center/lay1/program/S295T315C321/center_info/view.do",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "031-372-1335",
+      "fax": "031-378-9767",
+      "email": "happycenter@empas.com"
+    },
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  },
+  {
+    "org_id": "6dff4fa866",
+    "name": "오산시청소년상담복지센터",
+    "homepage": "https://www.osan1318.or.kr/1318/main.do",
+    "source_url": "https://www.osan1318.or.kr/1318/main.do",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "031-372-4004",
+      "fax": "031-373-7740",
+      "email": "osan1318@hanmail.net"
+    },
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  },
+  {
+    "org_id": "d0f9a938bd",
+    "name": "오산시학교밖청소년지원센터 꿈드림",
+    "homepage": "https://www.osan1318.or.kr/1318/main.do",
+    "source_url": "https://www.osan.go.kr/depart/contents.do?mId=0405020000",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "031-372-4004"
+    },
+    "note": "시청 시설목록에서 청소년상담복지센터(학교밖청소년지원센터) 통합번호 확인. 별도 팩스·이메일은 추정하지 않음"
+  },
+  {
+    "org_id": "b89fdc14c6",
+    "name": "오산시정신건강복지센터",
+    "homepage": "https://www.osmh.or.kr/",
+    "source_url": "https://www.osmh.or.kr/",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "031-374-8680",
+      "fax": "031-373-8680",
+      "email": "osmh1998@naver.com"
+    },
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  },
+  {
+    "org_id": "72c103f3f5",
+    "name": "오산시보건소",
+    "homepage": "https://www.osan.go.kr/depart/contents.do?mId=0502070000",
+    "source_url": "https://www.osan.go.kr/depart/contents.do?mId=0502070000",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "031-8036-6036"
+    },
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  },
+  {
+    "org_id": "718d662023",
+    "name": "오산시장애인종합복지관",
+    "homepage": "https://www.osrc.or.kr/",
+    "source_url": "https://www.osrc.or.kr/",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "031-290-8560",
+      "fax": "031-290-8589",
+      "email": "osrc160601@hanmail.net"
+    },
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  },
+  {
+    "org_id": "2cf31d5acc",
+    "name": "오산시하나울복지센터",
+    "homepage": "https://hanaul.or.kr/",
+    "source_url": "https://hanaul.or.kr/",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "031-8043-5909",
+      "fax": "031-8043-5869",
+      "email": "osh80435909@hanmail.net"
+    },
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  },
+  {
+    "org_id": "b1583330f2",
+    "name": "오산노인종합복지관",
+    "homepage": "https://osannoin.or.kr/",
+    "source_url": "https://osannoin.or.kr/",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "031-290-8530",
+      "fax": "031-290-8559"
+    },
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  },
+  {
+    "org_id": "8571f153a6",
+    "name": "오산시니어클럽",
+    "homepage": "http://ossc.kr/",
+    "source_url": "http://ossc.kr/",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "031-372-6090",
+      "fax": "031-372-6096",
+      "email": "ossc21@naver.com"
+    },
+    "note": "하단 대표 연락처 사용. 잘못된 tel 링크 031-972-6090은 사용하지 않음"
+  },
+  {
+    "org_id": "cc9ee0124b",
+    "name": "오산지역자활센터",
+    "homepage": "http://www.osjw.or.kr/g5/index.php",
+    "source_url": "http://www.osjw.or.kr/g5/index.php",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "031-375-3322",
+      "fax": "031-374-3399",
+      "email": "osjw5348@hanmail.net"
+    },
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  },
+  {
+    "org_id": "20f5466832",
+    "name": "오산고용복지플러스센터",
+    "homepage": "https://www.work.go.kr/osan/main.do",
+    "source_url": "https://www.work.go.kr/osan/main.do",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "031-8024-9805",
+      "fax": "0503-8803-0356"
+    },
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  },
+  {
+    "org_id": "643408b80a",
+    "name": "오산시자원봉사센터",
+    "homepage": "https://www.osan1365.or.kr/",
+    "source_url": "https://www.osan1365.or.kr/board/board.php?p=4&table=mn01_04_02",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "031-372-1365",
+      "fax": "031-372-1142",
+      "email": "osan1365@hanmail.net"
+    },
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  },
+  {
+    "org_id": "1010335085",
+    "name": "오산시지역사회보장협의체",
+    "homepage": "https://www.osan1365.or.kr/board/board.php?p=4&table=mn01_04_02",
+    "source_url": "https://www.osan1365.or.kr/board/board.php?p=4&table=mn01_04_02",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "031-373-7412"
+    },
+    "note": "센터 공식 활동처 목록의 협의체 항목. 독립 홈페이지 확인 불가하여 해당 기관 공식 목록으로 연결"
+  },
+  {
+    "org_id": "f6f1f88fda",
+    "name": "오산시 지역아동센터",
+    "homepage": "https://www.osan.go.kr/depart/contents.do?mId=0403020500",
+    "source_url": "https://www.osan.go.kr/depart/contents.do?mId=0403020500",
+    "checked_on": "2026-10-22",
+    "fields": {},
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  },
+  {
+    "org_id": "4f434688e9",
+    "name": "경기도청",
+    "homepage": "https://www.gg.go.kr/",
+    "source_url": "https://www.gg.go.kr/",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "031-120"
+    },
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  },
+  {
+    "org_id": "0ef71da5fe",
+    "name": "경기도서민금융복지지원센터",
+    "homepage": "https://gcfwc.ggwf.or.kr/",
+    "source_url": "https://gcfwc.ggwf.or.kr/",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "1899-6014"
+    },
+    "note": "개인정보보호 담당자 이메일과 지점 팩스는 대표 연락처로 전용하지 않음"
+  },
+  {
+    "org_id": "ee3da28d10",
+    "name": "경기주거복지센터",
+    "homepage": "https://housing.gg.go.kr/",
+    "source_url": "https://housing.gg.go.kr/html/27100.do",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "031-548-4046"
+    },
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  },
+  {
+    "org_id": "f9a63d4c92",
+    "name": "경기도의료원",
+    "homepage": "https://www.medical.or.kr/center/index.do",
+    "source_url": "https://www.medical.or.kr/center/index.do",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "031-250-8800"
+    },
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  },
+  {
+    "org_id": "4e9030120d",
+    "name": "경기도장애인복지종합지원센터(누림센터)",
+    "homepage": "https://www.ggnurim.or.kr/",
+    "source_url": "https://www.ggnurim.or.kr/",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "031-299-5000",
+      "fax": "031-296-8748",
+      "email": "nurim@ggwf.or.kr"
+    },
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  },
+  {
+    "org_id": "073a6c4498",
+    "name": "경기도발달장애인지원센터",
+    "homepage": "https://www.broso.or.kr/gyeonggi/mainPage.do",
+    "source_url": "https://www.broso.or.kr/gyeonggi/mainPage.do",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "031-548-1393",
+      "fax": "031-548-1398"
+    },
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  },
+  {
+    "org_id": "c6dfc2d125",
+    "name": "경기도청소년상담복지센터",
+    "homepage": "https://www.hi1318.or.kr/",
+    "source_url": "https://www.hi1318.or.kr/",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "031-248-1318",
+      "fax": "031-245-2309 / 031-247-2319"
+    },
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  },
+  {
+    "org_id": "dc62532c91",
+    "name": "경기도사회서비스원",
+    "homepage": "https://gg.pass.or.kr/",
+    "source_url": "https://gg.pass.or.kr/",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "031-882-8579",
+      "fax": "070-8280-0090"
+    },
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  },
+  {
+    "org_id": "df2f6968e5",
+    "name": "경기복지재단",
+    "homepage": "https://ggwf.gg.go.kr/",
+    "source_url": "https://ggwf.gg.go.kr/",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "1577-4312",
+      "fax": "031-898-5937"
+    },
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  },
+  {
+    "org_id": "554a2d99a2",
+    "name": "경기도일자리재단",
+    "homepage": "https://www.gjf.or.kr/main/main.do",
+    "source_url": "https://www.gjf.or.kr/main/main.do",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "031-270-9600",
+      "fax": "031-270-9732"
+    },
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  },
+  {
+    "org_id": "bd69f8d5ea",
+    "name": "경기도교육청 Wee 프로젝트",
+    "homepage": "https://www.goehs.kr/goehs/cm/cntnts/cntntsView.do?cntntsId=2147&mi=18023",
+    "source_url": "https://www.goehs.kr/goehs/cm/cntnts/cntntsView.do?cntntsId=2147&mi=18023",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "031-371-0606"
+    },
+    "note": "오산 관할 Wee센터 상담신청 번호. 교육지원청 대표 팩스를 Wee센터 팩스로 전용하지 않음"
+  },
+  {
+    "org_id": "2c45d092e2",
+    "name": "초록우산",
+    "homepage": "https://www.chorogusan.or.kr/",
+    "source_url": "https://www.chorogusan.or.kr/main.do",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "1588-1940",
+      "fax": "02-756-4256"
+    },
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  },
+  {
+    "org_id": "2060149408",
+    "name": "굿네이버스",
+    "homepage": "https://www.goodneighbors.kr/",
+    "source_url": "https://www.goodneighbors.kr/",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "02-6717-4000"
+    },
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  },
+  {
+    "org_id": "f3647be053",
+    "name": "월드비전",
+    "homepage": "https://www.worldvision.or.kr/",
+    "source_url": "https://www.worldvision.or.kr/",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "02-2078-7000"
+    },
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  },
+  {
+    "org_id": "d4b65309ba",
+    "name": "세이브더칠드런",
+    "homepage": "https://www.sc.or.kr/",
+    "source_url": "https://www.sc.or.kr/",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "02-6900-4400",
+      "fax": "02-6900-4499"
+    },
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  },
+  {
+    "org_id": "336ba76069",
+    "name": "밀알복지재단",
+    "homepage": "https://www.miral.org/",
+    "source_url": "https://www.miral.org/etc/map.do",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "02-3411-4664",
+      "fax": "02-3411-4779",
+      "email": "miral@miral.org"
+    },
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  },
+  {
+    "org_id": "f0af0f1a56",
+    "name": "푸르메재단",
+    "homepage": "https://purme.org/",
+    "source_url": "https://purme.org/",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "02-720-7002",
+      "fax": "02-720-7025",
+      "email": "admin@purme.org"
+    },
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  },
+  {
+    "org_id": "bb4130b1c3",
+    "name": "아름다운재단",
+    "homepage": "https://beautifulfund.org/",
+    "source_url": "https://beautifulfund.org/",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "02-766-1004",
+      "fax": "02-6969-5196",
+      "email": "give@bf.or.kr"
+    },
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  },
+  {
+    "org_id": "2276831255",
+    "name": "삼성꿈장학재단",
+    "homepage": "https://www.sdream.or.kr/portal",
+    "source_url": "https://www.sdream.or.kr/portal",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "02-727-5400",
+      "fax": "02-727-5409"
+    },
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  },
+  {
+    "org_id": "80be817881",
+    "name": "지파운데이션",
+    "homepage": "https://www.gfound.org/",
+    "source_url": "https://www.gfound.org/",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "02-6335-0100",
+      "fax": "02-6335-0110",
+      "email": "gfound@gfound.org"
+    },
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  },
+  {
+    "org_id": "22c1c42731",
+    "name": "한국해비타트",
+    "homepage": "https://www.habitat.or.kr/",
+    "source_url": "https://www.habitat.or.kr/",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "1544-3396",
+      "fax": "02-2237-5779",
+      "email": "khabitat@habitat.or.kr"
+    },
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  },
+  {
+    "org_id": "b9afe80849",
+    "name": "사회복지공동모금회(사랑의열매)",
+    "homepage": "https://chest.or.kr/",
+    "source_url": "https://chest.or.kr/",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "02-6262-3000",
+      "fax": "02-6262-3100",
+      "email": "chest@chest.or.kr"
+    },
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  },
+  {
+    "org_id": "020d4417f2",
+    "name": "대한적십자사",
+    "homepage": "https://www.redcross.or.kr/",
+    "source_url": "https://www.redcross.or.kr/main/cm/conts/contsView.do?mi=1384&contsId=1102",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "1577-8179",
+      "fax": "033-811-0329",
+      "email": "webmaster@redcross.or.kr"
+    },
+    "note": "팩스는 원주 본사 공식 오시는 길, 대표 이메일은 메인 footer 확인"
+  },
+  {
+    "org_id": "0a7721774c",
+    "name": "바보의나눔",
+    "homepage": "https://www.babo.or.kr/",
+    "source_url": "https://www.babo.or.kr/",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "02-727-2506",
+      "email": "babonanum@babo.or.kr"
+    },
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  },
+  {
+    "org_id": "9264a0fc94",
+    "name": "희망친구 기아대책",
+    "homepage": "https://www.kfhi.or.kr/",
+    "source_url": "https://www.kfhi.or.kr/",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "02-544-9544"
+    },
+    "note": "공식 홈페이지 브라우저 렌더링 footer 대표전화 확인"
+  },
+  {
+    "org_id": "1245907c87",
+    "name": "한국백혈병어린이재단",
+    "homepage": "https://www.kclf.org/",
+    "source_url": "https://www.kclf.org/",
+    "checked_on": "2026-10-22",
+    "fields": {
+      "phone": "02-766-7671",
+      "fax": "0507-517-7671",
+      "email": "cancer@kclf.org"
+    },
+    "note": "공식 홈페이지 기관 안내·하단 연락처 확인. 미수록 값은 이번 확인에서 대표 공개정보를 확보하지 못한 항목이며 비공개로 단정하지 않음."
+  }
+]

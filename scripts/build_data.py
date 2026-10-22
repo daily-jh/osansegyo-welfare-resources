@@ -40,7 +40,7 @@ def csv_bytes(rows, fields):
 def load():
     orgs=read_table('organizations.csv',ORG_FIELDS)
     services=read_table('services.csv',['service_id','org_id','row_order']+FIELDS[7:]+['tags_target','tags_need','tags_form','intake_channels','operation_type','local_available','source_url','verification_status','verified_on','verification_method','verified_by','next_check_on'])
-    contacts=read_table('contacts.csv',['contact_id','owner_type','owner_id','dept','phone','hours','note'])
+    contacts=read_table('contacts.csv',['contact_id','owner_type','owner_id','dept','phone','fax','email','hours','note','source_url','verified_on'])
     rounds=read_table('applications.csv',['round_id','service_id','name','opens_on','closes_on','local_available','source_url','verified_on'])
     history=read_table('verification_log.csv',['target_type','target_id','verified_on','method','verifier_role','result','source_url','next_check_on'])
     taxonomy=json.loads((ROOT/'data/taxonomy.json').read_text(encoding='utf-8'))
@@ -74,6 +74,10 @@ def load():
             if any(t not in taxonomy[axis] for t in s[k].split('|') if t): raise ValueError(f'unknown {axis} tag')
     for c in contacts:
         if c['owner_type'] not in ['organization','service'] or c['owner_id'] not in (om if c['owner_type']=='organization' else sm): raise ValueError('invalid contact owner')
+        if c['email'] and not re.fullmatch(r'[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+',c['email']): raise ValueError('invalid contact email')
+        if c['fax'] and not re.fullmatch(r'[0-9+() .~/-]+',c['fax']): raise ValueError('invalid fax')
+        date(c['verified_on']);safe_url(c['source_url'])
+        if c['verified_on'] and not c['source_url']: raise ValueError('contact confirmation requires a source')
     phones=collections.Counter(c['owner_id'] for c in contacts if c['owner_type']=='organization' and c['note']=='대표전화')
     if any(n>1 for n in phones.values()): raise ValueError('multiple primary organization phones')
     for r in rounds:
@@ -91,6 +95,7 @@ def generate():
     om={o['org_id']:o for o in orgs}; grouped={}; flat=[]
     for o in orgs:
         grouped[o['org_id']]={'id':o['org_id'],'name':o['기관명'],'level':o['범주'],'kind':o['기관유형'],'summary':o['기관소개'],'site':o['홈페이지'],'phone':phone.get(o['org_id'],''),'source':o['근거URL'],'reviewed':'','status':o['status'],'services':[]}
+        grouped[o['org_id']]['contact']=next((c for c in contacts if c['owner_type']=='organization' and c['owner_id']==o['org_id'] and c['note']=='대표전화'),{})
     for s in services:
         o=om[s['org_id']]; g=grouped[s['org_id']]
         flat.append({**{k:o[k] for k in FIELDS[:5]},**{k:s[k] for k in FIELDS[7:]},'대표전화':phone.get(s['org_id'],''),'근거URL':o['근거URL']})
@@ -115,7 +120,7 @@ def generate():
         if issues: queue.append({'org_id':o['org_id'],'service_id':s['service_id'],'범주':o['범주'],'기관명':o['기관명'],'서비스명':s['서비스명'],'확인사항':' / '.join(issues),'근거URL':s['source_url']})
     coverage={axis:{tag:sum(tag in (s[k].split('|') if s[k] else []) for s in services) for tag in taxonomy[axis]} for axis,k in [('need','tags_need'),('target','tags_target')]}
     coverage['note']='기존 자료의 검색용 분류 수이며, 확인된 접수 가능 자원 수가 아닙니다. 0개 영역은 수록 검토 예정입니다.'
-    return {ROOT/'data/resources.csv':public_csv,ROOT/'docs/resources.csv':public_csv,ROOT/'docs/assets/data.js':data,ROOT/'docs/index.html':html.encode('utf-8'),ROOT/'docs/review-queue.csv':csv_bytes(queue,['org_id','service_id','범주','기관명','서비스명','확인사항','근거URL']),ROOT/'docs/coverage.json':(json.dumps(coverage,ensure_ascii=False,indent=2)+'\n').encode('utf-8')}
+    return {ROOT/'data/resources.csv':public_csv,ROOT/'docs/resources.csv':public_csv,ROOT/'docs/contacts.csv':csv_bytes(contacts,['contact_id','owner_type','owner_id','dept','phone','fax','email','hours','note','source_url','verified_on']),ROOT/'docs/assets/data.js':data,ROOT/'docs/index.html':html.encode('utf-8'),ROOT/'docs/review-queue.csv':csv_bytes(queue,['org_id','service_id','범주','기관명','서비스명','확인사항','근거URL']),ROOT/'docs/coverage.json':(json.dumps(coverage,ensure_ascii=False,indent=2)+'\n').encode('utf-8')}
 
 def main():
     p=argparse.ArgumentParser(); p.add_argument('--check',action='store_true');args=p.parse_args()

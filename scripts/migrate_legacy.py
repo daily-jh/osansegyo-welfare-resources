@@ -14,7 +14,7 @@ def migrate():
         oid=hashlib.sha1((r['범주']+'|'+r['기관명']).encode()).hexdigest()[:10]
         if oid not in organizations:
             organizations[oid]={'org_id':oid,**{k:r[k] for k in FIELDS[:5]},'근거URL':r['근거URL'],'address':'','jurisdiction':'','status':'미확인'}
-            if r['대표전화']: contacts.append({'contact_id':'CON-'+oid,'owner_type':'organization','owner_id':oid,'dept':'','phone':r['대표전화'],'hours':'','note':'대표전화'})
+            if r['대표전화']: contacts.append({'contact_id':'CON-'+oid,'owner_type':'organization','owner_id':oid,'dept':'','phone':r['대표전화'],'fax':'','email':'','hours':'','note':'대표전화','source_url':'','verified_on':''})
             registry.append({'org_id':oid,'original_scope':r['범주'],'original_name':r['기관명'],'legacy_hash':oid})
         else:
             o=organizations[oid]

@@ -45,6 +45,16 @@ class Resources(unittest.TestCase):
         with self.assertRaises(ValueError):b.generate()
         self.change('services.csv',lambda rs:rs[0].update(tags_need='',verified_on='2026-02-30'))
         with self.assertRaises(ValueError):b.generate()
+    def test_invalid_contact_email_rejected(self):
+        self.change('contacts.csv',lambda rs:rs[0].update(email='invalid-address'))
+        with self.assertRaises(ValueError):b.generate()
+    def test_contact_projection_preserves_primary_fields(self):
+        result=b.generate()[b.ROOT/'docs/assets/data.js'].decode('utf-8')
+        payload=json.loads(result.split('window.WELFARE_DATA = ',1)[1].rstrip(';\n'))
+        contacts={c['owner_id']:c for c in b.load()[2] if c['note']=='대표전화'}
+        for org in payload['organizations']:
+            self.assertEqual(org['contact'],contacts[org['id']])
+            self.assertEqual(org['phone'],org['contact']['phone'])
     def test_regeneration_idempotent(self):
         first=b.generate()
         for p,v in first.items():p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(v)
