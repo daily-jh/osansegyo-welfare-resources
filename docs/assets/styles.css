@@ -23,3 +23,8 @@ body{font-family:'SUIT Variable',-apple-system,BlinkMacSystemFont,'Apple SD Goth
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 
 .contact-purpose{font-size:14px;color:#5c6b7c;margin:6px 0 12px}
+
+/* Institution programs and attribution */
+.program-status{display:inline-block;background:#edf3ef;color:#234b3b;border:1px solid #cbdcd1;border-radius:20px;padding:4px 12px;font-weight:700}.program-link{display:inline-block;margin:8px 0;padding:10px 15px;border:1px solid #b8c9ce;border-radius:8px;color:#143f51;font-weight:700}.welinfo-note{padding:16px;background:#f2f6f6;border-radius:10px;margin:14px 0}.welinfo-note p{font-size:13px;line-height:1.7}.footer-logo{display:inline-block;background:white;padding:12px;border-radius:8px;margin-bottom:16px}.footer-logo img{display:block;max-width:100%;height:auto}.rights-notice{padding:28px 0 40px;line-height:1.8}.rights-notice h2{font-size:21px}.rights-notice p{max-width:960px}.rights-notice a{text-decoration:underline}
+
+.program-filters{display:flex;gap:16px;flex-wrap:wrap;margin:20px 0}.program-filters label{display:flex;flex-direction:column;gap:6px}.program-filters input,.program-filters select{font:inherit;padding:12px;border:1px solid #b8c9ce;border-radius:8px;max-width:100%}.external-program small{display:block;line-height:1.6}.external-program{min-width:0;overflow-wrap:anywhere}

@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "sourceUrl": "https://osan.welinfo.kr/?board=programList",
+  "lastAttemptAt": "2026-10-22T22:15:00+09:00",
+  "lastSuccessAt": null,
+  "lastError": "2026. 10. 22. 접속 시 서버 테스트 화면이 반환되어 프로그램 목록을 수집하지 못했습니다.",
+  "programs": []
+}
