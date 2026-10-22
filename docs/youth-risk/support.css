@@ -16,3 +16,5 @@ body.map-page{font-family:var(--map-font);font-size:17px;line-height:1.7;color:v
 @media(prefers-contrast:more){.map-card,.map-intro,.map-page .header{background:#fff;backdrop-filter:none}.map-card,.map-intro,.service-card,.domain-chip{border-color:#768aa0}.map-page{--map-muted:#33465b}}
 @media print{body>*{display:none!important}body>#mapPrint{display:block!important;color:#243548;font:10pt/1.4 var(--map-font)}#mapPrint svg{display:block;width:100%;height:auto}#mapPrint h1{font-size:16pt;margin:0 0 5mm}#mapPrint p{font-size:8pt;margin:3mm 0}#mapPrint a{color:inherit}}
 @page{size:A4 landscape;margin:10mm}
+
+.map-header{flex-wrap:wrap}.map-brand{margin-right:auto}

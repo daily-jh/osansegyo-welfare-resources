@@ -230,7 +230,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-b45bc16582",
+        "owner_type": "organization",
+        "owner_id": "b45bc16582",
+        "dept": "",
+        "phone": "031-290-8501",
+        "fax": "031-290-8529",
+        "email": "osgwc8501@daum.net",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.osgwc.or.kr/",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "36cf6918f3",
@@ -343,7 +356,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-36cf6918f3",
+        "owner_type": "organization",
+        "owner_id": "36cf6918f3",
+        "dept": "",
+        "phone": "031-378-2740",
+        "fax": "031-688-1298",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://osanwelfare.co.kr/",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "2097512abd",
@@ -352,7 +378,7 @@ window.WELFARE_DATA = {
       "kind": "종합사회복지관",
       "summary": "오산시 남부지역 주민을 위한 사례관리와 지역복지사업.",
       "site": "https://www.ossw.or.kr/home/",
-      "phone": "031-376-6193",
+      "phone": "031-376-6193~6",
       "source": "https://www.ossw.or.kr/home/",
       "reviewed": "2026-10-20",
       "status": "미확인",
@@ -457,7 +483,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-2097512abd",
+        "owner_type": "organization",
+        "owner_id": "2097512abd",
+        "dept": "",
+        "phone": "031-376-6193~6",
+        "fax": "031-376-6287",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.ossw.or.kr/home/",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "438b636f15",
@@ -465,9 +504,9 @@ window.WELFARE_DATA = {
       "level": "오산시",
       "kind": "공공기관",
       "summary": "거주지 기준 공공급여 접수 및 복지사각지대 대응 창구.",
-      "site": "https://www.osan.go.kr/",
+      "site": "https://www.osan.go.kr/csc/contents.do?mId=0100000000",
       "phone": "",
-      "source": "https://www.osan.go.kr/",
+      "source": "https://www.osan.go.kr/csc/contents.do?mId=0100000000",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "services": [
@@ -606,7 +645,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-438b636f15",
+        "owner_type": "organization",
+        "owner_id": "438b636f15",
+        "dept": "동별 연락처는 개별 기관 안내에서 확인",
+        "phone": "",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.osan.go.kr/csc/contents.do?mId=0100000000",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "259715c9f4",
@@ -615,7 +667,7 @@ window.WELFARE_DATA = {
       "kind": "공공기관",
       "summary": "오산시 시책·복지사업·돌봄서비스의 담당 행정기관.",
       "site": "https://www.osan.go.kr/",
-      "phone": "",
+      "phone": "031-8036-8036",
       "source": "https://www.osan.go.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
@@ -718,7 +770,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-259715c9f4",
+        "owner_type": "organization",
+        "owner_id": "259715c9f4",
+        "dept": "",
+        "phone": "031-8036-8036",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.osan.go.kr/",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "953caa9fe6",
@@ -726,9 +791,9 @@ window.WELFARE_DATA = {
       "level": "오산시",
       "kind": "아동보호",
       "summary": "아동학대 관련 피해아동 보호와 사례관리 유관기관.",
-      "site": "https://www.osan.go.kr/",
-      "phone": "",
-      "source": "https://www.osan.go.kr/",
+      "site": "https://osan.gcps.or.kr/",
+      "phone": "031-8077-9610",
+      "source": "https://osan.gcps.or.kr/gnosan/json/branchinfo",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "services": [
@@ -802,7 +867,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-953caa9fe6",
+        "owner_type": "organization",
+        "owner_id": "953caa9fe6",
+        "dept": "",
+        "phone": "031-8077-9610",
+        "fax": "031-8077-9621",
+        "email": "osan@gnk.or.kr",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://osan.gcps.or.kr/gnosan/json/branchinfo",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "6b509a4355",
@@ -810,9 +888,9 @@ window.WELFARE_DATA = {
       "level": "오산시",
       "kind": "가족지원",
       "summary": "다양한 가족의 기능 회복과 가족서비스를 제공하는 지역기관.",
-      "site": "https://www.familynet.or.kr/",
-      "phone": "",
-      "source": "https://www.familynet.or.kr/",
+      "site": "https://osan.familynet.or.kr/center/index.do",
+      "phone": "031-372-1335",
+      "source": "https://osan.familynet.or.kr/center/lay1/program/S295T315C321/center_info/view.do",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "services": [
@@ -914,7 +992,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-6b509a4355",
+        "owner_type": "organization",
+        "owner_id": "6b509a4355",
+        "dept": "",
+        "phone": "031-372-1335",
+        "fax": "031-378-9767",
+        "email": "happycenter@empas.com",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://osan.familynet.or.kr/center/lay1/program/S295T315C321/center_info/view.do",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "6dff4fa866",
@@ -922,9 +1013,9 @@ window.WELFARE_DATA = {
       "level": "오산시",
       "kind": "청소년상담",
       "summary": "청소년 심리정서 문제와 위기상황 지원을 위한 청소년상담 네트워크.",
-      "site": "https://www.cyber1388.kr/",
-      "phone": "",
-      "source": "https://www.cyber1388.kr/",
+      "site": "https://www.osan1318.or.kr/1318/main.do",
+      "phone": "031-372-4004",
+      "source": "https://www.osan1318.or.kr/1318/main.do",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "services": [
@@ -997,7 +1088,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-6dff4fa866",
+        "owner_type": "organization",
+        "owner_id": "6dff4fa866",
+        "dept": "",
+        "phone": "031-372-4004",
+        "fax": "031-373-7740",
+        "email": "osan1318@hanmail.net",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.osan1318.or.kr/1318/main.do",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "d0f9a938bd",
@@ -1005,9 +1109,9 @@ window.WELFARE_DATA = {
       "level": "오산시",
       "kind": "청소년지원",
       "summary": "학교 밖 청소년의 학업·자립·진로 지원.",
-      "site": "https://www.kdream.or.kr/",
-      "phone": "",
-      "source": "https://www.kdream.or.kr/",
+      "site": "https://www.osan1318.or.kr/1318/main.do",
+      "phone": "031-372-4004",
+      "source": "https://www.osan.go.kr/depart/contents.do?mId=0405020000",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "services": [
@@ -1075,7 +1179,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-d0f9a938bd",
+        "owner_type": "organization",
+        "owner_id": "d0f9a938bd",
+        "dept": "청소년상담복지센터 통합 안내",
+        "phone": "031-372-4004",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.osan.go.kr/depart/contents.do?mId=0405020000",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "b89fdc14c6",
@@ -1083,9 +1200,9 @@ window.WELFARE_DATA = {
       "level": "오산시",
       "kind": "보건·의료",
       "summary": "지역사회 정신건강 증진 및 정신질환 사례관리 연계기관.",
-      "site": "https://www.osan.go.kr/",
-      "phone": "",
-      "source": "https://www.osan.go.kr/",
+      "site": "https://www.osmh.or.kr/",
+      "phone": "031-374-8680",
+      "source": "https://www.osmh.or.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "services": [
@@ -1192,7 +1309,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-b89fdc14c6",
+        "owner_type": "organization",
+        "owner_id": "b89fdc14c6",
+        "dept": "",
+        "phone": "031-374-8680",
+        "fax": "031-373-8680",
+        "email": "osmh1998@naver.com",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.osmh.or.kr/",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "72c103f3f5",
@@ -1200,9 +1330,9 @@ window.WELFARE_DATA = {
       "level": "오산시",
       "kind": "보건·의료",
       "summary": "지역주민 건강증진과 공공보건서비스.",
-      "site": "https://www.osan.go.kr/",
-      "phone": "",
-      "source": "https://www.osan.go.kr/",
+      "site": "https://www.osan.go.kr/depart/contents.do?mId=0502070000",
+      "phone": "031-8036-6036",
+      "source": "https://www.osan.go.kr/depart/contents.do?mId=0502070000",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "services": [
@@ -1301,7 +1431,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-72c103f3f5",
+        "owner_type": "organization",
+        "owner_id": "72c103f3f5",
+        "dept": "보건소 민원실",
+        "phone": "031-8036-6036",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.osan.go.kr/depart/contents.do?mId=0502070000",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "718d662023",
@@ -1309,9 +1452,9 @@ window.WELFARE_DATA = {
       "level": "오산시",
       "kind": "장애인복지",
       "summary": "장애인·가족 대상 지역사회 재활과 자립을 지원하는 전문복지관.",
-      "site": "https://www.osan.go.kr/",
-      "phone": "",
-      "source": "https://www.osan.go.kr/",
+      "site": "https://www.osrc.or.kr/",
+      "phone": "031-290-8560",
+      "source": "https://www.osrc.or.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "services": [
@@ -1419,7 +1562,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-718d662023",
+        "owner_type": "organization",
+        "owner_id": "718d662023",
+        "dept": "",
+        "phone": "031-290-8560",
+        "fax": "031-290-8589",
+        "email": "osrc160601@hanmail.net",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.osrc.or.kr/",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "2cf31d5acc",
@@ -1427,9 +1583,9 @@ window.WELFARE_DATA = {
       "level": "오산시",
       "kind": "장애인복지",
       "summary": "발달장애인 및 장애인 가족 지원·교육 관련 지역자원.",
-      "site": "https://www.osan.go.kr/",
-      "phone": "",
-      "source": "https://www.osan.go.kr/",
+      "site": "https://hanaul.or.kr/",
+      "phone": "031-8043-5909",
+      "source": "https://hanaul.or.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "services": [
@@ -1496,7 +1652,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-2cf31d5acc",
+        "owner_type": "organization",
+        "owner_id": "2cf31d5acc",
+        "dept": "",
+        "phone": "031-8043-5909",
+        "fax": "031-8043-5869",
+        "email": "osh80435909@hanmail.net",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://hanaul.or.kr/",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "b1583330f2",
@@ -1504,9 +1673,9 @@ window.WELFARE_DATA = {
       "level": "오산시",
       "kind": "노인복지",
       "summary": "어르신 사회참여·건강·여가·상담 복지서비스.",
-      "site": "https://www.osan.go.kr/",
-      "phone": "",
-      "source": "https://www.osan.go.kr/",
+      "site": "https://osannoin.or.kr/",
+      "phone": "031-290-8530",
+      "source": "https://osannoin.or.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "services": [
@@ -1576,7 +1745,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-b1583330f2",
+        "owner_type": "organization",
+        "owner_id": "b1583330f2",
+        "dept": "",
+        "phone": "031-290-8530",
+        "fax": "031-290-8559",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://osannoin.or.kr/",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "8571f153a6",
@@ -1584,9 +1766,9 @@ window.WELFARE_DATA = {
       "level": "오산시",
       "kind": "노인일자리",
       "summary": "노인 일자리 및 사회활동 지원 전문기관.",
-      "site": "https://www.osan.go.kr/",
-      "phone": "",
-      "source": "https://www.osan.go.kr/",
+      "site": "http://ossc.kr/",
+      "phone": "031-372-6090",
+      "source": "http://ossc.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "services": [
@@ -1622,7 +1804,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-8571f153a6",
+        "owner_type": "organization",
+        "owner_id": "8571f153a6",
+        "dept": "",
+        "phone": "031-372-6090",
+        "fax": "031-372-6096",
+        "email": "ossc21@naver.com",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "http://ossc.kr/",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "cc9ee0124b",
@@ -1630,9 +1825,9 @@ window.WELFARE_DATA = {
       "level": "오산시",
       "kind": "자활지원",
       "summary": "근로능력이 있는 저소득 주민을 위한 자활·취업 연계 기관.",
-      "site": "https://www.osan.go.kr/",
+      "site": "http://www.osjw.or.kr/g5/index.php",
       "phone": "031-375-3322",
-      "source": "https://www.osan1365.or.kr/board/board.php?p=19&table=mn01_04_02",
+      "source": "http://www.osjw.or.kr/g5/index.php",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "services": [
@@ -1699,7 +1894,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-cc9ee0124b",
+        "owner_type": "organization",
+        "owner_id": "cc9ee0124b",
+        "dept": "",
+        "phone": "031-375-3322",
+        "fax": "031-374-3399",
+        "email": "osjw5348@hanmail.net",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "http://www.osjw.or.kr/g5/index.php",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "20f5466832",
@@ -1707,9 +1915,9 @@ window.WELFARE_DATA = {
       "level": "오산시",
       "kind": "고용지원",
       "summary": "고용·복지 관련 서비스 연결 거점.",
-      "site": "https://www.work.go.kr/",
-      "phone": "",
-      "source": "https://www.work.go.kr/",
+      "site": "https://www.work.go.kr/osan/main.do",
+      "phone": "031-8024-9805",
+      "source": "https://www.work.go.kr/osan/main.do",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "services": [
@@ -1780,7 +1988,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-20f5466832",
+        "owner_type": "organization",
+        "owner_id": "20f5466832",
+        "dept": "",
+        "phone": "031-8024-9805",
+        "fax": "0503-8803-0356",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.work.go.kr/osan/main.do",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "643408b80a",
@@ -1789,8 +2010,8 @@ window.WELFARE_DATA = {
       "kind": "지역협력",
       "summary": "자원봉사 인력·기관 매칭 및 지역사회 참여 지원.",
       "site": "https://www.osan1365.or.kr/",
-      "phone": "",
-      "source": "https://www.osan1365.or.kr/",
+      "phone": "031-372-1365",
+      "source": "https://www.osan1365.or.kr/board/board.php?p=4&table=mn01_04_02",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "services": [
@@ -1858,7 +2079,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-643408b80a",
+        "owner_type": "organization",
+        "owner_id": "643408b80a",
+        "dept": "",
+        "phone": "031-372-1365",
+        "fax": "031-372-1142",
+        "email": "osan1365@hanmail.net",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.osan1365.or.kr/board/board.php?p=4&table=mn01_04_02",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "1010335085",
@@ -1866,9 +2100,9 @@ window.WELFARE_DATA = {
       "level": "오산시",
       "kind": "민관협력",
       "summary": "지역사회보장 관련 민관 네트워크.",
-      "site": "https://www.osan.go.kr/",
-      "phone": "",
-      "source": "https://www.osan.go.kr/",
+      "site": "https://www.osan1365.or.kr/board/board.php?p=4&table=mn01_04_02",
+      "phone": "031-373-7412",
+      "source": "https://www.osan1365.or.kr/board/board.php?p=4&table=mn01_04_02",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "services": [
@@ -1936,7 +2170,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-1010335085",
+        "owner_type": "organization",
+        "owner_id": "1010335085",
+        "dept": "협의체 사무국",
+        "phone": "031-373-7412",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.osan1365.or.kr/board/board.php?p=4&table=mn01_04_02",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "f6f1f88fda",
@@ -1944,9 +2191,9 @@ window.WELFARE_DATA = {
       "level": "오산시",
       "kind": "아동돌봄",
       "summary": "센터별 주소와 정원을 확인해야 하는 방과 후 지역아동 돌봄시설 통칭.",
-      "site": "https://www.osan1365.or.kr/board/board.php?p=19&table=mn01_04_02",
+      "site": "https://www.osan.go.kr/depart/contents.do?mId=0403020500",
       "phone": "",
-      "source": "https://www.osan1365.or.kr/board/board.php?p=19&table=mn01_04_02",
+      "source": "https://www.osan.go.kr/depart/contents.do?mId=0403020500",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "services": [
@@ -1983,7 +2230,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-f6f1f88fda",
+        "owner_type": "organization",
+        "owner_id": "f6f1f88fda",
+        "dept": "센터별 연락처는 개별 기관 안내에서 확인",
+        "phone": "",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.osan.go.kr/depart/contents.do?mId=0403020500",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "4f434688e9",
@@ -1992,7 +2252,7 @@ window.WELFARE_DATA = {
       "kind": "광역행정",
       "summary": "경기도 긴급복지·돌봄 등의 광역사업 주관기관.",
       "site": "https://www.gg.go.kr/",
-      "phone": "",
+      "phone": "031-120",
       "source": "https://www.gg.go.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
@@ -2095,7 +2355,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-4f434688e9",
+        "owner_type": "organization",
+        "owner_id": "4f434688e9",
+        "dept": "경기도 콜센터",
+        "phone": "031-120",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.gg.go.kr/",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "0ef71da5fe",
@@ -2103,9 +2376,9 @@ window.WELFARE_DATA = {
       "level": "경기도",
       "kind": "금융복지",
       "summary": "과중채무·금융위기를 겪는 도민을 위한 금융복지 상담.",
-      "site": "https://www.gcfwc.or.kr/",
+      "site": "https://gcfwc.ggwf.or.kr/",
       "phone": "1899-6014",
-      "source": "https://www.gcfwc.or.kr/",
+      "source": "https://gcfwc.ggwf.or.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "services": [
@@ -2178,7 +2451,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-0ef71da5fe",
+        "owner_type": "organization",
+        "owner_id": "0ef71da5fe",
+        "dept": "상담 대표번호",
+        "phone": "1899-6014",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://gcfwc.ggwf.or.kr/",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "ee3da28d10",
@@ -2187,8 +2473,8 @@ window.WELFARE_DATA = {
       "kind": "주거지원",
       "summary": "경기도 공공임대·주거지원 정보 제공 및 상담.",
       "site": "https://housing.gg.go.kr/",
-      "phone": "",
-      "source": "https://housing.gg.go.kr/",
+      "phone": "031-548-4046",
+      "source": "https://housing.gg.go.kr/html/27100.do",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "services": [
@@ -2256,7 +2542,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-ee3da28d10",
+        "owner_type": "organization",
+        "owner_id": "ee3da28d10",
+        "dept": "주거복지 상담·포털 운영",
+        "phone": "031-548-4046",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://housing.gg.go.kr/html/27100.do",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "f9a63d4c92",
@@ -2264,9 +2563,9 @@ window.WELFARE_DATA = {
       "level": "경기도",
       "kind": "공공의료",
       "summary": "경기도 공공의료원·의료사회사업을 통한 취약계층 의료지원.",
-      "site": "https://www.medical.or.kr/",
-      "phone": "",
-      "source": "https://www.medical.or.kr/",
+      "site": "https://www.medical.or.kr/center/index.do",
+      "phone": "031-250-8800",
+      "source": "https://www.medical.or.kr/center/index.do",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "services": [
@@ -2338,7 +2637,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-f9a63d4c92",
+        "owner_type": "organization",
+        "owner_id": "f9a63d4c92",
+        "dept": "본부 대표번호",
+        "phone": "031-250-8800",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.medical.or.kr/center/index.do",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "4e9030120d",
@@ -2347,7 +2659,7 @@ window.WELFARE_DATA = {
       "kind": "장애인복지",
       "summary": "경기도 장애인 복지정보·자립·지원사업 통합 지원.",
       "site": "https://www.ggnurim.or.kr/",
-      "phone": "",
+      "phone": "031-299-5000",
       "source": "https://www.ggnurim.or.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
@@ -2447,7 +2759,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-4e9030120d",
+        "owner_type": "organization",
+        "owner_id": "4e9030120d",
+        "dept": "",
+        "phone": "031-299-5000",
+        "fax": "031-296-8748",
+        "email": "nurim@ggwf.or.kr",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.ggnurim.or.kr/",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "073a6c4498",
@@ -2455,9 +2780,9 @@ window.WELFARE_DATA = {
       "level": "경기도",
       "kind": "발달장애지원",
       "summary": "발달장애인 개인별지원계획 및 권리보호 관련 광역 전문기관.",
-      "site": "https://www.broso.or.kr/",
-      "phone": "",
-      "source": "https://www.broso.or.kr/",
+      "site": "https://www.broso.or.kr/gyeonggi/mainPage.do",
+      "phone": "031-548-1393",
+      "source": "https://www.broso.or.kr/gyeonggi/mainPage.do",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "services": [
@@ -2526,7 +2851,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-073a6c4498",
+        "owner_type": "organization",
+        "owner_id": "073a6c4498",
+        "dept": "",
+        "phone": "031-548-1393",
+        "fax": "031-548-1398",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.broso.or.kr/gyeonggi/mainPage.do",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "c6dfc2d125",
@@ -2534,9 +2872,9 @@ window.WELFARE_DATA = {
       "level": "경기도",
       "kind": "청소년상담",
       "summary": "경기도 청소년안전망·고위기청소년 지원 광역 거점.",
-      "site": "https://www.gysc.or.kr/",
-      "phone": "",
-      "source": "https://www.gysc.or.kr/",
+      "site": "https://www.hi1318.or.kr/",
+      "phone": "031-248-1318",
+      "source": "https://www.hi1318.or.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "services": [
@@ -2609,7 +2947,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-c6dfc2d125",
+        "owner_type": "organization",
+        "owner_id": "c6dfc2d125",
+        "dept": "",
+        "phone": "031-248-1318",
+        "fax": "031-245-2309 / 031-247-2319",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.hi1318.or.kr/",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "dc62532c91",
@@ -2618,7 +2969,7 @@ window.WELFARE_DATA = {
       "kind": "돌봄지원",
       "summary": "경기도 사회서비스 공공성·품질·돌봄 협력 지원기관.",
       "site": "https://gg.pass.or.kr/",
-      "phone": "",
+      "phone": "031-882-8579",
       "source": "https://gg.pass.or.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
@@ -2688,7 +3039,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-dc62532c91",
+        "owner_type": "organization",
+        "owner_id": "dc62532c91",
+        "dept": "",
+        "phone": "031-882-8579",
+        "fax": "070-8280-0090",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://gg.pass.or.kr/",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "df2f6968e5",
@@ -2697,7 +3061,7 @@ window.WELFARE_DATA = {
       "kind": "복지정책",
       "summary": "지역 복지정책 연구·기관 역량 강화·교육 거점.",
       "site": "https://ggwf.gg.go.kr/",
-      "phone": "",
+      "phone": "1577-4312",
       "source": "https://ggwf.gg.go.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
@@ -2767,7 +3131,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-df2f6968e5",
+        "owner_type": "organization",
+        "owner_id": "df2f6968e5",
+        "dept": "",
+        "phone": "1577-4312",
+        "fax": "031-898-5937",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://ggwf.gg.go.kr/",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "554a2d99a2",
@@ -2775,9 +3152,9 @@ window.WELFARE_DATA = {
       "level": "경기도",
       "kind": "고용지원",
       "summary": "여성·청년·중장년 등 도민의 직업역량과 일자리 지원.",
-      "site": "https://www.gjf.or.kr/",
-      "phone": "",
-      "source": "https://www.gjf.or.kr/",
+      "site": "https://www.gjf.or.kr/main/main.do",
+      "phone": "031-270-9600",
+      "source": "https://www.gjf.or.kr/main/main.do",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "services": [
@@ -2846,7 +3223,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-554a2d99a2",
+        "owner_type": "organization",
+        "owner_id": "554a2d99a2",
+        "dept": "",
+        "phone": "031-270-9600",
+        "fax": "031-270-9732",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.gjf.or.kr/main/main.do",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "bd69f8d5ea",
@@ -2854,9 +3244,9 @@ window.WELFARE_DATA = {
       "level": "경기도",
       "kind": "학생상담",
       "summary": "학교 내외 심리·정서 위기학생 지원 상담체계.",
-      "site": "https://www.goe.go.kr/",
-      "phone": "",
-      "source": "https://www.goe.go.kr/",
+      "site": "https://www.goehs.kr/goehs/cm/cntnts/cntntsView.do?cntntsId=2147&mi=18023",
+      "phone": "031-371-0606",
+      "source": "https://www.goehs.kr/goehs/cm/cntnts/cntntsView.do?cntntsId=2147&mi=18023",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "services": [
@@ -2928,7 +3318,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-bd69f8d5ea",
+        "owner_type": "organization",
+        "owner_id": "bd69f8d5ea",
+        "dept": "화성오산 Wee센터 상담신청",
+        "phone": "031-371-0606",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.goehs.kr/goehs/cm/cntnts/cntntsView.do?cntntsId=2147&mi=18023",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "2c45d092e2",
@@ -2937,8 +3340,8 @@ window.WELFARE_DATA = {
       "kind": "아동복지 NGO",
       "summary": "취약 아동의 성장과 권리를 위한 교육·돌봄·자립·위기가정 지원.",
       "site": "https://www.chorogusan.or.kr/",
-      "phone": "",
-      "source": "https://www.chorogusan.or.kr/domesticBiz/childSupport/Education.do",
+      "phone": "1588-1940",
+      "source": "https://www.chorogusan.or.kr/main.do",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "services": [
@@ -3079,7 +3482,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-2c45d092e2",
+        "owner_type": "organization",
+        "owner_id": "2c45d092e2",
+        "dept": "",
+        "phone": "1588-1940",
+        "fax": "02-756-4256",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.chorogusan.or.kr/main.do",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "2060149408",
@@ -3088,7 +3504,7 @@ window.WELFARE_DATA = {
       "kind": "아동복지 NGO",
       "summary": "국내아동지원과 위기가구 통합지원·교육 프로그램.",
       "site": "https://www.goodneighbors.kr/",
-      "phone": "",
+      "phone": "02-6717-4000",
       "source": "https://www.goodneighbors.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
@@ -3194,7 +3610,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-2060149408",
+        "owner_type": "organization",
+        "owner_id": "2060149408",
+        "dept": "",
+        "phone": "02-6717-4000",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.goodneighbors.kr/",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "f3647be053",
@@ -3203,7 +3632,7 @@ window.WELFARE_DATA = {
       "kind": "아동복지 NGO",
       "summary": "취약아동 생활안정과 꿈·성장 지원.",
       "site": "https://www.worldvision.or.kr/",
-      "phone": "",
+      "phone": "02-2078-7000",
       "source": "https://www.worldvision.or.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
@@ -3311,7 +3740,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-f3647be053",
+        "owner_type": "organization",
+        "owner_id": "f3647be053",
+        "dept": "",
+        "phone": "02-2078-7000",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.worldvision.or.kr/",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "d4b65309ba",
@@ -3320,7 +3762,7 @@ window.WELFARE_DATA = {
       "kind": "아동권리 NGO",
       "summary": "아동권리옹호·위기아동 보호 및 가족 지원.",
       "site": "https://www.sc.or.kr/",
-      "phone": "",
+      "phone": "02-6900-4400",
       "source": "https://www.sc.or.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
@@ -3391,7 +3833,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-d4b65309ba",
+        "owner_type": "organization",
+        "owner_id": "d4b65309ba",
+        "dept": "",
+        "phone": "02-6900-4400",
+        "fax": "02-6900-4499",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.sc.or.kr/",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "336ba76069",
@@ -3400,8 +3855,8 @@ window.WELFARE_DATA = {
       "kind": "복지재단",
       "summary": "취약계층과 장애인을 중심으로 국내 긴급지원·의료복지 수행.",
       "site": "https://www.miral.org/",
-      "phone": "",
-      "source": "https://www.miral.org/",
+      "phone": "02-3411-4664",
+      "source": "https://www.miral.org/etc/map.do",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "services": [
@@ -3502,7 +3957,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-336ba76069",
+        "owner_type": "organization",
+        "owner_id": "336ba76069",
+        "dept": "",
+        "phone": "02-3411-4664",
+        "fax": "02-3411-4779",
+        "email": "miral@miral.org",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.miral.org/etc/map.do",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "f0af0f1a56",
@@ -3511,7 +3979,7 @@ window.WELFARE_DATA = {
       "kind": "장애아동지원",
       "summary": "장애어린이 치료·재활 및 자립을 돕는 민간재단.",
       "site": "https://purme.org/",
-      "phone": "",
+      "phone": "02-720-7002",
       "source": "https://purme.org/",
       "reviewed": "2026-10-20",
       "status": "미확인",
@@ -3617,7 +4085,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-f0af0f1a56",
+        "owner_type": "organization",
+        "owner_id": "f0af0f1a56",
+        "dept": "",
+        "phone": "02-720-7002",
+        "fax": "02-720-7025",
+        "email": "admin@purme.org",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://purme.org/",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "bb4130b1c3",
@@ -3626,7 +4107,7 @@ window.WELFARE_DATA = {
       "kind": "공익재단",
       "summary": "사회적 약자와 청년의 자립·교육·생활 안정을 지원.",
       "site": "https://beautifulfund.org/",
-      "phone": "",
+      "phone": "02-766-1004",
       "source": "https://beautifulfund.org/",
       "reviewed": "2026-10-20",
       "status": "미확인",
@@ -3698,7 +4179,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-bb4130b1c3",
+        "owner_type": "organization",
+        "owner_id": "bb4130b1c3",
+        "dept": "",
+        "phone": "02-766-1004",
+        "fax": "02-6969-5196",
+        "email": "give@bf.or.kr",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://beautifulfund.org/",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "2276831255",
@@ -3706,9 +4200,9 @@ window.WELFARE_DATA = {
       "level": "민간",
       "kind": "장학재단",
       "summary": "교육격차 해소를 위한 멘토링·장학 및 교육사업.",
-      "site": "https://www.sdream.or.kr/",
-      "phone": "",
-      "source": "https://www.sdream.or.kr/",
+      "site": "https://www.sdream.or.kr/portal",
+      "phone": "02-727-5400",
+      "source": "https://www.sdream.or.kr/portal",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "services": [
@@ -3814,7 +4308,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-2276831255",
+        "owner_type": "organization",
+        "owner_id": "2276831255",
+        "dept": "",
+        "phone": "02-727-5400",
+        "fax": "02-727-5409",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.sdream.or.kr/portal",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "80be817881",
@@ -3823,7 +4330,7 @@ window.WELFARE_DATA = {
       "kind": "사회복지 NGO",
       "summary": "저소득 여성청소년·아동·한부모 등의 생활·의료 지원.",
       "site": "https://www.gfound.org/",
-      "phone": "",
+      "phone": "02-6335-0100",
       "source": "https://www.gfound.org/",
       "reviewed": "2026-10-20",
       "status": "미확인",
@@ -3895,7 +4402,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-80be817881",
+        "owner_type": "organization",
+        "owner_id": "80be817881",
+        "dept": "",
+        "phone": "02-6335-0100",
+        "fax": "02-6335-0110",
+        "email": "gfound@gfound.org",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.gfound.org/",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "22c1c42731",
@@ -3904,7 +4424,7 @@ window.WELFARE_DATA = {
       "kind": "주거 NGO",
       "summary": "주거취약가구 주택개보수·안전주거 개선.",
       "site": "https://www.habitat.or.kr/",
-      "phone": "",
+      "phone": "1544-3396",
       "source": "https://www.habitat.or.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
@@ -3976,7 +4496,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-22c1c42731",
+        "owner_type": "organization",
+        "owner_id": "22c1c42731",
+        "dept": "",
+        "phone": "1544-3396",
+        "fax": "02-2237-5779",
+        "email": "khabitat@habitat.or.kr",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.habitat.or.kr/",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "b9afe80849",
@@ -3985,7 +4518,7 @@ window.WELFARE_DATA = {
       "kind": "모금·배분기관",
       "summary": "전국·지역 사회복지 배분사업 및 긴급지원 연계.",
       "site": "https://chest.or.kr/",
-      "phone": "",
+      "phone": "02-6262-3000",
       "source": "https://chest.or.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
@@ -4089,7 +4622,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-b9afe80849",
+        "owner_type": "organization",
+        "owner_id": "b9afe80849",
+        "dept": "",
+        "phone": "02-6262-3000",
+        "fax": "02-6262-3100",
+        "email": "chest@chest.or.kr",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://chest.or.kr/",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "020d4417f2",
@@ -4098,8 +4644,8 @@ window.WELFARE_DATA = {
       "kind": "구호·복지기관",
       "summary": "재난구호·위기지원·민간사회안전망 활동.",
       "site": "https://www.redcross.or.kr/",
-      "phone": "",
-      "source": "https://www.redcross.or.kr/",
+      "phone": "1577-8179",
+      "source": "https://www.redcross.or.kr/main/cm/conts/contsView.do?mi=1384&contsId=1102",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "services": [
@@ -4167,7 +4713,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-020d4417f2",
+        "owner_type": "organization",
+        "owner_id": "020d4417f2",
+        "dept": "홈페이지 대표·후원 문의",
+        "phone": "1577-8179",
+        "fax": "033-811-0329",
+        "email": "webmaster@redcross.or.kr",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.redcross.or.kr/main/cm/conts/contsView.do?mi=1384&contsId=1102",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "0a7721774c",
@@ -4176,7 +4735,7 @@ window.WELFARE_DATA = {
       "kind": "공익재단",
       "summary": "취약계층을 위한 비영리기관 배분 및 공익지원.",
       "site": "https://www.babo.or.kr/",
-      "phone": "",
+      "phone": "02-727-2506",
       "source": "https://www.babo.or.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
@@ -4247,7 +4806,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-0a7721774c",
+        "owner_type": "organization",
+        "owner_id": "0a7721774c",
+        "dept": "",
+        "phone": "02-727-2506",
+        "fax": "",
+        "email": "babonanum@babo.or.kr",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.babo.or.kr/",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "9264a0fc94",
@@ -4256,7 +4828,7 @@ window.WELFARE_DATA = {
       "kind": "국제·국내 NGO",
       "summary": "국내외 위기아동·가정의 생활·교육·자립지원.",
       "site": "https://www.kfhi.or.kr/",
-      "phone": "",
+      "phone": "02-544-9544",
       "source": "https://www.kfhi.or.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
@@ -4329,7 +4901,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-9264a0fc94",
+        "owner_type": "organization",
+        "owner_id": "9264a0fc94",
+        "dept": "",
+        "phone": "02-544-9544",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.kfhi.or.kr/",
+        "verified_on": "2026-10-22"
+      }
     },
     {
       "id": "1245907c87",
@@ -4338,7 +4923,7 @@ window.WELFARE_DATA = {
       "kind": "아동의료지원",
       "summary": "소아암 환아 치료·회복을 위한 의료·심리사회적 지원.",
       "site": "https://www.kclf.org/",
-      "phone": "",
+      "phone": "02-766-7671",
       "source": "https://www.kclf.org/",
       "reviewed": "2026-10-20",
       "status": "미확인",
@@ -4408,7 +4993,20 @@ window.WELFARE_DATA = {
           "contacts": [],
           "rounds": []
         }
-      ]
+      ],
+      "contact": {
+        "contact_id": "CON-1245907c87",
+        "owner_type": "organization",
+        "owner_id": "1245907c87",
+        "dept": "",
+        "phone": "02-766-7671",
+        "fax": "0507-517-7671",
+        "email": "cancer@kclf.org",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.kclf.org/",
+        "verified_on": "2026-10-22"
+      }
     }
   ]
 };
