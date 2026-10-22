@@ -13,7 +13,7 @@ for(let n=1;n<=25;n++)for(let score=1;score<=4;score++){
   for(const g of groups){
    assert.equal(g.primary,g.services[0]);
    assert.equal(new Set(g.services.map(r=>r.서비스명)).size,g.services.length);
-   for(const r of g.services){assert.ok(scope.db.includes(r));assert.equal(r.기관명,g.name);assert.ok(S.describe(p,d,r).evidence.every(n=>p.answers[n-1]>0));}
+   for(const r of g.services){assert.ok(scope.db.includes(r)||(r.dongOptions?.length===8&&scope.db.some(source=>source.서비스명===r.서비스명)));assert.equal(r.기관명,g.name);assert.ok(S.describe(p,d,r).evidence.every(n=>p.answers[n-1]>0));}
   }
   count++;
  }
@@ -28,4 +28,5 @@ for(const [values,domain,first] of [[{7:1},2,'오산시정신건강복지센터'
 }
 const p=scope.make({16:3,17:3,18:3});p.resources=p.resources.concat([{...p.resources.find(r=>r.기관명==='오산세교종합사회복지관'&&r.서비스명==='지역사회 돌봄 및 주민지원'),기관명:' 오산세교종합사회복지관 ',서비스명:'지역사회 돌봄 및 주민지원 '}]);
 const groups=S.groupedCandidates(p,S.domains(p)[6]);assert.equal(groups.filter(g=>g.name==='오산세교종합사회복지관').length,1);
+const route=S.routingResources(scope.db).filter(r=>r.dongOptions);assert.equal(route.length,4);assert(route.every(r=>r.dongOptions.length===8&&r['홈페이지'].endsWith('#org=438b636f15')&&r['신청·연계방법'].includes('거주지 관할')));
 console.log('PASS: '+count+' domain checks; unique institutions; eligible services retained; safe priority; duplicate rows normalized; immutable original data.');

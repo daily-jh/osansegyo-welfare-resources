@@ -1,0 +1,295 @@
+{
+  "reviewedOn": "2026-10-22",
+  "selection": "오산 공공접수창구 분리, 전문위기·의료·주거·채무·민간지원의 공백 보완",
+  "newInstitutionCount": 35,
+  "newInstitutions": [
+    "오산시 중앙동 행정복지센터",
+    "오산시 대원1동 행정복지센터",
+    "오산시 대원2동 행정복지센터",
+    "오산시 남촌동 행정복지센터",
+    "오산시 신장1동 행정복지센터",
+    "오산시 신장2동 행정복지센터",
+    "오산시 세마동 행정복지센터",
+    "오산시 초평동 행정복지센터",
+    "오산시 드림스타트",
+    "오산시사회복지협의회",
+    "오산시치매안심센터",
+    "경기도 긴급복지 위기상담 콜센터",
+    "경기도정신건강복지센터",
+    "경기도재활공학서비스연구지원센터",
+    "경기남부장애인권익옹호기관",
+    "경기도 젠더폭력 통합대응단(마주봄센터)",
+    "여성긴급전화1366 경기센터",
+    "경기남부해바라기센터",
+    "경기해바라기센터(아동)",
+    "아주대학교병원",
+    "한림대학교동탄성심병원",
+    "분당서울대학교병원",
+    "경기도의료원 수원병원",
+    "대한법률구조공단",
+    "신용회복위원회",
+    "한국토지주택공사(LH) 마이홈",
+    "한국사회보장정보원 복지로",
+    "한국사회복지협의회",
+    "한국장애인재단",
+    "한국여성재단",
+    "함께하는 사랑밭",
+    "하트-하트재단",
+    "아이들과미래재단",
+    "한국심장재단",
+    "한국희귀·난치성질환연합회"
+  ],
+  "institutionSources": [
+    {
+      "institution": "오산시 중앙동 행정복지센터",
+      "source_url": "https://www.osan.go.kr/main.do",
+      "reviewed_on": "2026-10-22",
+      "verification": "공식 자료에서 역할·사업 확인. 개별 이용 가능 여부는 별도 확인.",
+      "direct_phone_verified": true
+    },
+    {
+      "institution": "오산시 대원1동 행정복지센터",
+      "source_url": "https://www.osan.go.kr/main.do",
+      "reviewed_on": "2026-10-22",
+      "verification": "공식 자료에서 역할·사업 확인. 개별 이용 가능 여부는 별도 확인.",
+      "direct_phone_verified": true
+    },
+    {
+      "institution": "오산시 대원2동 행정복지센터",
+      "source_url": "https://www.osan.go.kr/main.do",
+      "reviewed_on": "2026-10-22",
+      "verification": "공식 자료에서 역할·사업 확인. 개별 이용 가능 여부는 별도 확인.",
+      "direct_phone_verified": true
+    },
+    {
+      "institution": "오산시 남촌동 행정복지센터",
+      "source_url": "https://www.osan.go.kr/main.do",
+      "reviewed_on": "2026-10-22",
+      "verification": "공식 자료에서 역할·사업 확인. 개별 이용 가능 여부는 별도 확인.",
+      "direct_phone_verified": true
+    },
+    {
+      "institution": "오산시 신장1동 행정복지센터",
+      "source_url": "https://www.osan.go.kr/main.do",
+      "reviewed_on": "2026-10-22",
+      "verification": "공식 자료에서 역할·사업 확인. 개별 이용 가능 여부는 별도 확인.",
+      "direct_phone_verified": true
+    },
+    {
+      "institution": "오산시 신장2동 행정복지센터",
+      "source_url": "https://www.osan.go.kr/main.do",
+      "reviewed_on": "2026-10-22",
+      "verification": "공식 자료에서 역할·사업 확인. 개별 이용 가능 여부는 별도 확인.",
+      "direct_phone_verified": true
+    },
+    {
+      "institution": "오산시 세마동 행정복지센터",
+      "source_url": "https://www.osan.go.kr/main.do",
+      "reviewed_on": "2026-10-22",
+      "verification": "공식 자료에서 역할·사업 확인. 개별 이용 가능 여부는 별도 확인.",
+      "direct_phone_verified": true
+    },
+    {
+      "institution": "오산시 초평동 행정복지센터",
+      "source_url": "https://www.osan.go.kr/main.do",
+      "reviewed_on": "2026-10-22",
+      "verification": "공식 자료에서 역할·사업 확인. 개별 이용 가능 여부는 별도 확인.",
+      "direct_phone_verified": true
+    },
+    {
+      "institution": "오산시 드림스타트",
+      "source_url": "https://www.osan.go.kr/main.do",
+      "reviewed_on": "2026-10-22",
+      "verification": "공식 자료에서 역할·사업 확인. 개별 이용 가능 여부는 별도 확인.",
+      "direct_phone_verified": true
+    },
+    {
+      "institution": "오산시사회복지협의회",
+      "source_url": "https://www.gg.go.kr/bbs/boardView.do?bIdx=218024475&bsIdx=496&menuId=3261&page=1",
+      "reviewed_on": "2026-10-22",
+      "verification": "공식 자료에서 역할·사업 확인. 개별 이용 가능 여부는 별도 확인.",
+      "direct_phone_verified": false
+    },
+    {
+      "institution": "오산시치매안심센터",
+      "source_url": "https://www.osan.go.kr/ostv/cast/viewer/board.do?key=1d70d0e98c9884a631f744996476ce2989f5a89079c35e96cbd016d44babcb3e31740822049d111d",
+      "reviewed_on": "2026-10-22",
+      "verification": "공식 자료에서 역할·사업 확인. 개별 이용 가능 여부는 별도 확인.",
+      "direct_phone_verified": true
+    },
+    {
+      "institution": "경기도 긴급복지 위기상담 콜센터",
+      "source_url": "https://www.gg.go.kr/contents/contents.do?ciIdx=1526&menuId=3451",
+      "reviewed_on": "2026-10-22",
+      "verification": "공식 자료에서 역할·사업 확인. 개별 이용 가능 여부는 별도 확인.",
+      "direct_phone_verified": true
+    },
+    {
+      "institution": "경기도정신건강복지센터",
+      "source_url": "https://www.mentalhealth.or.kr/MentalBusiness/BusinessContent.asp",
+      "reviewed_on": "2026-10-22",
+      "verification": "공식 자료에서 역할·사업 확인. 개별 이용 가능 여부는 별도 확인.",
+      "direct_phone_verified": false
+    },
+    {
+      "institution": "경기도재활공학서비스연구지원센터",
+      "source_url": "https://www.atrac.or.kr/main/main.html",
+      "reviewed_on": "2026-10-22",
+      "verification": "공식 자료에서 역할·사업 확인. 개별 이용 가능 여부는 별도 확인.",
+      "direct_phone_verified": false
+    },
+    {
+      "institution": "경기남부장애인권익옹호기관",
+      "source_url": "https://ggwf.gg.go.kr/wp-content/uploads/sites/30/2024/12/정책연구-2024-08_경기도-장애인권익옹호기관-운영-현황-및-개선방안.pdf",
+      "reviewed_on": "2026-10-22",
+      "verification": "공식 자료에서 역할·사업 확인. 개별 이용 가능 여부는 별도 확인.",
+      "direct_phone_verified": false
+    },
+    {
+      "institution": "경기도 젠더폭력 통합대응단(마주봄센터)",
+      "source_url": "https://www.gg.go.kr/contents/contents.do?ciIdx=1472&menuId=3302",
+      "reviewed_on": "2026-10-22",
+      "verification": "공식 자료에서 역할·사업 확인. 개별 이용 가능 여부는 별도 확인.",
+      "direct_phone_verified": false
+    },
+    {
+      "institution": "여성긴급전화1366 경기센터",
+      "source_url": "https://www.gg.go.kr/contents/contents.do?ciIdx=1470&menuId=3300",
+      "reviewed_on": "2026-10-22",
+      "verification": "공식 자료에서 역할·사업 확인. 개별 이용 가능 여부는 별도 확인.",
+      "direct_phone_verified": true
+    },
+    {
+      "institution": "경기남부해바라기센터",
+      "source_url": "https://www.gg.go.kr/contents/contents.do?ciIdx=1471&menuId=3301",
+      "reviewed_on": "2026-10-22",
+      "verification": "공식 자료에서 역할·사업 확인. 개별 이용 가능 여부는 별도 확인.",
+      "direct_phone_verified": true
+    },
+    {
+      "institution": "경기해바라기센터(아동)",
+      "source_url": "https://www.gg.go.kr/contents/contents.do?ciIdx=1471&menuId=3301",
+      "reviewed_on": "2026-10-22",
+      "verification": "공식 자료에서 역할·사업 확인. 개별 이용 가능 여부는 별도 확인.",
+      "direct_phone_verified": true
+    },
+    {
+      "institution": "아주대학교병원",
+      "source_url": "https://hosp.ajoumc.or.kr/",
+      "reviewed_on": "2026-10-22",
+      "verification": "공식 자료에서 역할·사업 확인. 개별 이용 가능 여부는 별도 확인.",
+      "direct_phone_verified": true
+    },
+    {
+      "institution": "한림대학교동탄성심병원",
+      "source_url": "https://dongtan.hallym.or.kr/",
+      "reviewed_on": "2026-10-22",
+      "verification": "공식 자료에서 역할·사업 확인. 개별 이용 가능 여부는 별도 확인.",
+      "direct_phone_verified": true
+    },
+    {
+      "institution": "분당서울대학교병원",
+      "source_url": "https://www.snubh.org/index.do",
+      "reviewed_on": "2026-10-22",
+      "verification": "공식 자료에서 역할·사업 확인. 개별 이용 가능 여부는 별도 확인.",
+      "direct_phone_verified": true
+    },
+    {
+      "institution": "경기도의료원 수원병원",
+      "source_url": "https://www.medical.or.kr/suwon/index.do",
+      "reviewed_on": "2026-10-22",
+      "verification": "공식 자료에서 역할·사업 확인. 개별 이용 가능 여부는 별도 확인.",
+      "direct_phone_verified": true
+    },
+    {
+      "institution": "대한법률구조공단",
+      "source_url": "https://www.klac.or.kr/",
+      "reviewed_on": "2026-10-22",
+      "verification": "공식 자료에서 역할·사업 확인. 개별 이용 가능 여부는 별도 확인.",
+      "direct_phone_verified": false
+    },
+    {
+      "institution": "신용회복위원회",
+      "source_url": "https://edu.ccrs.or.kr/main.do",
+      "reviewed_on": "2026-10-22",
+      "verification": "공식 자료에서 역할·사업 확인. 개별 이용 가능 여부는 별도 확인.",
+      "direct_phone_verified": true
+    },
+    {
+      "institution": "한국토지주택공사(LH) 마이홈",
+      "source_url": "https://m.myhome.go.kr/hws/portal/main/selectSimpleSrchDataView.do",
+      "reviewed_on": "2026-10-22",
+      "verification": "공식 자료에서 역할·사업 확인. 개별 이용 가능 여부는 별도 확인.",
+      "direct_phone_verified": true
+    },
+    {
+      "institution": "한국사회보장정보원 복지로",
+      "source_url": "https://www.bokjiro.go.kr/ssis-tbu/",
+      "reviewed_on": "2026-10-22",
+      "verification": "공식 자료에서 역할·사업 확인. 개별 이용 가능 여부는 별도 확인.",
+      "direct_phone_verified": false
+    },
+    {
+      "institution": "한국사회복지협의회",
+      "source_url": "https://www.bokji.net/ssn/bin/13.bokji",
+      "reviewed_on": "2026-10-22",
+      "verification": "공식 자료에서 역할·사업 확인. 개별 이용 가능 여부는 별도 확인.",
+      "direct_phone_verified": false
+    },
+    {
+      "institution": "한국장애인재단",
+      "source_url": "https://kfpd.org/51",
+      "reviewed_on": "2026-10-22",
+      "verification": "공식 자료에서 역할·사업 확인. 개별 이용 가능 여부는 별도 확인.",
+      "direct_phone_verified": false
+    },
+    {
+      "institution": "한국여성재단",
+      "source_url": "https://womenfund.or.kr/business",
+      "reviewed_on": "2026-10-22",
+      "verification": "공식 자료에서 역할·사업 확인. 개별 이용 가능 여부는 별도 확인.",
+      "direct_phone_verified": false
+    },
+    {
+      "institution": "함께하는 사랑밭",
+      "source_url": "https://www.withgo.or.kr/index.do",
+      "reviewed_on": "2026-10-22",
+      "verification": "공식 자료에서 역할·사업 확인. 개별 이용 가능 여부는 별도 확인.",
+      "direct_phone_verified": false
+    },
+    {
+      "institution": "하트-하트재단",
+      "source_url": "https://www.heart-heart.org/",
+      "reviewed_on": "2026-10-22",
+      "verification": "공식 자료에서 역할·사업 확인. 개별 이용 가능 여부는 별도 확인.",
+      "direct_phone_verified": false
+    },
+    {
+      "institution": "아이들과미래재단",
+      "source_url": "https://www.kidsfuture.or.kr/",
+      "reviewed_on": "2026-10-22",
+      "verification": "공식 자료에서 역할·사업 확인. 개별 이용 가능 여부는 별도 확인.",
+      "direct_phone_verified": false
+    },
+    {
+      "institution": "한국심장재단",
+      "source_url": "https://www.heart.or.kr/",
+      "reviewed_on": "2026-10-22",
+      "verification": "공식 자료에서 역할·사업 확인. 개별 이용 가능 여부는 별도 확인.",
+      "direct_phone_verified": false
+    },
+    {
+      "institution": "한국희귀·난치성질환연합회",
+      "source_url": "https://www.kord.or.kr/index.php",
+      "reviewed_on": "2026-10-22",
+      "verification": "공식 자료에서 역할·사업 확인. 개별 이용 가능 여부는 별도 확인.",
+      "direct_phone_verified": false
+    }
+  ],
+  "notes": [
+    "이전 동 행정복지센터 통합 ID는 공유링크 호환을 위해 원본에 보존하되 현재 서비스 검색에는 8개 동만 표시.",
+    "동별 직통번호를 추정하지 않음. 시청 경유 번호는 직통과 구분.",
+    "도움이 되는 역할·사업 존재와 당장 접수·선정 가능은 구분.",
+    "전국 범주에는 공공기관과 민간기관을 함께 표시. 원본 범주코드 민간은 기존 연계 호환을 위해 유지."
+  ]
+}

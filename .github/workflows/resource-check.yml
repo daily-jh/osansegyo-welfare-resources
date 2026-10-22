@@ -27,6 +27,8 @@ jobs:
         shell: bash
         run: |
           node tests/resource-search.cjs
+          node tests/institution-programs.cjs
+          node tests/resource-expansion.cjs
           for test in tests/youth-*.cjs; do node "$test"; done
       - name: Scheduled official URL response checks
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'

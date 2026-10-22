@@ -27,11 +27,25 @@ function describe(p,d,row){var a=p.answers,decision=context(p),profile=profiles.
 var order=profile?profile[3]:3;if(row['기관명']==='오산시정신건강복지센터'&&!safety&&max<3)order=2;if(row['서비스명']==='긴급복지지원 상담'&&!critical)order=3;if(row['서비스명']==='청소년안전망·청소년동반자 연계'&&((decision.integrated&&!d.critical&&!d.safety)||(d.i===9&&d.safety)))order=0;if(row['서비스명']==='위기학생 지역전문기관 연계'&&(decision.integrated&&!d.critical&&!d.safety))order=0;
 var label=safety?'안전과 전문지원 먼저':critical?'생활·건강부터 살피기':max>=3?'생활의 어려움부터 돕기':max>=2?'반복되는 어려움 돕기':'관찰·상담 문의';var reason=profile?profile[4]:'학생에게 필요한 도움을 이 사업에서 받을 수 있는지 상담해 보세요';if(decision.integrated&&/사례관리|청소년안전망|지역전문기관/.test(row['서비스명']))reason+=' · 여러 어려움을 함께 도울 방법을 문의해 보세요';return {evidence,max,safety,critical,order,fit,label,reason,condition:profile?profile[5]:/장애|발달/.test(t)?'연령·진단·등록·서비스 필요 등 실제 대상 조건 문의':'실제 대상·관할·비용·운영·접수 조건 문의'}}
 function identity(value){return String(value||'').normalize('NFKC').replace(/\s+/g,'').toLowerCase()}
+// No address is collected here. Present a residence-based route, never pick a dong.
+function routingResources(resources){
+ var dongs=resources.filter(r=>/^오산시 (중앙동|대원[12]동|남촌동|신장[12]동|세마동|초평동) 행정복지센터$/.test(r['기관명']||''));
+ if(!dongs.length)return resources;
+ var options=Array.from(new Set(dongs.map(r=>r['기관명']))).sort(),services=new Map();
+ dongs.forEach(r=>{if(!services.has(r['서비스명']))services.set(r['서비스명'],Object.assign({},r,{
+  '기관명':'오산시 동 행정복지센터','기관소개':'거주지 관할 동을 먼저 확인해 8개 동 중 해당 창구로 연결합니다.',
+  '홈페이지':'https://daily-jh.github.io/osansegyo-welfare-resources/#org=438b636f15',
+  '지원대상':'오산시 주민 중 해당 제도 상담이 필요한 가구 · 거주지 관할 확인',
+  '신청·연계방법':'거주지 관할 동을 먼저 확인하세요. 자원 안내에서 8개 동을 각각 확인할 수 있습니다. 031-8036-8036은 시청 대표전화이며 동 직통전화가 아닙니다.',
+  dongOptions:options
+ }))});
+ return resources.filter(r=>!dongs.includes(r)).concat(Array.from(services.values()));
+}
 function groupedCandidates(p,d){
  if(!d.sum)return [];
  var economic=[19,20,21].some(n=>p.answers[n-1]>0),blocked=/예방 및 유관기관 협력|배움터 교육지원|발달장애인 평생교육|직업지원|노인·장애인 공적돌봄|한부모·다문화|아이돌봄서비스/;
  var allowed=new Set(p.routes[d.i].map(identity));
- var rows=p.resources.filter(r=>allowed.has(identity(r['기관명']))&&typeof r['서비스명']==='string'&&r['서비스명'].trim()&&!blocked.test(r['서비스명'])&&(!/장학|교육지원 공모/.test(r['서비스명'])||economic));
+ var rows=routingResources(p.resources).filter(r=>allowed.has(identity(r['기관명']))&&typeof r['서비스명']==='string'&&r['서비스명'].trim()&&!blocked.test(r['서비스명'])&&(!/장학|교육지원 공모/.test(r['서비스명'])||economic));
  var seen=new Set();
  rows=rows.filter(r=>{
   var key=identity(r['기관명'])+'|'+identity(r['서비스명']);if(seen.has(key))return false;seen.add(key);
@@ -47,5 +61,5 @@ function groupedCandidates(p,d){
  return Array.from(groups.values()).slice(0,6);
 }
 function candidates(p,d){return groupedCandidates(p,d).map(group=>group.primary)}
-var api={labels,validate,domains,rank,candidates,groupedCandidates,context,describe};if(typeof module!=='undefined')module.exports=api;else root.YouthMap=api;
+var api={routingResources,labels,validate,domains,rank,candidates,groupedCandidates,context,describe};if(typeof module!=='undefined')module.exports=api;else root.YouthMap=api;
 })(typeof window!=='undefined'?window:globalThis);
