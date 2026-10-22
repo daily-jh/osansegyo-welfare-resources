@@ -18,3 +18,4 @@ body.map-page{font-family:var(--map-font);font-size:17px;line-height:1.7;color:v
 @page{size:A4 landscape;margin:10mm}
 
 .map-header{flex-wrap:wrap}.map-brand{margin-right:auto}
+.plan-bridge{display:flex;align-items:center;gap:24px;flex-wrap:wrap;background:linear-gradient(135deg,#f5f9ff,#ecf2fa)}.plan-bridge>div{flex:1;min-width:220px}.plan-bridge h2{margin:7px 0 12px}.plan-bridge>p{flex-basis:100%;margin:0}.referral-direction{border-top:1px solid #d8e4ef;margin-top:16px;padding-top:4px}.referral-direction p:last-child{font-size:13px;color:#4c6883}

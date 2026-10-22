@@ -246,7 +246,7 @@ var domainScores=domains.map(function(d,i){return sumKnown(domainAnswers(i))});
 var explicit=getUrgent(),inferred=inferredSignals();
 var urgent=explicit.length>0||inferred.length>0;
 var decision=YouthCriteria.evaluate(answers,domains.map(function(d){return d.items.length}),explicit.length>0,followupState());var rank=decision.level;
-if(decision.incomplete){YouthPartial.render(snapshot(),decision);resizeSummary();renderResources(domainScores);$("openSupport").disabled=false;$("openWorkbench").disabled=false;$("openWorkbench").disabled=false;$("supportStatus").textContent='미상 표시를 유지한 잠정 연결지도를 볼 수 있습니다.';updateCopyGate();$("result").scrollIntoView({behavior:'smooth',block:'start'});return;}
+if(decision.incomplete){YouthPartial.render(snapshot(),decision);resizeSummary();renderResources(domainScores);$("openSupport").disabled=false;$("openWorkbench").disabled=false;$("supportStatus").textContent='미상 표시를 유지한 잠정 연결지도를 볼 수 있습니다.';updateCopyGate();$("result").scrollIntoView({behavior:'smooth',block:'start'});return;}
 var who=$("studentName").value.trim(),heading=decision.title;
 var html='<div class="result-main'+(urgent?' urgent':'')+'"><span class="eyebrow">TEST 평가결과'+(who?' · '+clean(who):'')+'</span><div class="sum">'+total+'<small> / 100점</small></div><h3>'+clean(heading)+'</h3><p>'+clean(urgent?"선택된 안전신호가 우선입니다. 점수 산출을 기다리지 말고 필요한 긴급조치를 실시하세요.":decision.description)+'</p><p class="sub">'+clean(decision.reason)+'<br><a href="criteria.html">판정 기준·문항별 우선순위 보기</a></p></div>';
 html+='<div class="routes">'+interventionPlan(decision,YouthInsights.analyze(answers)).map(function(p){return '<article class="route"><h4>'+clean(p.title)+'</h4><p>'+clean(p.text)+'</p></article>'}).join('')+'</div>';
