@@ -24,7 +24,7 @@ function merge(data,feed){
   if(seen.has(key)||o.services.some(s=>s.externalProgram&&s.source===p.sourceUrl&&s.name===p.title))continue;
   seen.add(key);
   const tags=Object.fromEntries(['target','need','form','intake'].map(axis=>[axis,Array.isArray(p.tags?.[axis])?p.tags[axis].filter(t=>data.taxonomy[axis]?.includes(t)):[]]));
-  o.services.unshift({id:'PROGRAM-'+String(p.id||count),name:p.title,category:p.category||'기관별 모집사업',target:p.target||'원문 확인 필요',description:p.summary||'',method:p.method||'공고 원문에서 신청방법 확인',operation:p.periodText||'접수기간 원문 확인',editedOn:p.verifiedOn,tags,operationType:p.status==='상시'?'상시':'공모형',localAvailable:p.localAvailable||'확인 필요',source:p.sourceUrl,verification:{status:'확인완료',date:p.verifiedOn,method:'공고 원문 확인',by:'자료 관리자',next:''},contacts:[],rounds:[],externalProgram:p});
+  o.services.unshift({id:'PROGRAM-'+String(p.id||count),name:p.title,category:p.category||'기관별 모집사업',target:p.target||'원문 확인 필요',description:p.summary||'',method:p.method||'공고 원문에서 신청방법 확인',operation:p.periodText||'접수기간 원문 확인',editedOn:p.verifiedOn,tags,operationType:p.status==='상시'?'상시':'공모형',localAvailable:p.localAvailable||'확인 필요',source:p.sourceUrl,verification:{status:p.evidenceType==='user_screenshot'?'미확인':'확인완료',date:p.verifiedOn,method:p.evidenceType==='user_screenshot'?'이용자 제공 목록 캡처 확인':'공고 원문 확인',by:'자료 관리자',next:''},contacts:[],rounds:[],externalProgram:p});
   count++;
  }
  return count;

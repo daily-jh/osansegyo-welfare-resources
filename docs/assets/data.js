@@ -5007,6 +5007,84 @@ window.WELFARE_DATA = {
         "source_url": "https://www.kclf.org/",
         "verified_on": "2026-10-22"
       }
+    },
+    {
+      "id": "90d0406e33",
+      "name": "햇살마루도서관",
+      "level": "오산시",
+      "kind": "도서관",
+      "summary": "웰인포 목록 캡처에서 어린이 독서·문해력 프로그램이 확인된 오산시 도서관.",
+      "site": "",
+      "phone": "",
+      "source": "https://osan.welinfo.kr/?board=programList",
+      "reviewed": "",
+      "status": "미확인",
+      "services": [],
+      "contact": {
+        "contact_id": "CON-90d0406e33",
+        "owner_type": "organization",
+        "owner_id": "90d0406e33",
+        "dept": "",
+        "phone": "",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://osan.welinfo.kr/?board=programList",
+        "verified_on": ""
+      }
+    },
+    {
+      "id": "b66a287ba5",
+      "name": "오산아이드림센터",
+      "level": "오산시",
+      "kind": "아동 놀이체험시설",
+      "summary": "영유아·아동 대상 놀이체육·만들기·미술·요리 체험 프로그램 운영 기관.",
+      "site": "https://www.osanidream.or.kr/",
+      "phone": "031-374-5540",
+      "source": "https://osan.welinfo.kr/?board=programList",
+      "reviewed": "",
+      "status": "미확인",
+      "services": [],
+      "contact": {
+        "contact_id": "CON-b66a287ba5",
+        "owner_type": "organization",
+        "owner_id": "b66a287ba5",
+        "dept": "",
+        "phone": "031-374-5540",
+        "fax": "031-374-5542",
+        "email": "osanidream@osanidream.or.kr",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.osanidream.or.kr/play/play_list.asp?page=2",
+        "verified_on": "2026-10-22"
+      }
+    },
+    {
+      "id": "4cd8235704",
+      "name": "오산시육아종합지원센터",
+      "level": "오산시",
+      "kind": "육아지원기관",
+      "summary": "영유아 가정과 보육기관을 위한 육아·놀이·부모교육 지원 기관.",
+      "site": "https://www.osanchild.or.kr/",
+      "phone": "",
+      "source": "https://osan.welinfo.kr/?board=programList",
+      "reviewed": "",
+      "status": "미확인",
+      "services": [],
+      "contact": {
+        "contact_id": "CON-4cd8235704",
+        "owner_type": "organization",
+        "owner_id": "4cd8235704",
+        "dept": "",
+        "phone": "",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://osan.welinfo.kr/?board=programList",
+        "verified_on": ""
+      }
     }
   ]
 };
