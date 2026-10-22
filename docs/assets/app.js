@@ -1,83 +1,65 @@
 /* © 2026 오산세교종합사회복지관 김지훈 팀장. All rights reserved. */
 (() => {
   'use strict';
-  const data = window.WELFARE_DATA;
-  if (!data || !Array.isArray(data.organizations)) { document.getElementById('resultGrid').textContent = '데이터 파일을 읽지 못했습니다. 관리자에게 문의해 주세요.'; return; }
-  const all = data.organizations;
-  const state = { level:'전체', category:'전체', keyword:'', audience:'', onlyFavorites:false, sort:'relevance', limit:8, opened:new Set() };
-  const $ = sel => document.querySelector(sel);
-  const resultGrid=$('#resultGrid'), empty=$('#emptyState'), more=$('#loadMore');
-  const escapeHtml = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const cleanText = s => String(s || '').toLocaleLowerCase('ko').normalize('NFKC').replace(/[\s\u200b\u00a0]+/g,'');
-  const url = value => /^https?:\/\//i.test(value || '') ? value : '';
-  const norm = s => cleanText(s);
-  const textSearch = o => [o.name,o.level,o.kind,o.summary,...o.services.flatMap(s=>[s.name,s.category,s.target,s.description,s.method])].join(' ');
-  const searchCache = new Map(all.map(o=>[o.id,norm(textSearch(o))]));
-  const STORE = 'osansegyo_resource_favorites_v1';
-  let favorites = new Set();
-  try { const stored=JSON.parse(localStorage.getItem(STORE)||'[]'); if(Array.isArray(stored)) favorites=new Set(stored); } catch(e) { /* private mode: favorites remain in session */ }
-  const categories=['전체','경제·긴급','사례관리','가족·아동','교육·청소년','보건·의료','정신건강','주거','돌봄·생활','장애인','노인','취업·자립','법률·금융','지역협력'];
-  const quicks=['의료비','위기가정','중학생','장애아동','주거지원','자립','한부모'];
-  const audienceMatch = (o, a) => {
-    if(!a) return true;
-    const variants={ '어르신':['어르신','노인','고령'], '기관':['기관','종사자','실무자','시설'], '청소년':['청소년','학생','중고생','학교'], '가족':['가족','한부모','양육'], '아동':['아동','어린이','영유아'], '장애':['장애','발달'], '위기':['위기','취약','저소득'] }[a] || [a];
-    return o.services.some(s=>variants.some(v=>norm(s.target).includes(norm(v)))) || variants.some(v=>norm(o.summary).includes(norm(v)));
-  };
-  const matchOrg = o => {
-    if(state.level!=='전체'&&o.level!==state.level) return false;
-    if(state.category!=='전체'&&!o.services.some(s=>s.category===state.category)) return false;
-    if(state.keyword && !searchCache.get(o.id).includes(norm(state.keyword))) return false;
-    if(!audienceMatch(o,state.audience))return false;
-    if(state.onlyFavorites&&!favorites.has(o.id))return false;
-    return true;
-  };
-  function rank(o){const q=norm(state.keyword);if(!q)return 0;const name=norm(o.name);if(name===q)return 8;if(name.includes(q))return 5;return o.services.filter(s=>norm(s.name).includes(q)).length*3;}
-  function visibleOrgs(){const filtered=all.filter(matchOrg);if(state.sort==='name')filtered.sort((a,b)=>a.name.localeCompare(b.name,'ko'));else if(state.sort==='services')filtered.sort((a,b)=>b.services.length-a.services.length||a.name.localeCompare(b.name,'ko'));else if(state.keyword)filtered.sort((a,b)=>rank(b)-rank(a)||a.name.localeCompare(b.name,'ko'));return filtered;}
-  const serviceScore=s=>{
-    let score=0;
-    if(state.category!=='전체'&&s.category===state.category)score+=3;
-    if(state.keyword&&norm([s.name,s.category,s.target,s.description].join(' ')).includes(norm(state.keyword)))score+=6;
-    if(state.audience&&norm(s.target).includes(norm(state.audience)))score+=2;
-    return score;
-  };
-  function getOrgCard(o){const isOpen=state.opened.has(o.id), isFav=favorites.has(o.id);
-    const svc=[...o.services].sort((a,b)=>serviceScore(b)-serviceScore(a));
-    const tagHTML=svc.slice(0,4).map(s=>`<span class="service-tag ${serviceScore(s)>0?'highlight':''}">${escapeHtml(s.name)}</span>`).join('')+(svc.length>4?`<span class="service-tag">+${svc.length-4}개</span>`:'');
-    const detailHTML=isOpen? `<div class="org-details" id="details-${o.id}"><div class="detail-heading">제공 서비스 · ${svc.length}개</div>${svc.map(s=>`<div class="service-detail"><div class="detail-top"><span class="detail-title">${escapeHtml(s.name)}</span><span class="detail-cat">${escapeHtml(s.category)}</span></div><p class="detail-desc">${escapeHtml(s.description)}</p><div class="detail-meta"><span><b>지원대상</b>${escapeHtml(s.target)}</span></div><div class="detail-meta"><span><b>신청·연계</b>${escapeHtml(s.method)}</span><span class="status-note">${escapeHtml(s.operation)}</span></div></div>`).join('')}<div class="detail-warning">※ 지원자격·접수기간·예산·운영여부는 연계 전에 해당 기관의 최신 공고 또는 담당자에게 확인해 주세요.</div><div class="detail-links">${url(o.site)?`<a href="${escapeHtml(url(o.site))}" target="_blank" rel="noopener noreferrer">공식 홈페이지 ↗</a>`:''}${url(o.source)&&o.source!==o.site?`<a href="${escapeHtml(url(o.source))}" target="_blank" rel="noopener noreferrer">참고 출처 ↗</a>`:''}<button type="button" class="share-link" data-action="share" data-id="${o.id}">기관 링크 복사 ↗</button></div>${o.phone?`<div class="detail-meta" style="margin-top:12px"><b>대표전화</b> ${escapeHtml(o.phone)}</div>`:''}</div>` : '';
-    const cls={오산시:'osan',경기도:'gyeonggi',민간:'private'}[o.level];
-    return `<article class="org-card ${isOpen?'expanded':''}" id="org-${o.id}"><div class="org-upper"><div class="org-type"><span class="region-label ${cls}">${escapeHtml(o.level==='민간'?'전국 민간':o.level)}</span><span class="type-label">${escapeHtml(o.kind)}</span></div><button class="star-button ${isFav?'active':''}" aria-label="${escapeHtml(o.name)} 즐겨찾기 ${isFav?'해제':'추가'}" aria-pressed="${isFav}" title="즐겨찾기" type="button" data-action="favorite" data-id="${o.id}">${isFav?'★':'☆'}</button></div><h3 class="org-name">${escapeHtml(o.name)}</h3><p class="org-summary">${escapeHtml(o.summary)}</p><div class="service-label"><strong>지원서비스</strong><span>주요 서비스</span></div><div class="tag-cloud">${tagHTML}</div><div class="card-footer"><span class="service-total">등록 서비스 <strong>${o.services.length}</strong>개</span><button class="expand-button" type="button" data-action="open" data-id="${o.id}" aria-expanded="${isOpen}" aria-controls="details-${o.id}">${isOpen?'접기':'상세 보기'} <span class="chevron">⌄</span></button></div>${detailHTML}</article>`;
+  const $=s=>document.querySelector(s), model=window.ResourceSearch, data=window.WELFARE_DATA;
+  if(!model||!data||!Array.isArray(data.organizations))return;
+  const all=data.organizations, selected=new Set(), STORE='osansegyo_resource_favorites_v1';
+  const defaults={level:'전체',need:'',audience:'',keyword:'',kind:'',form:'',intake:'',local:'',operation:'',verified:'',application:'',onlyFavorites:false,sort:'relevance'};
+  const state={...defaults,limit:8,opened:new Set()};
+  let favorites=new Set();
+  try{const a=JSON.parse(localStorage.getItem(STORE)||'[]');if(Array.isArray(a))favorites=new Set(a)}catch{}
+  const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const safe=s=>/^https?:\/\//i.test(s||'')?s:'';
+  const options=(values,first)=>`<option value="">${first}</option>`+values.map(v=>`<option>${esc(v)}</option>`).join('');
+  const filters={audience:'audienceFilter',kind:'kindFilter',form:'formFilter',intake:'intakeFilter',local:'localFilter',operation:'operationFilter',verified:'verificationFilter',application:'applicationFilter'};
+  $('#audienceFilter').innerHTML=options(data.taxonomy.target,'전체 대상');
+  $('#kindFilter').innerHTML=options([...new Set(all.map(o=>o.kind))].sort((a,b)=>a.localeCompare(b,'ko')),'전체 기관유형');
+  $('#formFilter').innerHTML=options(data.taxonomy.form,'전체 지원형태');
+  $('#intakeFilter').innerHTML=options(data.taxonomy.intake,'전체 접수경로');
+  const services=o=>o.services.filter(s=>model.matchesService(o,s,state));
+  const matched=o=>!['중단','폐지'].includes(o.status)&&(state.level==='전체'||o.level===state.level)&&(!state.kind||o.kind===state.kind)&&(!state.onlyFavorites||favorites.has(o.id))&&services(o).length;
+  function rank(o){const q=model.norm(state.keyword);if(!q)return 0;const name=model.norm(o.name);return name===q?8:name.includes(q)?5:services(o).filter(s=>model.queryMatch(s.name,state.keyword)).length*3}
+  function visible(){const list=all.filter(matched);if(state.sort==='name')list.sort((a,b)=>a.name.localeCompare(b.name,'ko'));else if(state.sort==='services')list.sort((a,b)=>services(b).length-services(a).length||a.name.localeCompare(b.name,'ko'));else if(state.keyword)list.sort((a,b)=>rank(b)-rank(a)||a.name.localeCompare(b.name,'ko'));return list}
+  const filtered=()=>Object.keys(defaults).some(k=>!['sort','onlyFavorites','level','kind'].includes(k)&&state[k]!==defaults[k]);
+  function serviceHTML(s){const v=s.verification, app=model.applicationState(s);
+    return `<section class="service-detail"><div class="detail-top"><h4 class="detail-title">${esc(s.name)}</h4><span class="detail-cat">${esc(s.category)}</span></div><p class="detail-desc">${esc(s.description)}</p><div class="tag-cloud">${s.tags.need.concat(s.tags.target).map(t=>`<span class="service-tag">${esc(t)}</span>`).join('')}</div><p><b>지원대상</b> ${esc(s.target)}</p><p><b>신청·연계</b> ${esc(s.method)} · ${esc(s.operation)}</p><p><b>운영형태</b> ${esc(s.operationType)} · <b>오산 접수</b> ${esc(s.localAvailable)}${s.operationType==='공모형'?` · <b>공모 접수</b> ${esc(app)}`:''}</p><p class="verification"><span class="verification-badge ${v.status==='확인완료'?'verified':''}">${esc(v.status)}</span> 실제 확인일: ${esc(v.date||'미기록')}${v.date?` · ${esc(v.method)} · ${esc(v.by)}`:''}${v.next?` · 다음 점검: ${esc(v.next)}`:''}<br/>자료 정리일: ${esc(s.editedOn||'미기록')} (운영 확인일과 다름)</p>${(s.contacts||[]).map(c=>`<p><b>접수창구</b> ${esc(c.dept||'공개 부서 미기재')} · ${esc(c.phone||'전화 미기재')} · ${esc(c.hours||'운영시간 확인 필요')}</p>`).join('')}${s.rounds.map(r=>`<p><b>${esc(r.name)}</b> ${esc(r.opens_on||'시작 미확인')} ~ ${esc(r.closes_on||'마감 미확인')} · ${esc(model.roundState(r))}</p>`).join('')}${safe(s.source)?`<a class="source-link" href="${esc(s.source)}" target="_blank" rel="noopener noreferrer">등록 근거 보기 ↗</a>`:''}</section>`;
   }
-  function drawCategories(){const available =new Set(all.filter(o=>state.level==='전체'||o.level===state.level).flatMap(o=>o.services.map(s=>s.category)));$('#categoryFilters').innerHTML=categories.filter(c=>c==='전체'||available.has(c)).map(c=>`<button type="button" data-category="${escapeHtml(c)}" class="${state.category===c?'active':''}" aria-pressed="${state.category===c}">${escapeHtml(c)}</button>`).join('');}
-  function render(){const orgs=visibleOrgs();$('#resultCount').textContent=orgs.length;$('#serviceResultCount').textContent=`· 등록 서비스 ${orgs.reduce((n,o)=>n+o.services.length,0)}개`;
-    resultGrid.innerHTML=orgs.slice(0,state.limit).map(getOrgCard).join('');empty.hidden=orgs.length!==0;more.hidden=orgs.length<=state.limit;
-    $('#favoritesOnly').checked=state.onlyFavorites;$('#sortSelect').value=state.sort;$('#audienceFilter').value=state.audience;
-    document.querySelectorAll('#regionTabs [data-level]').forEach(btn=>{btn.classList.toggle('selected',btn.dataset.level===state.level);btn.setAttribute('aria-pressed',String(btn.dataset.level===state.level));});
-    drawCategories();
+  function card(o){const open=state.opened.has(o.id), svcs=services(o), fav=favorites.has(o.id), cls={오산시:'osan',경기도:'gyeonggi',민간:'private'}[o.level];
+    return `<article class="org-card ${open?'expanded':''}" id="org-${esc(o.id)}"><div class="org-upper"><div class="org-type"><span class="region-label ${cls}">${esc(o.level==='민간'?'전국 민간':o.level)}</span><span class="type-label">${esc(o.kind)}</span></div><button class="star-button ${fav?'active':''}" data-action="favorite" data-id="${o.id}" type="button" aria-label="${esc(o.name)} 즐겨찾기 ${fav?'해제':'추가'}" aria-pressed="${fav}">${fav?'★':'☆'}</button></div><h3 class="org-name">${esc(o.name)}</h3><p class="org-summary">${esc(o.summary)}</p><p class="status-note">${o.services.every(s=>s.verification.status==='확인완료')?'서비스별 확인 내역을 확인하세요.':'운영·접수 미확인 정보 포함 · 연계 전 확인 필요'}</p><div class="tag-cloud">${svcs.slice(0,4).map(s=>`<span class="service-tag">${esc(s.name)}</span>`).join('')}${svcs.length>4?`<span class="service-tag">+${svcs.length-4}개</span>`:''}</div><div class="card-footer"><span class="service-total">${filtered()?'조건 일치':'등록'} 서비스 <strong>${svcs.length}</strong>개 / 전체 ${o.services.length}개</span><button class="expand-button" data-action="open" data-id="${o.id}" type="button" aria-expanded="${open}"${open?` aria-controls="details-${o.id}"`:''}>${open?'접기':'상세 보기'} ⌄</button></div><label class="print-choice"><input type="checkbox" data-action="select" data-id="${o.id}" ${selected.has(o.id)?'checked':''}/> 연계 시트 선택</label>${open?`<div class="org-details" id="details-${o.id}"><div class="detail-heading">${filtered()?'조건에 일치한':'제공'} 서비스 · ${svcs.length}개</div>${svcs.map(serviceHTML).join('')}<p><b>대표전화</b> ${esc(o.phone||'미기재 · 공식 안내에서 확인 필요')}</p><div class="detail-links">${safe(o.site)?`<a href="${esc(o.site)}" target="_blank" rel="noopener noreferrer">등록 홈페이지 ↗</a>`:''}<button type="button" class="share-link" data-action="share" data-id="${o.id}">기관 링크 복사 ↗</button></div><p class="detail-warning">선정기준·접수기간·관할·예산은 해당 기관에 직접 확인해 주세요.</p></div>`:''}</article>`;
   }
-  const refresh=()=>{state.limit=8;render();};
-  let toastTimer;
-  function toast(message){const t=$('#toast');t.textContent=message;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2800);}
-  $('#statOrgs').textContent=all.length;$('#statServices').textContent=all.reduce((n,o)=>n+o.services.length,0);
-  $('#quickTags').innerHTML=quicks.map(q=>`<button type="button" class="quick-tag" data-query="${escapeHtml(q)}"># ${escapeHtml(q)}</button>`).join('');
-  $('#quickTags').addEventListener('click',e=>{const b=e.target.closest('[data-query]');if(!b)return;state.keyword=b.dataset.query;$('#keyword').value=state.keyword;refresh();});
-  $('#searchForm').addEventListener('submit',e=>{e.preventDefault();state.keyword=$('#keyword').value.trim();refresh();});
-  $('#keyword').addEventListener('input',e=>{state.keyword=e.target.value.trim();refresh();});
-  $('#regionTabs').addEventListener('click',e=>{const b=e.target.closest('[data-level]');if(!b)return;state.level=b.dataset.level;state.category='전체';refresh();});
-  $('#categoryFilters').addEventListener('click',e=>{const b=e.target.closest('[data-category]');if(!b)return;state.category=b.dataset.category;refresh();});
-  $('#audienceFilter').addEventListener('change',e=>{state.audience=e.target.value;refresh();});
-  $('#favoritesOnly').addEventListener('change',e=>{state.onlyFavorites=e.target.checked;refresh();});
-  $('#sortSelect').addEventListener('change',e=>{state.sort=e.target.value;refresh();});
-  function reset(){Object.assign(state,{level:'전체',category:'전체',keyword:'',audience:'',onlyFavorites:false,sort:'relevance',limit:8});$('#keyword').value='';render();}
+  function render(){const list=visible();$('#resultCount').textContent=list.length;$('#serviceResultCount').textContent=`· ${filtered()?'조건 일치':'등록'} 서비스 ${list.reduce((n,o)=>n+services(o).length,0)}개`;
+    $('#resultGrid').innerHTML=list.slice(0,state.limit).map(card).join('');$('#emptyState').hidden=!!list.length;$('#loadMore').hidden=list.length<=state.limit;
+    $('#favoritesOnly').checked=state.onlyFavorites;$('#sortSelect').value=state.sort;
+    for(const [key,id] of Object.entries(filters))$('#'+id).value=state[key];
+    document.querySelectorAll('#regionTabs [data-level]').forEach(b=>{const on=b.dataset.level===state.level;b.classList.toggle('selected',on);b.setAttribute('aria-pressed',on)});
+    $('#categoryFilters').innerHTML=['',...data.taxonomy.need].map(t=>`<button type="button" data-need="${esc(t)}" class="${state.need===t?'active':''}" aria-pressed="${state.need===t}">${esc(t||'전체')}</button>`).join('');
+    $('#printCount').textContent=selected.size;$('#printSheet').disabled=!selected.size;
+    $('#loadStatus').hidden=true;
+  }
+  const refresh=()=>{state.limit=8;render()};
+  let toastTimer;function toast(msg){$('#toast').textContent=msg;$('#toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').classList.remove('show'),3000)}
+  $('#quickTags').innerHTML=['의료비','위기가정','청소년','장애아동','주거지원','자립','한부모'].map(q=>`<button type="button" class="quick-tag" data-query="${q}"># ${q}</button>`).join('');
+  $('#quickTags').addEventListener('click',e=>{const b=e.target.closest('[data-query]');if(b){state.keyword=b.dataset.query;$('#keyword').value=state.keyword;refresh()}});
+  $('#searchForm').addEventListener('submit',e=>{e.preventDefault();state.keyword=$('#keyword').value.trim();refresh()});
+  $('#keyword').addEventListener('input',e=>{state.keyword=e.target.value.trim();refresh()});
+  $('#regionTabs').addEventListener('click',e=>{const b=e.target.closest('[data-level]');if(b){state.level=b.dataset.level;refresh()}});
+  $('#categoryFilters').addEventListener('click',e=>{const b=e.target.closest('[data-need]');if(b){state.need=b.dataset.need;refresh()}});
+  for(const [key,id] of Object.entries(filters))$('#'+id).addEventListener('change',e=>{state[key]=e.target.value;refresh()});
+  $('#favoritesOnly').addEventListener('change',e=>{state.onlyFavorites=e.target.checked;refresh()});
+  $('#sortSelect').addEventListener('change',e=>{state.sort=e.target.value;refresh()});
+  function reset(){Object.assign(state,defaults);$('#keyword').value='';refresh()}
   $('#resetFilters').addEventListener('click',reset);$('#emptyReset').addEventListener('click',reset);
-  $('#loadMore').addEventListener('click',()=>{state.limit+=8;render();});
-  resultGrid.addEventListener('click',async e=>{const b=e.target.closest('[data-action]');if(!b)return;const id=b.dataset.id;const org=all.find(o=>o.id===id);if(!org)return;
-    if(b.dataset.action==='favorite'){if(favorites.has(id))favorites.delete(id);else favorites.add(id);try{localStorage.setItem(STORE,JSON.stringify([...favorites]));}catch(_e){}render();toast(favorites.has(id)?'즐겨찾기에 추가했습니다.':'즐겨찾기에서 제외했습니다.');}
-    if(b.dataset.action==='open'){if(state.opened.has(id))state.opened.delete(id);else state.opened.add(id);render();if(state.opened.has(id))document.getElementById('org-'+id)?.scrollIntoView({behavior:'smooth',block:'nearest'});}
-    if(b.dataset.action==='share'){const deepLink=new URL(window.location.href);deepLink.hash='org='+id;try{await navigator.clipboard.writeText(deepLink.toString());toast('기관 링크를 복사했습니다.');}catch(_e){toast('복사할 수 없습니다. 브라우저 주소를 복사해 주세요.');}}
+  $('#loadMore').addEventListener('click',()=>{state.limit+=8;render()});
+  $('#resultGrid').addEventListener('click',async e=>{const b=e.target.closest('[data-action]');if(!b)return;const id=b.dataset.id,o=all.find(o=>o.id===id);if(!o)return;
+    if(b.dataset.action==='favorite'){if(favorites.has(id))favorites.delete(id);else favorites.add(id);try{localStorage.setItem(STORE,JSON.stringify([...favorites]))}catch{}render();toast(favorites.has(id)?'즐겨찾기에 추가했습니다.':'즐겨찾기에서 제외했습니다.')}
+    if(b.dataset.action==='open'){if(state.opened.has(id))state.opened.delete(id);else state.opened.add(id);render();const next=$(`#org-${id} .expand-button`);next?.focus({preventScroll:true})}
+    if(b.dataset.action==='share'){const u=new URL(location.href);u.hash='org='+id;try{await navigator.clipboard.writeText(u.toString());toast('기관 링크를 복사했습니다.')}catch{toast('브라우저 주소를 복사해 주세요.')}}
+    if(b.dataset.action==='select'){if(selected.has(id))selected.delete(id);else if(selected.size<5)selected.add(id);else{b.checked=false;toast('최대 5개 기관까지 선택할 수 있습니다.')}$('#printCount').textContent=selected.size;$('#printSheet').disabled=!selected.size}
   });
-  function openDeepLink(){const id=location.hash.replace(/^#org=/,'');if(!id||!all.some(o=>o.id===id))return;
-    state.level='전체';state.category='전체';state.keyword='';state.audience='';state.onlyFavorites=false;state.sort='relevance';
-    $('#keyword').value='';state.opened.add(id);const idx=all.findIndex(o=>o.id===id);
-    state.limit=Math.max(8,idx+1);render();requestAnimationFrame(()=>document.getElementById('org-'+id)?.scrollIntoView({block:'center'}));}
+  $('#clearPrint').addEventListener('click',()=>{selected.clear();render()});
+  $('#printSheet').addEventListener('click',()=>{
+    $('#printArea').innerHTML=`<h1>복지자원 연계 확인 시트</h1><p>출력일 ${esc(model.today())} · 기관 ${selected.size}곳 · 신청 가능 여부는 직접 확인해 주세요.</p>`+all.filter(o=>selected.has(o.id)).map(o=>`<section><h2>${esc(o.name)}</h2><p>대표전화: ${esc(o.phone||'미기재 · 확인 필요')}<br/>등록 홈페이지: ${esc(o.site||'미기재')}</p>${o.services.map(s=>`<p><b>${esc(s.name)}</b> · ${esc(s.target)}<br/>신청·연계: ${esc(s.method)}<br/>검증: ${esc(s.verification.status)} / 실제 확인일 ${esc(s.verification.date||'미기록')}</p>`).join('')}<p>□ 관할·대상 확인　□ 접수기간 확인　□ 담당창구 확인　□ 이용 의사 확인</p></section>`).join('');window.print();
+  });
+  function openDeepLink(){const id=location.hash.replace(/^#org=/,'');if(!all.some(o=>o.id===id))return;Object.assign(state,defaults);$('#keyword').value='';state.opened.add(id);state.limit=Math.max(8,all.findIndex(o=>o.id===id)+1);render();requestAnimationFrame(()=>$('#org-'+id)?.scrollIntoView({block:'center'}))}
   render();if(location.hash.startsWith('#org='))openDeepLink();window.addEventListener('hashchange',openDeepLink);
 })();

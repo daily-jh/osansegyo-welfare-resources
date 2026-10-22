@@ -1,7 +1,94 @@
-/* Copyright (c) 2026 오산세교종합사회복지관 김지훈 팀장. All rights reserved. */
+/* © 2026 오산세교종합사회복지관 김지훈 팀장. All rights reserved. */
 window.WELFARE_DATA = {
   "date": "2026-10-20",
-  "note": "1차 조사 자료입니다. 개별 사업의 신청대상·지원금액·접수기간 및 운영 여부는 반드시 공식 기관에 확인해주세요.",
+  "schemaVersion": 2,
+  "note": "기존 자료 정리일이며, 기관·사업별 실제 운영 확인일과 다릅니다. 연계 전 최신 공식 공고를 확인해 주세요.",
+  "taxonomy": {
+    "version": 1,
+    "target": [
+      "영유아",
+      "아동",
+      "청소년",
+      "청년",
+      "중장년",
+      "노인",
+      "가족·한부모",
+      "다문화",
+      "위기가구",
+      "1인가구",
+      "장애인",
+      "질환",
+      "기관·실무자"
+    ],
+    "need": [
+      "소득·생계",
+      "주거",
+      "의료·건강",
+      "정신건강",
+      "돌봄",
+      "교육",
+      "고용·자립",
+      "법률·금융",
+      "안전·권리보호",
+      "지역참여·자원봉사",
+      "가족지원",
+      "사례관리"
+    ],
+    "form": [
+      "현금",
+      "현물",
+      "서비스 제공",
+      "상담",
+      "정보 제공",
+      "시설 이용"
+    ],
+    "intake": [
+      "직접 방문",
+      "전화",
+      "온라인",
+      "동 행정복지센터 경유",
+      "협력기관 추천",
+      "공모"
+    ],
+    "legacy_need_map": {
+      "경제·긴급": [
+        "소득·생계"
+      ],
+      "사례관리": [
+        "사례관리"
+      ],
+      "가족·아동": [
+        "가족지원"
+      ],
+      "교육·청소년": [
+        "교육"
+      ],
+      "보건·의료": [
+        "의료·건강"
+      ],
+      "정신건강": [
+        "정신건강"
+      ],
+      "주거": [
+        "주거"
+      ],
+      "돌봄·생활": [
+        "돌봄"
+      ],
+      "장애인": [],
+      "노인": [],
+      "취업·자립": [
+        "고용·자립"
+      ],
+      "법률·금융": [
+        "법률·금융"
+      ],
+      "지역협력": [
+        "지역참여·자원봉사"
+      ]
+    },
+    "note": "기존 지원분야·지원대상 원문에서 옮긴 검색용 분류. 자격·관할·운영 확인을 뜻하지 않음. 복합 분야는 세부 서비스 확인 후 수동 보완."
+  },
   "organizations": [
     {
       "id": "b45bc16582",
@@ -13,38 +100,135 @@ window.WELFARE_DATA = {
       "phone": "031-290-8501",
       "source": "https://www.osgwc.or.kr/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00001",
           "name": "사례관리 및 서비스 연계",
           "category": "사례관리",
           "target": "복합적 어려움을 겪는 지역주민",
           "description": "초기상담·욕구사정·사례계획·지역자원 연계",
           "method": "복지관 상담",
-          "operation": "기관 문의"
+          "operation": "기관 문의",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [],
+            "need": [
+              "사례관리"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osgwc.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00002",
           "name": "가족기능 강화",
           "category": "가족·아동",
           "target": "아동·청소년·가족",
           "description": "가족관계·양육·가족지원 등 프로그램",
           "method": "복지관 사업별 상담",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년",
+              "가족·한부모"
+            ],
+            "need": [
+              "가족지원"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osgwc.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00003",
           "name": "지역사회 돌봄 및 주민지원",
           "category": "돌봄·생활",
           "target": "지역 내 취약계층",
           "description": "지역 욕구에 따른 생활지원·자원연계",
           "method": "복지관 상담",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "돌봄"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osgwc.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00004",
           "name": "주민조직화·자원개발",
           "category": "지역협력",
           "target": "지역주민·자원봉사자",
           "description": "지역주민 참여 활동 및 복지자원 개발",
           "method": "복지관 담당부서",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [],
+            "need": [
+              "지역참여·자원봉사"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osgwc.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -58,30 +242,106 @@ window.WELFARE_DATA = {
       "phone": "031-378-2740",
       "source": "https://osanwelfare.co.kr/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00005",
           "name": "통합사례관리",
           "category": "사례관리",
           "target": "위기·취약가구",
           "description": "상담, 사례관리 및 지역자원 조정",
           "method": "복지관 상담",
-          "operation": "기관 문의"
+          "operation": "기관 문의",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "사례관리"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://osanwelfare.co.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00006",
           "name": "가족·아동청소년 프로그램",
           "category": "가족·아동",
           "target": "지역 아동·가족",
           "description": "가족복지·아동청소년 프로그램",
           "method": "복지관 사업별 상담",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "아동",
+              "가족·한부모"
+            ],
+            "need": [
+              "가족지원"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://osanwelfare.co.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00007",
           "name": "지역사회보호·주민조직화",
           "category": "돌봄·생활",
           "target": "취약계층·지역주민",
           "description": "생활지원·주민참여·후원 연계",
           "method": "복지관 사업별 상담",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "돌봄"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://osanwelfare.co.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -95,30 +355,107 @@ window.WELFARE_DATA = {
       "phone": "031-376-6193",
       "source": "https://www.ossw.or.kr/home/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00008",
           "name": "사례관리",
           "category": "사례관리",
           "target": "복합적 욕구가 있는 가구",
           "description": "복지상담, 사례관리 및 지원체계 연계",
           "method": "복지관 상담",
-          "operation": "기관 문의"
+          "operation": "기관 문의",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [],
+            "need": [
+              "사례관리"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.ossw.or.kr/home/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00009",
           "name": "아동·가족서비스",
           "category": "가족·아동",
           "target": "아동·청소년·가족",
           "description": "가족기능 강화와 돌봄·교육 프로그램",
           "method": "복지관 상담",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년",
+              "가족·한부모"
+            ],
+            "need": [
+              "가족지원",
+              "돌봄",
+              "교육"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.ossw.or.kr/home/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00010",
           "name": "지역사회보호·나눔",
           "category": "돌봄·생활",
           "target": "지역 취약계층",
           "description": "일상생활지원·후원·지역자원 연계",
           "method": "복지관 사업별 상담",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "돌봄"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.ossw.or.kr/home/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -132,38 +469,142 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.osan.go.kr/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00011",
           "name": "기초생활보장·차상위 상담",
           "category": "경제·긴급",
           "target": "소득·재산 등 법정기준 해당 가구",
           "description": "생계·의료·주거·교육급여, 차상위제도 접수·상담",
           "method": "거주지 동 방문·문의",
-          "operation": "상시 상담"
+          "operation": "상시 상담",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [],
+            "need": [
+              "소득·생계",
+              "주거",
+              "교육"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": [
+              "직접 방문"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osan.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00012",
           "name": "긴급복지지원 상담",
           "category": "경제·긴급",
           "target": "갑작스런 위기사유 발생 가구",
           "description": "위기사유·소득·재산 기준에 따른 긴급 생계·의료·주거 지원 상담",
           "method": "거주지 동 상담",
-          "operation": "상시 상담"
+          "operation": "상시 상담",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "주거"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": []
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osan.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00013",
           "name": "맞춤형복지·통합사례관리 연계",
           "category": "사례관리",
           "target": "복합 위기가구",
           "description": "복지사각지대 발굴·방문상담·통합사례관리 의뢰",
           "method": "거주지 동 맞춤형복지팀",
-          "operation": "상시 상담"
+          "operation": "상시 상담",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "사례관리"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": []
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osan.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00014",
           "name": "노인·장애인 공적돌봄 신청",
           "category": "돌봄·생활",
           "target": "서비스별 자격 해당 주민",
           "description": "돌봄·활동지원·각종 사회보장서비스 신청 안내",
           "method": "동 행정복지센터",
-          "operation": "상시 상담"
+          "operation": "상시 상담",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [],
+            "need": [
+              "돌봄"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osan.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -177,30 +618,105 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.osan.go.kr/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00015",
           "name": "복지위기가구 관련부서 연계",
           "category": "사례관리",
           "target": "복합 위기가구",
           "description": "지역 내 부서·동·민간기관 간 자원조정",
           "method": "시청 담당부서 문의",
-          "operation": "상시 상담"
+          "operation": "상시 상담",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "사례관리"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osan.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00016",
           "name": "드림스타트",
           "category": "가족·아동",
           "target": "지원기준에 해당하는 취약계층 아동·가족",
           "description": "아동통합사례관리, 건강·교육·돌봄·가족서비스",
           "method": "오산시 드림스타트 상담",
-          "operation": "기관 문의"
+          "operation": "기관 문의",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "아동",
+              "가족·한부모",
+              "위기가구"
+            ],
+            "need": [
+              "가족지원",
+              "돌봄",
+              "교육"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osan.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00017",
           "name": "누구나돌봄 지역 접수·연계",
           "category": "돌봄·생활",
           "target": "돌봄 공백이 있는 주민",
           "description": "경기도 누구나돌봄의 시군 접수·서비스 연계",
           "method": "동 행정복지센터 및 담당부서 문의",
-          "operation": "지역 운영 확인"
+          "operation": "지역 운영 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [],
+            "need": [
+              "돌봄"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osan.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -214,22 +730,77 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.osan.go.kr/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00018",
           "name": "피해아동·가족 사례관리",
           "category": "가족·아동",
           "target": "학대피해아동·가족",
           "description": "상담, 재학대 예방 및 가족기능 회복 관련 서비스",
           "method": "아동학대 신고 112 / 유관기관 협업",
-          "operation": "기관 문의"
+          "operation": "기관 문의",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "아동",
+              "가족·한부모"
+            ],
+            "need": [
+              "가족지원",
+              "안전·권리보호"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osan.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00019",
           "name": "아동학대 예방 및 유관기관 협력",
           "category": "교육·청소년",
           "target": "학교·아동복지 유관기관",
           "description": "예방교육 및 사례협력(기관별 운영사업 확인)",
           "method": "담당기관 문의",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "아동",
+              "기관·실무자"
+            ],
+            "need": [
+              "교육",
+              "안전·권리보호"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osan.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -243,30 +814,105 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.familynet.or.kr/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00020",
           "name": "가족상담·관계증진",
           "category": "가족·아동",
           "target": "양육·가족관계 어려움 가구",
           "description": "가족상담, 관계증진 프로그램",
           "method": "오산시가족센터 상담",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "가족·한부모"
+            ],
+            "need": [
+              "가족지원"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.familynet.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00021",
           "name": "한부모·다문화가족 지원",
           "category": "가족·아동",
           "target": "한부모·다문화 등 다양한 가족",
           "description": "자녀양육, 한국어교육, 가족교육·자조모임 등",
           "method": "센터 사업별 신청",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "가족·한부모",
+              "다문화"
+            ],
+            "need": [
+              "가족지원",
+              "교육"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.familynet.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00022",
           "name": "아이돌봄서비스 연계",
           "category": "돌봄·생활",
           "target": "아이돌봄 이용 대상 가구",
           "description": "정부 아이돌봄서비스 정보·신청 안내",
           "method": "센터 또는 아이돌봄서비스 신청",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [],
+            "need": [
+              "돌봄"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.familynet.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -280,22 +926,76 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.cyber1388.kr/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00023",
           "name": "청소년 심리상담",
           "category": "정신건강",
           "target": "9~24세 청소년",
           "description": "개인·집단상담 등 심리정서 지원",
           "method": "센터 상담 또는 청소년전화 1388",
-          "operation": "기관 문의"
+          "operation": "기관 문의",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "청소년"
+            ],
+            "need": [
+              "정신건강"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": [
+              "전화"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.cyber1388.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00024",
           "name": "청소년안전망·청소년동반자 연계",
           "category": "교육·청소년",
           "target": "위기청소년",
           "description": "지역사회 위기청소년 발굴·서비스 연계",
           "method": "센터 상담·1388",
-          "operation": "기관 문의"
+          "operation": "기관 문의",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "청소년",
+              "위기가구"
+            ],
+            "need": [
+              "교육"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.cyber1388.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -309,22 +1009,71 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.kdream.or.kr/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00025",
           "name": "검정고시·학업복귀 지원",
           "category": "교육·청소년",
           "target": "학교 밖 청소년",
           "description": "검정고시 지원, 학습 및 진학 연계",
           "method": "꿈드림 상담",
-          "operation": "기관 문의"
+          "operation": "기관 문의",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "청소년"
+            ],
+            "need": [
+              "교육"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.kdream.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00026",
           "name": "진로·취업·자립지원",
           "category": "취업·자립",
           "target": "학교 밖 청소년",
           "description": "진로탐색, 직업체험·자립지원",
           "method": "꿈드림 상담",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "청소년"
+            ],
+            "need": [
+              "고용·자립"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.kdream.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -338,30 +1087,110 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.osan.go.kr/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00027",
           "name": "정신건강 상담·사례관리",
           "category": "정신건강",
           "target": "정신건강 어려움이 있는 주민",
           "description": "정신건강 상담, 사례관리 및 전문서비스 연계",
           "method": "센터 상담",
-          "operation": "기관 문의"
+          "operation": "기관 문의",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [],
+            "need": [
+              "정신건강"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osan.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00028",
           "name": "아동청소년 정신건강 연계",
           "category": "정신건강",
           "target": "정서·행동 어려움이 있는 아동·청소년",
           "description": "정신건강 상담·연계 프로그램",
           "method": "센터 상담",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년"
+            ],
+            "need": [
+              "정신건강"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osan.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00029",
           "name": "자살예방 상담 연계",
           "category": "정신건강",
           "target": "자살위험·정서적 위기가 있는 주민",
           "description": "자살예방 상담 및 위기대응체계 연계",
           "method": "긴급 시 112·119 / 자살예방상담전화 109",
-          "operation": "상시 상담"
+          "operation": "상시 상담",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "정신건강"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": [
+              "전화"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osan.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -375,30 +1204,102 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.osan.go.kr/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00030",
           "name": "예방접종·모자보건",
           "category": "보건·의료",
           "target": "지원대상 시민",
           "description": "예방접종, 임산부·영유아 건강관련 서비스",
           "method": "보건소 안내",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [],
+            "need": [
+              "의료·건강"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osan.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00031",
           "name": "방문건강관리 및 만성질환 관리",
           "category": "보건·의료",
           "target": "건강취약계층",
           "description": "방문건강관리·건강증진 프로그램",
           "method": "보건소 상담",
-          "operation": "대상·운영 확인"
+          "operation": "대상·운영 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "의료·건강"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osan.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00032",
           "name": "치매안심센터",
           "category": "노인",
           "target": "치매 우려 어르신·가족",
           "description": "인지검사, 치매 상담·등록관리, 가족지원",
           "method": "보건소 치매안심센터 상담",
-          "operation": "기관 문의"
+          "operation": "기관 문의",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "노인",
+              "가족·한부모"
+            ],
+            "need": [],
+            "form": [
+              "상담"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osan.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -412,30 +1313,111 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.osan.go.kr/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00033",
           "name": "장애인 상담·사례관리",
           "category": "사례관리",
           "target": "장애인·가족",
           "description": "개별상담, 욕구사정, 지역자원 연계",
           "method": "복지관 상담",
-          "operation": "기관 문의"
+          "operation": "기관 문의",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "가족·한부모",
+              "장애인"
+            ],
+            "need": [
+              "사례관리"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osan.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00034",
           "name": "재활·평생교육·직업지원",
           "category": "장애인",
           "target": "장애인·가족",
           "description": "기능향상·사회적응·직업지원 등",
           "method": "기관별 프로그램 신청",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "가족·한부모",
+              "장애인"
+            ],
+            "need": [
+              "교육",
+              "고용·자립"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osan.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00035",
           "name": "장애인가족 지원",
           "category": "장애인",
           "target": "장애인 가족",
           "description": "가족상담·돌봄부담 완화 프로그램",
           "method": "기관별 프로그램 신청",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "가족·한부모",
+              "장애인"
+            ],
+            "need": [
+              "돌봄"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osan.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -449,22 +1431,70 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.osan.go.kr/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00036",
           "name": "발달장애인 평생교육",
           "category": "장애인",
           "target": "발달장애인",
           "description": "교육·자립·사회참여 프로그램",
           "method": "센터 프로그램별 상담",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "장애인"
+            ],
+            "need": [
+              "교육"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osan.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00037",
           "name": "가족·사회적응 지원",
           "category": "장애인",
           "target": "발달장애인·가족",
           "description": "가족지원·사회적응 서비스",
           "method": "센터 상담",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "가족·한부모",
+              "장애인"
+            ],
+            "need": [],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osan.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -478,22 +1508,73 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.osan.go.kr/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00038",
           "name": "노인복지 상담 및 프로그램",
           "category": "노인",
           "target": "지역 어르신",
           "description": "상담·평생교육·사회참여·건강프로그램",
           "method": "복지관 상담",
-          "operation": "기관 문의"
+          "operation": "기관 문의",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "노인"
+            ],
+            "need": [
+              "교육"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osan.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00039",
           "name": "노인돌봄·지역연계",
           "category": "돌봄·생활",
           "target": "돌봄이 필요한 어르신",
           "description": "돌봄 및 지역사회 서비스 연계",
           "method": "복지관 상담",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "노인"
+            ],
+            "need": [
+              "돌봄"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osan.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -507,14 +1588,39 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.osan.go.kr/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00040",
           "name": "노인 일자리 참여",
           "category": "노인",
           "target": "사업별 기준에 해당하는 어르신",
           "description": "공익활동·역량활용·공동체 사업 등 일자리 참여",
           "method": "모집공고 및 기관 상담",
-          "operation": "모집시기 확인"
+          "operation": "모집시기 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "노인"
+            ],
+            "need": [
+              "고용·자립"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osan.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -528,22 +1634,70 @@ window.WELFARE_DATA = {
       "phone": "031-375-3322",
       "source": "https://www.osan1365.or.kr/board/board.php?p=19&table=mn01_04_02",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00041",
           "name": "자활근로 및 자립지원",
           "category": "취업·자립",
           "target": "자활사업 대상 주민",
           "description": "자활근로, 직업교육, 자립훈련",
           "method": "동 행정복지센터·자활센터 상담",
-          "operation": "대상자 선정"
+          "operation": "대상자 선정",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [],
+            "need": [
+              "고용·자립",
+              "교육"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osan1365.or.kr/board/board.php?p=19&table=mn01_04_02",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00042",
           "name": "근로·취업역량 향상",
           "category": "취업·자립",
           "target": "취업 취약주민",
           "description": "근로역량 강화 및 일자리 관련 연계",
           "method": "자활센터 상담",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "고용·자립"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osan1365.or.kr/board/board.php?p=19&table=mn01_04_02",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -557,22 +1711,74 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.work.go.kr/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00043",
           "name": "구직 상담·취업알선",
           "category": "취업·자립",
           "target": "구직자·취업취약계층",
           "description": "구직상담과 취업정보 제공",
           "method": "고용센터 상담",
-          "operation": "상시 상담"
+          "operation": "상시 상담",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "고용·자립"
+            ],
+            "form": [
+              "상담",
+              "정보 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.work.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00044",
           "name": "국민취업지원제도 안내",
           "category": "취업·자립",
           "target": "제도별 취업지원 대상자",
           "description": "취업활동계획·상담·훈련 연계 등 제도 안내",
           "method": "고용센터 및 고용24",
-          "operation": "제도 자격 확인"
+          "operation": "제도 자격 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [],
+            "need": [
+              "고용·자립"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.work.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -586,22 +1792,71 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.osan1365.or.kr/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00045",
           "name": "봉사자·봉사활동처 연결",
           "category": "지역협력",
           "target": "복지시설·자원봉사자",
           "description": "봉사 수요·공급 연결, 지역봉사 활동 촉진",
           "method": "센터 문의",
-          "operation": "상시 상담"
+          "operation": "상시 상담",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "기관·실무자"
+            ],
+            "need": [
+              "지역참여·자원봉사"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osan1365.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00046",
           "name": "취약계층 봉사활동 연계",
           "category": "돌봄·생활",
           "target": "지역 취약가구",
           "description": "지역별 활동 자원에 따른 봉사 연계",
           "method": "센터·활동처 협의",
-          "operation": "가용자원 확인"
+          "operation": "가용자원 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "돌봄"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osan1365.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -615,22 +1870,71 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.osan.go.kr/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00047",
           "name": "민관협력·자원발굴",
           "category": "지역협력",
           "target": "복지기관·주민",
           "description": "복지 의제와 자원 연계, 공동사업 협력",
           "method": "협의체 또는 동협의체 문의",
-          "operation": "기관 문의"
+          "operation": "기관 문의",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "기관·실무자"
+            ],
+            "need": [
+              "지역참여·자원봉사"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osan.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00048",
           "name": "동 지역사회보장협의체 연계",
           "category": "경제·긴급",
           "target": "위기가구·지역주민",
           "description": "동 단위 자원발굴·복지사각지대 지원체계 연계",
           "method": "동 행정복지센터 문의",
-          "operation": "지역 자원 확인"
+          "operation": "지역 자원 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osan.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -644,14 +1948,40 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.osan1365.or.kr/board/board.php?p=19&table=mn01_04_02",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00049",
           "name": "방과 후 아동돌봄",
           "category": "가족·아동",
           "target": "방과 후 돌봄이 필요한 아동",
           "description": "일상보호·급식·학습·정서·문화프로그램",
           "method": "거주지 인근 센터 개별 신청",
-          "operation": "센터별 확인"
+          "operation": "센터별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "아동"
+            ],
+            "need": [
+              "가족지원",
+              "돌봄"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osan1365.or.kr/board/board.php?p=19&table=mn01_04_02",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -665,30 +1995,105 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.gg.go.kr/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00050",
           "name": "경기도형 긴급복지(무한돌봄)",
           "category": "경제·긴급",
           "target": "경기도 위기가구",
           "description": "위기사유·소득·재산 심사를 통한 생계·의료·주거 등 긴급지원",
           "method": "거주지 시·군·동 행정기관",
-          "operation": "2026 기준 확인"
+          "operation": "2026 기준 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "주거",
+              "돌봄"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.gg.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00051",
           "name": "누구나돌봄",
           "category": "돌봄·생활",
           "target": "일상생활에 돌봄공백이 있는 도민",
           "description": "생활돌봄·병원동행·식사 등 시군별 서비스",
           "method": "시군 담당부서·동 행정복지센터",
-          "operation": "시군 운영 확인"
+          "operation": "시군 운영 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [],
+            "need": [
+              "돌봄"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.gg.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00052",
           "name": "경기도 긴급복지 상담",
           "category": "경제·긴급",
           "target": "복지 사각지대 위기가구",
           "description": "긴급복지 상담·지원 경로 안내",
           "method": "경기도 콜센터 120",
-          "operation": "상시 상담"
+          "operation": "상시 상담",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": []
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.gg.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -702,22 +2107,76 @@ window.WELFARE_DATA = {
       "phone": "1899-6014",
       "source": "https://www.gcfwc.or.kr/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00053",
           "name": "채무조정·개인회생·파산 상담",
           "category": "법률·금융",
           "target": "과중채무·신용위기 주민",
           "description": "채무상담, 신용회복, 법적 채무조정 연계",
           "method": "센터 상담",
-          "operation": "기관 문의"
+          "operation": "기관 문의",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "법률·금융"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.gcfwc.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00054",
           "name": "금융복지·복지자원 연계",
           "category": "법률·금융",
           "target": "금융취약계층",
           "description": "금융교육·금융복지 상담·지역자원 연계",
           "method": "센터 상담",
-          "operation": "기관 문의"
+          "operation": "기관 문의",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "법률·금융",
+              "교육"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.gcfwc.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -731,22 +2190,71 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://housing.gg.go.kr/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00055",
           "name": "공공임대주택 정보",
           "category": "주거",
           "target": "주거취약·무주택 도민",
           "description": "임대주택 및 주거복지제도 안내",
           "method": "경기주거복지포털 검색",
-          "operation": "공고별 확인"
+          "operation": "공고별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "주거"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://housing.gg.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00056",
           "name": "주거복지 상담",
           "category": "주거",
           "target": "주거안정이 필요한 도민",
           "description": "주거지원사업·입주자 모집·지역센터 정보 연계",
           "method": "주거복지센터 상담",
-          "operation": "기관 문의"
+          "operation": "기관 문의",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [],
+            "need": [
+              "주거"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://housing.gg.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -760,22 +2268,75 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.medical.or.kr/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00057",
           "name": "취약계층 의료비 지원사업",
           "category": "보건·의료",
           "target": "의료비 부담이 큰 취약계층",
           "description": "의료비 지원사업 여부와 기준 상담",
           "method": "경기도의료원 의료사회사업실",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "의료·건강"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.medical.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00058",
           "name": "공공의료·의료사회사업 연계",
           "category": "보건·의료",
           "target": "저소득·의료취약 환자",
           "description": "의료적 지원 및 사회복지서비스 상담",
           "method": "경기도의료원 지점별 문의",
-          "operation": "기관별 확인"
+          "operation": "기관별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "의료·건강"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.medical.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -789,30 +2350,102 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.ggnurim.or.kr/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00059",
           "name": "장애인복지 정보·상담",
           "category": "장애인",
           "target": "장애인·보호자·기관",
           "description": "복지제도·지역서비스 정보와 자원 연계",
           "method": "누림센터 상담",
-          "operation": "기관 문의"
+          "operation": "기관 문의",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "장애인",
+              "기관·실무자"
+            ],
+            "need": [],
+            "form": [
+              "상담"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.ggnurim.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00060",
           "name": "누림통장·장애인 지원사업 정보",
           "category": "경제·긴급",
           "target": "사업별 연령·자격 해당 장애인",
           "description": "장애인 자산형성 등 사업공고·대상자 안내",
           "method": "공고 확인·사업별 접수",
-          "operation": "모집시기 확인"
+          "operation": "모집시기 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "장애인"
+            ],
+            "need": [
+              "소득·생계"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.ggnurim.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00061",
           "name": "자립·사회참여 지원",
           "category": "장애인",
           "target": "장애인",
           "description": "자립지원·사회참여 관련 사업 연결",
           "method": "누림센터 담당부서",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "장애인"
+            ],
+            "need": [],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.ggnurim.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -826,22 +2459,72 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.broso.or.kr/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00062",
           "name": "개인별지원계획",
           "category": "장애인",
           "target": "발달장애인·가족",
           "description": "개인별 욕구에 따라 복지서비스 이용계획 수립 연계",
           "method": "센터 상담",
-          "operation": "기관 문의"
+          "operation": "기관 문의",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "가족·한부모",
+              "장애인"
+            ],
+            "need": [],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.broso.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00063",
           "name": "권리구제 및 돌봄 연계",
           "category": "장애인",
           "target": "발달장애인·가족",
           "description": "권리보호 및 발달장애인 활동·돌봄 지원정보",
           "method": "센터 상담",
-          "operation": "대상·사업 확인"
+          "operation": "대상·사업 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "가족·한부모",
+              "장애인"
+            ],
+            "need": [
+              "돌봄",
+              "안전·권리보호"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.broso.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -855,22 +2538,76 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.gysc.or.kr/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00064",
           "name": "청소년안전망 광역연계",
           "category": "교육·청소년",
           "target": "위기 청소년·유관기관",
           "description": "고위기청소년 지원 및 시군센터 협력",
           "method": "지역 청소년상담복지센터·1388",
-          "operation": "기관 문의"
+          "operation": "기관 문의",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "청소년",
+              "위기가구",
+              "기관·실무자"
+            ],
+            "need": [
+              "교육"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.gysc.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00065",
           "name": "청소년 상담기관 실무연계",
           "category": "정신건강",
           "target": "상담기관·청소년",
           "description": "전문상담·심리정서 지원 네트워크",
           "method": "센터 담당부서",
-          "operation": "기관 문의"
+          "operation": "기관 문의",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "청소년",
+              "기관·실무자"
+            ],
+            "need": [
+              "정신건강"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.gysc.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -884,22 +2621,72 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://gg.pass.or.kr/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00066",
           "name": "지역 돌봄·사회서비스 연계",
           "category": "돌봄·생활",
           "target": "돌봄 이용자·제공기관",
           "description": "사회서비스 정보·기관협력 관련 지원",
           "method": "시군 서비스 제공기관 상담",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "기관·실무자"
+            ],
+            "need": [
+              "돌봄"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://gg.pass.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00067",
           "name": "사회서비스 기관·종사자 지원",
           "category": "지역협력",
           "target": "복지·돌봄 기관",
           "description": "서비스 품질·종사자 교육 등 협력",
           "method": "기관 사업 공고",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "기관·실무자"
+            ],
+            "need": [
+              "지역참여·자원봉사",
+              "교육"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://gg.pass.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -913,22 +2700,72 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://ggwf.gg.go.kr/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00068",
           "name": "복지기관 전문교육",
           "category": "지역협력",
           "target": "사회복지기관·종사자",
           "description": "전문교육 및 역량 강화 정보",
           "method": "교육사업별 신청",
-          "operation": "모집시기 확인"
+          "operation": "모집시기 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "기관·실무자"
+            ],
+            "need": [
+              "지역참여·자원봉사",
+              "교육"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://ggwf.gg.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00069",
           "name": "복지정책·연구정보",
           "category": "지역협력",
           "target": "복지실무자·지역기관",
           "description": "경기도 복지정책 및 연구자료 제공",
           "method": "공식 홈페이지",
-          "operation": "상시 열람"
+          "operation": "상시 열람",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "기관·실무자"
+            ],
+            "need": [
+              "지역참여·자원봉사"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://ggwf.gg.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -942,22 +2779,72 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.gjf.or.kr/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00070",
           "name": "직업교육·취업지원",
           "category": "취업·자립",
           "target": "취업희망 도민",
           "description": "직업훈련·취업연계·역량강화 교육",
           "method": "재단 사업별 신청",
-          "operation": "모집시기 확인"
+          "operation": "모집시기 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [],
+            "need": [
+              "고용·자립",
+              "교육"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.gjf.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00071",
           "name": "취업취약계층 일자리 정보",
           "category": "취업·자립",
           "target": "취업취약계층",
           "description": "채용·훈련·일자리사업 정보 제공",
           "method": "재단 공고 확인",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "고용·자립"
+            ],
+            "form": [
+              "정보 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.gjf.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -971,22 +2858,75 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.goe.go.kr/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00072",
           "name": "Wee클래스·Wee센터 상담",
           "category": "정신건강",
           "target": "학교생활·심리정서 어려움 학생",
           "description": "학교 전문상담과 교육지원청 Wee센터 연계",
           "method": "학교 상담교사·Wee센터",
-          "operation": "학교별 확인"
+          "operation": "학교별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "청소년"
+            ],
+            "need": [
+              "정신건강",
+              "교육"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.goe.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00073",
           "name": "위기학생 지역전문기관 연계",
           "category": "교육·청소년",
           "target": "복합 위기학생",
           "description": "학교·의료·복지기관 협력 지원",
           "method": "학교·교육지원청 담당부서",
-          "operation": "사례별 확인"
+          "operation": "사례별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "청소년",
+              "위기가구"
+            ],
+            "need": [
+              "교육"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.goe.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -1000,38 +2940,144 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.chorogusan.or.kr/domesticBiz/childSupport/Education.do",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00074",
           "name": "아이리더 인재양성",
           "category": "교육·청소년",
           "target": "학업·예체능 등 재능을 가진 아동·청소년",
           "description": "재능계발 교육비·멘토링·교육활동 지원",
           "method": "재단 지역본부·공모 접수",
-          "operation": "공모별 확인"
+          "operation": "공모별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년"
+            ],
+            "need": [
+              "교육"
+            ],
+            "form": [],
+            "intake": [
+              "공모"
+            ]
+          },
+          "operationType": "공모형",
+          "localAvailable": "확인 필요",
+          "source": "https://www.chorogusan.or.kr/domesticBiz/childSupport/Education.do",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00075",
           "name": "학습·교육지원",
           "category": "교육·청소년",
           "target": "교육기회 부족 아동·청소년",
           "description": "학습비·멘토링·진로탐색 관련 사업",
           "method": "재단 지역본부 문의",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년"
+            ],
+            "need": [
+              "교육"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.chorogusan.or.kr/domesticBiz/childSupport/Education.do",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00076",
           "name": "아동 주거·돌봄 지원",
           "category": "주거",
           "target": "주거·돌봄 위기 아동가구",
           "description": "취약아동 주거·돌봄 관련 사업",
           "method": "지역본부·협력기관 상담",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "아동",
+              "위기가구"
+            ],
+            "need": [
+              "주거",
+              "돌봄"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.chorogusan.or.kr/domesticBiz/childSupport/Education.do",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00077",
           "name": "아동 자립·생활지원",
           "category": "취업·자립",
           "target": "자립준비청년·아동",
           "description": "취업·자립지원 등 세부 공모",
           "method": "재단 공모·협력기관",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "아동",
+              "청년"
+            ],
+            "need": [
+              "고용·자립"
+            ],
+            "form": [],
+            "intake": [
+              "공모"
+            ]
+          },
+          "operationType": "공모형",
+          "localAvailable": "확인 필요",
+          "source": "https://www.chorogusan.or.kr/domesticBiz/childSupport/Education.do",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -1045,30 +3091,108 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.goodneighbors.kr/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00078",
           "name": "국내 위기가정 지원",
           "category": "경제·긴급",
           "target": "경제적 위기 아동가구",
           "description": "민간재원 긴급 생계·의료·주거·교육 지원 연계",
           "method": "지역사업장·협력기관 문의",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "아동",
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "주거",
+              "교육"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.goodneighbors.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00079",
           "name": "아동 심리정서·가족지원",
           "category": "정신건강",
           "target": "취약 아동·가족",
           "description": "정서지원·가족프로그램·아동권리 관련 사업",
           "method": "지역사업장 상담",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "아동",
+              "가족·한부모",
+              "위기가구"
+            ],
+            "need": [
+              "정신건강"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.goodneighbors.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00080",
           "name": "기업협력 위기가정 지원사업",
           "category": "경제·긴급",
           "target": "공모기준에 해당하는 위기가구",
           "description": "기업사회공헌 연계 지원사업(회차·기준 변동)",
           "method": "사업 공고·복지기관 접수",
-          "operation": "공모별 확인"
+          "operation": "공모별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "공모형",
+          "localAvailable": "확인 필요",
+          "source": "https://www.goodneighbors.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -1082,30 +3206,110 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.worldvision.or.kr/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00081",
           "name": "꿈꾸는아이들",
           "category": "교육·청소년",
           "target": "취약 아동·청소년",
           "description": "진로탐색·꿈지원 및 멘토링",
           "method": "지역사업본부·협력기관",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년",
+              "위기가구"
+            ],
+            "need": [
+              "교육"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.worldvision.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00082",
           "name": "국내 위기아동 지원",
           "category": "경제·긴급",
           "target": "경제·돌봄 위기 아동가구",
           "description": "생활·교육·긴급지원 관련 사업",
           "method": "지역사업본부·공모 문의",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "아동",
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "교육"
+            ],
+            "form": [],
+            "intake": [
+              "공모"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.worldvision.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00083",
           "name": "식생활·돌봄 지원",
           "category": "돌봄·생활",
           "target": "식생활 취약 아동",
           "description": "식사·영양·돌봄 관련 사업",
           "method": "지역사업본부 상담",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "아동",
+              "위기가구"
+            ],
+            "need": [
+              "돌봄"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.worldvision.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -1119,22 +3323,73 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.sc.or.kr/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00084",
           "name": "아동위기가정 지원",
           "category": "경제·긴급",
           "target": "위기아동·가족",
           "description": "위기가정 생활안정·아동 보호사업",
           "method": "지역본부·협력기관 문의",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "아동",
+              "가족·한부모",
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.sc.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00085",
           "name": "아동보호·심리정서 사업",
           "category": "가족·아동",
           "target": "아동·보호자",
           "description": "아동권리·보호·가족지원 관련 프로그램",
           "method": "공식 홈페이지·지역기관",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "아동"
+            ],
+            "need": [
+              "가족지원"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.sc.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -1148,30 +3403,104 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.miral.org/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00086",
           "name": "위기가정 긴급지원",
           "category": "경제·긴급",
           "target": "경제적 위기가구",
           "description": "생계·의료·주거 등 민간지원사업",
           "method": "지원사업 공고·담당자 문의",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "주거"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.miral.org/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00087",
           "name": "장애아동 의료·재활지원",
           "category": "보건·의료",
           "target": "의료비 부담 장애아동",
           "description": "재활치료비·수술비 지원 관련 공모",
           "method": "재단 국내지원사업 신청",
-          "operation": "공모별 확인"
+          "operation": "공모별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "아동",
+              "장애인"
+            ],
+            "need": [
+              "의료·건강"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "공모형",
+          "localAvailable": "확인 필요",
+          "source": "https://www.miral.org/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00088",
           "name": "장애·취약계층 복지사업",
           "category": "장애인",
           "target": "장애인 및 취약계층",
           "description": "기관 고유사업 및 기업협력 지원",
           "method": "재단 담당부서 상담",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "위기가구",
+              "장애인"
+            ],
+            "need": [],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.miral.org/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -1185,30 +3514,108 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://purme.org/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00089",
           "name": "장애어린이 재활치료비",
           "category": "보건·의료",
           "target": "장애아동·청소년",
           "description": "재활·의료 관련 치료비 지원",
           "method": "협력기관·재단 공모",
-          "operation": "공모별 확인"
+          "operation": "공모별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년",
+              "장애인"
+            ],
+            "need": [
+              "의료·건강"
+            ],
+            "form": [],
+            "intake": [
+              "공모"
+            ]
+          },
+          "operationType": "공모형",
+          "localAvailable": "확인 필요",
+          "source": "https://purme.org/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00090",
           "name": "보조기구·치과치료 지원",
           "category": "장애인",
           "target": "지원조건 해당 장애아동",
           "description": "보조기구·치과치료 등 사업별 지원",
           "method": "사업 공고·추천기관",
-          "operation": "공모별 확인"
+          "operation": "공모별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "아동",
+              "장애인"
+            ],
+            "need": [],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "공모형",
+          "localAvailable": "확인 필요",
+          "source": "https://purme.org/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00091",
           "name": "장애아동 가족지원",
           "category": "가족·아동",
           "target": "장애아동 가족",
           "description": "가족·비장애형제 지원 프로그램",
           "method": "재단 사업별 신청",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "아동",
+              "가족·한부모",
+              "장애인"
+            ],
+            "need": [
+              "가족지원"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://purme.org/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -1222,22 +3629,74 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://beautifulfund.org/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00092",
           "name": "자립준비청년 지원",
           "category": "취업·자립",
           "target": "자립준비청년",
           "description": "학업·생활·자립역량 강화 관련 사업",
           "method": "재단·협력기관 공모",
-          "operation": "공모별 확인"
+          "operation": "공모별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "청년"
+            ],
+            "need": [
+              "고용·자립"
+            ],
+            "form": [],
+            "intake": [
+              "공모"
+            ]
+          },
+          "operationType": "공모형",
+          "localAvailable": "확인 필요",
+          "source": "https://beautifulfund.org/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00093",
           "name": "교육·생활지원 공모",
           "category": "교육·청소년",
           "target": "사업별 대상 청년·취약계층",
           "description": "장학·학업생활비 등 공모사업",
           "method": "재단 사업 공고",
-          "operation": "공모별 확인"
+          "operation": "공모별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "청년",
+              "위기가구"
+            ],
+            "need": [
+              "교육"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "공모형",
+          "localAvailable": "확인 필요",
+          "source": "https://beautifulfund.org/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -1251,30 +3710,109 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.sdream.or.kr/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00094",
           "name": "멘토링 꿈장학",
           "category": "교육·청소년",
           "target": "경제적 어려움 있는 중고생 등",
           "description": "교사 멘토와 연계한 학업·성장지원 장학",
           "method": "재단 공모·멘토 신청",
-          "operation": "공모별 확인"
+          "operation": "공모별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "청소년"
+            ],
+            "need": [
+              "교육"
+            ],
+            "form": [],
+            "intake": [
+              "공모"
+            ]
+          },
+          "operationType": "공모형",
+          "localAvailable": "확인 필요",
+          "source": "https://www.sdream.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00095",
           "name": "SOS장학",
           "category": "교육·청소년",
           "target": "급작스런 경제적 어려움의 학생",
           "description": "긴급한 학업지속을 위한 장학지원",
           "method": "재단 SOS 공모",
-          "operation": "공모별 확인"
+          "operation": "공모별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "청소년"
+            ],
+            "need": [
+              "교육"
+            ],
+            "form": [],
+            "intake": [
+              "공모"
+            ]
+          },
+          "operationType": "공모형",
+          "localAvailable": "확인 필요",
+          "source": "https://www.sdream.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00096",
           "name": "배움터 교육지원",
           "category": "교육·청소년",
           "target": "소외지역·교육기관",
           "description": "배움터·교육사업 기관 공모",
           "method": "기관 공모",
-          "operation": "공모별 확인"
+          "operation": "공모별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "기관·실무자"
+            ],
+            "need": [
+              "교육"
+            ],
+            "form": [],
+            "intake": [
+              "공모"
+            ]
+          },
+          "operationType": "공모형",
+          "localAvailable": "확인 필요",
+          "source": "https://www.sdream.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -1288,22 +3826,74 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.gfound.org/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00097",
           "name": "여성청소년 위생용품 지원",
           "category": "가족·아동",
           "target": "취약 여성청소년",
           "description": "생리대 등 위생·생활용품 지원사업",
           "method": "재단·협력기관 문의",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "청소년",
+              "위기가구"
+            ],
+            "need": [
+              "가족지원"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.gfound.org/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00098",
           "name": "한부모·아동 생활지원",
           "category": "경제·긴급",
           "target": "한부모·위기아동가구",
           "description": "생활·양육·의료 등 민간지원 연계",
           "method": "재단 사업별 문의",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "아동",
+              "가족·한부모",
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.gfound.org/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -1317,22 +3907,74 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.habitat.or.kr/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00099",
           "name": "주거환경개선·집수리",
           "category": "주거",
           "target": "노후·열악한 주택 취약가구",
           "description": "주택개보수·안전주거 환경개선 지원",
           "method": "지역협력기관·재단 공모",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "주거"
+            ],
+            "form": [],
+            "intake": [
+              "공모"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.habitat.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00100",
           "name": "지역주거봉사·후원연계",
           "category": "지역협력",
           "target": "지역기관·자원봉사자",
           "description": "집수리 봉사·주거지원 캠페인",
           "method": "지역본부 문의",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "기관·실무자"
+            ],
+            "need": [
+              "지역참여·자원봉사",
+              "주거"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.habitat.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -1346,30 +3988,106 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://chest.or.kr/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00101",
           "name": "긴급지원 및 개인지원 연계",
           "category": "경제·긴급",
           "target": "위기·취약가구",
           "description": "생계·의료·주거 등 배분·긴급지원(지회별 기준)",
           "method": "경기사회복지공동모금회·협력기관",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "주거"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://chest.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00102",
           "name": "복지기관 배분사업 공모",
           "category": "지역협력",
           "target": "사회복지 비영리기관",
           "description": "신청사업·기획사업 등 기관 공모 지원",
           "method": "경기지회 공모 접수",
-          "operation": "공모별 확인"
+          "operation": "공모별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "기관·실무자"
+            ],
+            "need": [
+              "지역참여·자원봉사"
+            ],
+            "form": [],
+            "intake": [
+              "공모"
+            ]
+          },
+          "operationType": "공모형",
+          "localAvailable": "확인 필요",
+          "source": "https://chest.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00103",
           "name": "지정기탁·기업사회공헌",
           "category": "지역협력",
           "target": "민간후원기관·복지시설",
           "description": "지정기탁과 사회공헌 연계",
           "method": "지회 담당자 문의",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "기관·실무자"
+            ],
+            "need": [
+              "지역참여·자원봉사"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://chest.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -1383,22 +4101,71 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.redcross.or.kr/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00104",
           "name": "위기가정 긴급지원",
           "category": "경제·긴급",
           "target": "재난·생계·의료 위기가구",
           "description": "희망풍차·긴급구호 등 지역별 지원사업",
           "method": "경기지사·봉사회 상담",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.redcross.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00105",
           "name": "희망풍차 결연·생활지원",
           "category": "돌봄·생활",
           "target": "취약계층",
           "description": "지역 결연 및 생활지원·정서지원",
           "method": "경기지사·지역봉사회",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "돌봄"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.redcross.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -1412,22 +4179,73 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.babo.or.kr/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00106",
           "name": "비영리기관 복지사업 공모",
           "category": "지역협력",
           "target": "비영리 복지기관",
           "description": "소외계층 지원을 위한 배분 공모",
           "method": "재단 공모신청",
-          "operation": "공모별 확인"
+          "operation": "공모별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "기관·실무자"
+            ],
+            "need": [
+              "지역참여·자원봉사"
+            ],
+            "form": [],
+            "intake": [
+              "공모"
+            ]
+          },
+          "operationType": "공모형",
+          "localAvailable": "확인 필요",
+          "source": "https://www.babo.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00107",
           "name": "취약계층 지원사업",
           "category": "경제·긴급",
           "target": "지원사업별 선정 가구",
           "description": "협력기관을 통한 복지서비스 및 자원연계",
           "method": "공모 선정기관 문의",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [],
+            "need": [
+              "소득·생계"
+            ],
+            "form": [],
+            "intake": [
+              "공모"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.babo.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -1441,22 +4259,75 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.kfhi.or.kr/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00108",
           "name": "국내 위기아동·가정 지원",
           "category": "경제·긴급",
           "target": "위기가정·취약아동",
           "description": "생활·교육·위기가정 지원사업",
           "method": "재단·사업기관 문의",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "아동",
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "교육"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.kfhi.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00109",
           "name": "아동성장·교육지원",
           "category": "교육·청소년",
           "target": "취약아동·청소년",
           "description": "장학·교육·성장지원 사업",
           "method": "사업별 신청",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년",
+              "위기가구"
+            ],
+            "need": [
+              "교육"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.kfhi.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     },
@@ -1470,22 +4341,72 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.kclf.org/",
       "reviewed": "2026-10-20",
+      "status": "미확인",
       "services": [
         {
+          "id": "SVC-00110",
           "name": "소아암 치료비 지원",
           "category": "보건·의료",
           "target": "소아암·중증질환 아동",
           "description": "재단 기준에 따른 치료비 및 관련 지원",
           "method": "재단 의료비 상담·신청",
-          "operation": "심사 필요"
+          "operation": "심사 필요",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "아동",
+              "질환"
+            ],
+            "need": [
+              "의료·건강"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.kclf.org/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         },
         {
+          "id": "SVC-00111",
           "name": "환아·가족 심리정서 지원",
           "category": "정신건강",
           "target": "소아암 환아·가족",
           "description": "정서·심리사회적 프로그램",
           "method": "재단 상담",
-          "operation": "사업별 확인"
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "가족·한부모"
+            ],
+            "need": [
+              "정신건강"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.kclf.org/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
         }
       ]
     }
