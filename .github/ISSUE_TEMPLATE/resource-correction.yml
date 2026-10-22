@@ -1,0 +1,32 @@
+name: 복지자원 정보 오류 제보
+description: 공개 기관·서비스 정보의 수정 요청입니다. 개인정보를 입력하지 마세요.
+title: '[자원정보 수정] '
+body:
+  - type: markdown
+    attributes:
+      value: '공개 게시판입니다. 대상자 실명·개인 연락처·상담 및 건강 기록을 입력하지 마세요. 공식 기관 정보만 제보해 주세요.'
+  - type: input
+    id: organization
+    attributes:
+      label: 기관명·서비스명
+    validations:
+      required: true
+  - type: textarea
+    id: correction
+    attributes:
+      label: 현재 내용과 수정이 필요한 내용
+      description: 공개 기관 정보만 적어 주세요.
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: 공식 근거 URL
+      description: 알 수 없으면 비워 주세요. 담당자가 별도 확인합니다.
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: 공개정보 확인
+      options:
+        - label: 대상자 개인정보와 비공개 상담기록을 포함하지 않았습니다.
+          required: true

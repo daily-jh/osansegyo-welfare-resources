@@ -39,38 +39,32 @@ python -m http.server 8080 --directory docs
 
 브라우저에서 <http://localhost:8080>에 접속합니다.
 
-## 엑셀(CSV)로 정보 수정하기
+## 데이터 수정·검사·월간 운영 (2026-10-22 전환)
 
-1. `data/resources.csv`를 Excel로 열어 서비스를 추가/수정합니다.
-2. 같은 기관의 여러 서비스를 각각 한 줄씩 입력하고, **범주와 기관명을 같은 표기**로 유지합니다.
-3. CSV를 UTF-8로 저장하고 프로젝트 루트에서 아래 명령을 실행합니다.
+- 편집 원본: `data/organizations.csv`(기관), `data/services.csv`(서비스), `data/contacts.csv`(연락·접수 창구), `data/applications.csv`(공모 회차). UTF-8 BOM CSV입니다.
+- 생성물: `data/resources.csv`, `docs/resources.csv`, `docs/assets/data.js`, `docs/review-queue.csv`, `docs/coverage.json`, 메인 통계·자료 정리일. 생성물을 직접 편집하지 마십시오.
+- `org_id`는 기존 10자리 ID를 유지합니다. 기관명·범주를 바꾸어도 ID를 바꾸지 마십시오. 신규 기관·서비스에는 중복되지 않는 ID를 한 번만 부여합니다. `id-registry.csv`는 최초 ID 대응 기록입니다. 서비스 ID도 개명·행 순서 변경과 무관하게 유지합니다.
+- `row_order`는 호환 CSV 출력 순서입니다. 기존 한글 14열·기관명·서비스명은 청소년 도구와 연결됩니다. 개명 전 `docs/youth-risk/`의 routes·profiles·resource-links 의존성과 테스트를 함께 검토하십시오.
+- 다중 태그는 `|`로 구분합니다. 허용 어휘와 기존 분류 대응은 `data/taxonomy.json`에 있습니다. 빈 태그를 임의 자격으로 채우지 마십시오. 기존 분류에서 옮긴 태그는 검색용이며 공식 검증이 아닙니다.
+- `최종검토일`은 기존 자료 정리일을 보존하는 호환 열입니다. 실제 확인일은 `verified_on`, 상태는 `verification_status`, 근거는 `source_url`, 방법·공개 담당 역할은 `verification_method`·`verified_by`, 재점검일은 `next_check_on`에 기록합니다. 확인완료에는 날짜·방법·담당 역할·근거가 모두 필요합니다.
+- 접수 가능·운영 형태는 미확인 기본값을 유지합니다. 공모형 확인 시 operation_type을 공모형으로 하고 applications.csv에 회차·기간·출처·확인일을 추가합니다. 마감은 한국시간 일자 기준이며 공식 공고의 시각 제한을 별도 확인합니다.
+- contacts.csv의 owner_type은 organization 또는 service, owner_id는 해당 ID입니다. 기관 대표전화에는 note를 대표전화로 두고 기관당 1개만 지정합니다. 서비스별 추가 접수처는 서비스 ID에 연결합니다.
+- 확인 내역은 `data/verification_log.csv`에 이전 내역을 지우지 않고 추가합니다. target_type/target_id로 기관 또는 서비스를 연결하고 날짜·방법·공개 담당 역할·결과·근거·다음 점검일을 기록합니다.
+- 확인완료 여부와 별개로 기관 status가 중단·폐지이면 검색 후보에서 제외됩니다. 원본과 변경 이력은 보존합니다.
 
 ```bash
 python scripts/build_data.py
+python scripts/build_data.py --check
+python -m unittest discover -s tests -p 'test_resources.py'
+node tests/resource-search.cjs
+python scripts/audit_resources.py --links
 ```
 
-4. 수정된 `data/resources.csv`, `docs/resources.csv`, `docs/assets/data.js` 3개 파일을 GitHub에 커밋합니다. `docs/` 변경사항은 GitHub Pages에서 다시 배포됩니다.
+`--check`는 불완전 행·중복 ID·참조 오류·생성물 차이를 실패로 처리하며 데이터를 건너뛰지 않습니다. audit은 확인 목록만 `artifacts/resource-audit/`에 생성하고 원본을 변경하지 않습니다. 링크 응답 200은 정확성 검증이 아니며 403·429·시간초과도 폐지 근거가 아닙니다.
 
-### 파일 배치
+GitHub Actions의 **Welfare resource checks**가 매월 1일 09:00 KST에 자동점검을 실행합니다. 실행이 지연·누락되면 **Run workflow**로 수동 실행합니다. 실행 페이지의 요약·resource-audit 첨부 보고서를 내려받아 공식 출처와 대조하십시오. 예약 검사 자체는 사이트를 갱신하거나 자료를 삭제하지 않습니다. 실제 확인·수정 후 생성물 검사, 청소년 회귀검사, `docs/changelog.html` 이력 기록을 거쳐 배포하십시오.
 
-```text
-├── README.md
-├── COPYRIGHT.md
-├── data/
-│   └── resources.csv       # Excel 편집용 원본 (기관당 여러 서비스 행)
-├── scripts/
-│   └── build_data.py       # 기관명·범주 단위로 데이터를 묶어 웹용 변환
-└── docs/                 # GitHub Pages 공개 루트
-    ├── .nojekyll
-    ├── index.html
-    ├── resources.csv
-    ├── robots.txt
-    └── assets/
-        ├── app.js
-        ├── data.js
-        ├── styles.css
-        └── favicon.svg
-```
+공개 기준·이용조건: `docs/data-guide.html`. 오류 제보: GitHub Issue 양식. 개인정보를 입력하거나 비공개 확인자 명단을 저장소에 올리지 마십시오. CSV의 CC·공공누리 이용허락은 새로 부여하지 않았습니다.
 
 ## 운영상 주의사항
 

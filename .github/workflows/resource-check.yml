@@ -1,0 +1,49 @@
+name: Welfare resource checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    # Monthly 09:00 KST (UTC 00:00); GitHub may delay scheduled runs.
+    - cron: '0 0 1 * *'
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: python scripts/build_data.py --check
+      - run: python -m unittest discover -s tests -p 'test_resources.py'
+      - name: Search and youth resource compatibility
+        shell: bash
+        run: |
+          node tests/resource-search.cjs
+          for test in tests/youth-*.cjs; do node "$test"; done
+      - name: Scheduled official URL response checks
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: python scripts/audit_resources.py --links
+      - name: Source quality report
+        if: github.event_name != 'schedule' && github.event_name != 'workflow_dispatch'
+        run: python scripts/audit_resources.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: resource-audit
+          path: artifacts/resource-audit/
+          retention-days: 90
+      - name: Publish job summary
+        if: always()
+        shell: bash
+        run: |
+          if [ -f artifacts/resource-audit/summary.md ]; then
+            cat artifacts/resource-audit/summary.md >> "$GITHUB_STEP_SUMMARY"
+          fi
