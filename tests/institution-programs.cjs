@@ -1,0 +1,14 @@
+const assert=require('node:assert/strict');
+const P=require('../docs/assets/program-feed.js');globalThis.ProgramFeed=P;
+const M=require('../docs/assets/search-model.js');
+const data={taxonomy:{target:['청소년'],need:['교육'],form:[],intake:[]},organizations:[{id:'1',name:'오산시가족센터',services:[]},{id:'2',name:'다른기관',services:[]}]};
+const p={id:'test',title:'테스트 사업',organization:'오산시 가족센터',target:'청소년',method:'원문 접수',sourceUrl:'https://example.org/notice/1',verifiedOn:'2026-10-22',opensOn:'2026-10-01',closesOn:'2026-10-31',status:'모집중',tags:{target:['청소년'],need:['교육']}};
+assert.equal(P.merge(data,{programs:[p,p,{...p,organization:'미등록기관'},{...p,title:'미확인',sourceUrl:''}]}),1);
+assert.equal(data.organizations[0].services.length,1);assert.equal(data.organizations[1].services.length,0);
+const s=data.organizations[0].services[0];
+assert.equal(M.matchesService(data.organizations[0],s,{keyword:'테스트',need:'교육',audience:'청소년',application:'모집중'},'2026-10-22'),true);
+assert.equal(M.matchesService(data.organizations[0],s,{application:'모집중'},'2026-11-01'),false);
+assert.equal(P.status({...p,status:'마감'},'2026-10-22'),'마감');
+assert.equal(P.status({...p,verifiedOn:''},'2026-10-22'),'확인 필요');
+assert.equal(P.merge(data,{programs:[p]}),0);
+console.log('PASS: institution matching, deduplication, integrated search, deadlines, missing evidence');

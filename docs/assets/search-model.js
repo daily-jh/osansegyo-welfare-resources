@@ -14,6 +14,8 @@
     return '확인 필요';
   }
   function applicationState(s,day=today()){
+    if(s.externalProgram&&typeof root.ProgramFeed!=='undefined')return root.ProgramFeed.status(s.externalProgram,day);
+    if(s.operationType==='상시')return '상시';
     if(s.operationType!=='공모형')return '확인 필요';
     const states=(s.rounds||[]).map(r=>roundState(r,day));
     for(const label of ['모집중','예정','확인 필요'])if(states.includes(label))return label;

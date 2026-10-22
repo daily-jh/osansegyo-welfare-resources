@@ -8,11 +8,11 @@
   <title>함께찾는 복지자원 | 오산세교종합사회복지관</title>
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg"/>
   <link rel="preload" href="youth-risk/fonts/SUIT-Variable.woff2" as="font" type="font/woff2" crossorigin/>
-  <link rel="stylesheet" href="assets/styles.css?v=20261022-programs1"/>
+  <link rel="stylesheet" href="assets/styles.css?v=20261022-institution2"/>
   <script defer src="assets/data.js"></script>
-  <script defer src="assets/search-model.js"></script>
-  <script defer src="assets/program-feed.js?v=20261022-programs1"></script>
-  <script defer src="assets/app.js?v=20261022-programs1"></script>
+  <script defer src="assets/search-model.js?v=20261022-institution2"></script>
+  <script defer src="assets/program-feed.js?v=20261022-institution2"></script>
+  <script defer src="assets/app.js?v=20261022-institution2"></script>
 </head>
 <body>
   <a href="#searchArea" class="skip-link">검색 영역으로 건너뛰기</a>
@@ -24,7 +24,7 @@
       </a>
       <nav class="top-nav" aria-label="주요 메뉴">
         <a class="active" href="#searchArea">자원 찾기</a>
-        <a href="#programs">사업·모집 안내</a><a href="#about">이용안내</a>
+        <a href="#about">이용안내</a>
         <a href="youth-risk/">청소년 지원 연계 ↗</a>
         <a href="resources.csv" download>데이터 내려받기 <span aria-hidden="true">↗</span></a>
       </nav>
@@ -65,7 +65,6 @@
     </section>
 
     <section class="container connected-tools" aria-labelledby="connectedTitle"><div class="connected-card"><div><span class="eyebrow">CONNECTED SUPPORT</span><h2 id="connectedTitle">청소년 위기평가·지원 연계</h2><p>학생의 이야기를 살피고, 이 복지자원 목록을 바탕으로 필요한 도움을 연결합니다.</p></div><div class="connected-actions"><a class="connected-primary" href="youth-risk/">위기평가 시작 ↗</a><a href="youth-risk/support.html">지원 연결지도 ↗</a></div><small>지원 연결지도는 평가 결과에서 열면 해당 결과에 맞는 기관을 보여줍니다.</small></div></section>
-    <section id="programs" class="container maintenance" aria-labelledby="programTitle"><h2 id="programTitle">이번 주 기관별 사업·모집 안내</h2><p>오산 복지정보 프로그램 목록을 출처로 사업명·기관·접수기간·원문 링크를 정리합니다. 기관명이 정확히 일치하는 사업은 해당 기관의 ‘사업·모집 확인’에도 표시합니다.</p><p><b>매주 월요일 오전 9시(한국시간) 갱신 작업 예정</b> · 실행 및 반영은 지연될 수 있습니다. 수집 실패 시 기존 자료와 마지막 성공일을 유지합니다. 모집 상태는 확인 시점과 접수기간 기준이며 조기마감·예산 소진은 원문에서 확인해 주세요.</p><div class="program-filters"><label>사업·기관 검색 <input id="programKeyword" type="search" placeholder="사업명, 기관명, 지원대상"/></label><label>모집 상태 <select id="programStatus"><option value="">전체</option><option>모집중</option><option>상시</option><option>예정</option><option>마감</option><option>확인 필요</option></select></label></div><div id="programFeed" aria-live="polite"><p>사업 자료를 불러오는 중입니다.</p></div><a class="program-link" href="https://osan.welinfo.kr/?board=programList" target="_blank" rel="noopener noreferrer">오산 복지정보 프로그램 목록 원문 ↗</a><p>외부 정보를 확인하여 정리하는 자료실이며 원문 사이트의 제휴·실시간 서비스가 아닙니다. ‘상시’는 운영형태이며 현재 접수 가능 여부를 보장하지 않습니다.</p></section>
     <section id="searchArea" class="directory container">
       <div class="section-head"><div><p class="eyebrow">RESOURCE FINDER <span></span> 복지자원 찾기</p><h2>어떤 지원이 필요하신가요?</h2><p>기관명, 지원대상 또는 필요한 서비스를 입력해 보세요.</p></div><div class="section-decoration">01 <span>/</span> SEARCH</div></div>
       <div class="search-panel">
@@ -91,7 +90,7 @@
         <label>접수경로<select id="intakeFilter"></select></label>
         <label>운영형태<select id="operationFilter"><option value="">전체</option><option>상시</option><option>공모형</option><option>시즌</option><option>확인 필요</option></select></label>
         <label>오산 접수 가능 여부<select id="localFilter"><option value="">전체</option><option>가능</option><option>불가</option><option>확인 필요</option></select></label>
-        <label>공모 접수 상태<select id="applicationFilter"><option value="">전체</option><option>모집중</option><option>예정</option><option>마감</option><option>확인 필요</option></select></label>
+        <label>사업 모집 상태<select id="applicationFilter"><option value="">전체</option><option>모집중</option><option>상시</option><option>예정</option><option>마감</option><option>확인 필요</option></select></label>
       </div><p>미기록 값은 확인 필요로 취급합니다. ‘가능’·‘모집중’이 없으면 신청 불가가 아니라 확인된 자료가 없는 상태입니다.</p></details>
       <p class="search-guide">조건은 같은 서비스 안에서 함께 일치해야 합니다. 분류는 기존 자료에서 옮긴 검색 보조정보이며 자격을 보장하지 않습니다. 검색어가 없으면 등록순, 있으면 기관명·서비스명 관련도순입니다.</p>
       <div class="print-toolbar"><span>연계 시트 <b id="printCount">0</b>/5곳 선택</span><button id="printSheet" type="button" disabled>선택 기관 인쇄</button><button id="clearPrint" type="button">선택 지우기</button></div>
