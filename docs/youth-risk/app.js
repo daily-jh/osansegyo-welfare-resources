@@ -183,7 +183,7 @@ function getUrgent(){return Array.from(document.querySelectorAll("[data-urgent]:
 function questionAt(index){var flat=domains.flatMap(function(d){return d.items});return flat[index]}
 function inferredSignals(){var found=[];[[0,"학대 의심: 현재 안전확인 및 신고의무 이행"],[1,"방임 의심: 현재 안전확인 및 신고의무 이행"],[6,"자해·죽음 관련 신호: 즉시 직접 안전확인과 전문평가, 임박한 위해·상해 시 긴급 대응"],[24,"온라인 성착취·협박 신호: 안전확인과 피해 보호·전문기관 협력"]].forEach(function(pair){var index=pair[0];if(answers[index]>0)found.push((index+1)+"번 문항 · "+questionAt(index)+" ("+answers[index]+"점) → "+pair[1])});return found}
 function updateUrgent(){var signals=getUrgent().concat(inferredSignals());$("urgentNow").hidden=signals.length===0;$("urgentNow").textContent=signals.join(" / ")+" 안전조치는 평가 완료와 무관하게 진행하세요.";ready=false;clearResult()}
-function clearResult(){clearSummary();$("openSupport").disabled=true;$("supportStatus").textContent="1차 평가를 완료하면 이용할 수 있습니다.";$("resourceFilter").disabled=true;$("filterCount").textContent="";$("resultBody").innerHTML='<div class="empty-result"><strong>평가 결과를 기다리고 있습니다.</strong><p>25개 문항의 점수를 모두 선택하고 ‘평가 완료’ 버튼을 눌러 주세요.</p></div>';$("resourceList").innerHTML='<div class="empty-result"><p>평가 완료 후 위험영역에 따라 추천기관이 표시됩니다.</p></div>'}
+function clearResult(){clearSummary();$("openSupport").disabled=true;$("supportStatus").textContent="1차 평가를 완료하면 연결지도를 볼 수 있습니다.";$("resourceFilter").disabled=true;$("filterCount").textContent="";$("resultBody").innerHTML='<div class="empty-result"><strong>평가 결과를 기다리고 있습니다.</strong><p>25개 문항의 점수를 모두 선택하고 ‘평가 완료’ 버튼을 눌러 주세요.</p></div>';$("resourceList").innerHTML='<div class="empty-result"><p>평가 완료 후 위험영역에 따라 추천기관이 표시됩니다.</p></div>'}
 var reviewRevision=0;
 function clearSummary(){
 reviewRevision++;
@@ -268,7 +268,7 @@ html+='</ul><p style="font-size:16px;margin:9px 0 0">위의 문항을 중심으�
 $("resultBody").innerHTML=html;$("printResult").onclick=function(){window.print()};
 renderResources(domainScores);
 renderSummary(total,domainScores,explicit.concat(inferred));
-$("openSupport").disabled=false;$("supportStatus").textContent="선택 사항입니다. 필요할 때 2차 지원계획을 열어 주세요.";
+$("openSupport").disabled=false;$("supportStatus").textContent="선택 보기입니다. 영역별 신호와 기관·사업의 연결을 그림으로 확인하세요.";
 $("result").scrollIntoView({behavior:"smooth",block:"start"});
 }
 function parseCsv(text){
@@ -311,7 +311,7 @@ function filterResources(){var value=$("resourceFilter").value,count=0;document.
 function findPending(){var pending=[];answers.forEach(function(v,i){if(v===null)pending.push(i)});$("pendingList").innerHTML=pending.length?'<strong>응답이 필요한 '+pending.length+'개 문항</strong><p>정보가 부족하면 비워 두고 확인 후 채점하세요. 빈칸은 0점이 아닙니다.</p>'+pending.map(function(i){return '<button type="button" class="pending-jump" data-question="'+i+'">'+(i+1)+'번 · 미응답</button>'}).join(''):'25문항 채점이 완료되었습니다. 결과 보기를 눌러 주세요.';$("pendingList").scrollIntoView({block:"center"})}
 var supportWindows=new Set();
 window.addEventListener('message',function(e){if(e.origin!==location.origin||!supportWindows.has(e.source)||!e.data||e.data.type!=='youth-support-request-v1')return;if(!ready){e.source.postMessage({type:'youth-support-unavailable-v1'},location.origin);return}e.source.postMessage({type:'youth-support-data-v1',answers:answers.slice(),domains:domains.map(function(d){return {name:d.name,items:d.items.slice()}}),routes:routes,resources:csv.map(function(r){return Object.assign({},r)}),explicit:getUrgent().slice()},location.origin)});
-function openSupport(){if(!ready)return;supportWindows.forEach(function(w){if(w.closed)supportWindows.delete(w)});var w=window.open('support.html','_blank');if(w){supportWindows.add(w);$("supportStatus").textContent="2차 지원계획을 새 탭에서 열었습니다. 원래 평가 탭을 닫지 마세요."}else $("supportStatus").textContent="새 탭이 차단되었습니다. 브라우저에서 이 사이트의 팝업을 허용한 뒤 다시 눌러 주세요."}
+function openSupport(){if(!ready)return;supportWindows.forEach(function(w){if(w.closed)supportWindows.delete(w)});var w=window.open('support.html','_blank');if(w){supportWindows.add(w);$("supportStatus").textContent="지원 연결지도를 새 탭에서 열었습니다. 원래 평가 탭을 닫지 마세요."}else $("supportStatus").textContent="새 탭이 차단되었습니다. 브라우저에서 이 사이트의 팝업을 허용한 뒤 다시 눌러 주세요."}
 function init(){
 document.querySelectorAll("input").forEach(function(n){n.value=n.type==="checkbox"?n.value:"";n.checked=false});makeQuestions();updateProgress();
 clearSummary();
