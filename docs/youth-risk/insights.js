@@ -1,7 +1,7 @@
 (function(root){
 'use strict';
 function analyze(a){
- if(!Array.isArray(a)||a.length!==25||Array.from(a).some(v=>!Number.isInteger(v)||v<0||v>4))throw Error('25개 문항 각각 0~4점 필요');
+ if(!Array.isArray(a)||a.length!==25||Array.from(a).some(v=>v!=='unknown'&&(!Number.isInteger(v)||v<0||v>4)))throw Error('25개 문항 각각 0~4점 필요');
  var found=[],has=n=>a[n-1]>=2,any=ns=>ns.some(has),positive=ns=>ns.some(n=>a[n-1]>0);
  function add(id,title,ns,text,action,ask,safety,core){var evidence=ns.filter(n=>a[n-1]>0),peak=Math.max(...(core||ns).filter(n=>a[n-1]>=2).map(n=>a[n-1]),0),rank=safety?4:peak>=3?3:2;found.push({id,title,evidence,rank,peak,priority:safety?'안전 우선':rank===3?'우선 개입':'계획 지원',text,action,ask})}
  if(positive([1,2]))add('protection','학대·방임 의심에 따른 보호 필요',[1,2,16,19],a[0]>0&&a[1]>0?'폭력·위협·침해와 방임 의심이 함께 보고되었습니다. 현재의 안전, 제공되지 않은 보호와 안전한 보호 인력을 우선 확인할 상황입니다.':a[1]>0?'방임 의심 응답을 바탕으로 실제 제공되지 않은 보호·의료·위생과 현재 돌봄 공백을 먼저 살펴볼 상황입니다.':'폭력·위협·침해 의심 응답에 따라 학생의 현재 안전과 보호할 사람·장소를 우선 확보할 상황입니다.','소속기관 신고·보호 절차를 우선 진행하고 필요한 생활지원·돌봄을 함께 조정합니다.','현재 학생과 함께 있는 안전한 사람, 제공되지 않은 보호, 구체적 관찰·진술을 확인합니다.',true);
