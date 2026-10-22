@@ -175,7 +175,7 @@ function getUrgent(){return Array.from(document.querySelectorAll("[data-urgent]:
 function questionAt(index){var flat=domains.flatMap(function(d){return d.items});return flat[index]}
 function inferredSignals(){var found=[];[[0,"학대 의심: 현재 안전확인 및 신고의무 이행"],[1,"방임 의심: 현재 안전확인 및 신고의무 이행"],[6,"자해·죽음 관련 신호: 즉시 직접 안전확인과 전문평가, 임박한 위해·상해 시 긴급 대응"],[24,"온라인 성착취·협박 신호: 안전확인과 피해 보호·전문기관 협력"]].forEach(function(pair){var index=pair[0];if(answers[index]>0)found.push((index+1)+"번 문항 · "+questionAt(index)+" ("+answers[index]+"점) → "+pair[1])});return found}
 function updateUrgent(){var signals=getUrgent().concat(inferredSignals());$("urgentNow").hidden=signals.length===0;$("urgentNow").textContent=signals.join(" / ")+" 안전조치는 평가 완료와 무관하게 진행하세요.";ready=false;clearResult()}
-function clearResult(){clearSummary();$("openSupport").disabled=true;$("openWorkbench").disabled=true;$("supportStatus").textContent="1차 평가를 완료하면 연결지도를 볼 수 있습니다.";$("resourceFilter").disabled=true;$("filterCount").textContent="";$("resultBody").innerHTML='<div class="empty-result"><strong>평가 결과를 기다리고 있습니다.</strong><p>25개 문항에서 점수 또는 미상을 선택하고 ‘평가 완료’ 버튼을 눌러 주세요.</p></div>';$("resourceList").innerHTML='<div class="empty-result"><p>평가 완료 후 위험영역에 따라 추천기관이 표시됩니다.</p></div>'}
+function clearResult(){if(window.parent!==window)window.parent.postMessage({type:"youth-flow-invalid-v1"},location.origin);clearSummary();$("openSupport").disabled=true;$("openWorkbench").disabled=true;$("supportStatus").textContent="1차 평가를 완료하면 연결지도를 볼 수 있습니다.";$("resourceFilter").disabled=true;$("filterCount").textContent="";$("resultBody").innerHTML='<div class="empty-result"><strong>평가 결과를 기다리고 있습니다.</strong><p>25개 문항에서 점수 또는 미상을 선택하고 ‘평가 완료’ 버튼을 눌러 주세요.</p></div>';$("resourceList").innerHTML='<div class="empty-result"><p>평가 완료 후 위험영역에 따라 추천기관이 표시됩니다.</p></div>'}
 var reviewRevision=0;
 function clearSummary(){
 reviewRevision++;$("aiAllowed").checked=false;$("aiAnonymous").checked=false;$("copyPacket").hidden=true;updateCopyGate();
@@ -240,6 +240,7 @@ async function copyPacket(){if(!ready||$("copyAll").disabled)return;var text=$("
 function calculate(){
 var missing=answers.findIndex(function(v){return v===null});if(missing!==-1){alert((missing+1)+"번 문항부터 미응답 항목이 있습니다. 각 문항에서 점수 또는 미상을 선택해 주세요.");$("qi"+missing).scrollIntoView({behavior:"smooth",block:"center"});var radio=$("qi"+missing).querySelector("input");radio.focus();return}
 ready=true;
+if(window.parent!==window)setTimeout(()=>{if(ready)window.parent.postMessage({type:'youth-flow-complete-v1',payload:snapshot()},location.origin)},0);
 if(window.siteUsage&&answers.some(v=>typeof v==='number'))window.siteUsage.complete();
 var total=sumKnown(answers);
 var domainScores=domains.map(function(d,i){return sumKnown(domainAnswers(i))});
