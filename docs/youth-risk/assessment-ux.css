@@ -1,0 +1,26 @@
+/* Answer state is completion, not a risk level. Keep the same blue for 0–4. */
+#assessment .question{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;background:#fff;border:1px solid #d6e1ec;border-left:5px solid #d6e1ec;border-radius:14px;margin:12px 0;padding:18px;transition:background-color .15s,border-color .15s}
+#assessment .question.has-value{background:#deedf9;border-color:#8ab2d1;border-left-color:#28638e;box-shadow:0 1px 4px #244b6b12}
+#assessment .question.is-unknown{background:#fff0cc;border-color:#d7b55c;border-left-color:#926800}
+.question-heading{display:flex;align-items:flex-start;gap:12px;justify-content:space-between;min-width:0}
+.question-heading .question-text{flex:1;min-width:0;color:#183d5c;font-size:17px;line-height:1.65}
+.answer-state{flex-shrink:0;display:inline-block;border-radius:8px;padding:4px 9px;color:#566779;background:#edf1f5;font-size:13px;line-height:1.5;font-weight:700;white-space:nowrap}
+.has-value .answer-state{background:#275f86;color:#fff}
+.is-unknown .answer-state{background:#795900;color:#fff}
+.question-help{font-size:14px;color:#34546d}
+.question-help summary,.intro-help summary,.assessment-help>summary{cursor:pointer;font-weight:700;min-height:44px;display:list-item;padding:10px 2px;text-underline-offset:3px}
+.question-help summary{width:fit-content}
+.question-help .item-hint{margin:0 0 5px;padding:12px;background:#ffffffb8;border-radius:8px;font-size:15px;line-height:1.7;color:#344f64}
+.intro-help p,.assessment-help p,.assessment-help li{font-size:15px;line-height:1.75}
+.privacy .privacy-summary>p{margin:8px 0;color:#455c70}
+.assessment-help ul{padding-left:22px;margin:8px 0 14px}
+.assessment-help>summary{color:#204a6a}
+.assessment-help:not([open]){padding-top:4px;padding-bottom:4px}
+#assessment .options{justify-content:flex-start;gap:9px}
+#assessment .score-choice span{background:#fff;border-color:#b3c9db;color:#204566}
+#assessment .score-choice input:checked+span{background:#245b83;border-color:#245b83;color:#fff;box-shadow:0 0 0 2px #fff,0 0 0 3px #245b83}
+#assessment .unknown-choice input:checked+span{background:#795900;border-color:#795900;box-shadow:0 0 0 2px #fff,0 0 0 3px #795900}
+#assessment .question:focus-within{outline:2px solid #28638e;outline-offset:2px}
+@media(max-width:600px){.question-heading{flex-direction:column;gap:8px}#assessment .question{padding:14px 12px;margin:10px 0}.question-heading .question-text{font-size:16px}.answer-state{align-self:flex-start}.privacy .privacy-summary{padding-top:6px}.scale-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.intro-help summary,.assessment-help>summary{font-size:15px}}
+@media(prefers-reduced-motion:reduce){#assessment .question{transition:none}}
+@media print{#assessment .question{background:#fff!important;border-color:#8c9eac!important;box-shadow:none}.answer-state{background:#fff!important;color:#000!important;border:1px solid #7e8e9a}.question-help:not([open]){display:none}}
