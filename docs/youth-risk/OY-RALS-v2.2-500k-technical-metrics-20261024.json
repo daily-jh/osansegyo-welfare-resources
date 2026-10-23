@@ -1,0 +1,116 @@
+{
+  "system": "OY-RALS youth-risk",
+  "version": "2.2.0-contextual-20261024",
+  "date": "2026-10-24",
+  "status": "completed technical invariants in synthetic test; not human-subject validity",
+  "execution": "JavaScript runtime with GitHub-sourced criterion/weight/support modules; matching reproducibility script in scripts/youth_risk_v22_500k_audit.cjs",
+  "seed": 20261024,
+  "n": 500000,
+  "strata": [
+    {
+      "id": 0,
+      "n": 50000,
+      "priorityChanged": 0,
+      "unknown": 0,
+      "urgent": 0,
+      "pending": 0
+    },
+    {
+      "id": 1,
+      "n": 50000,
+      "priorityChanged": 8723,
+      "unknown": 0,
+      "urgent": 13878,
+      "pending": 3630
+    },
+    {
+      "id": 2,
+      "n": 50000,
+      "priorityChanged": 0,
+      "unknown": 0,
+      "urgent": 12715,
+      "pending": 7623
+    },
+    {
+      "id": 3,
+      "n": 50000,
+      "priorityChanged": 8449,
+      "unknown": 0,
+      "urgent": 27738,
+      "pending": 19857
+    },
+    {
+      "id": 4,
+      "n": 50000,
+      "priorityChanged": 17056,
+      "unknown": 50000,
+      "urgent": 25543,
+      "pending": 14359
+    },
+    {
+      "id": 5,
+      "n": 50000,
+      "priorityChanged": 12686,
+      "unknown": 50000,
+      "urgent": 0,
+      "pending": 6181
+    },
+    {
+      "id": 6,
+      "n": 50000,
+      "priorityChanged": 3600,
+      "unknown": 0,
+      "urgent": 50000,
+      "pending": 10971
+    },
+    {
+      "id": 7,
+      "n": 50000,
+      "priorityChanged": 0,
+      "unknown": 0,
+      "urgent": 50000,
+      "pending": 0
+    },
+    {
+      "id": 8,
+      "n": 50000,
+      "priorityChanged": 0,
+      "unknown": 0,
+      "urgent": 50000,
+      "pending": 0
+    },
+    {
+      "id": 9,
+      "n": 50000,
+      "priorityChanged": 35675,
+      "unknown": 47927,
+      "urgent": 49830,
+      "pending": 23724
+    }
+  ],
+  "urgent": 279704,
+  "unknown": 147927,
+  "pending": 86345,
+  "observedLevel": [
+    172742,
+    192134,
+    51751,
+    83373
+  ],
+  "rawScoreObservedMinMax": [
+    0,
+    80
+  ],
+  "priorityChanged": 86189,
+  "top3SetChanged": 19664,
+  "pendingPromoted": 7582,
+  "contextWeightActivationEvents": 225076,
+  "weightRange": [
+    0.96,
+    1.404
+  ],
+  "technicalInvariantFailures": {},
+  "exceptionSamples": [],
+  "testDurationMs": 119914,
+  "criticalDisclaimer": "500,000 randomly generated test inputs are not 500,000 real patients or students. No external criterion, predictive validity, diagnostic sensitivity/specificity, or intervention efficacy established."
+}
