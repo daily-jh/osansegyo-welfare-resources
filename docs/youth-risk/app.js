@@ -333,7 +333,7 @@ window.addEventListener('message',function(e){
 });
 var supportWindows=new Set();
 window.addEventListener('message',function(e){if(e.origin!==location.origin||!supportWindows.has(e.source)||!e.data||!['youth-support-request-v1','youth-workbench-request-v1'].includes(e.data.type))return;if(!ready){e.source.postMessage({type:'youth-support-unavailable-v1'},location.origin);return}e.source.postMessage(snapshot(),location.origin)});
-function openSupport(){if(!ready)return;supportWindows.forEach(function(w){if(w.closed)supportWindows.delete(w)});var w=window.open('support.html','_blank');if(w){supportWindows.add(w);$("supportStatus").textContent="지원 연결지도를 새 탭에서 열었습니다. 원래 평가 탭을 닫지 마세요."}else $("supportStatus").textContent="새 탭이 차단되었습니다. 브라우저에서 이 사이트의 팝업을 허용한 뒤 다시 눌러 주세요."}
+function openSupport(){if(!ready)return;if(window.parent!==window){window.parent.postMessage({type:'youth-flow-go-v1',stage:2,view:'map'},location.origin);return;}supportWindows.forEach(function(w){if(w.closed)supportWindows.delete(w)});var w=window.open('support.html','_blank');if(w){supportWindows.add(w);$("supportStatus").textContent="지원 연결지도를 새 탭에서 열었습니다. 원래 평가 탭을 닫지 마세요."}else $("supportStatus").textContent="새 탭이 차단되었습니다. 브라우저에서 이 사이트의 팝업을 허용한 뒤 다시 눌러 주세요."}
 function init(){
 document.querySelectorAll("input").forEach(function(n){n.value=n.type==="checkbox"?n.value:"";n.checked=false});makeQuestions();updateProgress();
 clearSummary();
