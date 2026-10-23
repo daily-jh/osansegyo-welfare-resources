@@ -32,3 +32,12 @@ body{font-family:'SUIT Variable',-apple-system,BlinkMacSystemFont,'Apple SD Goth
 /* Keep the two primary directory pages easy to reach on narrow screens. */
 @media(max-width:780px){.top-nav a[href="#about"],.top-nav a[href="youth-risk/"]{display:none}}
 @media(max-width:490px){.top-nav a[href="resource-map.html"]{font-size:13px}.hero-actions{flex-wrap:wrap;gap:16px}}
+
+/* Verified addresses within existing institution contact panel. */
+.institution-contact .contact-address{font-size:15px;line-height:1.55;font-weight:750;color:#263f5a;word-break:keep-all;overflow-wrap:anywhere}
+.institution-contact .address-source-status{display:block;color:#657b8e;font-size:12px;line-height:1.6;margin:4px 0 7px}
+.institution-contact .address-unverified{font-size:14px;color:#8d5b37}
+.institution-contact .address-map-links{display:flex;gap:7px;flex-wrap:wrap;margin:6px 0 12px}
+.institution-contact .address-map-links a{font-size:12px;font-weight:750;color:#315e96;background:#fff;border:1px solid #d5e2f1;padding:6px 10px;border-radius:9px;white-space:nowrap}
+.institution-contact .address-map-links a:hover{background:#eaf3ff;text-decoration:underline}
+@media(max-width:490px){.institution-contact .contact-address{font-size:14px}.institution-contact .address-map-links a{font-size:12px;padding:6px 9px}}

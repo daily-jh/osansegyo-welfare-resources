@@ -25,7 +25,19 @@
     const c=o.contact||{}, phone=o.phone||'', fax=c.fax||'', email=c.email||'';
     const number=phone.split(/[~\/,]/)[0].replace(/[^0-9+]/g,'');
     const mail=/^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(email);
-    return `<div class="institution-contact"><div class="contact-heading">기관 연락처</div>${c.dept?`<p class="contact-purpose">${esc(c.dept)}</p>`:''}<dl><div><dt>${c.dept?'문의전화':'대표전화'}</dt><dd>${number?`<a href="tel:${esc(number.replace(/[^0-9+]/g,''))}">${esc(phone)}</a>`:esc(phone||'—')}</dd></div><div><dt>팩스</dt><dd>${esc(fax||'—')}</dd></div><div><dt>이메일</dt><dd>${mail?`<a href="mailto:${esc(email)}">${esc(email)}</a>`:esc(email||'—')}</dd></div></dl>${safe(o.site)?`<a class="official-homepage" href="${esc(o.site)}" target="_blank" rel="noopener noreferrer">${['오산시 동 행정복지센터','오산시 지역아동센터'].includes(o.name)?'개별 기관 안내':'대표 홈페이지'} 바로가기 ↗</a>`:''}</div>`;
+    const address=String(o.address||'').trim();
+    const addressStatus=o.addressStatus||'미확인';
+    const addressSource=safe(o.addressSource);
+    const addressDate=o.addressCheckedOn||'';
+    let addressHTML='<div><dt>주소</dt><dd><span class="address-unverified">주소 확인 필요 · 방문 전 기관 문의</span></dd></div>';
+    if(address){
+      const mapTerm=encodeURIComponent(address+' '+o.name);
+      const quality=addressStatus==='공식'?'공식 공개자료 기준':addressStatus==='공공·지도'?'공공·지도자료 대조': '기존 등록주소 · 현행 위치 재확인 필요';
+      const dateLabel=addressDate?' ('+esc(addressDate)+')':'';
+      const mapLinks='<div class="address-map-links"><a href="https://www.google.com/maps/search/?api=1&amp;query='+esc(mapTerm)+'" target="_blank" rel="noopener noreferrer">구글 지도 ↗</a><a href="https://map.naver.com/p/search/'+esc(mapTerm)+'" target="_blank" rel="noopener noreferrer">네이버 지도 ↗</a>'+(addressSource?'<a href="'+esc(addressSource)+'" target="_blank" rel="noopener noreferrer">주소 근거 ↗</a>':'')+'</div>';
+      addressHTML='<div><dt>주소</dt><dd><div class="contact-address">'+esc(address)+'</div><small class="address-source-status">'+esc(quality)+dateLabel+'</small>'+mapLinks+'</dd></div>';
+    }
+    return `<div class="institution-contact"><div class="contact-heading">기관 연락처</div>${c.dept?`<p class="contact-purpose">${esc(c.dept)}</p>`:''}<dl><div><dt>${c.dept?'문의전화':'대표전화'}</dt><dd>${number?`<a href="tel:${esc(number.replace(/[^0-9+]/g,''))}">${esc(phone)}</a>`:esc(phone||'—')}</dd></div>${addressHTML}<div><dt>팩스</dt><dd>${esc(fax||'—')}</dd></div><div><dt>이메일</dt><dd>${mail?`<a href="mailto:${esc(email)}">${esc(email)}</a>`:esc(email||'—')}</dd></div></dl>${safe(o.site)?`<a class="official-homepage" href="${esc(o.site)}" target="_blank" rel="noopener noreferrer">${['오산시 동 행정복지센터','오산시 지역아동센터'].includes(o.name)?'개별 기관 안내':'대표 홈페이지'} 바로가기 ↗</a>`:''}</div>`;
   }
   function serviceHTML(s){
     const status=s.externalProgram?window.ProgramFeed.status(s.externalProgram):s.operationType==='상시'?'상시':model.applicationState(s);
@@ -67,7 +79,7 @@
   });
   $('#clearPrint').addEventListener('click',()=>{selected.clear();render()});
   $('#printSheet').addEventListener('click',()=>{
-    $('#printArea').innerHTML=`<h1>복지자원 연계 확인 시트</h1><p>출력일 ${esc(model.today())} · 기관 ${selected.size}곳 · 신청 가능 여부는 직접 확인해 주세요.</p>`+all.filter(o=>selected.has(o.id)).map(o=>`<section><h2>${esc(o.name)}</h2><p>대표전화: ${esc(o.phone||'—')}<br/>팩스: ${esc(o.contact?.fax||'—')}<br/>이메일: ${esc(o.contact?.email||'—')}<br/>대표 홈페이지: ${esc(o.site||'—')}</p>${o.services.map(s=>`<p><b>${esc(s.name)}</b> · ${esc(s.target)}<br/>신청·연계: ${esc(s.method)}</p>${s.externalProgram?`<p><b>접수·안내기간</b> ${esc(s.externalProgram.periodText||[s.externalProgram.opensOn,s.externalProgram.closesOn].filter(Boolean).join(' ~ ')||'원문 확인 필요')}</p><p><small>자료 확인일 ${esc(s.externalProgram.verifiedOn)} · 출처 ${esc(s.externalProgram.sourceName||'공고 원문')}</small></p>`:''}`).join('')}<p>□ 관할·대상 확인　□ 접수기간 확인　□ 담당창구 확인　□ 이용 의사 확인</p></section>`).join('');window.print();
+    $('#printArea').innerHTML=`<h1>복지자원 연계 확인 시트</h1><p>출력일 ${esc(model.today())} · 기관 ${selected.size}곳 · 신청 가능 여부는 직접 확인해 주세요.</p>`+all.filter(o=>selected.has(o.id)).map(o=>`<section><h2>${esc(o.name)}</h2><p>대표전화: ${esc(o.phone||'—')}<br/>주소: ${esc(o.address||'주소 확인 필요')}<br/>팩스: ${esc(o.contact?.fax||'—')}<br/>이메일: ${esc(o.contact?.email||'—')}<br/>대표 홈페이지: ${esc(o.site||'—')}</p>${o.services.map(s=>`<p><b>${esc(s.name)}</b> · ${esc(s.target)}<br/>신청·연계: ${esc(s.method)}</p>${s.externalProgram?`<p><b>접수·안내기간</b> ${esc(s.externalProgram.periodText||[s.externalProgram.opensOn,s.externalProgram.closesOn].filter(Boolean).join(' ~ ')||'원문 확인 필요')}</p><p><small>자료 확인일 ${esc(s.externalProgram.verifiedOn)} · 출처 ${esc(s.externalProgram.sourceName||'공고 원문')}</small></p>`:''}`).join('')}<p>□ 관할·대상 확인　□ 접수기간 확인　□ 담당창구 확인　□ 이용 의사 확인</p></section>`).join('');window.print();
   });
   function openDeepLink(){const id=location.hash.replace(/^#org=/,'');if(id==='438b636f15'){Object.assign(state,defaults);state.keyword='행정복지센터';$('#keyword').value=state.keyword;refresh();requestAnimationFrame(()=>$('#searchArea')?.scrollIntoView({block:'start'}));return;}if(!all.some(o=>o.id===id))return;Object.assign(state,defaults);$('#keyword').value='';state.opened.add(id);state.limit=Math.max(8,all.findIndex(o=>o.id===id)+1);render();requestAnimationFrame(()=>$('#org-'+id)?.scrollIntoView({block:'center'}))}
   window.ProgramFeed?.load(data).then(()=>render());

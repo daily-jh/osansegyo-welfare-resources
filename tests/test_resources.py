@@ -55,6 +55,25 @@ class Resources(unittest.TestCase):
         for org in payload['organizations']:
             self.assertEqual(org['contact'],contacts[org['id']])
             self.assertEqual(org['phone'],org['contact']['phone'])
+    def test_public_address_projection(self):
+        orgs, services, contacts, rounds, taxonomy = b.load()
+        expected={o['org_id']:o for o in orgs}
+        generated=b.generate()
+        payload=json.loads(generated[b.ROOT/'docs/assets/data.js'].decode('utf-8').split('window.WELFARE_DATA = ',1)[1].rstrip(';\n'))
+        for item in payload['organizations']:
+            source=expected[item['id']]
+            self.assertEqual(item['address'],source['address'])
+            self.assertEqual(item['addressStatus'],source['address_status'])
+            self.assertEqual(item['addressSource'],source['address_source_url'])
+            self.assertEqual(item['addressCheckedOn'],source['address_checked_on'])
+        public=list(csv.DictReader(io.StringIO(generated[b.ROOT/'docs/contacts.csv'].decode('utf-8-sig'))))
+        self.assertIn('address',public[0])
+        self.assertIn('address_source_url',public[0])
+        example=next(x for x in public if x['owner_id']=='b45bc16582')
+        self.assertIn('오산시',example['address'])
+    def test_invalid_address_evidence_rejected(self):
+        self.change('organizations.csv',lambda rs:rs[0].update(address='경기도 오산시 가상동 1',address_status='공식',address_source_url='',address_checked_on='2026-10-23'))
+        with self.assertRaises(ValueError):b.generate()
     def test_regeneration_idempotent(self):
         first=b.generate()
         for p,v in first.items():p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(v)

@@ -243,7 +243,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.osgwc.or.kr/",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "경기도 오산시 수청로 192, 세교복지타운 4층",
+      "addressSource": "https://job.gg.go.kr/empmn/desEntDtl.do?bizrno=1398261636",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "기관 위치와 건물 층수 대조"
     },
     {
       "id": "36cf6918f3",
@@ -369,7 +374,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://osanwelfare.co.kr/",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "경기도 오산시 현충로 104",
+      "addressSource": "https://together.kakao.com/fundraisings/teams/3780",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "본관 주소; 분관은 오산시 송로 11"
     },
     {
       "id": "2097512abd",
@@ -496,7 +506,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.ossw.or.kr/home/",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "경기도 오산시 오산로132번길 28-5",
+      "addressSource": "https://pf.kakao.com/_xgxixezxb",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "복지관 공식 채널 주소; 일부 안내자료의 29-5와 달라 공식 표기 채택"
     },
     {
       "id": "438b636f15",
@@ -522,7 +537,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.osan.go.kr/csc/contents.do?mId=0100000000",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소 확인 후 방문 안내 가능"
     },
     {
       "id": "259715c9f4",
@@ -611,7 +631,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.osan.go.kr/",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "경기도 오산시 성호대로 141",
+      "addressSource": "https://www.osancouncil.go.kr/kr/member/active?district=%EB%82%98",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "오산시청 본청"
     },
     {
       "id": "953caa9fe6",
@@ -708,7 +733,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://osan.gcps.or.kr/gnosan/json/branchinfo",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "경기도 오산시 경기대로 105, 503호",
+      "addressSource": "https://www.ezenedu.com/practice/practice04.do?pageIndex=473",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "2026 실습기관 공시 주소"
     },
     {
       "id": "6b509a4355",
@@ -833,7 +863,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://osan.familynet.or.kr/center/lay1/program/S295T315C321/center_info/view.do",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "경기도 오산시 청학로 80, 남촌동복합청사 2층",
+      "addressSource": "https://osan.familynet.or.kr/center/lay1/program/S295T315C321/center_info/view.do",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "가족센터 공식 오시는길"
     },
     {
       "id": "6dff4fa866",
@@ -929,7 +964,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.osan1318.or.kr/1318/main.do",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "경기도 오산시 오산로278번길 3, 2층",
+      "addressSource": "https://www.hi1318.or.kr/base/contents/view?contentsNo=40&menuLevel=3&menuNo=26",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "경기도청소년상담복지센터의 현장기관 목록"
     },
     {
       "id": "d0f9a938bd",
@@ -1020,7 +1060,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.osan.go.kr/depart/contents.do?mId=0405020000",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소 확인 후 방문 안내 가능"
     },
     {
       "id": "b89fdc14c6",
@@ -1150,7 +1195,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.osmh.or.kr/",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "경기도 오산시 경기동로 59, 오산시보건소 2층",
+      "addressSource": "https://www.osan1365.or.kr/board/board.php?orderby=DESC&p=2&table=mn01_04_02",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "오산시자원봉사센터 시설 안내"
     },
     {
       "id": "72c103f3f5",
@@ -1272,7 +1322,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.osan.go.kr/depart/contents.do?mId=0502070000",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "경기도 오산시 경기동로 59",
+      "addressSource": "https://www.osan1365.or.kr/board/board.php?orderby=DESC&p=2&table=mn01_04_02",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "오산시보건소"
     },
     {
       "id": "718d662023",
@@ -1403,7 +1458,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.osrc.or.kr/",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "경기도 오산시 수청로 192, 세교복지타운 2층",
+      "addressSource": "https://www.ezenedu.com/practice/practice04.do?pageIndex=473",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "2026 실습기관 공시 및 지도 대조"
     },
     {
       "id": "2cf31d5acc",
@@ -1493,7 +1553,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://hanaul.or.kr/",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "경기도 오산시 서녘말길 21",
+      "addressSource": "https://www.ezenedu.com/practice/practice04.do?pageIndex=473",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "2026 실습기관 공시"
     },
     {
       "id": "b1583330f2",
@@ -1586,7 +1651,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://osannoin.or.kr/",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "경기도 오산시 수청로 192, 세교복지타운 3층",
+      "addressSource": "https://www.osannoin.or.kr/",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "지도·기관 공개 안내 대조"
     },
     {
       "id": "8571f153a6",
@@ -1645,7 +1715,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "http://ossc.kr/",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "경기도 오산시 경기대로636번길 13",
+      "addressSource": "https://pf.kakao.com/_xmxcxfTxj/112734882",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "본관 주소; 분관 오산시 운암로 7 자원봉사센터 4층"
     },
     {
       "id": "cc9ee0124b",
@@ -1735,7 +1810,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "http://www.osjw.or.kr/g5/index.php",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "경기도 오산시 궐리사로46번길 18, 다움빌 2층",
+      "addressSource": "https://www.osan1365.or.kr/board/board.php?p=19&table=mn01_04_02",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "오산시자원봉사센터 지역 복지기관 목록"
     },
     {
       "id": "20f5466832",
@@ -1829,7 +1909,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.work.go.kr/osan/main.do",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "경기도 오산시 경기동로 51",
+      "addressSource": "https://www.work.go.kr/osan/ctrIntro/guideMap/guideMap.do",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "고용복지플러스센터 본관"
     },
     {
       "id": "643408b80a",
@@ -1920,7 +2005,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.osan1365.or.kr/board/board.php?p=4&table=mn01_04_02",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "경기도 오산시 운암로 7, 2층",
+      "addressSource": "https://www.ggvc.or.kr/PageContent.do?menuNo=010000&subMenuNo=010700&tempParam1=",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "경기도자원봉사센터 기관정보"
     },
     {
       "id": "1010335085",
@@ -2011,7 +2101,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.osan1365.or.kr/board/board.php?p=4&table=mn01_04_02",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소 확인 후 방문 안내 가능"
     },
     {
       "id": "f6f1f88fda",
@@ -2071,7 +2166,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.osan.go.kr/depart/contents.do?mId=0403020500",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소 확인 후 방문 안내 가능"
     },
     {
       "id": "4f434688e9",
@@ -2196,7 +2296,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.gg.go.kr/",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "경기도 수원시 영통구 도청로 30",
+      "addressSource": "https://ggwf.gg.go.kr/gfinfo/gflocation",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "경기도청 광교청사"
     },
     {
       "id": "0ef71da5fe",
@@ -2292,7 +2397,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://gcfwc.ggwf.or.kr/",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소 확인 후 방문 안내 가능"
     },
     {
       "id": "ee3da28d10",
@@ -2383,7 +2493,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://housing.gg.go.kr/html/27100.do",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소 확인 후 방문 안내 가능"
     },
     {
       "id": "f9a63d4c92",
@@ -2478,7 +2593,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.medical.or.kr/center/index.do",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소 확인 후 방문 안내 가능"
     },
     {
       "id": "4e9030120d",
@@ -2600,7 +2720,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.ggnurim.or.kr/",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "경기도 수원시 권선구 서수원로 130, 누림센터",
+      "addressSource": "https://www.ggnurim.or.kr/PageContent.do?menuNo=040000&subMenuNo=040400",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "경기도 장애인복지종합지원센터 본원"
     },
     {
       "id": "073a6c4498",
@@ -2692,7 +2817,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.broso.or.kr/gyeonggi/mainPage.do",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "경기도 수원시 권선구 서수원로 130, 누림센터 304호",
+      "addressSource": "https://www.broso.or.kr/gyeonggi/contents.do?menuId=0404000000",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "경기지역 발달장애인지원센터"
     },
     {
       "id": "c6dfc2d125",
@@ -2788,7 +2918,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.hi1318.or.kr/",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "경기도 수원시 장안구 송원로 55, 행정동우회관 1층",
+      "addressSource": "https://www.hi1318.or.kr/base/contents/view?contentsNo=6&menuLevel=2&menuNo=31",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "광역청소년상담복지센터"
     },
     {
       "id": "dc62532c91",
@@ -2880,7 +3015,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://gg.pass.or.kr/",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소 확인 후 방문 안내 가능"
     },
     {
       "id": "df2f6968e5",
@@ -2972,7 +3112,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://ggwf.gg.go.kr/",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "경기도 수원시 장안구 경수대로 1150, 신관 3층",
+      "addressSource": "https://ggwf.gg.go.kr/gfinfo/gflocation",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "재단의 오시는 길; 이전 공고와 대조 필요"
     },
     {
       "id": "554a2d99a2",
@@ -3064,7 +3209,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.gjf.or.kr/main/main.do",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소 확인 후 방문 안내 가능"
     },
     {
       "id": "bd69f8d5ea",
@@ -3159,7 +3309,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.goehs.kr/goehs/cm/cntnts/cntntsView.do?cntntsId=2147&mi=18023",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소 확인 후 방문 안내 가능"
     },
     {
       "id": "2c45d092e2",
@@ -3323,7 +3478,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.chorogusan.or.kr/main.do",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "경기도 수원시 팔달구 권광로 199, 세영빌딩 10층",
+      "addressSource": "https://www.chorogusan.or.kr/camp/cpView20000706_main.do",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "초록우산 경기지역본부 연락용; 전국 본부 주소와 구별"
     },
     {
       "id": "2060149408",
@@ -3451,7 +3611,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.goodneighbors.kr/",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "서울특별시 영등포구 버드나루로 13",
+      "addressSource": "https://www.goodneighbors.kr/goodneighbors/organization/corporation.gn",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "굿네이버스 본부"
     },
     {
       "id": "f3647be053",
@@ -3581,7 +3746,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.worldvision.or.kr/",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소 확인 후 방문 안내 가능"
     },
     {
       "id": "d4b65309ba",
@@ -3674,7 +3844,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.sc.or.kr/",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "서울특별시 마포구 토정로 174",
+      "addressSource": "https://www.sc.or.kr/intro/history.do?HISTORYCHOICE=kr_org",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "세이브더칠드런 본부"
     },
     {
       "id": "336ba76069",
@@ -3798,7 +3973,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.miral.org/etc/map.do",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "서울특별시 강남구 밤고개로1길 34, 한울오피스텔 2층",
+      "addressSource": "https://m.miral.org/etc/map.do",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "밀알복지재단 본부"
     },
     {
       "id": "f0af0f1a56",
@@ -3926,7 +4106,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://purme.org/",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소 확인 후 방문 안내 가능"
     },
     {
       "id": "bb4130b1c3",
@@ -4020,7 +4205,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://beautifulfund.org/",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소 확인 후 방문 안내 가능"
     },
     {
       "id": "2276831255",
@@ -4149,7 +4339,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.sdream.or.kr/portal",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "서울특별시 용산구 후암로 107, 게이트웨이타워 20층",
+      "addressSource": "https://www.sdream.or.kr/portal/about/contactUs",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "삼성꿈장학재단"
     },
     {
       "id": "80be817881",
@@ -4243,7 +4438,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.gfound.org/",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소 확인 후 방문 안내 가능"
     },
     {
       "id": "22c1c42731",
@@ -4337,7 +4537,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.habitat.or.kr/",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "서울특별시 중구 동호로 195-7, 송죽빌딩 2~5층",
+      "addressSource": "https://www.habitat.or.kr/company/location",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "한국해비타트 본부"
     },
     {
       "id": "b9afe80849",
@@ -4463,7 +4668,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://chest.or.kr/",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소 확인 후 방문 안내 가능"
     },
     {
       "id": "020d4417f2",
@@ -4554,7 +4764,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.redcross.or.kr/main/cm/conts/contsView.do?mi=1384&contsId=1102",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "강원특별자치도 원주시 혁신로 50",
+      "addressSource": "https://www.redcross.or.kr/main/bp/bplc/viewBplcList.do?mi=1011",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "대한적십자사 본사(경기지사: 수원시 권광로 129)"
     },
     {
       "id": "0a7721774c",
@@ -4647,7 +4862,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.babo.or.kr/",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "서울특별시 중구 명동길 74, 천주교서울대교구청 신관 5층",
+      "addressSource": "https://www.babo.or.kr/map",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "바보의나눔 재단 본부"
     },
     {
       "id": "9264a0fc94",
@@ -4742,7 +4962,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.kfhi.or.kr/",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "서울특별시 강서구 공항대로59다길 109",
+      "addressSource": "https://www.kfhi.or.kr/upload/editor/20250609/ae6bfd2d-3409-45dc-a05d-62d2e6ede995.pdf",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "기아대책 발간자료상 주소; 방문 전 확인"
     },
     {
       "id": "1245907c87",
@@ -4834,7 +5059,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.kclf.org/",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "서울특별시 성북구 성북로5길 9-14",
+      "addressSource": "https://www.kclf.org/location",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "한국백혈병어린이재단 사무처"
     },
     {
       "id": "90d0406e33",
@@ -4860,7 +5090,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://osan.welinfo.kr/?board=programList",
         "verified_on": ""
-      }
+      },
+      "address": "경기도 오산시 오산로132번길 28-6",
+      "addressSource": "https://heritage.ayo.pe.kr/pubfac/187130",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "오산시 공공시설 개방자료 2026년 8월 기준"
     },
     {
       "id": "b66a287ba5",
@@ -4886,7 +5121,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.osanidream.or.kr/play/play_list.asp?page=2",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "경기도 오산시 양산로410번길 20",
+      "addressSource": "https://www.osanidream.or.kr/center/map.asp",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "기관 공식 오시는길"
     },
     {
       "id": "4cd8235704",
@@ -4912,7 +5152,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://osan.welinfo.kr/?board=programList",
         "verified_on": ""
-      }
+      },
+      "address": "경기도 오산시 양산로410번길 30",
+      "addressSource": "https://www.eaja.or.kr/s5_3_2/98",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "전국육아종합지원센터협의회 기관목록"
     },
     {
       "id": "216d1bb00c",
@@ -5074,7 +5319,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.osan.go.kr/main.do",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "경기도 오산시 경기대로 307",
+      "addressSource": "https://www.osan1365.or.kr/board/board.php?orderby=DESC&p=2&table=mn01_04_02",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "중앙동 행정복지센터"
     },
     {
       "id": "ba39f0ee2e",
@@ -5252,7 +5502,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.osan.go.kr/main.do",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "경기도 오산시 오산로132번길 28",
+      "addressSource": "https://www.google.com/maps/search/?api=1&query=%EC%98%A4%EC%82%B0+%EB%8C%80%EC%9B%901%EB%8F%99+%ED%96%89%EC%A0%95%EB%B3%B5%EC%A7%80%EC%84%BC%ED%84%B0",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "구 대원동 청사 지도 확인; 현 청사 변동 시 재확인"
     },
     {
       "id": "f62657309e",
@@ -5430,7 +5685,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.osan.go.kr/main.do",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "경기도 오산시 동부대로 332-13, 가동 1층",
+      "addressSource": "https://www.fnnews.com/news/202312061505243876",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "2024년 분동 이후 개청한 대원2동 청사"
     },
     {
       "id": "22d62d9b49",
@@ -5608,7 +5868,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.osan.go.kr/main.do",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "경기도 오산시 청학로 80, 남촌동복합청사",
+      "addressSource": "https://osan.familynet.or.kr/center/lay1/program/S295T315C321/center_info/view.do",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "오산시가족센터와 동일 복합청사"
     },
     {
       "id": "1775bf2742",
@@ -5786,7 +6051,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.osan.go.kr/main.do",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "경기도 오산시 문헌공로 45",
+      "addressSource": "https://www.osan1365.or.kr/board/board.php?orderby=DESC&p=2&table=mn01_04_02",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "기존 신장동 청사 지도 대조"
     },
     {
       "id": "7576947f4e",
@@ -5964,7 +6234,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.osan.go.kr/main.do",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "경기도 오산시 내삼미로79번길 48, 리더스프라자 3~4층",
+      "addressSource": "https://www.fnnews.com/news/202312061505243876",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "2024년 분동 개청 청사"
     },
     {
       "id": "3b1285c6ab",
@@ -6142,7 +6417,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.osan.go.kr/main.do",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "경기도 오산시 독산성로 419",
+      "addressSource": "https://www.google.com/maps/search/?api=1&query=%EC%84%B8%EB%A7%88%EB%8F%99%ED%96%89%EC%A0%95%EB%B3%B5%EC%A7%80%EC%84%BC%ED%84%B0",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "세마동 청사 지도 정보"
     },
     {
       "id": "21e5888d41",
@@ -6320,7 +6600,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.osan.go.kr/main.do",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "경기도 오산시 초평중앙로 77",
+      "addressSource": "https://www.google.com/maps/search/?api=1&query=%EC%B4%88%ED%8F%89%EB%8F%99%ED%96%89%EC%A0%95%EB%B3%B5%EC%A7%80%EC%84%BC%ED%84%B0",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "2020년 신축 청사 정보; 종전 발안로 주소 사용 금지"
     },
     {
       "id": "3ee436e3b8",
@@ -6422,7 +6707,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.osan.go.kr/main.do",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소 확인 후 방문 안내 가능"
     },
     {
       "id": "44fd2c2d39",
@@ -6519,7 +6809,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.gg.go.kr/bbs/boardView.do?bIdx=218024475&bsIdx=496&menuId=3261&page=1",
         "verified_on": ""
-      }
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소 확인 후 방문 안내 가능"
     },
     {
       "id": "43bb6cecb7",
@@ -6618,7 +6913,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.osan.go.kr/ostv/cast/viewer/board.do?key=1d70d0e98c9884a631f744996476ce2989f5a89079c35e96cbd016d44babcb3e31740822049d111d",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소 확인 후 방문 안내 가능"
     },
     {
       "id": "22ca867996",
@@ -6685,7 +6985,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.gg.go.kr/contents/contents.do?ciIdx=1526&menuId=3451",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소 확인 후 방문 안내 가능"
     },
     {
       "id": "a500df60f5",
@@ -6782,7 +7087,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.mentalhealth.or.kr/MentalBusiness/BusinessContent.asp",
         "verified_on": ""
-      }
+      },
+      "address": "경기도 수원시 장안구 수성로245번길 69, 경기도의료원 2층",
+      "addressSource": "https://mentalhealth.or.kr/AreaCenter/AC19.asp",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "본부 주소; 분소 수원시 팔달구 덕영대로697번길 34 3층"
     },
     {
       "id": "02dc6168b5",
@@ -6881,7 +7191,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.atrac.or.kr/main/main.html",
         "verified_on": ""
-      }
+      },
+      "address": "경기도 수원시 권선구 서수원로 130, 누림센터 204호",
+      "addressSource": "https://www.atrac.or.kr/company/location.html",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "경기도재활공학서비스연구지원센터 수원 거점"
     },
     {
       "id": "95000185ff",
@@ -6944,7 +7259,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://ggwf.gg.go.kr/wp-content/uploads/sites/30/2024/12/정책연구-2024-08_경기도-장애인권익옹호기관-운영-현황-및-개선방안.pdf",
         "verified_on": ""
-      }
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소 확인 후 방문 안내 가능"
     },
     {
       "id": "59d5d046a2",
@@ -7057,7 +7377,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.gg.go.kr/contents/contents.do?ciIdx=1472&menuId=3302",
         "verified_on": ""
-      }
+      },
+      "address": "경기도 수원시 팔달구 효원로308번길 34, 경기도여성비전센터 3층",
+      "addressSource": "https://www.gg.go.kr/myggd/vol197/1_2.php",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "방문상담은 전화예약 후 방문"
     },
     {
       "id": "eac1ed57a3",
@@ -7121,7 +7446,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.gg.go.kr/contents/contents.do?ciIdx=1470&menuId=3300",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소 확인 후 방문 안내 가능"
     },
     {
       "id": "8da0749d8f",
@@ -7186,7 +7516,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.gg.go.kr/contents/contents.do?ciIdx=1471&menuId=3301",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "경기도 수원시 영통구 월드컵로 164, 아주대학교병원 내",
+      "addressSource": "https://www.gg.go.kr/contents/contents.do?ciIdx=1471&menuId=3301",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "기존 입력주소·경기도 지원센터 소개 일치"
     },
     {
       "id": "677cdd6ef9",
@@ -7251,7 +7586,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.gg.go.kr/contents/contents.do?ciIdx=1471&menuId=3301",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "경기도 성남시 분당구 판교로 471, 한화빌딩 5층",
+      "addressSource": "https://www.gg.go.kr/contents/contents.do?ciIdx=1471&menuId=3301",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "기존 입력주소"
     },
     {
       "id": "44fb6e40f6",
@@ -7354,7 +7694,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://hosp.ajoumc.or.kr/",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "경기도 수원시 영통구 월드컵로 164",
+      "addressSource": "https://www.medical.or.kr/suwon/contentsInfo.do?menu_no=1919&tab_no=1",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "경기도의료원 협력 상급종합병원 주소록"
     },
     {
       "id": "1fbb4aaef9",
@@ -7457,7 +7802,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://dongtan.hallym.or.kr/",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "경기도 화성시 큰재봉길 7",
+      "addressSource": "https://www.medical.or.kr/suwon/contentsInfo.do?menu_no=1919&tab_no=2",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "한림대학교동탄성심병원(화성시)"
     },
     {
       "id": "be3601ba52",
@@ -7560,7 +7910,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.snubh.org/index.do",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "경기도 성남시 분당구 구미로173번길 82",
+      "addressSource": "https://snubh.org/intro/map/road.do",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "병원 공식 오시는길"
     },
     {
       "id": "7bd56a5349",
@@ -7748,7 +8103,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.medical.or.kr/suwon/index.do",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "경기도 수원시 장안구 수성로245번길 69",
+      "addressSource": "https://www.medical.or.kr/suwon/contentsInfo.do?brd_mgrno=0&menu_no=1152",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "경기도의료원 수원병원"
     },
     {
       "id": "4ad5dbe058",
@@ -7810,7 +8170,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.klac.or.kr/",
         "verified_on": ""
-      }
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소 확인 후 방문 안내 가능"
     },
     {
       "id": "d39be30c51",
@@ -7873,7 +8238,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://edu.ccrs.or.kr/main.do",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소 확인 후 방문 안내 가능"
     },
     {
       "id": "aa30852634",
@@ -7938,7 +8308,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://m.myhome.go.kr/hws/portal/main/selectSimpleSrchDataView.do",
         "verified_on": "2026-10-22"
-      }
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소 확인 후 방문 안내 가능"
     },
     {
       "id": "f5cda30b9e",
@@ -8003,7 +8378,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.bokjiro.go.kr/ssis-tbu/",
         "verified_on": ""
-      }
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소 확인 후 방문 안내 가능"
     },
     {
       "id": "652b6177a3",
@@ -8100,7 +8480,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.bokji.net/ssn/bin/13.bokji",
         "verified_on": ""
-      }
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소 확인 후 방문 안내 가능"
     },
     {
       "id": "c2b2973215",
@@ -8199,7 +8584,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://kfpd.org/51",
         "verified_on": ""
-      }
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소 확인 후 방문 안내 가능"
     },
     {
       "id": "cb29012dd4",
@@ -8296,7 +8686,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://womenfund.or.kr/business",
         "verified_on": ""
-      }
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소 확인 후 방문 안내 가능"
     },
     {
       "id": "022356646f",
@@ -8396,7 +8791,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.withgo.or.kr/index.do",
         "verified_on": ""
-      }
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소 확인 후 방문 안내 가능"
     },
     {
       "id": "87674ec420",
@@ -8496,7 +8896,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.heart-heart.org/",
         "verified_on": ""
-      }
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소 확인 후 방문 안내 가능"
     },
     {
       "id": "17301032a4",
@@ -8559,7 +8964,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.kidsfuture.or.kr/",
         "verified_on": ""
-      }
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소 확인 후 방문 안내 가능"
     },
     {
       "id": "46ad991767",
@@ -8622,7 +9032,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.heart.or.kr/",
         "verified_on": ""
-      }
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소 확인 후 방문 안내 가능"
     },
     {
       "id": "7fadc951d2",
@@ -8747,7 +9162,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.kord.or.kr/index.php",
         "verified_on": ""
-      }
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소 확인 후 방문 안내 가능"
     },
     {
       "id": "osan26care001",
@@ -8815,7 +9235,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.hugmomhugin.co.kr/branch/main/main.html?jijummid=osan",
         "verified_on": "2026-10-23"
-      }
+      },
+      "address": "경기도 오산시 청학로 230, 재이클래스 202호",
+      "addressSource": "https://www.hugmomhugin.co.kr/branch/main/main.html?jijummid=osan",
+      "addressStatus": "기존 등록자료",
+      "addressCheckedOn": "",
+      "addressNote": "이전 자료 입력값 · 현재 주소 미재확인"
     },
     {
       "id": "osan26care002",
@@ -8883,7 +9308,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
         "verified_on": ""
-      }
+      },
+      "address": "경기도 오산시 성호대로 89, 오산세명프라자 306호",
+      "addressSource": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+      "addressStatus": "기존 등록자료",
+      "addressCheckedOn": "",
+      "addressNote": "이전 자료 입력값 · 현재 주소 미재확인"
     },
     {
       "id": "osan26care003",
@@ -8951,7 +9381,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
         "verified_on": ""
-      }
+      },
+      "address": "경기도 오산시 내삼미로79번길 19, 광장프라자 503호",
+      "addressSource": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+      "addressStatus": "기존 등록자료",
+      "addressCheckedOn": "",
+      "addressNote": "이전 자료 입력값 · 현재 주소 미재확인"
     },
     {
       "id": "osan26care004",
@@ -9019,7 +9454,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
         "verified_on": ""
-      }
+      },
+      "address": "경기도 오산시 수목원로 462, 4층 405호",
+      "addressSource": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+      "addressStatus": "기존 등록자료",
+      "addressCheckedOn": "",
+      "addressNote": "이전 자료 입력값 · 현재 주소 미재확인"
     },
     {
       "id": "osan26care005",
@@ -9087,7 +9527,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
         "verified_on": ""
-      }
+      },
+      "address": "경기도 오산시 경기대로 178, 비전탑 2층 204호",
+      "addressSource": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+      "addressStatus": "기존 등록자료",
+      "addressCheckedOn": "",
+      "addressNote": "이전 자료 입력값 · 현재 주소 미재확인"
     },
     {
       "id": "osan26care006",
@@ -9155,7 +9600,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
         "verified_on": ""
-      }
+      },
+      "address": "경기도 오산시 오산로 164, 양우프라자 605호",
+      "addressSource": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+      "addressStatus": "기존 등록자료",
+      "addressCheckedOn": "",
+      "addressNote": "이전 자료 입력값 · 현재 주소 미재확인"
     },
     {
       "id": "osan26care007",
@@ -9223,7 +9673,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
         "verified_on": ""
-      }
+      },
+      "address": "경기도 오산시 수목원로 458, 402호",
+      "addressSource": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+      "addressStatus": "기존 등록자료",
+      "addressCheckedOn": "",
+      "addressNote": "이전 자료 입력값 · 현재 주소 미재확인"
     },
     {
       "id": "osan26care008",
@@ -9291,7 +9746,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
         "verified_on": ""
-      }
+      },
+      "address": "경기도 오산시 원동로 41, 3층",
+      "addressSource": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+      "addressStatus": "기존 등록자료",
+      "addressCheckedOn": "",
+      "addressNote": "이전 자료 입력값 · 현재 주소 미재확인"
     },
     {
       "id": "osan26care009",
@@ -9359,7 +9819,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
         "verified_on": ""
-      }
+      },
+      "address": "경기도 오산시 대원로 57, 중앙씨티월3 8층 801호",
+      "addressSource": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+      "addressStatus": "기존 등록자료",
+      "addressCheckedOn": "",
+      "addressNote": "이전 자료 입력값 · 현재 주소 미재확인"
     },
     {
       "id": "osan26care010",
@@ -9427,7 +9892,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
         "verified_on": ""
-      }
+      },
+      "address": "경기도 오산시 오산로272번길 37",
+      "addressSource": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+      "addressStatus": "기존 등록자료",
+      "addressCheckedOn": "",
+      "addressNote": "이전 자료 입력값 · 현재 주소 미재확인"
     },
     {
       "id": "osan26care011",
@@ -9494,7 +9964,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.hira.or.kr/ra/hosp/hospInfoAjax.do?ykiho=JDQ4MTYyMiM1MSMkMSMkMCMkODkkMzgxMzUxIzExIyQxIyQzIyQxMyQzNjEyMjIjNDEjJDEjJDgjJDgz",
         "verified_on": "2026-10-23"
-      }
+      },
+      "address": "경기도 오산시 밀머리로1번길 16",
+      "addressSource": "https://www.hira.or.kr/ra/hosp/hospInfoAjax.do?ykiho=JDQ4MTYyMiM1MSMkMSMkMCMkODkkMzgxMzUxIzExIyQxIyQzIyQxMyQzNjEyMjIjNDEjJDEjJDgjJDgz",
+      "addressStatus": "기존 등록자료",
+      "addressCheckedOn": "",
+      "addressNote": "이전 자료 입력값 · 현재 주소 미재확인"
     },
     {
       "id": "osan26care012",
@@ -9561,7 +10036,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://osanhospital.co.kr/",
         "verified_on": "2026-10-23"
-      }
+      },
+      "address": "경기도 오산시 오산로 307",
+      "addressSource": "https://osanhospital.co.kr/",
+      "addressStatus": "기존 등록자료",
+      "addressCheckedOn": "",
+      "addressNote": "이전 자료 입력값 · 현재 주소 미재확인"
     },
     {
       "id": "osan26care013",
@@ -9628,7 +10108,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://hospital.ottl.net/%EA%B2%BD%EA%B8%B0/%EC%98%A4%EC%82%B0%EC%8B%9C/%EB%B3%91%EC%9B%90/",
         "verified_on": ""
-      }
+      },
+      "address": "경기도 오산시 경기대로 209",
+      "addressSource": "https://hospital.ottl.net/%EA%B2%BD%EA%B8%B0/%EC%98%A4%EC%82%B0%EC%8B%9C/%EB%B3%91%EC%9B%90/",
+      "addressStatus": "기존 등록자료",
+      "addressCheckedOn": "",
+      "addressNote": "이전 자료 입력값 · 현재 주소 미재확인"
     },
     {
       "id": "osan26care014",
@@ -9695,7 +10180,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.hira.or.kr/ra/hosp/hospInfoAjax.do?ykiho=JDQ4MTYyMiM1MSMkMSMkMCMkOTkkMzgxOTYxIzExIyQxIyQ3IyQ4OSQyNjE0ODEjNDEjJDEjJDgjJDgz",
         "verified_on": "2026-10-23"
-      }
+      },
+      "address": "경기도 오산시 경기대로 534, 3층 303호 및 5~10층",
+      "addressSource": "https://www.hira.or.kr/ra/hosp/hospInfoAjax.do?ykiho=JDQ4MTYyMiM1MSMkMSMkMCMkOTkkMzgxOTYxIzExIyQxIyQ3IyQ4OSQyNjE0ODEjNDEjJDEjJDgjJDgz",
+      "addressStatus": "기존 등록자료",
+      "addressCheckedOn": "",
+      "addressNote": "이전 자료 입력값 · 현재 주소 미재확인"
     },
     {
       "id": "osan26care015",
@@ -9762,7 +10252,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://hospital.ottl.net/%EA%B2%BD%EA%B8%B0/%EC%98%A4%EC%82%B0%EC%8B%9C/%EB%B3%91%EC%9B%90/",
         "verified_on": ""
-      }
+      },
+      "address": "경기도 오산시 북삼미로 175",
+      "addressSource": "https://hospital.ottl.net/%EA%B2%BD%EA%B8%B0/%EC%98%A4%EC%82%B0%EC%8B%9C/%EB%B3%91%EC%9B%90/",
+      "addressStatus": "기존 등록자료",
+      "addressCheckedOn": "",
+      "addressNote": "이전 자료 입력값 · 현재 주소 미재확인"
     },
     {
       "id": "osan26care016",
@@ -9829,7 +10324,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.hira.or.kr/ra/hosp/hospInfoAjax.do?ykiho=31209581",
         "verified_on": "2026-10-23"
-      }
+      },
+      "address": "경기도 오산시 경기대로 274",
+      "addressSource": "https://www.hira.or.kr/ra/hosp/hospInfoAjax.do?ykiho=31209581",
+      "addressStatus": "기존 등록자료",
+      "addressCheckedOn": "",
+      "addressNote": "이전 자료 입력값 · 현재 주소 미재확인"
     },
     {
       "id": "osan26care017",
@@ -9896,7 +10396,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://hospital.ottl.net/%EA%B2%BD%EA%B8%B0/%EC%98%A4%EC%82%B0%EC%8B%9C/%EB%B3%91%EC%9B%90/",
         "verified_on": ""
-      }
+      },
+      "address": "경기도 오산시 내삼미로79번길 19, 6~8층 및 10층",
+      "addressSource": "https://hospital.ottl.net/%EA%B2%BD%EA%B8%B0/%EC%98%A4%EC%82%B0%EC%8B%9C/%EB%B3%91%EC%9B%90/",
+      "addressStatus": "기존 등록자료",
+      "addressCheckedOn": "",
+      "addressNote": "이전 자료 입력값 · 현재 주소 미재확인"
     },
     {
       "id": "osan26care018",
@@ -9963,7 +10468,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://www.hira.or.kr/ra/hosp/hospInfoAjax.do?ykiho=JDQ4MTYyMiM1MSMkMSMkMCMkOTkkMzgxOTYxIzExIyQxIyQzIyQ5OSQzNjEwMDIjNTEjJDEjJDIjJDgz",
         "verified_on": "2026-10-23"
-      }
+      },
+      "address": "경기도 오산시 오산로 8",
+      "addressSource": "https://www.hira.or.kr/ra/hosp/hospInfoAjax.do?ykiho=JDQ4MTYyMiM1MSMkMSMkMCMkOTkkMzgxOTYxIzExIyQxIyQzIyQ5OSQzNjEwMDIjNTEjJDEjJDIjJDgz",
+      "addressStatus": "기존 등록자료",
+      "addressCheckedOn": "",
+      "addressNote": "이전 자료 입력값 · 현재 주소 미재확인"
     },
     {
       "id": "osan26care019",
@@ -10031,7 +10541,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://hospitalfact.kr/clinics/%ED%8F%89%EC%95%88%ED%95%9C%EC%82%AC%EB%9E%91%EB%B3%91%EC%9B%90-9dd7483c-dae8-4e28-bbf8-377a2858f27b/",
         "verified_on": ""
-      }
+      },
+      "address": "경기도 오산시 수목원로 606, 오산세교CL타워 6층",
+      "addressSource": "https://hospitalfact.kr/clinics/%ED%8F%89%EC%95%88%ED%95%9C%EC%82%AC%EB%9E%91%EB%B3%91%EC%9B%90-9dd7483c-dae8-4e28-bbf8-377a2858f27b/",
+      "addressStatus": "기존 등록자료",
+      "addressCheckedOn": "",
+      "addressNote": "이전 자료 입력값 · 현재 주소 미재확인"
     },
     {
       "id": "osan26care020",
@@ -10099,7 +10614,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://clinics.seoul.kr/gyeonggi-do/osan-si/psychiatry",
         "verified_on": ""
-      }
+      },
+      "address": "경기도 오산시 가장산업동로 69-27",
+      "addressSource": "https://clinics.seoul.kr/gyeonggi-do/osan-si/psychiatry",
+      "addressStatus": "기존 등록자료",
+      "addressCheckedOn": "",
+      "addressNote": "이전 자료 입력값 · 현재 주소 미재확인"
     },
     {
       "id": "osan26care021",
@@ -10167,7 +10687,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://clinics.seoul.kr/gyeonggi-do/osan-si/osan-dong/psychiatry",
         "verified_on": ""
-      }
+      },
+      "address": "경기도 오산시 역광장로 71",
+      "addressSource": "https://clinics.seoul.kr/gyeonggi-do/osan-si/osan-dong/psychiatry",
+      "addressStatus": "기존 등록자료",
+      "addressCheckedOn": "",
+      "addressNote": "이전 자료 입력값 · 현재 주소 미재확인"
     },
     {
       "id": "osan26care022",
@@ -10235,7 +10760,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://happyosan.com/contact",
         "verified_on": "2026-10-23"
-      }
+      },
+      "address": "경기도 오산시 오산로 206, 정화프라자 3층",
+      "addressSource": "https://happyosan.com/contact",
+      "addressStatus": "기존 등록자료",
+      "addressCheckedOn": "",
+      "addressNote": "이전 자료 입력값 · 현재 주소 미재확인"
     },
     {
       "id": "osan26care023",
@@ -10303,7 +10833,12 @@ window.WELFARE_DATA = {
         "note": "대표전화",
         "source_url": "https://clinics.seoul.kr/gyeonggi-do/osan-si/gwol-dong/psychiatry",
         "verified_on": ""
-      }
+      },
+      "address": "경기도 오산시 죽담1로 29, 2층 202호",
+      "addressSource": "https://clinics.seoul.kr/gyeonggi-do/osan-si/gwol-dong/psychiatry",
+      "addressStatus": "기존 등록자료",
+      "addressCheckedOn": "",
+      "addressNote": "이전 자료 입력값 · 현재 주소 미재확인"
     }
   ]
 };
