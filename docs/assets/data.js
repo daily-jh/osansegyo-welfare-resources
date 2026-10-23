@@ -1,6 +1,6 @@
 /* © 2026 오산세교종합사회복지관 김지훈 팀장. All rights reserved. */
 window.WELFARE_DATA = {
-  "date": "2026-10-22",
+  "date": "2026-10-23",
   "schemaVersion": 2,
   "note": "기존 자료 정리일이며, 기관·사업별 실제 운영 확인일과 다릅니다. 연계 전 최신 공식 공고를 확인해 주세요.",
   "taxonomy": {
@@ -90,6 +90,354 @@ window.WELFARE_DATA = {
     "note": "기존 지원분야·지원대상 원문에서 옮긴 검색용 분류. 자격·관할·운영 확인을 뜻하지 않음. 복합 분야는 세부 서비스 확인 후 수동 보완."
   },
   "organizations": [
+    {
+      "id": "1010335085",
+      "name": "오산시지역사회보장협의체",
+      "level": "오산시",
+      "kind": "민관협력",
+      "summary": "지역사회보장 관련 민관 네트워크.",
+      "site": "https://www.osan1365.or.kr/board/board.php?p=4&table=mn01_04_02",
+      "phone": "031-373-7412",
+      "source": "https://www.osan1365.or.kr/board/board.php?p=4&table=mn01_04_02",
+      "reviewed": "2026-10-20",
+      "status": "미확인",
+      "services": [
+        {
+          "id": "SVC-00047",
+          "name": "민관협력·자원발굴",
+          "category": "지역협력",
+          "target": "복지기관·주민",
+          "description": "복지 의제와 자원 연계, 공동사업 협력",
+          "method": "협의체 또는 동협의체 문의",
+          "operation": "기관 문의",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "기관·실무자"
+            ],
+            "need": [
+              "지역참여·자원봉사"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osan.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-00048",
+          "name": "동 지역사회보장협의체 연계",
+          "category": "경제·긴급",
+          "target": "위기가구·지역주민",
+          "description": "동 단위 자원발굴·복지사각지대 지원체계 연계",
+          "method": "동 행정복지센터 문의",
+          "operation": "지역 자원 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osan.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-1010335085",
+        "owner_type": "organization",
+        "owner_id": "1010335085",
+        "dept": "협의체 사무국",
+        "phone": "031-373-7412",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.osan1365.or.kr/board/board.php?p=4&table=mn01_04_02",
+        "verified_on": "2026-10-22"
+      }
+    },
+    {
+      "id": "2060149408",
+      "name": "굿네이버스",
+      "level": "민간",
+      "kind": "아동복지 NGO",
+      "summary": "국내아동지원과 위기가구 통합지원·교육 프로그램.",
+      "site": "https://www.goodneighbors.kr/",
+      "phone": "02-6717-4000",
+      "source": "https://www.goodneighbors.kr/",
+      "reviewed": "2026-10-20",
+      "status": "미확인",
+      "services": [
+        {
+          "id": "SVC-00078",
+          "name": "국내 위기가정 지원",
+          "category": "경제·긴급",
+          "target": "경제적 위기 아동가구",
+          "description": "민간재원 긴급 생계·의료·주거·교육 지원 연계",
+          "method": "지역사업장·협력기관 문의",
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "아동",
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "주거",
+              "교육"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.goodneighbors.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-00079",
+          "name": "아동 심리정서·가족지원",
+          "category": "정신건강",
+          "target": "취약 아동·가족",
+          "description": "정서지원·가족프로그램·아동권리 관련 사업",
+          "method": "지역사업장 상담",
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "아동",
+              "가족·한부모",
+              "위기가구"
+            ],
+            "need": [
+              "정신건강"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.goodneighbors.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-00080",
+          "name": "기업협력 위기가정 지원사업",
+          "category": "경제·긴급",
+          "target": "공모기준에 해당하는 위기가구",
+          "description": "기업사회공헌 연계 지원사업(회차·기준 변동)",
+          "method": "사업 공고·복지기관 접수",
+          "operation": "공모별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "공모형",
+          "localAvailable": "확인 필요",
+          "source": "https://www.goodneighbors.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-2060149408",
+        "owner_type": "organization",
+        "owner_id": "2060149408",
+        "dept": "",
+        "phone": "02-6717-4000",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.goodneighbors.kr/",
+        "verified_on": "2026-10-22"
+      }
+    },
+    {
+      "id": "2276831255",
+      "name": "삼성꿈장학재단",
+      "level": "민간",
+      "kind": "장학재단",
+      "summary": "교육격차 해소를 위한 멘토링·장학 및 교육사업.",
+      "site": "https://www.sdream.or.kr/portal",
+      "phone": "02-727-5400",
+      "source": "https://www.sdream.or.kr/portal",
+      "reviewed": "2026-10-20",
+      "status": "미확인",
+      "services": [
+        {
+          "id": "SVC-00094",
+          "name": "멘토링 꿈장학",
+          "category": "교육·청소년",
+          "target": "경제적 어려움 있는 중고생 등",
+          "description": "교사 멘토와 연계한 학업·성장지원 장학",
+          "method": "재단 공모·멘토 신청",
+          "operation": "공모별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "청소년"
+            ],
+            "need": [
+              "교육"
+            ],
+            "form": [],
+            "intake": [
+              "공모"
+            ]
+          },
+          "operationType": "공모형",
+          "localAvailable": "확인 필요",
+          "source": "https://www.sdream.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-00095",
+          "name": "SOS장학",
+          "category": "교육·청소년",
+          "target": "급작스런 경제적 어려움의 학생",
+          "description": "긴급한 학업지속을 위한 장학지원",
+          "method": "재단 SOS 공모",
+          "operation": "공모별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "청소년"
+            ],
+            "need": [
+              "교육"
+            ],
+            "form": [],
+            "intake": [
+              "공모"
+            ]
+          },
+          "operationType": "공모형",
+          "localAvailable": "확인 필요",
+          "source": "https://www.sdream.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-00096",
+          "name": "배움터 교육지원",
+          "category": "교육·청소년",
+          "target": "소외지역·교육기관",
+          "description": "배움터·교육사업 기관 공모",
+          "method": "기관 공모",
+          "operation": "공모별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "기관·실무자"
+            ],
+            "need": [
+              "교육"
+            ],
+            "form": [],
+            "intake": [
+              "공모"
+            ]
+          },
+          "operationType": "공모형",
+          "localAvailable": "확인 필요",
+          "source": "https://www.sdream.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-2276831255",
+        "owner_type": "organization",
+        "owner_id": "2276831255",
+        "dept": "",
+        "phone": "02-727-5400",
+        "fax": "02-727-5409",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.sdream.or.kr/portal",
+        "verified_on": "2026-10-22"
+      }
+    },
     {
       "id": "b45bc16582",
       "name": "오산세교종합사회복지관",
@@ -1923,97 +2271,6 @@ window.WELFARE_DATA = {
       }
     },
     {
-      "id": "1010335085",
-      "name": "오산시지역사회보장협의체",
-      "level": "오산시",
-      "kind": "민관협력",
-      "summary": "지역사회보장 관련 민관 네트워크.",
-      "site": "https://www.osan1365.or.kr/board/board.php?p=4&table=mn01_04_02",
-      "phone": "031-373-7412",
-      "source": "https://www.osan1365.or.kr/board/board.php?p=4&table=mn01_04_02",
-      "reviewed": "2026-10-20",
-      "status": "미확인",
-      "services": [
-        {
-          "id": "SVC-00047",
-          "name": "민관협력·자원발굴",
-          "category": "지역협력",
-          "target": "복지기관·주민",
-          "description": "복지 의제와 자원 연계, 공동사업 협력",
-          "method": "협의체 또는 동협의체 문의",
-          "operation": "기관 문의",
-          "editedOn": "2026-10-20",
-          "tags": {
-            "target": [
-              "기관·실무자"
-            ],
-            "need": [
-              "지역참여·자원봉사"
-            ],
-            "form": [],
-            "intake": []
-          },
-          "operationType": "확인 필요",
-          "localAvailable": "확인 필요",
-          "source": "https://www.osan.go.kr/",
-          "verification": {
-            "status": "미확인",
-            "date": "",
-            "method": "",
-            "by": "",
-            "next": ""
-          },
-          "contacts": [],
-          "rounds": []
-        },
-        {
-          "id": "SVC-00048",
-          "name": "동 지역사회보장협의체 연계",
-          "category": "경제·긴급",
-          "target": "위기가구·지역주민",
-          "description": "동 단위 자원발굴·복지사각지대 지원체계 연계",
-          "method": "동 행정복지센터 문의",
-          "operation": "지역 자원 확인",
-          "editedOn": "2026-10-20",
-          "tags": {
-            "target": [
-              "위기가구"
-            ],
-            "need": [
-              "소득·생계"
-            ],
-            "form": [],
-            "intake": []
-          },
-          "operationType": "확인 필요",
-          "localAvailable": "확인 필요",
-          "source": "https://www.osan.go.kr/",
-          "verification": {
-            "status": "미확인",
-            "date": "",
-            "method": "",
-            "by": "",
-            "next": ""
-          },
-          "contacts": [],
-          "rounds": []
-        }
-      ],
-      "contact": {
-        "contact_id": "CON-1010335085",
-        "owner_type": "organization",
-        "owner_id": "1010335085",
-        "dept": "협의체 사무국",
-        "phone": "031-373-7412",
-        "fax": "",
-        "email": "",
-        "hours": "",
-        "note": "대표전화",
-        "source_url": "https://www.osan1365.or.kr/board/board.php?p=4&table=mn01_04_02",
-        "verified_on": "2026-10-22"
-      }
-    },
-    {
       "id": "f6f1f88fda",
       "name": "오산시 지역아동센터",
       "level": "오산시",
@@ -3326,134 +3583,6 @@ window.WELFARE_DATA = {
       }
     },
     {
-      "id": "2060149408",
-      "name": "굿네이버스",
-      "level": "민간",
-      "kind": "아동복지 NGO",
-      "summary": "국내아동지원과 위기가구 통합지원·교육 프로그램.",
-      "site": "https://www.goodneighbors.kr/",
-      "phone": "02-6717-4000",
-      "source": "https://www.goodneighbors.kr/",
-      "reviewed": "2026-10-20",
-      "status": "미확인",
-      "services": [
-        {
-          "id": "SVC-00078",
-          "name": "국내 위기가정 지원",
-          "category": "경제·긴급",
-          "target": "경제적 위기 아동가구",
-          "description": "민간재원 긴급 생계·의료·주거·교육 지원 연계",
-          "method": "지역사업장·협력기관 문의",
-          "operation": "사업별 확인",
-          "editedOn": "2026-10-20",
-          "tags": {
-            "target": [
-              "아동",
-              "위기가구"
-            ],
-            "need": [
-              "소득·생계",
-              "주거",
-              "교육"
-            ],
-            "form": [],
-            "intake": []
-          },
-          "operationType": "확인 필요",
-          "localAvailable": "확인 필요",
-          "source": "https://www.goodneighbors.kr/",
-          "verification": {
-            "status": "미확인",
-            "date": "",
-            "method": "",
-            "by": "",
-            "next": ""
-          },
-          "contacts": [],
-          "rounds": []
-        },
-        {
-          "id": "SVC-00079",
-          "name": "아동 심리정서·가족지원",
-          "category": "정신건강",
-          "target": "취약 아동·가족",
-          "description": "정서지원·가족프로그램·아동권리 관련 사업",
-          "method": "지역사업장 상담",
-          "operation": "사업별 확인",
-          "editedOn": "2026-10-20",
-          "tags": {
-            "target": [
-              "아동",
-              "가족·한부모",
-              "위기가구"
-            ],
-            "need": [
-              "정신건강"
-            ],
-            "form": [],
-            "intake": []
-          },
-          "operationType": "확인 필요",
-          "localAvailable": "확인 필요",
-          "source": "https://www.goodneighbors.kr/",
-          "verification": {
-            "status": "미확인",
-            "date": "",
-            "method": "",
-            "by": "",
-            "next": ""
-          },
-          "contacts": [],
-          "rounds": []
-        },
-        {
-          "id": "SVC-00080",
-          "name": "기업협력 위기가정 지원사업",
-          "category": "경제·긴급",
-          "target": "공모기준에 해당하는 위기가구",
-          "description": "기업사회공헌 연계 지원사업(회차·기준 변동)",
-          "method": "사업 공고·복지기관 접수",
-          "operation": "공모별 확인",
-          "editedOn": "2026-10-20",
-          "tags": {
-            "target": [
-              "위기가구"
-            ],
-            "need": [
-              "소득·생계"
-            ],
-            "form": [],
-            "intake": []
-          },
-          "operationType": "공모형",
-          "localAvailable": "확인 필요",
-          "source": "https://www.goodneighbors.kr/",
-          "verification": {
-            "status": "미확인",
-            "date": "",
-            "method": "",
-            "by": "",
-            "next": ""
-          },
-          "contacts": [],
-          "rounds": []
-        }
-      ],
-      "contact": {
-        "contact_id": "CON-2060149408",
-        "owner_type": "organization",
-        "owner_id": "2060149408",
-        "dept": "",
-        "phone": "02-6717-4000",
-        "fax": "",
-        "email": "",
-        "hours": "",
-        "note": "대표전화",
-        "source_url": "https://www.goodneighbors.kr/",
-        "verified_on": "2026-10-22"
-      }
-    },
-    {
       "id": "f3647be053",
       "name": "월드비전",
       "level": "민간",
@@ -4019,135 +4148,6 @@ window.WELFARE_DATA = {
         "hours": "",
         "note": "대표전화",
         "source_url": "https://beautifulfund.org/",
-        "verified_on": "2026-10-22"
-      }
-    },
-    {
-      "id": "2276831255",
-      "name": "삼성꿈장학재단",
-      "level": "민간",
-      "kind": "장학재단",
-      "summary": "교육격차 해소를 위한 멘토링·장학 및 교육사업.",
-      "site": "https://www.sdream.or.kr/portal",
-      "phone": "02-727-5400",
-      "source": "https://www.sdream.or.kr/portal",
-      "reviewed": "2026-10-20",
-      "status": "미확인",
-      "services": [
-        {
-          "id": "SVC-00094",
-          "name": "멘토링 꿈장학",
-          "category": "교육·청소년",
-          "target": "경제적 어려움 있는 중고생 등",
-          "description": "교사 멘토와 연계한 학업·성장지원 장학",
-          "method": "재단 공모·멘토 신청",
-          "operation": "공모별 확인",
-          "editedOn": "2026-10-20",
-          "tags": {
-            "target": [
-              "청소년"
-            ],
-            "need": [
-              "교육"
-            ],
-            "form": [],
-            "intake": [
-              "공모"
-            ]
-          },
-          "operationType": "공모형",
-          "localAvailable": "확인 필요",
-          "source": "https://www.sdream.or.kr/",
-          "verification": {
-            "status": "미확인",
-            "date": "",
-            "method": "",
-            "by": "",
-            "next": ""
-          },
-          "contacts": [],
-          "rounds": []
-        },
-        {
-          "id": "SVC-00095",
-          "name": "SOS장학",
-          "category": "교육·청소년",
-          "target": "급작스런 경제적 어려움의 학생",
-          "description": "긴급한 학업지속을 위한 장학지원",
-          "method": "재단 SOS 공모",
-          "operation": "공모별 확인",
-          "editedOn": "2026-10-20",
-          "tags": {
-            "target": [
-              "청소년"
-            ],
-            "need": [
-              "교육"
-            ],
-            "form": [],
-            "intake": [
-              "공모"
-            ]
-          },
-          "operationType": "공모형",
-          "localAvailable": "확인 필요",
-          "source": "https://www.sdream.or.kr/",
-          "verification": {
-            "status": "미확인",
-            "date": "",
-            "method": "",
-            "by": "",
-            "next": ""
-          },
-          "contacts": [],
-          "rounds": []
-        },
-        {
-          "id": "SVC-00096",
-          "name": "배움터 교육지원",
-          "category": "교육·청소년",
-          "target": "소외지역·교육기관",
-          "description": "배움터·교육사업 기관 공모",
-          "method": "기관 공모",
-          "operation": "공모별 확인",
-          "editedOn": "2026-10-20",
-          "tags": {
-            "target": [
-              "기관·실무자"
-            ],
-            "need": [
-              "교육"
-            ],
-            "form": [],
-            "intake": [
-              "공모"
-            ]
-          },
-          "operationType": "공모형",
-          "localAvailable": "확인 필요",
-          "source": "https://www.sdream.or.kr/",
-          "verification": {
-            "status": "미확인",
-            "date": "",
-            "method": "",
-            "by": "",
-            "next": ""
-          },
-          "contacts": [],
-          "rounds": []
-        }
-      ],
-      "contact": {
-        "contact_id": "CON-2276831255",
-        "owner_type": "organization",
-        "owner_id": "2276831255",
-        "dept": "",
-        "phone": "02-727-5400",
-        "fax": "02-727-5409",
-        "email": "",
-        "hours": "",
-        "note": "대표전화",
-        "source_url": "https://www.sdream.or.kr/portal",
         "verified_on": "2026-10-22"
       }
     },
@@ -8746,6 +8746,1550 @@ window.WELFARE_DATA = {
         "hours": "",
         "note": "대표전화",
         "source_url": "https://www.kord.or.kr/index.php",
+        "verified_on": ""
+      }
+    },
+    {
+      "id": "osan26care001",
+      "name": "허그맘허그인 심리상담센터 오산센터",
+      "level": "오산시",
+      "kind": "심리·발달지원센터",
+      "summary": "아동·청소년·성인 및 가족의 심리상담, 심리검사, 양육코칭을 안내하는 민간 상담기관",
+      "site": "https://www.hugmomhugin.co.kr/branch/main/main.html?jijummid=osan",
+      "phone": "031-8068-6255",
+      "source": "https://www.hugmomhugin.co.kr/branch/main/main.html?jijummid=osan",
+      "reviewed": "2026-10-23",
+      "status": "운영중",
+      "services": [
+        {
+          "id": "SVC-OSAN26-001",
+          "name": "심리상담·발달지원 연계",
+          "category": "심리·발달상담",
+          "target": "영유아·아동·청소년 및 보호자",
+          "description": "아동·청소년·성인 및 가족의 심리상담, 심리검사, 양육코칭을 안내하는 민간 상담기관 실제 제공분야·진료 가능 여부는 사전 문의 필요.",
+          "method": "기관에 상담·평가 및 현재 바우처 제공 여부·비용·예약 상황을 확인하고 연계",
+          "operation": "서비스 대상·비용·진료일정·의뢰 절차는 확인 필요",
+          "editedOn": "2026-10-23",
+          "tags": {
+            "target": [
+              "영유아",
+              "아동",
+              "청소년",
+              "가족·한부모"
+            ],
+            "need": [
+              "정신건강",
+              "의료·건강"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.hugmomhugin.co.kr/branch/main/main.html?jijummid=osan",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-10-23",
+            "method": "공식 기관 및 의료기관 공개정보 검토 (개별 접수 가능 여부 제외)",
+            "by": "자료 관리자",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-osan26care001",
+        "owner_type": "organization",
+        "owner_id": "osan26care001",
+        "dept": "",
+        "phone": "031-8068-6255",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.hugmomhugin.co.kr/branch/main/main.html?jijummid=osan",
+        "verified_on": "2026-10-23"
+      }
+    },
+    {
+      "id": "osan26care002",
+      "name": "오산언어심리치료센터",
+      "level": "오산시",
+      "kind": "심리·발달지원센터",
+      "summary": "언어발달·아동 정서 및 심리지원 관련 제공기관 목록에 수록된 센터",
+      "site": "",
+      "phone": "031-377-1355",
+      "source": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+      "reviewed": "2026-10-23",
+      "status": "미확인",
+      "services": [
+        {
+          "id": "SVC-OSAN26-002",
+          "name": "심리상담·발달지원 연계",
+          "category": "심리·발달상담",
+          "target": "영유아·아동·청소년 및 보호자",
+          "description": "언어발달·아동 정서 및 심리지원 관련 제공기관 목록에 수록된 센터 실제 제공분야·진료 가능 여부는 사전 문의 필요.",
+          "method": "기관에 상담·평가 및 현재 바우처 제공 여부·비용·예약 상황을 확인하고 연계",
+          "operation": "서비스 대상·비용·진료일정·의뢰 절차는 확인 필요",
+          "editedOn": "2026-10-23",
+          "tags": {
+            "target": [
+              "영유아",
+              "아동",
+              "청소년",
+              "가족·한부모"
+            ],
+            "need": [
+              "정신건강",
+              "의료·건강"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-osan26care002",
+        "owner_type": "organization",
+        "owner_id": "osan26care002",
+        "dept": "",
+        "phone": "031-377-1355",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+        "verified_on": ""
+      }
+    },
+    {
+      "id": "osan26care003",
+      "name": "오산심리상담센터",
+      "level": "오산시",
+      "kind": "심리·발달지원센터",
+      "summary": "우리아이심리지원서비스 관련 제공기관 목록에 수록된 심리상담센터",
+      "site": "",
+      "phone": "031-373-8853",
+      "source": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+      "reviewed": "2026-10-23",
+      "status": "미확인",
+      "services": [
+        {
+          "id": "SVC-OSAN26-003",
+          "name": "심리상담·발달지원 연계",
+          "category": "심리·발달상담",
+          "target": "영유아·아동·청소년 및 보호자",
+          "description": "우리아이심리지원서비스 관련 제공기관 목록에 수록된 심리상담센터 실제 제공분야·진료 가능 여부는 사전 문의 필요.",
+          "method": "기관에 상담·평가 및 현재 바우처 제공 여부·비용·예약 상황을 확인하고 연계",
+          "operation": "서비스 대상·비용·진료일정·의뢰 절차는 확인 필요",
+          "editedOn": "2026-10-23",
+          "tags": {
+            "target": [
+              "영유아",
+              "아동",
+              "청소년",
+              "가족·한부모"
+            ],
+            "need": [
+              "정신건강",
+              "의료·건강"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-osan26care003",
+        "owner_type": "organization",
+        "owner_id": "osan26care003",
+        "dept": "",
+        "phone": "031-373-8853",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+        "verified_on": ""
+      }
+    },
+    {
+      "id": "osan26care004",
+      "name": "새렘아동심리발달센터",
+      "level": "오산시",
+      "kind": "심리·발달지원센터",
+      "summary": "아동 언어발달·심리지원 관련 제공기관 목록에 수록된 발달센터",
+      "site": "",
+      "phone": "031-374-7579",
+      "source": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+      "reviewed": "2026-10-23",
+      "status": "미확인",
+      "services": [
+        {
+          "id": "SVC-OSAN26-004",
+          "name": "심리상담·발달지원 연계",
+          "category": "심리·발달상담",
+          "target": "영유아·아동·청소년 및 보호자",
+          "description": "아동 언어발달·심리지원 관련 제공기관 목록에 수록된 발달센터 실제 제공분야·진료 가능 여부는 사전 문의 필요.",
+          "method": "기관에 상담·평가 및 현재 바우처 제공 여부·비용·예약 상황을 확인하고 연계",
+          "operation": "서비스 대상·비용·진료일정·의뢰 절차는 확인 필요",
+          "editedOn": "2026-10-23",
+          "tags": {
+            "target": [
+              "영유아",
+              "아동",
+              "청소년",
+              "가족·한부모"
+            ],
+            "need": [
+              "정신건강",
+              "의료·건강"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-osan26care004",
+        "owner_type": "organization",
+        "owner_id": "osan26care004",
+        "dept": "",
+        "phone": "031-374-7579",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+        "verified_on": ""
+      }
+    },
+    {
+      "id": "osan26care005",
+      "name": "오산누리아동발달센터",
+      "level": "오산시",
+      "kind": "심리·발달지원센터",
+      "summary": "아동발달·언어 및 심리지원 관련 지역센터",
+      "site": "",
+      "phone": "031-376-5362",
+      "source": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+      "reviewed": "2026-10-23",
+      "status": "미확인",
+      "services": [
+        {
+          "id": "SVC-OSAN26-005",
+          "name": "심리상담·발달지원 연계",
+          "category": "심리·발달상담",
+          "target": "영유아·아동·청소년 및 보호자",
+          "description": "아동발달·언어 및 심리지원 관련 지역센터 실제 제공분야·진료 가능 여부는 사전 문의 필요.",
+          "method": "기관에 상담·평가 및 현재 바우처 제공 여부·비용·예약 상황을 확인하고 연계",
+          "operation": "서비스 대상·비용·진료일정·의뢰 절차는 확인 필요",
+          "editedOn": "2026-10-23",
+          "tags": {
+            "target": [
+              "영유아",
+              "아동",
+              "청소년",
+              "가족·한부모"
+            ],
+            "need": [
+              "정신건강",
+              "의료·건강"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-osan26care005",
+        "owner_type": "organization",
+        "owner_id": "osan26care005",
+        "dept": "",
+        "phone": "031-376-5362",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+        "verified_on": ""
+      }
+    },
+    {
+      "id": "osan26care006",
+      "name": "오산박지향아동발달센터",
+      "level": "오산시",
+      "kind": "심리·발달지원센터",
+      "summary": "아동발달재활·심리지원 관련 제공기관 목록에 수록된 센터",
+      "site": "",
+      "phone": "031-376-5975",
+      "source": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+      "reviewed": "2026-10-23",
+      "status": "미확인",
+      "services": [
+        {
+          "id": "SVC-OSAN26-006",
+          "name": "심리상담·발달지원 연계",
+          "category": "심리·발달상담",
+          "target": "영유아·아동·청소년 및 보호자",
+          "description": "아동발달재활·심리지원 관련 제공기관 목록에 수록된 센터 실제 제공분야·진료 가능 여부는 사전 문의 필요.",
+          "method": "기관에 상담·평가 및 현재 바우처 제공 여부·비용·예약 상황을 확인하고 연계",
+          "operation": "서비스 대상·비용·진료일정·의뢰 절차는 확인 필요",
+          "editedOn": "2026-10-23",
+          "tags": {
+            "target": [
+              "영유아",
+              "아동",
+              "청소년",
+              "가족·한부모"
+            ],
+            "need": [
+              "정신건강",
+              "의료·건강"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-osan26care006",
+        "owner_type": "organization",
+        "owner_id": "osan26care006",
+        "dept": "",
+        "phone": "031-376-5975",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+        "verified_on": ""
+      }
+    },
+    {
+      "id": "osan26care007",
+      "name": "햇님아동심리발달센터",
+      "level": "오산시",
+      "kind": "심리·발달지원센터",
+      "summary": "아동발달재활 관련 제공기관 목록에 수록된 심리발달센터",
+      "site": "",
+      "phone": "031-377-4242",
+      "source": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+      "reviewed": "2026-10-23",
+      "status": "미확인",
+      "services": [
+        {
+          "id": "SVC-OSAN26-007",
+          "name": "심리상담·발달지원 연계",
+          "category": "심리·발달상담",
+          "target": "영유아·아동·청소년 및 보호자",
+          "description": "아동발달재활 관련 제공기관 목록에 수록된 심리발달센터 실제 제공분야·진료 가능 여부는 사전 문의 필요.",
+          "method": "기관에 상담·평가 및 현재 바우처 제공 여부·비용·예약 상황을 확인하고 연계",
+          "operation": "서비스 대상·비용·진료일정·의뢰 절차는 확인 필요",
+          "editedOn": "2026-10-23",
+          "tags": {
+            "target": [
+              "영유아",
+              "아동",
+              "청소년",
+              "가족·한부모"
+            ],
+            "need": [
+              "정신건강",
+              "의료·건강"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-osan26care007",
+        "owner_type": "organization",
+        "owner_id": "osan26care007",
+        "dept": "",
+        "phone": "031-377-4242",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+        "verified_on": ""
+      }
+    },
+    {
+      "id": "osan26care008",
+      "name": "행복한 마음 심리상담센터",
+      "level": "오산시",
+      "kind": "심리·발달지원센터",
+      "summary": "우리아이심리지원서비스 관련 제공기관 목록에 수록된 상담센터",
+      "site": "",
+      "phone": "031-372-7567",
+      "source": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+      "reviewed": "2026-10-23",
+      "status": "미확인",
+      "services": [
+        {
+          "id": "SVC-OSAN26-008",
+          "name": "심리상담·발달지원 연계",
+          "category": "심리·발달상담",
+          "target": "영유아·아동·청소년 및 보호자",
+          "description": "우리아이심리지원서비스 관련 제공기관 목록에 수록된 상담센터 실제 제공분야·진료 가능 여부는 사전 문의 필요.",
+          "method": "기관에 상담·평가 및 현재 바우처 제공 여부·비용·예약 상황을 확인하고 연계",
+          "operation": "서비스 대상·비용·진료일정·의뢰 절차는 확인 필요",
+          "editedOn": "2026-10-23",
+          "tags": {
+            "target": [
+              "영유아",
+              "아동",
+              "청소년",
+              "가족·한부모"
+            ],
+            "need": [
+              "정신건강",
+              "의료·건강"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-osan26care008",
+        "owner_type": "organization",
+        "owner_id": "osan26care008",
+        "dept": "",
+        "phone": "031-372-7567",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+        "verified_on": ""
+      }
+    },
+    {
+      "id": "osan26care009",
+      "name": "나래아동청소년발달센터",
+      "level": "오산시",
+      "kind": "심리·발달지원센터",
+      "summary": "아동·청소년 발달재활·언어지원 관련 제공기관 목록에 수록된 센터",
+      "site": "",
+      "phone": "031-378-7675",
+      "source": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+      "reviewed": "2026-10-23",
+      "status": "미확인",
+      "services": [
+        {
+          "id": "SVC-OSAN26-009",
+          "name": "심리상담·발달지원 연계",
+          "category": "심리·발달상담",
+          "target": "영유아·아동·청소년 및 보호자",
+          "description": "아동·청소년 발달재활·언어지원 관련 제공기관 목록에 수록된 센터 실제 제공분야·진료 가능 여부는 사전 문의 필요.",
+          "method": "기관에 상담·평가 및 현재 바우처 제공 여부·비용·예약 상황을 확인하고 연계",
+          "operation": "서비스 대상·비용·진료일정·의뢰 절차는 확인 필요",
+          "editedOn": "2026-10-23",
+          "tags": {
+            "target": [
+              "영유아",
+              "아동",
+              "청소년",
+              "가족·한부모"
+            ],
+            "need": [
+              "정신건강",
+              "의료·건강"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-osan26care009",
+        "owner_type": "organization",
+        "owner_id": "osan26care009",
+        "dept": "",
+        "phone": "031-378-7675",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+        "verified_on": ""
+      }
+    },
+    {
+      "id": "osan26care010",
+      "name": "오산시장애아재활치료교육센터",
+      "level": "오산시",
+      "kind": "심리·발달지원센터",
+      "summary": "장애아동 발달재활·교육 및 보호자 상담 연계기관",
+      "site": "",
+      "phone": "031-375-5001",
+      "source": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+      "reviewed": "2026-10-23",
+      "status": "미확인",
+      "services": [
+        {
+          "id": "SVC-OSAN26-010",
+          "name": "심리상담·발달지원 연계",
+          "category": "심리·발달상담",
+          "target": "영유아·아동·청소년 및 보호자",
+          "description": "장애아동 발달재활·교육 및 보호자 상담 연계기관 실제 제공분야·진료 가능 여부는 사전 문의 필요.",
+          "method": "기관에 상담·평가 및 현재 바우처 제공 여부·비용·예약 상황을 확인하고 연계",
+          "operation": "서비스 대상·비용·진료일정·의뢰 절차는 확인 필요",
+          "editedOn": "2026-10-23",
+          "tags": {
+            "target": [
+              "영유아",
+              "아동",
+              "청소년",
+              "가족·한부모"
+            ],
+            "need": [
+              "정신건강",
+              "의료·건강"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-osan26care010",
+        "owner_type": "organization",
+        "owner_id": "osan26care010",
+        "dept": "",
+        "phone": "031-375-5001",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+        "verified_on": ""
+      }
+    },
+    {
+      "id": "osan26care011",
+      "name": "오산한국병원",
+      "level": "오산시",
+      "kind": "종합병원",
+      "summary": "종합병원. 외래·입원·응급 및 인공신장 치료 관련 지역 의료연계 후보",
+      "site": "http://www.oshankook.net/",
+      "phone": "031-379-8300",
+      "source": "https://www.hira.or.kr/ra/hosp/hospInfoAjax.do?ykiho=JDQ4MTYyMiM1MSMkMSMkMCMkODkkMzgxMzUxIzExIyQxIyQzIyQxMyQzNjEyMjIjNDEjJDEjJDgjJDgz",
+      "reviewed": "2026-10-23",
+      "status": "운영중",
+      "services": [
+        {
+          "id": "SVC-OSAN26-011",
+          "name": "진료·검사·치료 연계",
+          "category": "보건·의료",
+          "target": "지역주민·질환자",
+          "description": "종합병원. 외래·입원·응급 및 인공신장 치료 관련 지역 의료연계 후보 실제 제공분야·진료 가능 여부는 사전 문의 필요.",
+          "method": "해당 진료과·초진 및 입원·응급 가능 여부를 의료기관에 확인한 후 연계",
+          "operation": "서비스 대상·비용·진료일정·의뢰 절차는 확인 필요",
+          "editedOn": "2026-10-23",
+          "tags": {
+            "target": [
+              "청소년",
+              "중장년",
+              "노인",
+              "질환"
+            ],
+            "need": [
+              "의료·건강"
+            ],
+            "form": [
+              "서비스 제공",
+              "상담"
+            ],
+            "intake": [
+              "전화"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.hira.or.kr/ra/hosp/hospInfoAjax.do?ykiho=JDQ4MTYyMiM1MSMkMSMkMCMkODkkMzgxMzUxIzExIyQxIyQzIyQxMyQzNjEyMjIjNDEjJDEjJDgjJDgz",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-10-23",
+            "method": "공식 기관 및 의료기관 공개정보 검토 (개별 접수 가능 여부 제외)",
+            "by": "자료 관리자",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-osan26care011",
+        "owner_type": "organization",
+        "owner_id": "osan26care011",
+        "dept": "",
+        "phone": "031-379-8300",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.hira.or.kr/ra/hosp/hospInfoAjax.do?ykiho=JDQ4MTYyMiM1MSMkMSMkMCMkODkkMzgxMzUxIzExIyQxIyQzIyQxMyQzNjEyMjIjNDEjJDEjJDgjJDgz",
+        "verified_on": "2026-10-23"
+      }
+    },
+    {
+      "id": "osan26care012",
+      "name": "조은오산병원",
+      "level": "오산시",
+      "kind": "의료기관",
+      "summary": "지역 의료연계 병원. 공식 사이트에서 진료·검진 및 24시간 응급실 운영 안내",
+      "site": "https://osanhospital.co.kr/",
+      "phone": "1544-5355",
+      "source": "https://osanhospital.co.kr/",
+      "reviewed": "2026-10-23",
+      "status": "운영중",
+      "services": [
+        {
+          "id": "SVC-OSAN26-012",
+          "name": "진료·검사·치료 연계",
+          "category": "보건·의료",
+          "target": "지역주민·질환자",
+          "description": "지역 의료연계 병원. 공식 사이트에서 진료·검진 및 24시간 응급실 운영 안내 실제 제공분야·진료 가능 여부는 사전 문의 필요.",
+          "method": "해당 진료과·초진 및 입원·응급 가능 여부를 의료기관에 확인한 후 연계",
+          "operation": "서비스 대상·비용·진료일정·의뢰 절차는 확인 필요",
+          "editedOn": "2026-10-23",
+          "tags": {
+            "target": [
+              "청소년",
+              "중장년",
+              "노인",
+              "질환"
+            ],
+            "need": [
+              "의료·건강"
+            ],
+            "form": [
+              "서비스 제공",
+              "상담"
+            ],
+            "intake": [
+              "전화"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://osanhospital.co.kr/",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-10-23",
+            "method": "공식 기관 및 의료기관 공개정보 검토 (개별 접수 가능 여부 제외)",
+            "by": "자료 관리자",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-osan26care012",
+        "owner_type": "organization",
+        "owner_id": "osan26care012",
+        "dept": "",
+        "phone": "1544-5355",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://osanhospital.co.kr/",
+        "verified_on": "2026-10-23"
+      }
+    },
+    {
+      "id": "osan26care013",
+      "name": "서울어린이병원",
+      "level": "오산시",
+      "kind": "의료기관",
+      "summary": "소아청소년 진료·입원 관련 의료기관. 현재 진료과 및 야간진료 여부 확인 필요",
+      "site": "",
+      "phone": "031-375-4197",
+      "source": "https://hospital.ottl.net/%EA%B2%BD%EA%B8%B0/%EC%98%A4%EC%82%B0%EC%8B%9C/%EB%B3%91%EC%9B%90/",
+      "reviewed": "2026-10-23",
+      "status": "미확인",
+      "services": [
+        {
+          "id": "SVC-OSAN26-013",
+          "name": "진료·검사·치료 연계",
+          "category": "보건·의료",
+          "target": "영유아·아동·청소년",
+          "description": "소아청소년 진료·입원 관련 의료기관. 현재 진료과 및 야간진료 여부 확인 필요 실제 제공분야·진료 가능 여부는 사전 문의 필요.",
+          "method": "해당 진료과·초진 및 입원·응급 가능 여부를 의료기관에 확인한 후 연계",
+          "operation": "서비스 대상·비용·진료일정·의뢰 절차는 확인 필요",
+          "editedOn": "2026-10-23",
+          "tags": {
+            "target": [
+              "영유아",
+              "아동",
+              "청소년",
+              "질환"
+            ],
+            "need": [
+              "의료·건강"
+            ],
+            "form": [
+              "서비스 제공",
+              "상담"
+            ],
+            "intake": [
+              "전화"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://hospital.ottl.net/%EA%B2%BD%EA%B8%B0/%EC%98%A4%EC%82%B0%EC%8B%9C/%EB%B3%91%EC%9B%90/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-osan26care013",
+        "owner_type": "organization",
+        "owner_id": "osan26care013",
+        "dept": "",
+        "phone": "031-375-4197",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://hospital.ottl.net/%EA%B2%BD%EA%B8%B0/%EC%98%A4%EC%82%B0%EC%8B%9C/%EB%B3%91%EC%9B%90/",
+        "verified_on": ""
+      }
+    },
+    {
+      "id": "osan26care014",
+      "name": "웰봄병원",
+      "level": "오산시",
+      "kind": "의료기관",
+      "summary": "소아청소년 관련 병원급 의료기관. 진료·입원 가능 여부 개별 확인",
+      "site": "",
+      "phone": "031-373-7585",
+      "source": "https://www.hira.or.kr/ra/hosp/hospInfoAjax.do?ykiho=JDQ4MTYyMiM1MSMkMSMkMCMkOTkkMzgxOTYxIzExIyQxIyQ3IyQ4OSQyNjE0ODEjNDEjJDEjJDgjJDgz",
+      "reviewed": "2026-10-23",
+      "status": "운영중",
+      "services": [
+        {
+          "id": "SVC-OSAN26-014",
+          "name": "진료·검사·치료 연계",
+          "category": "보건·의료",
+          "target": "영유아·아동·청소년",
+          "description": "소아청소년 관련 병원급 의료기관. 진료·입원 가능 여부 개별 확인 실제 제공분야·진료 가능 여부는 사전 문의 필요.",
+          "method": "해당 진료과·초진 및 입원·응급 가능 여부를 의료기관에 확인한 후 연계",
+          "operation": "서비스 대상·비용·진료일정·의뢰 절차는 확인 필요",
+          "editedOn": "2026-10-23",
+          "tags": {
+            "target": [
+              "영유아",
+              "아동",
+              "청소년",
+              "질환"
+            ],
+            "need": [
+              "의료·건강"
+            ],
+            "form": [
+              "서비스 제공",
+              "상담"
+            ],
+            "intake": [
+              "전화"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.hira.or.kr/ra/hosp/hospInfoAjax.do?ykiho=JDQ4MTYyMiM1MSMkMSMkMCMkOTkkMzgxOTYxIzExIyQxIyQ3IyQ4OSQyNjE0ODEjNDEjJDEjJDgjJDgz",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-10-23",
+            "method": "공식 기관 및 의료기관 공개정보 검토 (개별 접수 가능 여부 제외)",
+            "by": "자료 관리자",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-osan26care014",
+        "owner_type": "organization",
+        "owner_id": "osan26care014",
+        "dept": "",
+        "phone": "031-373-7585",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.hira.or.kr/ra/hosp/hospInfoAjax.do?ykiho=JDQ4MTYyMiM1MSMkMSMkMCMkOTkkMzgxOTYxIzExIyQxIyQ3IyQ4OSQyNjE0ODEjNDEjJDEjJDgjJDgz",
+        "verified_on": "2026-10-23"
+      }
+    },
+    {
+      "id": "osan26care015",
+      "name": "삼성본병원",
+      "level": "오산시",
+      "kind": "의료기관",
+      "summary": "정형외과·근골격계 관련 진료와 검사·치료 연계 병원",
+      "site": "",
+      "phone": "1522-7525",
+      "source": "https://hospital.ottl.net/%EA%B2%BD%EA%B8%B0/%EC%98%A4%EC%82%B0%EC%8B%9C/%EB%B3%91%EC%9B%90/",
+      "reviewed": "2026-10-23",
+      "status": "미확인",
+      "services": [
+        {
+          "id": "SVC-OSAN26-015",
+          "name": "진료·검사·치료 연계",
+          "category": "보건·의료",
+          "target": "지역주민·질환자",
+          "description": "정형외과·근골격계 관련 진료와 검사·치료 연계 병원 실제 제공분야·진료 가능 여부는 사전 문의 필요.",
+          "method": "해당 진료과·초진 및 입원·응급 가능 여부를 의료기관에 확인한 후 연계",
+          "operation": "서비스 대상·비용·진료일정·의뢰 절차는 확인 필요",
+          "editedOn": "2026-10-23",
+          "tags": {
+            "target": [
+              "청소년",
+              "중장년",
+              "노인",
+              "질환"
+            ],
+            "need": [
+              "의료·건강"
+            ],
+            "form": [
+              "서비스 제공",
+              "상담"
+            ],
+            "intake": [
+              "전화"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://hospital.ottl.net/%EA%B2%BD%EA%B8%B0/%EC%98%A4%EC%82%B0%EC%8B%9C/%EB%B3%91%EC%9B%90/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-osan26care015",
+        "owner_type": "organization",
+        "owner_id": "osan26care015",
+        "dept": "",
+        "phone": "1522-7525",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://hospital.ottl.net/%EA%B2%BD%EA%B8%B0/%EC%98%A4%EC%82%B0%EC%8B%9C/%EB%B3%91%EC%9B%90/",
+        "verified_on": ""
+      }
+    },
+    {
+      "id": "osan26care016",
+      "name": "버팀병원",
+      "level": "오산시",
+      "kind": "의료기관",
+      "summary": "척추·관절·정형외과 관련 지역 의료연계 병원",
+      "site": "",
+      "phone": "1661-0032",
+      "source": "https://www.hira.or.kr/ra/hosp/hospInfoAjax.do?ykiho=31209581",
+      "reviewed": "2026-10-23",
+      "status": "운영중",
+      "services": [
+        {
+          "id": "SVC-OSAN26-016",
+          "name": "진료·검사·치료 연계",
+          "category": "보건·의료",
+          "target": "지역주민·질환자",
+          "description": "척추·관절·정형외과 관련 지역 의료연계 병원 실제 제공분야·진료 가능 여부는 사전 문의 필요.",
+          "method": "해당 진료과·초진 및 입원·응급 가능 여부를 의료기관에 확인한 후 연계",
+          "operation": "서비스 대상·비용·진료일정·의뢰 절차는 확인 필요",
+          "editedOn": "2026-10-23",
+          "tags": {
+            "target": [
+              "청소년",
+              "중장년",
+              "노인",
+              "질환"
+            ],
+            "need": [
+              "의료·건강"
+            ],
+            "form": [
+              "서비스 제공",
+              "상담"
+            ],
+            "intake": [
+              "전화"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.hira.or.kr/ra/hosp/hospInfoAjax.do?ykiho=31209581",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-10-23",
+            "method": "공식 기관 및 의료기관 공개정보 검토 (개별 접수 가능 여부 제외)",
+            "by": "자료 관리자",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-osan26care016",
+        "owner_type": "organization",
+        "owner_id": "osan26care016",
+        "dept": "",
+        "phone": "1661-0032",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.hira.or.kr/ra/hosp/hospInfoAjax.do?ykiho=31209581",
+        "verified_on": "2026-10-23"
+      }
+    },
+    {
+      "id": "osan26care017",
+      "name": "송호욱병원",
+      "level": "오산시",
+      "kind": "의료기관",
+      "summary": "척추·관절·정형외과 관련 검사와 진료 연계 병원",
+      "site": "",
+      "phone": "1800-6655",
+      "source": "https://hospital.ottl.net/%EA%B2%BD%EA%B8%B0/%EC%98%A4%EC%82%B0%EC%8B%9C/%EB%B3%91%EC%9B%90/",
+      "reviewed": "2026-10-23",
+      "status": "미확인",
+      "services": [
+        {
+          "id": "SVC-OSAN26-017",
+          "name": "진료·검사·치료 연계",
+          "category": "보건·의료",
+          "target": "지역주민·질환자",
+          "description": "척추·관절·정형외과 관련 검사와 진료 연계 병원 실제 제공분야·진료 가능 여부는 사전 문의 필요.",
+          "method": "해당 진료과·초진 및 입원·응급 가능 여부를 의료기관에 확인한 후 연계",
+          "operation": "서비스 대상·비용·진료일정·의뢰 절차는 확인 필요",
+          "editedOn": "2026-10-23",
+          "tags": {
+            "target": [
+              "청소년",
+              "중장년",
+              "노인",
+              "질환"
+            ],
+            "need": [
+              "의료·건강"
+            ],
+            "form": [
+              "서비스 제공",
+              "상담"
+            ],
+            "intake": [
+              "전화"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://hospital.ottl.net/%EA%B2%BD%EA%B8%B0/%EC%98%A4%EC%82%B0%EC%8B%9C/%EB%B3%91%EC%9B%90/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-osan26care017",
+        "owner_type": "organization",
+        "owner_id": "osan26care017",
+        "dept": "",
+        "phone": "1800-6655",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://hospital.ottl.net/%EA%B2%BD%EA%B8%B0/%EC%98%A4%EC%82%B0%EC%8B%9C/%EB%B3%91%EC%9B%90/",
+        "verified_on": ""
+      }
+    },
+    {
+      "id": "osan26care018",
+      "name": "오산세종병원",
+      "level": "오산시",
+      "kind": "의료기관",
+      "summary": "오산시 갈곶동 소재 병원급 의료기관. 외래·입원 진료가능 여부 확인",
+      "site": "",
+      "phone": "1670-8971",
+      "source": "https://www.hira.or.kr/ra/hosp/hospInfoAjax.do?ykiho=JDQ4MTYyMiM1MSMkMSMkMCMkOTkkMzgxOTYxIzExIyQxIyQzIyQ5OSQzNjEwMDIjNTEjJDEjJDIjJDgz",
+      "reviewed": "2026-10-23",
+      "status": "운영중",
+      "services": [
+        {
+          "id": "SVC-OSAN26-018",
+          "name": "진료·검사·치료 연계",
+          "category": "보건·의료",
+          "target": "지역주민·질환자",
+          "description": "오산시 갈곶동 소재 병원급 의료기관. 외래·입원 진료가능 여부 확인 실제 제공분야·진료 가능 여부는 사전 문의 필요.",
+          "method": "해당 진료과·초진 및 입원·응급 가능 여부를 의료기관에 확인한 후 연계",
+          "operation": "서비스 대상·비용·진료일정·의뢰 절차는 확인 필요",
+          "editedOn": "2026-10-23",
+          "tags": {
+            "target": [
+              "청소년",
+              "중장년",
+              "노인",
+              "질환"
+            ],
+            "need": [
+              "의료·건강"
+            ],
+            "form": [
+              "서비스 제공",
+              "상담"
+            ],
+            "intake": [
+              "전화"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.hira.or.kr/ra/hosp/hospInfoAjax.do?ykiho=JDQ4MTYyMiM1MSMkMSMkMCMkOTkkMzgxOTYxIzExIyQxIyQzIyQ5OSQzNjEwMDIjNTEjJDEjJDIjJDgz",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-10-23",
+            "method": "공식 기관 및 의료기관 공개정보 검토 (개별 접수 가능 여부 제외)",
+            "by": "자료 관리자",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-osan26care018",
+        "owner_type": "organization",
+        "owner_id": "osan26care018",
+        "dept": "",
+        "phone": "1670-8971",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.hira.or.kr/ra/hosp/hospInfoAjax.do?ykiho=JDQ4MTYyMiM1MSMkMSMkMCMkOTkkMzgxOTYxIzExIyQxIyQzIyQ5OSQzNjEwMDIjNTEjJDEjJDIjJDgz",
+        "verified_on": "2026-10-23"
+      }
+    },
+    {
+      "id": "osan26care019",
+      "name": "평안한사랑병원",
+      "level": "오산시",
+      "kind": "정신건강 의료기관",
+      "summary": "정신건강의학과 진료 병원. 외래·입원·소아청소년 진료범위 사전 확인",
+      "site": "",
+      "phone": "031-372-8600",
+      "source": "https://hospitalfact.kr/clinics/%ED%8F%89%EC%95%88%ED%95%9C%EC%82%AC%EB%9E%91%EB%B3%91%EC%9B%90-9dd7483c-dae8-4e28-bbf8-377a2858f27b/",
+      "reviewed": "2026-10-23",
+      "status": "미확인",
+      "services": [
+        {
+          "id": "SVC-OSAN26-019",
+          "name": "진료·검사·치료 연계",
+          "category": "보건·의료",
+          "target": "정신건강 치료 필요자",
+          "description": "정신건강의학과 진료 병원. 외래·입원·소아청소년 진료범위 사전 확인 실제 제공분야·진료 가능 여부는 사전 문의 필요.",
+          "method": "해당 진료과·초진 및 입원·응급 가능 여부를 의료기관에 확인한 후 연계",
+          "operation": "서비스 대상·비용·진료일정·의뢰 절차는 확인 필요",
+          "editedOn": "2026-10-23",
+          "tags": {
+            "target": [
+              "청소년",
+              "중장년",
+              "노인",
+              "질환"
+            ],
+            "need": [
+              "정신건강",
+              "의료·건강"
+            ],
+            "form": [
+              "서비스 제공",
+              "상담"
+            ],
+            "intake": [
+              "전화"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://hospitalfact.kr/clinics/%ED%8F%89%EC%95%88%ED%95%9C%EC%82%AC%EB%9E%91%EB%B3%91%EC%9B%90-9dd7483c-dae8-4e28-bbf8-377a2858f27b/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-osan26care019",
+        "owner_type": "organization",
+        "owner_id": "osan26care019",
+        "dept": "",
+        "phone": "031-372-8600",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://hospitalfact.kr/clinics/%ED%8F%89%EC%95%88%ED%95%9C%EC%82%AC%EB%9E%91%EB%B3%91%EC%9B%90-9dd7483c-dae8-4e28-bbf8-377a2858f27b/",
+        "verified_on": ""
+      }
+    },
+    {
+      "id": "osan26care020",
+      "name": "오산신경정신병원",
+      "level": "오산시",
+      "kind": "정신건강 의료기관",
+      "summary": "정신건강 의료기관. 공개자료 간 전화번호가 불일치하여 대표번호 확인 필요",
+      "site": "",
+      "phone": "",
+      "source": "https://clinics.seoul.kr/gyeonggi-do/osan-si/psychiatry",
+      "reviewed": "2026-10-23",
+      "status": "미확인",
+      "services": [
+        {
+          "id": "SVC-OSAN26-020",
+          "name": "진료·검사·치료 연계",
+          "category": "보건·의료",
+          "target": "정신건강 치료 필요자",
+          "description": "정신건강 의료기관. 공개자료 간 전화번호가 불일치하여 대표번호 확인 필요 실제 제공분야·진료 가능 여부는 사전 문의 필요.",
+          "method": "해당 진료과·초진 및 입원·응급 가능 여부를 의료기관에 확인한 후 연계",
+          "operation": "서비스 대상·비용·진료일정·의뢰 절차는 확인 필요",
+          "editedOn": "2026-10-23",
+          "tags": {
+            "target": [
+              "청소년",
+              "중장년",
+              "노인",
+              "질환"
+            ],
+            "need": [
+              "정신건강",
+              "의료·건강"
+            ],
+            "form": [
+              "서비스 제공",
+              "상담"
+            ],
+            "intake": [
+              "전화"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://clinics.seoul.kr/gyeonggi-do/osan-si/psychiatry",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {}
+    },
+    {
+      "id": "osan26care021",
+      "name": "최중철정신건강의학과의원",
+      "level": "오산시",
+      "kind": "정신건강의학과 의원",
+      "summary": "정신건강의학과 외래 진료기관. 초진·진료 가능 연령 확인 필요",
+      "site": "",
+      "phone": "031-373-9966",
+      "source": "https://clinics.seoul.kr/gyeonggi-do/osan-si/osan-dong/psychiatry",
+      "reviewed": "2026-10-23",
+      "status": "미확인",
+      "services": [
+        {
+          "id": "SVC-OSAN26-021",
+          "name": "정신건강의학과 외래 진료",
+          "category": "정신건강",
+          "target": "청소년·성인 정신건강 진료 필요자",
+          "description": "정신건강의학과 외래 진료기관. 초진·진료 가능 연령 확인 필요 실제 제공분야·진료 가능 여부는 사전 문의 필요.",
+          "method": "해당 진료과·초진 및 입원·응급 가능 여부를 의료기관에 확인한 후 연계",
+          "operation": "서비스 대상·비용·진료일정·의뢰 절차는 확인 필요",
+          "editedOn": "2026-10-23",
+          "tags": {
+            "target": [
+              "청소년",
+              "중장년",
+              "노인",
+              "질환"
+            ],
+            "need": [
+              "정신건강",
+              "의료·건강"
+            ],
+            "form": [
+              "서비스 제공",
+              "상담"
+            ],
+            "intake": [
+              "전화"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://clinics.seoul.kr/gyeonggi-do/osan-si/osan-dong/psychiatry",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-osan26care021",
+        "owner_type": "organization",
+        "owner_id": "osan26care021",
+        "dept": "",
+        "phone": "031-373-9966",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://clinics.seoul.kr/gyeonggi-do/osan-si/osan-dong/psychiatry",
+        "verified_on": ""
+      }
+    },
+    {
+      "id": "osan26care022",
+      "name": "행복주는의원",
+      "level": "오산시",
+      "kind": "정신건강의학과 의원",
+      "summary": "우울·불안·공황·아동청소년 관련 진료 분야를 공식 홈페이지에서 안내",
+      "site": "https://happyosan.com/",
+      "phone": "031-377-8274",
+      "source": "https://happyosan.com/contact",
+      "reviewed": "2026-10-23",
+      "status": "운영중",
+      "services": [
+        {
+          "id": "SVC-OSAN26-022",
+          "name": "정신건강의학과 외래 진료",
+          "category": "정신건강",
+          "target": "청소년·성인 정신건강 진료 필요자",
+          "description": "우울·불안·공황·아동청소년 관련 진료 분야를 공식 홈페이지에서 안내 실제 제공분야·진료 가능 여부는 사전 문의 필요.",
+          "method": "해당 진료과·초진 및 입원·응급 가능 여부를 의료기관에 확인한 후 연계",
+          "operation": "서비스 대상·비용·진료일정·의뢰 절차는 확인 필요",
+          "editedOn": "2026-10-23",
+          "tags": {
+            "target": [
+              "청소년",
+              "중장년",
+              "노인",
+              "질환"
+            ],
+            "need": [
+              "정신건강",
+              "의료·건강"
+            ],
+            "form": [
+              "서비스 제공",
+              "상담"
+            ],
+            "intake": [
+              "전화"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://happyosan.com/contact",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-10-23",
+            "method": "공식 기관 및 의료기관 공개정보 검토 (개별 접수 가능 여부 제외)",
+            "by": "자료 관리자",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-osan26care022",
+        "owner_type": "organization",
+        "owner_id": "osan26care022",
+        "dept": "",
+        "phone": "031-377-8274",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://happyosan.com/contact",
+        "verified_on": "2026-10-23"
+      }
+    },
+    {
+      "id": "osan26care023",
+      "name": "오산세교정신건강의학과의원",
+      "level": "오산시",
+      "kind": "정신건강의학과 의원",
+      "summary": "정신건강의학과 외래 진료기관. 현재 초진 접수와 예약 가능 여부 확인 필요",
+      "site": "",
+      "phone": "031-831-3665",
+      "source": "https://clinics.seoul.kr/gyeonggi-do/osan-si/gwol-dong/psychiatry",
+      "reviewed": "2026-10-23",
+      "status": "미확인",
+      "services": [
+        {
+          "id": "SVC-OSAN26-023",
+          "name": "정신건강의학과 외래 진료",
+          "category": "정신건강",
+          "target": "청소년·성인 정신건강 진료 필요자",
+          "description": "정신건강의학과 외래 진료기관. 현재 초진 접수와 예약 가능 여부 확인 필요 실제 제공분야·진료 가능 여부는 사전 문의 필요.",
+          "method": "해당 진료과·초진 및 입원·응급 가능 여부를 의료기관에 확인한 후 연계",
+          "operation": "서비스 대상·비용·진료일정·의뢰 절차는 확인 필요",
+          "editedOn": "2026-10-23",
+          "tags": {
+            "target": [
+              "청소년",
+              "중장년",
+              "노인",
+              "질환"
+            ],
+            "need": [
+              "정신건강",
+              "의료·건강"
+            ],
+            "form": [
+              "서비스 제공",
+              "상담"
+            ],
+            "intake": [
+              "전화"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://clinics.seoul.kr/gyeonggi-do/osan-si/gwol-dong/psychiatry",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-osan26care023",
+        "owner_type": "organization",
+        "owner_id": "osan26care023",
+        "dept": "",
+        "phone": "031-831-3665",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://clinics.seoul.kr/gyeonggi-do/osan-si/gwol-dong/psychiatry",
         "verified_on": ""
       }
     }
