@@ -53,7 +53,7 @@ function routingResources(resources,profile){
  if(selected==='오산시 외')return resources.filter(r=>!dongs.includes(r)&&r['기관명']!=='오산시 동 행정복지센터');
  var options=Array.from(new Set(dongs.map(r=>r['기관명']))).sort(),services=new Map();
  dongs.forEach(r=>{if(!services.has(r['서비스명']))services.set(r['서비스명'],Object.assign({},r,{
-  '기관명':'오산시 동 행정복지센터','대표전화':'',address:'',addressNote:'',addressStatus:'미확인',addressSource:'',addressCheckedOn:'',contacts:[],orgId:'',serviceId:'','기관소개':'거주지 관할 동을 먼저 확인해 8개 동 중 해당 창구로 연결합니다.',
+  '기관명':'오산시 동 행정복지센터','대표전화':'',contactDept:'',address:'',addressNote:'',addressStatus:'미확인',addressSource:'',addressCheckedOn:'',contacts:[],orgId:'',serviceId:'','기관소개':'거주지 관할 동을 먼저 확인해 8개 동 중 해당 창구로 연결합니다.',
   '홈페이지':'https://daily-jh.github.io/osansegyo-welfare-resources/#org=438b636f15',
   '지원대상':'오산시 주민 중 해당 제도 상담이 필요한 가구 · 거주지 관할 확인',
   '신청·연계방법':'거주지 관할 동을 먼저 확인하세요. 자원 안내에서 8개 동을 각각 확인할 수 있습니다. 031-8036-8036은 시청 대표전화이며 동 직통전화가 아닙니다.',
@@ -63,7 +63,7 @@ function routingResources(resources,profile){
 }
 function groupedCandidates(p,d){
  if(!d.sum)return [];
- var economic=[19,20,21].some(n=>p.answers[n-1]>0),blocked=/예방 및 유관기관 협력|배움터 교육지원|발달장애인 평생교육|직업지원|노인·장애인 공적돌봄|한부모·다문화|아이돌봄서비스/;
+ var economic=[19,20,21].some(n=>p.answers[n-1]>0),blocked=/주민조직화|자원개발|아이리더|인재양성|예방 및 유관기관 협력|배움터 교육지원|발달장애인 평생교육|직업지원|노인·장애인 공적돌봄|한부모·다문화|아이돌봄서비스/;
  var allowed=new Set(p.routes[d.i].map(identity));
  var rows=routingResources(p.resources,student(p)).filter(r=>(allowed.has(identity(r['기관명']))||allowed.has(identity(r.profileName))||additional(p,d,r))&&typeof r['서비스명']==='string'&&r['서비스명'].trim()&&!blocked.test(r['서비스명'])&&(!/장학|교육지원 공모/.test(r['서비스명'])||economic));
  var seen=new Set();

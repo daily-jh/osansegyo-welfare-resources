@@ -332,14 +332,14 @@ window.addEventListener('message',function(e){
 });
 var supportWindows=new Set();
 window.addEventListener('message',function(e){if(e.origin!==location.origin||!supportWindows.has(e.source)||!e.data||!['youth-support-request-v1','youth-workbench-request-v1'].includes(e.data.type))return;if(!ready){e.source.postMessage({type:'youth-support-unavailable-v1'},location.origin);return}e.source.postMessage(snapshot(),location.origin)});
-function openSupport(){if(!ready)return;if(window.parent!==window){window.parent.postMessage({type:'youth-flow-go-v1',stage:2,view:'map'},location.origin);return;}supportWindows.forEach(function(w){if(w.closed)supportWindows.delete(w)});var w=window.open('support.html','_blank');if(w){supportWindows.add(w);$("supportStatus").textContent="지원 연결지도를 새 탭에서 열었습니다. 원래 평가 탭을 닫지 마세요."}else $("supportStatus").textContent="새 탭이 차단되었습니다. 브라우저에서 이 사이트의 팝업을 허용한 뒤 다시 눌러 주세요."}
+function openSupport(){if(!ready)return;if(window.parent!==window){window.parent.postMessage({type:'youth-flow-go-v1',stage:2,view:'map'},location.origin);return;}supportWindows.forEach(function(w){if(w.closed)supportWindows.delete(w)});var w=window.open('support.html?v=20261023-profile2','_blank');if(w){supportWindows.add(w);$("supportStatus").textContent="지원 연결지도를 새 탭에서 열었습니다. 원래 평가 탭을 닫지 마세요."}else $("supportStatus").textContent="새 탭이 차단되었습니다. 브라우저에서 이 사이트의 팝업을 허용한 뒤 다시 눌러 주세요."}
 function init(){
 document.querySelectorAll("input").forEach(function(n){n.value=n.type==="checkbox"?n.value:"";n.checked=false});makeQuestions();updateProgress();
 clearSummary();
 $("domainJump").innerHTML+=domains.map(function(d,i){return '<option value="'+i+'">'+(i+1)+'. '+clean(d.name)+'</option>'}).join('');
 $("domainJump").addEventListener("change",function(){if(this.value!==""){var target=$("domain"+this.value);target.scrollIntoView({block:"start"});target.querySelector("input").focus({preventScroll:true})}});
 $("findPending").onclick=findPending;
-$("openSupport").onclick=openSupport;$("openWorkbench").onclick=function(){if(!ready)return;var w=window.open('case-examples.html','_blank');if(w)supportWindows.add(w)};$("aiAllowed").onchange=updateCopyGate;$("aiAnonymous").onchange=updateCopyGate;$("safetyFollowups").onchange=updateUrgent;
+$("openSupport").onclick=openSupport;$("openWorkbench").onclick=function(){if(!ready)return;var w=window.open('case-examples.html?v=20261023-profile2','_blank');if(w)supportWindows.add(w)};$("aiAllowed").onchange=updateCopyGate;$("aiAnonymous").onchange=updateCopyGate;$("safetyFollowups").onchange=updateUrgent;
 $("pendingList").addEventListener("click",function(e){var b=e.target.closest("[data-question]");if(b){var target=$("qi"+b.dataset.question);target.scrollIntoView({block:"center"});target.querySelector("input").focus({preventScroll:true})}});
 $("resourceFilter").onchange=filterResources;
 $("copyAll").addEventListener("click",copyPacket);
