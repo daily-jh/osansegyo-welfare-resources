@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="theme-color" content="#285da2"/>
+  <meta name="description" content="오산시·경기도·전국 복지기관을 소득·생계, 주거, 의료·건강, 정신건강 등 욕구 영역별 기관명 연결도로 한눈에 살펴보세요."/>
+  <link rel="canonical" href="https://daily-jh.github.io/osansegyo-welfare-resources/resource-map.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:locale" content="ko_KR"/>
+  <meta property="og:site_name" content="오산 복지자원 찾기"/>
+  <meta property="og:url" content="https://daily-jh.github.io/osansegyo-welfare-resources/resource-map.html"/>
+  <meta property="og:title" content="오산 복지자원 한눈에 보기 | 영역별 기관 연결도"/>
+  <meta property="og:description" content="오산 지역 복지기관을 12개 욕구 영역별로 한눈에 확인하고 기관별 상세정보로 이동하세요."/>
+  <meta property="og:image" content="https://daily-jh.github.io/osansegyo-welfare-resources/assets/og-home-20261023.png"/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="오산 복지자원 한눈에 보기"/>
+  <meta name="twitter:image" content="https://daily-jh.github.io/osansegyo-welfare-resources/assets/og-home-20261023.png"/>
+  <title>오산 복지자원 한눈에 보기 | 영역별 기관 연결도</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg"/>
+  <link rel="stylesheet" href="assets/styles.css?v=20261023-map1"/>
+  <link rel="stylesheet" href="assets/resource-overview.css?v=20261023-map1"/>
+  <script defer src="assets/data.js?v=20261023-osanhealth1"></script>
+  <script defer src="assets/program-feed.js?v=20261023-osanhealth1"></script>
+  <script defer src="assets/resource-overview-model.js?v=20261023-map1"></script>
+  <script defer src="assets/resource-overview.js?v=20261023-map1"></script>
+</head>
+<body class="overview-page">
+  <a class="skip-link" href="#overviewMain">영역별 기관 연결도로 건너뛰기</a>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="./" aria-label="오산 복지자원 찾기 홈으로">
+        <span class="brand-symbol" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span class="brand-copy"><strong>오산 복지자원 찾기</strong><small>OSAN WELFARE RESOURCE GUIDE</small></span>
+      </a>
+      <nav class="top-nav" aria-label="주요 메뉴">
+        <a href="index.html#searchArea">기관·사업 검색</a>
+        <a class="active" href="resource-map.html" aria-current="page">영역별 한눈에 보기</a>
+        <a href="youth-risk/">청소년 지원 연계 ↗</a>
+      </nav>
+      <span class="nav-mark">2026 RESOURCE DIRECTORY</span>
+    </div>
+  </header>
+  <main class="container overview-main" id="overviewMain">
+    <section class="overview-hero" aria-labelledby="overviewTitle">
+      <div class="overview-hero-copy">
+        <p class="overview-eyebrow"><span aria-hidden="true">✳</span> 02 / RESOURCE AT A GLANCE</p>
+        <h1 id="overviewTitle">오산 복지자원,<br/><em>한눈에 보기.</em></h1>
+        <p>여러 기관의 주요 서비스를 하나하나 펼치지 않아도 됩니다. 필요한 지원 영역을 고르면 해당 기관명을 바로 확인할 수 있습니다.</p>
+        <a class="overview-backlink" href="index.html#searchArea">기관·사업 자세히 검색하기 <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="overview-hero-visual" aria-hidden="true">
+        <span class="overview-visual-dot one"></span><span class="overview-visual-dot two"></span>
+        <div class="overview-visual-central"><span>오산</span><strong>복지자원</strong></div>
+        <span class="overview-visual-pill pill-one">마음·건강</span>
+        <span class="overview-visual-pill pill-two">가족·돌봄</span>
+        <span class="overview-visual-pill pill-three">생계·주거</span>
+        <span class="overview-visual-pill pill-four">교육·자립</span>
+      </div>
+    </section>
+    <section class="overview-controls" aria-labelledby="overviewControlHeading">
+      <div class="overview-controls-heading">
+        <div>
+          <p class="eyebrow">WELFARE RESOURCE MAP</p>
+          <h2 id="overviewControlHeading">어떤 분야의 도움이 필요하신가요?</h2>
+        </div>
+        <a href="index.html#searchArea" class="overview-outline-link">전체 기관 상세 검색 ↗</a>
+      </div>
+      <div id="overviewScopes" class="overview-scopes" role="group" aria-label="기관 지역별 필터">
+        <button type="button" data-overview-scope="오산시" aria-pressed="true" class="selected">오산시</button>
+        <button type="button" data-overview-scope="경기도" aria-pressed="false">경기도</button>
+        <button type="button" data-overview-scope="민간" aria-pressed="false">전국 공공·민간</button>
+        <button type="button" data-overview-scope="전체" aria-pressed="false">전체 자원</button>
+      </div>
+      <div class="overview-search">
+        <label for="overviewKeyword">기관명 바로 찾기</label>
+        <input id="overviewKeyword" type="search" placeholder="예: 복지관, 심리, 병원, 초록우산" autocomplete="off"/>
+        <button id="overviewReset" type="button">초기화</button>
+        <span id="overviewStatus" role="status" aria-live="polite">기관 목록을 불러오고 있습니다.</span>
+      </div>
+    </section>
+    <nav id="overviewJumps" class="overview-jumps" aria-label="지원 영역 바로가기"></nav>
+    <div id="overviewGrid" class="overview-grid" aria-label="영역별 기관명 연결도"></div>
+    <p id="overviewNote" class="overview-note">기관 이름을 누르면 기존 홈페이지에서 연락처·서비스·연계방법을 확인할 수 있습니다.</p>
+    <noscript><p class="overview-note">이 연결도에는 JavaScript가 필요합니다. <a href="index.html#searchArea">기존 복지자원 검색</a>을 이용해 주세요.</p></noscript>
+  </main>
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div>
+        <a class="footer-logo" href="https://www.osgwc.or.kr/" target="_blank" rel="noopener noreferrer"><img src="youth-risk/images/osan-segyo-logo.png" alt="오산세교종합사회복지관" width="260"/></a>
+        <div class="footer-brand"><span class="footer-flower">✳</span> 오산 복지자원 찾기</div>
+        <p>기획·편집·웹사이트 제작: 오산세교종합사회복지관 김지훈 팀장</p>
+        <small>© 2026 김지훈. All rights reserved.</small>
+      </div>
+      <div class="footer-right">
+        <a href="index.html">첫 페이지로 돌아가기 ↗</a>
+        <p>기관과 서비스를 검색하기 쉽게 묶은 참고자료이며 선정·접수 가능을 보장하지 않습니다.<br/>기관 운영과 사업 대상은 반드시 공식 기관 안내를 확인해 주세요.</p>
+        <a href="usage-terms.html">지적재산권 및 이용조건</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
