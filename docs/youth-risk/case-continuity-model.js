@@ -16,6 +16,15 @@ const LABELS={
  maintain:'원안 유지',adjust:'일부 조정',replan:'재수립',close:'종결 검토',
  'self-report':'진술에 의한 확인','document-verified':'문서 등 증빙 확인',unverified:'증빙 미확인',
  general:'일반 사례관리',intensive:'집중 사례관리',joint:'공동사례관리',other:'그 외'};
+let liveRules=null;
+function setRulesDb(value){
+ if(!value||value.version!==VER||!Array.isArray(value.stages)||value.stages.length!==5||!Array.isArray(value.noticeKo)||value.noticeKo.length<4)throw Error('연속성 규칙 DB 버전·스키마 불일치');
+ for(const [field,choices] of [['meetingStates',MEETING],['planStates',PLANS],['implementationStates',EXEC],['reviewStates',REVIEW],['evidenceStates',EVIDENCE],['caseTypes',TYPES]]){
+  if(!Array.isArray(value[field])||value[field].join('|')!==choices.join('|'))throw Error('연속성 규칙 DB의 선택값 불일치: '+field);
+ }
+ liveRules={version:value.version,noticeKo:value.noticeKo.slice(0,6)};
+ return liveRules.version;
+}
 const limit=(s)=>typeof s==='string'&&s.length<=120;
 const valid=(record)=>{
  if(!record||!Array.isArray(record.goals)||record.goals.length>20)throw Error('검토 목표는 최대 20개입니다.');
@@ -74,12 +83,12 @@ function analyze(record){
  const agreement=resolved>0?{count:tally.meetingApproved,denominator:resolved,
    text:tally.meetingApproved+'/'+resolved+'건 채택·수정채택 (기재된 회의결정만 분모)'}:
    {count:null,denominator:0,text:'회의결정 미기재로 일치율 산출 보류'};
- return {version:VER,agreement,tally,goals,alerts,
-   notes:['동일 목표의 문서상 채택 비율은 임상적 판정정확도나 실제 성과가 아닙니다.',
+ return {version:VER,agreement,tally,goals,alerts,dbLoaded:!!liveRules,
+   notes:liveRules?liveRules.noticeKo:['동일 목표의 문서상 채택 비율은 임상적 판정정확도나 실제 성과가 아닙니다.',
    '예정·문의·의뢰·접수·제공 시작·완료는 서로 다른 이행상태입니다.',
    '다른 척도에서 산출한 점수는 본 청소년 25문항/100점 척도로 환산할 수 없습니다.',
    '현재 안전과 신고·보호 대응은 계획일치율·회의결정에 선행합니다.']};
 }
-const api={version:VER,analyze,valid,MEETING,PLANS,EXEC,REVIEW,EVIDENCE,TYPES,LABELS};
+const api={version:VER,analyze,valid,setRulesDb,MEETING,PLANS,EXEC,REVIEW,EVIDENCE,TYPES,LABELS};
 if(typeof module!=='undefined'&&module.exports)module.exports=api;root.YouthContinuity=api;
 })(typeof window!=='undefined'?window:globalThis);
