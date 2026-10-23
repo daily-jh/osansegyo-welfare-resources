@@ -55,7 +55,7 @@ def load():
         if not o['기관명'] or o['범주'] not in ['오산시','경기도','민간']: raise ValueError('invalid organization')
         safe_url(o['홈페이지']); safe_url(o['근거URL'])
         if o['status'] not in ['미확인','운영중','중단','폐지']: raise ValueError('invalid organization status')
-        if o['address_status'] not in ['미확인','기존 등록자료','공식','공공·지도']: raise ValueError('invalid address status')
+        if o['address_status'] not in ['미확인','기존 등록자료','공식','공공·지도','사용자 제공·구글']: raise ValueError('invalid address status')
         date(o['address_checked_on']); safe_url(o['address_source_url'])
         if not o['address'] and o['address_status']!='미확인': raise ValueError('address status requires address')
         if o['address_status'] in ['공식','공공·지도'] and not all(o[k] for k in ['address','address_source_url','address_checked_on']): raise ValueError('checked address missing evidence')

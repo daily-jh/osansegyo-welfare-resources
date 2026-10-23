@@ -71,6 +71,19 @@ class Resources(unittest.TestCase):
         self.assertIn('address_source_url',public[0])
         example=next(x for x in public if x['owner_id']=='b45bc16582')
         self.assertIn('오산시',example['address'])
+    def test_user_provided_google_addresses(self):
+        orgs, *_ = b.load()
+        by_id = {o['org_id']:o for o in orgs}
+        self.assertEqual(sum(bool(o['address']) for o in orgs),101)
+        self.assertEqual(sum(o['address_status']=='사용자 제공·구글' for o in orgs),18)
+        self.assertIn('오산로278번길 3',by_id['d0f9a938bd']['address'])
+        self.assertIn('효원로308번길 34',by_id['eac1ed57a3']['address'])
+        for org_id in ['438b636f15','f6f1f88fda','bd69f8d5ea','22ca867996','aa30852634','f5cda30b9e']:
+            self.assertFalse(by_id[org_id]['address'])
+        for org in orgs:
+            if org['address_status']=='사용자 제공·구글':
+                self.assertTrue(org['address_source_url'].startswith('https://www.google.com/maps/search/'))
+
     def test_invalid_address_evidence_rejected(self):
         self.change('organizations.csv',lambda rs:rs[0].update(address='경기도 오산시 가상동 1',address_status='공식',address_source_url='',address_checked_on='2026-10-23'))
         with self.assertRaises(ValueError):b.generate()

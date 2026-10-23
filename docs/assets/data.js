@@ -542,7 +542,7 @@ window.WELFARE_DATA = {
       "addressSource": "",
       "addressStatus": "미확인",
       "addressCheckedOn": "",
-      "addressNote": "주소 확인 후 방문 안내 가능"
+      "addressNote": "통합 8개 동 안내용 기존 ID: 개별 동 행정복지센터의 등록 주소로 연결해야 하므로 하나의 방문주소를 입력하지 않음 · 첨부된 주소 표기는 단일 기관의 지도 위치로 사용하지 않음."
     },
     {
       "id": "259715c9f4",
@@ -1061,11 +1061,11 @@ window.WELFARE_DATA = {
         "source_url": "https://www.osan.go.kr/depart/contents.do?mId=0405020000",
         "verified_on": "2026-10-22"
       },
-      "address": "",
-      "addressSource": "",
-      "addressStatus": "미확인",
-      "addressCheckedOn": "",
-      "addressNote": "주소 확인 후 방문 안내 가능"
+      "address": "경기도 오산시 오산로278번길 3, 2층",
+      "addressSource": "https://www.google.com/maps/search/?api=1&query=%EC%98%A4%EC%82%B0%EC%8B%9C%ED%95%99%EA%B5%90%EB%B0%96%EC%B2%AD%EC%86%8C%EB%85%84%EC%A7%80%EC%9B%90%EC%84%BC%ED%84%B0%20%EA%BF%88%EB%93%9C%EB%A6%BC%20%EA%B2%BD%EA%B8%B0%EB%8F%84%20%EC%98%A4%EC%82%B0%EC%8B%9C%20%EC%98%A4%EC%82%B0%EB%A1%9C278%EB%B2%88%EA%B8%B8%203%2C%202%EC%B8%B5",
+      "addressStatus": "사용자 제공·구글",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "청소년상담복지센터와 건물 공유 여부 및 꿈드림 접수 장소 방문 전 확인"
     },
     {
       "id": "b89fdc14c6",
@@ -2102,11 +2102,11 @@ window.WELFARE_DATA = {
         "source_url": "https://www.osan1365.or.kr/board/board.php?p=4&table=mn01_04_02",
         "verified_on": "2026-10-22"
       },
-      "address": "",
-      "addressSource": "",
-      "addressStatus": "미확인",
-      "addressCheckedOn": "",
-      "addressNote": "주소 확인 후 방문 안내 가능"
+      "address": "경기도 오산시 성호대로 141, 오산시청 내",
+      "addressSource": "https://www.google.com/maps/search/?api=1&query=%EC%98%A4%EC%82%B0%EC%8B%9C%EC%A7%80%EC%97%AD%EC%82%AC%ED%9A%8C%EB%B3%B4%EC%9E%A5%ED%98%91%EC%9D%98%EC%B2%B4%20%EA%B2%BD%EA%B8%B0%EB%8F%84%20%EC%98%A4%EC%82%B0%EC%8B%9C%20%EC%84%B1%ED%98%B8%EB%8C%80%EB%A1%9C%20141%2C%20%EC%98%A4%EC%82%B0%EC%8B%9C%EC%B2%AD%20%EB%82%B4",
+      "addressStatus": "사용자 제공·구글",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "지역사회보장협의체 사무국 위치와 실제 방문상담 가능 여부 확인"
     },
     {
       "id": "f6f1f88fda",
@@ -2171,7 +2171,7 @@ window.WELFARE_DATA = {
       "addressSource": "",
       "addressStatus": "미확인",
       "addressCheckedOn": "",
-      "addressNote": "주소 확인 후 방문 안내 가능"
+      "addressNote": "지역아동센터 전체를 가리키는 통합 항목: 개별 지역아동센터 주소를 확인해야 함 · 첨부된 주소 표기는 단일 기관의 지도 위치로 사용하지 않음."
     },
     {
       "id": "4f434688e9",
@@ -2398,11 +2398,11 @@ window.WELFARE_DATA = {
         "source_url": "https://gcfwc.ggwf.or.kr/",
         "verified_on": "2026-10-22"
       },
-      "address": "",
-      "addressSource": "",
-      "addressStatus": "미확인",
-      "addressCheckedOn": "",
-      "addressNote": "주소 확인 후 방문 안내 가능"
+      "address": "경기도 수원시 영통구 도청로 50",
+      "addressSource": "https://www.google.com/maps/search/?api=1&query=%EA%B2%BD%EA%B8%B0%EB%8F%84%EC%84%9C%EB%AF%BC%EA%B8%88%EC%9C%B5%EB%B3%B5%EC%A7%80%EC%A7%80%EC%9B%90%EC%84%BC%ED%84%B0%20%EA%B2%BD%EA%B8%B0%EB%8F%84%20%EC%88%98%EC%9B%90%EC%8B%9C%20%EC%98%81%ED%86%B5%EA%B5%AC%20%EB%8F%84%EC%B2%AD%EB%A1%9C%2050",
+      "addressStatus": "사용자 제공·구글",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "본부 주소로 입력; 오산 지역 상담창구의 장소·일정은 별도 확인"
     },
     {
       "id": "ee3da28d10",
@@ -2494,11 +2494,11 @@ window.WELFARE_DATA = {
         "source_url": "https://housing.gg.go.kr/html/27100.do",
         "verified_on": "2026-10-22"
       },
-      "address": "",
-      "addressSource": "",
-      "addressStatus": "미확인",
-      "addressCheckedOn": "",
-      "addressNote": "주소 확인 후 방문 안내 가능"
+      "address": "경기도 수원시 영통구 도청로 50, 복합시설관 1층",
+      "addressSource": "https://www.google.com/maps/search/?api=1&query=%EA%B2%BD%EA%B8%B0%EC%A3%BC%EA%B1%B0%EB%B3%B5%EC%A7%80%EC%84%BC%ED%84%B0%20%EA%B2%BD%EA%B8%B0%EB%8F%84%20%EC%88%98%EC%9B%90%EC%8B%9C%20%EC%98%81%ED%86%B5%EA%B5%AC%20%EB%8F%84%EC%B2%AD%EB%A1%9C%2050%2C%20%EB%B3%B5%ED%95%A9%EC%8B%9C%EC%84%A4%EA%B4%80%201%EC%B8%B5",
+      "addressStatus": "사용자 제공·구글",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "주거복지센터 상담창구와 본부 위치 확인 필요"
     },
     {
       "id": "f9a63d4c92",
@@ -2594,11 +2594,11 @@ window.WELFARE_DATA = {
         "source_url": "https://www.medical.or.kr/center/index.do",
         "verified_on": "2026-10-22"
       },
-      "address": "",
-      "addressSource": "",
-      "addressStatus": "미확인",
-      "addressCheckedOn": "",
-      "addressNote": "주소 확인 후 방문 안내 가능"
+      "address": "경기도 수원시 장안구 경수대로 1150",
+      "addressSource": "https://www.google.com/maps/search/?api=1&query=%EA%B2%BD%EA%B8%B0%EB%8F%84%EC%9D%98%EB%A3%8C%EC%9B%90%20%EA%B2%BD%EA%B8%B0%EB%8F%84%20%EC%88%98%EC%9B%90%EC%8B%9C%20%EC%9E%A5%EC%95%88%EA%B5%AC%20%EA%B2%BD%EC%88%98%EB%8C%80%EB%A1%9C%201150",
+      "addressStatus": "사용자 제공·구글",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "경기도의료원 본부 주소; 개별 산하병원 방문주소와 구분"
     },
     {
       "id": "4e9030120d",
@@ -3016,11 +3016,11 @@ window.WELFARE_DATA = {
         "source_url": "https://gg.pass.or.kr/",
         "verified_on": "2026-10-22"
       },
-      "address": "",
-      "addressSource": "",
-      "addressStatus": "미확인",
-      "addressCheckedOn": "",
-      "addressNote": "주소 확인 후 방문 안내 가능"
+      "address": "경기도 여주시 청심로 197-8",
+      "addressSource": "https://www.google.com/maps/search/?api=1&query=%EA%B2%BD%EA%B8%B0%EB%8F%84%EC%82%AC%ED%9A%8C%EC%84%9C%EB%B9%84%EC%8A%A4%EC%9B%90%20%EA%B2%BD%EA%B8%B0%EB%8F%84%20%EC%97%AC%EC%A3%BC%EC%8B%9C%20%EC%B2%AD%EC%8B%AC%EB%A1%9C%20197-8",
+      "addressStatus": "사용자 제공·구글",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "본원 주소; 별도 수원 사업장(효원로219번길 46-5)은 방문 업무 확인 필요"
     },
     {
       "id": "df2f6968e5",
@@ -3210,11 +3210,11 @@ window.WELFARE_DATA = {
         "source_url": "https://www.gjf.or.kr/main/main.do",
         "verified_on": "2026-10-22"
       },
-      "address": "",
-      "addressSource": "",
-      "addressStatus": "미확인",
-      "addressCheckedOn": "",
-      "addressNote": "주소 확인 후 방문 안내 가능"
+      "address": "경기도 부천시 부천로 143",
+      "addressSource": "https://www.google.com/maps/search/?api=1&query=%EA%B2%BD%EA%B8%B0%EB%8F%84%EC%9D%BC%EC%9E%90%EB%A6%AC%EC%9E%AC%EB%8B%A8%20%EA%B2%BD%EA%B8%B0%EB%8F%84%20%EB%B6%80%EC%B2%9C%EC%8B%9C%20%EB%B6%80%EC%B2%9C%EB%A1%9C%20143",
+      "addressStatus": "사용자 제공·구글",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "본사 주소; 남부사업본부(수원시 권선구 권중로 46)는 별도"
     },
     {
       "id": "bd69f8d5ea",
@@ -3314,7 +3314,7 @@ window.WELFARE_DATA = {
       "addressSource": "",
       "addressStatus": "미확인",
       "addressCheckedOn": "",
-      "addressNote": "주소 확인 후 방문 안내 가능"
+      "addressNote": "Wee 프로젝트는 학교·교육지원청·Wee센터별 지원체계이며 교육청 본관 주소를 단일 방문지로 쓰지 않음 · 첨부된 주소 표기는 단일 기관의 지도 위치로 사용하지 않음."
     },
     {
       "id": "2c45d092e2",
@@ -4439,11 +4439,11 @@ window.WELFARE_DATA = {
         "source_url": "https://www.gfound.org/",
         "verified_on": "2026-10-22"
       },
-      "address": "",
-      "addressSource": "",
-      "addressStatus": "미확인",
-      "addressCheckedOn": "",
-      "addressNote": "주소 확인 후 방문 안내 가능"
+      "address": "서울특별시 마포구 동교로 112, 지파운데이션 회관",
+      "addressSource": "https://www.google.com/maps/search/?api=1&query=%EC%A7%80%ED%8C%8C%EC%9A%B4%EB%8D%B0%EC%9D%B4%EC%85%98%20%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EB%A7%88%ED%8F%AC%EA%B5%AC%20%EB%8F%99%EA%B5%90%EB%A1%9C%20112%2C%20%EC%A7%80%ED%8C%8C%EC%9A%B4%EB%8D%B0%EC%9D%B4%EC%85%98%20%ED%9A%8C%EA%B4%80",
+      "addressStatus": "사용자 제공·구글",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "민간재단 본부; 실제 지원사업 접수창구는 별도 확인"
     },
     {
       "id": "22c1c42731",
@@ -6708,11 +6708,11 @@ window.WELFARE_DATA = {
         "source_url": "https://www.osan.go.kr/main.do",
         "verified_on": "2026-10-22"
       },
-      "address": "",
-      "addressSource": "",
-      "addressStatus": "미확인",
-      "addressCheckedOn": "",
-      "addressNote": "주소 확인 후 방문 안내 가능"
+      "address": "경기도 오산시 성호대로 141, 오산시청 사회복지과 내",
+      "addressSource": "https://www.google.com/maps/search/?api=1&query=%EC%98%A4%EC%82%B0%EC%8B%9C%20%EB%93%9C%EB%A6%BC%EC%8A%A4%ED%83%80%ED%8A%B8%20%EA%B2%BD%EA%B8%B0%EB%8F%84%20%EC%98%A4%EC%82%B0%EC%8B%9C%20%EC%84%B1%ED%98%B8%EB%8C%80%EB%A1%9C%20141%2C%20%EC%98%A4%EC%82%B0%EC%8B%9C%EC%B2%AD%20%EC%82%AC%ED%9A%8C%EB%B3%B5%EC%A7%80%EA%B3%BC%20%EB%82%B4",
+      "addressStatus": "사용자 제공·구글",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "시청 담당부서 주소이며 아동·가족의 실제 상담 장소는 확인 필요"
     },
     {
       "id": "44fd2c2d39",
@@ -6810,11 +6810,11 @@ window.WELFARE_DATA = {
         "source_url": "https://www.gg.go.kr/bbs/boardView.do?bIdx=218024475&bsIdx=496&menuId=3261&page=1",
         "verified_on": ""
       },
-      "address": "",
-      "addressSource": "",
-      "addressStatus": "미확인",
-      "addressCheckedOn": "",
-      "addressNote": "주소 확인 후 방문 안내 가능"
+      "address": "경기도 오산시 운암로 7, 4층",
+      "addressSource": "https://www.google.com/maps/search/?api=1&query=%EC%98%A4%EC%82%B0%EC%8B%9C%EC%82%AC%ED%9A%8C%EB%B3%B5%EC%A7%80%ED%98%91%EC%9D%98%ED%9A%8C%20%EA%B2%BD%EA%B8%B0%EB%8F%84%20%EC%98%A4%EC%82%B0%EC%8B%9C%20%EC%9A%B4%EC%95%94%EB%A1%9C%207%2C%204%EC%B8%B5",
+      "addressStatus": "사용자 제공·구글",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "협의회 사무국 운영·정확한 호실은 방문 전 재확인"
     },
     {
       "id": "43bb6cecb7",
@@ -6914,11 +6914,11 @@ window.WELFARE_DATA = {
         "source_url": "https://www.osan.go.kr/ostv/cast/viewer/board.do?key=1d70d0e98c9884a631f744996476ce2989f5a89079c35e96cbd016d44babcb3e31740822049d111d",
         "verified_on": "2026-10-22"
       },
-      "address": "",
-      "addressSource": "",
-      "addressStatus": "미확인",
-      "addressCheckedOn": "",
-      "addressNote": "주소 확인 후 방문 안내 가능"
+      "address": "경기도 오산시 경기대로 307, 중앙동행정복지센터 내",
+      "addressSource": "https://hancoma.com/dementia_detail.php?id=101",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "오산시치매안심센터 방문 위치; 입주층·현재 상담실은 전화로 확인"
     },
     {
       "id": "22ca867996",
@@ -6990,7 +6990,7 @@ window.WELFARE_DATA = {
       "addressSource": "",
       "addressStatus": "미확인",
       "addressCheckedOn": "",
-      "addressNote": "주소 확인 후 방문 안내 가능"
+      "addressNote": "긴급복지 콜센터는 전화·온라인 접수창구: 도청 주소를 콜센터 직접 방문처로 안내하지 않음 · 첨부된 주소 표기는 단일 기관의 지도 위치로 사용하지 않음."
     },
     {
       "id": "a500df60f5",
@@ -7260,11 +7260,11 @@ window.WELFARE_DATA = {
         "source_url": "https://ggwf.gg.go.kr/wp-content/uploads/sites/30/2024/12/정책연구-2024-08_경기도-장애인권익옹호기관-운영-현황-및-개선방안.pdf",
         "verified_on": ""
       },
-      "address": "",
-      "addressSource": "",
-      "addressStatus": "미확인",
-      "addressCheckedOn": "",
-      "addressNote": "주소 확인 후 방문 안내 가능"
+      "address": "경기도 수원시 권선구 서수원로 130, 누림센터 208호",
+      "addressSource": "https://www.google.com/maps/search/?api=1&query=%EA%B2%BD%EA%B8%B0%EB%82%A8%EB%B6%80%EC%9E%A5%EC%95%A0%EC%9D%B8%EA%B6%8C%EC%9D%B5%EC%98%B9%ED%98%B8%EA%B8%B0%EA%B4%80%20%EA%B2%BD%EA%B8%B0%EB%8F%84%20%EC%88%98%EC%9B%90%EC%8B%9C%20%EA%B6%8C%EC%84%A0%EA%B5%AC%20%EC%84%9C%EC%88%98%EC%9B%90%EB%A1%9C%20130%2C%20%EB%88%84%EB%A6%BC%EC%84%BC%ED%84%B0%20208%ED%98%B8",
+      "addressStatus": "사용자 제공·구글",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "방문 상담은 기관에 사전 문의, 비공개 보호장소와 구분"
     },
     {
       "id": "59d5d046a2",
@@ -7447,11 +7447,11 @@ window.WELFARE_DATA = {
         "source_url": "https://www.gg.go.kr/contents/contents.do?ciIdx=1470&menuId=3300",
         "verified_on": "2026-10-22"
       },
-      "address": "",
-      "addressSource": "",
-      "addressStatus": "미확인",
-      "addressCheckedOn": "",
-      "addressNote": "주소 확인 후 방문 안내 가능"
+      "address": "경기도 수원시 팔달구 효원로308번길 34, 경기도여성비전센터 3층",
+      "addressSource": "https://www.gg.go.kr/myggd/vol197/1_2.php",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "첨부 구글주소 영통로200번길 43과 달리 경기도 공식 공개 방문상담 주소를 적용. 보호시설 위치와 구별하며 방문 전 예약"
     },
     {
       "id": "8da0749d8f",
@@ -8171,11 +8171,11 @@ window.WELFARE_DATA = {
         "source_url": "https://www.klac.or.kr/",
         "verified_on": ""
       },
-      "address": "",
-      "addressSource": "",
-      "addressStatus": "미확인",
-      "addressCheckedOn": "",
-      "addressNote": "주소 확인 후 방문 안내 가능"
+      "address": "경상북도 김천시 혁신2로 26",
+      "addressSource": "https://www.google.com/maps/search/?api=1&query=%EB%8C%80%ED%95%9C%EB%B2%95%EB%A5%A0%EA%B5%AC%EC%A1%B0%EA%B3%B5%EB%8B%A8%20%EA%B2%BD%EC%83%81%EB%B6%81%EB%8F%84%20%EA%B9%80%EC%B2%9C%EC%8B%9C%20%ED%98%81%EC%8B%A02%EB%A1%9C%2026",
+      "addressStatus": "사용자 제공·구글",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "대한법률구조공단 본사 주소; 오산 이용자는 관할 지부·출장소 방문주소를 별도 확인"
     },
     {
       "id": "d39be30c51",
@@ -8239,11 +8239,11 @@ window.WELFARE_DATA = {
         "source_url": "https://edu.ccrs.or.kr/main.do",
         "verified_on": "2026-10-22"
       },
-      "address": "",
-      "addressSource": "",
-      "addressStatus": "미확인",
-      "addressCheckedOn": "",
-      "addressNote": "주소 확인 후 방문 안내 가능"
+      "address": "서울특별시 중구 세종대로 124, 프레스센터 6층",
+      "addressSource": "https://www.google.com/maps/search/?api=1&query=%EC%8B%A0%EC%9A%A9%ED%9A%8C%EB%B3%B5%EC%9C%84%EC%9B%90%ED%9A%8C%20%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EC%A4%91%EA%B5%AC%20%EC%84%B8%EC%A2%85%EB%8C%80%EB%A1%9C%20124%2C%20%ED%94%84%EB%A0%88%EC%8A%A4%EC%84%BC%ED%84%B0%206%EC%B8%B5",
+      "addressStatus": "사용자 제공·구글",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "중앙권 상담센터 후보 주소; 오산 거주자는 실제 예약된 상담센터 소재지 확인"
     },
     {
       "id": "aa30852634",
@@ -8313,7 +8313,7 @@ window.WELFARE_DATA = {
       "addressSource": "",
       "addressStatus": "미확인",
       "addressCheckedOn": "",
-      "addressNote": "주소 확인 후 방문 안내 가능"
+      "addressNote": "LH 마이홈은 전국 온라인·전화 주거상담체계: 서울지역본부 주소는 오산 방문 상담센터가 아님 · 첨부된 주소 표기는 단일 기관의 지도 위치로 사용하지 않음."
     },
     {
       "id": "f5cda30b9e",
@@ -8383,7 +8383,7 @@ window.WELFARE_DATA = {
       "addressSource": "",
       "addressStatus": "미확인",
       "addressCheckedOn": "",
-      "addressNote": "주소 확인 후 방문 안내 가능"
+      "addressNote": "복지로는 온라인 복지정보·신청 포털: 남산스퀘어 건물은 이용자 방문접수처로 확인되지 않음 · 첨부된 주소 표기는 단일 기관의 지도 위치로 사용하지 않음."
     },
     {
       "id": "652b6177a3",
@@ -8481,11 +8481,11 @@ window.WELFARE_DATA = {
         "source_url": "https://www.bokji.net/ssn/bin/13.bokji",
         "verified_on": ""
       },
-      "address": "",
-      "addressSource": "",
-      "addressStatus": "미확인",
-      "addressCheckedOn": "",
-      "addressNote": "주소 확인 후 방문 안내 가능"
+      "address": "서울특별시 마포구 만리재로 14, 한국사회복지회관 5층",
+      "addressSource": "https://www.google.com/maps/search/?api=1&query=%ED%95%9C%EA%B5%AD%EC%82%AC%ED%9A%8C%EB%B3%B5%EC%A7%80%ED%98%91%EC%9D%98%ED%9A%8C%20%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EB%A7%88%ED%8F%AC%EA%B5%AC%20%EB%A7%8C%EB%A6%AC%EC%9E%AC%EB%A1%9C%2014%2C%20%ED%95%9C%EA%B5%AD%EC%82%AC%ED%9A%8C%EB%B3%B5%EC%A7%80%ED%9A%8C%EA%B4%80%205%EC%B8%B5",
+      "addressStatus": "사용자 제공·구글",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "한국사회복지협의회 중앙회; 지역 수행기관과 구분"
     },
     {
       "id": "c2b2973215",
@@ -8792,11 +8792,11 @@ window.WELFARE_DATA = {
         "source_url": "https://www.withgo.or.kr/index.do",
         "verified_on": ""
       },
-      "address": "",
-      "addressSource": "",
-      "addressStatus": "미확인",
-      "addressCheckedOn": "",
-      "addressNote": "주소 확인 후 방문 안내 가능"
+      "address": "서울특별시 구로구 경인로 75",
+      "addressSource": "https://www.google.com/maps/search/?api=1&query=%ED%95%A8%EA%BB%98%ED%95%98%EB%8A%94%20%EC%82%AC%EB%9E%91%EB%B0%AD%20%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EA%B5%AC%EB%A1%9C%EA%B5%AC%20%EA%B2%BD%EC%9D%B8%EB%A1%9C%2075",
+      "addressStatus": "사용자 제공·구글",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "함께하는 사랑밭 본부 소재지; 방문 가능 업무 및 접수처 확인"
     },
     {
       "id": "87674ec420",
@@ -8897,11 +8897,11 @@ window.WELFARE_DATA = {
         "source_url": "https://www.heart-heart.org/",
         "verified_on": ""
       },
-      "address": "",
-      "addressSource": "",
-      "addressStatus": "미확인",
-      "addressCheckedOn": "",
-      "addressNote": "주소 확인 후 방문 안내 가능"
+      "address": "서울특별시 송파구 송이로23길 34, 하트-하트재단",
+      "addressSource": "https://m.heart-heart.org/intro/about/directions",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "재단 공식 오시는 길과 일치; 지원사업 담당자·접수방법은 별도 확인"
     },
     {
       "id": "17301032a4",
@@ -8965,11 +8965,11 @@ window.WELFARE_DATA = {
         "source_url": "https://www.kidsfuture.or.kr/",
         "verified_on": ""
       },
-      "address": "",
-      "addressSource": "",
-      "addressStatus": "미확인",
-      "addressCheckedOn": "",
-      "addressNote": "주소 확인 후 방문 안내 가능"
+      "address": "서울특별시 동작구 사당로 272, 삼보빌딩 5층",
+      "addressSource": "https://www.google.com/maps/search/?api=1&query=%EC%95%84%EC%9D%B4%EB%93%A4%EA%B3%BC%EB%AF%B8%EB%9E%98%EC%9E%AC%EB%8B%A8%20%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EB%8F%99%EC%9E%91%EA%B5%AC%20%EC%82%AC%EB%8B%B9%EB%A1%9C%20272%2C%20%EC%82%BC%EB%B3%B4%EB%B9%8C%EB%94%A9%205%EC%B8%B5",
+      "addressStatus": "사용자 제공·구글",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "아이들과미래재단 사무처; 지원사업 접수처 확인"
     },
     {
       "id": "46ad991767",
@@ -9033,11 +9033,11 @@ window.WELFARE_DATA = {
         "source_url": "https://www.heart.or.kr/",
         "verified_on": ""
       },
-      "address": "",
-      "addressSource": "",
-      "addressStatus": "미확인",
-      "addressCheckedOn": "",
-      "addressNote": "주소 확인 후 방문 안내 가능"
+      "address": "서울특별시 송파구 올림픽로35가길 11, 207호",
+      "addressSource": "https://www.google.com/maps/search/?api=1&query=%ED%95%9C%EA%B5%AD%EC%8B%AC%EC%9E%A5%EC%9E%AC%EB%8B%A8%20%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EC%86%A1%ED%8C%8C%EA%B5%AC%20%EC%98%AC%EB%A6%BC%ED%94%BD%EB%A1%9C35%EA%B0%80%EA%B8%B8%2011%2C%20207%ED%98%B8",
+      "addressStatus": "사용자 제공·구글",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "한국심장재단 본부; 의료비 신청·서류제출 방식은 별도 확인"
     },
     {
       "id": "7fadc951d2",
@@ -9163,11 +9163,11 @@ window.WELFARE_DATA = {
         "source_url": "https://www.kord.or.kr/index.php",
         "verified_on": ""
       },
-      "address": "",
-      "addressSource": "",
-      "addressStatus": "미확인",
-      "addressCheckedOn": "",
-      "addressNote": "주소 확인 후 방문 안내 가능"
+      "address": "서울특별시 서대문구 성산로 371, 102동 지하1층",
+      "addressSource": "https://www.google.com/maps/search/?api=1&query=%ED%95%9C%EA%B5%AD%ED%9D%AC%EA%B7%80%C2%B7%EB%82%9C%EC%B9%98%EC%84%B1%EC%A7%88%ED%99%98%EC%97%B0%ED%95%A9%ED%9A%8C%20%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EC%84%9C%EB%8C%80%EB%AC%B8%EA%B5%AC%20%EC%84%B1%EC%82%B0%EB%A1%9C%20371%2C%20102%EB%8F%99%20%EC%A7%80%ED%95%981%EC%B8%B5",
+      "addressStatus": "사용자 제공·구글",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "한국희귀·난치성질환연합회 사무국; 방문·접수창구 사전 확인"
     },
     {
       "id": "osan26care001",
