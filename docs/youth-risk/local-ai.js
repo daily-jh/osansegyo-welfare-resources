@@ -85,7 +85,8 @@ function assessment(){
       explicit:Array.isArray(context.explicit)&&context.explicit.length>0,
       followups:context.followups||{}
     },
-    includedDomains:Array.isArray(context.includedDomains)?context.includedDomains.slice():undefined
+    includedDomains:Array.isArray(context.includedDomains)?context.includedDomains.slice():undefined,
+    narrative:YouthPersonalAI.minimizeIdentifiers($('studentNarrative')?.value||'')
   };
 }
 window.addEventListener('youth-ai-context-v1',event=>{
@@ -98,6 +99,7 @@ $('localAiPair').addEventListener('input',()=>{
   connected=false;providers={};update();
   status.textContent='연결 코드가 바뀌었습니다. 연결 확인을 다시 눌러 주세요.';
 });
+$('studentNarrative')?.addEventListener('input',()=>reset('학생 상황 기록이 변경되었습니다. 내용을 검토한 후 전송 동의를 다시 선택해 주세요.'));
 $('localAiProvider').addEventListener('change',()=>{
   if(currentAbort)currentAbort.abort();
   reset('AI 종류를 변경했습니다. 전송 확인 후 실행해 주세요.');
