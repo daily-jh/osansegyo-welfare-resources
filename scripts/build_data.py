@@ -105,8 +105,7 @@ def generate():
     output={'date':max((s['최종검토일'] for s in services),default='미확인'),'schemaVersion':2,'note':'기존 자료 정리일이며, 기관·사업별 실제 운영 확인일과 다릅니다. 연계 전 최신 공식 공고를 확인해 주세요.','taxonomy':taxonomy,'organizations':list(grouped.values())}
     data=('/* © 2026 오산세교종합사회복지관 김지훈 팀장. All rights reserved. */\nwindow.WELFARE_DATA = '+json.dumps(output,ensure_ascii=False,indent=2)+';\n').encode('utf-8')
     html=(ROOT/'docs/index.html').read_text(encoding='utf-8')
-    visible_orgs=sum(1 for o in orgs if o['status'] not in ['중단','폐지'] and grouped[o['org_id']]['services'])
-    for id_,value in [('statOrgs',str(visible_orgs)),('statServices',str(len(services))),('statDate',output['date'].replace('-','. ')+'.')]:
+    for id_,value in [('statOrgs',str(len(orgs))),('statServices',str(len(services))),('statDate',output['date'].replace('-','. ')+'.')]:
         html=re.sub(r'(<strong id="'+id_+r'">)[^<]*(</strong>)',lambda m:m[1]+value+m[2],html)
     public_csv=csv_bytes(flat,FIELDS)
     queue=[]
