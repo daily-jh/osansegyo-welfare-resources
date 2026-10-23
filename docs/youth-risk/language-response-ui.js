@@ -14,10 +14,12 @@ async function render(){
  const output=window.YouthLanguageResponse.buildResponse(context,question,el('languageNarrative').value,role,{Map:window.YouthMap,Matrix:window.YouthEvidenceMatrix,Research:window.YouthResearchKB});
  const enriched=window.YouthResponseKnowledge?await window.YouthResponseKnowledge.enrich(output,context,role):output;
  if(currentVersion!==requestVersion)return;
- last=enriched.text;el('languageAnswer').textContent=last;
+ const v3=window.YouthInterpretationV3?window.YouthInterpretationV3.build(context,role,el('languageNarrative').value,question):null;
+ last=enriched.text+(v3?'\n\n'+v3.text:'');
+ el('languageAnswer').textContent=last;
  let evidence=el('languageEvidenceDetails');if(!evidence){evidence=document.createElement('details');evidence.id='languageEvidenceDetails';const summary=document.createElement('summary'),pre=document.createElement('pre');summary.textContent='해석에 참고한 세부 근거 보기';pre.className='language-evidence-text';evidence.append(summary,pre);el('languageAnswer').after(evidence)}evidence.hidden=!enriched.knowledgeEvidence;evidence.querySelector('pre').textContent=enriched.knowledgeEvidence||'';el('languageCopy').disabled=false;
  const meta=output.audit;
- status('로컬 분석 완료 · 주제 '+meta.topics.length+'개 · 서술 근거 '+meta.notes+'개 · 교차근거 '+meta.cross+'개 · '+(enriched.knowledgeLoaded?'심층 DB '+enriched.knowledgeRecords+'건 적용':'심층 DB 미연결, 기본 모델만 적용')+'. 담당자 검토 전 확정하지 마세요. '+(enriched.knowledgeWarning||''));
+ status('로컬 분석 완료 · '+(v3?'v3 사례사정 보완 · ':'')+'주제 '+meta.topics.length+'개 · 서술 근거 '+meta.notes+'개 · 교차근거 '+meta.cross+'개 · '+(enriched.knowledgeLoaded?'심층 DB '+enriched.knowledgeRecords+'건 적용':'심층 DB 미연결, 기본 모델만 적용')+'. 담당자 검토 전 확정하지 마세요. '+(enriched.knowledgeWarning||''));
  }catch(e){clear();status('응답 생성 실패: '+e.message);}
 }
 document.addEventListener('DOMContentLoaded',()=>{
