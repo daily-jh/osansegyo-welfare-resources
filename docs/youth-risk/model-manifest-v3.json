@@ -78,6 +78,7 @@
     "consent": "No personal client/student data in any repository update",
     "disclaimer": "The v3 layers provide non-binding hypotheses and casework drafts, never diagnosis, statutory reporting decision, or service eligibility.",
     "additionalNarrativeSyntheticFixtures": 10,
+    "temporalReview": {"module":"timepoint-model.js","version":"1.0.0-temporal-review-20261024","scope":"local immutable snapshots, evidence dates and missingness comparison","humanValidation":false},
     "note": "3차 서술 해석과 계획초안 테스트는 기술적 회귀검사. v2.2 500,000건 검사 수치를 v3 정확도로 오해하지 않음"
   },
   "sources": [

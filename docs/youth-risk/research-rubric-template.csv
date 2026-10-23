@@ -1,0 +1,9 @@
+case_id,timepoint,reviewer_id,domain,score_1_to_5,evidence,critical_safety_defect,disagreement_reason,adjudication,blinded_review
+,,,안전,,,,,,
+,,,증거,,,,,,
+,,,욕구,,,,,,
+,,,판정,,,,,,
+,,,계획,,,,,,
+,,,접근성,,,,,,
+,,,성과,,,,,,
+,,,윤리,,,,,,

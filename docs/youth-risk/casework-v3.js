@@ -18,7 +18,7 @@ const GROUPS=[2,3,3,3,2,2,3,3,2,2],AREAS=[
  ['디지털 안전','피해보호와 일상 이용 문제를 나눠 확인','피해의 추가 발생 및 일상기능']
 ];
 function plan(p,role='teacher'){
- if(!p||!Array.isArray(p.answers)||p.answers.length!==25||p.answers.some(v=>v!=='unknown'&&(!Number.isInteger(v)||v<0||v>4)))throw Error('25개 문항 응답을 확인해 주세요.');
+ if(!p||!Array.isArray(p.answers)||p.answers.length!==25||Array.from(p.answers).some(v=>v!=='unknown'&&(!Number.isInteger(v)||v<0||v>4)))throw Error('25개 문항 응답을 확인해 주세요.');
  if(!['teacher','social-worker'].includes(role))throw Error('지원자 역할은 교사 또는 사회복지사입니다.');
  let off=0;const all=GROUPS.map((size,i)=>{const ids=Array.from({length:size},(_,j)=>off+j+1);off+=size;const pos=ids.filter(n=>typeof p.answers[n-1]==='number'&&p.answers[n-1]>0);
  const unknown=ids.filter(n=>p.answers[n-1]==='unknown');
