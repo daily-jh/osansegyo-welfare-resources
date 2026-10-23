@@ -8,7 +8,7 @@ const menu=(list)=>list.map(key=>[key,M.LABELS[key]||key]);
 function render(){
  if(!current)return null;
  const inp={initialType:$('contInitialType').value,reviewType:$('contReviewType').value,reviewDecision:$('contReviewDecision').value,
-  goals:rows.map(g=>({id:g.id,title:g.title,
+  goals:rows.map(g=>({id:g.id,title:$('title-'+g.id)?.value.trim()||g.title,
    meeting:$('meeting-'+g.id).value,plan:$('plan-'+g.id).value,
    execution:$('exec-'+g.id).value,review:$('review-'+g.id).value,
    evidence:$('evidence-'+g.id).value,
@@ -37,7 +37,7 @@ function add(goal){
  rows.push(goal);
  const id=goal.id;
  const card=document.createElement('section');card.className='continuity-goal';card.dataset.goal=id;
- card.innerHTML='<h4>'+esc(goal.title)+'</h4><p class="continuity-basis">'+esc(goal.basis||'직접 사정으로 확인한 목표 · 척도 항목과 별도로 기록')+'</p>'+
+ card.innerHTML='<h4>'+esc(goal.title)+'</h4>'+(goal.isCustom?'<label for="title-'+id+'">실무자가 확인한 추가 목표(식별정보 제외)<input id="title-'+id+'" type="text" maxlength="100" value="'+esc(goal.title)+'"></label>':'')+'<p class="continuity-basis">'+esc(goal.basis||'직접 사정으로 확인한 목표 · 척도 항목과 별도로 기록')+'</p>'+
  '<div class="continuity-fields"><label for="meeting-'+id+'">1차 회의 결정'+options('meeting-'+id,menu(M.MEETING),'unrecorded')+'</label>'+
  '<label for="plan-'+id+'">서비스계획 상태'+options('plan-'+id,menu(M.PLANS),'draft')+'</label>'+
  '<label for="exec-'+id+'">제공·이행 상태'+options('exec-'+id,menu(M.EXEC),'unknown')+'</label>'+
@@ -60,7 +60,7 @@ function init(p){
 }
 function custom(){
  const n=rows.filter(g=>/^C\d+$/.test(g.id)).length+1,id='C'+n;
- add({id,title:'추가 사례목표 '+n,basis:'척도에서 확인되지 않는 강점·당사자 진로목표·가족지원 등 별도 실무사정'});
+ add({id,title:'추가 사례목표 '+n,isCustom:true,basis:'척도에서 확인되지 않는 강점·당사자 진로목표·가족지원 등 별도 실무사정'});
  render();
 }
 document.addEventListener('DOMContentLoaded',()=>{
