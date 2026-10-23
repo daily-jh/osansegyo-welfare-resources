@@ -46,7 +46,7 @@ function referral(p,a,role){const nums=order(p,a.evidence||[]).slice(0,3);
 function agencyRows(p,plans,role){
  const groups=new Map();
  for(const plan of plans)for(const a of plan.agencies||[]){
-   const key=a.name;const old=groups.get(key)||{name:key,service:a.service,evidence:[],condition:a.condition,role:a.role};
+   const key=a.name;const old=groups.get(key)||{name:key,service:a.service,evidence:[],condition:a.condition,role:a.role,contact:a.contact,routingReason:a.routingReason};
    old.evidence.push(...(a.evidence||[]));
    if(!old.service&&a.service)old.service=a.service;
    groups.set(key,old);

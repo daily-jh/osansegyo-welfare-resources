@@ -168,7 +168,8 @@ document.querySelectorAll('#safetyFollowups input[data-item="'+(index+1)+'"]').f
 function sumKnown(a){return a.reduce(function(n,v){return n+(typeof v==='number'?v:0)},0)}
 function followupState(){var out={};document.querySelectorAll('#safetyFollowups input:checked').forEach(n=>{out[n.dataset.item]=n.value});return out}
 function updateFollowups(){var wanted=[4,5,12,13].filter(n=>answers[n-1]>=(n===4?1:3)),key=wanted.join(',');var box=$('safetyFollowups');if(box.dataset.key===key)return;var prior=followupState();box.dataset.key=key;box.innerHTML=wanted.length?'<h3>현재 안전을 한 번 더 살펴주세요</h3><p>점수만으로 현재 위험을 알 수는 없습니다. 지금의 상황을 살피고, 확인하는 동안에도 필요한 보호조치는 진행해 주세요.</p>'+wanted.map(n=>'<fieldset><legend>'+n+'번 · '+(n===4?'현재 협박·성적 피해가 이어지거나 즉시 보호가 필요한 상황인가요?':n===13?'급성 중독 증상·의식 변화 등 긴급한 의료 대응이 필요한가요?':'현재 자신이나 주변 사람이 다칠 즉각적인 위험이 있나요?')+'</legend>'+[['yes','현재 위험·보호 필요 있음'],['no','현재 즉각적인 위험은 확인되지 않음'],['unknown','아직 확인하지 못함']].map(v=>'<label><input type="radio" name="safety'+n+'" data-item="'+n+'" value="'+v[0]+'"'+(v[0]==='yes'?' data-urgent="'+n+'번 추가확인: 현재 위험·보호 필요 있음"':'')+(prior[n]===v[0]?' checked':'')+'>'+v[1]+'</label>').join('')+'</fieldset>').join(''):'';box.hidden=!wanted.length}
-function snapshot(){return {type:'youth-support-data-v1',answers:answers.slice(),domains:domains.map(d=>({name:d.name,items:d.items.slice(),hints:d.hints.slice()})),routes:routes,resources:csv.map(r=>Object.assign({},r)),explicit:getUrgent().slice(),followups:followupState()}}
+function studentProfile(){return {gender:$('studentGender').value,dong:$('studentDong').value}}
+function snapshot(){return {student:studentProfile(),type:'youth-support-data-v1',answers:answers.slice(),domains:domains.map(d=>({name:d.name,items:d.items.slice(),hints:d.hints.slice()})),routes:routes,resources:csv.map(r=>Object.assign({},r)),explicit:getUrgent().slice(),followups:followupState()}}
 function updateCopyGate(){var yes=ready&&$('aiAllowed').checked&&$('aiAnonymous').checked;$('copyAll').disabled=!yes;$('selectPacket').disabled=!yes;$('copyPacket').hidden=!yes;$('copyGateStatus').textContent=yes?'포함 내용과 안전·미상 표시를 살펴본 뒤 복사해 주세요.':'이용할 AI와 식별정보 제외 여부를 확인하면 복사자료가 열립니다.'}
 function updateProgress(){var filled=answers.filter(v=>v!==null).length,known=answers.filter(v=>typeof v==='number').length,unknown=answers.filter(v=>v==='unknown').length,total=sumKnown(answers);$('filled').textContent=filled;$('liveTotal').textContent=known===25?total+' / 100점':unknown?'전체 판단 보류 · 미상 '+unknown+'개':'점수 확인 '+known+'/25';$('progressBar').style.width=(filled/25*100)+'%';$('progressHint').textContent=unknown?'미상은 0점이 아닙니다. 전체 점수와 판단은 보류하고 확인된 어려움부터 살펴봅니다.':filled===25?'25문항 응답 완료. 결과를 확인해 주세요.':(25-filled)+'개 문항이 남았습니다. 모르는 내용은 미상으로 선택해 주세요.';var h='';domains.forEach(function(d,i){var arr=domainAnswers(i),k=arr.filter(v=>typeof v==='number').length,u=arr.filter(v=>v==='unknown').length,score=sumKnown(arr);$('dc'+i).textContent=k+'/'+d.items.length+'문항 확인'+(u?' · 미상 '+u:'')+(k===d.items.length?' · '+score+'/'+d.items.length*4+'점':'');h+='<div class="domain-progress-item"><span>'+clean(d.name)+'</span><span>'+(k===d.items.length?score+'/'+d.items.length*4+'점':'확인 '+k+'/'+d.items.length+(u?' · 미상 '+u:''))+'</span></div>'});$('domainProgress').innerHTML=h;$('compactProgress').textContent='점수 확인 '+known+'/25 · 미상 '+unknown+' · 미선택 '+(25-filled);$('pendingList').innerHTML=''}
 function getUrgent(){return Array.from(document.querySelectorAll("[data-urgent]:checked")).map(function(n){return n.getAttribute("data-urgent")})}
@@ -236,12 +237,8 @@ if(domainScores[4]>0)menus.push("행동·건강: 안전을 해치는 행동의 �
 if(domainScores[0]>0)menus.push("아동보호: 학대·방임 의심에 대한 현재 안전과 신고의무·기관 보호 절차 우선. 통합지원 회의가 신고를 지연시키지 않도록 검토");
 lines=lines.concat(menus.length?menus:["점수화된 어려움은 이번 응답에서 보고되지 않음. 학생이 원하는 지원과 실제 상태를 확인하고 필요가 확인된 서비스를 검토"]);
 lines.push("","[지역자원 DB의 기관·서비스 후보 — 운영·대상 적합성은 미확인]");
-var candidateNames=["경기도교육청 Wee 프로젝트"];
-if(answers[6]>0)candidateNames.push("오산시정신건강복지센터");
-if(answers[0]>0||answers[1]>0)candidateNames.push("오산시아동보호전문기관");
-var ranked=domainScores.map(function(score,i){return {i:i,score:score,mean:score/domains[i].items.length}}).filter(function(x){return x.score>0}).sort(function(a,b){return b.mean-a.mean});
-ranked.forEach(function(x){(routes[x.i]||[]).forEach(function(n){if(candidateNames.indexOf(n)===-1)candidateNames.push(n)})});
-var candidatesShown=0;candidateNames.slice(0,9).forEach(function(name){var rows=csv.filter(function(r){return r.기관명===name});if(!rows.length)return;candidatesShown++;lines.push("기관: "+name);rows.slice(0,3).forEach(function(r){lines.push("- DB 서비스: "+r.서비스명+" | 대상: "+(r.지원대상||"확인 필요")+" | 내용: "+(r.주요내용||"확인 필요")+" | 신청: "+(r["신청·연계방법"]||"기관 문의")+" | 운영: "+(r.운영확인||"확인 필요")+" | DB 검토일: "+(r.최종검토일||"미기재"))});lines.push("기관 안내: "+((window.YouthLinks?YouthLinks.resolve(rows[0]).primary:getLink(rows[0].홈페이지))||"미기재"))});
+var candidatesShown=0;YouthMap.referrals(snapshot()).slice(0,9).forEach(function(group){candidatesShown++;lines.push('기관: '+group.name);group.services.slice(0,3).forEach(function(r){lines.push('- DB 서비스: '+r.서비스명+' | 대상: '+(r.지원대상||'확인 필요')+' | 내용: '+(r.주요내용||'확인 필요')+' | 신청: '+(r['신청·연계방법']||'기관 문의')+' | '+YouthLinks.contactText(r)+' | 운영: '+(r.운영확인||'확인 필요'));});lines.push('기관 안내: '+YouthLinks.resolve(group.primary).primary)});
+lines.push('성별: '+studentProfile().gender+' / 행정동: '+(studentProfile().dong||'미확인')+' · 점수에 미반영, 실제 관할·이용조건 확인');
 if(!candidatesShown)lines.push("DB 미연결 또는 일치기관 없음. 실제 지역 기관·서비스를 별도 확인해야 하며 기관명·운영 여부를 창작하지 마세요.");
 lines.push("이 후보 목록의 순서는 최종 의뢰 순위가 아닙니다. 안전·필수욕구·실제 접수 적합성을 근거로 보고서에서 우선순위를 제안하세요. 학교 상담과 지역 전문기관의 역할을 구분하고 자원 DB의 등록정보를 서비스 제공 확약으로 해석하지 마세요.");
 lines.push("","[함께 살펴볼 어려움과 지원 순서]",YouthInsights.analyze(answers).map(function(p){return p.priority+" / "+p.title+" / "+p.text+" / 근거: "+patternEvidence(p)+" / 개입: "+p.action}).join("\n")||"함께 살펴볼 어려움이 뚜렷하게 나타나지 않음","[종합의견(리뷰)]",review,"","[미확인 사항]","학생이 원하는 도움, 강점·지지자원, 실제 관찰·진술 근거, 증상의 시작·지속 기간, 현재 서비스와 효과는 점수만으로 확인되지 않습니다.","","[근거 자료]","https://daily-jh.github.io/osansegyo-welfare-resources/youth-risk/references.html","이름은 자동 제외했습니다. 외부 AI에 붙여넣기 전에 민감정보·기관의 정보처리 기준을 직접 확인하세요.");
@@ -296,24 +293,14 @@ if(!ready)return;
 if(answers.includes('unknown')&&!domainScores.some(v=>v>0)&&!getUrgent().length){$('resourceFilter').disabled=true;$('filterCount').textContent='';$('resourceList').innerHTML='<p>미상인 내용을 어려움 없음으로 해석하거나 근거 없이 기관을 추천하지 않습니다. 학생과 상황을 더 살펴보고, 필요하면 전체 복지자원 검색에서 상담할 곳을 찾아주세요.</p>';return;}
 var ranked=domainScores.map(function(s,i){return {s:s,i:i}}).sort(function(a,b){return b.s/domains[b.i].items.length-a.s/domains[a.i].items.length}).filter(function(x){return x.s>0});
 var previous=$("resourceFilter").value;$("resourceFilter").innerHTML='<option value="all">전체 후보</option>'+ranked.map(function(x){return '<option value="'+x.i+'">'+clean(domains[x.i].name)+'</option>'}).join('');if(Array.from($("resourceFilter").options).some(function(o){return o.value===previous}))$("resourceFilter").value=previous;$("resourceFilter").disabled=!csv.length;
-var selected=ranked,names=[];
-if(getUrgent().length)names.push("오산시청소년상담복지센터","오산시아동보호전문기관","오산시정신건강복지센터");
-if(answers[0]>0||answers[1]>0){names.push("오산시아동보호전문기관")}
-if(answers[6]>0||ranked.some(function(x){return x.i===2})){names.push("오산시정신건강복지센터")}
-selected.forEach(function(x){(routes[x.i]||[]).forEach(function(n){if(names.indexOf(n)===-1)names.push(n)})});
-if(!selected.length&&!names.length)names=["오산시청소년상담복지센터","경기도교육청 Wee 프로젝트","오산세교종합사회복지관"];
-names=Array.from(new Set(names));
-var grouped=new Map();
-(csv.length?csv:fallback).forEach(function(row){var key=row["기관명"];if(!grouped.has(key))grouped.set(key,[]);grouped.get(key).push(row)});
-var content="";
-names.forEach(function(name){var entry=grouped.get(name)||fallback.filter(function(r){return r.기관명===name});if(!entry.length)return;
-var reasons=ranked.filter(function(x){return (routes[x.i]||[]).indexOf(name)!==-1}).map(function(x){return domains[x.i].name}).join(" · ")||"안전확인 또는 일반 상담";
-var item=entry[0],services=Array.from(new Set(entry.map(function(r){return r["서비스명"]}).filter(Boolean))).slice(0,3).join(" · "),url=getLink(item["홈페이지"]||item["근거URL"]);if(window.YouthLinks)url=YouthLinks.resolve(item).primary;
-content+='<article class="resource-item" data-domains="'+ranked.filter(function(x){return (routes[x.i]||[]).indexOf(name)!==-1}).map(function(x){return x.i}).join(',')+'"><span class="category">'+clean(item["범주"])+' · 기관별 문의 필요</span><h3>'+clean(name)+'</h3><p>후보 제시 이유: '+clean(reasons)+'</p><p>DB에 등록된 서비스 예시(적합성 확인 필요): </p><p>'+clean(services)+'</p><p>대상: '+clean(Array.from(new Set(entry.map(function(r){return r.지원대상}).filter(Boolean))).slice(0,3).join(' · '))+'</p><p>DB 검토일: '+clean(item.최종검토일||'미기재')+' · 운영: '+clean(item.운영확인||'직접 확인 필요')+'</p><p>신청·연계: '+clean(item['신청·연계방법']||'기관 문의')+'</p>';
-if(item["대표전화"])content+='<p>대표전화: '+clean(item["대표전화"])+'</p>';
-if(url)content+='<a href="'+clean(url)+'" target="_blank" rel="noopener noreferrer">기관·사업 안내 바로가기 ↗</a>';content+='</article>';
+var groups=YouthMap.referrals(snapshot()),content='';
+groups.forEach(function(group){var item=group.primary,info=YouthLinks.resolve(item),url=info.primary;
+ content+='<article class="resource-item" data-domains="'+group.domainIds.join(',')+'"><span class="category">'+clean(item['범주'])+' · 기관별 문의 필요</span><h3>'+clean(group.name)+'</h3><p>후보 제시 이유: '+clean(group.domainIds.map(i=>domains[i].name).join(' · '))+'</p>'+(item.routingReason?'<p>'+clean(item.routingReason)+'</p>':'')+'<p>응답과 연결된 서비스: '+clean(group.services.map(r=>r['서비스명']).join(' · '))+'</p><p>'+clean(YouthLinks.contactText(item))+'</p><p>신청·연계: '+clean(item['신청·연계방법']||'기관 문의')+'</p><p>대상·비용·접수·관할은 실제 문의 후 확인합니다.</p>';
+ if(info.address){var term=encodeURIComponent(info.address+' '+group.name);content+='<a href="https://www.google.com/maps/search/?api=1&amp;query='+term+'" target="_blank" rel="noopener noreferrer">구글 지도 ↗</a> · <a href="https://map.naver.com/p/search/'+term+'" target="_blank" rel="noopener noreferrer">네이버 지도 ↗</a> · ';}
+ if(url)content+='<a href="'+clean(url)+'" target="_blank" rel="noopener noreferrer">기관·사업 안내 ↗</a>';content+='</article>';
 });
-$("resourceList").innerHTML=content||'<div class="empty-result"><p>일치 기관이 없습니다. 전체 복지자원 검색 페이지에서 직접 확인해 주세요.</p></div>';
+var profile=studentProfile();
+$('resourceList').innerHTML='<p>주소지: '+clean(profile.dong||'미확인 · 관할 동을 먼저 확인')+' / 성별: '+clean(profile.gender)+' · 위기점수와 별도로 연계 조건을 확인합니다.</p>'+(profile.dong==='오산시 외'?'<p>오산시 외 거주자는 거주지 행정복지센터에 문의하세요. 오산시 자원의 이용 가능 여부도 별도 확인합니다.</p>':'')+(content||'<p>현재 응답에 근거한 자동 추천기관이 없습니다. 안전확인과 학생의 희망을 먼저 살피고 전체 복지자원 검색을 이용하세요.</p>');
 filterResources();
 }
 function filterResources(){var value=$("resourceFilter").value,count=0;document.querySelectorAll("#resourceList .resource-item").forEach(function(n){n.hidden=value!=="all"&&n.dataset.domains.split(',').indexOf(value)===-1;if(!n.hidden)count++});$("filterCount").textContent=count+"개 기관 후보 · 표시 순서는 의뢰 우선순위가 아닙니다. 안전조치는 필터와 무관하게 우선합니다."}
@@ -325,6 +312,7 @@ window.addEventListener('message',function(e){
     !b.answers.every(v=>v==='unknown'||Number.isInteger(v)&&v>=0&&v<=4)||
     !Array.isArray(b.explicit)||b.explicit.some(v=>typeof v!=='string')||
     !b.followups||typeof b.followups!=='object'||Array.isArray(b.followups))return;
+ $("studentName").value="";$("studentGender").value="미확인";$("studentDong").value="";
  answers=b.answers.slice();
  answers.forEach((value,i)=>{
   const input=Array.from(document.querySelectorAll('#qi'+i+' input[type="radio"]')).find(n=>n.value===String(value));
@@ -357,12 +345,15 @@ $("resourceFilter").onchange=filterResources;
 $("copyAll").addEventListener("click",copyPacket);
 $("selectPacket").addEventListener("click",function(){$("copyPacket").focus();$("copyPacket").select()});
 $("selectSummary").addEventListener("click",function(){$("summaryText").focus();$("summaryText").select()});
-$("studentName").addEventListener("input",function(){ready=false;clearResult()});
+['studentName','studentGender','studentDong'].forEach(function(id){$(id).addEventListener(id==='studentName'?'input':'change',function(){ready=false;clearResult()})});
 $("complete").addEventListener("click",calculate);
 $("asideComplete").addEventListener("click",calculate);
 $("safetyChecks").addEventListener("change",updateUrgent);
-$("reset").addEventListener("click",function(){if(!confirm("이름과 평가 점수 및 긴급 체크 항목을 모두 초기화하시겠습니까?"))return;answers.fill(null);if(window.siteUsage)window.siteUsage.reset();ready=false;$("studentName").value="";document.querySelectorAll('input[type="radio"],input[data-urgent]').forEach(function(x){x.checked=false});document.querySelectorAll(".question.has-value").forEach(function(x){x.classList.remove("has-value")});updateProgress();updateFollowups();updateUrgent();$("assessment").scrollIntoView({behavior:"smooth"})});
-fetch("../resources.csv",{cache:"no-store"}).then(function(r){if(!r.ok)throw Error("자원 불러오기 실패");return r.text()}).then(function(t){csv=parseCsv(t);$("resourceStatus").textContent="연결된 「함께찾는 복지자원」 목록: "+csv.length+"개 서비스 항목 참조 · 연계 전 최신 운영 확인";if(ready){var updatedScores=domains.map(function(d,i){return sumKnown(domainAnswers(i))});renderResources(updatedScores);renderCopyPacket(sumKnown(answers),updatedScores,getUrgent().concat(inferredSignals()))}}).catch(function(){$("resourceStatus").textContent="복지자원 원본 연결이 일시적으로 불가해 추천기관을 표시하지 않습니다. 전체 검색에서 직접 확인하세요."});
+$("reset").addEventListener("click",function(){if(!confirm("이름과 평가 점수 및 긴급 체크 항목을 모두 초기화하시겠습니까?"))return;answers.fill(null);if(window.siteUsage)window.siteUsage.reset();ready=false;$("studentName").value="";$("studentGender").value="미확인";$("studentDong").value="";document.querySelectorAll('input[type="radio"],input[data-urgent]').forEach(function(x){x.checked=false});document.querySelectorAll(".question.has-value").forEach(function(x){x.classList.remove("has-value")});updateProgress();updateFollowups();updateUrgent();$("assessment").scrollIntoView({behavior:"smooth"})});
+var sharedRows=YouthResourceAdapter.rows(window.WELFARE_DATA);
+if(sharedRows.length){csv=sharedRows;$('resourceStatus').textContent='복지자원 홈페이지와 동일한 기관·주소·연락처 DB: '+csv.length+'개 서비스 · 실제 대상·관할·운영 확인 필요';}
+else { $('resourceStatus').textContent='최신 주소·연락처 원본을 불러오지 못했습니다. 전체 복지자원 검색에서 확인해 주세요.'; }
+
 }
 function prepareAssessmentPrint(){var old=$("assessmentPrint");if(old)old.remove();if(!ready)return;var root=document.createElement('article');root.id='assessmentPrint';var title=document.createElement('h1');title.textContent='오산 청소년 위기징후 평가 결과';root.append(title);var result=$("resultBody").cloneNode(true);result.removeAttribute('id');result.querySelectorAll('.print,button').forEach(function(n){n.remove()});result.querySelectorAll('.overview details').forEach(function(n){n.open=true});result.querySelectorAll('.pattern-card details').forEach(function(n){n.remove()});root.append(result);var heading=document.createElement('h2');heading.textContent='종합의견(리뷰)';heading.className='print-review-heading';root.append(heading);var review=document.createElement('div');review.className='print-review-text';review.textContent=$("summaryText").value;root.append(review);var credit=document.createElement('p');credit.className='print-credit';credit.textContent='제작 및 저작: 오산세교종합사회복지관 김지훈 팀장 · © 2026 김지훈 · 공익·복리 목적 비영리 무료 이용 · 무단 변형 금지';root.append(credit);document.body.append(root)}
 window.addEventListener('beforeprint',prepareAssessmentPrint);

@@ -38,7 +38,7 @@ function referral(p,d,row){const m=M.describe(p,d,row),name=row['기관명']||''
  else if(/가족센터/.test(name))role='안전한 가족 참여를 전제로 가족관계 상담 지원';
  else if(/복지관/.test(name))role='생활·돌봄 지원과 지역자원 조정 · 주관 사례관리기관은 별도 협의';
  else if(/장학|후원|공모/.test(service))role='교육비 등 민간지원 가능성 검토 · 신청과 선정·지급은 별도 단계';
- return {evidence:m.evidence,reason:m.reason,condition:m.condition,role,firstStep:m.safety?'일반 상담 접수를 기다리지 않고 안전·보호 절차를 우선하며, 이후 담당·접수·회신 경로를 확인합니다.':'학생의 희망과 기존 이용기관을 먼저 확인하고, 필요한 도움·실제 대상 조건·접수 가능 여부를 문의합니다.',outcome:objective(m.evidence)[2],handoff:'문의 후보 → 의뢰 → 접수 확인 → 서비스 시작 → 변화 점검. 각 단계의 담당·회신일을 따로 확인합니다.'};
+ return {contact:{phone:row['대표전화']||'',address:row.address||'',addressStatus:row.addressStatus||'미확인',addressCheckedOn:row.addressCheckedOn||'',addressNote:row.addressNote||'',contacts:row.contacts||[]},routingReason:row.routingReason||'',evidence:m.evidence,reason:m.reason,condition:m.condition+' · 성별: '+M.student(p).gender+' · 거주 행정동: '+(M.student(p).dong||'미확인')+' (실제 서비스 대상·관할 확인)',role,firstStep:m.safety?'일반 상담 접수를 기다리지 않고 안전·보호 절차를 우선하며, 이후 담당·접수·회신 경로를 확인합니다.':'학생의 희망과 기존 이용기관을 먼저 확인하고, 필요한 도움·실제 대상 조건·접수 가능 여부를 문의합니다.',outcome:objective(m.evidence)[2],handoff:'문의 후보 → 의뢰 → 접수 확인 → 서비스 시작 → 변화 점검. 각 단계의 담당·회신일을 따로 확인합니다.'};
 }
 function analyze(p){if(!M.validate(p))throw Error('평가 자료의 형식을 확인해 주세요.');const decision=M.context(p),domains=M.domains(p),active=M.rank(domains).filter(d=>d.sum>0),pending=[...new Set([...decision.unknownItems,...decision.pendingChecks])].sort((a,b)=>a-b),safetyPending=decision.safetyUnknown.length>0||decision.pendingChecks.length>0;
  const axes=[
