@@ -1,0 +1,77 @@
+{
+  "title": "OY-RALS 한국어 교차해석 연구 지식베이스",
+  "version": "2026.10.23-r1",
+  "status": "TEST · HYPOTHESIS",
+  "data_policy": "No real student data",
+  "source_of_truth": "Current repository app.js & evidence-matrix.js, fetched and parsed",
+  "item_count": 25,
+  "pair_count": 300,
+  "rule_count": 24,
+  "source_count": 10,
+  "sources": [
+    {
+      "id": "NICE225",
+      "title": "NICE NG225 self-harm",
+      "url": "https://www.nice.org.uk/guidance/ng225/chapter/recommendations",
+      "scope": "안전사정·점수로 자해 예측 금지"
+    },
+    {
+      "id": "LAW2026",
+      "title": "학생맞춤통합지원법 2026.08.20",
+      "url": "https://www.law.go.kr/lsInfoP.do?ancYnChk=0&lsId=014818",
+      "scope": "학교-지역 연계"
+    },
+    {
+      "id": "MHSK2025",
+      "title": "Hong et al. 2025 South Korea adolescent screen",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/40741442/",
+      "scope": "다른 국내 척도의 타당화 방법 참고; OY-RALS 검증 아님"
+    },
+    {
+      "id": "YOUNGCARERS",
+      "title": "Young carers longitudinal systematic review 2025",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/40516561/",
+      "scope": "돌봄 부담과 심리건강 연관성"
+    },
+    {
+      "id": "BULLYING",
+      "title": "Bullying and depressive symptoms meta analysis 2023",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/36997959/",
+      "scope": "또래 괴롭힘과 정서증상 집단 연관"
+    },
+    {
+      "id": "SCHOOL",
+      "title": "Social isolation and school attendance review 2026",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42650360/",
+      "scope": "사회적 연결·학교 출결"
+    },
+    {
+      "id": "MALTREAT",
+      "title": "Child maltreatment and school achievement 2024",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/39616953/",
+      "scope": "학대 경험과 학업 성과 집단 연관"
+    },
+    {
+      "id": "FOOD",
+      "title": "Food insecurity adolescents meta review 2024",
+      "url": "https://doi.org/10.1016/j.gfs.2024.100767",
+      "scope": "결식·발달·학습"
+    },
+    {
+      "id": "COSMIN",
+      "title": "COSMIN v2 2024",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/39198348/",
+      "scope": "측정도구 타당화 설계"
+    },
+    {
+      "id": "TEST",
+      "title": "AERA APA NCME Standards",
+      "url": "https://ncme.org/resources/books/testing-standards/",
+      "scope": "점수 타당도·공정성"
+    }
+  ],
+  "validation": "가설집; 타당도·예측력·민감도·특이도 미검증",
+  "relationship": "기존 통합사례관리 판정 엔진과 독립·병행; 공식 점수·안전게이트 변경 금지",
+  "canonical_large_manuscript": "596쪽 PDF/Markdown generated as downloadable conversation files; this directory contains independently retrievable structured hypothesis cards",
+  "change_control": "항목별 규칙ID, 근거, 반증, 전문가 검토, 동의, 위해 회귀검사 보존"
+}
