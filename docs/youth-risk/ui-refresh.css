@@ -1,0 +1,37 @@
+/* 청소년 지원 전용 화면: 복지자원 검색 화면과 독립적인 UI */
+:root{--oy-ink:#282b51;--oy-purple:#6555be;--oy-mint:#159a88;--oy-coral:#db665d;--oy-gold:#9e6d14}
+body{background:#fbf9ff;color:var(--oy-ink)}
+.flow-header{background:#fff;border-bottom:1px solid #e9e4f8;padding:16px 0}
+.youth-brand{color:var(--oy-ink);font-size:17px;letter-spacing:-.035em}
+.youth-brand small{color:#766ea1;font-size:11px;letter-spacing:0}
+.header-help{color:#6257a1}
+.welcome{background:radial-gradient(circle at 79% 15%,#e6defc 0,transparent 27%),radial-gradient(circle at 12% 92%,#dff8f1 0,transparent 30%),linear-gradient(120deg,#fff 10%,#fcf3f4 100%);border-bottom:1px solid #ece3ef}
+.hero-kicker{background:#efebff;color:#5b4bab;border:1px solid #ded8fa}
+.hero-copy h1{color:#292a51;font-size:clamp(35px,4vw,54px);line-height:1.25}
+.hero-copy h1 em{color:#6555be}
+.hero-actions .flow-primary,.flow-primary{background:#6758b8;border-color:#6758b8;box-shadow:0 9px 20px #685bbb1c}
+.hero-art .orbit{background:#ece6fa;border-color:#e6def9;transform:rotate(8deg);border-radius:33% 60% 48% 60%}
+.pebble-blue{background:#aeb5f0}.pebble-mint{background:#bcebdc}.pebble-yellow{background:#ffd6c4}
+.floating-note>span{background:#f1ebff;color:#6654b5}
+.welcome-steps article{background:#fff;border-color:#ece7f5;box-shadow:0 9px 24px #6e669112}
+.welcome-steps article>span{color:#6854b4}
+.flow-nav{margin:28px 0 10px;gap:12px}
+.flow-nav button{border-radius:14px;font-size:15px;padding:14px 20px;min-width:170px}
+.flow-nav button[aria-current=step]{background:#6758b8;border-color:#6758b8}
+#stepTitle{color:#32305e;letter-spacing:-.035em}
+.flow-result-tabs [aria-pressed=true]{background:#efecff;color:#5040a0;border-color:#b5a9eb}
+.flow-focus{border-color:#ddd5f3;box-shadow:0 6px 26px #604c900a}
+.optional-tools{border:1px solid #ddd8f3;border-radius:22px;background:#fff;padding:20px;margin:22px 0;box-shadow:0 8px 28px #6754b80d}
+.optional-kicker{font-size:13px;color:#6c6683;line-height:1.7;margin:0 0 12px}
+.optional-tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.optional-tool{text-align:left;border:1px solid #ddd9ef;border-radius:17px;background:#fcfbff;padding:19px;cursor:pointer;font:inherit;color:#343358;display:grid;grid-template-columns:auto 1fr;gap:4px 10px;align-items:center}
+.optional-tool:first-child{background:#f5f1ff}.optional-tool:nth-child(2){background:#edf9f6}
+.optional-tool span{grid-row:span 2;font-size:23px;color:#6654b5}
+.optional-tool:nth-child(2) span{color:#148776}
+.optional-tool strong{font-size:16px}.optional-tool small{font-size:13px;color:#6c6d80}
+.optional-tool:disabled{opacity:.55;cursor:default}
+.optional-tool:not(:disabled):hover{border-color:#9384d5;transform:translateY(-1px)}
+.flow-bottom{margin-top:18px}
+a:focus-visible,button:focus-visible{outline:3px solid #a697f1;outline-offset:3px}
+@media(max-width:700px){.optional-tool-grid{grid-template-columns:1fr}.optional-tools{padding:14px}.flow-nav{grid-template-columns:1fr 1fr}.flow-nav button{min-width:0;padding:13px 8px}.youth-brand{font-size:13px}.youth-brand small{font-size:10px}}
+@media print{.optional-tools{display:none!important}}
