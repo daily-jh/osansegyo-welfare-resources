@@ -7,7 +7,7 @@
 const node=typeof module!=='undefined'&&!!module.exports;
 const C=node?require('./criteria.js'):root.YouthCriteria;
 const E=node?require('./evidence-matrix.js'):root.YouthEvidenceMatrix;
-const VERSION='3.0.0-explainable-20261024';
+const VERSION='3.0.1-explainable-context-20261024';
 const GROUPS=[2,3,3,3,2,2,3,3,2,2];
 const LABELS=['보호·안전','학교폭력·또래 안전','정서·정신건강','학습·출결','행동·건강','교육 접근성','가족·돌봄','경제·주거','관계·지지','디지털·온라인 안전'];
 const SAFETY=[1,2,7,25],FOLLOWUP=['4','5','12','13'];
@@ -24,11 +24,28 @@ const NEG=/(?:없다고|없었|없다|없음|없어|없어요|않았|않는다|�
 const UNKNOWN=/(미확인|불분명|알.?수.?없|확인.?필요|여부.?확인|들은.?바.?없|모른다고)/;
 const HYPOTHETICAL=/(가정|예시|만약|예를.?들어|예방|지침|매뉴얼|상담.?방법|척도.?문항|점수.?해석)/;
 function cues(note){
- const chunks=String(note||'').slice(0,6000).split(/(?<=[.!?])\s+|\n+/).flatMap(s=>s.split(/(?:하지만|그러나|그런데|반면|다만|했으나|였으나)/)).map(s=>s.trim()).filter(Boolean).slice(0,80);
+ // Sentence-local interpretation only. Mentioned words are NOT evidence that an event occurred.
+ const raw=String(note||'').slice(0,6000);
+ const chunks=raw
+   .replace(/(없고|않고|없지만|않지만|없었으나|않았으나|하지만|그러나|그런데|반면|다만|그리고|또한)/g,'$1\n')
+   .split(/(?<=[.!?])\s+|[\n;]+|,(?=\s*(?:학생|친구|교사|보호자|본인|동생))|\s+및\s+/)
+   .map(s=>s.trim()).filter(Boolean).slice(0,80);
  const out=[];
- chunks.forEach((s,i)=>{for(const t of THEMES){if(!t.terms.test(s))continue;
-  const state=HYPOTHETICAL.test(s)?'context_only':UNKNOWN.test(s)?'unconfirmed':NEG.test(s)?'denied_or_absent':'mentioned_unverified';
-  out.push({topic:t.id,label:t.label,segment:i+1,status:state});}});
+ for(let i=0;i<chunks.length;i++){
+  const segment=chunks[i];
+  for(const t of THEMES){
+   const m=segment.match(t.terms);
+   if(!m)continue;
+   const offset=m.index||0;
+   const local=segment.slice(Math.max(0,offset-12),Math.min(segment.length,offset+m[0].length+28));
+   const negate=/(?:없다|없음|없어|없었|없고|없지만|없었으나|않다|않았|않고|않지만|아니다|아님|아니라|부인|해당하지|그런.?일.?없)/.test(local);
+   const possible=UNKNOWN.test(segment)||/(?:의심|가능성|추정|것.?같|모르겠|전해|들었다|들었|제보|알려졌|확인.?전)/.test(segment);
+   const thirdParty=/(?:친구|타인|다른.?학생|동생|형제)(?:가|는|이|에게서|의)/.test(segment.slice(0,offset));
+   const state=HYPOTHETICAL.test(segment)?'context_only':
+      negate?'denied_or_absent':(possible||thirdParty)?'unconfirmed':'mentioned_unverified';
+   out.push({topic:t.id,label:t.label,segment:i+1,status:state});
+  }
+ }
  return out;
 }
 function extract(p,role='teacher',note=''){
