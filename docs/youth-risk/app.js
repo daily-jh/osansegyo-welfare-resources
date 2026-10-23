@@ -180,20 +180,22 @@ var reviewRevision=0;
 function clearSummary(){
 reviewRevision++;$("aiAllowed").checked=false;$("aiAnonymous").checked=false;$("copyPacket").hidden=true;updateCopyGate();
 $("summaryText").value="25문항을 모두 살펴본 뒤, 학생의 상황과 먼저 도울 일을 함께 정리해 드립니다.";
-$("summaryEvidence").textContent="평가 완료 후 표시됩니다.";$("analysisSource").textContent="응답을 바탕으로 정리합니다 · 외부 AI 호출 없음";$("selectSummary").disabled=true;
+$("summaryEvidence").textContent="평가 완료 후 표시됩니다.";$("reviewAuditBody").textContent="평가 완료 후 문항별 가정계수와 계산근거가 표시됩니다.";$("analysisSource").textContent="응답을 바탕으로 정리합니다 · 외부 AI 호출 없음";$("selectSummary").disabled=true;
 $("copyPacket").value="평가를 완료하면 결과표·25문항 응답·리뷰·분석 요청문이 함께 생성됩니다.";$("copyAll").disabled=true;$("selectPacket").disabled=true;$("copyStatus").textContent="이름은 복사 내용에서 자동 제외됩니다.";
 }
 function renderSummary(total,domainScores,signals){
-var subject=$("studentName").value.trim(),decision=YouthCriteria.evaluate(answers,domains.map(function(d){return d.items.length}),getUrgent().length>0,followupState()),patterns=YouthInsights.analyze(answers);
-var ranked=domainScores.map(function(s,i){return {i:i,score:s,mean:s/domains[i].items.length}}).filter(function(x){return x.score>0}).sort(function(a,b){return b.mean-a.mean});
-var lines=['[학생의 상황과 지원 방향]\n'+(subject?subject+' 학생':'이 학생')+'의 응답 합계는 '+total+'/100점이며, 지원 방향은 '+decision.title+'입니다. '+(patterns.length?'함께 살펴볼 내용은 '+patterns.slice(0,3).map(function(p){return p.title}).join(', ')+'입니다.':'주로 '+(ranked.slice(0,3).map(function(x){return domains[x.i].name}).join(', ')||'점수화된 어려움 없음')+'을 중심으로 살펴볼 상황입니다.')];
-if(decision.pendingChecks.length)lines.push('[현재 안전 추가확인]\n'+decision.pendingChecks.join('·')+'번의 현재 상황 확인이 남아 있어 안전하다고 판단하지 않습니다. 확인된 어려움의 지원은 먼저 진행합니다.');
-if(signals.length)lines.push('[먼저 할 안전조치]\n학생과 현재 안전을 직접 확인하고 소속기관의 보호·신고 절차를 우선 진행합니다. 구체적인 문항은 평가결과의 안전확인 항목을 참고하세요.');
-if(patterns.length){lines.push('[함께 살펴볼 생활의 어려움]\n'+patterns.slice(0,4).map(function(p,i){return (i+1)+'. '+p.title+' ('+p.priority+')\n'+p.text+'\n도울 수 있는 방법: '+p.action+'\n면담에서 나눌 이야기: '+p.ask}).join('\n\n'))}else{lines.push('[현재 상황과 지원 초점]\n'+(ranked.length?ranked.slice(0,3).map(function(x){var arr=domainAnswers(x.i),offset=domains.slice(0,x.i).reduce(function(n,d){return n+d.items.length},0);return domains[x.i].name+' '+x.score+'/'+(domains[x.i].items.length*4)+'점: '+arr.map(function(v,k){return v>0?(offset+k+1)+'번 '+v+'점':null}).filter(Boolean).join(', ')}).join('\n')+'\n'+decision.description:'이번 응답에서는 뚜렷한 지원 신호가 보고되지 않았습니다. 학생이 원하는 도움과 평소 생활을 듣고 정기적으로 경과를 살펴봅니다.'))}
-var cross=YouthEvidenceMatrix.evaluate({answers:answers},'teacher');
-if(cross.shown.length)lines.push('[중첩욕구 사정 및 통합지원 검토 · 추가확인 가설]\n'+cross.shown.slice(0,3).map(function(g,i){return (i+1)+'. '+g.title+' / 응답 근거: '+g.evidence+'\n해석: '+g.interpretation+'\n학생에게 확인: '+g.question+'\n지원·기관 후보: '+g.resources+'\n성과 확인: '+g.measures}).join('\n\n')+'\n※ 관련 응답이 함께 있다는 뜻이며 원인·진단·서비스 자격은 미확인입니다.');
-lines.push('[실행계획]\n'+interventionPlan(decision,patterns).map(function(p,i){return (i+1)+'. '+p.title+': '+p.text}).join('\n')+'\n담당자와 첫 점검일을 정하고, 학생이 원하는 변화·강점·도움받을 사람·기존 서비스 효과를 함께 기록하세요.');
-$("summaryText").value=lines.join('\n\n');resizeSummary();$("selectSummary").disabled=false;$("summaryEvidence").textContent=patterns.length?patterns.map(function(p){return p.title+': '+patternEvidence(p)}).join(' / '):ranked.map(function(x){return domains[x.i].name+' '+x.score+'점'}).join(' / ')||'25문항 모두 0점';$("analysisSource").textContent='응답을 바탕으로 정리한 상담·지원 참고 의견';renderCopyPacket(total,domainScores,signals);
+ const review=YouthReviewModel.build({answers:answers.slice(),domains:domains.map(d=>({name:d.name,items:d.items.slice()})),explicit:getUrgent(),followups:followupState()},'teacher');
+ $("summaryText").value=review.text;
+ resizeSummary();
+ $("selectSummary").disabled=false;
+ $("summaryEvidence").textContent=review.items.filter(v=>typeof v.score==='number'&&v.score>0).map(v=>v.number+'번 '+v.score+'점 / 가정 가중계수 '+v.weight.toFixed(2)+' / '+v.question).join(' / ')||'확인된 점수의 어려움 없음. 긴급 신호와 미상 여부는 별도 검토';
+ const auditRows=review.items.map(v=>'<tr><td>'+v.number+'</td><td>'+clean(v.domain)+'</td><td>'+String(v.score==='unknown'?'미상':v.score)+'</td><td>'+v.weight.toFixed(2)+'</td><td>'+(v.contribution===null?'—':v.contribution.toFixed(2))+'</td></tr>').join('');
+ const linkedRows=review.selected.map(g=>'<li><strong>'+clean(g.title)+'</strong> — '+clean(g.evidence)+' / 가중평균 '+g.weightedMean.toFixed(2)+' / 정렬용 보조값 '+g.auxiliary.toFixed(2)+'<small> ['+clean(g.formula)+']</small></li>').join('');
+ $("reviewAuditBody").innerHTML='<p class="review-audit-hint">보조값 Bᵢ=(응답점수÷4)×문항별 개발 가정계수. 위험확률·공식 판정값이 아닙니다.</p>'+
+ '<div class="review-audit-scroll"><table><thead><tr><th>번호</th><th>영역</th><th>응답</th><th>가정 wᵢ</th><th>Bᵢ</th></tr></thead><tbody>'+auditRows+'</tbody></table></div>'+
+ '<h4>교차규칙 계산(검토 우선순서, 비검증)</h4><ol>'+(linkedRows||'<li>현재 표시할 교차조합이 없습니다.</li>')+'</ol>';
+ $("analysisSource").textContent='근거 기반 서술 규칙 25문항·교차규칙 24개 · 가정 가중계수는 실증 척도 아님 · 외부 AI 호출 없음';
+ renderCopyPacket(total,domainScores,signals);
 }
 function patternEvidence(p){return p.evidence.map(function(n){return n+'번 '+questionAt(n-1)+' ('+answers[n-1]+'점)'}).join('; ')}
 function interventionPlan(decision,patterns){var first=patterns.filter(function(p){return p.rank!==4})[0],focus=first?first.action:'학생과 가장 불편한 생활 장면을 정하고 해당 영역 담당자가 관찰·면담 근거와 기존 지원을 확인합니다.';var plans=[];

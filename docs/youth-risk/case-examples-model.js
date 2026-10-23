@@ -3,6 +3,7 @@ const P=typeof module!=='undefined'?require('./planning-model.js'):root.YouthPla
 const M=typeof module!=='undefined'?require('./support-model.js'):root.YouthMap;
 const I=typeof module!=='undefined'?require('./insights.js'):root.YouthInsights;
 const E=typeof module!=='undefined'?require('./evidence-matrix.js'):root.YouthEvidenceMatrix;
+const R=typeof module!=='undefined'?require('./review-model.js'):root.YouthReviewModel;
 function create(p,role='teacher'){
  if(!['teacher','social-worker'].includes(role))throw Error('관점을 확인해 주세요.');const a=P.analyze(p),d=a.decision,teacher=role==='teacher',known=n=>typeof p.answers[n-1]==='number'&&p.answers[n-1]>0;
  const evidence=a.active.flatMap(area=>area.numbers.filter(known).map(n=>({number:n,score:p.answers[n-1],question:p.domains.flatMap(x=>x.items)[n-1],domain:area.name}))),signals=I.analyze(p.answers),top=a.active.slice(0,3).map(x=>x.name),cross=E.evaluate(p,role),selectedCross=cross.shown.slice(0,2);
@@ -17,6 +18,8 @@ function create(p,role='teacher'){
  let summary=top.length?'이번 척도에서는 '+top.join(' · ')+' 영역의 응답을 중심으로 필요한 도움을 살펴볼 수 있습니다. '+(d.urgent?'총점과 별도로 안전·보호 절차가 먼저입니다. ':a.safetyPending?'아직 안전을 확인하지 못한 내용이 있어 안전한 확인과 지원을 함께 진행해야 합니다. ':'')+(d.integrated?'여러 영역의 어려움이 함께 나타나므로 한 기관의 서비스만으로 정리하기보다 학교와 지역기관의 역할을 함께 의논하는 방향을 제안합니다. ':'학생이 실제 겪는 생활 영향과 원하는 도움을 먼저 듣고 연계 범위를 정하는 방향을 제안합니다. '):'이번 응답만으로 구체적인 지원 필요를 정하기 어렵습니다. '+(d.incomplete?'미상은 어려움이 없다는 뜻이 아니므로 안전 관련 내용부터 확인하는 사정 예시를 제시합니다.':'학생이 바라는 도움과 생활을 면담에서 살피고 필요한 지원을 함께 찾습니다.');
  if(selectedCross.length)summary+=' 추가 사정할 연관 주제는 '+selectedCross.map(v=>v.title+' ('+v.evidence+')').join(' · ')+'입니다. 관련 응답이 함께 나타났다는 의미이며 원인이 입증되었다는 뜻은 아닙니다.';
  if(d.urgent&&!top.length)summary="문항 점수와 별도로 현재 위험·보호 필요가 표시되었습니다. 일반 욕구계획이 없더라도 독립 안전계획에 따라 현재 안전과 필요한 보호·전문 대응부터 살핍니다. 후속 서비스는 학생의 생활 상황과 희망을 확인해 협의합니다.";
+ const detailedReview=R.build(p,role);
+ summary=detailedReview.text.split('\n\n').slice(0,4).join('\n\n');
  const combined=signals.map(s=>({title:s.title,text:s.text,evidence:s.evidence}));
  const roleSteps=teacher?[
  ['① 학생 첫 면담','따로 안전하게 이야기할 시간을 마련하고 학생이 보고한 일·원하는 변화·안전한 연락 방법을 구분하여 확인합니다. 반복 진술이나 자체 증거수집을 요구하지 않습니다.'],
@@ -32,7 +35,7 @@ function create(p,role='teacher'){
  ['⑤ 이행·성과 점검','회신·실제 이용·대기·중복·거절 사유와 학생의 생활 변화를 구분하고 재사정·계획 조정 여부를 기록합니다.']
  ];
  summary=(teacher?'[학생·보호자 접근 중심] ':'[사례판정 이후 개입·연계 중심] ')+summary;
- return {role,analysis:a,evidence,combined,cross,summary,first,management,reason,approach,plans,roleSteps,missing:['학생이 직접 말한 우선욕구·동의·선호','실제 강점·보호요인과 현재 이용기관','발생시점·기간·생활 영향 및 현재 안전','가구구성·진단·보장자격·소득·부채·재산 등 척도로 확인되지 않는 사실']};
+ return {role,analysis:a,evidence,combined,cross,summary,reviewFull:detailedReview.text,first,management,reason,approach,plans,roleSteps,missing:['학생이 직접 말한 우선욕구·동의·선호','실제 강점·보호요인과 현재 이용기관','발생시점·기간·생활 영향 및 현재 안전','가구구성·진단·보장자격·소득·부채·재산 등 척도로 확인되지 않는 사실']};
 }
 const api={create};if(typeof module!=='undefined')module.exports=api;else root.YouthCaseExamples=api;
 })(typeof window!=='undefined'?window:globalThis);

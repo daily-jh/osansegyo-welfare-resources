@@ -1,0 +1,16 @@
+/* OY-RALS higher-fidelity qualitative review: readable sections and optional coefficient audit */
+#summaryText{display:block;width:100%;min-height:520px;max-height:900px;resize:vertical!important;padding:18px 20px!important;line-height:1.95!important;font-size:14px!important;white-space:pre-wrap;tab-size:4;background:#fbfdff;letter-spacing:-.012em;word-break:keep-all;overflow:auto}
+.review-math-panel{margin:15px 0;padding:13px 17px;border:1px solid #d9e4ef;border-radius:13px;background:#f8fbfd;color:#40556d}
+.review-math-panel>summary{font-size:13px;color:#2d5479;font-weight:800;cursor:pointer}
+.review-math-panel>p{font-size:12px;line-height:1.7;color:#60758d}
+.review-math-panel a{color:#365fc0;text-decoration:underline}
+.review-audit-hint{color:#67788b;font-size:12px;line-height:1.75}
+.review-audit-scroll{max-height:300px;overflow:auto;border:1px solid #dde7f1;border-radius:8px;background:white}
+.review-audit-scroll table{width:100%;border-collapse:collapse;font-size:11px;line-height:1.6}
+.review-audit-scroll th,.review-audit-scroll td{padding:7px 9px;text-align:left;border-bottom:1px solid #eef1f5}
+.review-audit-scroll th{background:#edf3fa;position:sticky;top:0;color:#365475}
+.review-math-panel h4{font-size:13px;margin:13px 0 5px}
+.review-math-panel li{font-size:12px;line-height:1.75;margin-bottom:7px}
+.review-math-panel li small{display:block;color:#8191a4}
+@media(max-width:650px){#summaryText{font-size:13px!important;padding:13px!important;min-height:460px}.review-math-panel{padding:11px}}
+@media print{#summaryText{height:auto;max-height:none;overflow:visible}.review-audit-scroll{max-height:none}}
