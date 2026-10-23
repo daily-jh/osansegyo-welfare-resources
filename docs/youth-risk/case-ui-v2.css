@@ -1,0 +1,44 @@
+/* 사례검토 UI 정리: 교사/사회복지사 관점과 AI 선택이 시각적으로 분리됨 */
+#exampleMain{background:transparent}
+#examplesContent>.document-switch{margin:16px 0 8px;display:flex;gap:10px;flex-wrap:wrap}
+#examplesContent>.document-switch .btn{border-radius:12px;padding:12px 19px;font-size:15px}
+#examplesContent>.example-toolbar{background:#fff;border:1px solid #e1e5ee;padding:17px 20px;border-radius:17px;margin:9px 0 12px}
+.example-toolbar [data-role]{font-weight:750;border-radius:12px;min-height:43px}
+.example-toolbar [data-role="teacher"][aria-pressed="true"]{background:#625bd0!important;border-color:#625bd0!important;color:#fff}
+.example-toolbar [data-role="social-worker"][aria-pressed="true"]{background:#118d84!important;border-color:#118d84!important;color:#fff}
+.role-focus{padding:13px 18px;margin:0 0 17px;background:#f1efff;border-left:4px solid #6b5cd1;border-radius:10px;color:#41398a;font-size:14px;line-height:1.75}
+.role-focus[data-role="social-worker"]{background:#eaf8f4;border-left-color:#119587;color:#167167}
+#referenceReport{margin-top:0}
+#referenceReport .document-heading{border-top-color:#5d62c9;border-radius:17px 17px 0 0}
+.document-heading .eyebrow{font-size:12px;color:#5363a1}
+.document-heading p{line-height:1.7}
+#referenceReport .document-table-scroll{max-width:100%;overflow-x:auto}
+#referenceReport .document-table td{line-height:1.8;overflow-wrap:anywhere;word-break:keep-all;padding:14px}
+#referenceReport .document-table th{line-height:1.65;padding:14px}
+#referenceReport .document-section{padding-top:24px;padding-bottom:23px}
+#aiMethodSection{margin:30px 0 14px;padding:23px 26px;background:#fff;border:1px solid #e1e5ef;border-radius:20px;box-shadow:none}
+#aiMethodSection .eyebrow{font-size:12px;color:#5e68aa;letter-spacing:.04em}
+#aiMethodSection h2{font-size:21px;line-height:1.5;margin:9px 0 7px;color:#26365d}
+#aiMethodSection>p{font-size:14px;color:#65758b;line-height:1.8;margin:0}
+#aiMethodSection .ai-method-options{gap:12px;margin:17px 0 12px}
+#aiMethodSection .ai-method-options button{min-height:88px;border:1px solid #e1e5ef;background:#fff;border-radius:15px;padding:15px 17px;gap:6px;box-shadow:none;transition:background .12s,border-color .12s}
+#aiMethodSection .ai-method-options button strong{font-size:15px}
+#aiMethodSection .ai-method-options button small{font-size:12px;line-height:1.65;color:#6c7990}
+#aiMethodSection .ai-method-options button[data-ai-method="none"][aria-pressed="true"]{background:#f4f6fc;border-color:#667cbb}
+#aiMethodSection .ai-method-options button[data-ai-method="local"][aria-pressed="true"]{background:#edf3ff;border-color:#4977d1}
+#aiMethodSection .ai-method-options button[data-ai-method="web"][aria-pressed="true"]{background:#edf9f5;border-color:#17a78c}
+#aiMethodStatus{font-size:13px;color:#53637e!important;line-height:1.6;margin:7px 0 0!important}
+#sharedNarrative{padding:19px 25px;margin:14px 0;border:1px solid #e0e7f1;border-radius:18px;background:#fcfdff}
+#sharedNarrative h2{font-size:18px;margin:0 0 8px;color:#2b3858}
+#sharedNarrative>p{font-size:13px;line-height:1.75;margin:5px 0;color:#67778d}
+#sharedNarrative label{margin:13px 0 7px;font-size:14px}
+#sharedNarrative textarea{min-height:125px;max-height:300px;border-radius:12px;background:#fff;font-size:15px;line-height:1.7;outline-offset:2px;resize:vertical}
+#sharedNarrative .personal-ai-meta{font-size:12px;margin:8px 0}
+#sharedNarrative .narrative-privacy{font-size:12px;color:#96705e;margin:4px 0}
+#localAiPanel,#personalAiPanel{border-radius:18px;border:1px solid #e1e5ee;background:#fff;padding:20px 24px;margin:12px 0}
+#personalAiPanel h2,#localAiPanel h2{font-size:19px;color:#26365d;line-height:1.5}
+#personalAiPanel>p,#localAiPanel>p{font-size:14px;line-height:1.8}
+#personalAiPanel .personal-ai-approval{border-radius:12px}
+#personalAiPanel details,#localAiPanel details{border-radius:12px}
+@media(max-width:800px){#aiMethodSection .ai-method-options{grid-template-columns:1fr}#aiMethodSection .ai-method-options button{min-height:0}#exampleMain{width:calc(100% - 22px)}#aiMethodSection,#sharedNarrative,#localAiPanel,#personalAiPanel{padding:17px}#examplesContent>.example-toolbar{padding:14px}#referenceReport .document-table th,#referenceReport .document-table td{padding:10px 12px}}
+@media print{#aiMethodSection,#sharedNarrative,.role-focus{display:none!important}}
