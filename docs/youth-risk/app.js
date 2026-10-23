@@ -193,10 +193,10 @@ function renderSummary(total,domainScores,signals){
  $("summaryEvidence").textContent=review.items.filter(v=>typeof v.score==='number'&&v.score>0).map(v=>v.number+'번 '+v.score+'점 / 가정 가중계수 '+v.weight.toFixed(2)+' / '+v.question).join(' / ')||'확인된 점수의 어려움 없음. 긴급 신호와 미상 여부는 별도 검토';
  const auditRows=review.items.map(v=>'<tr><td>'+v.number+'</td><td>'+clean(v.domain)+'</td><td>'+String(v.score==='unknown'?'미상':v.score)+'</td><td>'+v.weight.toFixed(2)+'</td><td>'+(v.contribution===null?'—':v.contribution.toFixed(2))+'</td></tr>').join('');
  const linkedRows=review.selected.map(g=>'<li><strong>'+clean(g.title)+'</strong> — '+clean(g.evidence)+' / 가중평균 '+g.weightedMean.toFixed(2)+' / 정렬용 보조값 '+g.auxiliary.toFixed(2)+'<small> ['+clean(g.formula)+']</small></li>').join('');
- $("reviewAuditBody").innerHTML='<p class="review-audit-hint">보조값 Bᵢ=(응답점수÷4)×문항별 개발 가정계수. 위험확률·공식 판정값이 아닙니다.</p>'+
+ $("reviewAuditBody").innerHTML='<p class="review-audit-hint">가중치 v2.2 · Bᵢ=(응답점수÷4)×(기본 가정계수×확인된 교차맥락 보정, 최대 1.12배). 결과 정렬·서술용 보조값이며 위험확률·공식 위기등급이 아닙니다.</p>'+
  '<div class="review-audit-scroll"><table><thead><tr><th>번호</th><th>영역</th><th>응답</th><th>가정 wᵢ</th><th>Bᵢ</th></tr></thead><tbody>'+auditRows+'</tbody></table></div>'+
  '<h4>교차규칙 계산(검토 우선순서, 비검증)</h4><ol>'+(linkedRows||'<li>현재 표시할 교차조합이 없습니다.</li>')+'</ol>';
- $("analysisSource").textContent='근거 기반 서술 규칙 25문항·교차규칙 24개 · 가정 가중계수는 실증 척도 아님 · 외부 AI 호출 없음';
+ $("analysisSource").textContent='문항 25개·교차규칙 24개 · 맥락 가중치 v2.2 (검증 전 개발 가정) · 원점수·안전 게이트 불변 · 외부 AI 호출 없음';
  renderCopyPacket(total,domainScores,signals);
 }
 function patternEvidence(p){return p.evidence.map(function(n){return n+'번 '+questionAt(n-1)+' ('+answers[n-1]+'점)'}).join('; ')}
