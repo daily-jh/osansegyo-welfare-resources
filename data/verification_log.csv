@@ -71,3 +71,17 @@ service,SVC-X26-180,2026-10-22,공식 공개 사업안내 확인; 실제 접수�
 service,SVC-X26-181,2026-10-22,공식 공개 사업안내 확인; 실제 접수·선정 미확인,자료 관리자,사업별 확인 필요,https://m.heart.or.kr/Home/medical_support,
 service,SVC-X26-182,2026-10-22,공식 공개 사업안내 확인; 실제 접수·선정 미확인,자료 관리자,사업별 확인 필요,https://www.kord.or.kr/index.php,
 service,SVC-X26-183,2026-10-22,공식 공개 사업안내 확인; 실제 접수·선정 미확인,자료 관리자,확인완료,https://www.kord.or.kr/bbs/board.php?bo_table=0601&wr_id=1714,
+service,SVC-Y22-001,2026-10-24,기관·정부 공식 홈페이지의 사업내용 확인·접수·선정은 별도,자료 관리자,확인완료,https://goehs.kr/goehs/cm/cntnts/cntntsView.do?cntntsId=2150&mi=18070,2026-11-01
+service,SVC-Y22-002,2026-10-24,기관·정부 공식 홈페이지의 사업내용 확인·접수·선정은 별도,자료 관리자,확인완료,https://seoyeon-h.goehs.kr/goehs/co/cp/pageView.do?mi=18069,2026-11-01
+service,SVC-Y22-003,2026-10-24,기관·정부 공식 홈페이지의 사업내용 확인·접수·선정은 별도,자료 관리자,확인완료,https://goehs.kr/goehs/jo/jobshare/selectJobShareView.do?deptNm=%EC%B4%88%EB%93%B1%EA%B5%90%EC%9C%A1%EC%A7%80%EC%9B%90%EA%B3%BC&mi=18196,2026-11-01
+service,SVC-Y22-004,2026-10-24,기관·정부 공식 홈페이지의 사업내용 확인·접수·선정은 별도,자료 관리자,확인완료,https://goe.go.kr/goe/cm/cntnts/cntntsView.do?cntntsId=1112&mi=10153,2026-11-01
+service,SVC-Y22-005,2026-10-24,기관·정부 공식 홈페이지의 사업내용 확인·접수·선정은 별도,자료 관리자,확인완료,https://www.goe.go.kr/goe/na/ntt/selectNttInfo.do?nttSn=2341259,2026-11-01
+service,SVC-Y22-006,2026-10-24,기관·정부 공식 홈페이지의 사업내용 확인·접수·선정은 별도,자료 관리자,확인완료,https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=294&boardSeq=105348&lev=0,2026-11-01
+service,SVC-Y22-007,2026-10-24,기관·정부 공식 홈페이지의 사업내용 확인·접수·선정은 별도,자료 관리자,확인완료,https://www.kyci.or.kr/news/2025_12/notice03.asp,2026-11-01
+service,SVC-Y22-008,2026-10-24,기관·정부 공식 홈페이지의 사업내용 확인·접수·선정은 별도,자료 관리자,확인완료,https://youth.go.kr/youth/youth/contents/emtGhvrHlForm.yt,2026-11-01
+service,SVC-Y22-009,2026-10-24,기관·정부 공식 홈페이지의 사업내용 확인·접수·선정은 별도,자료 관리자,확인완료,https://www.goehs.kr/goehs/na/ntt/selectNttInfo.do?bbsId=9826&mi=17846&nttSn=1212366,2026-11-01
+service,SVC-Y22-010,2026-10-24,기관·정부 공식 홈페이지의 사업내용 확인·접수·선정은 별도,자료 관리자,확인완료,https://munsi-m.goehs.kr/goehs/jo/jobshare/selectJobShareView.do?mi=18196,2026-11-01
+service,SVC-Y22-011,2026-10-24,기관·정부 공식 홈페이지의 사업내용 확인·접수·선정은 별도,자료 관리자,확인완료,https://www.gg.go.kr/contents/contents.do?ciIdx=1472&menuId=3302,2026-11-01
+service,SVC-Y22-012,2026-10-24,기관·정부 공식 홈페이지의 사업내용 확인·접수·선정은 별도,자료 관리자,확인완료,https://www.gg.go.kr/contents/contents.do?ciIdx=1472&menuId=3302,2026-11-01
+service,SVC-Y22-013,2026-10-24,기관·정부 공식 홈페이지의 사업내용 확인·접수·선정은 별도,자료 관리자,확인완료,https://www.gg.go.kr/bbs/boardView.do?bIdx=71116882&bcIdx=0&bsIdx=497&menuId=1860,2026-11-01
+service,SVC-Y22-014,2026-10-24,기관·정부 공식 홈페이지의 사업내용 확인·접수·선정은 별도,자료 관리자,확인완료,https://gg24.gg.go.kr/svcreqst/selectSvcReqst.do?svc_seq=939,2026-11-01
