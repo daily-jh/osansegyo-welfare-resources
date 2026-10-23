@@ -92,6 +92,10 @@ function build(p,role='teacher',note='',question=''){
  lines.push(role==='teacher'?
  '역할(교사): 학생 면담·현재 안전·수업/출결과 교내 조정, Wee·학맞통 협의 검토, 학생 의견과 보호자 연락의 안전성 확인. 공식 결정은 학교 절차를 따릅니다.':
  '역할(사회복지사): 당사자 동의·강점/가족·경제·돌봄의 욕구사정, 기존 지원·권역 자원 확인, 사례판정회의 제안, 연계 문의/접수/실제 제공을 구분하여 조정합니다.');
+ const K=node?require('./casework-v3.js'):root.YouthCaseworkV3;
+ if(K){const planning=K.plan(p,role);
+   planning.proposals.forEach(g=>lines.push('서비스계획 초안 '+g.id+': '+g.domain+' / '+g.target+' / 주관: '+g.assignedTo+' / 결과지표: '+g.outcome+' / 기준선·목표값·기한: 미합의 / 제공·접수 여부: 미확인. 계획 승인이나 이용가능성을 뜻하지 않습니다.'));
+ }
  lines.push('성과와 점검: 상담·의뢰 횟수는 활동량, 실제 지원 시작은 서비스 이행, 학생이 보고한 일상 변화는 성과로 각각 기록합니다. 목표의 기준선·기한·평가 방법은 학생과 합의한 후 설정합니다.');
  lines.push('버전·근거: '+VERSION+'; 임상·법적 판단 모델이 아닌 개발 가설 기반의 해석 보조 계층. OY-RALS 점수/안전게이트 및 원본 기록 불변. 실제 사례 정확도·민감도·특이도 미검증.');
  return {version:VERSION,text:lines.join('\n\n'),facts:{known:state.knownCount,unknown:state.unknownItems.length,safetyItems:m.safetyPos,followupPending:m.followupPending,crossIds:m.cross.map(x=>x.id)},noteStatus:m.noteCues.map(x=>({topic:x.topic,status:x.status}))};
