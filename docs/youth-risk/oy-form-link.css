@@ -1,0 +1,8 @@
+/* OY-RALS blank assessment form: top-right direct HTML download, independent of reports */
+.header-form-download{display:inline-flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap;text-decoration:none!important;font:800 12px/1.45 SUIT,"Malgun Gothic",sans-serif;color:#fff!important;background:#385fc2;border:1px solid #385fc2;border-radius:12px;padding:10px 14px;min-height:40px;box-shadow:0 4px 12px #3563b626;transition:background .15s,border-color .15s}
+.header-form-download:hover{background:#284eab;border-color:#284eab}
+.header-form-download:focus-visible{outline:3px solid #8fb0e8;outline-offset:3px}
+.header-form-download span{font-size:15px;line-height:1}
+@media(max-width:780px){.youth-header-links{gap:7px}.header-form-download{padding:8px 10px;font-size:11px;min-height:34px}.header-resource-link{font-size:11px}}
+@media(max-width:440px){.header-form-download{font-size:10px;border-radius:9px;padding:7px 8px}}
+@media print{.header-form-download{display:none!important}}
