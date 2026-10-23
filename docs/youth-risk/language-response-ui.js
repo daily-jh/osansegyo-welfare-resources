@@ -9,10 +9,10 @@ function render(){
  if(!question){status('질문을 입력하거나 제시된 질문을 선택해 주세요.');return;}
  if(!window.YouthLanguageResponse){status('응답 모델을 불러오지 못했습니다. 페이지를 새로고침해 주세요.');return;}
  try{
- const output=window.YouthLanguageResponse.buildResponse(context,question,el('languageNarrative').value,role,{Map:window.YouthMap,Matrix:window.YouthEvidenceMatrix});
+ const output=window.YouthLanguageResponse.buildResponse(context,question,el('languageNarrative').value,role,{Map:window.YouthMap,Matrix:window.YouthEvidenceMatrix,Research:window.YouthResearchKB});
  last=output.text;el('languageAnswer').textContent=last;el('languageCopy').disabled=false;
  const meta=output.audit;
- status('로컬 분석 완료 · 참고한 주제 '+meta.topics.length+'개 · 서술 근거 '+meta.notes+'개 · 교차근거 '+meta.cross+'개. 학생·사례관리자 검토 전 확정하지 마세요.');
+ status('로컬 분석 완료 · 참고한 주제 '+meta.topics.length+'개 · 서술 근거 '+meta.notes+'개 · 교차근거 '+meta.cross+'개 · 문항쌍 연구가설 최대 4개. 학생·사례관리자 검토 전 확정하지 마세요.');
  }catch(e){clear();status('응답 생성 실패: '+e.message);}
 }
 document.addEventListener('DOMContentLoaded',()=>{
