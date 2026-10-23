@@ -205,3 +205,17 @@ osan26care020,SVC-OSAN26-020,오산시,오산신경정신병원,진료·검사·
 osan26care021,SVC-OSAN26-021,오산시,최중철정신건강의학과의원,정신건강의학과 외래 진료,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://clinics.seoul.kr/gyeonggi-do/osan-si/osan-dong/psychiatry
 osan26care022,SVC-OSAN26-022,오산시,행복주는의원,정신건강의학과 외래 진료,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://happyosan.com/contact
 osan26care023,SVC-OSAN26-023,오산시,오산세교정신건강의학과의원,정신건강의학과 외래 진료,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://clinics.seoul.kr/gyeonggi-do/osan-si/gwol-dong/psychiatry
+ORG-Y22-SPEC,SVC-Y22-001,오산시,화성오산교육지원청 특수교육지원센터,특수교육대상자 진단평가·선정배치 안내,오산 접수 가능 여부 확인,https://goehs.kr/goehs/cm/cntnts/cntntsView.do?cntntsId=2150&mi=18070
+ORG-Y22-SPEC,SVC-Y22-002,오산시,화성오산교육지원청 특수교육지원센터,보조공학기기·치료지원 서비스 안내,오산 접수 가능 여부 확인,https://seoyeon-h.goehs.kr/goehs/co/cp/pageView.do?mi=18069
+ORG-Y22-SPEC,SVC-Y22-003,오산시,화성오산교육지원청 특수교육지원센터,순회교육·개별화교육 지원,오산 접수 가능 여부 확인,https://goehs.kr/goehs/jo/jobshare/selectJobShareView.do?deptNm=%EC%B4%88%EB%93%B1%EA%B5%90%EC%9C%A1%EC%A7%80%EC%9B%90%EA%B3%BC&mi=18196
+ORG-Y22-EDU,SVC-Y22-004,경기도,경기도교육청,대안교육 위탁기관·학업중단 예방 연계,오산 접수 가능 여부 확인,https://goe.go.kr/goe/cm/cntnts/cntntsView.do?cntntsId=1112&mi=10153
+ORG-Y22-EDU,SVC-Y22-005,경기도,경기도교육청,학업중단 숙려제·경기온라인학교 이음교실,오산 접수 가능 여부 확인,https://www.goe.go.kr/goe/na/ntt/selectNttInfo.do?nttSn=2341259
+ORG-Y22-EDU,SVC-Y22-006,경기도,경기도교육청,학생맞춤통합지원 학교·지역사회 협력,오산 접수 가능 여부 확인,https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=294&boardSeq=105348&lev=0
+ORG-Y22-DIDIM,SVC-Y22-007,경기도,국립중앙청소년디딤센터,청소년 정서·행동 집중치료재활 과정,오산 접수 가능 여부 확인,https://www.kyci.or.kr/news/2025_12/notice03.asp
+ORG-Y22-DIDIM,SVC-Y22-008,경기도,국립중앙청소년디딤센터,대안교육·진로·자립 회복 과정,오산 접수 가능 여부 확인,https://youth.go.kr/youth/youth/contents/emtGhvrHlForm.yt
+bd69f8d5ea,SVC-Y22-009,경기도,경기도교육청 Wee 프로젝트,학교폭력 피해학생 전문상담·기관 연계,오산 접수 가능 여부 확인,https://www.goehs.kr/goehs/na/ntt/selectNttInfo.do?bbsId=9826&mi=17846&nttSn=1212366
+bd69f8d5ea,SVC-Y22-010,경기도,경기도교육청 Wee 프로젝트,학생마음바우처·정서행동 심층평가 안내,오산 접수 가능 여부 확인,https://munsi-m.goehs.kr/goehs/jo/jobshare/selectJobShareView.do?mi=18196
+59d5d046a2,SVC-Y22-011,경기도,경기도 젠더폭력 통합대응단(마주봄센터),아동·청소년 성착취 피해대응 전문연계,대표전화 미기재 / 오산 접수 가능 여부 확인,https://www.gg.go.kr/contents/contents.do?ciIdx=1472&menuId=3302
+59d5d046a2,SVC-Y22-012,경기도,경기도 젠더폭력 통합대응단(마주봄센터),스토킹·교제폭력 안전주거·긴급지원,대표전화 미기재 / 오산 접수 가능 여부 확인,https://www.gg.go.kr/contents/contents.do?ciIdx=1472&menuId=3302
+4f434688e9,SVC-Y22-013,경기도,경기도청,경기도 청소년쉼터·보호시설 현황 안내,오산 접수 가능 여부 확인,https://www.gg.go.kr/bbs/boardView.do?bIdx=71116882&bcIdx=0&bsIdx=497&menuId=1860
+4f434688e9,SVC-Y22-014,경기도,경기도청,2026 대안교육기관 등 학생 교복지원,오산 접수 가능 여부 확인,https://gg24.gg.go.kr/svcreqst/selectSvcReqst.do?svc_seq=939

@@ -1,6 +1,6 @@
 /* © 2026 오산세교종합사회복지관 김지훈 팀장. All rights reserved. */
 window.WELFARE_DATA = {
-  "date": "2026-10-23",
+  "date": "2026-10-24",
   "schemaVersion": 2,
   "note": "기존 자료 정리일이며, 기관·사업별 실제 운영 확인일과 다릅니다. 연계 전 최신 공식 공고를 확인해 주세요.",
   "taxonomy": {
@@ -2202,7 +2202,7 @@ window.WELFARE_DATA = {
       "site": "https://www.gg.go.kr/",
       "phone": "031-120",
       "source": "https://www.gg.go.kr/",
-      "reviewed": "2026-10-20",
+      "reviewed": "2026-10-24",
       "status": "미확인",
       "jurisdiction": "",
       "services": [
@@ -2303,6 +2303,96 @@ window.WELFARE_DATA = {
           },
           "contacts": [],
           "rounds": []
+        },
+        {
+          "id": "SVC-Y22-013",
+          "name": "경기도 청소년쉼터·보호시설 현황 안내",
+          "category": "돌봄·생활",
+          "target": "가정 밖·일시보호 필요 청소년",
+          "description": "경기도 내 청소년쉼터 운영 현황 및 입소 경로 안내. 시설별 대상·보호가능 여부 확인.",
+          "method": "청소년상담 1388 및 관할 청소년안전망을 통해 문의",
+          "operation": "공식 안내에서 서비스 존재 확인·개별 접수는 재확인",
+          "editedOn": "2026-10-24",
+          "tags": {
+            "target": [
+              "청소년",
+              "위기가구"
+            ],
+            "need": [
+              "돌봄",
+              "주거",
+              "안전·권리보호"
+            ],
+            "form": [
+              "정보 제공",
+              "시설 이용"
+            ],
+            "intake": [
+              "전화",
+              "협력기관 추천"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.gg.go.kr/bbs/boardView.do?bIdx=71116882&bcIdx=0&bsIdx=497&menuId=1860",
+          "verification": {
+            "status": "확인완료",
+            "date": "2026-10-24",
+            "method": "정부·교육청 공식 안내 검토(실제 접수 별도)",
+            "by": "자료 관리자",
+            "next": "2026-11-01"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-Y22-014",
+          "name": "2026 대안교육기관 등 학생 교복지원",
+          "category": "교육·청소년",
+          "target": "도내 거주 및 대안교육기관 등 지정 요건에 해당하는 입학생",
+          "description": "2026 학생 교복·단체복 실비 최대 40만원. 신청기한 2026.12.11 및 거주·중복지원 기준 확인.",
+          "method": "경기민원24 사업 공고에서 신청·증빙 확인",
+          "operation": "공식 안내에서 서비스 존재 확인·개별 접수는 재확인",
+          "editedOn": "2026-10-24",
+          "tags": {
+            "target": [
+              "청소년"
+            ],
+            "need": [
+              "교육",
+              "소득·생계"
+            ],
+            "form": [
+              "현금",
+              "정보 제공"
+            ],
+            "intake": [
+              "온라인"
+            ]
+          },
+          "operationType": "공모형",
+          "localAvailable": "확인 필요",
+          "source": "https://gg24.gg.go.kr/svcreqst/selectSvcReqst.do?svc_seq=939",
+          "verification": {
+            "status": "확인완료",
+            "date": "2026-10-24",
+            "method": "정부·교육청 공식 안내 검토(실제 접수 별도)",
+            "by": "자료 관리자",
+            "next": "2026-11-01"
+          },
+          "contacts": [],
+          "rounds": [
+            {
+              "round_id": "ROUND-Y22-UNIFORM-2026",
+              "service_id": "SVC-Y22-014",
+              "name": "2026 대안교육기관 등 학생 교복지원",
+              "opens_on": "2026-03-09",
+              "closes_on": "2026-12-11",
+              "local_available": "가능",
+              "source_url": "https://gg24.gg.go.kr/svcreqst/selectSvcReqst.do?svc_seq=939",
+              "verified_on": "2026-10-24"
+            }
+          ]
         }
       ],
       "contact": {
@@ -3255,7 +3345,7 @@ window.WELFARE_DATA = {
       "site": "https://www.goehs.kr/goehs/cm/cntnts/cntntsView.do?cntntsId=2147&mi=18023",
       "phone": "031-371-0606",
       "source": "https://www.goehs.kr/goehs/cm/cntnts/cntntsView.do?cntntsId=2147&mi=18023",
-      "reviewed": "2026-10-20",
+      "reviewed": "2026-10-24",
       "status": "미확인",
       "jurisdiction": "",
       "services": [
@@ -3323,6 +3413,87 @@ window.WELFARE_DATA = {
             "method": "",
             "by": "",
             "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-Y22-009",
+          "name": "학교폭력 피해학생 전문상담·기관 연계",
+          "category": "안전·권리보호",
+          "target": "학교폭력 피해학생 및 보호자",
+          "description": "교육지원청 Wee센터의 학교폭력 피해학생 상담·전담기관 연계 관련 업무. 선정된 2026 기관은 별도 확인.",
+          "method": "학교·Wee센터에 실제 지정기관·연계 가능 여부 확인",
+          "operation": "공식 안내에서 서비스 존재 확인·개별 접수는 재확인",
+          "editedOn": "2026-10-24",
+          "tags": {
+            "target": [
+              "청소년",
+              "아동"
+            ],
+            "need": [
+              "안전·권리보호",
+              "정신건강"
+            ],
+            "form": [
+              "상담",
+              "정보 제공"
+            ],
+            "intake": [
+              "협력기관 추천",
+              "전화"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.goehs.kr/goehs/na/ntt/selectNttInfo.do?bbsId=9826&mi=17846&nttSn=1212366",
+          "verification": {
+            "status": "확인완료",
+            "date": "2026-10-24",
+            "method": "정부·교육청 공식 안내 검토(실제 접수 별도)",
+            "by": "자료 관리자",
+            "next": "2026-11-01"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-Y22-010",
+          "name": "학생마음바우처·정서행동 심층평가 안내",
+          "category": "정신건강",
+          "target": "정서행동 지원이 필요한 경기도 학생",
+          "description": "화성오산 Wee센터 학생마음바우처 및 중등 정서행동특성검사 심층평가 업무 안내.",
+          "method": "학교·Wee센터에 의료·심리치료비 지원기준과 심사 확인",
+          "operation": "공식 안내에서 서비스 존재 확인·개별 접수는 재확인",
+          "editedOn": "2026-10-24",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년"
+            ],
+            "need": [
+              "정신건강",
+              "의료·건강",
+              "교육"
+            ],
+            "form": [
+              "상담",
+              "정보 제공"
+            ],
+            "intake": [
+              "협력기관 추천",
+              "전화"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://munsi-m.goehs.kr/goehs/jo/jobshare/selectJobShareView.do?mi=18196",
+          "verification": {
+            "status": "확인완료",
+            "date": "2026-10-24",
+            "method": "정부·교육청 공식 안내 검토(실제 접수 별도)",
+            "by": "자료 관리자",
+            "next": "2026-11-01"
           },
           "contacts": [],
           "rounds": []
@@ -7339,7 +7510,7 @@ window.WELFARE_DATA = {
       "site": "https://www.gg.go.kr/contents/contents.do?ciIdx=1472&menuId=3302",
       "phone": "",
       "source": "https://www.gg.go.kr/contents/contents.do?ciIdx=1472&menuId=3302",
-      "reviewed": "2026-10-22",
+      "reviewed": "2026-10-24",
       "status": "운영중",
       "jurisdiction": "사업별 관할·접수기준 확인",
       "services": [
@@ -7425,6 +7596,89 @@ window.WELFARE_DATA = {
             "method": "공식 기관·지자체 사업안내 검토",
             "by": "자료 관리자",
             "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-Y22-011",
+          "name": "아동·청소년 성착취 피해대응 전문연계",
+          "category": "안전·권리보호",
+          "target": "성착취 관련 위험·피해가 의심되는 청소년",
+          "description": "아동청소년 성착취 피해 전문 상담·보호·수사 및 자립지원 연계 안내. 피해 유형 확정은 별도.",
+          "method": "현재 안전·신고절차 우선, 전문센터 1551-9116 문의",
+          "operation": "공식 안내에서 서비스 존재 확인·개별 접수는 재확인",
+          "editedOn": "2026-10-24",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년"
+            ],
+            "need": [
+              "안전·권리보호",
+              "정신건강",
+              "고용·자립"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화",
+              "협력기관 추천"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.gg.go.kr/contents/contents.do?ciIdx=1472&menuId=3302",
+          "verification": {
+            "status": "확인완료",
+            "date": "2026-10-24",
+            "method": "정부·교육청 공식 안내 검토(실제 접수 별도)",
+            "by": "자료 관리자",
+            "next": "2026-11-01"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-Y22-012",
+          "name": "스토킹·교제폭력 안전주거·긴급지원",
+          "category": "안전·권리보호",
+          "target": "스토킹·교제폭력 관련 위기를 겪는 도민",
+          "description": "피해자 안전주거·긴급지원과 심리·법률 연계 안내.",
+          "method": "현재 안전과 연락 방식 확인, 전문센터 1551-9050 문의",
+          "operation": "공식 안내에서 서비스 존재 확인·개별 접수는 재확인",
+          "editedOn": "2026-10-24",
+          "tags": {
+            "target": [
+              "청소년",
+              "청년",
+              "위기가구"
+            ],
+            "need": [
+              "안전·권리보호",
+              "주거",
+              "정신건강"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화",
+              "협력기관 추천"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.gg.go.kr/contents/contents.do?ciIdx=1472&menuId=3302",
+          "verification": {
+            "status": "확인완료",
+            "date": "2026-10-24",
+            "method": "정부·교육청 공식 안내 검토(실제 접수 별도)",
+            "by": "자료 관리자",
+            "next": "2026-11-01"
           },
           "contacts": [],
           "rounds": []
@@ -10946,6 +11200,421 @@ window.WELFARE_DATA = {
       "addressStatus": "기존 등록자료",
       "addressCheckedOn": "",
       "addressNote": "이전 자료 입력값 · 현재 주소 미재확인"
+    },
+    {
+      "id": "ORG-Y22-SPEC",
+      "name": "화성오산교육지원청 특수교육지원센터",
+      "level": "오산시",
+      "kind": "특수교육",
+      "summary": "특수교육대상학생 진단평가·선정배치 및 관련서비스·교육접근성 지원. 학교·보호자 절차 확인 필요.",
+      "site": "https://goehs.kr/goehs/cm/cntnts/cntntsView.do?cntntsId=2150&mi=18070",
+      "phone": "031-377-4329",
+      "source": "https://goehs.kr/goehs/cm/cntnts/cntntsView.do?cntntsId=2150&mi=18070",
+      "reviewed": "2026-10-24",
+      "status": "운영중",
+      "jurisdiction": "화성·오산 지역 / 학교급별 접수 절차 확인",
+      "services": [
+        {
+          "id": "SVC-Y22-001",
+          "name": "특수교육대상자 진단평가·선정배치 안내",
+          "category": "교육·청소년",
+          "target": "특수교육이 필요한 학생과 보호자",
+          "description": "특수교육대상자 진단평가 및 선정·배치 절차 안내. 교육적 필요와 자격은 별도 심사.",
+          "method": "학교·보호자와 교육지원청 접수절차 확인",
+          "operation": "공식 안내에서 서비스 존재 확인·개별 접수는 재확인",
+          "editedOn": "2026-10-24",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년",
+              "장애인"
+            ],
+            "need": [
+              "교육"
+            ],
+            "form": [
+              "상담",
+              "정보 제공"
+            ],
+            "intake": [
+              "전화",
+              "협력기관 추천"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://goehs.kr/goehs/cm/cntnts/cntntsView.do?cntntsId=2150&mi=18070",
+          "verification": {
+            "status": "확인완료",
+            "date": "2026-10-24",
+            "method": "정부·교육청 공식 안내 검토(실제 접수 별도)",
+            "by": "자료 관리자",
+            "next": "2026-11-01"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-Y22-002",
+          "name": "보조공학기기·치료지원 서비스 안내",
+          "category": "교육·청소년",
+          "target": "특수교육 관련 지원이 필요한 학생과 보호자",
+          "description": "보조공학기기 대여, 특수교육 관련 치료지원 정보. 지원 대상·범위·대여 가능 여부 확인.",
+          "method": "센터에서 실제 지원요건 및 이용가능한 서비스 문의",
+          "operation": "공식 안내에서 서비스 존재 확인·개별 접수는 재확인",
+          "editedOn": "2026-10-24",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년",
+              "장애인"
+            ],
+            "need": [
+              "교육",
+              "의료·건강"
+            ],
+            "form": [
+              "서비스 제공",
+              "정보 제공"
+            ],
+            "intake": [
+              "전화"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://seoyeon-h.goehs.kr/goehs/co/cp/pageView.do?mi=18069",
+          "verification": {
+            "status": "확인완료",
+            "date": "2026-10-24",
+            "method": "정부·교육청 공식 안내 검토(실제 접수 별도)",
+            "by": "자료 관리자",
+            "next": "2026-11-01"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-Y22-003",
+          "name": "순회교육·개별화교육 지원",
+          "category": "교육·청소년",
+          "target": "특수교육대상 학생·학교",
+          "description": "순회교육·개별화교육 및 특수학급 협력적 수업지원 업무 안내.",
+          "method": "학교·교육지원청에서 의뢰·배정 절차 확인",
+          "operation": "공식 안내에서 서비스 존재 확인·개별 접수는 재확인",
+          "editedOn": "2026-10-24",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년",
+              "장애인"
+            ],
+            "need": [
+              "교육"
+            ],
+            "form": [
+              "서비스 제공",
+              "상담"
+            ],
+            "intake": [
+              "협력기관 추천"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://goehs.kr/goehs/jo/jobshare/selectJobShareView.do?deptNm=%EC%B4%88%EB%93%B1%EA%B5%90%EC%9C%A1%EC%A7%80%EC%9B%90%EA%B3%BC&mi=18196",
+          "verification": {
+            "status": "확인완료",
+            "date": "2026-10-24",
+            "method": "정부·교육청 공식 안내 검토(실제 접수 별도)",
+            "by": "자료 관리자",
+            "next": "2026-11-01"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-Y22-SPEC",
+        "owner_type": "organization",
+        "owner_id": "ORG-Y22-SPEC",
+        "dept": "특수교육지원센터",
+        "phone": "031-377-4329",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://seoyeon-h.goehs.kr/goehs/co/cp/pageView.do?mi=18069",
+        "verified_on": "2026-10-24"
+      },
+      "address": "경기도 오산시 성호대로 43 성산초등학교 내",
+      "addressSource": "https://seoyeon-h.goehs.kr/goehs/co/cp/pageView.do?mi=18069",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-10-24",
+      "addressNote": "교육지원청 공식 위치 안내"
+    },
+    {
+      "id": "ORG-Y22-EDU",
+      "name": "경기도교육청",
+      "level": "경기도",
+      "kind": "교육행정",
+      "summary": "학업중단 예방·위탁형 대안교육·학생맞춤통합지원 등 광역 교육복지 정책과 지역 연계.",
+      "site": "https://www.goe.go.kr/",
+      "phone": "031-1396",
+      "source": "https://www.goe.go.kr/goe/na/ntt/selectNttInfo.do?nttSn=2341259",
+      "reviewed": "2026-10-24",
+      "status": "운영중",
+      "jurisdiction": "경기도 학생 / 학교·교육지원청별 접수 확인",
+      "services": [
+        {
+          "id": "SVC-Y22-004",
+          "name": "대안교육 위탁기관·학업중단 예방 연계",
+          "category": "교육·청소년",
+          "target": "학업중단 위험이 있는 경기도 중·고교 학생",
+          "description": "학교·지역 연계 학업중단 예방과 2026 대안교육 위탁기관 운영 안내. 재적학교 학적 관리.",
+          "method": "재적학교와 위탁기관 사전협의·학교 추천 필요",
+          "operation": "공식 안내에서 서비스 존재 확인·개별 접수는 재확인",
+          "editedOn": "2026-10-24",
+          "tags": {
+            "target": [
+              "청소년"
+            ],
+            "need": [
+              "교육",
+              "정신건강"
+            ],
+            "form": [
+              "서비스 제공",
+              "정보 제공"
+            ],
+            "intake": [
+              "협력기관 추천"
+            ]
+          },
+          "operationType": "시즌",
+          "localAvailable": "확인 필요",
+          "source": "https://goe.go.kr/goe/cm/cntnts/cntntsView.do?cntntsId=1112&mi=10153",
+          "verification": {
+            "status": "확인완료",
+            "date": "2026-10-24",
+            "method": "정부·교육청 공식 안내 검토(실제 접수 별도)",
+            "by": "자료 관리자",
+            "next": "2026-11-01"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-Y22-005",
+          "name": "학업중단 숙려제·경기온라인학교 이음교실",
+          "category": "교육·청소년",
+          "target": "학업중단 숙려에 참여하는 학생",
+          "description": "학교 내 대안교실 및 온라인 이음교실을 통한 학습·상담·관계회복 지원 안내.",
+          "method": "학교별 숙려제·온라인 과정 신청 대상 및 개설 확인",
+          "operation": "공식 안내에서 서비스 존재 확인·개별 접수는 재확인",
+          "editedOn": "2026-10-24",
+          "tags": {
+            "target": [
+              "청소년"
+            ],
+            "need": [
+              "교육",
+              "정신건강"
+            ],
+            "form": [
+              "서비스 제공",
+              "정보 제공"
+            ],
+            "intake": [
+              "협력기관 추천"
+            ]
+          },
+          "operationType": "시즌",
+          "localAvailable": "확인 필요",
+          "source": "https://www.goe.go.kr/goe/na/ntt/selectNttInfo.do?nttSn=2341259",
+          "verification": {
+            "status": "확인완료",
+            "date": "2026-10-24",
+            "method": "정부·교육청 공식 안내 검토(실제 접수 별도)",
+            "by": "자료 관리자",
+            "next": "2026-11-01"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-Y22-006",
+          "name": "학생맞춤통합지원 학교·지역사회 협력",
+          "category": "사례관리",
+          "target": "학습·정서·돌봄 등 복합적 어려움의 학생",
+          "description": "2026 학생맞춤통합지원 체계에 따른 학교-교육지원청-지역기관 협력 정책 안내.",
+          "method": "재적학교 학생지원 담당자와 관할 교육지원청 문의",
+          "operation": "공식 안내에서 서비스 존재 확인·개별 접수는 재확인",
+          "editedOn": "2026-10-24",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년",
+              "위기가구"
+            ],
+            "need": [
+              "사례관리",
+              "교육"
+            ],
+            "form": [
+              "상담",
+              "정보 제공"
+            ],
+            "intake": [
+              "협력기관 추천"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=294&boardSeq=105348&lev=0",
+          "verification": {
+            "status": "확인완료",
+            "date": "2026-10-24",
+            "method": "정부·교육청 공식 안내 검토(실제 접수 별도)",
+            "by": "자료 관리자",
+            "next": "2026-11-01"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-Y22-EDU",
+        "owner_type": "organization",
+        "owner_id": "ORG-Y22-EDU",
+        "dept": "경기에듀콜센터",
+        "phone": "031-1396",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.goe.go.kr/goe/cm/cntnts/cntntsView.do?cntntsId=1593&mi=10153",
+        "verified_on": "2026-10-24"
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "광역 정책사업의 접수 위치는 학교별 확인"
+    },
+    {
+      "id": "ORG-Y22-DIDIM",
+      "name": "국립중앙청소년디딤센터",
+      "level": "경기도",
+      "kind": "국립청소년 치료재활시설",
+      "summary": "정서·행동 어려움 청소년의 거주형 상담·치료·학습·자립 회복 서비스.",
+      "site": "https://www.nyhc.or.kr/",
+      "phone": "031-333-1900",
+      "source": "https://youth.go.kr/youth/youth/contents/emtGhvrHlForm.yt",
+      "reviewed": "2026-10-24",
+      "status": "운영중",
+      "jurisdiction": "전국 대상 모집 / 경기도 용인 소재",
+      "services": [
+        {
+          "id": "SVC-Y22-007",
+          "name": "청소년 정서·행동 집중치료재활 과정",
+          "category": "정신건강",
+          "target": "정서·행동에 어려움이 있는 만 9~18세 청소년(심사 필요)",
+          "description": "거주형 상담·치료·보호를 제공하는 전문 치유과정. 모집·비용·입교 심사 확인.",
+          "method": "공식 누리집·1388 통해 모집·신청·입교심사 확인",
+          "operation": "공식 안내에서 서비스 존재 확인·개별 접수는 재확인",
+          "editedOn": "2026-10-24",
+          "tags": {
+            "target": [
+              "청소년"
+            ],
+            "need": [
+              "정신건강",
+              "의료·건강",
+              "돌봄"
+            ],
+            "form": [
+              "서비스 제공",
+              "시설 이용"
+            ],
+            "intake": [
+              "온라인",
+              "전화",
+              "협력기관 추천"
+            ]
+          },
+          "operationType": "공모형",
+          "localAvailable": "확인 필요",
+          "source": "https://www.kyci.or.kr/news/2025_12/notice03.asp",
+          "verification": {
+            "status": "확인완료",
+            "date": "2026-10-24",
+            "method": "정부·교육청 공식 안내 검토(실제 접수 별도)",
+            "by": "자료 관리자",
+            "next": "2026-11-01"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-Y22-008",
+          "name": "대안교육·진로·자립 회복 과정",
+          "category": "교육·청소년",
+          "target": "입교심사를 거친 치유과정 청소년",
+          "description": "입교 과정에서 대안교육·학습권·진로탐색·자립 활동 병행.",
+          "method": "입교 과정별 교육·자립지원 범위 확인",
+          "operation": "공식 안내에서 서비스 존재 확인·개별 접수는 재확인",
+          "editedOn": "2026-10-24",
+          "tags": {
+            "target": [
+              "청소년"
+            ],
+            "need": [
+              "교육",
+              "고용·자립",
+              "정신건강"
+            ],
+            "form": [
+              "서비스 제공",
+              "시설 이용"
+            ],
+            "intake": [
+              "온라인",
+              "협력기관 추천"
+            ]
+          },
+          "operationType": "공모형",
+          "localAvailable": "확인 필요",
+          "source": "https://youth.go.kr/youth/youth/contents/emtGhvrHlForm.yt",
+          "verification": {
+            "status": "확인완료",
+            "date": "2026-10-24",
+            "method": "정부·교육청 공식 안내 검토(실제 접수 별도)",
+            "by": "자료 관리자",
+            "next": "2026-11-01"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-Y22-DIDIM",
+        "owner_type": "organization",
+        "owner_id": "ORG-Y22-DIDIM",
+        "dept": "입교문의",
+        "phone": "031-333-1900",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://youth.go.kr/youth/youth/contents/emtGhvrHlForm.yt",
+        "verified_on": "2026-10-24"
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "방문주소·과정별 모집요건은 공식 센터에 확인"
     }
   ]
 };
