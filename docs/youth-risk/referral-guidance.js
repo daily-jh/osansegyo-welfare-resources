@@ -38,7 +38,7 @@ function referral(p,a,role){const nums=order(p,a.evidence||[]).slice(0,3);
  if(!nums.length)return {topic:'연계 적합성 확인',evidence:'이 기관과 직접 연결된 양성 문항 근거 미확인',purpose:'학생·가족의 현재 필요와 기관 업무 범위가 맞는지 확인',questions:'실제 담당 서비스·대상·접수조건을 확인하고 학생의 의사와 정보공유 근거를 먼저 검토',next:'실제 의뢰 여부는 보류; 확인 후 적합 기관 재선정'};
  const topics=nums.map(n=>BANK[n][0]).join(' · ');
  const questions=nums.map(n=>BANK[n][3]);
- const rolePurpose=role==='teacher'?'학교에서 확인한 '+topics+'와 관련하여 학생에게 안전한 초기 접근·학교 지원 병행·상담 가능 범위를 문의':'사례판정 검토 후 '+topics+'와 관련된 실제 지원 제공·의뢰 가능 여부와 기관별 역할을 협의';
+ const rolePurpose=role==='teacher'?'학교에서 확인된 지원 주제: '+topics+'. 학생에게 안전한 초기 접근·학교 지원 병행·상담 가능 범위를 문의':'사례판정 검토 후 확인된 우선 개입 주제: '+topics+'. 실제 서비스 제공·의뢰 가능 여부와 기관별 역할을 협의';
  const roleQuestion=role==='teacher'?'학생 면담 뒤 보호자 소통이 안전한지, 학교를 통한 접수가 가능한지, 상담 시점과 학내 보호·지원이 어떻게 이어지는지 확인':'담당자·대상 자격·접수서류·서비스 시작 가능일·비용·대기·회신시점과 주관 사례관리기관을 확인';
  const safety=nums.some(n=>SAFETY.has(n));
  return {topic:topics,evidence:evidence(p,nums),purpose:rolePurpose,questions:questions.join(' / ')+' / '+roleQuestion,next:safety?'긴급 위해·학대·착취 의심은 일반 접수 전에 보호·신고 절차 우선. 접수 확인과 안전조치 이행을 구분':role==='teacher'?'학생의 안전한 연락 방식과 학내 담당자·다음 확인일을 정한 뒤 필요 시 의뢰':'의뢰 → 접수 확인 → 실제 이용 시작 → 생활변화 점검을 단계별로 기록'};
