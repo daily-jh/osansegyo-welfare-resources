@@ -1,0 +1,37 @@
+'use strict';
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
+const dir=path.join(__dirname,'../docs/youth-risk/research-v1');
+const read=name=>fs.readFileSync(path.join(dir,name),'utf8');
+const book=read('OY-RALS_687_RESEARCH_PAGES.md');
+const index=JSON.parse(read('MANIFEST_687.json'));
+const old=JSON.parse(read('MANIFEST.json'));
+const sources=JSON.parse(read('SOURCES_19.json')).sources;
+const cards=JSON.parse(read('RESPONSE_CARDS_300.json')).cards;
+assert.equal(index.counts.logicalPageUnits,687);
+assert.equal(index.sections.length,687);
+assert.equal(old.item_count,25);
+assert.equal(old.pair_count,300);
+assert.equal(old.rule_count,24);
+assert.equal(index.counts.sourceCount,19);
+assert.equal(sources.length,19);
+assert.equal(cards.length,300);
+const found=[...book.matchAll(/<!-- PAGE (P\d{4}) -->/g)].map(m=>m[1]);
+assert.equal(found.length,687);
+assert.equal(new Set(found).size,687);
+for(let n=1;n<=687;n++)assert.equal(found[n-1],'P'+String(n).padStart(4,'0'));
+for(const [i,c] of cards.entries()){
+ assert.ok(c.items[0]<c.items[1]&&c.items[0]>=1&&c.items[1]<=25);
+ assert.equal(c.id,'PAIR-'+String(c.items[0]).padStart(2,'0')+'-'+String(c.items[1]).padStart(2,'0'));
+ assert.ok(c.explanation&&c.question&&c.sourceIds?.length);
+}
+const types=index.counts.types;
+assert.equal(types['item-score'],125);
+assert.equal(types.unknown,25);
+assert.equal(types.pair,300);
+assert.equal(types['cross-rule'],72);
+assert.equal(types.synthetic,100);
+assert.equal(types.countercase,30);
+assert.equal(types.governance,20);
+assert.equal(types.methodology,15);
+assert.equal(index.counts.printedPagesVerified,false);
+console.log('PASS 687 original research units, 300 pair cards, 19 sources, previous 25/300/24 manifest preserved');
