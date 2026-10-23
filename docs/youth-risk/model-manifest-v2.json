@@ -1,6 +1,6 @@
 {
   "releaseDate": "2026-10-24",
-  "caseManagementVersion": "2.0.0",
+  "caseManagementVersion": "2.2.0",
   "languageVersion": "2.1.0",
   "languageType": "deterministic_rule_and_retrieval",
   "source": {
@@ -38,7 +38,12 @@
   "validation": {
     "clinicalValidation": false,
     "originalCaseRecords": 0,
-    "sourceContainsPersonalRecords": false
+    "sourceContainsPersonalRecords": false,
+    "syntheticRegressionCases": 500000,
+    "contextSensitivityCases": 20000,
+    "publicAwardCaseNarrativesReviewed": 20,
+    "syntheticDesignedCases": 80,
+    "independentEmpiricalCriterionAvailable": false
   },
   "modules": [
     "criteria.js",
@@ -49,6 +54,19 @@
     "interpretation-v2-data.js",
     "case-practice-v2-data.js",
     "interpretation-v2.js",
-    "language-response-model.js"
-  ]
+    "language-response-model.js",
+    "weight-model.js",
+    "support-model.js"
+  ],
+  "weightVersion": "2.2.0-contextual-20261024",
+  "weightMethod": {
+    "source": "weight-model.js",
+    "baseWeights": 25,
+    "contextInteractionRules": 8,
+    "maximumRelativeBoost": 1.12,
+    "use": "auxiliary priority ranking and explanatory audit only",
+    "rawScoreAffected": false,
+    "safetyGateAffected": false,
+    "validatedOnHumanSample": false
+  }
 }
