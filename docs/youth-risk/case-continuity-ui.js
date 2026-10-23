@@ -66,6 +66,7 @@ function custom(){
 document.addEventListener('DOMContentLoaded',()=>{
  if(!$('continuityGoals'))return;
  $('continuityAddGoal').addEventListener('click',custom);
+ fetch('data/case-continuity-rules.json',{cache:'no-store',credentials:'same-origin'}).then(r=>{if(!r.ok)throw Error('규칙 파일 읽기 실패');return r.json()}).then(db=>{$('continuityDbStatus').textContent='연속성 규칙 DB '+M.setRulesDb(db)+' · 개인정보 전송 없이 로드됨';render()}).catch(()=>{$('continuityDbStatus').textContent='규칙 DB를 읽지 못해 검증된 기본 내장 규칙을 사용합니다. 개인정보 전송은 없습니다.'});
  $('continuitySection').addEventListener('change',render);
  $('continuitySection').addEventListener('input',e=>{if(e.target.matches('input[type=text],input[type=number]'))render()});
 });
