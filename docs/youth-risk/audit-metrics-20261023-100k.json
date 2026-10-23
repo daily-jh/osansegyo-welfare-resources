@@ -1,0 +1,69 @@
+{
+  "schema": "oy-rals-audit-v1",
+  "date": "2026-10-23",
+  "seed": 20261023,
+  "cases": 100000,
+  "scenarioCounts": [
+    10000,
+    10000,
+    10000,
+    10000,
+    10000,
+    10000,
+    10000,
+    10000,
+    10000,
+    10000
+  ],
+  "checks": {
+    "failures": 0,
+    "invalidInputChecks": 4,
+    "reportSamples": 1000,
+    "reportDocuments": 3000
+  },
+  "counts": {
+    "zero": 20000,
+    "urgent": 56176,
+    "incomplete": 29557,
+    "safetyUnknown": 18892,
+    "pendingSafetyCheck": 17247,
+    "provisional": 38362,
+    "crossCases": 27854,
+    "crossMatches": 158131,
+    "planCandidateCount": 204585,
+    "maxPlanCandidates": 10
+  },
+  "levels": [
+    32065,
+    24918,
+    7273,
+    6187
+  ],
+  "crossRuleCoverage": {
+    "MED_SCHOOL": 5812,
+    "PROTECT_BASIC": 9167,
+    "ONLINE_PEER": 4920,
+    "ONLINE_MOOD": 5902,
+    "HOPE_SUPPORT": 4712,
+    "ISOL_MOOD": 7182,
+    "BASIC_REL": 7078,
+    "BEHAV_PEER": 7794,
+    "HOUSING_MOOD": 7099,
+    "LEARN_BASIC": 10332,
+    "PEER_ATTEND": 7118,
+    "THREE_WAY": 4430,
+    "ACCESS_LEARN": 8732,
+    "BASIC_CARE": 4909,
+    "COST_ACCESS": 7284,
+    "DIGITAL_DAILY": 5724,
+    "FAMILY_SCHOOL": 10214,
+    "HEALTH_BEHAV": 7305,
+    "HOUSING_ATTEND": 5632,
+    "MOOD_SCHOOL": 8445,
+    "SELFHARM_MOOD": 6896,
+    "CARE_SCHOOL": 4608,
+    "FAMILY_EMOTION": 4659,
+    "MIX_PROTECT": 2177
+  },
+  "interpretation": "합성 입력 기술검증 결과이며 실제 청소년 위기율, 진단의 정확도, 척도 표준화·타당화 자료가 아니다."
+}
