@@ -20,7 +20,7 @@ var profiles=[
 ['오산시정신건강복지센터','정신건강 상담·사례관리',[6,7,8,13],1,'마음과 건강의 어려움에 필요한 전문상담을 의논합니다','아동청소년 담당·접수 절차 문의'],
 ['오산시청소년상담복지센터','청소년안전망·청소년동반자 연계',[3,4,5,6,7,8,9,10,11,12,13,16,18,22,23,24,25],1,'학교생활과 관계에서 겪는 어려움을 함께 나누고 필요한 청소년 지원을 문의합니다','학생 욕구·기존 지원과 실제 접수 조건 확인'],
 ['오산시청소년상담복지센터','청소년 심리상담',[3,4,5,6,8,9,10,11,12,13,17,22,23,24],1,'마음과 관계, 학교생활에서 겪는 어려움을 상담으로 도울 수 있는지 문의합니다','현재 안전신호의 직접 확인·보호를 대신하지 않음'],
-['경기도교육청 Wee 프로젝트','Wee클래스·Wee센터 상담',[3,4,5,6,7,8,9,10,11,12,13,22,23,24,25],1,'학교 안에서 받을 수 있는 상담과 학습·또래관계 지원을 의논합니다','학교 담당자를 통한 이용 절차 확인'],
+['경기도교육청 Wee 프로젝트','Wee클래스·Wee센터 상담',[3,4,5,6,7,8,9,10,11,12,13,14,15,22,23,24,25],1,'학교 안에서 받을 수 있는 상담과 학습·또래관계·교육환경 조정 지원을 의논합니다','학교 담당자를 통한 이용 절차 확인 · Wee가 편의 제공·특수교육 대상 선정을 직접 결정하는 것은 아님'],
 ['경기도교육청 Wee 프로젝트','위기학생 지역전문기관 연계',[3,4,5,6,7,8,9,10,11,12,13,22,23,25],1,'학교의 도움과 함께 필요한 지역 전문기관 지원을 의논합니다','학교 담당자와 필요한 전문기관 역할 확인'],
 ['오산시가족센터','가족상담·관계증진',[17],0,'가족 간의 어려움이 학생 생활에 미치는 영향을 나누고 가족상담을 문의합니다','학생에게 안전한 가족 참여·연락 방식 확인'],
 ['오산세교종합사회복지관','가족기능 강화',[16,17,18],1,'가족관계와 돌봄의 부담을 덜기 위해 어떤 도움을 받을 수 있는지 문의합니다','구체적 사업·대상·접수 확인'],
@@ -34,7 +34,7 @@ var profiles=[
 function additional(p,d,row){if(!row.directorySource)return null;
  var name=row['기관명']||'',service=row['서비스명']||'',items=[],condition='';
  if(service==='심리상담·발달지원 연계'&&[2,5].includes(d.i)){
-  items=(d.i===2?[6,8]:[14,15]).filter(n=>p.answers[n-1]>=2);
+  items=(d.i===2?[6,8]:[15]).filter(n=>p.answers[n-1]>=2);
   condition='민간 심리·발달지원 추가 문의 후보 · 중학생 이용 연령·제공분야·비용·바우처·보호자 동의 확인. 의료기관·응급대응으로 해석하지 않음';
  }else if(/^(평안한사랑병원|오산신경정신병원)$/.test(name)&&d.i===2){
   items=[6,7,8].filter(n=>p.answers[n-1]>=(n===7?1:3));
@@ -45,9 +45,19 @@ function additional(p,d,row){if(!row.directorySource)return null;
  }
  return items.length?{items,condition}:null;
 }
+// Public cases inform safeguards, not fitted scores, diagnoses, or eligibility decisions.
+function caseChecks(p,numbers){var a=p.answers,ns=numbers||a.map((v,i)=>v>0?i+1:0),has=xs=>xs.some(n=>ns.includes(n)&&a[n-1]>0),out=[];
+ if(has([1,2,4,25]))out.push('피해 내용의 반복 진술·이미지 전송을 요구하지 않으며 안전한 연락·정보공유 범위를 먼저 확인');
+ if(has([7]))out.push('총점과 무관하게 현재 안전을 직접 확인하고 전문지원 이후 학교생활·재접촉 담당과 다음 확인일을 정함');
+ if(has([9,10,11]))out.push('결석·진학 거부만으로 학업중단을 확정하지 않음 · 학적·학생 희망과 학교 복귀·학습 조정부터 확인');
+ if(has([14,15]))out.push('교육환경 조정 필요를 장애·진단으로 단정하지 않음 · 학교 내 조정과 미충족 서비스를 구분하고 실제 대상·자격 확인');
+ if(has([16,18,19,20,21]))out.push('빈곤·가족 형태만으로 방임을 추정하지 않음 · 실제 돌봄 공백·학생의 부담과 공공·민간 지원을 함께 확인');
+ if([1,2,4,25].some(n=>a[n-1]>0)&&has([6,7,8,16,17,18]))out.push('보호자가 가해 의심 대상이면 공동상담·보호자 연락을 자동 진행하지 않고 안전한 별도 지지자를 확인');
+ return out;
+}
 function describe(p,d,row){var a=p.answers,decision=context(p),profile=profiles.find(x=>x[0]===(row.profileName||row['기관명'])&&x[1]===(row.profileService||row['서비스명'])),extra=additional(p,d,row),evidence=extra?extra.items:d.numbers.filter(n=>a[n-1]>0);if(profile)evidence=evidence.filter(n=>profile[2].includes(n));var max=Math.max(0,...evidence.map(n=>a[n-1])),safety=evidence.some(n=>[1,2,7,25].includes(n)),critical=evidence.some(n=>decision.critical.includes(n));var t=[row['서비스명'],row['지원분야'],row['주요내용']].join(' '),fit=tokens[d.i].filter(k=>t.includes(k)).length;
 var order=profile?profile[3]:extra?(/병원/.test(row['기관명'])?4:5):3;if(row['기관명']==='오산시정신건강복지센터'&&!safety&&max<3)order=2;if(row['서비스명']==='긴급복지지원 상담'&&!critical)order=3;if(row['서비스명']==='청소년안전망·청소년동반자 연계'&&((decision.integrated&&!d.critical&&!d.safety)||(d.i===9&&d.safety)))order=0;if(row['서비스명']==='위기학생 지역전문기관 연계'&&(decision.integrated&&!d.critical&&!d.safety))order=0;
-var label=safety?'안전과 전문지원 먼저':critical?'생활·건강부터 살피기':max>=3?'생활의 어려움부터 돕기':max>=2?'반복되는 어려움 돕기':'관찰·상담 문의';var reason=profile?profile[4]:'학생에게 필요한 도움을 이 사업에서 받을 수 있는지 상담해 보세요';if(decision.integrated&&/사례관리|청소년안전망|지역전문기관/.test(row['서비스명']))reason+=' · 여러 어려움을 함께 도울 방법을 문의해 보세요';return {evidence,max,safety,critical,order,fit,label,reason,condition:extra?extra.condition:profile?profile[5]:/장애|발달/.test(t)?'연령·진단·등록·서비스 필요 등 실제 대상 조건 문의':'실제 대상·관할·비용·운영·접수 조건 문의'}}
+var label=safety?'안전과 전문지원 먼저':critical?'생활·건강부터 살피기':max>=3?'생활의 어려움부터 돕기':max>=2?'반복되는 어려움 돕기':'관찰·상담 문의';var reason=profile?profile[4]:'학생에게 필요한 도움을 이 사업에서 받을 수 있는지 상담해 보세요';if(decision.integrated&&/사례관리|청소년안전망|지역전문기관/.test(row['서비스명']))reason+=' · 여러 어려움을 함께 도울 방법을 문의해 보세요';var condition=extra?extra.condition:profile?profile[5]:/장애|발달/.test(t)?'연령·진단·등록·서비스 필요 등 실제 대상 조건 문의':'실제 대상·관할·비용·운영·접수 조건 문의';return {evidence,max,safety,critical,order,fit,label,reason,condition:[condition,...caseChecks(p,evidence)].join(' · ')}}
 function identity(value){return String(value||'').normalize('NFKC').replace(/\s+/g,'').toLowerCase()}
 // Administrative dong is explicitly selected, never inferred from a street or legal dong.
 function routingResources(resources,profile){
@@ -77,6 +87,8 @@ function groupedCandidates(p,d){
   var key=identity(r['기관명'])+'|'+identity(r['서비스명']);if(seen.has(key))return false;seen.add(key);
   var prof=profiles.find(x=>x[0]===(r.profileName||r['기관명'])&&x[1]===(r.profileService||r['서비스명']));
   if(/성인|노인|청년/.test(r['지원대상']||'')&&!/아동|청소년|중고생/.test(r['지원대상']||''))return false;
+  // Item 14 measures an education-environment barrier, not disability eligibility.
+  if(d.i===5&&!(p.answers[14]>0)&&/장애|발달/.test(r['기관명']||''))return false;
   if(additional(p,d,r))return true;
   return prof?prof[2].some(n=>d.numbers.includes(n)&&p.answers[n-1]>0):describe(p,d,r).fit>0;
  });
@@ -89,5 +101,5 @@ function groupedCandidates(p,d){
 }
 function candidates(p,d){return groupedCandidates(p,d).map(group=>group.primary)}
 function referrals(p){var groups=new Map();rank(domains(p)).filter(d=>d.sum>0).forEach(d=>groupedCandidates(p,d).forEach(g=>{var key=g.primary.orgId||identity(g.name);if(!groups.has(key))groups.set(key,{name:g.name,primary:g.primary,services:[],domainIds:[]});var v=groups.get(key);v.domainIds.push(d.i);g.services.forEach(r=>{if(!v.services.some(s=>(s.serviceId||s['서비스명'])===(r.serviceId||r['서비스명'])))v.services.push(r)})}));return Array.from(groups.values())}
-var api={welfareZones,welfareZone,welfareZoneText,dongs,student,referrals,routingResources,labels,validate,domains,rank,candidates,groupedCandidates,context,describe};if(typeof module!=='undefined')module.exports=api;else root.YouthMap=api;
+var api={caseChecks,welfareZones,welfareZone,welfareZoneText,dongs,student,referrals,routingResources,labels,validate,domains,rank,candidates,groupedCandidates,context,describe};if(typeof module!=='undefined')module.exports=api;else root.YouthMap=api;
 })(typeof window!=='undefined'?window:globalThis);

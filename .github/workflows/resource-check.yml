@@ -34,6 +34,7 @@ jobs:
       - name: Site security and optional backend regression checks
         run: |
           node tests/site-security.cjs
+          node tests/site-integrity.cjs
           node --test server/youth-risk-ai/server.test.mjs
           node server/youth-risk-usage/worker.test.mjs
       - name: Scheduled official URL response checks

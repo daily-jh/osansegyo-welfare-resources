@@ -138,7 +138,7 @@ var routes=[
 ["오산시정신건강복지센터","오산시청소년상담복지센터","경기도교육청 Wee 프로젝트"],
 ["경기도교육청 Wee 프로젝트","오산시청소년상담복지센터","초록우산","삼성꿈장학재단"],
 ["오산시청소년상담복지센터","경기도교육청 Wee 프로젝트"],
-["오산시장애인종합복지관","경기도발달장애인지원센터","오산시하나울복지센터"],
+["경기도교육청 Wee 프로젝트","오산시장애인종합복지관","경기도발달장애인지원센터","오산시하나울복지센터"],
 ["오산시가족센터","오산세교종합사회복지관","오산시청소년상담복지센터"],
 ["오산시 동 행정복지센터","오산세교종합사회복지관","초록우산"],
 ["오산시청소년상담복지센터","경기도교육청 Wee 프로젝트"],
@@ -239,6 +239,7 @@ lines=lines.concat(menus.length?menus:["점수화된 어려움은 이번 응답�
 lines.push("","[지역자원 DB의 기관·서비스 후보 — 운영·대상 적합성은 미확인]");
 var candidatesShown=0;YouthMap.referrals(snapshot()).slice(0,9).forEach(function(group){candidatesShown++;lines.push('기관: '+group.name);group.services.slice(0,3).forEach(function(r){lines.push('- DB 서비스: '+r.서비스명+' | 대상: '+(r.지원대상||'확인 필요')+' | 내용: '+(r.주요내용||'확인 필요')+' | 신청: '+(r['신청·연계방법']||'기관 문의')+' | '+YouthLinks.contactText(r)+' | 운영: '+(r.운영확인||'확인 필요'));});lines.push('기관 안내: '+YouthLinks.resolve(group.primary).primary)});
 lines.push('성별: '+studentProfile().gender+' / 행정동: '+(studentProfile().dong||'미확인')+' / '+YouthMap.welfareZoneText(studentProfile())+' · 점수에 미반영, 실제 관할·이용조건 확인');
+lines.push('[사례 대입 검토에 따른 연계 유의사항]',YouthMap.caseChecks(snapshot()).join('\n')||'확인된 응답과 학생의 희망에 따라 연계 적합성을 별도 확인');
 if(!candidatesShown)lines.push("DB 미연결 또는 일치기관 없음. 실제 지역 기관·서비스를 별도 확인해야 하며 기관명·운영 여부를 창작하지 마세요.");
 lines.push("이 후보 목록의 순서는 최종 의뢰 순위가 아닙니다. 안전·필수욕구·실제 접수 적합성을 근거로 보고서에서 우선순위를 제안하세요. 학교 상담과 지역 전문기관의 역할을 구분하고 자원 DB의 등록정보를 서비스 제공 확약으로 해석하지 마세요.");
 lines.push("","[함께 살펴볼 어려움과 지원 순서]",YouthInsights.analyze(answers).map(function(p){return p.priority+" / "+p.title+" / "+p.text+" / 근거: "+patternEvidence(p)+" / 개입: "+p.action}).join("\n")||"함께 살펴볼 어려움이 뚜렷하게 나타나지 않음","[종합의견(리뷰)]",review,"","[미확인 사항]","학생이 원하는 도움, 강점·지지자원, 실제 관찰·진술 근거, 증상의 시작·지속 기간, 현재 서비스와 효과는 점수만으로 확인되지 않습니다.","","[근거 자료]","https://daily-jh.github.io/osansegyo-welfare-resources/youth-risk/references.html","이름은 자동 제외했습니다. 외부 AI에 붙여넣기 전에 민감정보·기관의 정보처리 기준을 직접 확인하세요.");
@@ -302,6 +303,7 @@ groups.forEach(function(group){var item=group.primary,info=YouthLinks.resolve(it
  if(item.orgId)content+='<a href="../#org='+encodeURIComponent(item.orgId)+'" target="_blank" rel="noopener noreferrer">복지자원 상세정보 ↗</a> · ';
  if(url)content+='<a href="'+clean(url)+'" target="_blank" rel="noopener noreferrer">기관·사업 안내 ↗</a>';content+='</article>';
 });
+var checks=YouthMap.caseChecks(snapshot());if(checks.length)content='<details open><summary>연계 전 확인할 사항 · 공개 사례 대입 검토 반영</summary><ul>'+checks.map(t=>'<li>'+clean(t)+'</li>').join('')+'</ul><a href="public-case-review.html" target="_blank" rel="noopener noreferrer">공개 사례·검수 범위 보기 ↗</a></details>'+content;
 var profile=studentProfile();
 $('resourceList').innerHTML='<p>주소지: '+clean(profile.dong||'미확인 · 관할 동을 먼저 확인')+' / '+clean(YouthMap.welfareZoneText(profile))+' / 성별: '+clean(profile.gender)+' · 위기점수와 별도로 연계 조건을 확인합니다.</p>'+(profile.dong==='오산시 외'?'<p>오산시 외 거주자는 거주지 행정복지센터에 문의하세요. 오산시 자원의 이용 가능 여부도 별도 확인합니다.</p>':'')+(content||'<p>현재 응답에 근거한 자동 추천기관이 없습니다. 안전확인과 학생의 희망을 먼저 살피고 전체 복지자원 검색을 이용하세요.</p>');
 filterResources();

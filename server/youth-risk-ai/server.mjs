@@ -73,7 +73,8 @@ export function createAnalysisServer(config,fetchImpl=fetch){
         const response=await fetchImpl(request.url,{...request.options,signal:AbortSignal.timeout(35000)});
         if(!response.ok)return send(502,{error:'provider_unavailable'});
         const result=await response.json();
-        send(200,{analysis:extractAnalysis(provider,result),provider:provider==='openai'?'OpenAI GPT':'Google Gemini',model});
+        const draft=extractAnalysis(provider,result);
+        send(200,{draft,analysis:draft,provider:provider==='openai'?'OpenAI GPT':'Google Gemini',model});
       }catch{return send(502,{error:'analysis_unavailable'})}finally{inFlight--}
     }catch{if(!res.headersSent)send(400,{error:'invalid_request'})}
     // Request bodies, credentials and provider output are deliberately not logged or persisted.

@@ -25,6 +25,7 @@ test('HTTP authentication, origin, minimized payload, provider error and rate li
   assert.equal((await request(payload(),{Authorization:'Bearer wrong'})).status,401);
   assert.equal((await request({...payload(),name:'not-allowed'})).status,400);assert.equal(upstream.length,0);
   const r=await request();assert.equal(r.status,200);assert.equal(r.headers.get('cache-control'),'no-store');const result=await r.json();assert.equal(result.provider,'OpenAI GPT');assert.equal(result.model,'test-model');assert.ok(!('apiKey' in result));
+  assert.equal(result.draft,result.analysis);assert.equal(result.draft,'연결 검사에 사용하는 가상의 응답입니다.');
   assert.equal(JSON.parse(upstream[0].options.body).model,'test-model');assert.equal(JSON.parse(JSON.parse(upstream[0].options.body).input).items.length,25);
   fail=true;assert.equal((await request()).status,502);fail=false;
   for(let i=0;i<8;i++)assert.equal((await request()).status,200);
