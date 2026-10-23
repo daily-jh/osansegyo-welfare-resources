@@ -201,7 +201,7 @@ plans.push({title:decision.integrated?'학맞통 협의·지원 조정':decision
 if(decision.severe.length||decision.urgent||patterns.length)plans.push({title:'외부 전문기관 연계',text:first?first.action+' 실제 기관 후보와 서비스는 아래 연계기관 목록에서 대상·접수방법을 확인해 의뢰합니다.':'문항의 어려움에 맞춰 상담·정신건강·아동보호·생활지원 중 필요한 역할을 선택합니다. 현재 서비스의 효과와 새 의뢰 목적을 정리하고 기관의 접수 가능 여부를 확인합니다.'});
 plans.push({title:'공동 점검·변화 확인',text:'학생이 체감하는 변화 한두 가지(돌봄시간·수업참여·식사·안전한 관계 등)를 정하고 담당자가 다시 확인합니다. 연결 여부만이 아니라 실제 이용과 어려움의 변화를 살펴 지원을 조정합니다.'});return plans;
 }
-function renderProfile(domainScores,decision){var patterns=YouthInsights.analyze(answers),html='<section class="profile"><h3>영역별 지원 신호</h3><p>각 영역의 문항 평균(0~4점)을 비교합니다.</p><div class="profile-bars" role="list">';domains.forEach(function(d,i){var mean=domainScores[i]/d.items.length;html+='<div class="profile-row" role="listitem"><span>'+clean(d.name)+'</span><span class="profile-track" aria-hidden="true"><i style="width:'+(mean/4*100)+'%;background:'+d.color+'"></i></span><strong>'+mean.toFixed(1)+' / 4</strong><small>'+domainScores[i]+'/'+(d.items.length*4)+'점</small></div>'});html+='</div><h3>함께 살펴볼 어려움과 먼저 도울 일</h3><p>여러 문항에 나타난 어려움을 함께 살펴보고, 학생에게 먼저 필요한 도움을 정리했습니다.</p><div class="pattern-list">';if(!patterns.length)html+='<p>함께 살펴볼 어려움이 뚜렷하게 나타나지는 않았습니다. 응답한 영역과 학생이 원하는 도움부터 살펴보세요.</p>';patterns.forEach(function(p,i){html+='<article class="pattern-card"><span class="pattern-priority">'+(i+1)+' · '+clean(p.priority)+'</span><h4>'+clean(p.title)+'</h4><p>'+clean(p.text)+'</p><p><b>함께 살펴본 응답</b> '+p.evidence.map(function(n){return '<a href="#qi'+(n-1)+'">'+n+'번 '+answers[n-1]+'점</a>'}).join(' + ')+'</p><p><b>도울 수 있는 방법</b> '+clean(p.action)+'</p><details><summary>면담에서 나눌 이야기·관련 문항</summary><p>'+clean(p.ask)+'</p><p>'+clean(patternEvidence(p))+'</p></details></article>'});html+='</div></section>';return html;
+function renderProfile(domainScores,decision){var patterns=YouthInsights.analyze(answers),html='<section class="profile"><h3>영역별 지원 신호</h3><p>각 영역의 문항 평균(0~4점)을 비교합니다.</p><div class="profile-bars" role="list">';domains.forEach(function(d,i){var mean=domainScores[i]/d.items.length;html+='<div class="profile-row" role="listitem"><span>'+clean(d.name)+'</span><span class="profile-track" aria-hidden="true"><i style="width:'+(mean/4*100)+'%;background:'+d.color+'"></i></span><strong>'+mean.toFixed(1)+' / 4</strong><small>'+domainScores[i]+'/'+(d.items.length*4)+'점</small></div>'});html+='</div><h3>함께 살펴볼 어려움과 먼저 도울 일</h3><p>안전우선 → 우선개입 → 계획지원 순으로, 성격이 같은 항목은 색상과 구획을 통일했습니다.</p><div class="pattern-list">'; if(decision.urgent&&!patterns.some(function(p){return p.priority==='안전 우선'}))html+='<article class="pattern-card priority-safety"><span class="pattern-priority">안전우선 · 별도 안전신호</span><h4>점수와 관계없이 현재 안전부터 확인</h4><p>별도 긴급 안전신호가 선택되었거나 현재 위험 추가확인이 필요합니다. 현장 안전·보호·신고 절차를 먼저 확인하세요. 긴급 위해는 112 또는 119로 연락합니다.</p></article>';if(!patterns.length)html+='<p>함께 살펴볼 어려움이 뚜렷하게 나타나지는 않았습니다. 응답한 영역과 학생이 원하는 도움부터 살펴보세요.</p>';patterns.forEach(function(p,i){html+='<article class="pattern-card '+(p.priority==='안전 우선'?'priority-safety':p.priority==='우선 개입'?'priority-action':'priority-plan')+'"><span class="pattern-priority">'+(i+1)+' · '+clean(p.priority)+'</span><h4>'+clean(p.title)+'</h4><p>'+clean(p.text)+'</p><p><b>함께 살펴본 응답</b> '+p.evidence.map(function(n){return '<a href="#qi'+(n-1)+'">'+n+'번 '+answers[n-1]+'점</a>'}).join(' + ')+'</p><p><b>도울 수 있는 방법</b> '+clean(p.action)+'</p><details><summary>면담에서 나눌 이야기·관련 문항</summary><p>'+clean(p.ask)+'</p><p>'+clean(patternEvidence(p))+'</p></details></article>'});html+='</div></section>';return html;
 }
 function resizeSummary(){var n=$("summaryText");n.style.height="auto";n.style.height=Math.max(220,n.scrollHeight+4)+"px"}
 window.addEventListener("resize",resizeSummary);
@@ -307,9 +307,33 @@ filterResources();
 }
 function filterResources(){var value=$("resourceFilter").value,count=0;document.querySelectorAll("#resourceList .resource-item").forEach(function(n){n.hidden=value!=="all"&&n.dataset.domains.split(',').indexOf(value)===-1;if(!n.hidden)count++});$("filterCount").textContent=count+"개 기관 후보 · 표시 순서는 의뢰 우선순위가 아닙니다. 안전조치는 필터와 무관하게 우선합니다."}
 function findPending(){var pending=[];answers.forEach(function(v,i){if(v===null)pending.push(i)});$("pendingList").innerHTML=pending.length?'<strong>응답이 필요한 '+pending.length+'개 문항</strong><p>아직 확인하기 어려운 내용은 미상을 선택해 주세요. 미상은 0점과 구분됩니다.</p>'+pending.map(function(i){return '<button type="button" class="pending-jump" data-question="'+i+'">'+(i+1)+'번 · 미응답</button>'}).join(''):'25문항 채점이 완료되었습니다. 결과 보기를 눌러 주세요.';$("pendingList").scrollIntoView({block:"center"})}
+window.addEventListener('message',function(e){
+ if(e.origin!==location.origin||e.source!==window.parent||e.data?.type!=='youth-flow-import-v1')return;
+ const b=e.data.backup;
+ if(!b||b.format!=='osan-youth-risk-backup-v1'||!Array.isArray(b.answers)||b.answers.length!==25||
+    !b.answers.every(v=>v==='unknown'||Number.isInteger(v)&&v>=0&&v<=4)||
+    !Array.isArray(b.explicit)||b.explicit.some(v=>typeof v!=='string')||
+    !b.followups||typeof b.followups!=='object'||Array.isArray(b.followups))return;
+ answers=b.answers.slice();
+ answers.forEach((value,i)=>{
+  const input=Array.from(document.querySelectorAll('#qi'+i+' input[type="radio"]')).find(n=>n.value===String(value));
+  if(input)input.checked=true;
+  $('qi'+i).classList.add('has-value');
+ });
+ const urgentChecks=Array.from(document.querySelectorAll('#safetyChecks input[data-urgent]'));
+ urgentChecks.forEach(n=>n.checked=b.explicit.includes(n.dataset.urgent));
+ $('safetyFollowups').dataset.key='';
+ updateFollowups();
+ Object.entries(b.followups).forEach(([k,v])=>{
+  if(!['4','5','12','13'].includes(k)||!['yes','no','unknown'].includes(v))return;
+  const radio=Array.from(document.querySelectorAll('#safetyFollowups input[data-item]')).find(n=>n.dataset.item===k&&n.value===v);
+  if(radio)radio.checked=true;
+ });
+ updateProgress();updateUrgent();calculate();
+});
 var supportWindows=new Set();
 window.addEventListener('message',function(e){if(e.origin!==location.origin||!supportWindows.has(e.source)||!e.data||!['youth-support-request-v1','youth-workbench-request-v1'].includes(e.data.type))return;if(!ready){e.source.postMessage({type:'youth-support-unavailable-v1'},location.origin);return}e.source.postMessage(snapshot(),location.origin)});
-function openSupport(){if(!ready)return;supportWindows.forEach(function(w){if(w.closed)supportWindows.delete(w)});var w=window.open('support.html','_blank');if(w){supportWindows.add(w);$("supportStatus").textContent="지원 연결지도를 새 탭에서 열었습니다. 원래 평가 탭을 닫지 마세요."}else $("supportStatus").textContent="새 탭이 차단되었습니다. 브라우저에서 이 사이트의 팝업을 허용한 뒤 다시 눌러 주세요."}
+function openSupport(){if(!ready)return;if(window.parent!==window){window.parent.postMessage({type:'youth-flow-go-v1',stage:2,view:'map'},location.origin);return;}supportWindows.forEach(function(w){if(w.closed)supportWindows.delete(w)});var w=window.open('support.html','_blank');if(w){supportWindows.add(w);$("supportStatus").textContent="지원 연결지도를 새 탭에서 열었습니다. 원래 평가 탭을 닫지 마세요."}else $("supportStatus").textContent="새 탭이 차단되었습니다. 브라우저에서 이 사이트의 팝업을 허용한 뒤 다시 눌러 주세요."}
 function init(){
 document.querySelectorAll("input").forEach(function(n){n.value=n.type==="checkbox"?n.value:"";n.checked=false});makeQuestions();updateProgress();
 clearSummary();

@@ -1,0 +1,11 @@
+/* 단계별 정보 색상은 위험을 확정하는 판정값이 아닙니다 */
+.pattern-card{border-left:5px solid #c2bfd7;word-break:keep-all}
+.pattern-card.priority-safety{border-left-color:#bb433e;background:#fff5f4}
+.pattern-card.priority-action{border-left-color:#b77b18;background:#fffaee}
+.pattern-card.priority-plan{border-left-color:#078e7b;background:#effbf7}
+.priority-safety .pattern-priority{color:#a72d29;background:#fbe5e3}
+.priority-action .pattern-priority{color:#93600d;background:#ffefcd}
+.priority-plan .pattern-priority{color:#067765;background:#dff6ed}
+.pattern-card p{line-height:1.85}
+.pattern-card details{margin-top:12px}
+@media print{.priority-safety,.priority-action,.priority-plan{-webkit-print-color-adjust:exact;print-color-adjust:exact}}

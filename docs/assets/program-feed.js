@@ -10,7 +10,7 @@ function status(p,day=today()){
  if(p.opensOn&&day<p.opensOn)return '예정';
  if(p.status==='상시')return '상시';
  if(p.opensOn&&p.closesOn)return '모집중';
- return ['모집중','예정'].includes(p.status)?p.status:'확인 필요';
+ return '확인 필요'; // 날짜가 없는 모집상태는 활성 모집으로 단정하지 않음
 }
 function merge(data,feed){
  if(!Array.isArray(feed?.programs))throw Error('Invalid program data');
