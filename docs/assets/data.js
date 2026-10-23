@@ -3747,11 +3747,11 @@ window.WELFARE_DATA = {
         "source_url": "https://www.worldvision.or.kr/",
         "verified_on": "2026-10-22"
       },
-      "address": "",
-      "addressSource": "",
-      "addressStatus": "미확인",
-      "addressCheckedOn": "",
-      "addressNote": "주소 확인 후 방문 안내 가능"
+      "address": "서울특별시 영등포구 여의나루로 77-1",
+      "addressSource": "https://www.worldvision.or.kr/contact",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "월드비전 전국 본부 주소"
     },
     {
       "id": "d4b65309ba",
@@ -4107,11 +4107,11 @@ window.WELFARE_DATA = {
         "source_url": "https://purme.org/",
         "verified_on": "2026-10-22"
       },
-      "address": "",
-      "addressSource": "",
-      "addressStatus": "미확인",
-      "addressCheckedOn": "",
-      "addressNote": "주소 확인 후 방문 안내 가능"
+      "address": "서울특별시 종로구 자하문로 89, 4층",
+      "addressSource": "https://www.purme.org/",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "푸르메재단 사무국; 푸르메센터와 별도 확인"
     },
     {
       "id": "bb4130b1c3",
@@ -4206,11 +4206,11 @@ window.WELFARE_DATA = {
         "source_url": "https://beautifulfund.org/",
         "verified_on": "2026-10-22"
       },
-      "address": "",
-      "addressSource": "",
-      "addressStatus": "미확인",
-      "addressCheckedOn": "",
-      "addressNote": "주소 확인 후 방문 안내 가능"
+      "address": "서울특별시 종로구 자하문로19길 6",
+      "addressSource": "https://beautifulfund.org/aboutus/contactus/",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "아름다운재단 본부"
     },
     {
       "id": "2276831255",
@@ -4669,11 +4669,11 @@ window.WELFARE_DATA = {
         "source_url": "https://chest.or.kr/",
         "verified_on": "2026-10-22"
       },
-      "address": "",
-      "addressSource": "",
-      "addressStatus": "미확인",
-      "addressCheckedOn": "",
-      "addressNote": "주소 확인 후 방문 안내 가능"
+      "address": "서울특별시 중구 세종대로21길 39, 사랑의열매회관 6층",
+      "addressSource": "https://www.chest.or.kr/lf/intrcn/initIntrcn.do?cckIs=E",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "사랑의열매 중앙회 본부; 경기사회복지공동모금회와 구별"
     },
     {
       "id": "020d4417f2",
@@ -8585,11 +8585,11 @@ window.WELFARE_DATA = {
         "source_url": "https://kfpd.org/51",
         "verified_on": ""
       },
-      "address": "",
-      "addressSource": "",
-      "addressStatus": "미확인",
-      "addressCheckedOn": "",
-      "addressNote": "주소 확인 후 방문 안내 가능"
+      "address": "서울특별시 중구 통일로 86, 207호",
+      "addressSource": "https://kfpd.org/page/41_4",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "한국장애인재단 본부"
     },
     {
       "id": "cb29012dd4",
@@ -8687,11 +8687,11 @@ window.WELFARE_DATA = {
         "source_url": "https://womenfund.or.kr/business",
         "verified_on": ""
       },
-      "address": "",
-      "addressSource": "",
-      "addressStatus": "미확인",
-      "addressCheckedOn": "",
-      "addressNote": "주소 확인 후 방문 안내 가능"
+      "address": "서울특별시 마포구 월드컵북로5길 13, 한국여성재단빌딩 5층",
+      "addressSource": "https://womenfund.or.kr/archives/32030",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-10-23",
+      "addressNote": "2026년 공식 채용공고 소재지"
     },
     {
       "id": "022356646f",

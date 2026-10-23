@@ -41,3 +41,5 @@ body{font-family:'SUIT Variable',-apple-system,BlinkMacSystemFont,'Apple SD Goth
 .institution-contact .address-map-links a{font-size:12px;font-weight:750;color:#315e96;background:#fff;border:1px solid #d5e2f1;padding:6px 10px;border-radius:9px;white-space:nowrap}
 .institution-contact .address-map-links a:hover{background:#eaf3ff;text-decoration:underline}
 @media(max-width:490px){.institution-contact .contact-address{font-size:14px}.institution-contact .address-map-links a{font-size:12px;padding:6px 9px}}
+
+.institution-contact .address-location-note{display:block;margin:0 0 7px;font-size:12px;line-height:1.5;color:#5f7185}
