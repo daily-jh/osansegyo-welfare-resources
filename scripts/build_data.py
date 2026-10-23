@@ -98,7 +98,7 @@ def generate():
     phone={c['owner_id']:c['phone'] for c in contacts if c['owner_type']=='organization' and c['note']=='대표전화'}
     om={o['org_id']:o for o in orgs}; grouped={}; flat=[]
     for o in orgs:
-        grouped[o['org_id']]={'id':o['org_id'],'name':o['기관명'],'level':o['범주'],'kind':o['기관유형'],'summary':o['기관소개'],'site':o['홈페이지'],'phone':phone.get(o['org_id'],''),'source':o['근거URL'],'reviewed':'','status':o['status'],'services':[]}
+        grouped[o['org_id']]={'id':o['org_id'],'name':o['기관명'],'level':o['범주'],'kind':o['기관유형'],'summary':o['기관소개'],'site':o['홈페이지'],'phone':phone.get(o['org_id'],''),'source':o['근거URL'],'reviewed':'','status':o['status'],'jurisdiction':o['jurisdiction'],'services':[]}
         grouped[o['org_id']]['contact']=next((c for c in contacts if c['owner_type']=='organization' and c['owner_id']==o['org_id'] and c['note']=='대표전화'),{})
         grouped[o['org_id']].update({'address':o['address'],'addressSource':o['address_source_url'],'addressStatus':o['address_status'],'addressCheckedOn':o['address_checked_on'],'addressNote':o['address_note']})
     for s in services:

@@ -80,7 +80,7 @@ function create(data,role,narrative,criteria){
     '- 현재 안전 추가확인 미완료 문항: '+(decision.pendingChecks.length?decision.pendingChecks.join(', ')+'번':'없음'),
     '',
     '[연계용 입력정보 · 점수 미반영]',
-    '성별: '+profile.gender+' / 거주 행정동: '+(profile.dong||'미확인')+' · 이름·상세주소 미포함',
+    '성별: '+profile.gender+' / 거주 행정동: '+(profile.dong||'미확인')+' / '+M.welfareZoneText(profile)+' · 이름·상세주소 미포함',
     '[공용 자원 DB에서 응답과 관할에 따라 선정한 문의 후보]',
     candidates||'현재 응답에 근거한 자동 추천 후보 없음. 학생의 실제 필요를 먼저 확인.',
     '',

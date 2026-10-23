@@ -101,6 +101,7 @@ window.WELFARE_DATA = {
       "source": "https://www.osgwc.or.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "1권역: 신장1동·신장2동·세마동",
       "services": [
         {
           "id": "SVC-00001",
@@ -261,6 +262,7 @@ window.WELFARE_DATA = {
       "source": "https://osanwelfare.co.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "2권역: 남촌동·중앙동",
       "services": [
         {
           "id": "SVC-00005",
@@ -392,6 +394,7 @@ window.WELFARE_DATA = {
       "source": "https://www.ossw.or.kr/home/",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "3권역: 대원1동·대원2동·초평동",
       "services": [
         {
           "id": "SVC-00008",
@@ -524,6 +527,7 @@ window.WELFARE_DATA = {
       "source": "https://www.osan.go.kr/main.do",
       "reviewed": "",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [],
       "contact": {
         "contact_id": "CON-438b636f15",
@@ -555,6 +559,7 @@ window.WELFARE_DATA = {
       "source": "https://www.osan.go.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00015",
@@ -649,6 +654,7 @@ window.WELFARE_DATA = {
       "source": "https://osan.gcps.or.kr/gnosan/json/branchinfo",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00018",
@@ -751,6 +757,7 @@ window.WELFARE_DATA = {
       "source": "https://osan.familynet.or.kr/center/lay1/program/S295T315C321/center_info/view.do",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00020",
@@ -881,6 +888,7 @@ window.WELFARE_DATA = {
       "source": "https://www.osan1318.or.kr/1318/main.do",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00023",
@@ -982,6 +990,7 @@ window.WELFARE_DATA = {
       "source": "https://www.osan.go.kr/depart/contents.do?mId=0405020000",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00025",
@@ -1078,6 +1087,7 @@ window.WELFARE_DATA = {
       "source": "https://www.osmh.or.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00027",
@@ -1213,6 +1223,7 @@ window.WELFARE_DATA = {
       "source": "https://www.osan.go.kr/depart/contents.do?mId=0502070000",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00030",
@@ -1340,6 +1351,7 @@ window.WELFARE_DATA = {
       "source": "https://www.osrc.or.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00033",
@@ -1476,6 +1488,7 @@ window.WELFARE_DATA = {
       "source": "https://hanaul.or.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00036",
@@ -1571,6 +1584,7 @@ window.WELFARE_DATA = {
       "source": "https://osannoin.or.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00038",
@@ -1669,6 +1683,7 @@ window.WELFARE_DATA = {
       "source": "http://ossc.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00040",
@@ -1733,6 +1748,7 @@ window.WELFARE_DATA = {
       "source": "http://www.osjw.or.kr/g5/index.php",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00041",
@@ -1828,6 +1844,7 @@ window.WELFARE_DATA = {
       "source": "https://www.work.go.kr/osan/main.do",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00043",
@@ -1927,6 +1944,7 @@ window.WELFARE_DATA = {
       "source": "https://www.osan1365.or.kr/board/board.php?p=4&table=mn01_04_02",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00045",
@@ -2023,6 +2041,7 @@ window.WELFARE_DATA = {
       "source": "https://www.osan1365.or.kr/board/board.php?p=4&table=mn01_04_02",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00047",
@@ -2119,6 +2138,7 @@ window.WELFARE_DATA = {
       "source": "https://www.osan.go.kr/depart/contents.do?mId=0403020500",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00049",
@@ -2184,6 +2204,7 @@ window.WELFARE_DATA = {
       "source": "https://www.gg.go.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00050",
@@ -2314,6 +2335,7 @@ window.WELFARE_DATA = {
       "source": "https://gcfwc.ggwf.or.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00053",
@@ -2415,6 +2437,7 @@ window.WELFARE_DATA = {
       "source": "https://housing.gg.go.kr/html/27100.do",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00055",
@@ -2511,6 +2534,7 @@ window.WELFARE_DATA = {
       "source": "https://www.medical.or.kr/center/index.do",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00057",
@@ -2611,6 +2635,7 @@ window.WELFARE_DATA = {
       "source": "https://www.ggnurim.or.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00059",
@@ -2738,6 +2763,7 @@ window.WELFARE_DATA = {
       "source": "https://www.broso.or.kr/gyeonggi/mainPage.do",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00062",
@@ -2835,6 +2861,7 @@ window.WELFARE_DATA = {
       "source": "https://www.hi1318.or.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00064",
@@ -2936,6 +2963,7 @@ window.WELFARE_DATA = {
       "source": "https://gg.pass.or.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00066",
@@ -3033,6 +3061,7 @@ window.WELFARE_DATA = {
       "source": "https://ggwf.gg.go.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00068",
@@ -3130,6 +3159,7 @@ window.WELFARE_DATA = {
       "source": "https://www.gjf.or.kr/main/main.do",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00070",
@@ -3227,6 +3257,7 @@ window.WELFARE_DATA = {
       "source": "https://www.goehs.kr/goehs/cm/cntnts/cntntsView.do?cntntsId=2147&mi=18023",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00072",
@@ -3327,6 +3358,7 @@ window.WELFARE_DATA = {
       "source": "https://www.chorogusan.or.kr/main.do",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00074",
@@ -3496,6 +3528,7 @@ window.WELFARE_DATA = {
       "source": "https://www.goodneighbors.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00078",
@@ -3629,6 +3662,7 @@ window.WELFARE_DATA = {
       "source": "https://www.worldvision.or.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00081",
@@ -3764,6 +3798,7 @@ window.WELFARE_DATA = {
       "source": "https://www.sc.or.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00084",
@@ -3862,6 +3897,7 @@ window.WELFARE_DATA = {
       "source": "https://www.miral.org/etc/map.do",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00086",
@@ -3991,6 +4027,7 @@ window.WELFARE_DATA = {
       "source": "https://purme.org/",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00089",
@@ -4124,6 +4161,7 @@ window.WELFARE_DATA = {
       "source": "https://beautifulfund.org/",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00092",
@@ -4223,6 +4261,7 @@ window.WELFARE_DATA = {
       "source": "https://www.sdream.or.kr/portal",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00094",
@@ -4357,6 +4396,7 @@ window.WELFARE_DATA = {
       "source": "https://www.gfound.org/",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00097",
@@ -4456,6 +4496,7 @@ window.WELFARE_DATA = {
       "source": "https://www.habitat.or.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00099",
@@ -4555,6 +4596,7 @@ window.WELFARE_DATA = {
       "source": "https://chest.or.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00101",
@@ -4686,6 +4728,7 @@ window.WELFARE_DATA = {
       "source": "https://www.redcross.or.kr/main/cm/conts/contsView.do?mi=1384&contsId=1102",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00104",
@@ -4782,6 +4825,7 @@ window.WELFARE_DATA = {
       "source": "https://www.babo.or.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00106",
@@ -4880,6 +4924,7 @@ window.WELFARE_DATA = {
       "source": "https://www.kfhi.or.kr/",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00108",
@@ -4980,6 +5025,7 @@ window.WELFARE_DATA = {
       "source": "https://www.kclf.org/",
       "reviewed": "2026-10-20",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [
         {
           "id": "SVC-00110",
@@ -5077,6 +5123,7 @@ window.WELFARE_DATA = {
       "source": "https://osan.welinfo.kr/?board=programList",
       "reviewed": "",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [],
       "contact": {
         "contact_id": "CON-90d0406e33",
@@ -5108,6 +5155,7 @@ window.WELFARE_DATA = {
       "source": "https://osan.welinfo.kr/?board=programList",
       "reviewed": "",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [],
       "contact": {
         "contact_id": "CON-b66a287ba5",
@@ -5139,6 +5187,7 @@ window.WELFARE_DATA = {
       "source": "https://osan.welinfo.kr/?board=programList",
       "reviewed": "",
       "status": "미확인",
+      "jurisdiction": "",
       "services": [],
       "contact": {
         "contact_id": "CON-4cd8235704",
@@ -5170,6 +5219,7 @@ window.WELFARE_DATA = {
       "source": "https://www.osan.go.kr/main.do",
       "reviewed": "2026-10-22",
       "status": "운영중",
+      "jurisdiction": "오산시",
       "services": [
         {
           "id": "SVC-00011",
@@ -5337,6 +5387,7 @@ window.WELFARE_DATA = {
       "source": "https://www.osan.go.kr/main.do",
       "reviewed": "2026-10-22",
       "status": "운영중",
+      "jurisdiction": "오산시",
       "services": [
         {
           "id": "SVC-X26-112",
@@ -5520,6 +5571,7 @@ window.WELFARE_DATA = {
       "source": "https://www.osan.go.kr/main.do",
       "reviewed": "2026-10-22",
       "status": "운영중",
+      "jurisdiction": "오산시",
       "services": [
         {
           "id": "SVC-X26-116",
@@ -5703,6 +5755,7 @@ window.WELFARE_DATA = {
       "source": "https://www.osan.go.kr/main.do",
       "reviewed": "2026-10-22",
       "status": "운영중",
+      "jurisdiction": "오산시",
       "services": [
         {
           "id": "SVC-X26-120",
@@ -5886,6 +5939,7 @@ window.WELFARE_DATA = {
       "source": "https://www.osan.go.kr/main.do",
       "reviewed": "2026-10-22",
       "status": "운영중",
+      "jurisdiction": "오산시",
       "services": [
         {
           "id": "SVC-X26-124",
@@ -6069,6 +6123,7 @@ window.WELFARE_DATA = {
       "source": "https://www.osan.go.kr/main.do",
       "reviewed": "2026-10-22",
       "status": "운영중",
+      "jurisdiction": "오산시",
       "services": [
         {
           "id": "SVC-X26-128",
@@ -6252,6 +6307,7 @@ window.WELFARE_DATA = {
       "source": "https://www.osan.go.kr/main.do",
       "reviewed": "2026-10-22",
       "status": "운영중",
+      "jurisdiction": "오산시",
       "services": [
         {
           "id": "SVC-X26-132",
@@ -6435,6 +6491,7 @@ window.WELFARE_DATA = {
       "source": "https://www.osan.go.kr/main.do",
       "reviewed": "2026-10-22",
       "status": "운영중",
+      "jurisdiction": "오산시",
       "services": [
         {
           "id": "SVC-X26-136",
@@ -6618,6 +6675,7 @@ window.WELFARE_DATA = {
       "source": "https://www.osan.go.kr/main.do",
       "reviewed": "2026-10-22",
       "status": "운영중",
+      "jurisdiction": "오산시",
       "services": [
         {
           "id": "SVC-00016",
@@ -6725,6 +6783,7 @@ window.WELFARE_DATA = {
       "source": "https://www.gg.go.kr/bbs/boardView.do?bIdx=218024475&bsIdx=496&menuId=3261&page=1",
       "reviewed": "2026-10-22",
       "status": "미확인",
+      "jurisdiction": "오산시",
       "services": [
         {
           "id": "SVC-X26-141",
@@ -6827,6 +6886,7 @@ window.WELFARE_DATA = {
       "source": "https://www.osan.go.kr/ostv/cast/viewer/board.do?key=1d70d0e98c9884a631f744996476ce2989f5a89079c35e96cbd016d44babcb3e31740822049d111d",
       "reviewed": "2026-10-22",
       "status": "운영중",
+      "jurisdiction": "오산시",
       "services": [
         {
           "id": "SVC-X26-143",
@@ -6931,6 +6991,7 @@ window.WELFARE_DATA = {
       "source": "https://www.gg.go.kr/contents/contents.do?ciIdx=1526&menuId=3451",
       "reviewed": "2026-10-22",
       "status": "운영중",
+      "jurisdiction": "사업별 관할·접수기준 확인",
       "services": [
         {
           "id": "SVC-X26-145",
@@ -7003,6 +7064,7 @@ window.WELFARE_DATA = {
       "source": "https://www.mentalhealth.or.kr/MentalBusiness/BusinessContent.asp",
       "reviewed": "2026-10-22",
       "status": "운영중",
+      "jurisdiction": "사업별 관할·접수기준 확인",
       "services": [
         {
           "id": "SVC-X26-146",
@@ -7105,6 +7167,7 @@ window.WELFARE_DATA = {
       "source": "https://www.atrac.or.kr/main/main.html",
       "reviewed": "2026-10-22",
       "status": "운영중",
+      "jurisdiction": "사업별 관할·접수기준 확인",
       "services": [
         {
           "id": "SVC-X26-148",
@@ -7209,6 +7272,7 @@ window.WELFARE_DATA = {
       "source": "https://ggwf.gg.go.kr/wp-content/uploads/sites/30/2024/12/정책연구-2024-08_경기도-장애인권익옹호기관-운영-현황-및-개선방안.pdf",
       "reviewed": "2026-10-22",
       "status": "미확인",
+      "jurisdiction": "사업별 관할·접수기준 확인",
       "services": [
         {
           "id": "SVC-X26-150",
@@ -7277,6 +7341,7 @@ window.WELFARE_DATA = {
       "source": "https://www.gg.go.kr/contents/contents.do?ciIdx=1472&menuId=3302",
       "reviewed": "2026-10-22",
       "status": "운영중",
+      "jurisdiction": "사업별 관할·접수기준 확인",
       "services": [
         {
           "id": "SVC-X26-151",
@@ -7395,6 +7460,7 @@ window.WELFARE_DATA = {
       "source": "https://www.gg.go.kr/contents/contents.do?ciIdx=1470&menuId=3300",
       "reviewed": "2026-10-22",
       "status": "운영중",
+      "jurisdiction": "사업별 관할·접수기준 확인",
       "services": [
         {
           "id": "SVC-X26-153",
@@ -7464,6 +7530,7 @@ window.WELFARE_DATA = {
       "source": "https://www.gg.go.kr/contents/contents.do?ciIdx=1471&menuId=3301",
       "reviewed": "2026-10-22",
       "status": "운영중",
+      "jurisdiction": "사업별 관할·접수기준 확인",
       "services": [
         {
           "id": "SVC-X26-154",
@@ -7534,6 +7601,7 @@ window.WELFARE_DATA = {
       "source": "https://www.gg.go.kr/contents/contents.do?ciIdx=1471&menuId=3301",
       "reviewed": "2026-10-22",
       "status": "운영중",
+      "jurisdiction": "사업별 관할·접수기준 확인",
       "services": [
         {
           "id": "SVC-X26-155",
@@ -7604,6 +7672,7 @@ window.WELFARE_DATA = {
       "source": "https://hosp.ajoumc.or.kr/",
       "reviewed": "2026-10-22",
       "status": "운영중",
+      "jurisdiction": "사업별 관할·접수기준 확인",
       "services": [
         {
           "id": "SVC-X26-156",
@@ -7712,6 +7781,7 @@ window.WELFARE_DATA = {
       "source": "https://dongtan.hallym.or.kr/",
       "reviewed": "2026-10-22",
       "status": "운영중",
+      "jurisdiction": "사업별 관할·접수기준 확인",
       "services": [
         {
           "id": "SVC-X26-158",
@@ -7820,6 +7890,7 @@ window.WELFARE_DATA = {
       "source": "https://www.snubh.org/index.do",
       "reviewed": "2026-10-22",
       "status": "운영중",
+      "jurisdiction": "사업별 관할·접수기준 확인",
       "services": [
         {
           "id": "SVC-X26-160",
@@ -7928,6 +7999,7 @@ window.WELFARE_DATA = {
       "source": "https://www.medical.or.kr/suwon/index.do",
       "reviewed": "2026-10-22",
       "status": "운영중",
+      "jurisdiction": "사업별 관할·접수기준 확인",
       "services": [
         {
           "id": "SVC-X26-162",
@@ -8121,6 +8193,7 @@ window.WELFARE_DATA = {
       "source": "https://www.klac.or.kr/",
       "reviewed": "2026-10-22",
       "status": "운영중",
+      "jurisdiction": "사업별 관할·접수기준 확인",
       "services": [
         {
           "id": "SVC-X26-166",
@@ -8188,6 +8261,7 @@ window.WELFARE_DATA = {
       "source": "https://edu.ccrs.or.kr/main.do",
       "reviewed": "2026-10-22",
       "status": "운영중",
+      "jurisdiction": "사업별 관할·접수기준 확인",
       "services": [
         {
           "id": "SVC-X26-167",
@@ -8256,6 +8330,7 @@ window.WELFARE_DATA = {
       "source": "https://m.myhome.go.kr/hws/portal/main/selectSimpleSrchDataView.do",
       "reviewed": "2026-10-22",
       "status": "운영중",
+      "jurisdiction": "사업별 관할·접수기준 확인",
       "services": [
         {
           "id": "SVC-X26-168",
@@ -8326,6 +8401,7 @@ window.WELFARE_DATA = {
       "source": "https://www.bokjiro.go.kr/ssis-tbu/",
       "reviewed": "2026-10-22",
       "status": "운영중",
+      "jurisdiction": "사업별 관할·접수기준 확인",
       "services": [
         {
           "id": "SVC-X26-169",
@@ -8396,6 +8472,7 @@ window.WELFARE_DATA = {
       "source": "https://www.bokji.net/ssn/bin/13.bokji",
       "reviewed": "2026-10-22",
       "status": "운영중",
+      "jurisdiction": "사업별 관할·접수기준 확인",
       "services": [
         {
           "id": "SVC-X26-170",
@@ -8498,6 +8575,7 @@ window.WELFARE_DATA = {
       "source": "https://kfpd.org/51",
       "reviewed": "2026-10-22",
       "status": "운영중",
+      "jurisdiction": "사업별 관할·접수기준 확인",
       "services": [
         {
           "id": "SVC-X26-172",
@@ -8602,6 +8680,7 @@ window.WELFARE_DATA = {
       "source": "https://womenfund.or.kr/business",
       "reviewed": "2026-10-22",
       "status": "운영중",
+      "jurisdiction": "사업별 관할·접수기준 확인",
       "services": [
         {
           "id": "SVC-X26-174",
@@ -8704,6 +8783,7 @@ window.WELFARE_DATA = {
       "source": "https://www.withgo.or.kr/index.do",
       "reviewed": "2026-10-22",
       "status": "운영중",
+      "jurisdiction": "사업별 관할·접수기준 확인",
       "services": [
         {
           "id": "SVC-X26-176",
@@ -8809,6 +8889,7 @@ window.WELFARE_DATA = {
       "source": "https://www.heart-heart.org/",
       "reviewed": "2026-10-22",
       "status": "운영중",
+      "jurisdiction": "사업별 관할·접수기준 확인",
       "services": [
         {
           "id": "SVC-X26-178",
@@ -8914,6 +8995,7 @@ window.WELFARE_DATA = {
       "source": "https://www.kidsfuture.or.kr/",
       "reviewed": "2026-10-22",
       "status": "운영중",
+      "jurisdiction": "사업별 관할·접수기준 확인",
       "services": [
         {
           "id": "SVC-X26-180",
@@ -8982,6 +9064,7 @@ window.WELFARE_DATA = {
       "source": "https://www.heart.or.kr/",
       "reviewed": "2026-10-22",
       "status": "운영중",
+      "jurisdiction": "사업별 관할·접수기준 확인",
       "services": [
         {
           "id": "SVC-X26-181",
@@ -9050,6 +9133,7 @@ window.WELFARE_DATA = {
       "source": "https://www.kord.or.kr/index.php",
       "reviewed": "2026-10-22",
       "status": "운영중",
+      "jurisdiction": "사업별 관할·접수기준 확인",
       "services": [
         {
           "id": "SVC-X26-182",
@@ -9180,6 +9264,7 @@ window.WELFARE_DATA = {
       "source": "https://www.hugmomhugin.co.kr/branch/main/main.html?jijummid=osan",
       "reviewed": "2026-10-23",
       "status": "운영중",
+      "jurisdiction": "오산시",
       "services": [
         {
           "id": "SVC-OSAN26-001",
@@ -9253,6 +9338,7 @@ window.WELFARE_DATA = {
       "source": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
       "reviewed": "2026-10-23",
       "status": "미확인",
+      "jurisdiction": "오산시",
       "services": [
         {
           "id": "SVC-OSAN26-002",
@@ -9326,6 +9412,7 @@ window.WELFARE_DATA = {
       "source": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
       "reviewed": "2026-10-23",
       "status": "미확인",
+      "jurisdiction": "오산시",
       "services": [
         {
           "id": "SVC-OSAN26-003",
@@ -9399,6 +9486,7 @@ window.WELFARE_DATA = {
       "source": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
       "reviewed": "2026-10-23",
       "status": "미확인",
+      "jurisdiction": "오산시",
       "services": [
         {
           "id": "SVC-OSAN26-004",
@@ -9472,6 +9560,7 @@ window.WELFARE_DATA = {
       "source": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
       "reviewed": "2026-10-23",
       "status": "미확인",
+      "jurisdiction": "오산시",
       "services": [
         {
           "id": "SVC-OSAN26-005",
@@ -9545,6 +9634,7 @@ window.WELFARE_DATA = {
       "source": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
       "reviewed": "2026-10-23",
       "status": "미확인",
+      "jurisdiction": "오산시",
       "services": [
         {
           "id": "SVC-OSAN26-006",
@@ -9618,6 +9708,7 @@ window.WELFARE_DATA = {
       "source": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
       "reviewed": "2026-10-23",
       "status": "미확인",
+      "jurisdiction": "오산시",
       "services": [
         {
           "id": "SVC-OSAN26-007",
@@ -9691,6 +9782,7 @@ window.WELFARE_DATA = {
       "source": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
       "reviewed": "2026-10-23",
       "status": "미확인",
+      "jurisdiction": "오산시",
       "services": [
         {
           "id": "SVC-OSAN26-008",
@@ -9764,6 +9856,7 @@ window.WELFARE_DATA = {
       "source": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
       "reviewed": "2026-10-23",
       "status": "미확인",
+      "jurisdiction": "오산시",
       "services": [
         {
           "id": "SVC-OSAN26-009",
@@ -9837,6 +9930,7 @@ window.WELFARE_DATA = {
       "source": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
       "reviewed": "2026-10-23",
       "status": "미확인",
+      "jurisdiction": "오산시",
       "services": [
         {
           "id": "SVC-OSAN26-010",
@@ -9910,6 +10004,7 @@ window.WELFARE_DATA = {
       "source": "https://www.hira.or.kr/ra/hosp/hospInfoAjax.do?ykiho=JDQ4MTYyMiM1MSMkMSMkMCMkODkkMzgxMzUxIzExIyQxIyQzIyQxMyQzNjEyMjIjNDEjJDEjJDgjJDgz",
       "reviewed": "2026-10-23",
       "status": "운영중",
+      "jurisdiction": "오산시",
       "services": [
         {
           "id": "SVC-OSAN26-011",
@@ -9982,6 +10077,7 @@ window.WELFARE_DATA = {
       "source": "https://osanhospital.co.kr/",
       "reviewed": "2026-10-23",
       "status": "운영중",
+      "jurisdiction": "오산시",
       "services": [
         {
           "id": "SVC-OSAN26-012",
@@ -10054,6 +10150,7 @@ window.WELFARE_DATA = {
       "source": "https://hospital.ottl.net/%EA%B2%BD%EA%B8%B0/%EC%98%A4%EC%82%B0%EC%8B%9C/%EB%B3%91%EC%9B%90/",
       "reviewed": "2026-10-23",
       "status": "미확인",
+      "jurisdiction": "오산시",
       "services": [
         {
           "id": "SVC-OSAN26-013",
@@ -10126,6 +10223,7 @@ window.WELFARE_DATA = {
       "source": "https://www.hira.or.kr/ra/hosp/hospInfoAjax.do?ykiho=JDQ4MTYyMiM1MSMkMSMkMCMkOTkkMzgxOTYxIzExIyQxIyQ3IyQ4OSQyNjE0ODEjNDEjJDEjJDgjJDgz",
       "reviewed": "2026-10-23",
       "status": "운영중",
+      "jurisdiction": "오산시",
       "services": [
         {
           "id": "SVC-OSAN26-014",
@@ -10198,6 +10296,7 @@ window.WELFARE_DATA = {
       "source": "https://hospital.ottl.net/%EA%B2%BD%EA%B8%B0/%EC%98%A4%EC%82%B0%EC%8B%9C/%EB%B3%91%EC%9B%90/",
       "reviewed": "2026-10-23",
       "status": "미확인",
+      "jurisdiction": "오산시",
       "services": [
         {
           "id": "SVC-OSAN26-015",
@@ -10270,6 +10369,7 @@ window.WELFARE_DATA = {
       "source": "https://www.hira.or.kr/ra/hosp/hospInfoAjax.do?ykiho=31209581",
       "reviewed": "2026-10-23",
       "status": "운영중",
+      "jurisdiction": "오산시",
       "services": [
         {
           "id": "SVC-OSAN26-016",
@@ -10342,6 +10442,7 @@ window.WELFARE_DATA = {
       "source": "https://hospital.ottl.net/%EA%B2%BD%EA%B8%B0/%EC%98%A4%EC%82%B0%EC%8B%9C/%EB%B3%91%EC%9B%90/",
       "reviewed": "2026-10-23",
       "status": "미확인",
+      "jurisdiction": "오산시",
       "services": [
         {
           "id": "SVC-OSAN26-017",
@@ -10414,6 +10515,7 @@ window.WELFARE_DATA = {
       "source": "https://www.hira.or.kr/ra/hosp/hospInfoAjax.do?ykiho=JDQ4MTYyMiM1MSMkMSMkMCMkOTkkMzgxOTYxIzExIyQxIyQzIyQ5OSQzNjEwMDIjNTEjJDEjJDIjJDgz",
       "reviewed": "2026-10-23",
       "status": "운영중",
+      "jurisdiction": "오산시",
       "services": [
         {
           "id": "SVC-OSAN26-018",
@@ -10486,6 +10588,7 @@ window.WELFARE_DATA = {
       "source": "https://hospitalfact.kr/clinics/%ED%8F%89%EC%95%88%ED%95%9C%EC%82%AC%EB%9E%91%EB%B3%91%EC%9B%90-9dd7483c-dae8-4e28-bbf8-377a2858f27b/",
       "reviewed": "2026-10-23",
       "status": "미확인",
+      "jurisdiction": "오산시",
       "services": [
         {
           "id": "SVC-OSAN26-019",
@@ -10559,6 +10662,7 @@ window.WELFARE_DATA = {
       "source": "https://clinics.seoul.kr/gyeonggi-do/osan-si/psychiatry",
       "reviewed": "2026-10-23",
       "status": "미확인",
+      "jurisdiction": "오산시",
       "services": [
         {
           "id": "SVC-OSAN26-020",
@@ -10632,6 +10736,7 @@ window.WELFARE_DATA = {
       "source": "https://clinics.seoul.kr/gyeonggi-do/osan-si/osan-dong/psychiatry",
       "reviewed": "2026-10-23",
       "status": "미확인",
+      "jurisdiction": "오산시",
       "services": [
         {
           "id": "SVC-OSAN26-021",
@@ -10705,6 +10810,7 @@ window.WELFARE_DATA = {
       "source": "https://happyosan.com/contact",
       "reviewed": "2026-10-23",
       "status": "운영중",
+      "jurisdiction": "오산시",
       "services": [
         {
           "id": "SVC-OSAN26-022",
@@ -10778,6 +10884,7 @@ window.WELFARE_DATA = {
       "source": "https://clinics.seoul.kr/gyeonggi-do/osan-si/gwol-dong/psychiatry",
       "reviewed": "2026-10-23",
       "status": "미확인",
+      "jurisdiction": "오산시",
       "services": [
         {
           "id": "SVC-OSAN26-023",
