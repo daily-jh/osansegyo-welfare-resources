@@ -2,17 +2,21 @@
 let context=null,role='teacher',last='';
 const el=id=>document.getElementById(id);
 function status(s){el('languageStatus').textContent=s;}
-function clear(){last='';el('languageAnswer').textContent='평가 자료를 불러온 뒤 질문을 선택해 주세요.';el('languageCopy').disabled=true;}
-function render(){
+function clear(){requestVersion++;last='';el('languageAnswer').textContent='평가 자료를 불러온 뒤 질문을 선택해 주세요.';el('languageCopy').disabled=true;}
+let requestVersion=0;
+async function render(){
+ const currentVersion=++requestVersion;
  if(!context){status('평가를 완료하고 사례검토 화면을 열면 사용할 수 있습니다.');return;}
  const question=el('languageQuestion').value.trim();
  if(!question){status('질문을 입력하거나 제시된 질문을 선택해 주세요.');return;}
  if(!window.YouthLanguageResponse){status('응답 모델을 불러오지 못했습니다. 페이지를 새로고침해 주세요.');return;}
  try{
  const output=window.YouthLanguageResponse.buildResponse(context,question,el('languageNarrative').value,role,{Map:window.YouthMap,Matrix:window.YouthEvidenceMatrix,Research:window.YouthResearchKB});
- last=output.text;el('languageAnswer').textContent=last;el('languageCopy').disabled=false;
+ const enriched=window.YouthResponseKnowledge?await window.YouthResponseKnowledge.enrich(output,context,role):output;
+ if(currentVersion!==requestVersion)return;
+ last=enriched.text;el('languageAnswer').textContent=last;el('languageCopy').disabled=false;
  const meta=output.audit;
- status('로컬 분석 완료 · 참고한 주제 '+meta.topics.length+'개 · 서술 근거 '+meta.notes+'개 · 교차근거 '+meta.cross+'개 · 문항쌍 연구가설 최대 4개. 학생·사례관리자 검토 전 확정하지 마세요.');
+ status('로컬 분석 완료 · 주제 '+meta.topics.length+'개 · 서술 근거 '+meta.notes+'개 · 교차근거 '+meta.cross+'개 · '+(enriched.knowledgeLoaded?'심층 DB '+enriched.knowledgeRecords+'건 적용':'심층 DB 미연결, 기본 모델만 적용')+'. 담당자 검토 전 확정하지 마세요. '+(enriched.knowledgeWarning||''));
  }catch(e){clear();status('응답 생성 실패: '+e.message);}
 }
 document.addEventListener('DOMContentLoaded',()=>{
