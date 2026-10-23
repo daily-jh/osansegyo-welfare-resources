@@ -180,7 +180,7 @@ var reviewRevision=0;
 function clearSummary(){
 reviewRevision++;$("aiAllowed").checked=false;$("aiAnonymous").checked=false;$("copyPacket").hidden=true;updateCopyGate();
 $("summaryText").value="25문항을 모두 살펴본 뒤, 학생의 상황과 먼저 도울 일을 함께 정리해 드립니다.";
-$("summaryEvidence").textContent="평가 완료 후 표시됩니다.";$("analysisSource").textContent="응답을 바탕으로 정리합니다 · 외부 AI 호출 없음";$("selectSummary").disabled=true;
+$("summaryEvidence").textContent="평가 완료 후 표시됩니다.";$("reviewAuditBody").textContent="평가 완료 후 문항별 가정계수와 계산근거가 표시됩니다.";$("analysisSource").textContent="응답을 바탕으로 정리합니다 · 외부 AI 호출 없음";$("selectSummary").disabled=true;
 $("copyPacket").value="평가를 완료하면 결과표·25문항 응답·리뷰·분석 요청문이 함께 생성됩니다.";$("copyAll").disabled=true;$("selectPacket").disabled=true;$("copyStatus").textContent="이름은 복사 내용에서 자동 제외됩니다.";
 }
 function renderSummary(total,domainScores,signals){
@@ -189,6 +189,11 @@ function renderSummary(total,domainScores,signals){
  resizeSummary();
  $("selectSummary").disabled=false;
  $("summaryEvidence").textContent=review.items.filter(v=>typeof v.score==='number'&&v.score>0).map(v=>v.number+'번 '+v.score+'점 / 가정 가중계수 '+v.weight.toFixed(2)+' / '+v.question).join(' / ')||'확인된 점수의 어려움 없음. 긴급 신호와 미상 여부는 별도 검토';
+ const auditRows=review.items.map(v=>'<tr><td>'+v.number+'</td><td>'+clean(v.domain)+'</td><td>'+String(v.score==='unknown'?'미상':v.score)+'</td><td>'+v.weight.toFixed(2)+'</td><td>'+(v.contribution===null?'—':v.contribution.toFixed(2))+'</td></tr>').join('');
+ const linkedRows=review.selected.map(g=>'<li><strong>'+clean(g.title)+'</strong> — '+clean(g.evidence)+' / 가중평균 '+g.weightedMean.toFixed(2)+' / 정렬용 보조값 '+g.auxiliary.toFixed(2)+'<small> ['+clean(g.formula)+']</small></li>').join('');
+ $("reviewAuditBody").innerHTML='<p class="review-audit-hint">보조값 Bᵢ=(응답점수÷4)×문항별 개발 가정계수. 위험확률·공식 판정값이 아닙니다.</p>'+
+ '<div class="review-audit-scroll"><table><thead><tr><th>번호</th><th>영역</th><th>응답</th><th>가정 wᵢ</th><th>Bᵢ</th></tr></thead><tbody>'+auditRows+'</tbody></table></div>'+
+ '<h4>교차규칙 계산(검토 우선순서, 비검증)</h4><ol>'+(linkedRows||'<li>현재 표시할 교차조합이 없습니다.</li>')+'</ol>';
  $("analysisSource").textContent='근거 기반 서술 규칙 25문항·교차규칙 24개 · 가정 가중계수는 실증 척도 아님 · 외부 AI 호출 없음';
  renderCopyPacket(total,domainScores,signals);
 }
