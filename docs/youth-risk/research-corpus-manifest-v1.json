@@ -1,0 +1,172 @@
+{
+  "title": "OY-RALS Korean Evidence and Response Model: Versioned research corpus",
+  "version": "1.0.0",
+  "as_of": "2026-10-23",
+  "site": "https://daily-jh.github.io/osansegyo-welfare-resources/youth-risk/",
+  "repository": "daily-jh/osansegyo-welfare-resources",
+  "mode": "parallel_to_existing_integrated_case_management",
+  "compatibility": [
+    "existing OY-RALS 25 item × 0..4 official scoring",
+    "safety gates 1,2,7,25 and conditional followups",
+    "24 operational intersection patterns",
+    "existing integrated case management plan/record workflows"
+  ],
+  "models": [
+    {
+      "id": "600p-main",
+      "format": "PDF/MD",
+      "pages": 600,
+      "storage": "ChatGPT Library: /OY-RALS 청소년 연구 지식베이스",
+      "not_deployed_as_website_asset": true
+    },
+    {
+      "id": "566p-pair",
+      "format": "PDF/MD",
+      "pages": 566,
+      "storage": "ChatGPT Library: /OY-RALS 청소년 연구 지식베이스",
+      "not_deployed_as_website_asset": true
+    },
+    {
+      "id": "300pair-online",
+      "format": "JS",
+      "pairs": 300,
+      "path": "docs/youth-risk/research-knowledge-base.js",
+      "deployed": true
+    }
+  ],
+  "sources": [
+    {
+      "id": "S01",
+      "title": "NICE NG225 | 자해 사정·관리와 미래 위험 예측 제한",
+      "url": "https://www.nice.org.uk/guidance/ng225/chapter/recommendations",
+      "role": "background contextual evidence, not statistical validation of custom score combinations"
+    },
+    {
+      "id": "S02",
+      "title": "WHO (2020) | 청소년 정신건강 증진·예방 가이드라인",
+      "url": "https://www.who.int/publications/i/item/guidelines-on-mental-health-promotive-and-preventive-interventions-for-adolescents",
+      "role": "background contextual evidence, not statistical validation of custom score combinations"
+    },
+    {
+      "id": "S03",
+      "title": "WHO/UNICEF (2021) | Helping Adolescents Thrive Toolkit",
+      "url": "https://www.who.int/publications/i/item/9789240025554",
+      "role": "background contextual evidence, not statistical validation of custom score combinations"
+    },
+    {
+      "id": "S04",
+      "title": "COSMIN (2024) | 측정도구 타당도·신뢰도 근거 검토 가이드",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11541334/",
+      "role": "background contextual evidence, not statistical validation of custom score combinations"
+    },
+    {
+      "id": "S05",
+      "title": "Young carers longitudinal systematic review (2025)",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/40516561/",
+      "role": "background contextual evidence, not statistical validation of custom score combinations"
+    },
+    {
+      "id": "S06",
+      "title": "School refusal systematic review (2024)",
+      "url": "https://link.springer.com/article/10.1007/s12144-024-05742-x",
+      "role": "background contextual evidence, not statistical validation of custom score combinations"
+    },
+    {
+      "id": "S07",
+      "title": "School attendance & social isolation systematic review (2026)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13510443/",
+      "role": "background contextual evidence, not statistical validation of custom score combinations"
+    },
+    {
+      "id": "S08",
+      "title": "Longitudinal peer victimisation & mental health review (2025)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12729769/",
+      "role": "background contextual evidence, not statistical validation of custom score combinations"
+    },
+    {
+      "id": "S09",
+      "title": "Child maltreatment and mental health umbrella synthesis (2026)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13338981/",
+      "role": "background contextual evidence, not statistical validation of custom score combinations"
+    },
+    {
+      "id": "S10",
+      "title": "WHO INSPIRE 아동폭력 예방·보호 7가지 전략",
+      "url": "https://www.who.int/publications/i/item/9789241565356",
+      "role": "background contextual evidence, not statistical validation of custom score combinations"
+    },
+    {
+      "id": "S11",
+      "title": "Food insecurity and adverse health outcomes umbrella review (2026)",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41982495/",
+      "role": "background contextual evidence, not statistical validation of custom score combinations"
+    },
+    {
+      "id": "S12",
+      "title": "CDC 학교 소속감과 보호요인 (2024)",
+      "url": "https://www.cdc.gov/youth-behavior/school-connectedness/",
+      "role": "background contextual evidence, not statistical validation of custom score combinations"
+    },
+    {
+      "id": "S13",
+      "title": "WHO/UNICEF INSPIRE Handbook (2018)",
+      "url": "https://www.who.int/publications-detail-redirect/inspire-handbook-action-for-implementing-the-seven-strategies-for-ending-violence-against-children",
+      "role": "background contextual evidence, not statistical validation of custom score combinations"
+    },
+    {
+      "id": "S14",
+      "title": "한국 청소년 K-CESD-R 타당화 연구 (2025)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12646713/",
+      "role": "background contextual evidence, not statistical validation of custom score combinations"
+    },
+    {
+      "id": "S15",
+      "title": "학생맞춤통합지원법 (2026 시행)",
+      "url": "https://www.law.go.kr/lsSc.do?query=%ED%95%99%EC%83%9D%EB%A7%9E%EC%B6%A4%ED%86%B5%ED%95%A9%EC%A7%80%EC%9B%90%EB%B2%95",
+      "role": "background contextual evidence, not statistical validation of custom score combinations"
+    },
+    {
+      "id": "S16",
+      "title": "2026 학생맞춤통합지원 가이드북 (학교·교육청용)",
+      "url": "https://www.ice.go.kr/ice/na/ntt/selectNttInfo.do?mi=12180&nttSn=3364112",
+      "role": "background contextual evidence, not statistical validation of custom score combinations"
+    },
+    {
+      "id": "S17",
+      "title": "TRIPOD-LLM (2025) 연구보고 투명성 체크리스트",
+      "url": "https://www.nature.com/articles/s41591-024-03425-5",
+      "role": "background contextual evidence, not statistical validation of custom score combinations"
+    },
+    {
+      "id": "S18",
+      "title": "CDC 청소년 폭력 관련 위험·보호요인",
+      "url": "https://www.cdc.gov/youth-violence/risk-factors/index.html",
+      "role": "background contextual evidence, not statistical validation of custom score combinations"
+    },
+    {
+      "id": "S19",
+      "title": "Pediatric outcome scales measurement properties (2023)",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/37439131/",
+      "role": "background contextual evidence, not statistical validation of custom score combinations"
+    },
+    {
+      "id": "S20",
+      "title": "PRISMA-COSMIN (2024) 도구 체계적 검토 보고",
+      "url": "https://www.prisma-statement.org/cosmin",
+      "role": "background contextual evidence, not statistical validation of custom score combinations"
+    }
+  ],
+  "limits": [
+    "research-style original development manuscript; not peer-reviewed",
+    "no observed student cohort or predictive performance statistics",
+    "300 pairs are developer hypotheses pending expert validation",
+    "no real student records or identifying personal data in repository"
+  ],
+  "next_version_requirements": [
+    "keep stable hypothesis IDs",
+    "cite specific peer-reviewed evidence for newly justified pathways",
+    "run node tests/youth-research-kb.cjs",
+    "review expert disagreement and narrative negation failure modes",
+    "log all modified answers and rollback"
+  ]
+}
