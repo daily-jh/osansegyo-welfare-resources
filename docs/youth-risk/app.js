@@ -182,7 +182,7 @@ var reviewRevision=0;
 function clearSummary(){
 reviewRevision++;$("aiAllowed").checked=false;$("aiAnonymous").checked=false;$("copyPacket").hidden=true;updateCopyGate();
 $("summaryText").value="25문항을 모두 살펴본 뒤, 학생의 상황과 먼저 도울 일을 함께 정리해 드립니다.";
-$("summaryEvidence").textContent="평가 완료 후 표시됩니다.";$("reviewAuditBody").textContent="평가 완료 후 문항별 가정계수와 계산근거가 표시됩니다.";$("analysisSource").textContent="응답을 바탕으로 정리합니다 · 외부 AI 호출 없음";$("selectSummary").disabled=true;
+$("reviewReadable")?.remove();$("summaryEvidence").textContent="평가 완료 후 표시됩니다.";$("reviewAuditBody").textContent="평가 완료 후 문항별 가정계수와 계산근거가 표시됩니다.";$("analysisSource").textContent="응답을 바탕으로 정리합니다 · 외부 AI 호출 없음";$("selectSummary").disabled=true;
 $("copyPacket").value="평가를 완료하면 결과표·25문항 응답·리뷰·분석 요청문이 함께 생성됩니다.";$("copyAll").disabled=true;$("selectPacket").disabled=true;$("copyStatus").textContent="이름은 복사 내용에서 자동 제외됩니다.";
 }
 function renderSummary(total,domainScores,signals){
@@ -198,6 +198,7 @@ function renderSummary(total,domainScores,signals){
  '<h4>교차규칙 계산(검토 우선순서, 비검증)</h4><ol>'+(linkedRows||'<li>현재 표시할 교차조합이 없습니다.</li>')+'</ol>';
  $("analysisSource").textContent='문항 25개·교차규칙 24개 · 맥락 가중치 v2.2 (검증 전 개발 가정) · 원점수·안전 게이트 불변 · 외부 AI 호출 없음';
  renderCopyPacket(total,domainScores,signals);
+ if(window.YouthPresentation)YouthPresentation.assessment(snapshot(),review.decision||YouthCriteria.evaluate(answers,domains.map(d=>d.items.length),getUrgent().length>0,followupState()));
 }
 function patternEvidence(p){return p.evidence.map(function(n){return n+'번 '+questionAt(n-1)+' ('+answers[n-1]+'점)'}).join('; ')}
 function interventionPlan(decision,patterns){var first=patterns.filter(function(p){return p.rank!==4})[0],focus=first?first.action:'학생과 가장 불편한 생활 장면을 정하고 해당 영역 담당자가 관찰·면담 근거와 기존 지원을 확인합니다.';var plans=[];
@@ -361,7 +362,7 @@ if(sharedRows.length){csv=sharedRows;$('resourceStatus').textContent='복지자�
 else { $('resourceStatus').textContent='최신 주소·연락처 원본을 불러오지 못했습니다. 전체 복지자원 검색에서 확인해 주세요.'; }
 
 }
-function prepareAssessmentPrint(){var old=$("assessmentPrint");if(old)old.remove();if(!ready)return;var root=document.createElement('article');root.id='assessmentPrint';var title=document.createElement('h1');title.textContent='오산 청소년 위기징후 평가 결과';root.append(title);var result=$("resultBody").cloneNode(true);result.removeAttribute('id');result.querySelectorAll('.print,button').forEach(function(n){n.remove()});result.querySelectorAll('.overview details').forEach(function(n){n.open=true});result.querySelectorAll('.pattern-card details').forEach(function(n){n.remove()});root.append(result);var heading=document.createElement('h2');heading.textContent='종합의견(리뷰)';heading.className='print-review-heading';root.append(heading);var review=document.createElement('div');review.className='print-review-text';review.textContent=$("summaryText").value;root.append(review);var credit=document.createElement('p');credit.className='print-credit';credit.textContent='제작 및 저작: 오산세교종합사회복지관 김지훈 팀장 · © 2026 김지훈 · 공익·복리 목적 비영리 무료 이용 · 무단 변형 금지';root.append(credit);document.body.append(root)}
+function prepareAssessmentPrint(){var old=$("assessmentPrint");if(old)old.remove();if(!ready)return;var root=document.createElement('article');root.id='assessmentPrint';var title=document.createElement('h1');title.textContent='오산 청소년 위기징후 평가 결과';root.append(title);var result=$("resultBody").cloneNode(true);result.removeAttribute('id');result.querySelectorAll('.print,button').forEach(function(n){n.remove()});result.querySelectorAll('.overview details').forEach(function(n){n.open=true});result.querySelectorAll('.profile,.routes').forEach(function(n){n.remove()});root.append(result);var heading=document.createElement('h2');heading.textContent='종합의견(리뷰)';heading.className='print-review-heading';root.append(heading);var review=document.createElement('div');review.className='print-review-text';review.innerHTML=window.YouthPresentation?YouthPresentation.textHTML($("summaryText").value):clean($("summaryText").value);if(window.YouthPresentation)YouthPresentation.emphasize(review);root.append(review);var credit=document.createElement('p');credit.className='print-credit';credit.textContent='제작 및 저작: 오산세교종합사회복지관 김지훈 팀장 · © 2026 김지훈 · 공익·복리 목적 비영리 무료 이용 · 무단 변형 금지';root.append(credit);document.body.append(root)}
 window.addEventListener('beforeprint',prepareAssessmentPrint);
 window.addEventListener('afterprint',function(){var root=$("assessmentPrint");if(root)root.remove()});
 window.addEventListener("pageshow",function(e){if(e.persisted)location.reload()});

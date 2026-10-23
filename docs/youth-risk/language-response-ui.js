@@ -2,7 +2,7 @@
 let context=null,role='teacher',last='';
 const el=id=>document.getElementById(id);
 function status(s){el('languageStatus').textContent=s;}
-function clear(){requestVersion++;if(el('languageEvidenceDetails'))el('languageEvidenceDetails').hidden=true;last='';el('languageAnswer').textContent='평가 자료를 불러온 뒤 질문을 선택해 주세요.';el('languageCopy').disabled=true;}
+function clear(){requestVersion++;if(el('languageContextDetails'))el('languageContextDetails').hidden=true;if(el('languageEvidenceDetails'))el('languageEvidenceDetails').hidden=true;last='';el('languageAnswer').textContent='평가 자료를 불러온 뒤 질문을 선택해 주세요.';el('languageCopy').disabled=true;}
 let requestVersion=0;
 async function render(){
  const currentVersion=++requestVersion;
@@ -16,8 +16,8 @@ async function render(){
  if(currentVersion!==requestVersion)return;
  const v3=window.YouthInterpretationV3?window.YouthInterpretationV3.build(context,role,el('languageNarrative').value,question):null;
  last=enriched.text+(v3?'\n\n'+v3.text:'');
- el('languageAnswer').textContent=last;
- let evidence=el('languageEvidenceDetails');if(!evidence){evidence=document.createElement('details');evidence.id='languageEvidenceDetails';const summary=document.createElement('summary'),pre=document.createElement('pre');summary.textContent='해석에 참고한 세부 근거 보기';pre.className='language-evidence-text';evidence.append(summary,pre);el('languageAnswer').after(evidence)}evidence.hidden=!enriched.knowledgeEvidence;evidence.querySelector('pre').textContent=enriched.knowledgeEvidence||'';el('languageCopy').disabled=false;
+ if(window.YouthPresentation){el('languageAnswer').innerHTML=YouthPresentation.textHTML(enriched.text);YouthPresentation.emphasize(el('languageAnswer'));}else el('languageAnswer').textContent=last;
+ let contextDetails=el('languageContextDetails');if(!contextDetails){contextDetails=document.createElement('details');contextDetails.id='languageContextDetails';const summary=document.createElement('summary'),body=document.createElement('div');summary.textContent='추가 서술의 맥락·가설 검토';contextDetails.append(summary,body);el('languageAnswer').after(contextDetails);}contextDetails.hidden=!v3;if(v3){contextDetails.querySelector('div').innerHTML=window.YouthPresentation?YouthPresentation.textHTML(v3.text):'';if(!window.YouthPresentation)contextDetails.querySelector('div').textContent=v3.text;window.YouthPresentation?.emphasize(contextDetails);}let evidence=el('languageEvidenceDetails');if(!evidence){evidence=document.createElement('details');evidence.id='languageEvidenceDetails';const summary=document.createElement('summary'),pre=document.createElement('pre');summary.textContent='해석에 참고한 세부 근거 보기';pre.className='language-evidence-text';evidence.append(summary,pre);el('languageAnswer').after(evidence)}evidence.hidden=!enriched.knowledgeEvidence;evidence.querySelector('pre').textContent=enriched.knowledgeEvidence||'';el('languageCopy').disabled=false;
  const meta=output.audit;
  status('로컬 분석 완료 · '+(v3?'v3 사례사정 보완 · ':'')+'주제 '+meta.topics.length+'개 · 서술 근거 '+meta.notes+'개 · 교차근거 '+meta.cross+'개 · '+(enriched.knowledgeLoaded?'심층 DB '+enriched.knowledgeRecords+'건 적용':'심층 DB 미연결, 기본 모델만 적용')+'. 담당자 검토 전 확정하지 마세요. '+(enriched.knowledgeWarning||''));
  }catch(e){clear();status('응답 생성 실패: '+e.message);}
