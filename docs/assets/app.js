@@ -27,7 +27,7 @@
     const mail=/^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(email);
     const address=String(o.address||'').trim();
     const addressStatus=o.addressStatus||'미확인';
-    const addressSource=safe(o.addressSource);
+    const addressSource=(o.addressStatus==='공식'||o.addressStatus==='공공·지도')?safe(o.addressSource):'';
     const addressDate=o.addressCheckedOn||'';
     let addressHTML='<div><dt>주소</dt><dd><span class="address-unverified">주소 확인 필요 · 방문 전 기관 문의</span></dd></div>';
     if(address){
