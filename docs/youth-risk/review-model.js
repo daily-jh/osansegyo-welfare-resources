@@ -112,7 +112,8 @@ function build(p,role='teacher'){
  '본 리뷰는 척도와 규칙 기반의 "초안"이며 실제 면담·학습·가정·보호상황을 증명하거나 대체하지 않습니다.');
  const V=typeof module!=='undefined'&&module.exports?require('./interpretation-v2.js'):root.YouthInterpretation;
  const interpretation=V?V.analyze(p,role):null;if(V)text.splice(4,0,V.text(p,role));
- return {interpretation,text:text.join('\n\n'),items:x,domains,links:related,selected,decision,weights:WEIGHTS,unknown:unknown.map(v=>v.number),notes:{weightModel:'development-assumption-20261023',notValidated:true}};
+ const N=typeof module!=='undefined'&&module.exports?require('./professional-response.js'):root.YouthNarrative;
+ return {interpretation,technicalText:text.join('\n\n'),text:N?N.build(p,role).text:text.join('\n\n'),items:x,domains,links:related,selected,decision,weights:WEIGHTS,unknown:unknown.map(v=>v.number),notes:{weightModel:'development-assumption-20261023',notValidated:true}};
 }
 const api={WEIGHTS,TEXT_BANK,PAIR_FACTORS,build,itemEvidence,links,uniquePatterns};
 if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.YouthReviewModel=api;

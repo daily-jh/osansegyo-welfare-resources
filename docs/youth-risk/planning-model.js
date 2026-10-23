@@ -27,7 +27,7 @@ const itemObjectives=[
 ['디지털 이용을 일상과 함께 조절할 도움을 마련한다','이용 상황과 수면·학습·활동 영향을 살피고 학생이 시도할 조정 방법을 의논한다','합의한 이용 조정과 일상 기능의 변화'],
 ['온라인 위협·성착취로부터 안전하게 도움받을 경로를 마련한다','현재 피해·위협과 안전한 연락방법을 확인하고 보호·전문지원 역할을 의논한다','추가 피해·접촉 여부와 안전한 보호 경로']
 ];
-function objective(numbers){return [0,1,2].map(k=>numbers.map(n=>itemObjectives[n-1][k]).join(' / '))}
+function objective(numbers){return [0,1,2].map(k=>numbers.map(n=>itemObjectives[n-1][k]).join('. ')+(k<2?'.':''))}
 function positive(p,d){return d.numbers.filter(n=>typeof p.answers[n-1]==='number'&&p.answers[n-1]>0)}
 function referral(p,d,row){const m=M.describe(p,d,row),name=row['기관명']||'',service=row['서비스명']||'';let role='해당 사업의 이용 조건과 학생에게 가능한 지원을 확인하는 협력기관';
  if(/아동보호/.test(name))role='아동보호 전문 사정·후속 사례관리의 협력 역할 · 신고 접수·보호 결정 권한과 구분';

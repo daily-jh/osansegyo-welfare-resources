@@ -2,7 +2,7 @@
 let context=null,role='teacher',last='';
 const el=id=>document.getElementById(id);
 function status(s){el('languageStatus').textContent=s;}
-function clear(){requestVersion++;last='';el('languageAnswer').textContent='평가 자료를 불러온 뒤 질문을 선택해 주세요.';el('languageCopy').disabled=true;}
+function clear(){requestVersion++;if(el('languageEvidenceDetails'))el('languageEvidenceDetails').hidden=true;last='';el('languageAnswer').textContent='평가 자료를 불러온 뒤 질문을 선택해 주세요.';el('languageCopy').disabled=true;}
 let requestVersion=0;
 async function render(){
  const currentVersion=++requestVersion;
@@ -14,7 +14,8 @@ async function render(){
  const output=window.YouthLanguageResponse.buildResponse(context,question,el('languageNarrative').value,role,{Map:window.YouthMap,Matrix:window.YouthEvidenceMatrix,Research:window.YouthResearchKB});
  const enriched=window.YouthResponseKnowledge?await window.YouthResponseKnowledge.enrich(output,context,role):output;
  if(currentVersion!==requestVersion)return;
- last=enriched.text;el('languageAnswer').textContent=last;el('languageCopy').disabled=false;
+ last=enriched.text;el('languageAnswer').textContent=last;
+ let evidence=el('languageEvidenceDetails');if(!evidence){evidence=document.createElement('details');evidence.id='languageEvidenceDetails';const summary=document.createElement('summary'),pre=document.createElement('pre');summary.textContent='해석에 참고한 세부 근거 보기';pre.className='language-evidence-text';evidence.append(summary,pre);el('languageAnswer').after(evidence)}evidence.hidden=!enriched.knowledgeEvidence;evidence.querySelector('pre').textContent=enriched.knowledgeEvidence||'';el('languageCopy').disabled=false;
  const meta=output.audit;
  status('로컬 분석 완료 · 주제 '+meta.topics.length+'개 · 서술 근거 '+meta.notes+'개 · 교차근거 '+meta.cross+'개 · '+(enriched.knowledgeLoaded?'심층 DB '+enriched.knowledgeRecords+'건 적용':'심층 DB 미연결, 기본 모델만 적용')+'. 담당자 검토 전 확정하지 마세요. '+(enriched.knowledgeWarning||''));
  }catch(e){clear();status('응답 생성 실패: '+e.message);}

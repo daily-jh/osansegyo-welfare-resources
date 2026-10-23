@@ -104,7 +104,15 @@ function buildResponse(payload,query,narrative,role="teacher",deps={}){
  if(unknown.length)r("\n[미확인 문항]\n"+unknown.slice(0,12).join(", ")+(unknown.length>12?" 외 "+(unknown.length-12)+"개":"")+"번은 미상입니다. 0점으로 환산하거나 전체 단계로 확정하지 않습니다.");
  if(intent!=="resource")r("\n[지역연계 점검]\n"+(profile.dong||"행정동 미확인")+" / "+zone+" · 실제 기관 이용·접수 여부 별도 확인");
  r("\n[한계]\n이 응답은 외부 전송 없이 브라우저에서 생성되는 규칙·키워드 기반 한국어 분석입니다. 서술 단서는 사실 확정이 아니며 부정문·맥락을 잘못 해석할 수 있습니다. 전문가의 면담, 안전사정, 사례회의·법정 절차를 대체하지 않습니다.");
- return {intent,text:sections.join("\n"),audit:{known:known.length,unknown:unknown.length,raw:full?sum:null,topics:actual.map(x=>x.label),cross:patterns.length,notes:evidence.length,narrativeSafety:!!narrativeSafety,discrepancies}};
+ const N=typeof module!=='undefined'&&module.exports?require('./professional-response.js'):root.YouthNarrative;let readable=sections.join('\n');
+ if(N){const n=N.build(payload,role),body=[];body.push(sections[0]);
+ if(intent==='resource'||intent==='safety'){body.push(n.overview,...sections.slice(1));}
+ else if(intent==='question'){body.push(n.safety,'[첫 면담에서 확인할 내용]',n.first,...n.active.slice(0,4).map(g=>g.text+'\n학생에게는 다음처럼 물어볼 수 있습니다. '+g.question),n.uncertainty);}
+ else if(intent==='plan'){body.push(n.overview,n.safety,'[지원계획 검토]',...n.active.slice(0,4).map(g=>g.name+'\n'+g.text+'\n지원 제안: '+g.action+'\n함께 살필 변화: '+g.measure),n.roles,n.followup,n.uncertainty);}
+ else body.push(n.text);
+ if(!['resource','safety'].includes(intent)){if(n.connections.length&&['plan','question'].includes(intent))body.push('[함께 살펴볼 맥락 · 인과확정 아님]',...n.connections.map(x=>x.text+' '+x.question));const described=actual.filter(t=>t.positiveNarr);if(described.length)body.push('[자유서술과 대조할 내용]',...described.slice(0,3).map(t=>'별도 서술에는 '+t.label+' 관련 내용이 언급되었습니다. 척도 응답과 같은 시점·사건인지 확인하고, 다음 면담에서 '+t.ask+' '+t.act));if(discrepancies.length)body.push("서술과 척도에 차이가 있습니다. 점수를 임의 수정하지 말고 동일 사건·시점·출처 및 부정 표현 여부를 확인하세요.");if(unknown.length)body.push('전체 판단 보류: 미상 '+unknown.join('·')+'번의 확인 방법과 담당·시점을 정합니다.');body.push('[지역연계 점검]',(profile.dong||'행정동 미확인')+' / '+zone+' · 실제 기관 이용·접수 여부는 확인이 필요합니다.');}
+ readable=body.join('\n\n');}
+ return {intent,technicalText:sections.join('\n'),text:readable,audit:{known:known.length,unknown:unknown.length,raw:full?sum:null,topics:actual.map(x=>x.label),cross:patterns.length,notes:evidence.length,narrativeSafety:!!narrativeSafety,discrepancies}};
 }
-const api={version:'2.0.0',buildResponse,sentenceEvidence,pickIntent};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.YouthLanguageResponse=api;
+const api={version:'2.1.0',buildResponse,sentenceEvidence,pickIntent};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.YouthLanguageResponse=api;
 })(typeof window!=='undefined'?window:globalThis);

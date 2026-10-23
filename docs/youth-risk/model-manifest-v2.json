@@ -1,7 +1,7 @@
 {
   "releaseDate": "2026-10-24",
   "caseManagementVersion": "2.0.0",
-  "languageVersion": "2.0.0",
+  "languageVersion": "2.1.0",
   "languageType": "deterministic_rule_and_retrieval",
   "source": {
     "pages": 700,
@@ -29,6 +29,7 @@
     "maximumRawScore": 100,
     "operationalCrossRules": 24,
     "languageTopics": 10,
+    "professionalNarrativeItems": 25,
     "itemExplanationElements": 125,
     "responseCardsV1": 600,
     "pairsV1": 300,
@@ -44,6 +45,7 @@
     "planning-model.js",
     "case-continuity-model.js",
     "review-model.js",
+    "professional-response.js",
     "interpretation-v2-data.js",
     "case-practice-v2-data.js",
     "interpretation-v2.js",

@@ -62,7 +62,8 @@ async function enrich(existing,p,role='teacher'){
    '\n  검증상태: 개발가설. 중복사건/대립가설/정보원 확인이 필요합니다.');
  }
  parts.push('\n[갱신 정책] 근거 DB의 문항·교차 가설은 연구형 원고와 별도로 버전관리합니다. 수정 시 승인전 상태, 사용근거, 반례, 회귀검사 결과를 기록해야 합니다. 이 모델은 임상·통계적으로 검증된 예측기나 자동 판정기가 아닙니다.');
- return {...existing,text:existing.text+parts.join('\n'),knowledgeLoaded:true,knowledgeRecords:kb.recordCount,knowledgeVersion:kb.version,knowledgeItemCount:selected.length,knowledgeCrossCount:patterns.length};
+ const readable=root.YouthNarrative?existing.text:existing.text+parts.join('\n');
+ return {...existing,text:readable,knowledgeEvidence:parts.join('\n'),knowledgeLoaded:true,knowledgeRecords:kb.recordCount,knowledgeVersion:kb.version,knowledgeItemCount:selected.length,knowledgeCrossCount:patterns.length};
 }
 const api={load,enrich,version:'2026-10-23-v1.0'};
 if(typeof module!=='undefined'&&module.exports)module.exports=api;
