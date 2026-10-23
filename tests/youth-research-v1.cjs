@@ -1,0 +1,51 @@
+'use strict';
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const path=require('node:path');
+const base=path.join(__dirname,'../docs/youth-risk/research-v1/');
+const root=path.join(__dirname,'../docs/youth-risk/');
+const read=(file)=>fs.readFileSync(path.join(base,file),'utf8');
+const lines=(file)=>read(file).split(/\r?\n/).filter(Boolean).map(l=>JSON.parse(l));
+const app=fs.readFileSync(path.join(root,'app.js'),'utf8');
+const evidence=fs.readFileSync(path.join(root,'evidence-matrix.js'),'utf8');
+const jsonPart=(src,a,b)=>JSON.parse(src.slice(src.indexOf(a)+a.length,src.indexOf(b,src.indexOf(a)+a.length)));
+const currentItems=jsonPart(app,'var domains=',';\nvar routes=').flatMap(d=>d.items);
+const currentRules=jsonPart(evidence,'const RULES=',';\nconst has=');
+const meta=JSON.parse(read('MANIFEST.json'));
+const cards=[...lines('pairs-1.jsonl'),...lines('pairs-2.jsonl'),...lines('pairs-3.jsonl')];
+const items=lines('items.jsonl'),rules=lines('existing-cross-rules.jsonl');
+assert.equal(currentItems.length,25);
+assert.equal(currentRules.length,24);
+assert.equal(meta.item_count,25);
+assert.equal(meta.pair_count,300);
+assert.equal(meta.rule_count,24);
+assert.equal(meta.status.includes('HYPOTHESIS'),true);
+assert.equal(cards.length,300);
+assert.equal(items.length,25);
+assert.equal(rules.length,24);
+const seen=new Set();
+for (const [index,card] of cards.entries()){
+ const [a,b]=card.item_ids;
+ assert.ok(Number.isInteger(a)&&Number.isInteger(b)&&a>=1&&a<b&&b<=25,'pair indices');
+ assert.equal(card.id,'PAIR-'+String(a).padStart(2,'0')+'-'+String(b).padStart(2,'0'));
+ assert.ok(!seen.has(card.id));seen.add(card.id);
+ assert.equal(card.status,'HYPOTHESIS_UNVALIDATED');
+ assert.equal(card.validated_oyrals,false);
+ assert.match(card.paired_interpretation,/같은 사건|독립 사건/);
+ assert.ok(card.review_questions.length>=4);
+ assert.ok(card.counter_hypotheses.length>=3);
+ assert.ok(card.score_patterns.some(x=>x.case==='unknown-positive'));
+ assert.equal(card.a.name,currentItems[a-1],'current item A mismatch');
+ assert.equal(card.b.name,currentItems[b-1],'current item B mismatch');
+ assert.ok(card.source_ids.every(id=>meta.sources.some(s=>s.id===id)),'source registry mismatch');
+}
+for(let i=1;i<=25;i++)for(let j=i+1;j<=25;j++)assert.ok(seen.has('PAIR-'+String(i).padStart(2,'0')+'-'+String(j).padStart(2,'0')),'uncovered pair');
+for (const [i,item] of items.entries()){
+ assert.equal(item.id,i+1);
+ assert.equal(item.text,currentItems[i]);
+ assert.ok(item.score_levels['unknown']);
+ assert.equal(item.status,'UNVALIDATED');
+}
+assert.deepEqual(rules.map(r=>r.id),currentRules.map(r=>r.id));
+assert.ok(cards.every(x=>x.teacher_action&&x.worker_action&&x.outcome&&x.change_trigger));
+console.log('PASS: OY-RALS research-v1 · 25 current questions, 300 unordered pairs, 24 intersection rules, evidence IDs, hypotheses & schema');
