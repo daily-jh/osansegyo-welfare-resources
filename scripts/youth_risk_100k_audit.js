@@ -65,7 +65,9 @@ function run(apis,{cases=100000,seed=20261023,documentEvery=250}={}){
      if(!t||!w||!plan||t===w)fail('role_or_plan_render',i,'missing/different');
      if(expectedUrgent&&!w.includes('긴급 안전개입 계획'))fail('report_lost_safety',i,'');
      if(unknown&&!w.includes('잠정 보고서'))fail('report_lost_unknown',i,'');
-     if(cross.count&&!w.includes('교차사정'))fail('report_lost_cross',i,'');
+     if(expectedUrgent&&!t.includes('긴급 안전개입 계획'))fail('teacher_report_lost_safety',i,'');
+     if(cross.count&&(!w.includes('문항 간 중첩 욕구·추가 사정')||!w.includes(cross.shown[0].title)))fail('report_lost_cross_in_needs_assessment',i,'');
+     if(cross.count&&a.plans.length&&plan.includes('복합욕구·교차 사정')&&!plan.includes('교차문제 변화 확인'))fail('plan_lost_cross_measures',i,'');
      metrics.reportSamples++;metrics.reportCharacters+=t.length+w.length+plan.length;
    }
   }catch(e){fail('exception',i,e.stack||e.message)}
