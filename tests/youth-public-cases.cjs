@@ -21,7 +21,7 @@ for(const f of fixtures)for(const dong of M.dongs)for(const gender of ['남','�
  assert.ok(M.validate(p));const decision=M.context(p),groups=M.referrals(p),names=groups.map(g=>g.name),checks=M.caseChecks(p).join(' / ');
  if(f.urgent)assert.equal(decision.urgent,true,f.id);if(f.notUrgent)assert.equal(decision.urgent,false,f.id);if(f.provisional)assert.equal(decision.provisional,true);
  if(f.check)assert.match(checks,f.check,f.id);for(const name of f.must||[])assert.ok(names.includes(name),f.id+': '+name);
- if(f.schoolOnly){const gs=M.groupedCandidates(p,M.domains(p)[5]);assert.ok(gs.some(g=>/Wee/.test(g.name)));assert.ok(!gs.some(g=>/장애|발달/.test(g.name)||g.primary['서비스명']==='심리상담·발달지원 연계'));}
+ if(f.schoolOnly){const gs=M.groupedCandidates(p,M.domains(p)[5]);assert.ok(gs.some(g=>/Wee/.test(g.name)));assert.ok(!gs.some(g=>/장애|발달|하나울/.test(g.name)||g.primary['서비스명']==='심리상담·발달지원 연계'));assert.deepEqual(gs.map(g=>g.name),['경기도교육청 Wee 프로젝트']);}
  if(f.zone){assert.ok(names.includes(M.welfareZone({dong}).name));assert.equal(names.filter(n=>M.welfareZones.some(z=>z.name===n)).length,1);}
  if(f.id==='control-poverty-alone')assert.ok(!names.includes('오산시아동보호전문기관'));
  for(const d of M.domains(p))for(const g of M.groupedCandidates(p,d))for(const row of g.services){const m=M.describe(p,d,row);assert.ok(m.evidence.length);assert.ok(m.evidence.every(n=>typeof p.answers[n-1]==='number'&&p.answers[n-1]>0));}

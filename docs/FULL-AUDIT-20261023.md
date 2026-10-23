@@ -29,4 +29,6 @@
 
 ## 재현
 
+공개 화면 최종검수에서 기관명에 ‘장애·발달’이 없는 하나울복지센터의 14번 단독 추천 누락도 발견했다. 해당 기관을 명시적으로 제외하고 교육환경 조정 단독 응답의 후보가 학교 Wee 협의 경로만 남는지 엄격히 검사하도록 보강했다.
+
 기존 데이터·검색·프로그램·연결도·청소년 회귀검사, `node tests/site-security.cjs`, `node tests/site-integrity.cjs`, `node tests/youth-public-cases.cjs`, `node --test server/youth-risk-ai/server.test.mjs`, `node server/youth-risk-usage/worker.test.mjs`를 실행한다. `python scripts/build_data.py --check`로 원본과 생성물의 일치를 확인한다. 보안 헤더·기관 운영까지 무조건 안전하다는 의미는 아니다.

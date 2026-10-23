@@ -88,7 +88,7 @@ function groupedCandidates(p,d){
   var prof=profiles.find(x=>x[0]===(r.profileName||r['기관명'])&&x[1]===(r.profileService||r['서비스명']));
   if(/성인|노인|청년/.test(r['지원대상']||'')&&!/아동|청소년|중고생/.test(r['지원대상']||''))return false;
   // Item 14 measures an education-environment barrier, not disability eligibility.
-  if(d.i===5&&!(p.answers[14]>0)&&/장애|발달/.test(r['기관명']||''))return false;
+  if(d.i===5&&!(p.answers[14]>0)&&(/장애|발달/.test(r['기관명']||'')||r['기관명']==='오산시하나울복지센터'))return false;
   if(additional(p,d,r))return true;
   return prof?prof[2].some(n=>d.numbers.includes(n)&&p.answers[n-1]>0):describe(p,d,r).fit>0;
  });
