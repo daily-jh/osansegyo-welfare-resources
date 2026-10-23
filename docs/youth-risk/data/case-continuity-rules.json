@@ -77,5 +77,11 @@
     "planned is not executed; agreement is not outcome effectiveness",
     "blank meeting minutes mean no confirmed decision",
     "existing school or health services should not be duplicated without identifying an unmet need"
+  ],
+  "noticeKo": [
+    "서로 다른 위기도 척도의 점수를 단순 환산하지 않습니다. 청소년 25문항은 문항별 직접 확인 후 평가해야 합니다.",
+    "회의에서 원안 채택은 서비스 이행이나 종결 증빙이 아닙니다.",
+    "기존 학교·의료·복지 지원체계가 효과적으로 작동 중이면 신규 중복연계를 먼저 권고하지 않습니다.",
+    "안전 신호는 사례관리 유형이나 문서일치율과 관계없이 먼저 확인합니다."
   ]
 }
