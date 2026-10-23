@@ -1,0 +1,120 @@
+{
+  "version": "1.0.0",
+  "checkedOn": "2026-10-23",
+  "sources": [
+    {
+      "id": "L01",
+      "title": "학생맞춤통합지원법",
+      "url": "https://www.law.go.kr/lsSc.do?query=%ED%95%99%EC%83%9D%EB%A7%9E%EC%B6%A4%ED%86%B5%ED%95%A9%EC%A7%80%EC%9B%90%EB%B2%95",
+      "scope": "일반적 정책·개념·관련성 근거. OY-RALS 자체의 문항별 계수나 교차식은 미검증."
+    },
+    {
+      "id": "L02",
+      "title": "2026 학생맞춤통합지원 체계 구축계획",
+      "url": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=294&boardSeq=105348&lev=0",
+      "scope": "일반적 정책·개념·관련성 근거. OY-RALS 자체의 문항별 계수나 교차식은 미검증."
+    },
+    {
+      "id": "L03",
+      "title": "NICE NG225 자해 사정 및 관리 권고",
+      "url": "https://www.nice.org.uk/guidance/ng225/chapter/recommendations",
+      "scope": "일반적 정책·개념·관련성 근거. OY-RALS 자체의 문항별 계수나 교차식은 미검증."
+    },
+    {
+      "id": "L04",
+      "title": "NIMH Youth ASQ Toolkit",
+      "url": "https://www.nimh.nih.gov/research/research-conducted-at-nimh/asq-toolkit-materials",
+      "scope": "일반적 정책·개념·관련성 근거. OY-RALS 자체의 문항별 계수나 교차식은 미검증."
+    },
+    {
+      "id": "L05",
+      "title": "WHO 2025 청소년 정신건강",
+      "url": "https://www.who.int/news-room/fact-sheets/detail/adolescent-mental-health%E2%81%A0",
+      "scope": "일반적 정책·개념·관련성 근거. OY-RALS 자체의 문항별 계수나 교차식은 미검증."
+    },
+    {
+      "id": "L06",
+      "title": "WHO INSPIRE: 아동폭력 대응",
+      "url": "https://www.who.int/publications/i/item/9789241565356",
+      "scope": "일반적 정책·개념·관련성 근거. OY-RALS 자체의 문항별 계수나 교차식은 미검증."
+    },
+    {
+      "id": "L07",
+      "title": "SAMHSA 트라우마 기반 접근",
+      "url": "https://www.samhsa.gov/mental-health/trauma-violence/trauma-informed-approaches-programs",
+      "scope": "일반적 정책·개념·관련성 근거. OY-RALS 자체의 문항별 계수나 교차식은 미검증."
+    },
+    {
+      "id": "L08",
+      "title": "UNESCO 2019 학교폭력·괴롭힘 보고",
+      "url": "https://www.unesco.org/en/articles/behind-numbers-ending-school-violence-and-bullying",
+      "scope": "일반적 정책·개념·관련성 근거. OY-RALS 자체의 문항별 계수나 교차식은 미검증."
+    },
+    {
+      "id": "L09",
+      "title": "COSMIN 2024 측정도구 체계적 문헌검토 지침",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11541334/",
+      "scope": "일반적 정책·개념·관련성 근거. OY-RALS 자체의 문항별 계수나 교차식은 미검증."
+    },
+    {
+      "id": "L10",
+      "title": "COSMIN 2025 내용타당도 연구",
+      "url": "https://doi.org/10.1016/j.jclinepi.2025.111879",
+      "scope": "일반적 정책·개념·관련성 근거. OY-RALS 자체의 문항별 계수나 교차식은 미검증."
+    },
+    {
+      "id": "L11",
+      "title": "PRISMA 2020",
+      "url": "https://www.prisma-statement.org/prisma-2020",
+      "scope": "일반적 정책·개념·관련성 근거. OY-RALS 자체의 문항별 계수나 교차식은 미검증."
+    },
+    {
+      "id": "L12",
+      "title": "2025 한국 청소년 정신건강 MHS 검증 연구",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/40741442/",
+      "scope": "일반적 정책·개념·관련성 근거. OY-RALS 자체의 문항별 계수나 교차식은 미검증."
+    },
+    {
+      "id": "L13",
+      "title": "CDC 청소년 위험행동 YRBS 2023 보고",
+      "url": "https://www.cdc.gov/yrbs/dstr/index.html",
+      "scope": "일반적 정책·개념·관련성 근거. OY-RALS 자체의 문항별 계수나 교차식은 미검증."
+    },
+    {
+      "id": "L14",
+      "title": "2026 사이버괴롭힘과 정신건강 종단 메타분석",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/39828926/",
+      "scope": "일반적 정책·개념·관련성 근거. OY-RALS 자체의 문항별 계수나 교차식은 미검증."
+    },
+    {
+      "id": "L15",
+      "title": "2026 결석과 정신건강의 종단적 연관",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42463165/",
+      "scope": "일반적 정책·개념·관련성 근거. OY-RALS 자체의 문항별 계수나 교차식은 미검증."
+    },
+    {
+      "id": "L16",
+      "title": "2026 가족돌봄 아동·청소년 학교참여 체계적 문헌검토",
+      "url": "https://www.sciencedirect.com/science/article/pii/S0883035526000728",
+      "scope": "일반적 정책·개념·관련성 근거. OY-RALS 자체의 문항별 계수나 교차식은 미검증."
+    },
+    {
+      "id": "L17",
+      "title": "2026 사회적 고립과 학교출결 체계적 문헌검토",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42650360/",
+      "scope": "일반적 정책·개념·관련성 근거. OY-RALS 자체의 문항별 계수나 교차식은 미검증."
+    },
+    {
+      "id": "L18",
+      "title": "2026 국내 청소년 도움요청 척도 개발연구",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42650446/",
+      "scope": "일반적 정책·개념·관련성 근거. OY-RALS 자체의 문항별 계수나 교차식은 미검증."
+    },
+    {
+      "id": "L19",
+      "title": "2025/2026 국내 청소년 사회불안 척도 Rasch 분석",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41407279/",
+      "scope": "일반적 정책·개념·관련성 근거. OY-RALS 자체의 문항별 계수나 교차식은 미검증."
+    }
+  ]
+}
