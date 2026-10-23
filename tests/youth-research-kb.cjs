@@ -13,7 +13,9 @@ let got=K.match(a,{limit:5});assert.equal(got.length,1);assert.equal(got[0].id,'
 let p={answers:a.slice(),student:{gender:'미확인',dong:'세마동'},explicit:[],followups:{},domains:[],routes:[],resources:[]};
 let before=JSON.stringify(p);
 let resp=L.buildResponse(p,'교차 문항 해석 근거 설명','', 'teacher',{Map:M,Matrix:E,Research:K});
-assert.match(resp.text,/PAIR-03-09/);assert.match(resp.text,/개발가설/);assert.equal(JSON.stringify(p),before);
+// The readable answer explains the case; research identifiers remain in detailed evidence.
+assert.match(resp.technicalText,/PAIR-03-09/);assert.match(resp.technicalText,/개발가설/);
+assert.match(resp.text,/또래 괴롭힘/);assert.match(resp.text,/수업 참여/);assert.doesNotMatch(resp.text,/PAIR-03-09/);assert.equal(JSON.stringify(p),before);
 const urgent=Array(25).fill(0);urgent[6]=1;urgent[8]=4;urgent[10]=3;
 p.answers=urgent;resp=L.buildResponse(p,'사정 근거','', 'teacher',{Map:M,Matrix:E,Research:K});
 assert.match(resp.text,/보호 관련 신호/);
