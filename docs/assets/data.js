@@ -10087,7 +10087,19 @@ window.WELFARE_DATA = {
           "rounds": []
         }
       ],
-      "contact": {}
+      "contact": {
+        "contact_id": "CON-osan26care020",
+        "owner_type": "organization",
+        "owner_id": "osan26care020",
+        "dept": "",
+        "phone": "",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://clinics.seoul.kr/gyeonggi-do/osan-si/psychiatry",
+        "verified_on": ""
+      }
     },
     {
       "id": "osan26care021",
