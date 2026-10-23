@@ -1,0 +1,118 @@
+{
+  "schema": "OY-RALS-model-manifest-v3",
+  "releaseDate": "2026-10-24",
+  "version": "3.0.0-explainable",
+  "releaseType": "additive_case_knowledge_upgrade_not_score_recalibration",
+  "sourceRepository": "daily-jh/osansegyo-welfare-resources",
+  "modules": {
+    "coreAssessment": {
+      "file": "criteria.js",
+      "version": "existing",
+      "changed": false,
+      "knownItems": 25,
+      "domains": 10,
+      "maximumRawScore": 100
+    },
+    "contextWeights": {
+      "file": "weight-model.js",
+      "version": "2.2.0-contextual-20261024",
+      "changed": false,
+      "validatedOnHumans": false,
+      "interactionHypotheses": 8
+    },
+    "caseManagementV3": {
+      "file": "casework-v3.js",
+      "version": "3.0.0-casework-20261024",
+      "changed": true,
+      "scope": "draft goals, assignment negotiation, outcomes; no real service determination"
+    },
+    "languageInterpretationV3": {
+      "file": "interpretation-v3.js",
+      "version": "3.0.0-explainable-20261024",
+      "changed": true,
+      "scope": "narrative cue status, safe triage, evidence trace, workplan drafts"
+    },
+    "languageExisting": {
+      "file": "language-response-model.js",
+      "version": "2.1.0",
+      "changed": false,
+      "scope": "retained existing response and professional templates"
+    },
+    "researchBase": {
+      "path": "research-v1/",
+      "records": {
+        "questions": 25,
+        "pairs": 300,
+        "crossRules": 24
+      },
+      "changed": true,
+      "change": "Q25 full wording and hint synchronized to canonical app.js after 2026-10-24 revision"
+    },
+    "deepKB": {
+      "file": "data/response-knowledge-600-v1.json",
+      "records": 600,
+      "changed": false
+    },
+    "casePracticeBase": {
+      "file": "case-practice-v2-data.js",
+      "cards": 104,
+      "changed": false
+    },
+    "manuscript": {
+      "pages": 700,
+      "version": "case-management-review-v2",
+      "privacy": "review_only_no_client_records_in_public_repo"
+    }
+  },
+  "validation": {
+    "synthetic500k": "reported for v2.2, not rerun for v3; not human outcomes",
+    "newTests": [
+      "tests/youth-interpretation-v3.cjs",
+      "tests/youth-casework-v3.cjs",
+      "tests/youth-research-v1.cjs"
+    ],
+    "clinicalValidity": false,
+    "predictivePerformance": null,
+    "expertAgreement": null,
+    "aiLLMTraining": false,
+    "consent": "No personal client/student data in any repository update",
+    "disclaimer": "The v3 layers provide non-binding hypotheses and casework drafts, never diagnosis, statutory reporting decision, or service eligibility."
+  },
+  "sources": [
+    {
+      "kind": "clinical_guideline",
+      "title": "NICE NG225",
+      "url": "https://www.nice.org.uk/guidance/ng225/chapter/recommendations"
+    },
+    {
+      "kind": "measurement_guideline",
+      "title": "COSMIN systematic review guideline version 2.0 (2024)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11541334/"
+    },
+    {
+      "kind": "systematic_review",
+      "title": "Social Isolation and Problematic School Attendance (2026)",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42650360/"
+    },
+    {
+      "kind": "screening_study",
+      "title": "ASRA scale psychometric validation (2026) distinct instrument",
+      "url": "https://www.sciencedirect.com/science/article/pii/S0165032726004751"
+    },
+    {
+      "kind": "screening_study",
+      "title": "EIS-TR teacher report validation (2026) distinct instrument",
+      "url": "https://www.sciencedirect.com/science/article/pii/S0022440525001189"
+    },
+    {
+      "kind": "reporting_guidance",
+      "title": "TRIPOD-LLM (2025) if and when generative LLM evaluation is introduced",
+      "url": "https://www.nature.com/articles/s41591-024-03425-5"
+    },
+    {
+      "kind": "korean_law",
+      "title": "학생맞춤통합지원법 시행령 [시행 2026.3.1]",
+      "url": "https://www.law.go.kr/LSW/lsInfoP.do?efYd=20260301&lsiSeq=283671&urlMode=lsInfoP"
+    }
+  ]
+}
