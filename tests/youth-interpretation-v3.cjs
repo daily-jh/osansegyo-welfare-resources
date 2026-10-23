@@ -42,3 +42,23 @@ for(let k=0;k<3000;k++){
  for(const n of [1,2,7,25])if(a[n-1]>0)assert.ok(parsed.facts.safetyItems.includes(n));
 }
 console.log('PASS v3 additive interpretation: 3000 synthetic cases, safety, unknown, roles, factual separation, no score mutation, conditional check.');
+
+
+// v3.0.1: per-clause polarity must not suppress a distinct positive school-absence cue.
+const additionalFixtures=[
+ ['자해는 없고 결석이 반복되고 있습니다.','protection','denied_or_absent'],
+ ['자해는 없고 결석이 반복되고 있습니다.','school','mentioned_unverified'],
+ ['우울감은 없지만 지각은 늘었습니다.','mental','denied_or_absent'],
+ ['우울감은 없지만 지각은 늘었습니다.','school','mentioned_unverified'],
+ ['친구가 자해한다는 말을 들었습니다.','protection','unconfirmed'],
+ ['자해 위험이 있는지 아직 미확인입니다.','protection','unconfirmed'],
+ ['자해 예방 교육의 방법을 논의했습니다.','protection','context_only'],
+ ['학생이 죽고 싶다는 표현을 했습니다.','protection','mentioned_unverified'],
+ ['학생은 결석이 없다고 말했습니다.','school','denied_or_absent'],
+ ['주거불안이 의심된다는 제보를 받았습니다.','housing','unconfirmed']
+];
+for(const [note,topic,expected] of additionalFixtures){
+ const matches=V3.cues(note).filter(x=>x.topic===topic);
+ assert.ok(matches.some(x=>x.status===expected),'clause status '+topic+' '+expected);
+}
+console.log('PASS v3.0.1 contextual safety polarity: 10 synthetic fixtures');
