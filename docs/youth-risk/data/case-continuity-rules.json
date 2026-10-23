@@ -1,0 +1,81 @@
+{
+  "version": "2026.10.case-continuity-v1",
+  "purpose": "Non-clinical cross-stage case-management continuity audit; no personal case information",
+  "dataPolicy": "Browser-memory only; no remote upload, student identifiers, medical history, case transcripts or identifiable examples",
+  "stages": [
+    {
+      "id": "assessment",
+      "label": "초기 사정",
+      "proof": "평가 응답·직접 확인·보호요인·기존 서비스"
+    },
+    {
+      "id": "meeting",
+      "label": "1차 사례판정회의",
+      "proof": "제안과 실제 확정 의견 구분"
+    },
+    {
+      "id": "plan",
+      "label": "서비스계획",
+      "proof": "우선순위·목표·기관 역할·시기·기준선"
+    },
+    {
+      "id": "monitor",
+      "label": "서비스 제공·점검",
+      "proof": "접수·개시·완료·미확인·보류 구분"
+    },
+    {
+      "id": "review",
+      "label": "점검회의",
+      "proof": "원안 유지·수정·재수립·미기재 구분"
+    }
+  ],
+  "meetingStates": [
+    "unrecorded",
+    "approved",
+    "modified",
+    "deferred",
+    "rejected"
+  ],
+  "planStates": [
+    "unrecorded",
+    "draft",
+    "confirmed",
+    "adjusted"
+  ],
+  "implementationStates": [
+    "unknown",
+    "scheduled",
+    "inquiry",
+    "referred",
+    "received",
+    "started",
+    "completed",
+    "paused"
+  ],
+  "reviewStates": [
+    "unrecorded",
+    "maintain",
+    "adjust",
+    "replan",
+    "close"
+  ],
+  "evidenceStates": [
+    "unverified",
+    "self-report",
+    "document-verified"
+  ],
+  "caseTypes": [
+    "unrecorded",
+    "general",
+    "intensive",
+    "joint",
+    "other"
+  ],
+  "safety": "Current safety and mandated reporting remain independent of plan/document match scores",
+  "requiredWarnings": [
+    "25-question youth index cannot be numerically converted from another institution's case-management scale",
+    "planned is not executed; agreement is not outcome effectiveness",
+    "blank meeting minutes mean no confirmed decision",
+    "existing school or health services should not be duplicated without identifying an unmet need"
+  ]
+}
