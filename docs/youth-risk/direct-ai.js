@@ -14,6 +14,7 @@
       : '서버 미연결 · 기존 사례보고서·AI 요청문 복사는 그대로 이용할 수 있습니다.';
   }
   function reset(message) {
+    $('directAiDisclosure').checked=false;
     revision++;
     if (controller) controller.abort();
     controller = null;
