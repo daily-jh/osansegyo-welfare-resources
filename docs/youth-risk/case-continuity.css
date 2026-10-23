@@ -1,0 +1,29 @@
+/* Privacy-preserving continuity stage audit, print friendly */
+#continuitySection{border:1px solid #d6e1ed}
+#continuitySection>h2{line-height:1.4;color:#253c61}
+#continuitySection>p{line-height:1.9;color:#52697e;font-size:14px}
+#continuitySection .continuity-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px 15px}
+#continuitySection .continuity-fields label{margin:8px 0;display:grid;gap:5px;font-size:13px;color:#53637b}
+#continuitySection .continuity-fields input,#continuitySection .continuity-fields select{min-width:0;width:100%;font-size:13px;padding:10px 12px}
+.continuity-goal{padding:17px 18px;border:1px solid #dce5ef;background:#fcfdff;border-radius:18px;margin:15px 0}
+.continuity-goal>h4{margin:0 0 5px;color:#283b58;font-size:17px}
+.continuity-basis{font-size:12px;line-height:1.6;color:#69829b;margin:6px 0 11px}
+.continuity-goal .continuity-check{font-size:13px;display:flex!important;gap:8px;align-items:center;margin:11px 0}
+.continuity-goal input[type=checkbox]{width:auto!important}
+.continuity-goal>label:last-child{font-size:13px}
+.continuity-goal>label:last-child input{font-size:13px;margin-top:6px}
+.continuity-results{border:1px solid #cfdded;background:#f5f9fd;padding:18px 22px;border-radius:18px;margin-top:17px}
+.continuity-results h3{margin:0 0 12px;color:#2b4669}
+.continuity-results p{font-size:13px;line-height:1.85;color:#425b70}
+.continuity-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin:16px 0}
+.continuity-metrics span{border-radius:10px;background:white;border:1px solid #e0e8f2;padding:11px;color:#526b80;font-size:12px}
+.continuity-metrics b{display:block;color:#2b548b;font-size:19px;margin-top:5px}
+.continuity-results .score-table{width:100%;font-size:12px}
+.continuity-results .score-table td,.continuity-results .score-table th{line-height:1.7;padding:10px 12px;vertical-align:top}
+.continuity-results li{font-size:13px;line-height:1.8;margin:6px 0;color:#86592f}
+.continuity-note{color:#73879b!important;font-size:12px!important}
+.continuity-in-report{border-top:2px solid #dbe7f6;padding-top:18px;margin-top:24px}
+.continuity-in-report h3{font-size:18px}
+@media(max-width:800px){#continuitySection .continuity-fields{grid-template-columns:repeat(2,minmax(0,1fr))}.continuity-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:570px){#continuitySection .continuity-fields{grid-template-columns:1fr}.continuity-goal{padding:13px}.continuity-results{padding:14px}.continuity-metrics span{padding:8px}}
+@media print{#continuitySection{display:none!important}.continuity-in-report{break-before:page}.continuity-in-report .continuity-metrics{grid-template-columns:repeat(4,1fr)}}
