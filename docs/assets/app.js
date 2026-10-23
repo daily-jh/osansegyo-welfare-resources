@@ -2,14 +2,14 @@
 (() => {
   'use strict';
   const $=s=>document.querySelector(s), model=window.ResourceSearch, data=window.WELFARE_DATA;
-  if(!model||!data||!Array.isArray(data.organizations))return;
+  if(!model||!data||!Array.isArray(data.organizations)){const status=$('#loadStatus');if(status){status.hidden=false;status.textContent='복지자원 데이터를 불러오지 못했습니다. 새로고침 후 다시 시도해 주세요.'}return;}
   const all=data.organizations, selected=new Set(), STORE='osansegyo_resource_favorites_v1';
   const defaults={level:'전체',need:'',audience:'',keyword:'',kind:'',form:'',intake:'',local:'',operation:'',verified:'',application:'',onlyFavorites:false,sort:'relevance'};
   const state={...defaults,limit:8,opened:new Set()};
   let favorites=new Set();
-  try{const a=JSON.parse(localStorage.getItem(STORE)||'[]');if(Array.isArray(a))favorites=new Set(a)}catch{}
+  try{const a=JSON.parse(localStorage.getItem(STORE)||'[]');if(Array.isArray(a))favorites=new Set(a.filter(id=>typeof id==='string'&&all.some(o=>o.id===id)).slice(0,all.length))}catch{}
   const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const safe=s=>/^https?:\/\//i.test(s||'')?s:'';
+  const safe=s=>{try{if(typeof s!=='string'||/[\u0000-\u001f\u007f]/.test(s))return '';const u=new URL(s);return /^https?:$/.test(u.protocol)&&!u.username&&!u.password?u.href:''}catch{return ''}};
   const options=(values,first)=>`<option value="">${first}</option>`+values.map(v=>`<option>${esc(v)}</option>`).join('');
   const filters={audience:'audienceFilter',kind:'kindFilter',form:'formFilter',intake:'intakeFilter',local:'localFilter',operation:'operationFilter',application:'applicationFilter'};
   $('#audienceFilter').innerHTML=options(data.taxonomy.target,'전체 대상');

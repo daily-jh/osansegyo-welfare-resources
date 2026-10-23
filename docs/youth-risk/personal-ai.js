@@ -79,7 +79,7 @@ providers.forEach(button=>{
     if(!target)return;
     // Clipboard write and window.open are both started directly from the click event.
     const copyOperation=copyPacket();
-    const opened=window.open(target,'_blank');
+    const opened=window.open(target,'_blank','noopener,noreferrer');
     if(opened)opened.opener=null;
     const copied=await copyOperation;
     if(copied)status.textContent='분석자료를 복사하고 '+button.textContent.trim()+' 화면을 열었습니다. 채팅창에 붙여넣고 보내 주세요. 응답은 이 페이지에서 자동으로 읽을 수 없습니다.';

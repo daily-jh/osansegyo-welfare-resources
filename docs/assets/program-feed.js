@@ -2,7 +2,7 @@
 (function(root){'use strict';
 const norm=s=>String(s||'').normalize('NFKC').replace(/\s+/g,'').toLowerCase();
 const today=()=>new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
-const safe=s=>typeof s==='string'&&/^https?:\/\//i.test(s);
+const safe=s=>{try{if(typeof s!=='string'||/[\u0000-\u001f\u007f]/.test(s))return false;const u=new URL(s);return /^https?:$/.test(u.protocol)&&!u.username&&!u.password}catch{return false}};
 function status(p,day=today()){
  if(!p.verifiedOn||!safe(p.sourceUrl))return '확인 필요';
  if(p.status==='마감')return '마감';
@@ -29,6 +29,6 @@ function merge(data,feed){
  }
  return count;
 }
-async function load(data){try{const r=await fetch('programs.json',{cache:'no-cache'});if(!r.ok)throw Error('Program data unavailable');return merge(data,await r.json());}catch{return 0;}}
+async function load(data){try{const r=await fetch('programs.json',{cache:'no-cache',credentials:'omit',referrerPolicy:'no-referrer',signal:AbortSignal.timeout(8000)});if(!r.ok)throw Error('Program data unavailable');return merge(data,await r.json());}catch{return 0;}}
 const api={load,merge,status};if(typeof module!=='undefined')module.exports=api;else root.ProgramFeed=api;
 })(typeof window!=='undefined'?window:globalThis);

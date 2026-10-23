@@ -1,6 +1,6 @@
 (function(){'use strict';const $=id=>document.getElementById(id),origin=location.origin;let stage=1,revision=0,ready=false,payload=null,view='result',report=null,map=null,selection=[],recordFrames=new Map(),registrations=new Map();const assessment=$('assessmentFrame');registrations.set(assessment,{kind:'assessment'});
 function send(f,m){f.contentWindow?.postMessage(m,origin)}
-function frame(kind,path,p){const f=document.createElement('iframe');f.title=kind==='report'?'사례검토 보고서·서비스계획서':kind==='map'?'지원 연결지도':'직접 기록·점검';f.src=new URL(path,document.baseURI).href+'?v=20261023-zones1';f.className='flow-frame';registrations.set(f,{kind,payload:p,revision});
+function frame(kind,path,p){const f=document.createElement('iframe');f.title=kind==='report'?'사례검토 보고서·서비스계획서':kind==='map'?'지원 연결지도':'직접 기록·점검';f.src=new URL(path,document.baseURI).href+'?v=20261023-security1';f.className='flow-frame';registrations.set(f,{kind,payload:p,revision});
  if(kind==='report'){
   f.addEventListener('load',()=>{
    const doc=f.contentDocument;
@@ -34,10 +34,11 @@ window.addEventListener('message',e=>{if(e.origin!==origin)return;const entry=[.
  if(t==='youth-flow-child-ready-v1'){if(f===assessment)send(f,{type:'youth-flow-mode-v1',mode:stage===1?'response':'result'});return}
  if(t==='youth-flow-report-ready-v1'&&meta.kind==='report'&&f===report){$('retryReport').hidden=true;$('reportLoading').hidden=true;f.hidden=false;return}
  if(t==='youth-flow-report-error-v1'&&meta.kind==='report'&&f===report){$('reportLoading').hidden=false;$('reportLoading').textContent='보고서 자동 생성 중 오류가 발생했습니다. 기존 평가 응답은 유지됩니다. 아래 버튼으로 다시 불러오세요.';$('retryReport').hidden=false;return}
- if(t==='youth-flow-invalid-v1'&&f===assessment){ready=false;if(stage!==1)show(1);else document.querySelectorAll('[data-stage]').forEach(b=>b.disabled=+b.dataset.stage!==1);$('flowStatus').textContent=revision?'응답이 바뀌었습니다. 평가를 다시 완료하면 결과와 보고서에 반영됩니다. 이전 기록은 보존합니다.':'응답을 선택한 뒤 평가를 완료해 주세요.';return}
+ if(t==='youth-flow-invalid-v1'&&f===assessment){ready=false;clearDerived();$('exportAssessment').disabled=true;if(stage!==1)show(1);else document.querySelectorAll('[data-stage]').forEach(b=>b.disabled=+b.dataset.stage!==1);$('flowStatus').textContent=revision?'응답이 바뀌었습니다. 평가를 다시 완료하면 결과와 보고서에 반영됩니다. 이전 기록은 보존합니다.':'응답을 선택한 뒤 평가를 완료해 주세요.';return}
  if(t==='youth-flow-complete-v1'&&f===assessment&&YouthMap.validate(e.data.payload)){payload=e.data.payload;revision++;ready=true;selection=YouthPlanning.analyze(payload).defaultDomains;clearDerived();focusChoices();view='result';$('exportAssessment').disabled=false;$('flowStatus').textContent='평가 '+revision+'차 결과를 반영했습니다. 결과와 연계를 확인한 뒤 보고서·계획안을 살펴보세요.';show(2);return}
  if(t==='youth-flow-go-v1'){if(e.data.stage===2&&e.data.view==='map')view='map';show(e.data.stage);return}
  if(['youth-support-request-v1','youth-workbench-request-v1'].includes(t)&&meta.payload){
+  if(!ready||meta.revision!==revision){send(f,{type:'youth-support-unavailable-v1'});return;}
   if(meta.kind==='report'&&!f.contentDocument?.getElementById('exampleMain'))return;
   send(f,{type:'youth-support-data-v1',...meta.payload});
  }

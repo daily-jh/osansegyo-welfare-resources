@@ -245,17 +245,18 @@ lines.push("","[함께 살펴볼 어려움과 지원 순서]",YouthInsights.anal
 $("copyPacket").value=lines.join("\n");updateCopyGate();
 }
 async function copyPacket(){if(!ready||$("copyAll").disabled)return;var text=$("copyPacket").value,revision=reviewRevision;try{if(!navigator.clipboard||!navigator.clipboard.writeText)throw Error("clipboard unavailable");await navigator.clipboard.writeText(text);if(revision===reviewRevision)$("copyStatus").textContent="사례검토 보고서 요청문·결과표·25문항·리뷰·자원 후보를 복사했습니다. 이용하시는 AI에 직접 붙여넣으세요."}catch(e){if(revision!==reviewRevision)return;$("copyPacket").focus();$("copyPacket").select();$("copyStatus").textContent="자동 복사가 제한되어 전체 내용을 선택했습니다. Ctrl+C 또는 기기의 복사 메뉴로 복사해 주세요."}}
+function notifyComplete(){if(window.parent!==window)setTimeout(()=>{if(ready)window.parent.postMessage({type:'youth-flow-complete-v1',payload:snapshot()},location.origin)},0);}
 function calculate(){
 var missing=answers.findIndex(function(v){return v===null});if(missing!==-1){alert((missing+1)+"번 문항부터 미응답 항목이 있습니다. 각 문항에서 점수 또는 미상을 선택해 주세요.");$("qi"+missing).scrollIntoView({behavior:"smooth",block:"center"});var radio=$("qi"+missing).querySelector("input");radio.focus();return}
 ready=true;
-if(window.parent!==window)setTimeout(()=>{if(ready)window.parent.postMessage({type:'youth-flow-complete-v1',payload:snapshot()},location.origin)},0);
+
 if(window.siteUsage&&answers.some(v=>typeof v==='number'))window.siteUsage.complete();
 var total=sumKnown(answers);
 var domainScores=domains.map(function(d,i){return sumKnown(domainAnswers(i))});
 var explicit=getUrgent(),inferred=inferredSignals();
 var urgent=explicit.length>0||inferred.length>0;
 var decision=YouthCriteria.evaluate(answers,domains.map(function(d){return d.items.length}),explicit.length>0,followupState());var rank=decision.level;
-if(decision.incomplete){YouthPartial.render(snapshot(),decision);resizeSummary();renderResources(domainScores);$("openSupport").disabled=false;$("openWorkbench").disabled=false;$("supportStatus").textContent='미상 표시를 유지한 잠정 연결지도를 볼 수 있습니다.';updateCopyGate();$("result").scrollIntoView({behavior:'smooth',block:'start'});return;}
+if(decision.incomplete){YouthPartial.render(snapshot(),decision);resizeSummary();renderResources(domainScores);$("openSupport").disabled=false;$("openWorkbench").disabled=false;$("supportStatus").textContent='미상 표시를 유지한 잠정 연결지도를 볼 수 있습니다.';updateCopyGate();notifyComplete();$("result").scrollIntoView({behavior:'smooth',block:'start'});return;}
 var who=$("studentName").value.trim(),heading=decision.title;
 var html='<div class="result-main'+(urgent?' urgent':'')+'"><span class="eyebrow">TEST 평가결과'+(who?' · '+clean(who):'')+'</span><div class="sum">'+total+'<small> / 100점</small></div><h3>'+clean(heading)+'</h3><p>'+clean(urgent?"선택된 안전신호가 우선입니다. 점수 산출을 기다리지 말고 필요한 긴급조치를 실시하세요.":decision.description)+'</p><p class="sub">'+clean(decision.reason)+'<br><a href="criteria.html">판정 기준·문항별 우선순위 보기</a></p></div>';
 html+='<div class="routes">'+interventionPlan(decision,YouthInsights.analyze(answers)).map(function(p){return '<article class="route"><h4>'+clean(p.title)+'</h4><p>'+clean(p.text)+'</p></article>'}).join('')+'</div>';
@@ -273,6 +274,7 @@ html+='</ul><p style="font-size:16px;margin:9px 0 0">위의 문항을 중심으�
 $("resultBody").innerHTML=html;$("printResult").onclick=function(){window.print()};
 renderResources(domainScores);
 renderSummary(total,domainScores,explicit.concat(inferred));
+notifyComplete();
 $("openSupport").disabled=false;$("openWorkbench").disabled=false;$("supportStatus").textContent="선택 보기입니다. 영역별 신호와 기관·사업의 연결을 그림으로 확인하세요.";
 $("result").scrollIntoView({behavior:"smooth",block:"start"});
 }
@@ -297,6 +299,7 @@ var groups=YouthMap.referrals(snapshot()),content='';
 groups.forEach(function(group){var item=group.primary,info=YouthLinks.resolve(item),url=info.primary;
  content+='<article class="resource-item" data-domains="'+group.domainIds.join(',')+'"><span class="category">'+clean(item['범주'])+' · 기관별 문의 필요</span><h3>'+clean(group.name)+'</h3><p>후보 제시 이유: '+clean(group.domainIds.map(i=>domains[i].name).join(' · '))+'</p>'+(item.routingReason?'<p>'+clean(item.routingReason)+'</p>':'')+'<p>응답과 연결된 서비스: '+clean(group.services.map(r=>r['서비스명']).join(' · '))+'</p><p>'+clean(YouthLinks.contactText(item))+'</p><p>신청·연계: '+clean(item['신청·연계방법']||'기관 문의')+'</p><p>대상·비용·접수·관할은 실제 문의 후 확인합니다.</p>';
  if(info.address){var term=encodeURIComponent(info.address+' '+group.name);content+='<a href="https://www.google.com/maps/search/?api=1&amp;query='+term+'" target="_blank" rel="noopener noreferrer">구글 지도 ↗</a> · <a href="https://map.naver.com/p/search/'+term+'" target="_blank" rel="noopener noreferrer">네이버 지도 ↗</a> · ';}
+ if(item.orgId)content+='<a href="../#org='+encodeURIComponent(item.orgId)+'" target="_blank" rel="noopener noreferrer">복지자원 상세정보 ↗</a> · ';
  if(url)content+='<a href="'+clean(url)+'" target="_blank" rel="noopener noreferrer">기관·사업 안내 ↗</a>';content+='</article>';
 });
 var profile=studentProfile();
@@ -332,14 +335,14 @@ window.addEventListener('message',function(e){
 });
 var supportWindows=new Set();
 window.addEventListener('message',function(e){if(e.origin!==location.origin||!supportWindows.has(e.source)||!e.data||!['youth-support-request-v1','youth-workbench-request-v1'].includes(e.data.type))return;if(!ready){e.source.postMessage({type:'youth-support-unavailable-v1'},location.origin);return}e.source.postMessage(snapshot(),location.origin)});
-function openSupport(){if(!ready)return;if(window.parent!==window){window.parent.postMessage({type:'youth-flow-go-v1',stage:2,view:'map'},location.origin);return;}supportWindows.forEach(function(w){if(w.closed)supportWindows.delete(w)});var w=window.open('support.html?v=20261023-profile2','_blank');if(w){supportWindows.add(w);$("supportStatus").textContent="지원 연결지도를 새 탭에서 열었습니다. 원래 평가 탭을 닫지 마세요."}else $("supportStatus").textContent="새 탭이 차단되었습니다. 브라우저에서 이 사이트의 팝업을 허용한 뒤 다시 눌러 주세요."}
+function openSupport(){if(!ready)return;if(window.parent!==window){window.parent.postMessage({type:'youth-flow-go-v1',stage:2,view:'map'},location.origin);return;}supportWindows.forEach(function(w){if(w.closed)supportWindows.delete(w)});var w=window.open('support.html?v=20261023-security1','_blank');if(w){supportWindows.add(w);$("supportStatus").textContent="지원 연결지도를 새 탭에서 열었습니다. 원래 평가 탭을 닫지 마세요."}else $("supportStatus").textContent="새 탭이 차단되었습니다. 브라우저에서 이 사이트의 팝업을 허용한 뒤 다시 눌러 주세요."}
 function init(){
 document.querySelectorAll("input").forEach(function(n){n.value=n.type==="checkbox"?n.value:"";n.checked=false});makeQuestions();updateProgress();
 clearSummary();
 $("domainJump").innerHTML+=domains.map(function(d,i){return '<option value="'+i+'">'+(i+1)+'. '+clean(d.name)+'</option>'}).join('');
 $("domainJump").addEventListener("change",function(){if(this.value!==""){var target=$("domain"+this.value);target.scrollIntoView({block:"start"});target.querySelector("input").focus({preventScroll:true})}});
 $("findPending").onclick=findPending;
-$("openSupport").onclick=openSupport;$("openWorkbench").onclick=function(){if(!ready)return;var w=window.open('case-examples.html?v=20261023-profile2','_blank');if(w)supportWindows.add(w)};$("aiAllowed").onchange=updateCopyGate;$("aiAnonymous").onchange=updateCopyGate;$("safetyFollowups").onchange=updateUrgent;
+$("openSupport").onclick=openSupport;$("openWorkbench").onclick=function(){if(!ready)return;var w=window.open('case-examples.html?v=20261023-security1','_blank');if(w)supportWindows.add(w)};$("aiAllowed").onchange=updateCopyGate;$("aiAnonymous").onchange=updateCopyGate;$("safetyFollowups").onchange=updateUrgent;
 $("pendingList").addEventListener("click",function(e){var b=e.target.closest("[data-question]");if(b){var target=$("qi"+b.dataset.question);target.scrollIntoView({block:"center"});target.querySelector("input").focus({preventScroll:true})}});
 $("resourceFilter").onchange=filterResources;
 $("copyAll").addEventListener("click",copyPacket);
