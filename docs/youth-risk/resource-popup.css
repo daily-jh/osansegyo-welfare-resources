@@ -1,0 +1,43 @@
+/* © 2026 김지훈. CONNECTED SUPPORT 팝업 · 청소년 사이트 독립형 디자인 */
+.youth-header-links{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.header-resource-link{appearance:none;font:700 13px/1.5 SUIT,"Malgun Gothic",sans-serif;text-decoration:none;color:#345fae;padding:8px 13px;border:1px solid #d6e3f4;background:#f6faff;border-radius:12px;cursor:pointer}
+.header-resource-link:hover{background:#eaf2ff;border-color:#abc7eb}
+.header-resource-link:focus-visible{outline:3px solid #6a97df;outline-offset:3px}
+dialog.resource-popup{box-sizing:border-box;width:min(470px,calc(100% - 32px));max-width:calc(100% - 32px);max-height:min(90dvh,710px);margin:auto;padding:0;border:1px solid #dbe5f3;border-radius:27px;background:#fff;color:#203a58;box-shadow:0 32px 85px #193f7160;overflow-y:auto;overscroll-behavior:contain}
+dialog.resource-popup:not([open]){display:none}
+dialog.resource-popup::backdrop{background:rgba(20,37,66,.47);backdrop-filter:blur(3px)}
+.resource-popup-content{padding:23px 31px 24px;background:radial-gradient(circle at 91% 7%,#eaf2ff 0,transparent 38%),radial-gradient(circle at 7% 98%,#e8fbf4 0,transparent 41%),#fff;text-align:center}
+.resource-popup-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:4px}
+.resource-popup-kicker{display:inline-flex;align-items:center;gap:8px;color:#5574b4;letter-spacing:.11em;font-weight:800;font-size:11px}
+.resource-popup-dot{display:inline-block;background:#517bd5;width:7px;height:7px;border-radius:50%}
+.resource-popup-close{width:38px;height:38px;border:1px solid #e2e9f3;background:#fff;color:#657a93;border-radius:12px;font-size:25px;line-height:1;cursor:pointer;display:grid;place-items:center}
+.resource-popup-close:hover{background:#f1f5ff;color:#2b4e91}
+.resource-popup-symbol{width:82px;height:82px;margin:8px auto 13px;border-radius:25px;background:linear-gradient(135deg,#f1f5ff,#effdf9);display:grid;place-items:center;border:1px solid #e0eafb}
+.resource-popup h2{font:850 clamp(24px,4.2vw,30px)/1.3 SUIT,"Malgun Gothic",sans-serif;letter-spacing:-.055em;color:#192f51;margin:7px 0 10px}
+.resource-popup-description{font-size:15px;line-height:1.85;color:#566e89;margin:0 0 16px;word-break:keep-all}
+.resource-popup-tags{display:flex;justify-content:center;flex-wrap:wrap;gap:6px;margin:12px 0 23px}
+.resource-popup-tags span{font-size:11px;color:#527296;background:#f1f6fc;border:1px solid #e2ebf5;border-radius:20px;padding:6px 9px}
+.resource-popup-primary{box-sizing:border-box;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:12px;width:100%;padding:15px 17px;min-height:52px;border-radius:15px;border:1px solid #366bcb;background:#386ccb;color:#fff!important;font-size:15px;font-weight:800;box-shadow:0 8px 17px #3b69ca24}
+.resource-popup-primary:hover{background:#2a59b4}
+.resource-popup-actions{display:flex;justify-content:space-between;align-items:center;margin:13px 0 12px;gap:12px}
+.resource-popup-actions button{background:transparent;border:0;color:#73859d;padding:9px 5px;border-radius:6px;cursor:pointer;font-size:12px;line-height:1.5}
+.resource-popup-actions button:hover{color:#315bb0;text-decoration:underline}
+.resource-popup-note{border-top:1px solid #e6eaf3;padding-top:15px;margin:0;color:#8594a7;font-size:11px;line-height:1.75}
+.resource-popup button:focus-visible,.resource-popup a:focus-visible{outline:3px solid #79a2e7;outline-offset:3px}
+@media(max-width:600px){
+  .youth-header-links{gap:6px;justify-content:flex-end}
+  .header-resource-link,.header-help{font-size:11px}
+  .header-resource-link{padding:6px 9px}
+  dialog.resource-popup{width:calc(100% - 22px);max-width:calc(100% - 22px);max-height:calc(100dvh - 24px);border-radius:22px}
+  .resource-popup-content{padding:15px 19px 18px}
+  .resource-popup-top{margin:0}
+  .resource-popup-symbol{width:70px;height:70px;margin:5px auto 10px}
+  .resource-popup h2{font-size:25px;margin:6px 0}
+  .resource-popup-description{font-size:14px;margin-bottom:10px}
+  .resource-popup-tags{margin:10px 0 17px}
+  .resource-popup-primary{font-size:14px;min-height:49px;padding:13px 12px}
+  .resource-popup-note{font-size:10px;padding-top:10px}
+}
+@media(max-width:370px){.youth-header-links{flex-direction:column;align-items:flex-end;gap:3px}.resource-popup-description br{display:none}.resource-popup-tags span{font-size:10px}}
+@media(prefers-reduced-motion:reduce){dialog.resource-popup::backdrop{backdrop-filter:none}}
+@media print{dialog.resource-popup,.header-resource-link{display:none!important}}
