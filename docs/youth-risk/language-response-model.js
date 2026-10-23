@@ -92,6 +92,12 @@ function buildResponse(payload,query,narrative,role="teacher",deps={}){
   r("\n[연결해서 살펴볼 교차 가설 · 인과확정 아님]");
   patterns.slice(0,3).forEach(x=>r("• "+x.title+" ("+x.evidence+") — "+x.question));
  }
+ const research=deps.Research&&typeof deps.Research.match==='function'?deps.Research.match(a,{limit:4,threshold:2}):[];
+ if(research.length && intent!=='safety'){
+  r("\n[추가 문항쌍 교차검토 · 연구형 가설 v1.0]");
+  research.forEach(x=>r("• "+x.id+" ["+x.labels.join(" × ")+"] · 실제 문항 응답 "+x.items.map(n=>n+"번 "+a[n-1]+"점").join(" / ")+"\n  해석: "+x.interpretation+"\n  확인 질문: "+x.question+"\n  실무조치: "+(role==='teacher'?x.teacher:x.socialWorker)+"\n  반례 점검: "+x.counter+"\n  근거 수준: 검증되지 않은 개발가설 · 배경자료 "+x.refs.join(", ")));
+  r("문항쌍 300개를 검색할 수 있지만, 표시되는 조합만으로 통계적 상관·인과·위험예측을 확정하지 않습니다.");
+ }
  if(discrepancies.length)r("\n[기록 대조 필요]\n서술에는 '"+[...new Set(discrepancies)].join("·")+"' 관련 단서가 있으나 해당 평가문항이 모두 0점입니다. 점수를 임의 수정하지 말고 동일 사건·시점·출처 및 부정 표현 여부를 확인하세요.");
  if(unknown.length)r("\n[미확인 문항]\n"+unknown.slice(0,12).join(", ")+(unknown.length>12?" 외 "+(unknown.length-12)+"개":"")+"번은 미상입니다. 0점으로 환산하거나 전체 단계로 확정하지 않습니다.");
  if(intent!=="resource")r("\n[지역연계 점검]\n"+(profile.dong||"행정동 미확인")+" / "+zone+" · 실제 기관 이용·접수 여부 별도 확인");
