@@ -1,0 +1,14 @@
+#languageAssistant{border:1px solid #d6e4f0;background:#fff;line-height:1.7}
+#languageAssistant .language-caption{color:#496075;margin-bottom:12px}
+#languageAssistant label{font-weight:700;display:block;margin:12px 0 6px}
+#languageAssistant textarea,#languageAssistant input{width:100%;box-sizing:border-box;padding:12px 14px;border:1px solid #bfd1e3;border-radius:12px;background:white;color:#18354c;font:inherit;line-height:1.65}
+#languageAssistant textarea{min-height:110px;resize:vertical}
+#languageAssistant .language-questions{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+#languageAssistant .language-questions button{min-height:42px;padding:9px 12px;font:inherit;font-size:14px;border-radius:22px;border:1px solid #bbd3e7;background:#f2f7fd;color:#21517b;cursor:pointer}
+#languageAssistant .language-questions button:hover{background:#e5f1fb}
+#languageAssistant .language-tools{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+#languageAssistant .language-answer{white-space:pre-wrap;overflow-wrap:anywhere;background:#f5f8fc;border:1px solid #dbe5ee;border-radius:14px;padding:17px;font:inherit;font-size:14px;line-height:1.85;max-height:650px;overflow:auto}
+#languageAssistant [disabled]{opacity:.5;cursor:not-allowed}
+#languageAssistant #languageStatus{font-size:14px;color:#425f79}
+@media(max-width:640px){#languageAssistant textarea,#languageAssistant input{font-size:16px}#languageAssistant .language-answer{font-size:14px}}
+@media print{#languageAssistant{display:none!important}}
