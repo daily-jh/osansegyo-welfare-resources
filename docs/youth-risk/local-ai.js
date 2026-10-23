@@ -2,6 +2,7 @@
 'use strict';
 const $=id=>document.getElementById(id);
 const BASE='http://127.0.0.1:8765';
+let connectionRevision=0;
 let context=null,viewRole='teacher',connected=false,providers={},currentAbort=null,revision=0;
 const status=$('localAiStatus'),preview=$('localAiResult');
 function token(){return $('localAiPair').value.trim()}
@@ -11,6 +12,7 @@ function eligible(){
     $('localAiOrg').checked&&$('localAiDisclosure').checked;
 }
 function update(){
+  ['codex','claude'].forEach(p=>{const n=$(p+'Connection');if(n)n.textContent=connected?(providers[p]?'PC 연결 · 설치 확인':'PC 연결 · 설치 인식 안 됨'):'연결 확인 전'});
   $('localAiRun').disabled=!eligible()||!!currentAbort;
 }
 function reset(message){
@@ -49,6 +51,8 @@ async function request(path,data,controller,timeout=10000){
   }finally{clearTimeout(timer)}
 }
 async function check(){
+  const connection=++connectionRevision;
+  reset();
   connected=false;providers={};update();
   if(!/^[a-f0-9]{48}$/.test(token())){
     status.textContent='PC 연결 프로그램에 표시된 48자리 연결 코드를 입력해 주세요.';return;
@@ -57,11 +61,13 @@ async function check(){
   status.textContent='개인 PC의 연결 프로그램을 확인하고 있습니다…';
   try {
     const data=await request('/status',{},controller);
+    if(connection!==connectionRevision)return;
     if(data.service!=='osan-youth-local-ai')throw Error('다른 프로그램이 응답했습니다. 포트 8765를 확인하세요.');
     connected=true;providers=data.providers||{};
     const codes=['Codex '+(providers.codex?'설치 확인':'미설치/인식 안 됨'),'Claude Code '+(providers.claude?'설치 확인':'미설치/인식 안 됨')];
     status.textContent='PC 로컬 연결 성공 · '+codes.join(' · ')+'. 평가자료는 아직 전송하지 않았습니다.';
   }catch(e){
+    if(connection!==connectionRevision)return;
     status.textContent=e.name==='AbortError'?'PC 연결 시간이 초과되었습니다. 연결 프로그램을 실행했는지 확인하세요.':
       e.message==='Failed to fetch'||e instanceof TypeError?
       '연결할 수 없습니다. PC 연결 프로그램 실행, Chrome의 로컬 네트워크(루프백) 접근 허용, 브라우저 보안 설정을 확인하세요.':
@@ -88,6 +94,7 @@ window.addEventListener('youth-ai-context-v1',event=>{
   reset('현재 평가('+ (viewRole==='teacher'?'교사':'사회복지사')+' 관점)를 가져왔습니다. PC 연결 및 전송 확인 후 AI 작성을 선택하세요.');
 });
 $('localAiPair').addEventListener('input',()=>{
+  connectionRevision++;reset();
   connected=false;providers={};update();
   status.textContent='연결 코드가 바뀌었습니다. 연결 확인을 다시 눌러 주세요.';
 });
@@ -97,6 +104,8 @@ $('localAiProvider').addEventListener('change',()=>{
 });
 ['localAiOrg','localAiDisclosure'].forEach(id=>$(id).addEventListener('change',update));
 $('localAiCheck').addEventListener('click',check);
+$('localAiDisconnect').addEventListener('click',()=>{connectionRevision++;connected=false;providers={};$('localAiPair').value='';reset('홈페이지의 연결 코드와 초안을 지웠습니다. PC 연결 프로그램도 종료해 주세요.');});
+preview.addEventListener('input',()=>{$('localAiCopy').disabled=!preview.value.trim();$('localAiPrint').disabled=!preview.value.trim()});
 $('localAiRun').addEventListener('click',async()=>{
   if(!eligible()||currentAbort)return;
   const rev=revision;
@@ -134,3 +143,4 @@ $('localAiPrint').addEventListener('click',()=>{
 });
 update();
 })();
+

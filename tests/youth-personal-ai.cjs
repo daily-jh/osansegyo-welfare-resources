@@ -55,7 +55,7 @@ test('Unexpected fields and score distortion rejected',()=>{
  assert.equal(model.validate({...p,domains:[]}),false);
  assert.deepEqual(Object.keys(model.routes).sort(),['chatgpt','claude','gemini']);
 });
-test('Current site keeps original AI copy and replaces technical pairing with narrative flow',()=>{
+test('Current site keeps original AI copy and preserves narrative sharing alongside optional PC integration',()=>{
  const root=path.join(__dirname,'../docs/youth-risk');
  const main=fs.readFileSync(path.join(root,'assessment.html'),'utf8');
  const panel=fs.readFileSync(path.join(root,'case-examples.html'),'utf8');
@@ -65,8 +65,8 @@ test('Current site keeps original AI copy and replaces technical pairing with na
  assert.match(panel,/id="studentNarrative"/);
  assert.match(panel,/id="personalAiShare"/);
  assert.match(panel,/id="personalAiResponse"/);
- assert.doesNotMatch(panel,/id="localAiPair"/);
- assert.doesNotMatch(panel,/Start-Osan-AI\.cmd/);
+ assert.match(panel,/id="localAiPair"/);
+ assert.match(panel,/Start-Osan-AI\.cmd/);
  assert.match(panel,/personal-ai-model\.js/);
  assert.match(logic,/navigator\.share/);
  assert.doesNotMatch(logic,/fetch\(/);
@@ -75,3 +75,4 @@ test('Current site keeps original AI copy and replaces technical pairing with na
   assert.equal(r.status,0,file+' syntax: '+r.stderr);
  }
 });
+
