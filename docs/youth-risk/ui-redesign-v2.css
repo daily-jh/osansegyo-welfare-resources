@@ -1,0 +1,39 @@
+/* OY-RALS home redesign: abstract assessment imagery, no character artwork */
+.welcome{padding:48px 0 32px;background:radial-gradient(ellipse at 71% 30%,#e8efff 0,transparent 40%),radial-gradient(ellipse at 12% 80%,#e7f9f5 0,transparent 34%),linear-gradient(120deg,#fff 5%,#fafaff 100%);border-color:#e5eafa}
+.hero-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:20px;min-height:380px}
+.hero-copy{padding:18px 0}
+.hero-kicker{letter-spacing:.035em;color:#3c61ca;background:#eaf0ff;border-color:#dce5fb;font-weight:800}
+.hero-copy h1{font-size:clamp(35px,3.6vw,54px);letter-spacing:-.064em;line-height:1.23;margin:20px 0 10px;color:#152651}
+.hero-copy h1 em{font-style:normal;color:#365bcb}
+.hero-copy .hero-en{font-size:15px;color:#6582a6;line-height:1.4;margin:12px 0 19px}
+.hero-copy p:not(.hero-en){font-size:17px;line-height:1.9;color:#5d6e87;margin:0}
+.hero-actions{gap:18px;margin:24px 0 0}
+.hero-actions .flow-primary{border-radius:16px;background:linear-gradient(110deg,#3e64d6,#546fe9);font-size:16px;padding:15px 24px;box-shadow:0 9px 23px #466be52a}
+.hero-actions a{color:#385caa;font-size:14px}
+.hero-copy>small{font-size:12px;color:#788ba6;line-height:1.5;margin-top:19px}
+.hero-art{height:auto;min-height:325px;display:flex;align-items:center;justify-content:center}
+.hero-art img{display:block;max-width:100%;width:100%;height:auto;filter:drop-shadow(0 10px 18px #6174c70a)}
+.home-role-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:4px}
+.home-role-grid article{display:grid;grid-template-columns:auto 1fr;gap:17px;align-items:start;border:1px solid #e1e8f5;border-radius:23px;padding:25px 26px;box-shadow:0 8px 25px #3b5b7d0a}
+.home-role-grid .role-teacher{background:linear-gradient(110deg,#f3f0ff,#fff 86%)}
+.home-role-grid .role-worker{background:linear-gradient(110deg,#e7f9f5,#fff 86%)}
+.role-icon{display:grid;place-items:center;width:54px;height:54px;border-radius:18px;background:#e3ddff;color:#5d54cd;font-weight:900;font-size:31px}
+.role-worker .role-icon{background:#cff2eb;color:#079884}
+.role-overline{font-size:12px;font-weight:800;color:#5f55b2;letter-spacing:.035em}
+.role-worker .role-overline{color:#0c8879}
+.home-role-grid h2{font-size:22px;line-height:1.45;color:#20335b;margin:6px 0 8px;letter-spacing:-.03em}
+.home-role-grid p{font-size:14px;line-height:1.75;margin:0;color:#60758d}
+.role-tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:15px}
+.role-tags span{font-size:12px;color:#6260ac;padding:6px 10px;background:#efecff;border-radius:100px}
+.role-worker .role-tags span{background:#e0f6ef;color:#168b7a}
+.welcome-steps{margin-top:17px;gap:16px}
+.welcome-steps article{padding:22px 25px;border-radius:21px;background:#fff;box-shadow:0 8px 24px #395b8910}
+.welcome-steps article>span.step-number{display:inline-block;color:#345aca;background:#edf2ff;padding:5px 11px;border-radius:13px;letter-spacing:.04em}
+.welcome-steps article:nth-child(2)>span.step-number{background:#e1f7f2;color:#188779}
+.welcome-steps article:nth-child(3)>span.step-number{background:#fff0e8;color:#af6138}
+.welcome-steps h2{margin:13px 0 8px;color:#21345a;font-size:18px}
+.welcome-steps p{line-height:1.8}
+.welcome-caption{margin-top:20px;margin-bottom:0}
+@media(max-width:840px){.hero-grid{grid-template-columns:1fr 1fr;gap:5px}.hero-copy h1{font-size:clamp(31px,4.5vw,43px)}.home-role-grid h2{font-size:19px}}
+@media(max-width:700px){.welcome{padding:24px 0}.hero-grid{grid-template-columns:1fr;gap:8px}.hero-copy{padding:8px 0}.hero-copy h1{font-size:clamp(29px,8vw,39px)}.hero-art{min-height:0;max-width:500px;margin:0 auto}.hero-art img{max-height:310px}.home-role-grid{grid-template-columns:1fr;gap:10px}.home-role-grid article{padding:18px;gap:11px}.role-icon{width:43px;height:43px;font-size:23px}.welcome-steps{grid-template-columns:1fr}.welcome-steps article{padding:17px 20px}.welcome-steps h2{display:block;margin:10px 0 5px}.welcome-steps p{font-size:13px}.hero-copy p:not(.hero-en){font-size:15px}}
+@media print{.home-role-grid{display:none}}
