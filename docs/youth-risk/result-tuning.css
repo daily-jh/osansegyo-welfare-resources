@@ -9,3 +9,18 @@
 .pattern-card p{line-height:1.85}
 .pattern-card details{margin-top:12px}
 @media print{.priority-safety,.priority-action,.priority-plan{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+
+/* 근거를 포함하는 교차사정 가설: 위험점수 재계산 없음 */
+.cross-evidence{margin:26px 0 0;padding:23px;border:1px solid #dfe7f1;background:#fcfdff;border-radius:20px}
+.cross-evidence h3{font-size:21px;margin:0 0 9px;color:#253a65}
+.cross-evidence>p{line-height:1.8;font-size:14px;color:#65768d}
+.cross-card{margin:13px 0;padding:19px 21px;border:1px solid #dbe7f3;border-left:5px solid #219e90;border-radius:14px;background:#f5faf9}
+.cross-card.cross-safety{border-left-color:#c75454;background:#fff7f5}
+.cross-card>span{display:block;font-size:12px;color:#47706a;font-weight:800}
+.cross-card.cross-safety>span{color:#a44343}
+.cross-card h4{font-size:17px;color:#24395a;margin:8px 0 9px}
+.cross-card p{font-size:14px;line-height:1.85;color:#465d70;margin:8px 0;word-break:keep-all}
+.cross-card p b{color:#263b61}
+.cross-disclaimer{font-size:12px!important;color:#7b8597!important;margin:16px 0 0}
+@media(max-width:650px){.cross-evidence{padding:14px}.cross-card{padding:14px}}
+@media print{.cross-card{-webkit-print-color-adjust:exact;print-color-adjust:exact;break-inside:avoid}}
