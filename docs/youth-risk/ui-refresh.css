@@ -35,3 +35,12 @@ body{background:#fbf9ff;color:var(--oy-ink)}
 a:focus-visible,button:focus-visible{outline:3px solid #a697f1;outline-offset:3px}
 @media(max-width:700px){.optional-tool-grid{grid-template-columns:1fr}.optional-tools{padding:14px}.flow-nav{grid-template-columns:1fr 1fr}.flow-nav button{min-width:0;padding:13px 8px}.youth-brand{font-size:13px}.youth-brand small{font-size:10px}}
 @media print{.optional-tools{display:none!important}}
+
+.flow-data-tools{padding:15px 18px;margin:16px 0;border:1px solid #ded6f1;border-radius:16px;background:#fff}
+.flow-data-tools p{font-size:13px;line-height:1.65;color:#686683;margin:4px 0 12px}
+.flow-data-tools>div{display:flex;flex-wrap:wrap;gap:9px}
+.flow-data-tools .flow-btn{font-size:13px;border-radius:11px;padding:10px 13px}
+.flow-data-tools .flow-btn:disabled{opacity:.5}
+.import-label{display:inline-flex;align-items:center;cursor:pointer}
+#fileTransferStatus{min-height:1em}
+@media print{.flow-data-tools{display:none}}
