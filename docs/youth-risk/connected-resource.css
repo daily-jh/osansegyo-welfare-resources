@@ -1,0 +1,31 @@
+/* Reciprocal resource connection card: youth identity preserved, resource-directory-like layout */
+.youth-header-links{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.header-resource-link{font:700 13px/1.5 SUIT,"Malgun Gothic",sans-serif;text-decoration:none;color:#3159b1;padding:8px 12px;border:1px solid #dfe7f4;background:#f7faff;border-radius:10px}
+.header-resource-link:hover{background:#eef4ff;border-color:#b6c8ed}
+.youth-resource-bridge{margin-top:20px;margin-bottom:6px}
+.youth-resource-card{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:24px;row-gap:12px;align-items:center;position:relative;isolation:isolate;overflow:hidden;border:1px solid #dce5f4;border-radius:27px;padding:29px 34px;background:linear-gradient(117deg,#fff 0%,#f8fbff 55%,#f0f6ff 100%);box-shadow:0 14px 35px rgba(64,94,152,.065)}
+.youth-resource-card::before{content:"";position:absolute;z-index:-1;pointer-events:none;width:285px;height:285px;border:1px solid #dce7f8;border-radius:50%;right:9%;top:-128px;background:radial-gradient(circle at 50% 50%,#eaf3ff80,transparent 66%)}
+.youth-resource-card::after{content:"";position:absolute;z-index:-1;pointer-events:none;width:142px;height:142px;border:1px solid #d8f2e8;border-radius:50%;right:25%;bottom:-98px}
+.bridge-copy{min-width:0}
+.bridge-kicker{display:inline-flex;gap:9px;align-items:center;font-size:11px;font-weight:800;letter-spacing:.105em;color:#4c6cab}
+.bridge-dot{width:7px;height:7px;border-radius:50%;background:#4589d9}
+.bridge-copy h2,.bridge-copy h3{font-size:clamp(21px,2.4vw,28px);font-weight:850;line-height:1.35;color:#1e3658;letter-spacing:-.04em;margin:10px 0}
+.bridge-copy p{font-size:14px;color:#61778f;line-height:1.85;margin:0;word-break:keep-all}
+.bridge-actions{display:flex;gap:9px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.bridge-actions a,.bridge-actions button{font:800 14px/1.4 SUIT,"Malgun Gothic",sans-serif;min-height:49px;padding:13px 18px;display:inline-flex;align-items:center;justify-content:center;gap:9px;border-radius:25px;white-space:nowrap;cursor:pointer;text-decoration:none;transition:background .15s,border-color .15s,transform .15s}
+.bridge-actions a:hover,.bridge-actions button:hover{transform:translateY(-1px)}
+.bridge-primary{color:#fff!important;background:#386bcb;border:1px solid #386bcb;box-shadow:0 6px 13px #365fc31c}
+.bridge-primary:hover{background:#2d59b0}
+.bridge-secondary{color:#315c9d!important;background:#fff;border:1px solid #ccddf0}
+.bridge-secondary:hover{background:#f3f7ff;border-color:#a9c4e6}
+.bridge-footnote{font-size:11px;line-height:1.7;color:#7285a0;grid-column:1/-1;margin:0;padding-top:2px}
+.result-resource-bridge{margin:18px 0 20px}
+.result-resource-bridge .youth-resource-card{padding:22px 25px;border-radius:21px}
+.result-resource-bridge .bridge-copy h3{font-size:21px}
+.result-resource-bridge .bridge-copy p{font-size:13px}
+.result-resource-bridge[hidden]{display:none!important}
+.youth-resource-bridge a:focus-visible,.youth-resource-bridge button:focus-visible{outline:3px solid #6796e6;outline-offset:3px}
+@media(max-width:1050px){.youth-resource-card{grid-template-columns:1fr}.bridge-actions{justify-content:flex-start}}
+@media(max-width:700px){.youth-header-links{gap:6px;justify-content:flex-end}.header-resource-link,.header-help{font-size:11px}.header-resource-link{padding:6px 8px}.youth-resource-card{padding:20px 18px;border-radius:20px}.bridge-copy h2{font-size:22px}.bridge-copy p{font-size:13px}.bridge-copy p br{display:none}.bridge-actions{width:100%}.bridge-actions a,.bridge-actions button{font-size:12px;min-height:45px;padding:10px 13px;white-space:normal;text-align:center;flex:1}.result-resource-bridge .youth-resource-card{padding:18px}.bridge-footnote{font-size:10px}}
+@media(max-width:410px){.bridge-actions{flex-direction:column;align-items:stretch}.bridge-actions a,.bridge-actions button{width:100%}.youth-header-links{flex-direction:column;align-items:flex-end;gap:2px}}
+@media print{.youth-resource-bridge,.header-resource-link{display:none!important}}
