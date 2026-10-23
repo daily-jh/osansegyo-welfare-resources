@@ -14,7 +14,7 @@ const GROUPS=[2,3,3,3,2,2,3,3,2,2];
 const criteria=require('../docs/youth-risk/criteria.js');
 const planning=require('../docs/youth-risk/planning-model.js');
 const register=fs.readFileSync(path.resolve(__dirname,'../docs/youth-risk/public-case-20-evidence-register-20261024.md'),'utf8');
-const records=register.split('\n').filter(x=>/^\\| R\\d{2}\\s*\\|/.test(x)).map(s=>{
+const records=register.split('\n').filter(x=>/^\| R\d{2}\s*\|/.test(x)).map(s=>{
  const f=s.split('|').slice(1,-1).map(x=>x.trim());
  return {id:f[0],title:f[3],items:f[5].split('·').map(Number)};
 });
