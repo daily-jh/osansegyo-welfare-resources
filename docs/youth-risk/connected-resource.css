@@ -29,3 +29,50 @@
 @media(max-width:700px){.youth-header-links{gap:6px;justify-content:flex-end}.header-resource-link,.header-help{font-size:11px}.header-resource-link{padding:6px 8px}.youth-resource-card{padding:20px 18px;border-radius:20px}.bridge-copy h2{font-size:22px}.bridge-copy p{font-size:13px}.bridge-copy p br{display:none}.bridge-actions{width:100%}.bridge-actions a,.bridge-actions button{font-size:12px;min-height:45px;padding:10px 13px;white-space:normal;text-align:center;flex:1}.result-resource-bridge .youth-resource-card{padding:18px}.bridge-footnote{font-size:10px}}
 @media(max-width:410px){.bridge-actions{flex-direction:column;align-items:stretch}.bridge-actions a,.bridge-actions button{width:100%}.youth-header-links{flex-direction:column;align-items:flex-end;gap:2px}}
 @media print{.youth-resource-bridge,.header-resource-link{display:none!important}}
+
+/* 2026-10-23: 홈의 복지자원 연결 카드만 작고 독립적으로 표시.
+   2단계 평가결과의 지원연계 영역 및 기능에는 영향 없음. */
+.welcome > .youth-resource-bridge{
+  width:min(920px,calc(100% - 48px));
+  max-width:920px;
+  margin:38px auto 28px;
+}
+.welcome > .youth-resource-bridge .youth-resource-card{
+  grid-template-columns:minmax(0,1fr) auto;
+  padding:19px 24px;
+  column-gap:19px;
+  row-gap:8px;
+  border:1px solid #d9e7ed;
+  border-radius:18px;
+  background:linear-gradient(110deg,#f7fbfa,#f3f8fd);
+  box-shadow:0 7px 24px rgba(34,74,103,.045);
+}
+.welcome > .youth-resource-bridge .youth-resource-card::before,
+.welcome > .youth-resource-bridge .youth-resource-card::after{display:none}
+.welcome > .youth-resource-bridge .bridge-kicker{font-size:10px;color:#688499}
+.welcome > .youth-resource-bridge .bridge-copy h2{
+  font-size:19px;
+  line-height:1.32;
+  margin:5px 0 6px;
+}
+.welcome > .youth-resource-bridge .bridge-copy p{font-size:12px;line-height:1.65;color:#687d90}
+.welcome > .youth-resource-bridge .bridge-actions{gap:7px}
+.welcome > .youth-resource-bridge .bridge-actions a,
+.welcome > .youth-resource-bridge .bridge-actions button{
+  font-size:12px;
+  min-height:40px;
+  padding:10px 13px;
+  border-radius:13px;
+  box-shadow:none;
+}
+.welcome > .youth-resource-bridge .bridge-footnote{font-size:10px;color:#8799a8;line-height:1.6}
+@media(max-width:850px){
+  .welcome > .youth-resource-bridge .youth-resource-card{grid-template-columns:1fr;padding:18px 19px}
+  .welcome > .youth-resource-bridge .bridge-actions{justify-content:flex-start}
+}
+@media(max-width:700px){
+  .welcome > .youth-resource-bridge{width:calc(100% - 38px);margin:25px auto 20px}
+  .welcome > .youth-resource-bridge .bridge-copy h2{font-size:18px}
+  .welcome > .youth-resource-bridge .bridge-copy p{font-size:12px}
+  .welcome > .youth-resource-bridge .bridge-actions{width:100%}
+}
