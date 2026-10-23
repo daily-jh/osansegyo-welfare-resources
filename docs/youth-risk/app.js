@@ -307,6 +307,30 @@ filterResources();
 }
 function filterResources(){var value=$("resourceFilter").value,count=0;document.querySelectorAll("#resourceList .resource-item").forEach(function(n){n.hidden=value!=="all"&&n.dataset.domains.split(',').indexOf(value)===-1;if(!n.hidden)count++});$("filterCount").textContent=count+"개 기관 후보 · 표시 순서는 의뢰 우선순위가 아닙니다. 안전조치는 필터와 무관하게 우선합니다."}
 function findPending(){var pending=[];answers.forEach(function(v,i){if(v===null)pending.push(i)});$("pendingList").innerHTML=pending.length?'<strong>응답이 필요한 '+pending.length+'개 문항</strong><p>아직 확인하기 어려운 내용은 미상을 선택해 주세요. 미상은 0점과 구분됩니다.</p>'+pending.map(function(i){return '<button type="button" class="pending-jump" data-question="'+i+'">'+(i+1)+'번 · 미응답</button>'}).join(''):'25문항 채점이 완료되었습니다. 결과 보기를 눌러 주세요.';$("pendingList").scrollIntoView({block:"center"})}
+window.addEventListener('message',function(e){
+ if(e.origin!==location.origin||e.source!==window.parent||e.data?.type!=='youth-flow-import-v1')return;
+ const b=e.data.backup;
+ if(!b||b.format!=='osan-youth-risk-backup-v1'||!Array.isArray(b.answers)||b.answers.length!==25||
+    !b.answers.every(v=>v==='unknown'||Number.isInteger(v)&&v>=0&&v<=4)||
+    !Array.isArray(b.explicit)||b.explicit.some(v=>typeof v!=='string')||
+    !b.followups||typeof b.followups!=='object'||Array.isArray(b.followups))return;
+ answers=b.answers.slice();
+ answers.forEach((value,i)=>{
+  const input=Array.from(document.querySelectorAll('#qi'+i+' input[type="radio"]')).find(n=>n.value===String(value));
+  if(input)input.checked=true;
+  $('qi'+i).classList.add('has-value');
+ });
+ const urgentChecks=Array.from(document.querySelectorAll('#safetyChecks input[data-urgent]'));
+ urgentChecks.forEach(n=>n.checked=b.explicit.includes(n.dataset.urgent));
+ $('safetyFollowups').dataset.key='';
+ updateFollowups();
+ Object.entries(b.followups).forEach(([k,v])=>{
+  if(!['4','5','12','13'].includes(k)||!['yes','no','unknown'].includes(v))return;
+  const radio=Array.from(document.querySelectorAll('#safetyFollowups input[data-item]')).find(n=>n.dataset.item===k&&n.value===v);
+  if(radio)radio.checked=true;
+ });
+ updateProgress();updateUrgent();calculate();
+});
 var supportWindows=new Set();
 window.addEventListener('message',function(e){if(e.origin!==location.origin||!supportWindows.has(e.source)||!e.data||!['youth-support-request-v1','youth-workbench-request-v1'].includes(e.data.type))return;if(!ready){e.source.postMessage({type:'youth-support-unavailable-v1'},location.origin);return}e.source.postMessage(snapshot(),location.origin)});
 function openSupport(){if(!ready)return;supportWindows.forEach(function(w){if(w.closed)supportWindows.delete(w)});var w=window.open('support.html','_blank');if(w){supportWindows.add(w);$("supportStatus").textContent="지원 연결지도를 새 탭에서 열었습니다. 원래 평가 탭을 닫지 마세요."}else $("supportStatus").textContent="새 탭이 차단되었습니다. 브라우저에서 이 사이트의 팝업을 허용한 뒤 다시 눌러 주세요."}
