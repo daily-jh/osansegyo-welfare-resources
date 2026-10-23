@@ -273,7 +273,7 @@ highs.forEach(function(x){html+='<li>'+clean(domains[x.i].name)+' '+x.s+'/'+(dom
 if(explicit.length)explicit.forEach(function(x){html+='<li><strong>긴급 체크:</strong> '+clean(x)+'</li>'});
 if(inferred.length)inferred.forEach(function(x){html+='<li><strong>특별 확인:</strong> '+clean(x)+'</li>'});
 html+='</ul><p style="font-size:16px;margin:9px 0 0">위의 문항을 중심으로 학생과 우선 목표를 정하고 담당자·다음 확인일을 기록하세요.</p></div><div class="print"><button id="printResult" type="button" class="btn btn-muted">평가 결과·종합의견 함께 인쇄</button></div>';
-$("resultBody").innerHTML=html;$("printResult").onclick=function(){window.print()};
+html+=(window.YouthInterpretation?YouthInterpretation.html(snapshot(),'teacher'):'');$("resultBody").innerHTML=html;$("printResult").onclick=function(){window.print()};
 renderResources(domainScores);
 renderSummary(total,domainScores,explicit.concat(inferred));
 notifyComplete();

@@ -110,7 +110,9 @@ function build(p,role='teacher'){
  '탐색용 문항 보조값 Bᵢ = (문항 점수÷4)×문항별 가정계수 wᵢ. 교차 검토값 R = min(4, 0.85×해당 문항의 가중평균 + 0.15×교차계수×해당 문항의 최소점수). 계수는 문헌에서 검증된 확률이나 효과크기가 아닌 개발용 가정입니다.\n'+
  '개별 문항의 2점 이상 표시·현재 긴급 안전·문항 간 교차는 서로 다른 차원이며, 소수점 값으로 보호·신고 결정을 바꾸지 않습니다.\n'+
  '본 리뷰는 척도와 규칙 기반의 "초안"이며 실제 면담·학습·가정·보호상황을 증명하거나 대체하지 않습니다.');
- return {text:text.join('\n\n'),items:x,domains,links:related,selected,decision,weights:WEIGHTS,unknown:unknown.map(v=>v.number),notes:{weightModel:'development-assumption-20261023',notValidated:true}};
+ const V=typeof module!=='undefined'&&module.exports?require('./interpretation-v2.js'):root.YouthInterpretation;
+ const interpretation=V?V.analyze(p,role):null;if(V)text.splice(4,0,V.text(p,role));
+ return {interpretation,text:text.join('\n\n'),items:x,domains,links:related,selected,decision,weights:WEIGHTS,unknown:unknown.map(v=>v.number),notes:{weightModel:'development-assumption-20261023',notValidated:true}};
 }
 const api={WEIGHTS,TEXT_BANK,PAIR_FACTORS,build,itemEvidence,links,uniquePatterns};
 if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.YouthReviewModel=api;

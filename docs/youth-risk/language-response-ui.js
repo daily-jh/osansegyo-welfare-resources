@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   catch(e){const p=el('languageAnswer');const r=document.createRange();r.selectNodeContents(p);const s=window.getSelection();s.removeAllRanges();s.addRange(r);status('텍스트가 선택되었습니다. 복사 메뉴를 이용해 주세요.');}
  });
  block.querySelectorAll('[data-language-query]').forEach(btn=>btn.addEventListener('click',()=>{el('languageQuestion').value=btn.dataset.languageQuery;render();}));
- el('languageNarrative').addEventListener('input',()=>{if(last){last='';el('languageCopy').disabled=true;status('서술식 기록이 바뀌었습니다. 다시 분석을 실행해 주세요.');}});
+ ['languageNarrative','languageQuestion'].forEach(id=>el(id).addEventListener('input',()=>{clear();status('입력이 바뀌었습니다. 다시 응답을 생성해 주세요.');}));
  window.addEventListener('youth-ai-context-v1',e=>{
   const detail=e.detail||{};context=detail.payload||null;role=detail.role==='social-worker'?'social-worker':'teacher';clear();
   const label=role==='teacher'?'교사 관점':'사회복지사 관점';

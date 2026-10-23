@@ -1,0 +1,52 @@
+{
+  "releaseDate": "2026-10-24",
+  "caseManagementVersion": "2.0.0",
+  "languageVersion": "2.0.0",
+  "languageType": "deterministic_rule_and_retrieval",
+  "source": {
+    "pages": 700,
+    "basePages": 596,
+    "additionalPages": 104,
+    "pairs": 300,
+    "uniquePairTemplates": 55,
+    "practiceCards": 104,
+    "practiceGroups": {
+      "10영역 교차 매핑": 10,
+      "25문항별 사례관리 심화": 25,
+      "기존 24개 교차규칙의 실행 번역": 24,
+      "15단계 업무흐름·출력계약": 15,
+      "20개 합성 회귀검사": 20,
+      "10개 개인정보·버전관리 정책": 10
+    },
+    "pairSha256": "3083c301d4652fb34f8bde2f08aaaf749c2ea876fc2ee840429298aae7bc38be",
+    "practiceSha256": "94f941cd511b16a3d7c39f3f311d1e8d3bd347e0b0fb18d1cc485dc64e108931",
+    "manuscriptSha256": "2d5abd3c5bff880bcf06518112dbff72a8d0533992b7fc3b3494bc854e81e5ad",
+    "manuscriptPageMarkers": 700
+  },
+  "retained": {
+    "assessmentItems": 25,
+    "domains": 10,
+    "maximumRawScore": 100,
+    "operationalCrossRules": 24,
+    "languageTopics": 10,
+    "itemExplanationElements": 125,
+    "responseCardsV1": 600,
+    "pairsV1": 300,
+    "pairVersionsNotAdditive": true
+  },
+  "validation": {
+    "clinicalValidation": false,
+    "originalCaseRecords": 0,
+    "sourceContainsPersonalRecords": false
+  },
+  "modules": [
+    "criteria.js",
+    "planning-model.js",
+    "case-continuity-model.js",
+    "review-model.js",
+    "interpretation-v2-data.js",
+    "case-practice-v2-data.js",
+    "interpretation-v2.js",
+    "language-response-model.js"
+  ]
+}

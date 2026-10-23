@@ -43,7 +43,9 @@ function create(data,role,narrative,criteria){
   const note=minimizeIdentifiers(narrative).trim();
   const profile=M.student(data);
   const candidates=M.validate(data)?M.referrals(data).slice(0,8).map(g=>g.name+' / '+g.services.map(r=>r['서비스명']).join(' · ')+' / '+L.contactText(g.primary)+' / '+M.describe(data,M.domains(data)[g.domainIds[0]],g.primary).condition+' / '+(g.primary.routingReason||'실제 대상·관할 확인')).join('\n'):'자원 DB 미연결 · 기관명·연락처를 창작하지 말고 별도 확인';
+  const V=typeof module!=='undefined'&&module.exports?require('./interpretation-v2.js'):root.YouthInterpretation;
   const instructions=[
+    V?V.text(data,role):'',
     '[역할]',
     '당신은 '+(role==='social-worker'?'종합사회복지관 사회복지사':'중학교 교사')+'의 사례관리 협의를 돕는 AI입니다.',
     '아래 평가 응답과 자유서술 정보로 청소년 통합지원 사례검토·개입계획 보고서(안)를 작성하세요.',

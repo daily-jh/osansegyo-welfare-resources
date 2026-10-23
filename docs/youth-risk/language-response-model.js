@@ -92,6 +92,8 @@ function buildResponse(payload,query,narrative,role="teacher",deps={}){
   r("\n[연결해서 살펴볼 교차 가설 · 인과확정 아님]");
   patterns.slice(0,3).forEach(x=>r("• "+x.title+" ("+x.evidence+") — "+x.question));
  }
+ const V=typeof module!=='undefined'&&module.exports?require('./interpretation-v2.js'):root.YouthInterpretation;
+ if(V&& !['resource','safety'].includes(intent))r('\n'+V.text(payload,role));
  const research=deps.Research&&typeof deps.Research.match==='function'?deps.Research.match(a,{limit:4,threshold:2}):[];
  if(research.length && intent!=='safety'){
   r("\n[추가 문항쌍 교차검토 · 연구형 가설 v1.0]");
@@ -104,5 +106,5 @@ function buildResponse(payload,query,narrative,role="teacher",deps={}){
  r("\n[한계]\n이 응답은 외부 전송 없이 브라우저에서 생성되는 규칙·키워드 기반 한국어 분석입니다. 서술 단서는 사실 확정이 아니며 부정문·맥락을 잘못 해석할 수 있습니다. 전문가의 면담, 안전사정, 사례회의·법정 절차를 대체하지 않습니다.");
  return {intent,text:sections.join("\n"),audit:{known:known.length,unknown:unknown.length,raw:full?sum:null,topics:actual.map(x=>x.label),cross:patterns.length,notes:evidence.length,narrativeSafety:!!narrativeSafety,discrepancies}};
 }
-const api={version:'2026.10.23-v1',buildResponse,sentenceEvidence,pickIntent};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.YouthLanguageResponse=api;
+const api={version:'2.0.0',buildResponse,sentenceEvidence,pickIntent};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.YouthLanguageResponse=api;
 })(typeof window!=='undefined'?window:globalThis);

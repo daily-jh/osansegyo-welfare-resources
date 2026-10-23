@@ -18,13 +18,15 @@ function render(){
   }))};
  let result;
  try{result=M.analyze(inp)}catch(e){$('continuityResult').textContent=e.message;return null}
- const body='<h3>1차 사정–회의–계획–점검 연속성 검토</h3><p>'+esc(result.agreement.text)+'. 이 수치는 문서에 기록된 목표·회의의 채택 수준만 나타내며, 청소년 척도 정확도·실제 서비스 효과가 아닙니다.</p>'+
+ let body='<h3>1차 사정–회의–계획–점검 연속성 검토</h3><p>'+esc(result.agreement.text)+'. 이 수치는 문서에 기록된 목표·회의의 채택 수준만 나타내며, 청소년 척도 정확도·실제 서비스 효과가 아닙니다.</p>'+
  '<div class="continuity-metrics"><span>회의결정 확인 <b>'+result.tally.meetingResolved+'/'+result.tally.assessment+'</b></span><span>계획 확정 <b>'+result.tally.planEstablished+'</b></span><span>실제 진행·접수 근거 <b>'+result.tally.executionConfirmed+'</b></span><span>완료 증빙 확인 <b>'+result.tally.executionCompletedVerified+'</b></span></div>'+
  '<div class="table-scroll"><table class="score-table"><thead><tr><th>과제</th><th>회의</th><th>서비스계획</th><th>이행</th><th>검토·공백</th></tr></thead><tbody>'+
  result.goals.map(g=>'<tr><th>'+esc(g.title)+'</th><td>'+esc(g.meetingStatus)+'</td><td>'+esc(g.planStatus)+'</td><td>'+esc(g.implementationStatus)+'</td><td>'+esc(g.issues.length?g.issues.join(' / '):g.alignment)+'</td></tr>').join('')+'</tbody></table></div>'+
  (result.alerts.length?'<h4>검토할 정합성 문제 '+result.alerts.length+'건</h4><ul>'+result.alerts.map(x=>'<li>'+esc(x.goal+': '+x.issue)+'</li>').join('')+'</ul>':'<p>입력된 구조의 정합성 경고는 없습니다. 기재하지 않은 실제 사실의 정확성을 보증하지는 않습니다.</p>')+
  '<p><b>다음 확인:</b> 단계별 결정 근거·목표 시점·회신 기록·학생과의 합의·기존 기관 중복을 확인합니다. 이행 전후의 생활변화와 점수는 별도로 검토해야 합니다.</p>'+
  result.notes.map(s=>'<p class="continuity-note">'+esc(s)+'</p>').join('');
+ const value=id=>$(id)?.value.trim().slice(0,500)||'미확인';
+ body+='<h3>실제 실행과 생활변화 기록</h3>'+rows.map(g=>'<article><h4>'+esc(g.title)+'</h4><p><b>확인한 제공 내용·시점:</b> '+esc(value('provided-'+g.id))+'</p><p><b>학생의 말·생활변화:</b> '+esc(value('outcome-'+g.id))+'</p><p><b>다음 행동·담당·확인일:</b> '+esc(value('next-'+g.id))+'</p></article>').join('');
  $('continuityResult').innerHTML=body;
  const preview=$('reportPreview');if(preview){
    let block=$('continuityInReport');if(!block){block=document.createElement('section');block.id='continuityInReport';block.className='continuity-in-report';preview.append(block)}block.innerHTML=body;
@@ -46,12 +48,14 @@ function add(goal){
  '<label for="priority-'+id+'">문서상 우선순위<input id="priority-'+id+'" type="number" min="1" max="20" value="'+rows.length+'"></label></div>'+
  '<label class="continuity-check"><input id="existing-'+id+'" type="checkbox"> 이미 지원받던 서비스를 연계·조정하는 과제</label>'+
  '<label for="reason-'+id+'">회의에서 수정한 사유·다시 확인할 내용(비식별)<input id="reason-'+id+'" type="text" maxlength="120" placeholder="미기재·수정·인계 조건 등을 간단히"></label>';
+ card.innerHTML+='<div class="life-change-fields"><label for="provided-'+id+'">실제로 제공·확인한 내용과 날짜<textarea id="provided-'+id+'" maxlength="500" rows="2" placeholder="문의·접수·제공 중 실제 확인한 단계와 출처를 기록하세요."></textarea></label><label for="outcome-'+id+'">학생의 말·생활에서 달라진 점<textarea id="outcome-'+id+'" maxlength="500" rows="2" placeholder="예: 식사·출결·휴식·안전감에서 확인한 변화. 아직 모르면 미확인으로 남깁니다."></textarea></label><label for="next-'+id+'">다음 행동 · 담당 · 확인일<textarea id="next-'+id+'" maxlength="500" rows="2"></textarea></label></div>';
  $('continuityGoals').append(card);
 }
 function init(p){
  if(!p||!window.YouthPlanning)return;
  current=p;rows=[];$('continuityGoals').replaceChildren();
- const plans=YouthPlanning.analyze(p).plans;
+ const analysis=YouthPlanning.analyze(p),selected=Array.isArray(p.includedDomains)?p.includedDomains:analysis.defaultDomains;
+ const plans=analysis.plans.filter(g=>selected.includes(g.domain.i)||g.domain.safety);
  const eligible=plans.filter(g=>g.domain.sum>0||g.domain.safety).slice(0,10);
  for(const g of eligible)add({id:g.id,title:g.domain.name,basis:g.baseline});
  if(!eligible.length){$('continuityNotice').textContent='점수에 근거한 과제가 없습니다. 회의·실무 확인 사항이 있으면 아래에서 비식별 목표를 추가하세요.'}
@@ -68,6 +72,7 @@ document.addEventListener('DOMContentLoaded',()=>{
  $('continuityAddGoal').addEventListener('click',custom);
  fetch('data/case-continuity-rules.json',{cache:'no-store',credentials:'same-origin'}).then(r=>{if(!r.ok)throw Error('규칙 파일 읽기 실패');return r.json()}).then(db=>{$('continuityDbStatus').textContent='연속성 규칙 DB '+M.setRulesDb(db)+' · 개인정보 전송 없이 로드됨';render()}).catch(()=>{$('continuityDbStatus').textContent='규칙 DB를 읽지 못해 검증된 기본 내장 규칙을 사용합니다. 개인정보 전송은 없습니다.'});
  $('continuitySection').addEventListener('change',render);
+ $('continuitySection').addEventListener('input',render);
  $('continuitySection').addEventListener('input',e=>{if(e.target.matches('input[type=text],input[type=number]'))render()});
 });
 window.YouthContinuityUI={init,render};
