@@ -91,354 +91,6 @@ window.WELFARE_DATA = {
   },
   "organizations": [
     {
-      "id": "1010335085",
-      "name": "오산시지역사회보장협의체",
-      "level": "오산시",
-      "kind": "민관협력",
-      "summary": "지역사회보장 관련 민관 네트워크.",
-      "site": "https://www.osan1365.or.kr/board/board.php?p=4&table=mn01_04_02",
-      "phone": "031-373-7412",
-      "source": "https://www.osan1365.or.kr/board/board.php?p=4&table=mn01_04_02",
-      "reviewed": "2026-10-20",
-      "status": "미확인",
-      "services": [
-        {
-          "id": "SVC-00047",
-          "name": "민관협력·자원발굴",
-          "category": "지역협력",
-          "target": "복지기관·주민",
-          "description": "복지 의제와 자원 연계, 공동사업 협력",
-          "method": "협의체 또는 동협의체 문의",
-          "operation": "기관 문의",
-          "editedOn": "2026-10-20",
-          "tags": {
-            "target": [
-              "기관·실무자"
-            ],
-            "need": [
-              "지역참여·자원봉사"
-            ],
-            "form": [],
-            "intake": []
-          },
-          "operationType": "확인 필요",
-          "localAvailable": "확인 필요",
-          "source": "https://www.osan.go.kr/",
-          "verification": {
-            "status": "미확인",
-            "date": "",
-            "method": "",
-            "by": "",
-            "next": ""
-          },
-          "contacts": [],
-          "rounds": []
-        },
-        {
-          "id": "SVC-00048",
-          "name": "동 지역사회보장협의체 연계",
-          "category": "경제·긴급",
-          "target": "위기가구·지역주민",
-          "description": "동 단위 자원발굴·복지사각지대 지원체계 연계",
-          "method": "동 행정복지센터 문의",
-          "operation": "지역 자원 확인",
-          "editedOn": "2026-10-20",
-          "tags": {
-            "target": [
-              "위기가구"
-            ],
-            "need": [
-              "소득·생계"
-            ],
-            "form": [],
-            "intake": []
-          },
-          "operationType": "확인 필요",
-          "localAvailable": "확인 필요",
-          "source": "https://www.osan.go.kr/",
-          "verification": {
-            "status": "미확인",
-            "date": "",
-            "method": "",
-            "by": "",
-            "next": ""
-          },
-          "contacts": [],
-          "rounds": []
-        }
-      ],
-      "contact": {
-        "contact_id": "CON-1010335085",
-        "owner_type": "organization",
-        "owner_id": "1010335085",
-        "dept": "협의체 사무국",
-        "phone": "031-373-7412",
-        "fax": "",
-        "email": "",
-        "hours": "",
-        "note": "대표전화",
-        "source_url": "https://www.osan1365.or.kr/board/board.php?p=4&table=mn01_04_02",
-        "verified_on": "2026-10-22"
-      }
-    },
-    {
-      "id": "2060149408",
-      "name": "굿네이버스",
-      "level": "민간",
-      "kind": "아동복지 NGO",
-      "summary": "국내아동지원과 위기가구 통합지원·교육 프로그램.",
-      "site": "https://www.goodneighbors.kr/",
-      "phone": "02-6717-4000",
-      "source": "https://www.goodneighbors.kr/",
-      "reviewed": "2026-10-20",
-      "status": "미확인",
-      "services": [
-        {
-          "id": "SVC-00078",
-          "name": "국내 위기가정 지원",
-          "category": "경제·긴급",
-          "target": "경제적 위기 아동가구",
-          "description": "민간재원 긴급 생계·의료·주거·교육 지원 연계",
-          "method": "지역사업장·협력기관 문의",
-          "operation": "사업별 확인",
-          "editedOn": "2026-10-20",
-          "tags": {
-            "target": [
-              "아동",
-              "위기가구"
-            ],
-            "need": [
-              "소득·생계",
-              "주거",
-              "교육"
-            ],
-            "form": [],
-            "intake": []
-          },
-          "operationType": "확인 필요",
-          "localAvailable": "확인 필요",
-          "source": "https://www.goodneighbors.kr/",
-          "verification": {
-            "status": "미확인",
-            "date": "",
-            "method": "",
-            "by": "",
-            "next": ""
-          },
-          "contacts": [],
-          "rounds": []
-        },
-        {
-          "id": "SVC-00079",
-          "name": "아동 심리정서·가족지원",
-          "category": "정신건강",
-          "target": "취약 아동·가족",
-          "description": "정서지원·가족프로그램·아동권리 관련 사업",
-          "method": "지역사업장 상담",
-          "operation": "사업별 확인",
-          "editedOn": "2026-10-20",
-          "tags": {
-            "target": [
-              "아동",
-              "가족·한부모",
-              "위기가구"
-            ],
-            "need": [
-              "정신건강"
-            ],
-            "form": [],
-            "intake": []
-          },
-          "operationType": "확인 필요",
-          "localAvailable": "확인 필요",
-          "source": "https://www.goodneighbors.kr/",
-          "verification": {
-            "status": "미확인",
-            "date": "",
-            "method": "",
-            "by": "",
-            "next": ""
-          },
-          "contacts": [],
-          "rounds": []
-        },
-        {
-          "id": "SVC-00080",
-          "name": "기업협력 위기가정 지원사업",
-          "category": "경제·긴급",
-          "target": "공모기준에 해당하는 위기가구",
-          "description": "기업사회공헌 연계 지원사업(회차·기준 변동)",
-          "method": "사업 공고·복지기관 접수",
-          "operation": "공모별 확인",
-          "editedOn": "2026-10-20",
-          "tags": {
-            "target": [
-              "위기가구"
-            ],
-            "need": [
-              "소득·생계"
-            ],
-            "form": [],
-            "intake": []
-          },
-          "operationType": "공모형",
-          "localAvailable": "확인 필요",
-          "source": "https://www.goodneighbors.kr/",
-          "verification": {
-            "status": "미확인",
-            "date": "",
-            "method": "",
-            "by": "",
-            "next": ""
-          },
-          "contacts": [],
-          "rounds": []
-        }
-      ],
-      "contact": {
-        "contact_id": "CON-2060149408",
-        "owner_type": "organization",
-        "owner_id": "2060149408",
-        "dept": "",
-        "phone": "02-6717-4000",
-        "fax": "",
-        "email": "",
-        "hours": "",
-        "note": "대표전화",
-        "source_url": "https://www.goodneighbors.kr/",
-        "verified_on": "2026-10-22"
-      }
-    },
-    {
-      "id": "2276831255",
-      "name": "삼성꿈장학재단",
-      "level": "민간",
-      "kind": "장학재단",
-      "summary": "교육격차 해소를 위한 멘토링·장학 및 교육사업.",
-      "site": "https://www.sdream.or.kr/portal",
-      "phone": "02-727-5400",
-      "source": "https://www.sdream.or.kr/portal",
-      "reviewed": "2026-10-20",
-      "status": "미확인",
-      "services": [
-        {
-          "id": "SVC-00094",
-          "name": "멘토링 꿈장학",
-          "category": "교육·청소년",
-          "target": "경제적 어려움 있는 중고생 등",
-          "description": "교사 멘토와 연계한 학업·성장지원 장학",
-          "method": "재단 공모·멘토 신청",
-          "operation": "공모별 확인",
-          "editedOn": "2026-10-20",
-          "tags": {
-            "target": [
-              "청소년"
-            ],
-            "need": [
-              "교육"
-            ],
-            "form": [],
-            "intake": [
-              "공모"
-            ]
-          },
-          "operationType": "공모형",
-          "localAvailable": "확인 필요",
-          "source": "https://www.sdream.or.kr/",
-          "verification": {
-            "status": "미확인",
-            "date": "",
-            "method": "",
-            "by": "",
-            "next": ""
-          },
-          "contacts": [],
-          "rounds": []
-        },
-        {
-          "id": "SVC-00095",
-          "name": "SOS장학",
-          "category": "교육·청소년",
-          "target": "급작스런 경제적 어려움의 학생",
-          "description": "긴급한 학업지속을 위한 장학지원",
-          "method": "재단 SOS 공모",
-          "operation": "공모별 확인",
-          "editedOn": "2026-10-20",
-          "tags": {
-            "target": [
-              "청소년"
-            ],
-            "need": [
-              "교육"
-            ],
-            "form": [],
-            "intake": [
-              "공모"
-            ]
-          },
-          "operationType": "공모형",
-          "localAvailable": "확인 필요",
-          "source": "https://www.sdream.or.kr/",
-          "verification": {
-            "status": "미확인",
-            "date": "",
-            "method": "",
-            "by": "",
-            "next": ""
-          },
-          "contacts": [],
-          "rounds": []
-        },
-        {
-          "id": "SVC-00096",
-          "name": "배움터 교육지원",
-          "category": "교육·청소년",
-          "target": "소외지역·교육기관",
-          "description": "배움터·교육사업 기관 공모",
-          "method": "기관 공모",
-          "operation": "공모별 확인",
-          "editedOn": "2026-10-20",
-          "tags": {
-            "target": [
-              "기관·실무자"
-            ],
-            "need": [
-              "교육"
-            ],
-            "form": [],
-            "intake": [
-              "공모"
-            ]
-          },
-          "operationType": "공모형",
-          "localAvailable": "확인 필요",
-          "source": "https://www.sdream.or.kr/",
-          "verification": {
-            "status": "미확인",
-            "date": "",
-            "method": "",
-            "by": "",
-            "next": ""
-          },
-          "contacts": [],
-          "rounds": []
-        }
-      ],
-      "contact": {
-        "contact_id": "CON-2276831255",
-        "owner_type": "organization",
-        "owner_id": "2276831255",
-        "dept": "",
-        "phone": "02-727-5400",
-        "fax": "02-727-5409",
-        "email": "",
-        "hours": "",
-        "note": "대표전화",
-        "source_url": "https://www.sdream.or.kr/portal",
-        "verified_on": "2026-10-22"
-      }
-    },
-    {
       "id": "b45bc16582",
       "name": "오산세교종합사회복지관",
       "level": "오산시",
@@ -2271,6 +1923,97 @@ window.WELFARE_DATA = {
       }
     },
     {
+      "id": "1010335085",
+      "name": "오산시지역사회보장협의체",
+      "level": "오산시",
+      "kind": "민관협력",
+      "summary": "지역사회보장 관련 민관 네트워크.",
+      "site": "https://www.osan1365.or.kr/board/board.php?p=4&table=mn01_04_02",
+      "phone": "031-373-7412",
+      "source": "https://www.osan1365.or.kr/board/board.php?p=4&table=mn01_04_02",
+      "reviewed": "2026-10-20",
+      "status": "미확인",
+      "services": [
+        {
+          "id": "SVC-00047",
+          "name": "민관협력·자원발굴",
+          "category": "지역협력",
+          "target": "복지기관·주민",
+          "description": "복지 의제와 자원 연계, 공동사업 협력",
+          "method": "협의체 또는 동협의체 문의",
+          "operation": "기관 문의",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "기관·실무자"
+            ],
+            "need": [
+              "지역참여·자원봉사"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osan.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-00048",
+          "name": "동 지역사회보장협의체 연계",
+          "category": "경제·긴급",
+          "target": "위기가구·지역주민",
+          "description": "동 단위 자원발굴·복지사각지대 지원체계 연계",
+          "method": "동 행정복지센터 문의",
+          "operation": "지역 자원 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osan.go.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-1010335085",
+        "owner_type": "organization",
+        "owner_id": "1010335085",
+        "dept": "협의체 사무국",
+        "phone": "031-373-7412",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.osan1365.or.kr/board/board.php?p=4&table=mn01_04_02",
+        "verified_on": "2026-10-22"
+      }
+    },
+    {
       "id": "f6f1f88fda",
       "name": "오산시 지역아동센터",
       "level": "오산시",
@@ -3583,6 +3326,134 @@ window.WELFARE_DATA = {
       }
     },
     {
+      "id": "2060149408",
+      "name": "굿네이버스",
+      "level": "민간",
+      "kind": "아동복지 NGO",
+      "summary": "국내아동지원과 위기가구 통합지원·교육 프로그램.",
+      "site": "https://www.goodneighbors.kr/",
+      "phone": "02-6717-4000",
+      "source": "https://www.goodneighbors.kr/",
+      "reviewed": "2026-10-20",
+      "status": "미확인",
+      "services": [
+        {
+          "id": "SVC-00078",
+          "name": "국내 위기가정 지원",
+          "category": "경제·긴급",
+          "target": "경제적 위기 아동가구",
+          "description": "민간재원 긴급 생계·의료·주거·교육 지원 연계",
+          "method": "지역사업장·협력기관 문의",
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "아동",
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "주거",
+              "교육"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.goodneighbors.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-00079",
+          "name": "아동 심리정서·가족지원",
+          "category": "정신건강",
+          "target": "취약 아동·가족",
+          "description": "정서지원·가족프로그램·아동권리 관련 사업",
+          "method": "지역사업장 상담",
+          "operation": "사업별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "아동",
+              "가족·한부모",
+              "위기가구"
+            ],
+            "need": [
+              "정신건강"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.goodneighbors.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-00080",
+          "name": "기업협력 위기가정 지원사업",
+          "category": "경제·긴급",
+          "target": "공모기준에 해당하는 위기가구",
+          "description": "기업사회공헌 연계 지원사업(회차·기준 변동)",
+          "method": "사업 공고·복지기관 접수",
+          "operation": "공모별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "공모형",
+          "localAvailable": "확인 필요",
+          "source": "https://www.goodneighbors.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-2060149408",
+        "owner_type": "organization",
+        "owner_id": "2060149408",
+        "dept": "",
+        "phone": "02-6717-4000",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.goodneighbors.kr/",
+        "verified_on": "2026-10-22"
+      }
+    },
+    {
       "id": "f3647be053",
       "name": "월드비전",
       "level": "민간",
@@ -4148,6 +4019,135 @@ window.WELFARE_DATA = {
         "hours": "",
         "note": "대표전화",
         "source_url": "https://beautifulfund.org/",
+        "verified_on": "2026-10-22"
+      }
+    },
+    {
+      "id": "2276831255",
+      "name": "삼성꿈장학재단",
+      "level": "민간",
+      "kind": "장학재단",
+      "summary": "교육격차 해소를 위한 멘토링·장학 및 교육사업.",
+      "site": "https://www.sdream.or.kr/portal",
+      "phone": "02-727-5400",
+      "source": "https://www.sdream.or.kr/portal",
+      "reviewed": "2026-10-20",
+      "status": "미확인",
+      "services": [
+        {
+          "id": "SVC-00094",
+          "name": "멘토링 꿈장학",
+          "category": "교육·청소년",
+          "target": "경제적 어려움 있는 중고생 등",
+          "description": "교사 멘토와 연계한 학업·성장지원 장학",
+          "method": "재단 공모·멘토 신청",
+          "operation": "공모별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "청소년"
+            ],
+            "need": [
+              "교육"
+            ],
+            "form": [],
+            "intake": [
+              "공모"
+            ]
+          },
+          "operationType": "공모형",
+          "localAvailable": "확인 필요",
+          "source": "https://www.sdream.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-00095",
+          "name": "SOS장학",
+          "category": "교육·청소년",
+          "target": "급작스런 경제적 어려움의 학생",
+          "description": "긴급한 학업지속을 위한 장학지원",
+          "method": "재단 SOS 공모",
+          "operation": "공모별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "청소년"
+            ],
+            "need": [
+              "교육"
+            ],
+            "form": [],
+            "intake": [
+              "공모"
+            ]
+          },
+          "operationType": "공모형",
+          "localAvailable": "확인 필요",
+          "source": "https://www.sdream.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-00096",
+          "name": "배움터 교육지원",
+          "category": "교육·청소년",
+          "target": "소외지역·교육기관",
+          "description": "배움터·교육사업 기관 공모",
+          "method": "기관 공모",
+          "operation": "공모별 확인",
+          "editedOn": "2026-10-20",
+          "tags": {
+            "target": [
+              "기관·실무자"
+            ],
+            "need": [
+              "교육"
+            ],
+            "form": [],
+            "intake": [
+              "공모"
+            ]
+          },
+          "operationType": "공모형",
+          "localAvailable": "확인 필요",
+          "source": "https://www.sdream.or.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-2276831255",
+        "owner_type": "organization",
+        "owner_id": "2276831255",
+        "dept": "",
+        "phone": "02-727-5400",
+        "fax": "02-727-5409",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.sdream.or.kr/portal",
         "verified_on": "2026-10-22"
       }
     },
