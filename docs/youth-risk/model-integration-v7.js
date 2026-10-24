@@ -8,11 +8,12 @@ function build(p,data,role='teacher',query=''){
  if(!roles.includes(role))throw Error('지원하지 않는 역할입니다.');
  const input={...p,caseContext:text(p)},core=C.evaluate(p.answers,[2,3,3,3,2,2,3,3,2,2],!!p.explicit?.length,p.followups||{}),score=S.evaluate(input,data[0],data[1]),response=R.run(input,data[0],data[1],data[2],role,query),management=CM.suggest(input,{role,stage:'assessment',maxGoals:5});
  if(management.decision.source!=='existing-criteria-v2.2'||management.decision.title!==core.title||management.decision.urgent!==core.urgent||management.decision.knownTotal!==(core.incomplete?null:core.knownTotal))throw Error('CORE 판정 연결 불일치');
- return {version:'7.0-integration-20261024',core,score,response,management,hasContext:!!input.caseContext.trim(),role,sourceRefs:[...new Set(response.trace.flatMap(t=>[t.id]))],safeSummary:'ICSI / K-CARR / ICMS V7.0 · 점수·안전판정은 CORE 유지 · 서술 결과는 화면 전용'};
+ const Synth=node?require('./case-synthesis-v71.js'):root.YouthSynthesis;
+ return {synthesis:Synth?Synth.build(input):null,version:'7.1-integration-20261024',core,score,response,management,hasContext:!!input.caseContext.trim(),role,sourceRefs:[...new Set(response.trace.flatMap(t=>[t.id]))],safeSummary:'ICSI / K-CARR / ICMS V7.0 · 점수·안전판정은 CORE 유지 · 서술 결과는 화면 전용'};
 }
 async function analyze(p,role='teacher',query=''){return build(p,await load(),role,query);}
 function answer(x,question){
- const m=x.management,r=x.response.structured,q=String(question||''),lines=[];
+ const m=x.management,r=x.response.structured,q=String(question||''),lines=[];if(x.synthesis&&/안전|보호|신고/.test(q))return '[안전·연락 경로 사정]\n\n'+x.synthesis.first+'\n\n'+x.synthesis.note.findings.filter(t=>/폭력|신고|연락/.test(t)).join('\n\n');
  if(/안전|보호|신고/.test(q))lines.push('[안전 확인]',...m.firstActions.slice(0,2));
  else if(/면담|질문/.test(q))lines.push('[첫 면담에서 확인할 것]',...(m.itemPlans.length?m.itemPlans.slice(0,4).map(a=>a.number+'번: '+a.verificationQuestion):m.draftGoals.filter(g=>g.reviewContext.length).slice(0,4).map(g=>g.domainName+': '+g.question)));
  else if(/근거|점수|교차|한계/.test(q))lines.push('[점수·서술 대조]',...x.score.notices.map(n=>notice(n)), 'ICSI 보조 가중값은 공식 점수·지원단계에 가산하지 않습니다.');

@@ -44,5 +44,5 @@ function init(p){
  $('editSharedCase').onclick=()=>showShared('studentWish');$('openLinkedPlan').onclick=()=>showShared('additionalPlan');
  render();
 }
-window.YouthCaseFormUI={init,render};
+window.YouthCaseFormUI={exportModel:()=>payload?current():null,init,render};
 })();
