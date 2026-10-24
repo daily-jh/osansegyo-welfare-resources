@@ -12,9 +12,10 @@ function apply(base,p,opts={}){
  // Keep score-derived safety and any assessed need absent from the narrative model.
  const preserved=base.rows.filter(g=>{const scored=Array.isArray(g.positive)&&g.positive.length>0;if(g.id==='current-safety')return base.decision.urgent&&!rows.some(r=>r.safety);return (scored||(base.decision.urgent&&g.safety))&&g.domains?.every(i=>!covered.has(i));});
  const combined=[...preserved.filter(g=>g.safety),...rows,...preserved.filter(g=>!g.safety)];
+ if(base.decision.lowSafetyOnly&&!m.hasSafetySignal)combined.sort((a,b)=>Number(a.safety)-Number(b.safety)||b.peak-a.peak);
  for(const row of combined){const prior=base.rows.find(g=>g.domains?.some(i=>row.domains?.includes(i)));if(prior&&!row.id.startsWith('v8-')){row.teacher=prior.teacher;row.worker=prior.worker;}else if(row.safety){row.teacher='교내 보호 담당·안전한 공간과 수업·등하교 보호조치를 확인하고 학생에게 안전한 연락 경로를 정함.';row.worker='보호 담당기관의 실제 조치와 생활·돌봄 공백을 확인하고 기관별 후속 담당·회신·점검을 조정함.';}}
- const first=base.decision.urgent&&!m.hasSafetySignal?base.first:(combined[0]?.action||base.first);
- return {...base,version:'8.1-site-integration',source:'K-CARR V8.1 / CORE unchanged / ICSI·ICMS V7.0',paragraphs:[m.situationOverview],judgement:m.integratedJudgment,first,rows:combined,lead:combined.slice(0,3),others:combined.slice(3),relationship:m.causalLinks.map(x=>x.meaning).join(' '),context:m.causalLinks.map(x=>x.meaning+' '+x.action),safety:base.decision.urgent||m.hasSafetySignal,v8:{version:m.version,priority:m.summary.centralJudgment,questions:m.nextQuestions,role,contactHazard:m.caregiverContactHazard,execution:m.executionPlan,coreUnchanged:true}};
+ const first=base.decision.urgent&&!base.decision.lowSafetyOnly&&!m.hasSafetySignal?base.first:(combined[0]?.action||base.first);
+ return {...base,version:'8.1-site-integration',source:'K-CARR V8.1 / CORE unchanged / ICSI·ICMS V7.0',paragraphs:[m.situationOverview],judgement:m.integratedJudgment,first,rows:combined,lead:combined.slice(0,3),others:combined.slice(3),relationship:m.causalLinks.map(x=>x.meaning).join(' '),context:m.causalLinks.map(x=>x.meaning+' '+x.action),safety:base.decision.urgent||m.hasSafetySignal,v8:{version:m.version,priority:m.summary.centralJudgment,narrativeSafety:m.hasSafetySignal,questions:m.nextQuestions,role,contactHazard:m.caregiverContactHazard,execution:m.executionPlan,coreUnchanged:true}};
 }
 const api={apply};if(node)module.exports=api;else root.YouthKCARRV8=api;
 })(typeof window!=='undefined'?window:globalThis);
