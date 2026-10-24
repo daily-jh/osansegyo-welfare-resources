@@ -1,6 +1,6 @@
 {
   "schema": "oy-rals.model-registry.v1",
-  "release": "7.0-integration-20261024",
+  "release": "7.1-synthesis-and-export-20261024",
   "status": "integrated-release",
   "coreAuthority": "oy-rals.core-assessment",
   "clinicalValidation": false,
@@ -78,5 +78,13 @@
     "defaultPrintIncludesNarrative": false,
     "defaultBackupIncludesNarrative": false
   },
-  "packageVerification": "research/v7/package-verification.json"
+  "packageVerification": "research/v7/package-verification.json",
+  "presentation": {
+    "version": "7.1",
+    "module": "case-synthesis-v71.js",
+    "scope": "score-grounded and narrative-aware case formulation; no trained LLM",
+    "styleSource": "osan-case-management/references/writing-style.md",
+    "coreScoringUnchanged": true,
+    "defaultBundleNarrative": false
+  }
 }
