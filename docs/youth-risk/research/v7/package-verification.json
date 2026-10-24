@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-24",
+  "originalArchivesUnmodified": true,
+  "archives": [
+    {
+      "name": "OY-RALS-통합사례관리지원모델-V7.0-데이터확장-독립업로드준비_20261024(1).zip",
+      "sha256": "23fadf793232de7c25cfbe98d066595669e3a138df2b795dd479e55fd4b4e657"
+    },
+    {
+      "name": "OY-RALS-v7.0-문항교차점수-단계별연구업그레이드(1).zip",
+      "sha256": "fd42903b9f21e6f52da0b5b32c31aab22d93f72a830470c8ecb3124468fd33da"
+    },
+    {
+      "name": "OY-RALS-v4.5-한국어사례추론응답-자유서술5배확장-업로드준비(1).zip",
+      "sha256": "6eaf6f635b76e827ba5a042d9d41cb5c3f0ca57b029d3de218ca202d2ae7dcb4"
+    },
+    {
+      "name": "OY-RALS-v7.0-한국어사례추론응답-단계별연구업그레이드(1).zip",
+      "sha256": "10d0f41f52c528e4ef877c084c9a6d1ad3bfc5482200aaaf7d003ace9e738e10"
+    }
+  ],
+  "sharedFilesDeduplicated": 9,
+  "installMethod": "manual reviewed integration; stock automatic panel installers not run",
+  "packageTests": {
+    "contrastFixtures": 300,
+    "v5Synthetic": 3000,
+    "v6Synthetic": 3500,
+    "v7Synthetic": 5000,
+    "icmsSynthetic": 50000,
+    "icmsScenarios": 180,
+    "icmsConditionIndex": 34200,
+    "icmsActionCards": 450
+  },
+  "clinicalValidation": false
+}

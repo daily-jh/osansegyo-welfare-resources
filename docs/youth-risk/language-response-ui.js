@@ -11,6 +11,22 @@ async function render(){
  if(!question){status('질문을 입력하거나 제시된 질문을 선택해 주세요.');return;}
  if(!window.YouthLanguageResponse){status('응답 모델을 불러오지 못했습니다. 페이지를 새로고침해 주세요.');return;}
  try{
+ if(window.YouthModelsV7){
+  const activeRole=el('languageRole')?.value||role;
+  status('V7.0 모델에서 근거·역할을 검토하고 있습니다…');
+  const x=await YouthModelsV7.analyze(context,activeRole,question);
+  if(currentVersion!==requestVersion)return;
+  const answer=YouthModelsV7.answer(x,question);
+  // Narrative-derived text stays on screen; ordinary copy uses score-only material.
+  last=window.YouthLanguageResponse.buildResponse({...context,caseContext:''},'현재 학생에게 필요한 도움과 종합 사정 근거를 알려주세요.','',activeRole,{Map:window.YouthMap,Matrix:window.YouthEvidenceMatrix,Research:window.YouthResearchKB}).text;
+  el('languageAnswer').innerHTML=window.YouthPresentation?YouthPresentation.textHTML(answer):'';
+  if(!window.YouthPresentation)el('languageAnswer').textContent=answer;
+  el('languageAnswer').toggleAttribute('data-local-context',x.hasContext);
+  window.YouthPresentation?.emphasize(el('languageAnswer'));
+  el('languageCopy').disabled=false;
+  status('ICSI / K-CARR / ICMS V7.0 · '+({teacher:'교사','education-welfare':'교육복지사','social-worker':'사회복지사'})[activeRole]+' · '+(x.hasContext?'선택 사례정보 연계 · 복사는 서술을 제외한 척도 기반 응답만 제공':'서술 없음 · 척도 기반 확인·실행안')+' · 외부 전송 없음');
+  return;
+ }
  const output=window.YouthLanguageResponse.buildResponse(context,question,el('languageNarrative').value,role,{Map:window.YouthMap,Matrix:window.YouthEvidenceMatrix,Research:window.YouthResearchKB});
  const enriched=window.YouthResponseKnowledge?await window.YouthResponseKnowledge.enrich(output,context,role):output;
  if(currentVersion!==requestVersion)return;
@@ -27,11 +43,11 @@ document.addEventListener('DOMContentLoaded',()=>{
  el('languageRun').addEventListener('click',render);
  el('languageCopy').addEventListener('click',async()=>{
   if(!last)return;
-  try{await navigator.clipboard.writeText(last);status('응답문이 복사되었습니다. 개인정보와 문항 근거를 재확인한 뒤 활용해 주세요.');}
-  catch(e){const p=el('languageAnswer');const r=document.createRange();r.selectNodeContents(p);const s=window.getSelection();s.removeAllRanges();s.addRange(r);status('텍스트가 선택되었습니다. 복사 메뉴를 이용해 주세요.');}
+  try{await navigator.clipboard.writeText(last);status('선택 사례정보를 제외한 척도 기반 응답을 복사했습니다.');}
+  catch(e){status('복사에 실패했습니다. 브라우저의 클립보드 권한을 확인해 주세요. 선택 사례정보는 자동 선택하지 않았습니다.');}
  });
  block.querySelectorAll('[data-language-query]').forEach(btn=>btn.addEventListener('click',()=>{el('languageQuestion').value=btn.dataset.languageQuery;render();}));
- ['languageNarrative','languageQuestion'].forEach(id=>el(id).addEventListener('input',()=>{clear();status('입력이 바뀌었습니다. 다시 응답을 생성해 주세요.');}));
+ ['languageNarrative','languageQuestion','languageRole'].filter(id=>el(id)).forEach(id=>el(id).addEventListener('input',()=>{clear();status('입력이 바뀌었습니다. 다시 응답을 생성해 주세요.');}));
  window.addEventListener('youth-ai-context-v1',e=>{
   const detail=e.detail||{};context=detail.payload||null;role=detail.role==='social-worker'?'social-worker':'teacher';clear();
   const label=role==='teacher'?'교사 관점':'사회복지사 관점';

@@ -1,0 +1,15 @@
+/* v6 Korean role-specific evidence retrieval with bounded output and trace. */
+(function(root,factory){'use strict';const mod=typeof module!=='undefined'&&module.exports,S=mod?require('./oy-score-v6.js'):root.OYScoreV6;const api=factory(S);if(mod)module.exports=api;else root.OYResponseV6=api;})(typeof window!=='undefined'?window:globalThis,function(S){'use strict';const VERSION='6.0.0',ROLES={teacher:'교사','education-welfare':'교육복지사','social-worker':'사회복지사'};
+function retrieve(kb,item,score,role){return kb.items.find(x=>x.item===item&&x.score===String(score)&&x.role===role)}
+function cross(kb,id,role){return kb.cross.find(x=>x.id===id&&x.role===role)}
+function produce(p,topics,spec,kb,role='teacher'){if(!ROLES[role])role='teacher';if(!kb||kb.schema!=='OY-RALS-v6-knowledge'||!Array.isArray(kb.items))throw Error('v6 지식자료 규격 불일치');const result=S.compute(p,topics,spec),out=['[학생 사례사정 및 지원계획 검토안 · '+ROLES[role]+']'],trace=[];
+ if(!result.base.context.hasContext)return {version:VERSION,text:'자유서술 없이 기존 25문항 평가·사정 모델을 사용합니다.',trace,analysis:result,abstain:true};
+ const score=result.base;if(score.safety.positive.length||result.graph.safety.narrative.length)out.push('안전: 척도 또는 입력 서술에 보호·자해 등 안전 신호가 있습니다. 현재 사실과 위해 여부를 학생에게 안전하게 직접 확인하고 필요한 긴급·보호·신고 절차를 우선 검토합니다.');
+ if(score.safety.unknown.length||score.safety.pendingFollowups.length)out.push('확인보류: '+score.safety.unknown.concat(score.safety.pendingFollowups).join('·')+'번 안전 관련 정보가 미확정입니다. 안전하다고 결론 내리지 않습니다.');
+ if(result.graph.conflicts.length)out.push('서술과 문항의 차이: '+[...new Set(result.graph.conflicts.map(x=>x.item))].join('·')+'번은 사건시점·주체·자료 출처를 대조할 필요가 있습니다.');
+ const mentioned=new Set(score.context.links.filter(x=>!['negative','hypothetical'].includes(x.status)).map(x=>x.number));let chosen=result.focus.filter(x=>mentioned.has(x.item)).slice(0,3);if(!chosen.length)chosen=result.focus.slice(0,2);
+ for(const x of chosen){const entry=retrieve(kb,x.item,x.score,role);if(!entry)continue;out.push('검토 '+x.item+'번 / '+entry.subject+' : '+entry.reading+' '+entry.ask+'\n실행: '+entry.action+'\n변화확인: '+entry.outcome);trace.push({source:'item',id:entry.id,items:[x.item],claims:result.graph.byItem[x.item-1].support});}
+ let used=0;for(const row of result.graph.cross){if(used===2)break;const rec=cross(kb,row.id,role);if(!rec)continue;out.push('복합사정: '+row.title+'. '+rec.interpret+'\n확인: '+rec.ask+'\n지원조정: '+rec.action+'\n단정금지: '+row.warning);trace.push({source:'cross',id:rec.id,items:row.items});used++;}
+ const flags=result.graph.flagCandidates;if(flags.some(x=>x.wish))out.push('학생의 희망으로 볼 수 있는 표현이 있습니다. 직접 확인한 후 목표에 반영합니다.');if(flags.some(x=>x.strength))out.push('활용할 수 있는 강점이나 지지관계 후보가 있습니다. 실제 도움 가능성과 연락의 안전성을 확인합니다.');if(flags.some(x=>x.service))out.push('기존 지원의 문의·신청·실제 제공 여부를 구분합니다.');
+ out.push('결과는 확인되지 않은 사실을 창작하지 않은 참고 초안입니다. 계획 승인·기관 접수·서비스 제공을 확정하지 않습니다.');return {version:VERSION,text:out.join('\n\n'),trace,analysis:result,abstain:trace.length===0,sourceCount:trace.length};}
+return Object.freeze({VERSION,produce});});

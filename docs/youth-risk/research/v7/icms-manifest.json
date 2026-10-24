@@ -1,0 +1,38 @@
+{
+  "name": "OY-RALS Case Management Support V7 Additive Package",
+  "version": "7.0.0",
+  "packagedDate": "2026-10-24",
+  "baselineLiveVersion": "2.2.0",
+  "deploymentStatus": "RESEARCH_STAGING_NOT_UPLOADED",
+  "modulesRetainedUnmodified": [
+    "criteria.js",
+    "weight-model.js",
+    "planning-model.js",
+    "case-continuity-model.js",
+    "review-model.js"
+  ],
+  "otherV7ArchivesLeftUnmodifiedSHA256": {
+    "OY-RALS-v7.0-문항교차점수-단계별연구업그레이드.zip": "fd42903b9f21e6f52da0b5b32c31aab22d93f72a830470c8ecb3124468fd33da",
+    "OY-RALS-v7.0-한국어사례추론응답-단계별연구업그레이드.zip": "10d0f41f52c528e4ef877c084c9a6d1ad3bfc5482200aaaf7d003ace9e738e10"
+  },
+  "dataCount": {
+    "derivedConditionalIndex": 34200,
+    "structuredActionCards": 450,
+    "total": 34650,
+    "syntheticQualityExamples": 180,
+    "technicalRandomProfiles": 50000
+  },
+  "assumptions": {
+    "humanValidation": false,
+    "clinicalValidation": false,
+    "realCasesInZip": 0,
+    "localAIModelIncluded": false,
+    "externalNetworkNeeded": false
+  },
+  "suggestedVerification": [
+    "node tests/test-v7.cjs",
+    "node tests/test_scenarios.cjs",
+    "python tests/test_dataset.py"
+  ],
+  "install": "opt-in local staging only; no commit or website deployment"
+}

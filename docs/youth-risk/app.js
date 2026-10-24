@@ -170,7 +170,7 @@ function updateQuestionStates(){answers.forEach(function(value,i){var card=$('qi
 function followupState(){var out={};document.querySelectorAll('#safetyFollowups input:checked').forEach(n=>{out[n.dataset.item]=n.value});return out}
 function updateFollowups(){var wanted=[4,5,12,13].filter(n=>answers[n-1]>=(n===4?1:3)),key=wanted.join(',');var box=$('safetyFollowups');if(box.dataset.key===key)return;var prior=followupState();box.dataset.key=key;box.innerHTML=wanted.length?'<h3>현재 안전을 한 번 더 살펴주세요</h3><p>점수만으로 현재 위험을 알 수는 없습니다. 지금의 상황을 살피고, 확인하는 동안에도 필요한 보호조치는 진행해 주세요.</p>'+wanted.map(n=>'<fieldset><legend>'+n+'번 · '+(n===4?'현재 협박·성적 피해가 이어지거나 즉시 보호가 필요한 상황인가요?':n===13?'급성 중독 증상·의식 변화 등 긴급한 의료 대응이 필요한가요?':'현재 자신이나 주변 사람이 다칠 즉각적인 위험이 있나요?')+'</legend>'+[['yes','현재 위험·보호 필요 있음'],['no','현재 즉각적인 위험은 확인되지 않음'],['unknown','아직 확인하지 못함']].map(v=>'<label><input type="radio" name="safety'+n+'" data-item="'+n+'" value="'+v[0]+'"'+(v[0]==='yes'?' data-urgent="'+n+'번 추가확인: 현재 위험·보호 필요 있음"':'')+(prior[n]===v[0]?' checked':'')+'>'+v[1]+'</label>').join('')+'</fieldset>').join(''):'';box.hidden=!wanted.length}
 function studentProfile(){return {gender:$('studentGender').value,dong:$('studentDong').value}}
-function snapshot(){return {student:studentProfile(),type:'youth-support-data-v1',answers:answers.slice(),domains:domains.map(d=>({name:d.name,items:d.items.slice(),hints:d.hints.slice()})),routes:routes,resources:csv.map(r=>Object.assign({},r)),explicit:getUrgent().slice(),followups:followupState()}}
+function snapshot(){return {student:studentProfile(),type:'youth-support-data-v1',caseContext:window.YouthCaseContextForm?.getValue()||'',answers:answers.slice(),domains:domains.map(d=>({name:d.name,items:d.items.slice(),hints:d.hints.slice()})),routes:routes,resources:csv.map(r=>Object.assign({},r)),explicit:getUrgent().slice(),followups:followupState()}}
 function updateCopyGate(){var yes=ready&&$('aiAllowed').checked&&$('aiAnonymous').checked;$('copyAll').disabled=!yes;$('selectPacket').disabled=!yes;$('copyPacket').hidden=!yes;$('copyGateStatus').textContent=yes?'포함 내용과 안전·미상 표시를 살펴본 뒤 복사해 주세요.':'이용할 AI와 식별정보 제외 여부를 확인하면 복사자료가 열립니다.'}
 function updateProgress(){updateQuestionStates();var filled=answers.filter(v=>v!==null).length,known=answers.filter(v=>typeof v==='number').length,unknown=answers.filter(v=>v==='unknown').length,total=sumKnown(answers);$('filled').textContent=filled;$('liveTotal').textContent=known===25?total+' / 100점':unknown?'전체 판단 보류 · 미상 '+unknown+'개':'점수 확인 '+known+'/25';$('progressBar').style.width=(filled/25*100)+'%';$('progressHint').textContent=unknown?'미상은 0점이 아닙니다. 전체 점수와 판단은 보류하고 확인된 어려움부터 살펴봅니다.':filled===25?'25문항 응답 완료. 결과를 확인해 주세요.':(25-filled)+'개 문항이 남았습니다. 모르는 내용은 미상으로 선택해 주세요.';var h='';domains.forEach(function(d,i){var arr=domainAnswers(i),k=arr.filter(v=>typeof v==='number').length,u=arr.filter(v=>v==='unknown').length,score=sumKnown(arr);$('dc'+i).textContent=k+'/'+d.items.length+'문항 확인'+(u?' · 미상 '+u:'')+(k===d.items.length?' · '+score+'/'+d.items.length*4+'점':'');h+='<div class="domain-progress-item"><span>'+clean(d.name)+'</span><span>'+(k===d.items.length?score+'/'+d.items.length*4+'점':'확인 '+k+'/'+d.items.length+(u?' · 미상 '+u:''))+'</span></div>'});$('domainProgress').innerHTML=h;$('compactProgress').textContent='점수 확인 '+known+'/25 · 미상 '+unknown+' · 미선택 '+(25-filled);$('pendingList').innerHTML=''}
 function getUrgent(){return Array.from(document.querySelectorAll("[data-urgent]:checked")).map(function(n){return n.getAttribute("data-urgent")})}
@@ -248,7 +248,7 @@ lines.push("","[함께 살펴볼 어려움과 지원 순서]",YouthInsights.anal
 $("copyPacket").value=lines.join("\n");updateCopyGate();
 }
 async function copyPacket(){if(!ready||$("copyAll").disabled)return;var text=$("copyPacket").value,revision=reviewRevision;try{if(!navigator.clipboard||!navigator.clipboard.writeText)throw Error("clipboard unavailable");await navigator.clipboard.writeText(text);if(revision===reviewRevision)$("copyStatus").textContent="사례검토 보고서 요청문·결과표·25문항·리뷰·자원 후보를 복사했습니다. 이용하시는 AI에 직접 붙여넣으세요."}catch(e){if(revision!==reviewRevision)return;$("copyPacket").focus();$("copyPacket").select();$("copyStatus").textContent="자동 복사가 제한되어 전체 내용을 선택했습니다. Ctrl+C 또는 기기의 복사 메뉴로 복사해 주세요."}}
-function notifyComplete(){if(window.parent!==window)setTimeout(()=>{if(ready)window.parent.postMessage({type:'youth-flow-complete-v1',payload:snapshot()},location.origin)},0);}
+function notifyComplete(){window.YouthV7UI?.assessment(snapshot());if(window.parent!==window)setTimeout(()=>{if(ready)window.parent.postMessage({type:'youth-flow-complete-v1',payload:snapshot()},location.origin)},0);}
 function calculate(){
 var missing=answers.findIndex(function(v){return v===null});if(missing!==-1){alert((missing+1)+"번 문항부터 미응답 항목이 있습니다. 각 문항에서 점수 또는 미상을 선택해 주세요.");$("qi"+missing).scrollIntoView({behavior:"smooth",block:"center"});var radio=$("qi"+missing).querySelector("input");radio.focus();return}
 ready=true;
@@ -319,7 +319,7 @@ window.addEventListener('message',function(e){
     !b.answers.every(v=>v==='unknown'||Number.isInteger(v)&&v>=0&&v<=4)||
     !Array.isArray(b.explicit)||b.explicit.some(v=>typeof v!=='string')||
     !b.followups||typeof b.followups!=='object'||Array.isArray(b.followups))return;
- $("studentName").value="";$("studentGender").value="미확인";$("studentDong").value="";$("welfareZoneHint").textContent=YouthMap.welfareZoneText(studentProfile());
+ window.YouthCaseContextForm?.reset();$("studentName").value="";$("studentGender").value="미확인";$("studentDong").value="";$("welfareZoneHint").textContent=YouthMap.welfareZoneText(studentProfile());
  answers=b.answers.slice();
  answers.forEach((value,i)=>{
   const input=Array.from(document.querySelectorAll('#qi'+i+' input[type="radio"]')).find(n=>n.value===String(value));
@@ -356,7 +356,7 @@ $("selectSummary").addEventListener("click",function(){$("summaryText").focus();
 $("complete").addEventListener("click",calculate);
 $("asideComplete").addEventListener("click",calculate);
 $("safetyChecks").addEventListener("change",updateUrgent);
-$("reset").addEventListener("click",function(){if(!confirm("이름과 평가 점수 및 긴급 체크 항목을 모두 초기화하시겠습니까?"))return;answers.fill(null);if(window.siteUsage)window.siteUsage.reset();ready=false;$("studentName").value="";$("studentGender").value="미확인";$("studentDong").value="";$("welfareZoneHint").textContent=YouthMap.welfareZoneText(studentProfile());document.querySelectorAll('input[type="radio"],input[data-urgent]').forEach(function(x){x.checked=false});document.querySelectorAll(".question.has-value").forEach(function(x){x.classList.remove("has-value")});updateProgress();updateFollowups();updateUrgent();$("assessment").scrollIntoView({behavior:"smooth"})});
+$("reset").addEventListener("click",function(){if(!confirm("이름과 평가 점수 및 긴급 체크 항목을 모두 초기화하시겠습니까?"))return;answers.fill(null);if(window.siteUsage)window.siteUsage.reset();ready=false;window.YouthCaseContextForm?.reset();$("studentName").value="";$("studentGender").value="미확인";$("studentDong").value="";$("welfareZoneHint").textContent=YouthMap.welfareZoneText(studentProfile());document.querySelectorAll('input[type="radio"],input[data-urgent]').forEach(function(x){x.checked=false});document.querySelectorAll(".question.has-value").forEach(function(x){x.classList.remove("has-value")});updateProgress();updateFollowups();updateUrgent();$("assessment").scrollIntoView({behavior:"smooth"})});
 var sharedRows=YouthResourceAdapter.rows(window.WELFARE_DATA);
 if(sharedRows.length){csv=sharedRows;$('resourceStatus').textContent='복지자원 홈페이지와 동일한 기관·주소·연락처 DB: '+csv.length+'개 서비스 · 실제 대상·관할·운영 확인 필요';}
 else { $('resourceStatus').textContent='최신 주소·연락처 원본을 불러오지 못했습니다. 전체 복지자원 검색에서 확인해 주세요.'; }
@@ -366,7 +366,7 @@ function prepareAssessmentPrint(){var old=$("assessmentPrint");if(old)old.remove
 window.addEventListener('beforeprint',prepareAssessmentPrint);
 window.addEventListener('afterprint',function(){var root=$("assessmentPrint");if(root)root.remove()});
 window.addEventListener("pageshow",function(e){if(e.persisted)location.reload()});
-document.addEventListener("DOMContentLoaded",init);
+document.addEventListener("DOMContentLoaded",function(){init();window.addEventListener("youth-case-context-updated-v1",function(){ready=false;clearResult();window.dispatchEvent(new CustomEvent("youth-v7-invalid"))})});
 })();
 
 

@@ -1,0 +1,12 @@
+.oy-context-card{margin:14px 0;padding:16px;border:1px solid var(--border,#d5dce4);border-radius:15px;background:var(--card,#fff)}
+.oy-context-card>summary{font-weight:700;font-size:1.02rem;cursor:pointer;line-height:1.5}
+.oy-context-description{font-size:.89rem;line-height:1.6;color:var(--muted,#5a6471);margin:8px 0 12px}
+.oy-context-card>label{display:block;margin:12px 0 6px;font-weight:600}
+.oy-context-card textarea{display:block;box-sizing:border-box;width:100%;min-height:138px;padding:12px;border:1px solid #aeb8c5;border-radius:10px;background:var(--card,#fff);color:var(--text,#202934);line-height:1.65;font:inherit;resize:vertical}
+.oy-context-card textarea:focus-visible{outline:2px solid #2877b7;outline-offset:2px}
+.oy-context-actions{display:flex;justify-content:flex-end;margin-top:8px}
+.oy-context-result{border-top:2px solid #7b9aba;padding:16px;margin-top:20px}
+.oy-context-reading{white-space:pre-wrap;line-height:1.7;overflow-wrap:anywhere}
+.oy-context-response details{margin:12px 0}.oy-context-response pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit;line-height:1.65}
+@media(max-width:650px){.oy-context-card{padding:12px}.oy-context-card textarea{min-height:120px}}
+@media print{.oy-context-result,.oy-context-response,#oyCaseContext{display:none!important}}

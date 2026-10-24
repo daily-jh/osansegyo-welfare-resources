@@ -1,0 +1,27 @@
+{
+  "dataset": "OY-RALS case management v7 development-only",
+  "generatedAt": "2026-10-24",
+  "baselineV22ExtraCards": 104,
+  "originalKernels": {
+    "domain": 10,
+    "stages": 15,
+    "role": 3,
+    "context": 6,
+    "intensity": 4,
+    "assessmentItems": 25
+  },
+  "counts": {
+    "domain_stage_context": 10800,
+    "item_stage_anchor": 1800,
+    "item_pair_workflow_hypothesis": 21600,
+    "action_cards": 450
+  },
+  "conditionIndexTotal": 34200,
+  "totalIncludingActionCards": 34650,
+  "warnings": [
+    "index combinations are not distinct observed cases or validated interventions",
+    "110-item baseline cards not copied; manifest says 104 supplementary case management practice records",
+    "no personal user case data exported",
+    "do not claim causal or predictive validity"
+  ]
+}
