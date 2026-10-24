@@ -1,14 +1,14 @@
-/* K-CARR V8.0 additive adapter for OY-RALS case review, not automatic deployment.
+/* K-CARR V8.1 additive adapter for OY-RALS case review, not automatic deployment.
  * Keep original CORE scoring, route and service-map unmodified.
  */
-(function(root,factory){'use strict';const node=typeof module!=='undefined'&&module.exports;const K=node?require('./k-carr-narrative-v8.js'):root.KCarrNarrativeV8;const api=factory(K);if(node)module.exports=api;else root.OYRALSCaseResponseV8=api;})(typeof window!=='undefined'?window:globalThis,function(K){'use strict';
+(function(root,factory){'use strict';const node=typeof module!=='undefined'&&module.exports;const K=node?require('./k-carr-narrative-v81.js'):root.KCarrNarrativeV8;const api=factory(K);if(node)module.exports=api;else root.OYRALSCaseResponseV8=api;})(typeof window!=='undefined'?window:globalThis,function(K){'use strict';
 const SIZES=[2,3,3,3,2,2,3,3,2,2];
 function context(p){return typeof p?.caseContext==='string'?p.caseContext:typeof p?.caseContext?.text==='string'?p.caseContext.text:'';}
 function officialTotal(core){return core?.incomplete?null:Number.isFinite(core?.knownTotal)?core.knownTotal:Number.isFinite(core?.rawScore)?core.rawScore:null;}
 function build(payload,opts={}){
  if(!payload||!Array.isArray(payload.answers)||payload.answers.length!==25)throw Error('원본 25문항 응답 자료 필요');
  const role=opts.role||'social-worker',written=context(payload);
- if(!written.trim())return {active:false,code:'K-CARR',version:'8.0.0',message:'서술 미입력: 기존 CORE/ICSI/ICMS 결과 유지'};
+ if(!written.trim())return {active:false,code:'K-CARR',version:'8.1.0',message:'서술 미입력: 기존 CORE/ICSI/ICMS 결과 유지'};
  const official=opts.core||null; // supplied by official criteria.js; NEVER recompute/override.
  const model=K.assess({caseContext:written,role,officialScore:officialTotal(official)});
  return {active:true,model,coreReference:official,panels:{
@@ -34,5 +34,5 @@ function renderSections(doc, result){ // optional minimal safe renderer for a de
  const details=d.createElement('details');const sum=d.createElement('summary');sum.textContent='근거 문장·추가 질문 (접기/펼치기)';details.append(sum);for(const e of r.model.evidence){const p=d.createElement('p');p.textContent=e.id+' ['+e.status+'] '+e.text;details.append(p)}for(const q of r.model.nextQuestions){const p=d.createElement('p');p.textContent='추가 확인: '+q;details.append(p)}frag.append(details);
  block('p','이 결과는 사례회의 결정·신고처리·진단·지원 승인·서비스 실제 제공을 증명하지 않습니다.');return frag;
 }
-return Object.freeze({version:'8.0.0',context,officialTotal,build,renderSections,SIZES});
+return Object.freeze({version:'8.1.0',context,officialTotal,build,renderSections,SIZES});
 });

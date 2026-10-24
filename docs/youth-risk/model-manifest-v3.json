@@ -72,6 +72,23 @@
       "file": "case-action-model.js",
       "version": "4.0.0-action-20261024",
       "scope": "Shared goals, separate teacher/social-worker actions, timing and measures; no fabricated meeting decisions"
+    },
+    "kcarrV81": {
+      "file": "k-carr-narrative-v81.js",
+      "bridge": "oy-rals-v8-integration.js",
+      "siteBridge": "kcarr-site-v8.js",
+      "version": "8.1.0",
+      "researchData": {
+        "syntheticRecords": 54000,
+        "notLLMTraining": true
+      },
+      "functions": [
+        "scope-sensitive Korean negation and hypothetical classification",
+        "peer victimization cues",
+        "role-dependent report implementation",
+        "separate basic/housing support from care"
+      ],
+      "officialCoreChanges": false
     }
   },
   "validation": {
@@ -94,7 +111,12 @@
       "scope": "local immutable snapshots, evidence dates and missingness comparison",
       "humanValidation": false
     },
-    "note": "3차 서술 해석과 계획초안 테스트는 기술적 회귀검사. v2.2 500,000건 검사 수치를 v3 정확도로 오해하지 않음"
+    "note": "3차 서술 해석과 계획초안 테스트는 기술적 회귀검사. v2.2 500,000건 검사 수치를 v3 정확도로 오해하지 않음",
+    "kcarrV81": {
+      "testing": "synthetic 25 base archetypes x 200 variants; not independent human cases",
+      "humanValidity": false,
+      "limitations": "Regression results do not estimate clinical sensitivity or specificity"
+    }
   },
   "sources": [
     {
