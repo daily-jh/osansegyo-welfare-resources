@@ -9,6 +9,7 @@ const f=F.build(p);assert.match(f.judgement,/복합 지원 사례/);assert.match
 for(const note of ['보호자 폭력은 없음.','만약 보호자가 학생에게 폭행한다면?'])assert.ok(!F.build(make({},note)).rows.some(g=>g.id==='protect'));
 const Syn=require('../docs/youth-risk/case-synthesis-v71.js');assert.equal(Syn.note(make({},'수업 방해행동은 없음.')).flags.behavior,false);assert.equal(Syn.note(make({},'아동학대 신고 여부는 미확인임.')).flags.reported,false);
 const q=Q.build(make({}),'학생이 ADHD이고 폭행이 있었어요','teacher');assert.equal(q.context.length,0);assert.ok(!q.priority);assert.ok(!Q.html(Q.build(make({}),'<script>alert(1)</script>')).includes('<script>'));
+const economy=F.build(make({19:3}));assert.match(economy.rows[0].title,/생활·주거/);assert.ok(!economy.rows[0].goal.includes('돌봄'));const family=F.build(make({18:3}));assert.ok(!family.rows[0].goal.includes('주거'));assert.ok(!F.html(make({10:3,18:2},'학생이 상담을 희망함.')).includes('추가 서술 없음'));
 const blank=F.build(make());assert.equal(blank.rows.length,0);assert.match(blank.judgement,/확정하지 않고/);
 const selected=make({10:3,19:3});selected.includedDomains=[7];assert.deepEqual(F.build(selected,{forPlan:true}).rows.map(g=>g.id),['daily']);
 let seed=72;const rnd=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296};
