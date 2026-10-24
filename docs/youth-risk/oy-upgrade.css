@@ -1,0 +1,5 @@
+/* Only an optional after-report panel, never affects assessment form. */
+.oy-upgrade-panel {border:1px solid #cbd5e1;border-radius:12px;margin:1rem 0;padding:1rem;background:transparent;}
+.oy-upgrade-panel>summary{font-weight:700;cursor:pointer;line-height:1.5;}
+.oy-upgrade-text{white-space:pre-wrap;overflow-wrap:anywhere;font-family:inherit;font-size:0.92rem;line-height:1.7;max-height:34rem;overflow:auto;margin:0.75rem 0 0;}
+@media(max-width:640px){.oy-upgrade-panel{padding:.75rem}.oy-upgrade-text{font-size:.88rem}}

@@ -1,0 +1,22 @@
+{
+  "name": "OY-RALS-v7.0-문항교차점수-단계별연구업그레이드",
+  "type": "score",
+  "version": "7.0",
+  "phase": "검수·불확실성·자연어보고·선택 로컬 확장 인터페이스",
+  "baseline": "OY-RALS v4.5 패키지가 먼저 설치되어야 함",
+  "scripts": [
+    "oy-context-v5.js",
+    "oy-score-v5.js",
+    "oy-graph-v6.js",
+    "oy-score-v6.js",
+    "oy-score-v7.js",
+    "oy-panel-score-70.js"
+  ],
+  "dependencies": {
+    "scoring": "existing 25-item criteria.js remains authoritative",
+    "narrative": "caseContext single optional field from v4.5"
+  },
+  "clinicalValidation": false,
+  "externalAiCalls": false,
+  "realCaseDataIncluded": false
+}

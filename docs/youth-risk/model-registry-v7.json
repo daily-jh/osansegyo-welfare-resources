@@ -1,0 +1,82 @@
+{
+  "schema": "oy-rals.model-registry.v1",
+  "release": "7.0-integration-20261024",
+  "status": "integrated-release",
+  "coreAuthority": "oy-rals.core-assessment",
+  "clinicalValidation": false,
+  "externalAIRequired": false,
+  "models": [
+    {
+      "id": "oy-rals.core-assessment",
+      "code": "CORE",
+      "nameKo": "기초평가·안전판정 엔진",
+      "nameEn": "Core Assessment and Safety Criteria Engine",
+      "version": "existing-v2.2",
+      "mayChangeOfficialScores": true
+    },
+    {
+      "id": "oy-rals.item-cross-interpretation",
+      "code": "ICSI",
+      "nameKo": "문항별·교차점수 해석모델",
+      "nameEn": "Item-Level and Cross-Score Interpretation Model",
+      "version": "7.0",
+      "mayChangeOfficialScores": false
+    },
+    {
+      "id": "oy-rals.korean-case-reasoning-response",
+      "code": "K-CARR",
+      "nameKo": "한국어 사례분석·추론·응답모델",
+      "nameEn": "Korean Case Analysis, Reasoning and Response Model",
+      "version": "7.0",
+      "mayChangeOfficialScores": false
+    },
+    {
+      "id": "oy-rals.integrated-case-management",
+      "code": "ICMS",
+      "nameKo": "② 통합사례관리 지원모델",
+      "nameEn": "Integrated Case Management Support Model",
+      "version": "7.0",
+      "mayChangeOfficialScores": false
+    },
+    {
+      "id": "oy-rals.narrative-context",
+      "code": "NCB",
+      "nameKo": "선택형 사례정보 전달계층",
+      "nameEn": "Narrative Context Bridge",
+      "version": "4.5-foundation",
+      "mayChangeOfficialScores": false
+    },
+    {
+      "id": "oy-rals.resource-referral",
+      "code": "RRA",
+      "nameKo": "지역복지자원 연계 모듈",
+      "nameEn": "Community Resource Referral Adapter",
+      "version": "existing-directory",
+      "mayChangeOfficialScores": false
+    }
+  ],
+  "runtimeData": {
+    "itemTopics": 25,
+    "itemRules": 25,
+    "crossRules": 24,
+    "roleItemCards": 450,
+    "roleCrossCards": 72,
+    "caseworkDomains": 10,
+    "caseworkStages": 15,
+    "caseworkRoles": 3,
+    "caseworkActionCards": 450,
+    "caseworkDerivedIndexRecordsInSourcePackage": 34200
+  },
+  "notRuntimeCorpus": {
+    "v45PairScenarioRecords": 37500,
+    "v45ResponseVariantRecords": 18720,
+    "reason": "Older derivative corpora remain in original uploaded packages; v7 uses compact rule and role-card tables, not a full duplicate install."
+  },
+  "privacy": {
+    "caseContext": "in-memory string, max 5000 chars; no automatic external transmission",
+    "defaultCopyIncludesNarrative": false,
+    "defaultPrintIncludesNarrative": false,
+    "defaultBackupIncludesNarrative": false
+  },
+  "packageVerification": "research/v7/package-verification.json"
+}
