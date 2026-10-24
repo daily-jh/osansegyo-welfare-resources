@@ -1,4 +1,4 @@
-/* V8 presentation bridge. CORE and resource routing are immutable. */
+/* V8.1 presentation bridge. CORE and resource routing are immutable. */
 (function(root){'use strict';const node=typeof module!=='undefined'&&module.exports,I=node?require('./oy-rals-v8-integration.js'):root.OYRALSCaseResponseV8;
 const stages={'현재 안전·보호':['protect',[0,2,1,9]],'안전한 소통·연락':['contact',[0]],'학교환경 조정':['learning',[3,5]],'진료·건강 연계':['health',[4]],'생활·돌봄 지원':['daily',[6,7]],'정서·또래·온라인 지원':['emotional',[1,2,9]],'공동사정':['intake',[]]};
 function apply(base,p,opts={}){
@@ -12,9 +12,9 @@ function apply(base,p,opts={}){
  // Keep score-derived safety and any assessed need absent from the narrative model.
  const preserved=base.rows.filter(g=>(g.id==='current-safety'?!rows.some(r=>r.safety):g.domains?.every(i=>!covered.has(i))));
  const combined=[...preserved.filter(g=>g.safety),...rows,...preserved.filter(g=>!g.safety)];
- for(const row of combined){const prior=base.rows.find(g=>g.domains?.some(i=>row.domains?.includes(i)));if(prior){row.teacher=prior.teacher;row.worker=prior.worker;}else if(row.safety){row.teacher='교내 보호 담당·안전한 공간과 수업·등하교 보호조치를 확인하고 학생에게 안전한 연락 경로를 정함.';row.worker='보호 담당기관의 실제 조치와 생활·돌봄 공백을 확인하고 기관별 후속 담당·회신·점검을 조정함.';}}
+ for(const row of combined){const prior=base.rows.find(g=>g.domains?.some(i=>row.domains?.includes(i)));if(prior&&!row.id.startsWith('v8-')){row.teacher=prior.teacher;row.worker=prior.worker;}else if(row.safety){row.teacher='교내 보호 담당·안전한 공간과 수업·등하교 보호조치를 확인하고 학생에게 안전한 연락 경로를 정함.';row.worker='보호 담당기관의 실제 조치와 생활·돌봄 공백을 확인하고 기관별 후속 담당·회신·점검을 조정함.';}}
  const first=base.decision.urgent&&!m.hasSafetySignal?base.first:(combined[0]?.action||base.first);
- return {...base,version:'8.0-site-integration',source:'K-CARR V8.0 / CORE unchanged / ICSI·ICMS V7.0',paragraphs:[m.situationOverview],judgement:m.integratedJudgment,first,rows:combined,lead:combined.slice(0,3),others:combined.slice(3),relationship:m.causalLinks.map(x=>x.meaning).join(' '),context:m.causalLinks.map(x=>x.meaning+' '+x.action),safety:base.safety||m.hasSafetySignal,v8:{version:m.version,priority:m.summary.centralJudgment,questions:m.nextQuestions,role,contactHazard:m.caregiverContactHazard,execution:m.executionPlan,coreUnchanged:true}};
+ return {...base,version:'8.1-site-integration',source:'K-CARR V8.1 / CORE unchanged / ICSI·ICMS V7.0',paragraphs:[m.situationOverview],judgement:m.integratedJudgment,first,rows:combined,lead:combined.slice(0,3),others:combined.slice(3),relationship:m.causalLinks.map(x=>x.meaning).join(' '),context:m.causalLinks.map(x=>x.meaning+' '+x.action),safety:base.safety||m.hasSafetySignal,v8:{version:m.version,priority:m.summary.centralJudgment,questions:m.nextQuestions,role,contactHazard:m.caregiverContactHazard,execution:m.executionPlan,coreUnchanged:true}};
 }
 const api={apply};if(node)module.exports=api;else root.YouthKCARRV8=api;
 })(typeof window!=='undefined'?window:globalThis);
