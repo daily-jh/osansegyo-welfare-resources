@@ -4,17 +4,17 @@ const stages={'현재 안전·보호':['protect',[0,2,1,9]],'안전한 소통·�
 function apply(base,p,opts={}){
  if(root.YouthKCARRV8Enabled===false)return base;
  const role=opts.role||'social-worker',v=I.build(p,{role,core:base.decision});
- if(!v.active||v.model.abstain||!v.model.evidence.some(e=>!['hypothetical','denied_or_negative'].includes(e.status)&&e.domains.length))return base;
+ if(!v.active||v.model.abstain)return base;
  const m=v.model,teachers=I.build(p,{role:'teacher',core:base.decision}).model.executionPlan,workers=role==='social-worker'?m.executionPlan:I.build(p,{role:'social-worker',core:base.decision}).model.executionPlan;
  const requested=opts.forPlan&&Array.isArray(p.includedDomains)?p.includedDomains:null;
  const rows=m.executionPlan.filter(t=>{const ds=stages[t.stage]?.[1]||[];return !requested||/현재 안전|안전한 소통/.test(t.stage)||!ds.length||ds.some(i=>requested.includes(i));}).map(t=>{const [id,domains]=stages[t.stage]||['context',[]];return {id:'v8-'+id,title:t.goal,domains,sourceGoals:[],positive:[],unknown:[],narrative:true,peak:0,safety:/현재 안전|안전한 소통/.test(t.stage),selected:true,goal:t.goal,meaning:m.summary.priorityReason,action:t.action,teacher:teachers.find(a=>a.stage===t.stage)?.action+' / 담당(안): '+teachers.find(a=>a.stage===t.stage)?.owner,worker:workers.find(a=>a.stage===t.stage)?.action+' / 담당(안): '+workers.find(a=>a.stage===t.stage)?.owner,when:t.when,measure:t.completion,status:t.status};});
  const covered=new Set(rows.flatMap(t=>t.domains));
  // Keep score-derived safety and any assessed need absent from the narrative model.
- const preserved=base.rows.filter(g=>(g.id==='current-safety'?!rows.some(r=>r.safety):g.domains?.every(i=>!covered.has(i))));
+ const preserved=base.rows.filter(g=>{const scored=Array.isArray(g.positive)&&g.positive.length>0;if(g.id==='current-safety')return base.decision.urgent&&!rows.some(r=>r.safety);return (scored||(base.decision.urgent&&g.safety))&&g.domains?.every(i=>!covered.has(i));});
  const combined=[...preserved.filter(g=>g.safety),...rows,...preserved.filter(g=>!g.safety)];
  for(const row of combined){const prior=base.rows.find(g=>g.domains?.some(i=>row.domains?.includes(i)));if(prior&&!row.id.startsWith('v8-')){row.teacher=prior.teacher;row.worker=prior.worker;}else if(row.safety){row.teacher='교내 보호 담당·안전한 공간과 수업·등하교 보호조치를 확인하고 학생에게 안전한 연락 경로를 정함.';row.worker='보호 담당기관의 실제 조치와 생활·돌봄 공백을 확인하고 기관별 후속 담당·회신·점검을 조정함.';}}
  const first=base.decision.urgent&&!m.hasSafetySignal?base.first:(combined[0]?.action||base.first);
- return {...base,version:'8.1-site-integration',source:'K-CARR V8.1 / CORE unchanged / ICSI·ICMS V7.0',paragraphs:[m.situationOverview],judgement:m.integratedJudgment,first,rows:combined,lead:combined.slice(0,3),others:combined.slice(3),relationship:m.causalLinks.map(x=>x.meaning).join(' '),context:m.causalLinks.map(x=>x.meaning+' '+x.action),safety:base.safety||m.hasSafetySignal,v8:{version:m.version,priority:m.summary.centralJudgment,questions:m.nextQuestions,role,contactHazard:m.caregiverContactHazard,execution:m.executionPlan,coreUnchanged:true}};
+ return {...base,version:'8.1-site-integration',source:'K-CARR V8.1 / CORE unchanged / ICSI·ICMS V7.0',paragraphs:[m.situationOverview],judgement:m.integratedJudgment,first,rows:combined,lead:combined.slice(0,3),others:combined.slice(3),relationship:m.causalLinks.map(x=>x.meaning).join(' '),context:m.causalLinks.map(x=>x.meaning+' '+x.action),safety:base.decision.urgent||m.hasSafetySignal,v8:{version:m.version,priority:m.summary.centralJudgment,questions:m.nextQuestions,role,contactHazard:m.caregiverContactHazard,execution:m.executionPlan,coreUnchanged:true}};
 }
 const api={apply};if(node)module.exports=api;else root.YouthKCARRV8=api;
 })(typeof window!=='undefined'?window:globalThis);
