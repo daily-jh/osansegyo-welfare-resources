@@ -1,6 +1,6 @@
 (function(){'use strict';const $=id=>document.getElementById(id),origin=location.origin;let stage=1,revision=0,ready=false,payload=null,view='result',report=null,map=null,selection=[],recordFrames=new Map(),registrations=new Map();const assessment=$('assessmentFrame');registrations.set(assessment,{kind:'assessment'});
 function send(f,m){f.contentWindow?.postMessage(m,origin)}
-function frame(kind,path,p){const f=document.createElement('iframe');f.title=kind==='report'?'사례검토 보고서·서비스계획서':kind==='map'?'지원 연결지도':'직접 기록·점검';f.src=new URL(path,document.baseURI).href+'?v=20261024-dedup1';f.className='flow-frame';registrations.set(f,{kind,payload:p,revision});
+function frame(kind,path,p){const f=document.createElement('iframe');f.title=kind==='report'?'사례검토 보고서·서비스계획서':kind==='map'?'지원 연결지도':'직접 기록·점검';f.src=new URL(path,document.baseURI).href+'?v=20261024-forms50';f.className='flow-frame';registrations.set(f,{kind,payload:p,revision});
  if(kind==='report'){
   f.addEventListener('load',()=>{
    const doc=f.contentDocument;
