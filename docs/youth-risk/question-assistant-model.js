@@ -44,7 +44,7 @@ function build(payload,question,role='teacher',opts={}){
  if(intent.id==='cooperation'&&(formulation?.v8?formulation.v8.contactHazard:(f.violence||f.contactViolence))){answer='입력 서술에 폭력 또는 연락에 따른 위해 우려가 있어 보호자 설득보다 학생 보호와 안전한 연락 경로 확인이 우선입니다. 거부 이유의 사정과 보호절차의 이행 여부는 구분하여 검토합니다.';steps[0]='통상적인 보호자 재연락을 먼저 하지 않고 학생의 현재 위치·최근 위해·안전한 연락 상대와 담당기관의 실제 보호조치를 확인합니다.';}
  if(formulation?.v8&&intent.id==='interview')questions=formulation.v8.questions.slice(0,4);
  if(formulation?.v8&&intent.id==='safety'){steps=formulation.lead.filter(g=>g.safety).map(g=>g.action);if(!steps.length)steps=base.steps.slice();}
- const context=opts.includeContext===false?[]:(formulation?.v8?formulation.context:x.note.findings.concat(x.contextAnalysis)).slice(0,7);
+ const context=opts.includeContext===false?[]:(formulation?formulation.context:x.note.findings.concat(x.contextAnalysis)).slice(0,7);
  const limits=['질문은 확인된 사례 사실로 추가하지 않습니다. 입력 진술·척도 응답·해석을 구분합니다.',x.decision.incomplete?'미상 '+x.decision.unknownItems.length+'문항 · 전체 점수와 지원 수준 확정은 보류합니다.':'척도 점수·기존 안전판정은 이 답변으로 변경하지 않습니다.'];
  return {version:formulation?.v8?'8.1-question':'7.2-question',intent:intent.id,role,title,answer,priority,steps,questions,talk:base.talk||'',roleTask:roleTask(intent.id,role),check:base.check,evidence,context,limits,canonical:base.query,areas:ids};
 }

@@ -1,0 +1,31 @@
+/* Local, evidence-limited family/ecosystem context and descriptive score bands. */
+(function(root){'use strict';
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const sizes=[2,3,3,3,2,2,3,3,2,2];
+const names=['아동학대·보호','학교폭력·또래 안전','자해·정서·정신건강','학습·출결','행동·건강 안전','장애·발달 및 접근성','가족·돌봄','경제·주거','관계·지지체계','디지털·온라인 안전'];
+const types=[
+ ['기초생활보장',/기초생활(?:수급|보장)|기초\s*수급/, '급여별 수급·신청·지급 상태를 나누고 실제 생활비·주거·교육의 남은 공백을 살핍니다. 수급 사실만으로 방임이나 위기를 추정하지 않습니다.'],
+ ['차상위',/차상위/,'확인서·본인부담경감 등 세부 자격과 현재 이용 지원을 구분하고 비용·신청 장벽을 살핍니다.'],
+ ['다문화가구',/다문화/,'선호 언어와 통역·정보 접근 필요를 학생·가족에게 묻습니다. 문화적 배경을 학습능력이나 양육 문제의 원인으로 단정하지 않습니다.'],
+ ['한부모가구',/한부모/,'실제 돌봄 분담과 보호자의 근로·휴식 여건을 확인합니다. 한부모가족 지원 자격은 가족 형태와 별도로 확인합니다.'],
+ ['조손가구',/조손/,'조부모의 돌봄 여력과 학생의 역할·휴식, 비동거 가족 및 지역의 지원을 함께 살핍니다.'],
+ ['소년소녀가정',/소년소녀(?:가정|가구)/,'실제 동거인·법적 보호자와 현재 보호체계를 확인하고 학생에게 과도한 생활 책임이 있는지 살핍니다.'],
+ ['시설보호',/시설보호|(?:아동양육시설|그룹홈|공동생활가정).{0,10}(?:거주|생활|입소)/,'실제 보호 담당·생활시설·학교 간 연락과 서비스 역할, 학생의 참여·자립 욕구를 구분합니다.'],
+ ['가정위탁',/가정위탁|위탁가정/,'현재 위탁 보호자·위탁지원 담당과 실제 제공되는 보호를 확인합니다. 친가족 접촉과 정보 공유는 학생의 안전·동의 범위를 함께 검토합니다.']
+];
+function parse(p){const raw=typeof p.caseContext==='string'?p.caseContext:p.caseContext?.text||'';const clauses=raw.split(/[。.!?\n;]|지만|으나/).map(s=>s.trim()).filter(Boolean);const negative=/없|아니|아님|해당하지|부인|가정한|가정하면|예시로|만약/;
+ const profiles=[];for(const [label,rx,advice] of types){for(const clause of clauses){if(!rx.test(clause)||negative.test(clause))continue;profiles.push({label,status:/신청|심사/.test(clause)?'신청·심사 언급':/중지|종료|탈락/.test(clause)?'중지·종료 언급':'입력 서술 기준 · 증빙 미확인',advice});break;}}
+ const kin=[['어머니',/어머니|엄마|모친/],['아버지',/아버지|아빠|부친/],['할머니',/할머니|조모/],['할아버지',/할아버지|조부/],['형제자매',/동생|언니|누나|형제|자매|남동생|여동생/],['위탁 보호자',/위탁(?:부모|보호자)/]];const family=[];
+ for(const [label,rx]of kin){const clause=clauses.find(c=>rx.test(c)&&!/(?:없|아니|예시|만약)/.test(c));if(clause)family.push({label,status:/사망|돌아가/.test(clause)?'사망 언급':/함께|동거|같이\s*(?:살|지냄)/.test(clause)?'동거 언급':'관계 언급 · 동거 미확인',evidence:clause});}
+ const institutions=[];const re=/[가-힣A-Za-z0-9·]{0,20}(?:종합사회복지관|사회복지관|복지관|정신건강복지센터|상담복지센터|아동보호전문기관|가정위탁지원센터|지역아동센터|드림스타트|Wee센터|위센터|상담센터|병원|의원|학교)/g;
+ for(const clause of clauses){for(const match of clause.matchAll(re)){if(/없|아니|않|만약|예시/.test(clause))continue;const label=match[0];let status=/종료|중단/.test(clause)?'이용 종료·중단 언급':/예정|추천|의뢰|신청|대기/.test(clause)?'의뢰·신청·대기 언급':/이용|개입|지원받|받고|서비스|상담\s*중|치료\s*중|다니/.test(clause)?'이용·개입 언급':'기관 언급 · 이용 미확인';if(status==='기관 언급 · 이용 미확인')continue;if(!institutions.some(x=>x.label===label))institutions.push({label,status,evidence:clause});}}
+ return {profiles,family,institutions,interpretations:profiles.map(x=>x.label+' ('+x.status+'): '+x.advice)};
+}
+function enrich(x,p){const c=parse(p);return {...x,context81:c,context:[...x.context,...c.interpretations]};}
+function diagram(nodes,kind){if(!nodes.length)return '';const n=nodes.length,height=Math.max(190,n*78+40),cy=height/2;let s='<svg viewBox="0 0 600 '+height+'" role="img" aria-label="'+kind+' · 서술에서 확인한 관계만 표시" style="width:100%;height:auto;max-height:none"><rect x="12" y="'+(cy-30)+'" width="135" height="60" rx="12" fill="#e5efff" stroke="#285e98"/><text x="80" y="'+(cy+6)+'" text-anchor="middle" font-size="19" fill="#173955">학생</text>';
+ nodes.forEach((x,i)=>{const y=30+i*78;s+='<line x1="147" y1="'+cy+'" x2="244" y2="'+(y+24)+'" stroke="#657e97" stroke-dasharray="6 4"/><rect x="244" y="'+y+'" width="344" height="62" rx="10" fill="#f7fafc" stroke="#a4b8ce"/><text x="257" y="'+(y+24)+'" font-size="18" fill="#173955">'+esc(x.label)+'</text><text x="257" y="'+(y+48)+'" font-size="15" fill="#405a73">'+esc(x.status)+'</text>';});return s+'</svg>';}
+function html(c){if(!c)return '';if(!c.profiles.length&&!c.family.length&&!c.institutions.length)return '';return '<section class="formulation-section" data-local-context="true"><h3>가족·현재 지원체계</h3>'+(c.profiles.length?'<h4>가구 특성과 공적지원</h4><ul>'+c.profiles.map(x=>'<li><strong>'+esc(x.label)+'</strong> · '+esc(x.status)+'<p>'+esc(x.advice)+'</p></li>').join('')+'</ul>':'')+(c.family.length?'<details open><summary>가계도 초안 · 언급된 가족관계</summary>'+diagram(c.family,'가계도 초안')+'<p>점선은 관계 언급을 뜻합니다. 혼인·친생·동거 구조와 가족 수는 자동 추정하지 않습니다. 실제 가계도는 면담 후 확정하세요.</p></details>':'')+(c.institutions.length?'<details open><summary>생태도 초안 · 기관과 이용 상태</summary>'+diagram(c.institutions,'생태도 초안')+'<p>점선은 기관과의 연결 언급입니다. 의뢰·이용·종료를 구분하며 관계의 강도나 효과는 추정하지 않습니다.</p></details>':'')+'<details><summary>도식의 입력 근거 확인</summary><ul>'+[...c.family,...c.institutions].map(x=>'<li>'+esc(x.label)+': '+esc(x.evidence)+'</li>').join('')+'</ul></details><p>가구 형태·보장구분은 척도점수에 가산하지 않습니다. 서술에 없는 관계·자격은 생성하지 않습니다.</p></section>';}
+function position(p){const a=p.answers,known=a.filter(Number.isInteger),sum=known.reduce((a,b)=>a+b,0),missing=25-known.length;return {sum,missing,lower:sum,upper:sum+missing*4,band:missing?null:Math.min(4,Math.floor(sum/25)+1)};}
+function scoreHTML(p,d){const x=position(p),start=x.lower,end=x.upper;return '<section class="score-position81 formulation-section"><h3>척도 점수의 위치</h3><p><strong>'+(x.missing?'위치 확정 보류 · 가능한 합계 '+start+'~'+end+'점':x.sum+'/100점 · 제'+x.band+'구간')+'</strong></p><div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px" role="list" aria-label="100점을 동일 폭으로 나눈 참고 구간">'+['1구간 · 0~24','2구간 · 25~49','3구간 · 50~74','4구간 · 75~100'].map((label,i)=>{const hit=x.band===i+1,range=x.missing&&start<=(i===3?100:(i+1)*25-1)&&end>=i*25;return '<div role="listitem" style="padding:16px 6px;border-radius:8px;text-align:center;border:2px solid '+(hit?'#285e98':'#c7d6e6')+';background:'+(hit?'#285e98':range?'#e8eef5':'#f7fafc')+';color:'+(hit?'white':'#173955')+'">'+(hit?'● 현재<br>':range?'가능 범위<br>':'')+label+'</div>';}).join('')+'</div><p>점수 합계의 크기를 보는 참고 구간입니다. 비교집단의 통계적 분위·임상 위험등급·선정기준이 아닙니다. 총점이 낮아도 개별 안전신호에 필요한 보호는 우선합니다.</p><p><strong>생활지원 방향:</strong> '+esc(d.supportTitle||d.confirmedSupport)+'<br><strong>별도 안전 검토:</strong> '+esc(d.lowSafetyOnly?'안전문항 1점의 구체상황·시점·현재 위해를 직접 확인합니다. 1점 자체가 학대 발생 또는 긴급도 확정은 아닙니다.':d.safetyReview||'현재 안전정보를 함께 확인합니다.')+'</p></section>';}
+const api={parse,enrich,html,position,scoreHTML};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.YouthContextV81=api;
+})(typeof window!=='undefined'?window:globalThis);

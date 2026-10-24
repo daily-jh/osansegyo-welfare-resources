@@ -12,7 +12,7 @@ function render(){
  result=Q.build(context,q,role);cleanResult=Q.build({...context,caseContext:''},'',role,{intent:{id:result.intent,areas:result.areas},includeContext:false});
  el('languageAnswer').innerHTML=Q.html(result);el('languageCopy').disabled=['empty','unsupported'].includes(result.intent);copyLabel();
  el('languageAnswer').toggleAttribute('data-local-context',!!context.caseContext);
- status(result.intent==='unsupported'?'지원 가능한 질문 유형을 선택해 주세요.':'답변 준비 완료 · '+(result.version==='8.0-question'?'K-CARR V8.0 · ':'')+Q.roles[role]+' · '+(result.context.length?'사례 서술 반영 · ':'')+'질문·사례정보 외부 전송 없음');
+ status(result.intent==='unsupported'?'지원 가능한 질문 유형을 선택해 주세요.':'답변 준비 완료 · '+(result.version==='8.1-question'?'K-CARR V8.1 · ':'')+Q.roles[role]+' · '+(result.context.length?'사례 서술 반영 · ':'')+'질문·사례정보 외부 전송 없음');
  document.querySelectorAll('[data-language-query]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.languageQuery===q)));
  }catch(e){clear('응답 도구를 불러오지 못했습니다. 평가 응답은 유지됩니다.');status('다시 시도해 주세요. 계속되면 현재 평가를 저장한 뒤 페이지를 다시 여세요.');}
 }
