@@ -187,7 +187,7 @@ $("copyPacket").value="평가를 완료하면 결과표·25문항 응답·리뷰
 }
 function renderSummary(total,domainScores,signals){
  const review=YouthReviewModel.build({answers:answers.slice(),domains:domains.map(d=>({name:d.name,items:d.items.slice()})),explicit:getUrgent(),followups:followupState()},'teacher');
- $("summaryText").value=window.YouthSynthesis?YouthSynthesis.text({...snapshot(),caseContext:''},false):review.text;
+ $("summaryText").value=window.YouthFormulation?YouthFormulation.text({...snapshot(),caseContext:''},false):window.YouthSynthesis?YouthSynthesis.text({...snapshot(),caseContext:''},false):review.text;
  resizeSummary();
  $("selectSummary").disabled=false;
  $("summaryEvidence").textContent=review.items.filter(v=>typeof v.score==='number'&&v.score>0).map(v=>v.number+'번 '+v.score+'점 / 가정 가중계수 '+v.weight.toFixed(2)+' / '+v.question).join(' / ')||'확인된 점수의 어려움 없음. 긴급 신호와 미상 여부는 별도 검토';

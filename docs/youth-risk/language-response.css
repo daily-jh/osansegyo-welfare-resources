@@ -1,14 +1,38 @@
-#languageAssistant{border:1px solid #d6e4f0;background:#fff;line-height:1.7}
-#languageAssistant .language-caption{color:#496075;margin-bottom:12px}
-#languageAssistant label{font-weight:700;display:block;margin:12px 0 6px}
-#languageAssistant textarea,#languageAssistant input{width:100%;box-sizing:border-box;padding:12px 14px;border:1px solid #bfd1e3;border-radius:12px;background:white;color:#18354c;font:inherit;line-height:1.65}
-#languageAssistant textarea{min-height:110px;resize:vertical}
-#languageAssistant .language-questions{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
-#languageAssistant .language-questions button{min-height:42px;padding:9px 12px;font:inherit;font-size:14px;border-radius:22px;border:1px solid #bbd3e7;background:#f2f7fd;color:#21517b;cursor:pointer}
-#languageAssistant .language-questions button:hover{background:#e5f1fb}
-#languageAssistant .language-tools{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
-#languageAssistant .language-answer{white-space:pre-wrap;overflow-wrap:anywhere;background:#f5f8fc;border:1px solid #dbe5ee;border-radius:14px;padding:17px;font:inherit;font-size:14px;line-height:1.85;max-height:650px;overflow:auto}
+#languageAssistant{border:1px solid #cbddea;background:#fff;line-height:1.8;font-size:18px;overflow-wrap:anywhere}
+#languageAssistant .question-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
+#languageAssistant h2{margin:8px 0 12px;font-size:28px;line-height:1.45}
+#languageAssistant .question-context{background:#edf6f5;border:1px solid #c8e0dc;color:#285f57;padding:7px 12px;border-radius:12px;font-size:15px}
+#languageAssistant .language-caption{color:#496075;margin:0 0 20px}
+#languageAssistant label{font-weight:700;display:block;margin:0 0 7px}
+#languageAssistant .question-form{display:grid;grid-template-columns:170px minmax(0,1fr);gap:18px;align-items:start}
+#languageAssistant textarea,#languageAssistant select{width:100%;box-sizing:border-box;padding:12px 14px;border:1px solid #a9c2d9;border-radius:12px;background:#fff;color:#18354c;font:inherit;line-height:1.65}
+#languageAssistant textarea{min-height:100px;resize:vertical}
+#languageAssistant .language-questions{display:flex;flex-wrap:wrap;gap:9px;margin:16px 0}
+#languageAssistant .language-questions button{min-height:44px;padding:9px 14px;font:inherit;font-size:16px;border-radius:12px;border:1px solid #b7cedf;background:#f2f7fb;color:#21517b;cursor:pointer}
+#languageAssistant .language-questions button:hover,#languageAssistant .language-questions button[aria-pressed=true]{background:#dcebf8;border-color:#3974ad;color:#163e69}
+#languageAssistant .language-answer{white-space:normal;overflow-wrap:anywhere;background:#fff;border:1px solid #cedde9;border-radius:16px;padding:24px;font:inherit;font-size:18px;line-height:1.85;max-height:none;overflow:visible}
+#languageAssistant .language-answer h3{font-size:24px;margin:8px 0 14px;line-height:1.5}
+#languageAssistant .language-answer h4{font-size:20px;margin:0 0 10px;color:#204e73}
+#languageAssistant .language-answer section{padding-top:20px;margin-top:20px;border-top:1px solid #e0e8ef}
+#languageAssistant .language-answer li{margin:0 0 12px;padding-left:4px}
+#languageAssistant .language-answer ol,#languageAssistant .language-answer ul{padding-left:25px}
+#languageAssistant .language-answer p{margin:8px 0}
+#languageAssistant .question-result-tag{font-size:15px;font-weight:700;color:#356ba0}
+#languageAssistant .question-direct{background:#eff6fc;border-left:4px solid #3978a7;padding:16px;border-radius:0 12px 12px 0}
+#languageAssistant .question-priority{margin:18px 0;padding:16px 18px;border:1px solid #e4b7c3;background:#fff3f5;border-radius:12px;color:#88334b}
+#languageAssistant .question-role{background:#f3f8f7;padding:18px;border-radius:12px}
+#languageAssistant blockquote{margin:16px 0;padding:12px 18px;border-left:4px solid #83a8c7;background:#f6f9fc}
+#languageAssistant details{margin-top:18px;padding:14px 16px;border:1px solid #d5e2ec;border-radius:12px}
+#languageAssistant summary{cursor:pointer;font-weight:700;line-height:1.6}
+#languageAssistant .question-copy{margin-top:18px;padding:18px;background:#f6f8fb;border-radius:12px}
+#languageAssistant .question-copy label{font-size:16px;font-weight:600;display:flex;align-items:flex-start;gap:10px}
+#languageAssistant .question-copy input{width:20px;height:20px;flex:0 0 20px;margin-top:5px;accent-color:#265e9d}
+#languageAssistant .question-copy p{font-size:15px;color:#50667a;margin:10px 0 0}
 #languageAssistant [disabled]{opacity:.5;cursor:not-allowed}
-#languageAssistant #languageStatus{font-size:14px;color:#425f79}
-@media(max-width:640px){#languageAssistant textarea,#languageAssistant input{font-size:16px}#languageAssistant .language-answer{font-size:14px}}
-@media print{#languageAssistant{display:none!important}}
+#languageAssistant #languageStatus{font-size:16px;color:#345c7d;margin:12px 0;min-height:1.8em}
+#languageAssistant :focus-visible{outline:3px solid #3174b7;outline-offset:3px}
+#externalAiOptions>summary{font-size:21px;font-weight:750;cursor:pointer;line-height:1.6;color:#244f73}
+#externalAiOptions[open]>summary{margin-bottom:20px}
+#externalAiOptions #aiMethodSection{border:0;padding:0;box-shadow:none}
+@media(max-width:640px){#languageAssistant{font-size:17px;padding:18px}#languageAssistant h2{font-size:24px}#languageAssistant .question-form{grid-template-columns:minmax(0,1fr);gap:14px}#languageAssistant textarea,#languageAssistant select{font-size:17px}#languageAssistant .language-answer{font-size:17px;padding:18px}#languageAssistant .language-answer h3{font-size:22px}#languageAssistant .language-answer h4{font-size:19px}#languageAssistant .language-questions button{font-size:15px;flex:1 1 42%}}
+@media print{#languageAssistant,#externalAiOptions{display:none!important}}

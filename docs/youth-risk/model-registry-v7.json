@@ -86,5 +86,16 @@
     "styleSource": "osan-case-management/references/writing-style.md",
     "coreScoringUnchanged": true,
     "defaultBundleNarrative": false
+  },
+  "presentationUpdate": {
+    "version": "7.2",
+    "date": "2026-10-24",
+    "scope": [
+      "question intent and all three practitioner roles",
+      "shared contextual case formulation and paired execution",
+      "visible graph and closed item response details"
+    ],
+    "officialScoringChanged": false,
+    "generativeLLM": false
   }
 }

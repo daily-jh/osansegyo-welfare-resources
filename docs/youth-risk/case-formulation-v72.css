@@ -1,0 +1,27 @@
+.formulation-section{margin:18px 0;padding:22px;border:1px solid #d3e0ea;border-radius:15px;background:#fff;line-height:1.9;overflow-wrap:anywhere}
+.formulation-section h3{font-size:23px;color:#203e59;margin:0 0 16px;line-height:1.5}
+.formulation-section p,.formulation-section li,.formulation-section dd{font-size:18px;line-height:1.9;margin:12px 0}
+.formulation-section .formulation-judgement{padding:18px;border-left:4px solid #3978a7;border-radius:0 12px 12px 0;background:#edf5fc;color:#244d6c}
+.formulation-priority{margin:20px 0;padding-top:20px;border-top:1px solid #dce6ed}
+.formulation-priority h4{font-size:21px;margin:0 0 15px;line-height:1.55;color:#24577d}
+.formulation-priority dl{margin:0;display:grid;gap:12px}
+.formulation-priority dl>div{background:#f6f9fb;border-radius:10px;padding:13px 16px}
+.formulation-priority dt{font-size:16px;font-weight:750;color:#456780}
+.formulation-priority dd{margin:5px 0 0}
+.formulation-section summary{font-size:18px;line-height:1.7;cursor:pointer;font-weight:750}
+#reviewReadable>.formulation-section:first-child{margin-top:0}
+.workspace-v4 #referenceReport .execution-heading p,.workspace-v4 #referenceReport p,.workspace-v4 #referenceReport dd{font-size:18px;line-height:1.85}
+.workspace-v4 #referenceReport .document-table{font-size:17px;table-layout:auto}
+.workspace-v4 #referenceReport .execution-overview .document-table{min-width:1050px}
+.workspace-v4 #referenceReport .execution-overview .document-table th{min-width:140px}
+.workspace-v4 #referenceReport .execution-task>summary{font-size:20px;font-weight:750;line-height:1.6;cursor:pointer;color:#24577d}
+.workspace-v4 #referenceReport .execution-task[open]>summary{margin-bottom:18px}
+.workspace-v4 #referenceReport .execution-task dt{font-size:16px}
+.workspace-v4 #referenceReport h3{font-size:22px;line-height:1.5}
+.workspace-v4 #referenceReport .execution-task dl{margin-top:18px}
+.workspace-v4:not([data-report-view=ai]) #externalAiOptions{display:none!important}
+.workspace-v4[data-report-view=ai] .example-toolbar,.workspace-v4[data-report-view=ai] .workspace-next,.workspace-v4[data-report-view=ai] #copyExampleStatus{display:none!important}
+.workspace-v4[data-report-view=ai] #languageAssistant .language-answer{font-size:18px!important}
+.workspace-v4 .workspace-tabs button{font-size:17px}
+@media(max-width:650px){.formulation-section{padding:18px}.formulation-section h3{font-size:21px}.formulation-section p,.formulation-section li,.formulation-section dd{font-size:17px}.formulation-priority h4{font-size:20px}.workspace-v4 #referenceReport p,.workspace-v4 #referenceReport dd,.workspace-v4 #referenceReport .execution-heading p{font-size:17px}.workspace-v4 #referenceReport .execution-overview .document-table{min-width:0}.workspace-v4 #referenceReport .execution-overview .document-table th{min-width:0}.workspace-v4[data-report-view=ai] #languageAssistant .language-answer{font-size:17px!important}.workspace-v4 .workspace-tabs button{font-size:16px}}
+@media print{.formulation-section{border:0;padding:8px 0}.formulation-section p,.formulation-section li,.formulation-section dd{font-size:11pt}.formulation-priority{break-inside:avoid}}
