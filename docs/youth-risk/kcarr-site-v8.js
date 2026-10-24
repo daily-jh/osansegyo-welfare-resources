@@ -1,6 +1,6 @@
 /* V8.1 presentation bridge. CORE and resource routing are immutable. */
 (function(root){'use strict';const node=typeof module!=='undefined'&&module.exports,I=node?require('./oy-rals-v8-integration.js'):root.OYRALSCaseResponseV8;
-const stages={'현재 안전·보호':['protect',[0,2,1,9]],'안전한 소통·연락':['contact',[0]],'학교환경 조정':['learning',[3,5]],'진료·건강 연계':['health',[4]],'생활·돌봄 지원':['daily',[6,7]],'정서·또래·온라인 지원':['emotional',[1,2,9]],'공동사정':['intake',[]]};
+const stages={'현재 안전·보호':['protect',[0,2,1,9]],'안전한 소통·연락':['contact',[0]],'학교환경 조정':['learning',[3,5]],'진료·건강 연계':['health',[4]],'생활·돌봄 지원':['daily',[6,7]],'기본생활·주거 지원':['basic',[7]],'정서·또래·온라인 지원':['emotional',[1,2,9]],'공동사정':['intake',[]]};
 function apply(base,p,opts={}){
  if(root.YouthKCARRV8Enabled===false)return base;
  const role=opts.role||'social-worker',v=I.build(p,{role,core:base.decision});
