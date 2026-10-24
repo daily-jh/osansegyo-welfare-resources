@@ -10,4 +10,5 @@ A.equal(M.parse({caseContext:'ADHD로 약물 복용. 수업에 어려움.'}).fam
 A.doesNotMatch(M.html({profiles:[],family:[{label:'<script>',status:'<img>',evidence:'<svg>'}],institutions:[]}),/<script>|<img>|<svg>/);
 const before=JSON.stringify(p);F.build({...p,caseContext:'다문화 한부모가구이며 차상위라고 보고함.'});A.equal(JSON.stringify(p),before);
 A.doesNotMatch(F.text({...p,caseContext:'조손가구. 할머니와 동거.'},false),/조손|할머니/);
+const linked=F.build({...p,caseContext:'조손가구이며 할머니와 함께 살고 있음. 세교복지관에서 서비스를 받고 있음.'});A.match(linked.paragraphs.join(' '),/척도에서 크게 보고된 어려움/);A.ok(!linked.rows.some(g=>g.id==='v8-intake'));A.equal(linked.rows[0].id,'learning');
 console.log('PASS V8.1 context: safety review retained, primary needs ordered, 101 score boundaries, unknown range, family/benefit distinction, source limited diagrams, XSS and narrative-free export');
