@@ -1,0 +1,12 @@
+const assert=require('node:assert/strict'),F=require('../docs/youth-risk/case-form-model.js');
+const p={answers:Array(25).fill('unknown'),explicit:[],followups:{},domains:[2,3,3,3,2,2,3,3,2,2].map((n,i)=>({name:'영역 '+i,items:Array(n).fill('문항')}))};
+const before=JSON.stringify(p),empty=F.build(p);
+assert.equal(F.progress(empty).intakeWritten,0);assert.equal(F.progress(empty).needsWritten,0);
+assert.throws(()=>F.proposal(empty,5),/먼저 기록/);
+const filled=F.build(p,{date:'2026-10-24',wish:'아직 결정하지 못함',needWish5:'교통비 부담을 의논하고 싶음',needView5:'지원 자격은 미확인',needPriority5:'접수 가능한 범위를 함께 확인',needWish9:'필요 없음으로 확정하지 않음'});
+assert.deepEqual(F.progress(filled),{intakeWritten:2,intakeTotal:18,needsWritten:2,needsTotal:10});
+const proposal=F.proposal(filled,5);assert.match(proposal,/목표·우선순위 검토안/);assert.match(proposal,/합의·실행은 별도 확인/);assert.match(proposal,/자격은 미확인/);
+const output=F.text(filled,'needs');for(const name of F.needs)assert.ok(output.includes('['+name+']'));
+assert.match(output,/교통비 부담/);assert.match(output,/필요 없음으로 확정하지 않음/);assert.equal((output.match(/미확인 · 면담에서 확인 필요/g)||[]).length,1);
+assert.match(F.text(filled,'intake'),/경제 · 수입: —/);assert.match(F.text(filled,'intake'),/아직 결정하지 못함/);assert.equal(JSON.stringify(p),before);
+console.log('PASS case-form workflow: missing legend once; all ten areas export; manual uncertainty preserved; draft transfer requires wishes/goals; progress counts writing only');

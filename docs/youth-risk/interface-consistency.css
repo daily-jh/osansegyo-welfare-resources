@@ -6,4 +6,24 @@
 @media(max-width:600px){#assessment .question{padding:12px;margin:8px 0}.question-heading{gap:6px}.question-heading .answer-state{font-size:12px}.scale-grid{grid-template-columns:repeat(3,minmax(0,1fr))}#assessment .options{gap:6px}}
 @media print{.role-guidance{break-inside:avoid}}
 .report-workspace[data-report-view=ai] #languageAssistant{display:block}.report-workspace[data-report-view=ai] #aiMethodSection{margin-top:16px}#toolPrint #caseFormPreview{border:0;padding:0}
+/* Compact drafts: one legend for missing data, all fields retained. */
+#caseFormPreview .form-intake-grid{margin:14px 0;display:grid;grid-template-columns:minmax(150px,210px) minmax(0,1fr)}
+#caseFormPreview .form-intake-grid>div{display:contents}
+#caseFormPreview .form-intake-grid dt,#caseFormPreview .form-intake-grid dd{padding:10px 12px;margin:0;border-bottom:1px solid #dde5ec;min-width:0;line-height:1.65}
+#caseFormPreview .form-intake-grid dt{background:#f2f6fa;font-weight:750}
+#caseFormPreview .form-intake-grid dd{white-space:pre-wrap;overflow-wrap:anywhere}
+.form-unwritten{color:#65778a}.form-legend{font-size:14px;color:#526578}
+#caseFormPreview .form-need-card{padding:0;border:1px solid #d5e2ed;border-radius:12px;margin:10px 0;overflow:hidden}
+#caseFormPreview .form-need-card>details{padding:0;border:0}
+#caseFormPreview .form-need-card summary{display:flex;justify-content:space-between;gap:10px;padding:13px 15px;background:#f3f7fb;min-height:46px}
+#caseFormPreview .form-need-card summary small{font-weight:500;font-size:13px;color:#4f6980}
+#caseFormPreview .form-need-card details>p,#caseFormPreview .form-need-card .form-need-values,#caseFormPreview .form-plan-transfer{margin:12px 15px}
+.form-need-values{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 16px}
+.form-need-values>div{min-width:0}.form-plan-transfer{min-height:44px}
+#caseFormProgress{font-size:14px;line-height:1.7;color:#526578}
+@media(max-width:600px){#caseFormPreview .form-intake-grid{grid-template-columns:minmax(90px,32%) minmax(0,1fr)}#caseFormPreview .form-intake-grid dt,#caseFormPreview .form-intake-grid dd{padding:9px 8px;font-size:14px}.form-need-values{grid-template-columns:1fr}#caseFormPreview .form-need-card summary{flex-wrap:wrap}}
+@media print{.form-plan-transfer{display:none!important}#caseFormPreview .form-need-card{overflow:visible;break-inside:auto}#caseFormPreview .form-intake-grid dt{background:#f2f6fa;print-color-adjust:exact}#caseFormPreview .form-need-card summary{background:white}}
+#caseFormPreview .form-priority-safety{background:#fff0f2;color:#92233e;border-left:4px solid #a72d49}#caseFormPreview .form-priority-pending{background:#fff6df;color:#765000;border-left:4px solid #977017}
+
+
 
