@@ -13,10 +13,10 @@
 <text x="285" y="300" font-size="18">점수 계산 · 안전 우선 · 미상 보류</text><text x="285" y="332" font-size="18">행정동 → 복지관 권역 → 기관·서비스</text><text x="285" y="364" font-size="18">우선욕구 · 계획 · 의뢰·접수·제공 구분</text><text x="285" y="407" font-size="16">공통 판정 규칙과 현재 자원 DB 사용</text>
 <rect x="600" y="225" width="430" height="218" rx="20" fill="#e9f5f0" stroke="#71a494" stroke-width="2"/>
 <text x="815" y="260" font-size="22" font-weight="700">③ 한국어 사례해석 v3.0.1</text>
-<text x="815" y="300" font-size="18">응답 사실 → 생활 영향 → 확인 질문</text><text x="815" y="332" font-size="18">지원 제안 → 역할 → 변화 점검 서술</text><text x="815" y="364" font-size="18">서술 v2.1 · 단서 해석 v3.0.1 · 계획 v3.0</text><text x="815" y="407" font-size="16">규칙·근거검색 · 점수·안전 판정 변경 없음</text>
+<text x="815" y="300" font-size="18">응답 사실 → 생활 영향 → 확인 질문</text><text x="815" y="332" font-size="18">지원 제안 → 역할 → 변화 점검 서술</text><text x="815" y="364" font-size="18">서술 v2.2 · 추가사정 v3.0.1 · 실행계획 v4.0</text><text x="815" y="407" font-size="16">규칙·근거검색 · 점수·안전 판정 변경 없음</text>
 <path d="M285 443V482H815V443" fill="none" stroke="#53728b" stroke-width="3"/><path d="M550 482V510" fill="none" stroke="#53728b" stroke-width="3" marker-end="url(#arrow)"/>
 <rect x="185" y="518" width="730" height="102" rx="18" fill="white" stroke="#b7cddd"/>
-<text x="550" y="553" font-size="22" font-weight="700">④ 같은 근거를 각 화면의 목적에 맞게 설명</text><text x="550" y="584" font-size="18">결과·지원연계 / 종합의견(리뷰) / 사례 이해·지원계획</text><text x="550" y="607" font-size="15">확인된 응답 · 해석 · 미확인 · 제안을 구분</text>
+<text x="550" y="553" font-size="22" font-weight="700">④ 공통 근거 1회 · 교사와 사회복지사 실행 역할 구분</text><text x="550" y="584" font-size="18">결과·지원연계 / 공통 리뷰 / 역할별 실행계획 v4.0</text><text x="550" y="607" font-size="15">확인된 응답 · 해석 · 미확인 · 제안을 구분</text>
 <path d="M550 620V650" fill="none" stroke="#53728b" stroke-width="3" marker-end="url(#arrow)"/>
 <rect x="185" y="658" width="730" height="90" rx="18" fill="#fff6e7" stroke="#d5b783"/>
 <text x="550" y="691" font-size="22" font-weight="700">⑤ 학생·실무자의 면담과 협의</text><text x="550" y="724" font-size="18">학생의 바람 · 강점 · 실제 상황 확인 → 목표·담당·확인일 합의</text>

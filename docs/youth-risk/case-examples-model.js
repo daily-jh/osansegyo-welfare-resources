@@ -1,4 +1,5 @@
 (function(root){'use strict';
+const Action=typeof module!=='undefined'?require('./case-action-model.js'):root.YouthCaseAction;
 const P=typeof module!=='undefined'?require('./planning-model.js'):root.YouthPlanning;
 const M=typeof module!=='undefined'?require('./support-model.js'):root.YouthMap;
 const I=typeof module!=='undefined'?require('./insights.js'):root.YouthInsights;
@@ -37,7 +38,7 @@ function create(p,role='teacher'){
  ['⑤ 이행·성과 점검','회신·실제 이용·대기·중복·거절 사유와 학생의 생활 변화를 구분하고 재사정·계획 조정 여부를 기록합니다.']
  ];
  summary=(teacher?'[학생·보호자 접근 중심] ':'[사례판정 이후 개입·연계 중심] ')+summary;
- return {narrative,role,analysis:a,evidence,combined,cross,summary,reviewFull:detailedReview.text,first,management,reason,approach,plans,roleSteps,missing:['학생이 직접 말한 우선욕구·동의·선호','실제 강점·보호요인과 현재 이용기관','발생시점·기간·생활 영향 및 현재 안전','가구구성·진단·보장자격·소득·부채·재산 등 척도로 확인되지 않는 사실']};
+ return {action:Action.build(p,{analysis:a,narrative}),narrative,role,analysis:a,evidence,combined,cross,summary,reviewFull:detailedReview.text,first,management,reason,approach,plans,roleSteps,missing:['학생이 직접 말한 우선욕구·동의·선호','실제 강점·보호요인과 현재 이용기관','발생시점·기간·생활 영향 및 현재 안전','가구구성·진단·보장자격·소득·부채·재산 등 척도로 확인되지 않는 사실']};
 }
 const api={create};if(typeof module!=='undefined')module.exports=api;else root.YouthCaseExamples=api;
 })(typeof window!=='undefined'?window:globalThis);

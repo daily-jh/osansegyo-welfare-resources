@@ -62,6 +62,16 @@
       "pages": 700,
       "version": "case-management-review-v2",
       "privacy": "review_only_no_client_records_in_public_repo"
+    },
+    "professionalProse": {
+      "file": "professional-response.js",
+      "version": "2.2.0",
+      "scope": "Shared cautions once; concise domain observations; unchanged raw score and safety gate"
+    },
+    "executionPlan": {
+      "file": "case-action-model.js",
+      "version": "4.0.0-action-20261024",
+      "scope": "Shared goals, separate teacher/social-worker actions, timing and measures; no fabricated meeting decisions"
     }
   },
   "validation": {
@@ -78,7 +88,12 @@
     "consent": "No personal client/student data in any repository update",
     "disclaimer": "The v3 layers provide non-binding hypotheses and casework drafts, never diagnosis, statutory reporting decision, or service eligibility.",
     "additionalNarrativeSyntheticFixtures": 10,
-    "temporalReview": {"module":"timepoint-model.js","version":"1.0.0-temporal-review-20261024","scope":"local immutable snapshots, evidence dates and missingness comparison","humanValidation":false},
+    "temporalReview": {
+      "module": "timepoint-model.js",
+      "version": "1.0.0-temporal-review-20261024",
+      "scope": "local immutable snapshots, evidence dates and missingness comparison",
+      "humanValidation": false
+    },
     "note": "3차 서술 해석과 계획초안 테스트는 기술적 회귀검사. v2.2 500,000건 검사 수치를 v3 정확도로 오해하지 않음"
   },
   "sources": [
