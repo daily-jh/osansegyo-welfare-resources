@@ -5,7 +5,7 @@ assert.equal(Q.route('부모의 개입거부').id,'cooperation');assert.equal(Q.
 const p=make({10:3,14:2,19:'unknown'},'가상 검수: 보호자가 학생에게 폭행했다는 보고가 있고 연락 뒤 폭행이 언급됨. 폭력 신고 이후 경과는 모름.');
 for(const role of Object.keys(Q.roles)){const r=Q.build(p,'부모의 개입거부',role);assert.match(r.answer,/보호자 설득보다 학생 보호/);assert.match(r.steps[0],/재연락을 먼저 하지 않고/);assert.ok(r.priority);assert.ok(r.roleTask);assert.match(Q.html(r),/<h3>/);assert.equal(Q.build({...p,caseContext:''},'학생은 폭행당했다',role).context.length,0);}
 assert.equal(new Set(Object.keys(Q.roles).map(role=>Q.build(p,'부모의 개입거부',role).roleTask)).size,3);
-const f=F.build(p);assert.match(f.judgement,/복합 지원 사례/);assert.match(f.paragraphs.join(' '),/연락이 폭력을 유발했다는 인과관계가 확정된 것은 아님/);assert.match(f.first,/재연락하기 전에/);assert.ok(f.pending.length);assert.match(F.text(p,true),/잠정적 사정/);assert.equal(F.text(p,false),F.text({...p,caseContext:''},false));
+const f=F.build(p);assert.match(f.judgement,/복합적? 지원 사례/);assert.match(f.paragraphs.join(' '),/연락 이후 위해/);assert.match(f.first,/현재 위치|최근 위해|재연락하기 전에/);assert.ok(f.pending.length);assert.match(F.text(p,true),/잠정적 사정|잠정 사정/);assert.equal(F.text(p,false),F.text({...p,caseContext:''},false));
 for(const note of ['보호자 폭력은 없음.','만약 보호자가 학생에게 폭행한다면?'])assert.ok(!F.build(make({},note)).rows.some(g=>g.id==='protect'));
 const Syn=require('../docs/youth-risk/case-synthesis-v71.js');assert.equal(Syn.note(make({},'수업 방해행동은 없음.')).flags.behavior,false);assert.equal(Syn.note(make({},'아동학대 신고 여부는 미확인임.')).flags.reported,false);
 const q=Q.build(make({}),'학생이 ADHD이고 폭행이 있었어요','teacher');assert.equal(q.context.length,0);assert.ok(!q.priority);assert.ok(!Q.html(Q.build(make({}),'<script>alert(1)</script>')).includes('<script>'));

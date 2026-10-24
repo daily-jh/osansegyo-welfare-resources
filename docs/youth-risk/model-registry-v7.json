@@ -1,6 +1,6 @@
 {
   "schema": "oy-rals.model-registry.v1",
-  "release": "7.1-synthesis-and-export-20261024",
+  "release": "8.0-kcarr-site-20261024",
   "status": "integrated-release",
   "coreAuthority": "oy-rals.core-assessment",
   "clinicalValidation": false,
@@ -27,8 +27,11 @@
       "code": "K-CARR",
       "nameKo": "한국어 사례분석·추론·응답모델",
       "nameEn": "Korean Case Analysis, Reasoning and Response Model",
-      "version": "7.0",
-      "mayChangeOfficialScores": false
+      "version": "8.0.0",
+      "mayChangeOfficialScores": false,
+      "runtime": "local-rules",
+      "syntheticCorpusRecords": 54000,
+      "runtimeUsesCorpus": false
     },
     {
       "id": "oy-rals.integrated-case-management",
@@ -88,7 +91,7 @@
     "defaultBundleNarrative": false
   },
   "presentationUpdate": {
-    "version": "7.2",
+    "version": "8.0",
     "date": "2026-10-24",
     "scope": [
       "question intent and all three practitioner roles",
