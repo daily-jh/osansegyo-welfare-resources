@@ -39,9 +39,9 @@ function build(payload,question,role='teacher',opts={}){
  if(intent.id==='topic') {title=ids.map(i=>names[i]).join(' · ')+' 지원';answer=areas.filter(g=>g.positive.length).map(g=>g.meaning).join(' ')||'질문에 해당하는 영역에서 보고된 어려움이 없거나 미상입니다. 질문 자체를 사례의 사실로 처리하지 않고 실제 장면·출처·현재 필요를 먼저 확인합니다.';steps=['학생이 어려워하는 구체적 장면과 원하는 변화를 확인합니다.','환경·설명·돌봄·자원 중 조정할 조건 한 가지와 담당을 정합니다.','제공한 지원과 실제 생활 변화, 다음 확인일을 구분해 기록합니다.'];questions=['언제·어떤 상황에서 가장 어렵고 이미 도움이 된 방법은 무엇인가요?','학생이 먼저 원하는 변화와 지원을 맡을 사람은 누구인가요?'];}
  if(intent.id==='overview'&&formulation)answer=formulation.paragraphs.join(' ')+' '+formulation.judgement;
  if(intent.id==='plan'&&formulation?.lead.length)steps=formulation.lead.map(g=>g.title+': '+g.action);
- const f=x.note.flags,safety=formulation?.safety||x.decision.urgent||f.violence||f.currentDanger;
+ const f=x.note.flags,safety=formulation?.v8?Boolean(formulation.safety||x.decision.urgent):Boolean(formulation?.safety||x.decision.urgent||f.violence||f.currentDanger);
  const priority=safety?(formulation?.first||x.first):null;
- if(intent.id==='cooperation'&&(f.violence||f.contactViolence||formulation?.v8?.contactHazard)){answer='입력 서술에 폭력 또는 연락에 따른 위해 우려가 있어 보호자 설득보다 학생 보호와 안전한 연락 경로 확인이 우선입니다. 거부 이유의 사정과 보호절차의 이행 여부는 구분하여 검토합니다.';steps[0]='통상적인 보호자 재연락을 먼저 하지 않고 학생의 현재 위치·최근 위해·안전한 연락 상대와 담당기관의 실제 보호조치를 확인합니다.';}
+ if(intent.id==='cooperation'&&(formulation?.v8?formulation.v8.contactHazard:(f.violence||f.contactViolence))){answer='입력 서술에 폭력 또는 연락에 따른 위해 우려가 있어 보호자 설득보다 학생 보호와 안전한 연락 경로 확인이 우선입니다. 거부 이유의 사정과 보호절차의 이행 여부는 구분하여 검토합니다.';steps[0]='통상적인 보호자 재연락을 먼저 하지 않고 학생의 현재 위치·최근 위해·안전한 연락 상대와 담당기관의 실제 보호조치를 확인합니다.';}
  if(formulation?.v8&&intent.id==='interview')questions=formulation.v8.questions.slice(0,4);
  if(formulation?.v8&&intent.id==='safety'){steps=formulation.lead.filter(g=>g.safety).map(g=>g.action);if(!steps.length)steps=base.steps.slice();}
  const context=opts.includeContext===false?[]:(formulation?.v8?formulation.context:x.note.findings.concat(x.contextAnalysis)).slice(0,7);
