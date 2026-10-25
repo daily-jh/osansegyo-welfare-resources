@@ -1,0 +1,33 @@
+'use strict';
+/* V8.6 ZIP regression gate. Node: node tests/v86-zip-export-regression.cjs */
+const assert=require('node:assert/strict'), fs=require('node:fs'), path=require('node:path');
+const root=path.resolve(__dirname,'..');
+const loader=fs.readFileSync(path.join(root,'bundle-export.js'),'utf8');
+const home=fs.readFileSync(path.join(root,'index.html'),'utf8');
+const deps=['case-evidence-base-v86.js','evidence-v86.js','item-action-router-v86.js','reconciliation-v86.js','unified-v86.js','site-bridge-v86.js','oy-rals-v86-site.js','case-formulation-v72.js'];
+let at=-1;for(const name of deps){let p=loader.indexOf("'"+name+"'");assert.ok(p>at,'bundle loader order or missing dependency: '+name);at=p;}
+assert.match(loader,/script\.src=name\+'\?v=20261025-v86-bundle-verified'/);
+assert.match(home,/bundle-export\.js\?v=20261025-v86-bundle-verified/);
+const S=require('../scale-interpretation-v821.js');
+const F=require('../case-formulation-v72.js');
+const A=require('../case-analysis-v83.js');
+const Core=require('../criteria.js');
+const answers=[0,0,4,0,0,0,0,0,0,3,0,0,0,3,0,4,0,0,1,0,0,0,3,0,0];
+const domains=S.DOMAIN_NAMES.map((name,i)=>({name,items:Array(S.DOMAIN_SIZES[i]).fill('문항')}));
+const p={answers,domains,followups:{},explicit:[],caseContext:'학생이 또래 괴롭힘을 보고했다. 일부 교과·과제 수행과 교실 환경이 어렵고 보호자 근로로 돌봄 시간 조정을 원한다고 서술했다.'};
+const q=F.build(p),a=A.analyze(p,q),core=Core.evaluate(answers,S.DOMAIN_SIZES,false,{});
+assert.equal(q.version,'8.6-integrated');
+assert.equal(q.decision.knownTotal,18);
+assert.equal(q.decision.knownTotal,core.knownTotal);
+assert.equal(q.decision.urgent,core.urgent);
+assert.ok(a.rows[1].goal.includes('피해 학생'),'school bullying domain should use Q03 action');
+assert.ok(a.rows[3].goal.includes('교과'),'learning domain should use Q10 action');
+assert.ok(a.rows[5].goal.includes('교실'),'education access domain should use Q14 action');
+assert.ok(a.rows[6].goal.includes('돌봄'),'care domain should use Q16 action');
+assert.ok(a.rows[8].goal.includes('도움'),'support domain should use Q23 action');
+assert.ok(!a.rows[0].goal.includes('보호절차'),'zero abuse item should not borrow bullying plan');
+assert.ok(!a.rows[2].goal.includes('보호절차'),'zero self-harm should not borrow bullying plan');
+assert.ok(!a.rows[9].goal.includes('신고'),'zero online exploitation should not borrow bullying plan');
+assert.match(F.text(p,true),/\[V8\.6 통합사정/);
+assert.match(F.html(p),/판정에 따른 우선 개입계획/);
+console.log('PASS V8.6 ZIP dependencies and independent synthetic 18-point case domain mapping');

@@ -9,8 +9,10 @@ function apply(base,p,options={}){
  // The original CORE decision object remains the only official scoring result.
  const state=U.build(p,{role,officialDecision:base.decision,visibleLimit:Math.max(1,options.visibleLimit||6)});
  const cs=state['K-CARR'],goals=state.ICMS.goals;
+ const domainSizes=[2,3,3,3,2,2,3,3,2,2];
+ const domainOf=item=>{const n=Number(item);if(!Number.isInteger(n)||n<1||n>25)return [];let start=0;for(let i=0;i<domainSizes.length;i++){start+=domainSizes[i];if(n<=start)return [i];}return []};
  const rows=goals.map((g,index)=>({
-  id:'v86-'+g.id,canonicalId:g.id,title:g.concept,domains:[],goal:g.goal,action:g.action,teacher:g.teacher,worker:g.worker,
+  id:'v86-'+g.id,canonicalId:g.id,title:g.concept,domains:domainOf(g.item),goal:g.goal,action:g.action,teacher:g.teacher,worker:g.worker,
   measure:g.verification,when:g.priority===0?'현 안전확인 우선 · 시점 협의':'첫 면담 시점·첫 점검일 실무자 협의',meaning:'문항 '+(g.item??'서술')+'의 별도 개념과 원문 단서를 확인하여 담당별 실행 행동을 정함.',
   sourceGoals:g.item?['G-'+g.item]:[],sourceEvidence:g.evidenceIds||[],positive:g.item&&typeof g.score==='number'&&g.score>0?[g.item]:[],
   unknown:[],peak:g.score||0,safety:g.priority===0,selected:true,rank:goals.length-index,
