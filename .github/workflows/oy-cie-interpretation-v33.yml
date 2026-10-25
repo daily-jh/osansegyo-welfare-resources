@@ -6,6 +6,7 @@ on:
       - 'docs/youth-risk/cie-lab-v32/dialogue-v32.js'
       - 'docs/youth-risk/data/cie-v33-interpretation-seeds.json'
       - 'tests/cie-v33-interpretation-benchmark.cjs'
+      - 'scripts/oy-cie-daily-audit.cjs'
       - '.github/workflows/oy-cie-interpretation-v33.yml'
   workflow_dispatch:
 permissions:
@@ -21,6 +22,8 @@ jobs:
           node-version: '22'
       - name: Validate 120k interpretations and evidence semantics
         run: node tests/cie-v33-interpretation-benchmark.cjs
+      - name: Validate daily 22-category 1024-case sample rotation
+        run: node scripts/oy-cie-daily-audit.cjs --date 2026-10-26 --out artifacts/oy-cie-daily-smoke
       - name: Retain representative research-only examples and comparison data
         if: always()
         uses: actions/upload-artifact@v4
