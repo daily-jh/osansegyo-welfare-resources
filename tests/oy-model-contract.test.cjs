@@ -18,9 +18,10 @@ const payload=(answers,caseContext='')=>({
  explicit:[],followups:{},student:{gender:'미확인',dong:''},caseContext
 });
 test('loaded executable modules are not mislabeled as independent language models',()=>{
- const statuses=G.status();assert.equal(statuses.length,7);
+ const statuses=G.status();assert.equal(statuses.length,8);
  for(const m of statuses)assert.equal(m.loaded,true,m.id+' load');
- assert.equal(statuses.find(x=>x.id==='K-CARR').implementation,'embedded');
+ assert.equal(statuses.find(x=>x.id==='K-CARR').implementation,'native');
+ assert.equal(statuses.find(x=>x.id==='K-CARR-output').implementation,'embedded');
  assert.equal(statuses.find(x=>x.id==='ICMS').implementation,'embedded');
  assert.equal(statuses.find(x=>x.id==='CORE').method,'evaluate');
 });
@@ -67,6 +68,14 @@ test('economic unknown sibling is a check, not a proposed service',()=>{
  assert.ok(a.plans.some(x=>x.item===19));
  assert.ok(!a.plans.some(x=>x.item===21));
  assert.ok(a.decision.unknownItems.includes(21));
+});
+test('independent K-CARR enhances only opted-in narrative reports',()=>{
+ const p=payload(Array(25).fill(0),'최근 등교가 어렵고 가족 돌봄 때문에 피곤하다고 말함.');
+ const a=G.analyze(p);
+ assert.equal(a.kCarr?.abstain,false);
+ assert.ok(!G.text(p,'사례사정',false).includes('K-CARR 서술형 분석'));
+ assert.ok(G.text(p,'사례사정',true).includes('K-CARR 서술형 분석'));
+ assert.equal(a.decision.knownTotal,0);
 });
 test('unknown remains unknown in semantic interpreter',()=>{
  const answers=Array(25).fill(0);answers[0]='unknown';
