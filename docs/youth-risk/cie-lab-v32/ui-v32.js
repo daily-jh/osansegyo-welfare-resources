@@ -31,5 +31,23 @@
   await Promise.all(requests.map(async([url,key])=>{try{const response=await fetch(url,{credentials:'same-origin',cache:'no-store'});if(!response.ok)throw Error(String(response.status));const obj=await response.json();if(key==='corpus'){B.corpusCheck(obj);kb=obj;}if(key==='playbook'){E.validatePlaybook(obj);playbook=obj;}if(key==='route'){if(obj.count!==5550||obj.rows?.length!==5550)throw Error('route index invalid');route=obj;}}catch{/* strict fail-closed fallback: do not infer confirmed facts */}}));
   $('v32-db').textContent='연구형 DB '+(kb?'600건 구조 검증':'미연결')+' · 실무 템플릿 '+(playbook?'80개 초안':'미연결')+' · 라우팅 '+(route?'5550':'미연결');
  }
+ // Receive CORE assessment from the same-origin evaluation window. No narrative or identifiers are transferred.
+ if(window.opener&&new URLSearchParams(location.search).get('from')==='assessment'){
+  window.addEventListener('message',event=>{
+   if(event.origin!==location.origin||event.source!==window.opener||event.data?.type!=='oy-cie-assessment-handoff')return;
+   const data=event.data;
+   if(!Array.isArray(data.answers)||data.answers.length!==25||!data.answers.every(v=>v==='unknown'||Number.isInteger(v)&&v>=0&&v<=4))return;
+   for(let i=0;i<25;i++)$('q'+(i+1)).value=String(data.answers[i]);
+   for(const i of [4,5,12,13])$('follow-'+i).value=['yes','no'].includes(data.followups?.[String(i)])?data.followups[String(i)]:'unknown';
+   $('explicit').value=Array.isArray(data.explicit)&&data.explicit.length?'명시적 안전확인 필요':'';
+   $('narrative').value='';
+   $('v32-question').value='이 평가의 근거를 검토하고 안전 확인, 추가 면담 질문, 지원계획 우선순위를 제안해줘';
+   $('intent').value='plan';
+   invalidate();
+   info('평가 25문항을 가져왔습니다. 서술과 개인정보는 가져오지 않았습니다. 아래에서 「근거 확인·응답 생성」을 눌러주세요.');
+   $('v32-run').scrollIntoView({behavior:'smooth',block:'center'});
+  });
+  window.opener.postMessage({type:'oy-cie-lab-ready'},location.origin);
+ }
  hydrate();
 })();
