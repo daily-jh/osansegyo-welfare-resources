@@ -7,16 +7,16 @@ function legacyBuild(p,f={}){if(!Array.isArray(p?.answers)||p.answers.length!==2
 function build(p,f={}){const x=legacyBuild(p,f),F=typeof module!=='undefined'&&module.exports?require('./case-formulation-v72.js'):root.YouthFormulation;if(!F)return x;const v=F.build(p);
  if(v.canonical86){
    const cs=v.canonical86,ev=cs['K-CARR'],auto={},note=typeof p.caseContext==='string'?p.caseContext:p.caseContext?.text||'';
-   const group=(rx)=>ev.evidence.filter(e=>e.polarity==='affirmed'&&rx.test(e.kind)).map(e=>e.text);
+   const group=(rx)=>ev.evidence.filter(e=>e.polarity==='affirmed'&&rx.test(e.kind)).map(e=>e.text||e.excerpt||'');
    const uniq=a=>[...new Set(a.map(String))].filter(Boolean).join(' ');
-   auto['가정·가족 및 돌봄']=uniq([...ev.family,...group(/care|family|meal/)].slice(0,5));
+   auto['가정·가족 및 돌봄']=uniq([...(ev.family||[]).map(f=>typeof f==='string'?f:f.relation||''),...group(/care|family|meal/)].slice(0,5));
    auto['건강']=uniq(group(/mood|self_harm|health/).slice(0,4));
    auto['주거']=uniq(group(/housing/).slice(0,4));
    auto['경제 · 기타']=uniq(group(/economic|meal/).slice(0,4));
    auto['사회심리·관계']=uniq(group(/peer|conflict|mood/).slice(0,5));
-   auto['강점·활용 자원']=uniq(ev.strengths.map(s=>s+'에 관심이 보고됨')).slice(0,900);
-   auto['기존 지원']=uniq(ev.existingSupport.slice(0,4))+' (참여 보고 · 제공 여부 확인 전)';
-   if(!ev.existingSupport.length)auto['기존 지원']='';
+   auto['강점·활용 자원']=uniq((ev.strengths||[]).map(s=>(typeof s==='string'?s:s.name||s.label||'')+'에 관심이 보고됨')).slice(0,900);
+   const namedSupport=Array.isArray(ev.existingSupport)?ev.existingSupport:(ev.existingServices||[]).map(s=>[s.agency,s.program].filter(Boolean).join(' · '));auto['기존 지원']=uniq(namedSupport.slice(0,4))+(namedSupport.length?' (참여 보고 · 제공 여부 확인 전)':'');
+   if(!namedSupport.length)auto['기존 지원']='';
    auto['접근의 어려움·필요한 조정']=uniq(group(/access|learning/).slice(0,4));
    auto['실무자 사정 · 사실과 구분']=v.judgement;
    auto['첫 행동·담당·다음 확인일']=v.first+' / 실제 담당·일정 협의 전';
