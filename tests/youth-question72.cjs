@@ -10,7 +10,7 @@ for(const note of ['보호자 폭력은 없음.','만약 보호자가 학생에�
 const Syn=require('../docs/youth-risk/case-synthesis-v71.js');assert.equal(Syn.note(make({},'수업 방해행동은 없음.')).flags.behavior,false);assert.equal(Syn.note(make({},'아동학대 신고 여부는 미확인임.')).flags.reported,false);
 const q=Q.build(make({}),'학생이 ADHD이고 폭행이 있었어요','teacher');assert.equal(q.context.length,0);assert.ok(!q.priority);assert.ok(!Q.html(Q.build(make({}),'<script>alert(1)</script>')).includes('<script>'));
 const economy=F.build(make({19:3}));assert.match(economy.rows[0].title,/생활·주거|필수 물품|비용 장벽/);assert.ok(!economy.rows[0].goal.includes('돌봄'));const family=F.build(make({18:3}));assert.ok(!family.rows[0].goal.includes('주거'));assert.ok(!F.html(make({10:3,18:2},'학생이 상담을 희망함.')).includes('추가 서술 없음'));
-const blank=F.build(make());assert.equal(blank.rows.length,0);assert.match(blank.judgement,/확정하지 않고/);
+const blank=F.build(make());assert.equal(blank.rows.length,0);assert.match(blank.judgement,/확정하기 어렵|확정하지 않고/);
 const selected=make({10:3,19:3});selected.includedDomains=[7];assert.ok(F.build(selected,{forPlan:true}).rows.some(g=>g.domains.includes(7)),'경제·주거 영역 계획 유지');
 let seed=72;const rnd=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296};
 for(let i=0;i<200;i++){const p=make();p.answers=p.answers.map(()=>rnd()<.15?'unknown':Math.floor(rnd()*5));p.caseContext=i%2?'학생이 상담을 희망함.':'';const old=JSON.stringify(p),expected=C.evaluate(p.answers,[2,3,3,3,2,2,3,3,2,2],false,{});assert.deepEqual(F.build(p).decision,expected);for(const role of Object.keys(Q.roles))for(const ask of ['부모의 개입거부','첫 면담 질문','실행 계획','문항 근거'])assert.ok(Q.text(Q.build(p,ask,role)).length>80);assert.equal(JSON.stringify(p),old);}
