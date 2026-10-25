@@ -1,0 +1,14 @@
+/* Apple Design Skill HIG-informed assessment controls. Presentation only. */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;font-size:16px}
+:where(button,input,select,textarea){font-family:inherit}
+:where(.options label){min-height:48px;line-height:1.5;padding-block:8px}
+:where(.options input[type=radio],.options input[type=checkbox]){accent-color:#1769d2}
+:where(button,[role=button]){min-height:44px}
+:where(button):not(:disabled):active{transform:scale(.985)}
+:where(.question,.question-card,.panel,.result-card){min-width:0;overflow-wrap:anywhere}
+:where(h1,h2,h3){word-break:keep-all}
+:where(textarea,input:not([type=radio]):not([type=checkbox])){font-size:16px}
+@media(max-width:700px){:where(.options label){min-height:48px;font-size:16px}:where(.question,.question-card){padding-inline:14px}}
+@media(prefers-reduced-motion:reduce){:where(button){transition:none!important;transform:none!important}}
+@media print{:where(button,.options){box-shadow:none!important}}
