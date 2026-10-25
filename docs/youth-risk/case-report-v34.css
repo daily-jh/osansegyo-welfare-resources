@@ -1,0 +1,30 @@
+/* OY-CIE V3.4 case-centred report UI */
+#journey88 .j88-case-report{max-width:100%;line-height:1.72;color:var(--ink,#273244)}
+#journey88 .j88-case-report h3{font-size:1.18rem;line-height:1.4;margin:1.7rem 0 .7rem;letter-spacing:-.02em}
+#journey88 .j88-case-report h4{font-size:1.04rem;margin:.3rem 0 .6rem}
+#journey88 .j88-case-lead{background:#f1f6fc;border:1px solid #dce8f5;border-radius:18px;padding:clamp(16px,3vw,28px);margin-bottom:18px}
+#journey88 .j88-case-lead h3{margin:.3rem 0 .8rem}
+#journey88 .j88-eyebrow,#journey88 .j88-case-index{font-size:.79rem;font-weight:750;color:#446b98}
+#journey88 .j88-case-alert{background:#fff7e8;border-left:4px solid #d69739;padding:12px 14px;border-radius:8px}
+#journey88 .j88-context-map{padding:20px;border:1px solid #dce4ed;border-radius:18px;background:#fbfcfe;text-align:center}
+#journey88 .j88-map-main{background:#dceafa;border-color:#9bbde3!important;max-width:260px;margin:auto}
+#journey88 .j88-map-node{padding:13px 14px;border:1px solid #d8e1ec;background:#fff;border-radius:13px;font-weight:700;font-size:.91rem}
+#journey88 .j88-map-branches{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;position:relative;margin-top:26px}
+#journey88 .j88-map-branches:before{content:'';position:absolute;left:50%;top:-26px;height:24px;border-left:2px dashed #9fb0c3}
+#journey88 .j88-context-map>p{font-size:.78rem;color:#627184;margin:15px 0 0}
+#journey88 .j88-case-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,310px),1fr));gap:13px}
+#journey88 .j88-case-card{border:1px solid #dce4ed;border-radius:16px;padding:18px;background:#fff;box-shadow:0 3px 12px rgba(25,49,79,.035)}
+#journey88 .j88-case-card p{margin:.45rem 0 .8rem}
+#journey88 .j88-case-card dl{display:grid;grid-template-columns:1fr;gap:4px;margin:0}
+#journey88 .j88-case-card dt{font-size:.8rem;font-weight:750;color:#516b8a;margin-top:9px}
+#journey88 .j88-case-card dd{margin:0;font-size:.91rem}
+#journey88 .j88-plan-timeline{list-style:none;counter-reset:steps;padding:0;margin:0}
+#journey88 .j88-plan-timeline li{counter-increment:steps;position:relative;padding:0 0 22px 48px;border-left:2px solid #d7e4f2;margin-left:16px}
+#journey88 .j88-plan-timeline li:before{content:counter(steps);position:absolute;left:-17px;top:0;width:32px;height:32px;display:grid;place-items:center;border-radius:50%;background:#e3eefb;color:#305e91;font-weight:800}
+#journey88 .j88-plan-timeline li:last-child{border-left-color:transparent}
+#journey88 .j88-plan-timeline p{margin:.2rem 0 0}
+#journey88 .j88-case-report details{margin-top:16px;padding:14px;border:1px solid #dce4ed;border-radius:12px}
+#journey88 .j88-case-report summary{cursor:pointer;font-weight:700}
+#journey88 .j88-caveat,#journey88 .j88-unknown{font-size:.82rem;color:#586a7e;margin-top:18px}
+@media(max-width:600px){#journey88 .j88-case-lead{padding:16px}#journey88 .j88-case-grid{grid-template-columns:1fr}#journey88 .j88-map-branches{grid-template-columns:1fr}#journey88 .j88-case-card{padding:15px}}
+@media print{#journey88 .j88-case-card,#journey88 .j88-context-map,#journey88 .j88-case-lead{break-inside:avoid;box-shadow:none}#journey88 .j88-case-report details:not([open]){display:none}}
