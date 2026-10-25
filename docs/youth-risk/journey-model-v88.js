@@ -76,7 +76,7 @@ const specific={19:['食','필수생활 공백 확인','오늘 식사·옷·위�
  const cieActions=cie.map((x,i)=>({id:'CIE-'+(i+1),...x,evidence:x.items.map(n=>n+'번 '+p.answers[n-1]+'점'),status:'미확인 가설'}));
  if(cieActions.length)formulation.push('OY-CIE 맥락 통합검토(가설·확인과제): '+cieActions.slice(0,4).map(x=>x.hypothesis+' [근거 '+(x.evidence.join('·')||'서술 확인')+'] '+x.verification).join(' '));
  const cieSummary=cieActions.length?'OY-CIE 검토가설 '+cieActions.length+'건: '+cieActions.slice(0,3).map(x=>x.hypothesis+' (근거 '+(x.evidence.join('·')||'서술·미상 확인')+')').join(' '):'확인된 척도와 서술을 토대로 생활 장면과 학생 희망을 확인합니다.';
- const integrated=(semantic?semantic.narratives.slice(0,2).join(' '):formulation.slice(0,2).join(' '))||'현재 보고된 어려움을 학생이 가장 불편한 생활 장면부터 구체화하세요. 빈도·지속기간·학교와 가정에서의 차이를 확인한 뒤, 우선 과제 한 가지를 학생과 합의하고 변화 여부를 점검합니다.';
+ const integrated=[...(semantic?semantic.narratives.slice(0,2):[]),...formulation.filter(x=>!x.startsWith('OY-CIE 맥락 통합검토')).slice(0,5)].filter(Boolean).join(' ')||'현재 보고된 어려움을 학생이 가장 불편한 생활 장면부터 구체화하세요. 빈도·지속기간·학교와 가정에서의 차이를 확인한 뒤, 우선 과제 한 가지를 학생과 합의하고 변화 여부를 점검합니다.';
  const sections=[
  {title:'학생 상황 요약',text:summary+' '+(priorityEvidence?'주요 검토 과제: '+priorityEvidence+'. ':'이번 응답에서 자동 계획할 어려움이 보고되지 않았습니다. ')+(context.fields.situation?'서술에 보고된 상황(독립 확인 전): '+context.fields.situation+' / ':'')+(familyEvidence?'가족·생활 관계 단서: '+familyEvidence+'. ':'')+'문항별 근거의 실제 발생시기·빈도·학생의 생활 영향과 정보원을 확인해야 합니다. 서술은 점수 또는 학대·진단 확정 근거가 아닙니다.'},
  {title:'현재 안전과 즉시 필요한 확인',text:decision.title+' · '+decision.safetyReview+(context.needsSafetyAttention?' 서술에 안전 관련 단서가 있어 현재 상태·접촉 안전성을 별도 확인해야 합니다.':'')},
