@@ -14,6 +14,38 @@ window.OWR_SERVICE_EVIDENCE = {
       caution:"공식 게시물에 '접수중'으로 표기되더라도 예약 가능 일시·현장 사정은 달라질 수 있습니다.",
       intakeEvidence:{state:"published_accepting",asOf:"2026-10-25",expiresOn:"2026-10-26",sourceUrl:"https://osan.familynet.or.kr/center/lay1/program/S295T322C449/receipt/view.do?seq=190294",note:"공식 사업 페이지 게시상태(접수중), 2026-10-25 열람. 신청 성공·잔여좌석 확인 아님."}
     },
+    "SVC-00021": {
+      evidenceLevel:"related_subservice_official",evidenceLabel:"공식 조직 안내에서 다문화가족 등 세부 담당업무 확인(사업별 이용요건은 미대조)",
+      sourceUrl:"https://osan.familynet.or.kr/center/lay1/program/S295T315C320/center_info/member.do",checkedOn:"2026-10-25",
+      eligibility:{age:"사업별 다름(확인 필요)",residence:"오산시가족센터 사업별 확인",fee:"개별사업별 확인",documents:"기관 문의"},
+      contact:{unit:"오산시가족센터 온가족·특성화팀/가족사업팀",phone:"031-372-1335",extension:"",route:"사업 담당팀 연결 요청"},
+      ask:"한부모·다문화 지원 중 해당 가구에 적합한 개별사업, 소득·가족유형·언어조건, 현재 모집 상태",
+      caution:"담당팀의 존재는 포괄 서비스의 신청 자격이나 현재 모집을 확정하지 않습니다."
+    },
+    "SVC-00022": {
+      evidenceLevel:"related_subservice_official",evidenceLabel:"오산시가족센터 공식 안내에서 아이돌봄 담당전화 및 담당팀 확인(세부 신청 요건 미확인)",
+      sourceUrl:"https://osan.familynet.or.kr/center/lay1/program/S295T315C321/center_info/view.do",checkedOn:"2026-10-25",
+      eligibility:{age:"아이돌봄 세부 서비스 유형·아동 연령 확인 필요",residence:"오산시 관련 신청·배정 관할 확인",fee:"정부지원·본인부담 기준 확인 필요",documents:"신청 경로별 필요서류 확인"},
+      contact:{unit:"오산시가족센터 아이돌봄팀",phone:"031-378-9765",extension:"",route:"아이돌봄 신청·연계배정 문의"},
+      ask:"아동 연령, 소득별 지원형태, 온라인·오프라인 신청, 대기기간 및 배정 가능 시기",
+      caution:"담당 창구는 공식 확인되었으나 개별 가구의 자격 및 돌보미 배정 가능성을 의미하지 않습니다."
+    },
+    "SVC-00043": {
+      evidenceLevel:"related_subservice_official",evidenceLabel:"오산고용센터 공식 직원 업무표에서 구직상담·취업알선 담당창구 확인",
+      sourceUrl:"https://www.work.go.kr/osan/ctrIntro/deptStaffInfo/deptStaffInfoList.do?deptId=1495064&subNaviMenuCd=40300&teamNm=%EC%B7%A8%EC%97%85%EC%A7%80%EC%9B%90%EC%B4%9D%EA%B4%84",checkedOn:"2026-10-25",
+      eligibility:{age:"사업별 취업지원 대상 확인",residence:"오산고용센터 관할지역 오산시",fee:"사업별 확인",documents:"신분·구직 신청·참여신청 서류 등 담당 확인"},
+      contact:{unit:"오산고용센터 취업지원총괄(구직·알선)",phone:"031-8024-9815",extension:"",route:"구인·구직 취업알선 및 기관연계 문의"},
+      ask:"구직 등록·초기 상담방법, 구직자 연령 및 자격, 예약 가능 여부, 국민취업지원 연계 대상",
+      caution:"공식 업무표의 담당자 전화번호는 조직 개편으로 변경될 수 있어 연락 전 재확인이 필요합니다."
+    },
+    "SVC-00044": {
+      evidenceLevel:"related_subservice_official",evidenceLabel:"오산고용센터 공식 국민취업지원 담당팀·자격심사 업무 확인(개별 수급 자격 미확정)",
+      sourceUrl:"https://www.work.go.kr/osan/ctrIntro/deptStaffInfo/deptStaffInfoList.do?orgClcd=40220&subNaviMenuCd=40300",checkedOn:"2026-10-25",
+      eligibility:{age:"국민취업지원제도 유형별 확인",residence:"관할 고용센터 및 해당 신청 요건 확인",fee:"사업별 확인",documents:"소득·재산·취업경력 등 유형별 증빙 문의"},
+      contact:{unit:"오산고용센터 국민취업지원팀",phone:"031-8024-9880",extension:"",route:"참여자격 심사·팀 안내 문의"},
+      ask:"취업지원제도 참여조건·유형, 신청서류, 소득·재산·취업상태 검토, 상담예약",
+      caution:"팀 업무번호를 담당 창구로 제시하며 신청 승인·현재 참여 가능을 보장하지 않습니다."
+    },
     "SVC-00027": {
       evidenceLevel: "service_official", evidenceLabel: "공식 홈페이지에서 세부 서비스 안내 확인(접수 미확인)",
       sourceUrl: "https://www.osmh.or.kr/Business", checkedOn: "2026-10-25",
