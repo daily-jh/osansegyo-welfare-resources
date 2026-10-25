@@ -1,6 +1,6 @@
 {
   "schema": "oy-rals.model-registry.v1",
-  "release": "8.1-context-site-20261025",
+  "release": "8.2-evidence-casework-20261025",
   "status": "integrated-release",
   "coreAuthority": "oy-rals.core-assessment",
   "clinicalValidation": false,
@@ -27,11 +27,12 @@
       "code": "K-CARR",
       "nameKo": "한국어 사례분석·추론·응답모델",
       "nameEn": "Korean Case Analysis, Reasoning and Response Model",
-      "version": "8.1.0",
+      "version": "8.2.0",
       "mayChangeOfficialScores": false,
       "runtime": "local-rules",
       "syntheticCorpusRecords": 54000,
-      "runtimeUsesCorpus": false
+      "runtimeUsesCorpus": true,
+      "runtimeCorpusScope": "37 deduplicated synthetic action/check patterns; no synthetic case facts imported"
     },
     {
       "id": "oy-rals.integrated-case-management",
@@ -98,6 +99,28 @@
       "shared contextual case formulation and paired execution",
       "visible graph and closed item response details"
     ],
+    "officialScoringChanged": false,
+    "generativeLLM": false
+  },
+  "evidenceCasework82": {
+    "version": "8.2",
+    "module": "case-evidence-v82.js",
+    "evidenceSource": "current input only, source IDs and reported/uncertain/hypothetical status",
+    "sharedOutputs": [
+      "assessment",
+      "question",
+      "service-plan",
+      "case-conference",
+      "intake",
+      "needs-assessment",
+      "zip"
+    ],
+    "runtimeReference": {
+      "module": "case-patterns-v82.js",
+      "syntheticSourceRecords": 54000,
+      "uniqueActionPatterns": 37,
+      "trainingOrClinicalValidation": false
+    },
     "officialScoringChanged": false,
     "generativeLLM": false
   }

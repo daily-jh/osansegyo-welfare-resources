@@ -1,6 +1,6 @@
 {
   "schema": "OY-RALS-model-manifest-v3",
-  "releaseDate": "2026-10-24",
+  "releaseDate": "2026-10-25",
   "version": "3.0.1-explainable-context",
   "releaseType": "additive_case_knowledge_upgrade_not_score_recalibration",
   "sourceRepository": "daily-jh/osansegyo-welfare-resources",
@@ -89,6 +89,18 @@
         "separate basic/housing support from care"
       ],
       "officialCoreChanges": false
+    },
+    "caseEvidenceV82": {
+      "file": "case-evidence-v82.js",
+      "version": "8.2.0",
+      "scope": "shared evidence, discrepancies, strengths, reported services and canonical plan; CORE unchanged",
+      "references": {
+        "file": "case-patterns-v82.js",
+        "syntheticSourceRecords": 54000,
+        "deduplicatedActionPatterns": 37,
+        "runtimeLoaded": true,
+        "notClinicalEvidence": true
+      }
     }
   },
   "validation": {
