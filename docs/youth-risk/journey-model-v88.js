@@ -2,7 +2,7 @@
 (function(root){'use strict';
 const node=typeof module!=='undefined'&&module.exports;
 const M=node?require('./support-model.js'):root.YouthMap,C=node?require('./case-context-core.js'):root.YouthCaseContextCore,W=node?require('./weight-model.js'):root.YouthWeightModel,E=node?require('./case-context-v81.js'):root.YouthContextV81;
-const VERSION='8.8.5';
+const VERSION='8.8.6';
 const tasks=[
  ['현재 보호 상황 확인','현재 위치·위해·안전한 연락 상대를 확인하고 사안별 보호절차를 검토합니다.','추가 위해와 보호 공백 여부'],
  ['또래관계의 안전 확인','상호 갈등·피해·위협을 구분하고 학교 담당과 안전한 접촉·생활 조정을 정합니다.','학생이 느끼는 안전과 피해 반복 여부'],
@@ -48,18 +48,22 @@ function analyze(p){
  const cie=[];
  const observed=domains.filter(d=>d.sum>0);
  const co=(a,b)=>domains[a].sum>0&&domains[b].sum>0;
- if(co(1,3))cie.push('또래 피해·갈등과 출결·학습의 어려움이 함께 보고되었습니다. 괴롭힘이 등교 회피의 원인인지 확정하지 말고 사건 발생 전후 출결 변화, 교실·통학 안전, 학생이 원하는 보호 방식을 각각 확인하세요. 안전 확보와 학습 조정은 병행합니다.');
- if(co(2,3))cie.push('정서적 어려움과 학교 참여 저하가 동시에 보고되었습니다. 정서 문제가 학습을 일방적으로 유발했다고 단정하지 않고 수면·집중·등교 상황의 선후관계와 학생이 견딜 수 있는 수업 조정을 확인하세요.');
- if(co(6,3))cie.push('돌봄 부담과 학교 참여 어려움이 함께 나타납니다. 실제 돌봄 시간표, 대체 보호자, 결석 시간대를 비교하여 부담을 줄일 지원을 협의하되 가족의 어려움을 곧바로 방임으로 해석하지 않습니다.');
- if(co(7,2))cie.push('기본생활·주거의 어려움과 정서적 고통이 함께 보고되었습니다. 식사·주거·의료 접근의 시급성과 정서 지원을 따로 사정하고, 생활지원이 제공된 이후 정서·일상 변화도 점검하세요.');
- if(co(8,2))cie.push('관계·지지의 어려움과 정서적 고통이 함께 보고되었습니다. 믿을 만한 어른과 안전한 연락 방법을 학생이 직접 선택하도록 돕고, 위기 시 연락 가능한 담당자를 확인하세요.');
- if(decision.unknownItems.length)cie.push('미상 '+decision.unknownItems.join('·')+'번은 위험이 없다는 응답이 아닙니다. 확인 가능한 정보원과 확인 시점을 정하고, 이미 확인된 필요에 대한 지원을 미루지 마세요.');
- if(context.mismatches.length)cie.push('척도와 서술 사이에 '+context.mismatches.length+'건의 대조사항이 있습니다. 학생·보호자·학교의 정보원과 시점을 분리하여 확인하고, 해소 전에는 한쪽 응답을 확정 사실로 채택하지 마세요.');
- if(context.needsSafetyAttention)cie.unshift('서술에서 안전 관련 단서가 포착되었습니다. 문항 점수가 낮아도 현재 위해 여부와 긴급 보호 필요성을 직접 확인해야 하며, 자동 추론만으로 안전을 확정하지 않습니다.');
- if(observed.length>1&&!cie.length)cie.push('여러 영역의 어려움이 동시에 보고되었습니다. 영역 간 인과관계를 단정하지 말고 발생 시점·생활 영향·기존 지원을 대조하여 학생이 우선 희망하는 변화부터 협의하세요.');
- if(cie.length)formulation.push('OY-CIE 맥락 통합검토(가설·확인과제): '+cie.join(' '));
- const cieActions=cie.map((hypothesis,i)=>({id:'CIE-'+(i+1),hypothesis,verification:'학생·담당자의 실제 장면·시점·정보원을 대조하고 확인일을 기록',status:'미확인 가설',priority:i===0&&context.needsSafetyAttention?'안전 우선':'우선순위 협의'}));
- const cieSummary=cieActions.length?'OY-CIE 검토가설 '+cieActions.length+'건: '+cieActions.slice(0,3).map(x=>x.hypothesis).join(' '):'확인된 척도와 서술을 토대로 생활 장면과 학생 희망을 확인합니다.';
+ const add=(kind,indices,hypothesis,verification,priority='우선순위 협의')=>{
+  const items=indices.flatMap(i=>domains[i].numbers.filter(n=>Number.isInteger(p.answers[n-1])&&p.answers[n-1]>0));
+  cie.push({kind,items:[...new Set(items)],hypothesis,verification,priority});
+ };
+ if(co(1,3))add('peer-school',[1,3],'또래 안전과 학교 참여의 어려움이 함께 보고되었습니다. 피해와 등교 어려움의 선후관계는 미확인입니다.','사건 전후 출결 변화, 교실·통학 안전, 학생이 원하는 보호 방식 확인','안전 우선');
+ if(co(2,3))add('emotion-school',[2,3],'정서와 학습·출결의 어려움이 함께 보고되었습니다. 일방적 인과관계는 확정하지 않습니다.','수면·집중·등교 장면의 변화와 가능한 수업 조정 확인');
+ if(co(6,3))add('care-school',[6,3],'가족·돌봄과 학교 참여의 어려움이 함께 보고되었습니다. 가족형태만으로 방임을 추정하지 않습니다.','돌봄 시간표·대체 돌봄·출결 시간대 확인');
+ if(co(7,2))add('basic-emotion',[7,2],'필수생활·주거와 정서적 어려움이 함께 보고되었습니다. 각각의 시급성을 사정해야 합니다.','식사·거처·비용 장벽과 정서 지원을 분리 확인');
+ if(co(8,2))add('support-emotion',[8,2],'관계·지지와 정서적 어려움이 함께 보고되었습니다. 안전한 지지자 연결을 검토합니다.','학생이 선택한 지지자와 연락 가능성 확인');
+ if(context.needsSafetyAttention)cie.unshift({kind:'narrative-safety',items:[],hypothesis:'서술에 안전 관련 단서가 있습니다. 낮은 척도 점수만으로 현재 안전을 확정할 수 없습니다.',verification:'현재 위해·시점·안전한 연락·필요한 보호절차 확인',priority:'안전 우선'});
+ if(decision.unknownItems.length)cie.push({kind:'unknown',items:decision.unknownItems.slice(),hypothesis:'미상 문항은 0점이 아니며 확인되지 않은 상태입니다.',verification:'문항별 정보원·확인일 지정, 확인된 지원은 지연하지 않음',priority:'확인 필요'});
+ if(context.mismatches.length)cie.push({kind:'mismatch',items:[...new Set(context.mismatches.flatMap(x=>x.items||[]))],hypothesis:'척도와 서술 사이에 '+context.mismatches.length+'건의 대조사항이 있습니다.',verification:'학생·보호자·학교의 정보원과 시점을 분리해 확인',priority:'근거 대조'});
+ if(observed.length>1&&!cie.length)add('general',observed.slice(0,3).map(d=>d.i),'여러 영역의 어려움이 동시에 보고되었습니다. 영역 간 인과관계는 확인되지 않았습니다.','생활 영향·발생 시점·학생 희망을 대조');
+ const cieActions=cie.map((x,i)=>({id:'CIE-'+(i+1),...x,evidence:x.items.map(n=>n+'번 '+p.answers[n-1]+'점'),status:'미확인 가설'}));
+ if(cieActions.length)formulation.push('OY-CIE 맥락 통합검토(가설·확인과제): '+cieActions.slice(0,4).map(x=>x.hypothesis+' [근거 '+(x.evidence.join('·')||'서술 확인')+'] '+x.verification).join(' '));
+ const cieSummary=cieActions.length?'OY-CIE 검토가설 '+cieActions.length+'건: '+cieActions.slice(0,3).map(x=>x.hypothesis+' (근거 '+(x.evidence.join('·')||'서술·미상 확인')+')').join(' '):'확인된 척도와 서술을 토대로 생활 장면과 학생 희망을 확인합니다.';
  const integrated=formulation.join(' ')||'현재 보고된 어려움을 학생이 가장 불편한 생활 장면부터 구체화하세요. 빈도·지속기간·학교와 가정에서의 차이를 확인한 뒤, 우선 과제 한 가지를 학생과 합의하고 변화 여부를 점검합니다.';
  const sections=[
  {title:'학생 상황 요약',text:summary+' '+(priorityEvidence?'주요 검토 과제: '+priorityEvidence+'. ':'이번 응답에서 자동 계획할 어려움이 보고되지 않았습니다. ')+(context.fields.situation?'서술에 보고된 상황(독립 확인 전): '+context.fields.situation+' / ':'')+(familyEvidence?'가족·생활 관계 단서: '+familyEvidence+'. ':'')+'문항별 근거의 실제 발생시기·빈도·학생의 생활 영향과 정보원을 확인해야 합니다. 서술은 점수 또는 학대·진단 확정 근거가 아닙니다.'},
