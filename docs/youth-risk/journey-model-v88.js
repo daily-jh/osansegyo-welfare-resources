@@ -30,6 +30,19 @@ function analyze(p){
  const familyEvidence=ecosystem.family.map(f=>f.label+'('+f.status+' · 서술 근거, 확인 전)').join(' / ');
  const priorityEvidence=plans.slice(0,3).map(x=>'['+x.id+'] '+x.title+' ('+(x.evidence.join(', ')||'서술·미상 확인')+')').join(' / ');
  const summary=decision.incomplete?'미상 '+decision.unknownItems.length+'개가 있어 전체 판단을 보류합니다. 확인 합계는 '+decision.knownTotal+'점입니다.':'25문항 응답 합계는 '+decision.knownTotal+'/100점입니다.';
+ const note=String(p.caseContext||'');
+ const clauses=ledger.filter(e=>e.kind==='narrative');
+ const interest=clauses.filter(e=>/관심|좋아|즐기|잘하|하고 싶/.test(e.text));
+ const service=clauses.filter(e=>/상담|서비스|지원/.test(e.text)&&/받고|이용 중|이용중|참여 중/.test(e.text)&&!/받고 싶|받지 않|과거|지난해|종결/.test(e.text));
+ if(service.length&&!context.fields.existingSupport)context.fields.existingSupport=service.map(e=>e.text).join(' / ');
+ if(interest.length&&!context.fields.strengths)context.fields.strengths=interest.map(e=>e.text).join(' / ');
+ const formulation=[];
+ if(domains[3].sum&&domains[8].sum)formulation.push('학습 참여와 관계·지지의 어려움이 함께 보고되었습니다. 수업에서의 실패 경험과 또래관계의 긴장이 서로 부담을 키우는지 살펴볼 필요가 있습니다. 최근 힘들었던 수업과 갈등 장면을 각각 한 가지씩 재구성해, 과제 난도·설명 방식·또래 반응 중 조정할 지점을 찾으세요.');
+ if(/ADHD|주의력결핍|주의력 결핍/i.test(note))formulation.push('서술에는 ADHD가 보고되어 있습니다. 실제 진단·치료 상태를 확인하면서 과제 시작, 지시 기억, 기다리기, 감정이 올라오는 상황을 구분해 보세요. 학업·관계 문제 전체를 진단명 하나로 설명하기보다 짧은 지시, 과제 분할, 예고된 휴식이 참여에 도움이 되는지 학생과 시험해 보는 것이 좋습니다.');
+ if(domains[7].sum)formulation.push('생활환경의 어려움은 상담만으로 해결하기 어려울 수 있습니다. 특히 주거 응답은 안전한 거처, 수면·학습 공간, 이사 불안 중 무엇을 뜻하는지 나누어 확인하고 실제 환경 조정을 계획에 포함하세요.');
+ if(service.length)formulation.push('이미 상담을 받고 있다는 보고가 있으므로 새로운 상담기관을 추가하기 전에 현재 상담에서 다루는 내용과 학교에서 필요한 도움을 확인하세요. 학생 동의와 공유 범위를 정한 뒤 기존 담당자와 학교의 역할을 조정하는 것이 우선입니다.');
+ if(interest.length)formulation.push('관심 활동은 학생과 관계를 만들고 성공 경험을 쌓을 출발점입니다. '+(/태권도/.test(note)?'태권도는 학생이 원하는 활동 방식·비용·이동·지도자와의 관계를 확인한 뒤 작은 참여 목표로 연결해 볼 수 있습니다. 운동이 치료 효과를 보장한다고 설명하지 마세요.':'학생이 원하는 참여 방식과 비용·이동의 장벽을 확인해 실행 가능한 작은 목표로 연결하세요.'));
+ const integrated=formulation.join(' ')||'현재 보고된 어려움을 학생이 가장 불편한 생활 장면부터 구체화하세요. 빈도·지속기간·학교와 가정에서의 차이를 확인한 뒤, 우선 과제 한 가지를 학생과 합의하고 변화 여부를 점검합니다.';
  const sections=[
  {title:'학생 상황 요약',text:summary+' '+(priorityEvidence?'주요 검토 과제: '+priorityEvidence+'. ':'이번 응답에서 자동 계획할 어려움이 보고되지 않았습니다. ')+(context.fields.situation?'서술에 보고된 상황(독립 확인 전): '+context.fields.situation+' / ':'')+(familyEvidence?'가족·생활 관계 단서: '+familyEvidence+'. ':'')+'문항별 근거의 실제 발생시기·빈도·학생의 생활 영향과 정보원을 확인해야 합니다. 서술은 점수 또는 학대·진단 확정 근거가 아닙니다.'},
  {title:'현재 안전과 즉시 필요한 확인',text:decision.title+' · '+decision.safetyReview+(context.needsSafetyAttention?' 서술에 안전 관련 단서가 있어 현재 상태·접촉 안전성을 별도 확인해야 합니다.':'')},
@@ -37,7 +50,7 @@ function analyze(p){
  {title:'학습·출결·교우·정서·건강',text:relevant(['attendance','learning','peer','peerConflict','emotion','behavior','support'])||'관련 문항의 응답과 실제 생활 장면·빈도·기간을 대조해야 합니다. 진단·원인을 자동 추정하지 않습니다.'},
  {title:'학생의 말·희망·동기',text:references.filter(e=>/원함|원하|원치|원하지|희망|거부|동의|하고 싶/.test(e.text)).map(e=>'['+e.id+'] '+e.text).join(' / ')||context.fields.studentWishes||'학생이 바라는 변화와 원하지 않는 지원, 정보공유 의견은 직접 확인해야 합니다.'},
  {title:'강점·보호요인·기존 지원',text:[context.fields.strengths,context.fields.existingSupport].filter(Boolean).join(' / ')||'이번 입력에서 구체적 강점·이용 중 지원을 추출하지 못했습니다. 강점이나 지원이 없다는 뜻은 아닙니다.'},
- {title:'원인·영향의 가설',text:'함께 보고된 어려움이 같은 사건의 다른 영향인지, 별개 사건인지 확인해야 합니다. 시점·생활 영향·다른 설명을 대조하기 전 인과관계를 확정하지 않습니다.'},
+ {title:'상황을 함께 이해하기 · 잠정 해석과 지도 방향',text:integrated},
  {title:'종합사정 및 우선순위',text:plans.slice(0,5).map(x=>'['+x.id+'] '+x.title+' — '+x.action).join(' / ')||'학생 희망과 필요한 예방·경과 확인을 면담에서 협의합니다.'},
  {title:'근거·미확인·확인 계획',text:[decision.unknownItems.length?'미상: '+decision.unknownItems.join('·')+'번은 0점으로 취급하지 않고 확인 전으로 유지':'',context.mismatches.map(x=>x.items.join('·')+'번: '+x.issue).join(' / '),'문항 근거의 실제 장면·기간·정보원, 학생 희망, 담당·확인일·정보공유 근거를 면담에서 기록해야 합니다.'].filter(Boolean).join(' / ')}
  ];
