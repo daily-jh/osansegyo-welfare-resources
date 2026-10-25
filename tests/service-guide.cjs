@@ -14,3 +14,5 @@ assert.equal(m.alternatives(a,[a,c,d],{},3).length,0);
 const unknown=e('5','포괄돌봄','돌봄',[]);assert.equal(m.alternatives(a,[a,unknown],{target:'노인'}).length,1);
 assert.equal(m.alternatives({...a,s:{...a.s,tags:{need:[],target:[]}}},[b],{}).length,0);
 console.log('PASS: multi-dimensional eligibility filters, unsupported intake claims prevented, alternatives respect target, official scope separate');
+assert.match(m.intakeState(a.s,{intakeEvidence:{state:'published_accepting',asOf:'2026-10-25',expiresOn:'2026-10-26'}},'2026-10-25'),/공식 공고상 접수중/);
+assert.match(m.intakeState(a.s,{intakeEvidence:{state:'published_accepting',asOf:'2026-10-25',expiresOn:'2026-10-26'}},'2026-11-01'),/최신 접수 재확인/);
