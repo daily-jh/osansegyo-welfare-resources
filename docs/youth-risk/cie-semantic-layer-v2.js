@@ -59,18 +59,45 @@ function scoreCombination(answers){
  pairs.sort((x,y)=>Number(y.priority==='안전 우선 확인')-Number(x.priority==='안전 우선 확인')||y.strength-x.strength||x.a-y.a||x.b-y.b);
  return {version:'OY-CIE-combinatorial-v3.3',items,pairs,pairCount:pairs.length,triples:crossDomainAssessment(answers),safety:items.filter(x=>[1,2,7,25].includes(x.item)&&typeof x.score==='number'&&x.score>0),unknown:items.filter(x=>x.score==='unknown'),knownTotal:answers.reduce((t,v)=>t+(typeof v==='number'?v:0),0),complete:answers.every(v=>v!=='unknown'),combinationSpace:COMBINATION_SPACE,interpretationStatus:'규칙 기반 가설·실증 검증 전'};
 }
+const DEVELOPMENT_KNOWLEDGE=Object.freeze([
+ {id:'protection-daily',label:'보호환경과 일상생활',groups:[[1,2],[16,19,20]],threshold:1,development:'청소년기의 예측 가능한 돌봄과 생활리듬은 학습·정서·사회적 참여를 지탱하는 환경입니다.',hypothesis:'보호 관련 어려움과 기본생활의 불편이 함께 보고되어 현재 안전과 일상 유지 여건을 함께 살펴볼 필요가 있습니다.',check:'현재 안전, 식사·수면·위생, 돌봄 제공자, 실제 공백 시간',alternative:'경제적 어려움 자체를 학대·방임으로 판단하지 않으며 필요한 지원의 접근성을 확인',support:'안전 확인을 선행하고 돌봄·생활지원 필요를 학생 및 보호 가능한 성인과 구체화',sources:['WHO-ADOLESCENT','CDC-CONNECTEDNESS']},
+ {id:'protection-school',label:'보호환경과 학교 참여',groups:[[1,2],[9,11]],threshold:1,development:'학교는 청소년의 소속감과 일상 구조를 제공할 수 있으며, 보호환경과 학교 경험을 함께 살펴야 합니다.',hypothesis:'보호환경과 학교생활 참여의 어려움이 동시에 보고되어 두 상황의 시점과 생활 영향을 확인할 필요가 있습니다.',check:'현재 안전, 학교 참여 변화 시점, 또래·교사 관계, 학생이 원하는 지원',alternative:'학습 부담, 또래관계, 건강, 학교환경 등 다른 설명도 검토',support:'안전 확인 이후 학교 내 신뢰할 담당자와 개별 지원계획 협의',sources:['WHO-ADOLESCENT','CDC-CONNECTEDNESS']},
+ {id:'care-attendance',label:'돌봄·가족환경과 출결',groups:[[16,17,18],[9]],threshold:1,development:'청소년은 자율성을 확장하는 시기지만 과도한 돌봄 책임이나 생활지원 공백은 학습 참여와 병행하기 어려울 수 있습니다.',hypothesis:'돌봄·가족환경의 어려움과 학교 참여의 어려움이 함께 보고되었습니다.',check:'등교 준비, 가족돌봄 시간, 통학·수면·건강 상황',alternative:'가족 형태나 소득만으로 출결의 원인을 추정하지 않음',support:'실제 시간대별 공백을 확인하고 학교·가족·지역 돌봄지원 조정',sources:['WHO-ADOLESCENT']},
+ {id:'emotion-support',label:'정서적 어려움과 지지관계',groups:[[6,8],[23]],threshold:1,development:'청소년기의 또래·성인 지지 관계와 학교 소속감은 어려움에 대처하는 보호요인이 될 수 있습니다.',hypothesis:'정서적 어려움과 지지자원 부족이 함께 보고되어 도움 요청 가능성을 살펴볼 필요가 있습니다.',check:'신뢰하는 성인, 친구, 기존 상담, 도움 요청의 안전성',alternative:'지지관계 응답만으로 고립이나 정신질환을 확정하지 않음',support:'학생이 선택한 안전한 지지자 연결 및 필요시 상담 접근성 확인',sources:['CDC-CONNECTEDNESS','WHO-ADOLESCENT']},
+ {id:'peer-school',label:'또래 안전과 학교 참여',groups:[[3,4,5],[9,11]],threshold:1,development:'청소년기의 또래 소속감과 학교 안전 경험은 학교 참여를 이해하는 중요한 맥락입니다.',hypothesis:'또래관계 어려움과 학교 참여의 어려움이 함께 보고되어 안전과 학교 경험을 구분해 확인할 필요가 있습니다.',check:'현재 접촉·위협, 출결 변화, 안전한 학교 공간, 신뢰 교직원',alternative:'피해·가해 사실이나 인과관계는 면담 및 별도 절차로 확인',support:'학생 안전 확보 및 학교 내 사안별 보호·지원 절차 검토',sources:['CDC-CONNECTEDNESS']},
+ {id:'housing-learning',label:'주거·기본생활과 학습환경',groups:[[19,20,21],[9,10,14]],threshold:1,development:'안정적인 휴식·학습 공간과 기본생활 자원은 학습 참여를 뒷받침할 수 있습니다.',hypothesis:'생활여건과 학습 관련 어려움이 함께 보고되어 실제 이용·접근 장벽을 확인할 필요가 있습니다.',check:'수면·학습 공간, 식사, 이동, 필요한 서비스 비용·이용조건',alternative:'경제적 어려움을 학습능력이나 보호자 책임으로 환원하지 않음',support:'필수생활과 교육 접근성 지원을 병행 검토',sources:['WHO-ADOLESCENT']},
+ {id:'family-behavior',label:'가족환경과 행동·정서조절',groups:[[17,18],[5,12]],threshold:1,development:'청소년기의 자율성 발달과 관계 갈등은 환경·기능·안전 맥락에서 구분하여 살펴야 합니다.',hypothesis:'가족환경과 행동 관련 어려움이 함께 보고되어 행동이 발생하는 상황과 기능을 확인할 필요가 있습니다.',check:'갈등 전후 상황, 안전, 행동의 결과, 학생의 관점과 강점',alternative:'행동을 의지 부족·품행장애로 단정하지 않음',support:'비난 없는 기능적 사정과 가족·학교 협력적 문제해결',sources:['WHO-ADOLESCENT']}
+]);
+const DEVELOPMENT_SOURCES=Object.freeze([
+ {id:'WHO-ADOLESCENT',title:'WHO Adolescent mental health',url:'https://www.who.int/news-room/fact-sheets/detail/adolescent-mental-health',scope:'청소년 발달·사회환경·보호요인에 대한 일반 원칙',limit:'OY-CIE 개별 조합의 인과·위험확률을 검증하지 않음'},
+ {id:'CDC-CONNECTEDNESS',title:'CDC School Connectedness',url:'https://www.cdc.gov/youth-behavior/school-connectedness/index.html',scope:'학교 소속감·지지적 관계의 보호요인',limit:'개별 사례의 학교생활 원인을 증명하지 않음'}
+]);
+function developmentalAssessment(answers){
+ if(!Array.isArray(answers)||answers.length!==25||answers.some(v=>v!=='unknown'&&(!Number.isInteger(v)||v<0||v>4)))throw Error('25문항 0~4점·미상 필요');
+ const matches=DEVELOPMENT_KNOWLEDGE.map(k=>{
+  const groups=k.groups.map(g=>g.filter(i=>typeof answers[i-1]==='number'&&answers[i-1]>=k.threshold));
+  if(groups.some(g=>!g.length))return null;
+  const itemIds=[...new Set(groups.flat())];
+  const safety=itemIds.some(i=>[1,2,7,25].includes(i));
+  const prominence=itemIds.reduce((n,i)=>n+answers[i-1],0);
+  return {id:k.id,label:k.label,itemIds,development:k.development,interpretation:k.hypothesis,verify:k.check,alternative:k.alternative,support:k.support,sources:k.sources,safetyFirst:safety,priorityScore:prominence,certainty:'발달·환경 지식 기반 사정 가설; 개별 인과관계 미확인'};
+ }).filter(Boolean);
+ matches.sort((a,b)=>Number(b.safetyFirst)-Number(a.safetyFirst)||b.priorityScore-a.priorityScore||a.id.localeCompare(b.id));
+ return {version:'OY-CIE-development-v3.4',cases:matches,summary:matches.length?matches.slice(0,3).map(x=>x.interpretation).join(' '):'현재 응답만으로 발달·환경 복합 가설을 특정하기 어렵습니다. 학생의 일상과 강점, 미확인 정보를 면담으로 확인합니다.',knowledgeCount:DEVELOPMENT_KNOWLEDGE.length,sourceCount:DEVELOPMENT_SOURCES.length,caveat:'관련성이 관찰되더라도 학대·진단·인과관계·지원 자격을 자동 확정하지 않습니다.'};
+}
 function evidenceAssessment(answers){
  const f=formulate(answers);
  const observed=f.scored.map(x=>({item:x.id,score:x.value,topic:x.topic,meaning:x.meaning,provenance:'CORE 응답',certainty:'observed',impact:x.impact,weight:x.weight}));
  const multiDomain=crossDomainAssessment(answers);
  const combinations=scoreCombination(answers);
+ const developmental=developmentalAssessment(answers);
  const hypotheses=f.intersections.map(x=>({items:[x.a,x.b],statement:x.meaning,verification:x.next,certainty:'hypothesis',notCausal:true}));
  const alternatives=[];
  if(f.scored.some(x=>x.id===9)&&f.scored.some(x=>[17,18,19,20].includes(x.id)))alternatives.push('출결 어려움은 돌봄·주거 상황과 관련될 수 있으나, 또래관계·건강·학교환경 등 다른 설명도 확인해야 합니다.');
  if(f.scored.some(x=>x.id===11)&&f.scored.some(x=>[1,2,3,6,7].includes(x.id)))alternatives.push('학교생활 동기 응답을 개인의 의지 부족으로 해석하지 말고 안전·관계·정서 및 학교환경을 함께 확인해야 합니다.');
  if(f.scored.some(x=>[1,2,7,25].includes(x.id)))alternatives.push('안전 관련 응답은 점수 수준이나 총점과 무관하게 현재 상황과 보호 필요성을 별도로 확인합니다.');
  const priorities=observed.slice(0,4).map(x=>({topic:x.topic,score:x.score,why:'해당 문항의 응답 수준과 사전 설정된 검토 우선순위',next:f.base.items[x.item-1].verify[0],notDiagnosis:true}));
- return {version:'OY-CIE-evidence-v3.2',observed,hypotheses,multiDomain,combinations,alternatives,priorities,missing:f.unknown,coreTotal:f.rawScore,coreComplete:!f.rawIncomplete,safetySignals:f.base.safety.map(x=>x.id),evidenceLibrary:EVIDENCE_LIBRARY,reasoningRules:REASONING_RULES,modelStatus:'연구 기반 설계 가설·실증 검증 전'};
+ return {version:'OY-CIE-evidence-v3.2',observed,hypotheses,multiDomain,combinations,developmental,alternatives,priorities,missing:f.unknown,coreTotal:f.rawScore,coreComplete:!f.rawIncomplete,safetySignals:f.base.safety.map(x=>x.id),evidenceLibrary:EVIDENCE_LIBRARY,reasoningRules:REASONING_RULES,modelStatus:'연구 기반 설계 가설·실증 검증 전'};
 }
 const SCORE_MEANING_RULES=Object.freeze({
  0:{status:'미보고',interpretation:'이번 응답에서 해당 문항의 어려움이 보고되지 않았습니다.',action:'다른 자료와 불일치하면 확인',certainty:'응답 사실만 확인'},
@@ -107,5 +134,5 @@ function formulate(answers){
    '현재 안전과 학생의 희망·강점·기존 지원을 확인한 뒤 실제 지원 우선순위를 결정합니다.'].filter(Boolean);
  return {version:'OY-CIE-meaning-priority-v2.3-anchor-caution',base,scored,intersections,unknown,top,headline,narratives,assumptions:'응답 영향 곡선과 문항별 우선검토 가중치는 연구·개발 가정이며 검증된 확률·위험 절단점이 아닙니다.',rawScore:base.knownTotal,rawIncomplete:unknown.length>0};
 }
-const api=Object.freeze({TOPICS,PAIRS,LABELS,ITEM_LEVELS,RESEARCH,PROBES,PRIORITY_WEIGHTS,RESPONSE_IMPACT,interpret,formulate,interpretItemScore,SCORE_MEANING_RULES,EVIDENCE_LIBRARY,REASONING_RULES,evidenceAssessment,MULTI_DOMAIN_PATTERNS,crossDomainAssessment,COMBINATION_SPACE,scoreCombination});if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.OYCIESemanticV2=api;
+const api=Object.freeze({TOPICS,PAIRS,LABELS,ITEM_LEVELS,RESEARCH,PROBES,PRIORITY_WEIGHTS,RESPONSE_IMPACT,interpret,formulate,interpretItemScore,SCORE_MEANING_RULES,EVIDENCE_LIBRARY,REASONING_RULES,evidenceAssessment,MULTI_DOMAIN_PATTERNS,crossDomainAssessment,COMBINATION_SPACE,scoreCombination,DEVELOPMENT_KNOWLEDGE,DEVELOPMENT_SOURCES,developmentalAssessment});if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.OYCIESemanticV2=api;
 })(typeof window!=='undefined'?window:globalThis);
