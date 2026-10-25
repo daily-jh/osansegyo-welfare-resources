@@ -21,9 +21,35 @@ button{border:0;border-radius:10px;background:#174d81;color:white;padding:11px 1
 .note{background:#fff;border-left:4px solid #376aa2;padding:18px 22px;margin:20px 0;line-height:1.7}footer{font-size:13px;color:#687889}
 @media(max-width:650px){header{flex-wrap:wrap}.hero{padding:25px 20px}.filters{grid-template-columns:1fr}}
 @media print{.filters,button,header,.actions{display:none!important}.card{break-inside:avoid}}
+
+.badges{display:flex;flex-wrap:wrap;gap:6px;align-items:center}.badges .pill{max-width:100%;line-height:1.55}
+.card-buttons{display:grid;grid-template-columns:1fr 1fr;gap:8px}.card-buttons button{min-height:46px;font-size:13px;line-height:1.4}
+.secondary{background:#e8f0fa;color:#234b74}.choose[aria-pressed="true"]{background:#147258}
+.detail-panel{border-top:1px solid #d7e2ed;padding-top:12px;margin-top:16px}.detail-panel p{line-height:1.7}
+.caution{background:#fff5df;padding:12px;border-radius:10px}.alt{border-top:1px dashed #b9c8d6;padding-top:12px}
+.alt summary{font-weight:700;color:#164c76;cursor:pointer;min-height:44px}.alt li{line-height:1.55;margin:12px 0}
+.sheet-bar{position:sticky;bottom:0;z-index:10;display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;
+background:#e7eef9;border:1px solid #bfd0e7;border-radius:16px;margin:18px 0;padding:14px 18px}
+.sheet-bar button{min-height:44px}.sheet-bar button:disabled{opacity:.5;cursor:not-allowed}.sheet-bar .quiet{background:white;color:#243e5a}
+#sheetMessage{font-size:13px;color:#596a7b}#sheet{display:none}
+button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #d77537;outline-offset:2px}
+@media(max-width:540px){header,main,footer{padding:15px}header nav{display:flex;flex-wrap:wrap;gap:12px}
+.card{padding:16px}.card-buttons{grid-template-columns:1fr}.hero h1{font-size:30px}
+.sheet-bar{border-radius:12px;margin:12px 0;bottom:0}.sheet-bar button{flex:1;min-width:100px}
+button,select,input{min-height:44px}}
+@media print{
+body.printing>header,body.printing>main,body.printing>footer{display:none!important}
+body.printing #sheet{display:block!important;padding:0 7mm;color:#111;background:#fff}
+body.printing #sheet h1{font-size:21px}body.printing #sheet h3{font-size:16px}
+body.printing .print-card{border:1px solid #aaa;padding:10px;margin:10px 0;break-inside:avoid}
+body.printing .print-card dl{display:grid;grid-template-columns:132px 1fr;gap:6px;margin:0;font-size:12px}
+body.printing .print-card dt{font-weight:700}body.printing .print-card dd{margin:0;overflow-wrap:anywhere}
+}
 </style>
 <script defer src="assets/data.js"></script>
-<script defer src="assets/service-guide.js"></script>
+<script defer src="assets/service-evidence.js"></script>
+<script defer src="assets/service-guide-model.js"></script>
+<script defer src="assets/service-guide.js?v=20261025-r2"></script>
 </head><body>
 <header><a href="./">← 오산 복지자원 찾기</a><nav><a href="./#searchArea">기관·사업 전체 검색</a>　<a href="resource-map.html">영역별 보기</a></nav></header>
 <main><section class="hero"><span class="pill">전 생애주기 · 지역사회 복지자원</span><h1>필요한 도움부터 찾아보세요.</h1><p>청소년뿐 아니라 영유아·아동·청년·중장년·노인·장애인·가족·위기가구 등 누구나 대상입니다. 아래 분류는 서비스를 탐색하는 보조정보이며, 실제 지원 가능 여부는 기관 확인이 필요합니다.</p></section>
@@ -35,6 +61,10 @@ button{border:0;border-radius:10px;background:#174d81;color:white;padding:11px 1
 <label>지역 범위<select id="scope"><option value="">전체 지역</option><option>오산시</option><option>경기도</option><option>민간</option></select></label>
 <label>기관·서비스 검색<input id="keyword" type="search" placeholder="기관명, 서비스, 어려움" maxlength="100"></label>
 </div><p class="help">대상·영역·지원방식은 같은 서비스에 모두 해당해야 검색됩니다. 미분류 서비스는 해당 조건 필터에서 제외될 수 있습니다. 특정 생애주기를 선택하지 않으면 모든 대상의 서비스를 보여줍니다.</p></section>
+<div class="sheet-bar" aria-label="서비스 의뢰 준비 시트">
+<div><strong>의뢰 후보 비교 <span id="sheetCount">0</span>/5개 서비스</strong><br><small id="sheetMessage">개인정보는 저장하지 않습니다.</small></div>
+<div><button id="printSelected" type="button" disabled>선택 서비스 의뢰 시트 인쇄·PDF 저장</button> <button id="clearSelected" class="quiet" type="button" disabled>선택 지우기</button></div>
+</div>
 <p id="status" role="status" aria-live="polite">자료를 확인하고 있습니다.</p><div id="results" class="cards"></div><p id="paging" style="margin-top:22px"></p>
 <section class="note"><strong>실제 의뢰 전 확인 원칙</strong><p>기관 운영 여부, 서비스 안내 여부, 현재 접수·잔여 예산 여부는 서로 다릅니다. 이 화면의 자료만으로 '지원 가능'을 확정하지 않습니다. 서비스별 연령·거주지·소득·재학·비용·증빙서류·접수경로를 공식 창구에 확인해 주세요. 긴급 위험은 일반 서비스 검색보다 먼저 관계 법령과 기관 대응절차에 따라 안전을 확인해야 합니다.</p><p>대상자의 이름, 상담내용, 주민등록번호 등 개인정보를 검색어 또는 URL에 입력하지 마세요. 검색·분류는 개인 정보를 필요로 하지 않습니다.</p></section>
-</main><footer>기획·편집·웹사이트 제작: 오산세교종합사회복지관 김지훈 팀장 · © 2026 김지훈 · <a href="usage-terms.html">이용조건</a></footer></body></html>
+</main><section id="sheet" aria-label="선택 서비스 의뢰 준비 시트"></section><footer>기획·편집·웹사이트 제작: 오산세교종합사회복지관 김지훈 팀장 · © 2026 김지훈 · <a href="usage-terms.html">이용조건</a></footer></body></html>
