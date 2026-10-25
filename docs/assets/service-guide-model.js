@@ -18,7 +18,13 @@
   if(e?.evidenceLevel==='related_subservice_official')return '공식 하위사업 부분 대조';
   return s?.verification?.status==='확인완료'?'기존 근거 확인(재대조 전)':'현재 공식 서비스 세부 확인 필요';
  }
- function intakeState(s){
+ function intakeState(s,e,day=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date())){
+  // 접수 공고는 작성 시점의 게시 상태이며 신청 가능 확정이 아니다.
+  const ie=e?.intakeEvidence;
+  if(ie?.state==='published_accepting'&&/^\\d{4}-\\d{2}-\\d{2}$/.test(ie.asOf||'')&&/^\\d{4}-\\d{2}-\\d{2}$/.test(ie.expiresOn||'')){
+    if(day>=ie.asOf&&day<=ie.expiresOn)return '공식 공고상 접수중('+ie.asOf+' 확인) · 실제 신청·잔여석 재확인';
+    return '이전 접수공고 기록 · 최신 접수 재확인';
+  }
   // 운영 상시, 기관 현존, 과거 공고, 접수 시작일만으로 '현재 접수 가능'이라 추정하지 않는다.
   const d=Array.isArray(s?.rounds)?s.rounds:[];
   if(d.length)return '회차별 안내 존재 · 현재 접수 별도 문의';
