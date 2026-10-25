@@ -56,8 +56,15 @@ function status(part,rx,kind){
  if(kind==='self_harm'&&/(?:죽고\s*싶다고\s*말|자해\s*흔적이\s*(?:발견|확인)|자해했(?:다|다고)|자해를\s*했(?:다|다고))/.test(part)&&!/(?:죽고\s*싶다는\s*말을\s*(?:하지|한\s*적\s*없)|자해를\s*(?:하지|한\s*적\s*없))/.test(part))return 'affirmed';
  if(kind==='family_harm'&&/(?:보호자|아버지|어머니|엄마|아빠|집에서).{0,25}(?:맞았다고|때렸다고|폭행을\s*당했다고)/.test(part)&&!/(?:맞은\s*적\s*없|폭행\s*당한\s*적\s*없)/.test(part))return 'affirmed';
  if(/(?:피해|학대|폭력|자해|사건|발생|진술|신고|현재\s*안전)\s*(?:사실|유무|여부)?.{0,9}(?:미확인|알\s*수\s*없|불분명)|(?:피해|발생)\s*여부.{0,8}(?:모름|미확인)/.test(after.slice(0,60))&&!/(?:때렸다고|맞았다고|죽고\s*싶다고|흔적이\s*있|당했다고)/.test(part))return 'uncertain';
- if(/(?:없었|없다|없음|없다고|없어|않았|않는다|발생하지\s*않|받은\s*적\s*없|당한\s*적\s*없|아니라고|부인)/.test(after.slice(0,60))&& !/(?:없어서|없어\s*어렵|미제공|없으므로\s*부족)/.test(after.slice(0,60)))return 'negated';
- if(/(?:당한\s*적\s*없|발생하지\s*않|없다고)/.test(before.slice(-24)+after.slice(0,65)))return 'negated';
+ const explicitDenial=kind==='family_harm'?/(?:가정폭력|아동학대|학대|폭행|방임|폭력|맞은\s*적).{0,24}(?:발생하지\s*않|없었|없다|없음|없다고|받은\s*적\s*없|당한\s*적\s*없|부인)/:
+kind==='self_harm'?/(?:자해|자살|죽고\s*싶은\s*생각|죽고\s*싶).{0,24}(?:없|않|부인|한\s*적\s*없)/:
+kind==='peer_harm'?/(?:학교폭력|괴롭힘|따돌림|피해).{0,24}(?:없|않|부인)/:
+kind==='online_coercion'?/(?:성착취|협박|유포|온라인\s*피해).{0,24}(?:없|않|부인)/:
+kind==='housing'?/(?:퇴거|체납|주거\s*문제).{0,15}(?:없|않|아니)/:
+kind==='meal_gap'?/(?:결식|식사\s*공백|식량\s*부족).{0,16}(?:없|않|아니)/:
+null;
+ if(explicitDenial?explicitDenial.test(after.slice(0,85)):/부인|사실이\s*아님|해당하지\s*않/.test(after.slice(0,50)))return 'negated';
+ if(kind==='family_harm'&&/(?:학대|폭력|폭행|맞은\s*적).{0,18}(?:없|발생하지\s*않)/.test(before.slice(-24)+after.slice(0,65)))return 'negated';
  return 'affirmed';
 }
 function evidence(p){
