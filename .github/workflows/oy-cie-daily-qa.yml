@@ -50,7 +50,7 @@ jobs:
           set -e
           test -f "$RUNNER_TEMP/oy-cie/output/latest.json" || exit 1
           if git show-ref --verify --quiet refs/remotes/origin/oy-cie-daily-qa; then
-            git checkout -B oy-cie-daily-qa origin/oy-cie-daily-qa
+            git checkout --force -B oy-cie-daily-qa origin/oy-cie-daily-qa
           else
             git checkout --orphan oy-cie-daily-qa
             git rm -rfq --cached .
