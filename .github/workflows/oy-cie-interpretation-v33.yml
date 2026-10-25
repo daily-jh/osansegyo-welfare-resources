@@ -21,7 +21,9 @@ jobs:
         with:
           node-version: '22'
       - name: Validate 120k interpretations and evidence semantics
-        run: node tests/cie-v33-interpretation-benchmark.cjs
+        run: |
+          node tests/cie-v331-contrast-regression.cjs
+          node tests/cie-v33-interpretation-benchmark.cjs
       - name: Validate daily 22-category 1024-case sample rotation
         run: node scripts/oy-cie-daily-audit.cjs --date 2026-10-26 --out artifacts/oy-cie-daily-smoke
       - name: Retain representative research-only examples and comparison data

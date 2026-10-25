@@ -6,7 +6,7 @@
 const VERSION='3.2.0-candidate';
 const typeToDomain={protection:0,selfharm:2,peers:1,school:3,basic:7,mental:2,health:4,access:5,care:6,relation:8,digital:9};
 const safetyTypes=new Set(['protection','selfharm','threat']);
-const recognizedStatuses=new Set(['reported_unverified','secondhand','historical','ambiguous_negation_review']);
+const recognizedStatuses=new Set(['reported_unverified','secondhand','historical','ambiguous_negation_review','ambiguous_context_review']);
 const softFollowup=/^(?:그럼|그러면|그렇다면|그것|그쪽|여기서|다음|계속|좀 더|자세히|그 외|이어서|위 내용|이 내용|그 부분)/;
 const microIntents={plan:/계획|목표|개입|실행|단기|중기|장기/,interview:/질문|면담|상담/,meeting:/회의|협의|안건|결정/,resource:/자원|기관|서비스|연계|의뢰|지원처/,safety:/안전|신고|학대|자해/,evidence:/근거|이유|왜|모순|불일치|검증|확인된/,strength:/강점|희망|의사|거부|잘하는/};
 const ROLES={'teacher':'교사','education-welfare':'교육복지사','social-worker':'사회복지사'};
@@ -19,7 +19,7 @@ for(const x of base.narrativeSignals||[]){const domain=typeToDomain[x.type];if(s
  if(domain===undefined)continue;const d=state[domain];if(x.status==='reported_unverified')d.textPositive.push(x.id);
  else if(x.status==='historical')d.textHistorical.push(x.id);
  else if(x.status==='secondhand')d.textSecondhand.push(x.id);
- else if(x.status==='ambiguous_negation_review')d.textAmbiguous.push(x.id);
+ else if(x.status==='ambiguous_negation_review'||x.status==='ambiguous_context_review')d.textAmbiguous.push(x.id);
  else if(x.status==='negated')d.textNegated.push(x.id);
 }
 for(const d of state){const textActive=d.textPositive.length||d.textHistorical.length||d.textSecondhand.length||d.textAmbiguous.length;
