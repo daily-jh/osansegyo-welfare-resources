@@ -120,6 +120,21 @@
       ],
       "validation": "synthetic and regression only; no psychometric validity",
       "clinicalRiskPrediction": false
+    },
+    "unifiedCaseManagementV86": {
+      "version": "8.6.0-site",
+      "file": "oy-rals-v86-site.js",
+      "integrated": [
+        "ICSI semantic discrepancy",
+        "K-CARR narrative evidence and polarity",
+        "ICMS 25 differentiated actions and teacher/social worker roles",
+        "shared CaseState + five generated documents"
+      ],
+      "officialCoreChanged": false,
+      "source": "local V8.6 archive; adapted into static Github Pages module rather than byte-identical standalone package",
+      "clinicalValidation": false,
+      "syntheticRegression": 5000,
+      "goalsFixedAcrossDocuments": true
     }
   },
   "validation": {
@@ -156,6 +171,14 @@
         "COSMIN manual version 2.0: measurement quality",
         "NICE NG225: risk scales not for suicide prediction"
       ]
+    },
+    "v86Site": {
+      "sourceOfTruth": "criteria.js official CORE",
+      "syntheticTests": 5000,
+      "executedOnActualStudentRecords": false,
+      "humanValidation": false,
+      "browserRenderingVerified": false,
+      "notes": "Web-port is functional adaptation; full 15000-record offline research dataset intentionally not served to visitors."
     }
   },
   "sources": [
