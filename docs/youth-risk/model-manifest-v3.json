@@ -135,6 +135,46 @@
       "clinicalValidation": false,
       "syntheticRegression": 5000,
       "goalsFixedAcrossDocuments": true
+    },
+    "unifiedV86": {
+      "version": "8.6.0",
+      "source": "V8.6 15,000 synthetic-case research package",
+      "officialCOREChanged": false,
+      "files": {
+        "icsi": [
+          "reconciliation-v86.js"
+        ],
+        "kcarr": [
+          "case-evidence-base-v86.js",
+          "evidence-v86.js"
+        ],
+        "icms": [
+          "item-action-router-v86.js"
+        ],
+        "caseState": [
+          "unified-v86.js"
+        ],
+        "siteBridge": [
+          "site-bridge-v86.js"
+        ],
+        "siteRendering": [
+          "oy-rals-v86-site.js",
+          "case-formulation-v72.js",
+          "case-documents.js",
+          "case-form-model.js"
+        ]
+      },
+      "activeOnPages": [
+        "assessment.html",
+        "case-examples.html",
+        "workbench.html"
+      ],
+      "testing": {
+        "packageSyntheticRuns": 15000,
+        "liveAdapterRegressions": 5000,
+        "clinicalValidityEstablished": false
+      },
+      "limitations": "TEST tool: professional review mandatory; narrative and scoring separate; casework is a draft"
     }
   },
   "validation": {
@@ -217,5 +257,7 @@
       "title": "학생맞춤통합지원법 시행령 [시행 2026.3.1]",
       "url": "https://www.law.go.kr/LSW/lsInfoP.do?efYd=20260301&lsiSeq=283671&urlMode=lsInfoP"
     }
-  ]
+  ],
+  "deployedCaseworkVersion": "8.6.0",
+  "deployedCaseworkDate": "2026-10-25"
 }
