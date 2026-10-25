@@ -40,7 +40,7 @@ const normalize=s=>String(s||'').normalize('NFKC').replace(/\s+/g,' ').trim();
 function canonical(rows,shape){
  const first=new Map(),aliases=[];
  for(const row of rows){const key=hash(shape(row)),seen=first.get(key);if(!seen){first.set(key,row.id||key);}else aliases.push({canonicalId:seen,aliasId:row.id||key,reason:'same_scope_and_exact_normalized_meaning'});}
- return {records:rows.length,unique:first.size,duplicates:aliases.length,aliases};
+ return {records:rows.length,unique:first.size,duplicates:aliases.length,aliases,canonicalIds:[...first.values()]};
 }
 const itemDedupe=canonical(kb.entries,r=>({kind:r.kind,item:r.item,score:r.score,vantage:r.vantage,rule:r.rule,state:r.state,sources:r.sources,interpretation:normalize(r.interpretation),reviewQuestion:normalize(r.reviewQuestion),teacherAnswer:normalize(r.teacherAnswer),caseManagerAnswer:normalize(r.caseManagerAnswer),avoid:normalize(r.avoid)}));
 const templateDedupe=canonical(pb.entries,r=>({domainIndex:r.domainIndex,intent:r.intent,status:r.sourceStatus,guidance:normalize(r.guidance),question:normalize(r.question),action:normalize(r.action)}));
@@ -79,6 +79,7 @@ fs.mkdirSync(path.join(out,'runs'),{recursive:true});
 const write=(name,data)=>fs.writeFileSync(path.join(out,name),JSON.stringify(data,null,2));
 write('latest.json',stats);write('cumulative.json',{schema:'OY-CIE-cumulative-unique-finding-v1',findings:unique});
 write('dedupe-review.json',{status:'review_only_do_not_modify_origins',publicResearchKB:itemDedupe,templates:templateDedupe,crossPairs:pairDedupe,route:stats.dedup.route});
+write('canonical-index.json',{schema:'oy-cie.public-canonical-index.v1',reviewOnly:true,originalSourcesUnmodified:true,responseEntryIds:itemDedupe.canonicalIds,playbookEntryIds:templateDedupe.canonicalIds,crossHypothesisEntryIds:pairDedupe.canonicalIds,uniqueRoutingKeys:[...routeKeys]});
 write('patch-proposals.json',{status:'requires_human_approval',proposals:[...new Set(faults.map(x=>x.code))].map(code=>({code,fixTarget:code.includes('core')?'CORE_IMMUTABLE':'CIE_NONCORE_REVIEW',steps:['reproduce','propose_draft_patch','independent_tests','expert_review','reviewed_PR'],autoDeploy:false}))});
 write('runs/'+today+'.json',{stats,uniqueFailureKeysToday:[...new Set(faults.map(x=>x.key))]});
 const md='# OY-CIE daily audit · '+today+'\n\n- UTC 00:00 / Asia/Seoul 09:00 (GitHub scheduler may delay)\n- Synthetic cases: '+stats.executed+'/1024 in 16 categories\n- Exceptions / CORE / safety / unknown / mandatory safety / evidence / privacy: '+['exceptions','coreMismatch','safetyMismatch','unknownMismatch','mandatorySafetyMissing','brokenEvidenceRefs','privacyLeak'].map(x=>stats[x]).join(' / ')+'\n- Identical-source-scope DB duplicate candidates: '+[itemDedupe.duplicates,templateDedupe.duplicates,pairDedupe.duplicates,idx.rows.length-routeKeys.size].join(' / ')+'\n- Cumulative unique incident classes: '+unique.length+'\n- Verdict: '+stats.verdict+'\n- Fixed official CORE, no identifiable student records; no automatic main-branch patch. Duplicate source candidates require human review.\n';
