@@ -25,16 +25,34 @@ const REASONING_RULES=Object.freeze({
  uncertainty:'점수 의미의 세부 앵커·가중치·교차 가설은 전문가 및 사례 기반 검증 전',
  outputs:['학생 상황 요약','안전 확인','우선 면담 질문','대안 가설','지원계획 근거']
 });
+const MULTI_DOMAIN_PATTERNS=Object.freeze([
+ {id:'protect-school',items:[1,2,11],label:'보호환경과 학교생활 참여',question:'현재 보호환경·돌봄 제공자와 학교생활 변화의 시점이 연결되는지 확인',alternatives:['학교 내 관계','건강 및 정서','학습환경']},
+ {id:'care-attendance',items:[9,17,18],label:'가족 상황·돌봄 부담과 출결',question:'학생이 실제 맡는 돌봄 시간과 등교·수업 시간이 겹치는지 확인',alternatives:['또래 피해','신체 건강','통학 및 수업환경']},
+ {id:'housing-attendance',items:[9,19,20],label:'기본생활·주거와 학교 참여',question:'주거·필수생활 어려움이 수면·등교·수업에 미치는 실제 영향 확인',alternatives:['학습 접근성','또래 관계','가족의 일상 일정']},
+ {id:'emotion-support',items:[6,7,23],label:'정서적 어려움·안전 신호·지지 관계',question:'현재 안전과 학생이 신뢰하는 성인·지원망을 별도로 확인',alternatives:['일시적 갈등','다른 정보원의 관찰','이미 이용 중인 지원']},
+ {id:'learning-access',items:[10,14,15],label:'학습 수행과 교육 접근성',question:'학생에게 맞는 교육 조정·보조 지원의 실제 제공 여부와 효과 확인',alternatives:['교수 방식','결석에 따른 학습 공백','언어·건강 요인']}
+]);
+function crossDomainAssessment(answers){
+ if(!Array.isArray(answers)||answers.length!==25)throw Error('25개 응답 필요');
+ return MULTI_DOMAIN_PATTERNS.filter(p=>p.items.every(i=>typeof answers[i-1]==='number'&&answers[i-1]>=2)).map(p=>({
+  id:p.id,items:p.items,scores:p.items.map(i=>answers[i-1]),label:p.label,
+  hypothesis:p.label+' 영역의 어려움이 함께 보고되었습니다. 서로 영향을 주는지는 확인되지 않았습니다.',
+  verification:p.question,alternatives:p.alternatives,certainty:'미검증 교차 가설',
+  safetyFirst:p.items.some(i=>[1,2,7,25].includes(i)),
+  scoreEvidence:p.items.map(i=>interpretItemScore(i,answers[i-1]))
+ }));
+}
 function evidenceAssessment(answers){
  const f=formulate(answers);
  const observed=f.scored.map(x=>({item:x.id,score:x.value,topic:x.topic,meaning:x.meaning,provenance:'CORE 응답',certainty:'observed',impact:x.impact,weight:x.weight}));
+ const multiDomain=crossDomainAssessment(answers);
  const hypotheses=f.intersections.map(x=>({items:[x.a,x.b],statement:x.meaning,verification:x.next,certainty:'hypothesis',notCausal:true}));
  const alternatives=[];
  if(f.scored.some(x=>x.id===9)&&f.scored.some(x=>[17,18,19,20].includes(x.id)))alternatives.push('출결 어려움은 돌봄·주거 상황과 관련될 수 있으나, 또래관계·건강·학교환경 등 다른 설명도 확인해야 합니다.');
  if(f.scored.some(x=>x.id===11)&&f.scored.some(x=>[1,2,3,6,7].includes(x.id)))alternatives.push('학교생활 동기 응답을 개인의 의지 부족으로 해석하지 말고 안전·관계·정서 및 학교환경을 함께 확인해야 합니다.');
  if(f.scored.some(x=>[1,2,7,25].includes(x.id)))alternatives.push('안전 관련 응답은 점수 수준이나 총점과 무관하게 현재 상황과 보호 필요성을 별도로 확인합니다.');
  const priorities=observed.slice(0,4).map(x=>({topic:x.topic,score:x.score,why:'해당 문항의 응답 수준과 사전 설정된 검토 우선순위',next:f.base.items[x.item-1].verify[0],notDiagnosis:true}));
- return {version:'OY-CIE-evidence-v3.0',observed,hypotheses,alternatives,priorities,missing:f.unknown,coreTotal:f.rawScore,coreComplete:!f.rawIncomplete,safetySignals:f.base.safety.map(x=>x.id),evidenceLibrary:EVIDENCE_LIBRARY,reasoningRules:REASONING_RULES,modelStatus:'연구 기반 설계 가설·실증 검증 전'};
+ return {version:'OY-CIE-evidence-v3.2',observed,hypotheses,multiDomain,alternatives,priorities,missing:f.unknown,coreTotal:f.rawScore,coreComplete:!f.rawIncomplete,safetySignals:f.base.safety.map(x=>x.id),evidenceLibrary:EVIDENCE_LIBRARY,reasoningRules:REASONING_RULES,modelStatus:'연구 기반 설계 가설·실증 검증 전'};
 }
 const SCORE_MEANING_RULES=Object.freeze({
  0:{status:'미보고',interpretation:'이번 응답에서 해당 문항의 어려움이 보고되지 않았습니다.',action:'다른 자료와 불일치하면 확인',certainty:'응답 사실만 확인'},
@@ -71,5 +89,5 @@ function formulate(answers){
    '현재 안전과 학생의 희망·강점·기존 지원을 확인한 뒤 실제 지원 우선순위를 결정합니다.'].filter(Boolean);
  return {version:'OY-CIE-meaning-priority-v2.3-anchor-caution',base,scored,intersections,unknown,top,headline,narratives,assumptions:'응답 영향 곡선과 문항별 우선검토 가중치는 연구·개발 가정이며 검증된 확률·위험 절단점이 아닙니다.',rawScore:base.knownTotal,rawIncomplete:unknown.length>0};
 }
-const api=Object.freeze({TOPICS,PAIRS,LABELS,ITEM_LEVELS,RESEARCH,PROBES,PRIORITY_WEIGHTS,RESPONSE_IMPACT,interpret,formulate,interpretItemScore,SCORE_MEANING_RULES,EVIDENCE_LIBRARY,REASONING_RULES,evidenceAssessment});if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.OYCIESemanticV2=api;
+const api=Object.freeze({TOPICS,PAIRS,LABELS,ITEM_LEVELS,RESEARCH,PROBES,PRIORITY_WEIGHTS,RESPONSE_IMPACT,interpret,formulate,interpretItemScore,SCORE_MEANING_RULES,EVIDENCE_LIBRARY,REASONING_RULES,evidenceAssessment,MULTI_DOMAIN_PATTERNS,crossDomainAssessment});if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.OYCIESemanticV2=api;
 })(typeof window!=='undefined'?window:globalThis);
