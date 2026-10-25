@@ -19,3 +19,6 @@ jobs:
         run: node docs/youth-risk/tests/v87-safety-goals-regression.cjs
       - name: V8.7 integration regression
         run: node docs/youth-risk/tests/v87-integration-regression.cjs
+
+      - name: V8.8 interpretation and linkage regression
+        run: node tests/youth-journey-v88.cjs

@@ -1,6 +1,6 @@
 (function(){'use strict';const $=id=>document.getElementById(id),origin=location.origin;let stage=1,revision=0,ready=false,payload=null,view='result',report=null,map=null,selection=[],recordFrames=new Map(),registrations=new Map();const assessment=$('assessmentFrame');registrations.set(assessment,{kind:'assessment'});
 function send(f,m){f.contentWindow?.postMessage(m,origin)}
-function frame(kind,path,p){const f=document.createElement('iframe');f.title=kind==='report'?'사례협의·실행계획':kind==='map'?'지원 연결지도':'직접 기록·점검';f.src=new URL(path,document.baseURI).href+'?v=20261025-v87';f.className='flow-frame';registrations.set(f,{kind,payload:p,revision});
+function frame(kind,path,p){const f=document.createElement('iframe');f.title=kind==='report'?'사례협의·실행계획':kind==='map'?'지원 연결지도':'직접 기록·점검';f.src=new URL(path,document.baseURI).href+'?v=20261025-v88';f.className='flow-frame';registrations.set(f,{kind,payload:p,revision});
  if(kind==='report'){
   f.addEventListener('load',()=>{
    const doc=f.contentDocument;
@@ -22,6 +22,7 @@ function show(n){if(![1,2,3,4].includes(n))return;if(n!==1&&!ready){$('flowStatu
  document.querySelectorAll('[data-stage]').forEach(b=>{b.disabled=+b.dataset.stage!==1&&!ready;b.setAttribute('aria-current',+b.dataset.stage===stage?'step':'false')});$('stepTitle').textContent=['','학생의 생활과 어려움 살펴보기','평가결과·우선개입·지원연계','사례협의·실행계획','실행 기록과 변화 점검'][stage];$('previousStep').hidden=stage===1;$('nextStep').hidden=stage>=2;$('nextStep').textContent=['','평가 완료 · 결과 확인 →','',''][stage];send(assessment,{type:'youth-flow-mode-v1',mode:stage===1?'response':'result'});
  if(stage===2&&view==='map'&&!map){map=frame('map','support.html',currentPayload());$('mapArea').append(map)}if(stage===3&&!report){$('retryReport').hidden=true;$('reportLoading').hidden=false;$('reportLoading').textContent='사례검토 보고서를 불러오는 중입니다. 평가결과를 전달하고 있습니다.';report=frame('report','case-examples.html',currentPayload());$('reportArea').append(report)}
  if(stage===4){const key=recordKey();if(!recordFrames.has(key)){let f=frame('records','workbench.html',currentPayload());recordFrames.set(key,f);$('recordFrames').append(f);const o=document.createElement('option');o.value=key;o.textContent='평가 '+revision+'차 · 기록안 '+recordFrames.size;$('recordVersion').append(o)}$('recordVersion').value=key;selectRecord();}
+ window.dispatchEvent(new CustomEvent('oy-journey-view',{detail:{stage,view,ready,payload:ready?currentPayload():null}}));
  window.scrollTo({top:0,behavior:'smooth'});
 }
 function selectRecord(){const selected=$('recordVersion').value;recordFrames.forEach((f,r)=>f.hidden=r!==selected);$('recordHistoryNotice').textContent=selected===recordKey()?'현재 완료한 평가 응답을 바탕으로 기록합니다.':'이전 평가 응답의 기록입니다. 현재 평가와 혼합하지 않고 보존합니다.'}
@@ -35,7 +36,7 @@ window.addEventListener('message',e=>{if(e.origin!==origin)return;const entry=[.
  if(t==='youth-flow-child-ready-v1'){if(f===assessment)send(f,{type:'youth-flow-mode-v1',mode:stage===1?'response':'result'});return}
  if(t==='youth-flow-report-ready-v1'&&meta.kind==='report'&&f===report){$('retryReport').hidden=true;$('reportLoading').hidden=true;f.hidden=false;return}
  if(t==='youth-flow-report-error-v1'&&meta.kind==='report'&&f===report){$('reportLoading').hidden=false;$('reportLoading').textContent='보고서 자동 생성 중 오류가 발생했습니다. 기존 평가 응답은 유지됩니다. 아래 버튼으로 다시 불러오세요.';$('retryReport').hidden=false;return}
- if(t==='youth-flow-invalid-v1'&&f===assessment){ready=false;clearDerived();$('exportAssessment').disabled=true;$('bundleDownload').disabled=true;$('bundleStatus').textContent='입력이 바뀌었습니다. 평가를 다시 완료해 주세요.';if(stage!==1)show(1);else document.querySelectorAll('[data-stage]').forEach(b=>b.disabled=+b.dataset.stage!==1);$('flowStatus').textContent=revision?'응답이 바뀌었습니다. 평가를 다시 완료하면 결과와 보고서에 반영됩니다. 이전 기록은 보존합니다.':'응답을 선택한 뒤 평가를 완료해 주세요.';return}
+ if(t==='youth-flow-invalid-v1'&&f===assessment){ready=false;clearDerived();$('exportAssessment').disabled=true;$('bundleDownload').disabled=true;$('bundleStatus').textContent='입력이 바뀌었습니다. 평가를 다시 완료해 주세요.';show(1);$('flowStatus').textContent=revision?'응답이 바뀌었습니다. 평가를 다시 완료하면 결과와 보고서에 반영됩니다. 이전 기록은 보존합니다.':'응답을 선택한 뒤 평가를 완료해 주세요.';return}
  if(t==='youth-flow-complete-v1'&&f===assessment&&YouthMap.validate(e.data.payload)){payload={...e.data.payload,caseContext:typeof e.data.payload.caseContext==='string'?e.data.payload.caseContext.slice(0,5000):''};revision++;ready=true;$('bundleDownload').disabled=false;$('bundleStatus').textContent='평가 '+revision+'차 자료를 보관할 수 있습니다. 서술·직접 기록 포함 여부를 확인하세요.';selection=YouthPlanning.analyze(payload).defaultDomains;clearDerived();focusChoices();view='result';$('exportAssessment').disabled=false;$('flowStatus').textContent='평가 '+revision+'차 결과를 반영했습니다. 결과와 연계를 확인한 뒤 보고서·계획안을 살펴보세요.';show(2);return}
  if(t==='youth-flow-go-v1'){if(e.data.stage===2&&e.data.view==='map')view='map';show(e.data.stage);return}
  if(['youth-support-request-v1','youth-workbench-request-v1'].includes(t)&&meta.payload){

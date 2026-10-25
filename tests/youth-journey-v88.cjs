@@ -1,0 +1,14 @@
+const A=require('node:assert/strict'),J=require('../docs/youth-risk/journey-model-v88.js'),C=require('../docs/youth-risk/criteria.js');
+const sizes=[2,3,3,3,2,2,3,3,2,2];
+function fixture(){return {answers:Array(25).fill(0),domains:sizes.map((n,i)=>({name:'영역'+i,items:Array(n).fill('문항')})),routes:sizes.map(()=>[]),resources:[],explicit:[],followups:{},caseContext:''};}
+let p=fixture();p.answers[18]=3;p.answers[20]=2;p.answers[19]=1;p.answers[5]=1;p.caseContext='현재 오산종합사회복지관 통합사례관리 서비스를 이용 중. 친구 간 갈등이 있음.';
+let before=JSON.stringify(p),x=J.analyze(p);A.equal(x.decision.knownTotal,7);A.deepEqual(x.high,[{item:19,score:3}]);A.ok(x.active.some(s=>s.label==='오산종합사회복지관'));A.ok(x.context.mismatches.some(s=>s.tag==='peerConflict'));A.ok(x.plans.some(s=>s.domain===8&&s.narrativeOnly));A.equal(JSON.stringify(p),before);A.deepEqual(x.decision,C.evaluate(p.answers,sizes,false,{}));A.doesNotMatch(J.text(p,'결과',false),/오산종합사회복지관|친구 간 갈등/);A.match(J.text(p,'결과',true),/오산종합사회복지관/);
+for(const s of ['친구 갈등은 없음.','만약 친구 갈등이 있다면','과거 친구 갈등이 있었음.']){p.caseContext=s;A.ok(!J.analyze(p).plans.some(s=>s.domain===8&&s.narrativeOnly));}
+p=fixture();p.answers[6]=1;A.equal(J.analyze(p).decision.urgent,true);p.answers[6]='unknown';x=J.analyze(p);A.equal(x.decision.incomplete,true);A.ok(x.decision.safetyUnknown.includes(7));A.equal(x.decision.knownMaximum,96);
+p=fixture();p.caseContext='현재 자해 생각을 말함.';A.ok(J.analyze(p).context.needsSafetyAttention);A.equal(J.analyze(p).decision.knownTotal,0);
+p=fixture();p.caseContext='오산종합사회복지관 서비스 이용 종료.';A.equal(J.analyze(p).active.length,0);
+let seed=88;function rand(){seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;}
+for(let i=0;i<1000;i++){p=fixture();p.answers=p.answers.map(()=>{const n=Math.floor(rand()*6);return n===5?'unknown':n;});before=JSON.stringify(p);x=J.analyze(p);A.deepEqual(x.decision,C.evaluate(p.answers,sizes,false,{}));A.equal(JSON.stringify(p),before);}
+console.log('PASS V8.8: 7-point regression, existing service, peer conflict, negation/history, safety, unknown, privacy, 1000 CORE invariance cases');
+
+const R=require('../docs/youth-risk/relations-v88.js');p=fixture();p.caseContext='자해가 없다지만 죽고 싶다 말함.';A.ok(J.analyze(p).context.needsSafetyAttention);p=fixture();p.answers=Array(25).fill(4);x=J.analyze(p);A.equal(x.primaryPlans.length,5);A.equal(x.sections.length,9);A.equal(x.ledger.filter(e=>e.kind==='scale-response').length,25);A.ok(x.plans.every(g=>g.id&&g.sourceItemIds.length));p=fixture();p.caseContext='할머니와 함께 살고 있음. 복지관 사례관리 이용 중.';x=J.analyze(p);const nodes=R.seed(x);A.ok(nodes.every(n=>!n.cohabit));A.ok(R.svg(nodes).includes('동거'));A.doesNotMatch(R.svg([{kind:'family',label:'<script>',status:'관계 언급·미확인',source:'<img>',cohabit:false}]),/<script>|<img>/);console.log('PASS V8.8 extended: 9 sections, evidence IDs, top 5, contrast safety and relation SVG escaping');
