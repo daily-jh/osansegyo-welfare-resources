@@ -1,8 +1,8 @@
 /* Traceable presentation and planning layer. Never writes CORE answers or safety decisions. */
 (function(root){'use strict';
 const node=typeof module!=='undefined'&&module.exports;
-const M=node?require('./support-model.js'):root.YouthMap,C=node?require('./case-context-core.js'):root.YouthCaseContextCore,W=node?require('./weight-model.js'):root.YouthWeightModel,E=node?require('./case-context-v81.js'):root.YouthContextV81;
-const VERSION='8.8.6';
+const M=node?require('./support-model.js'):root.YouthMap,C=node?require('./case-context-core.js'):root.YouthCaseContextCore,W=node?require('./weight-model.js'):root.YouthWeightModel,E=node?require('./case-context-v81.js'):root.YouthContextV81,S=node?require('./cie-semantic-layer-v2.js'):root.OYCIESemanticV2;
+const VERSION='8.9.0-semantic-integrated';
 const tasks=[
  ['현재 보호 상황 확인','현재 위치·위해·안전한 연락 상대를 확인하고 사안별 보호절차를 검토합니다.','추가 위해와 보호 공백 여부'],
  ['또래관계의 안전 확인','상호 갈등·피해·위협을 구분하고 학교 담당과 안전한 접촉·생활 조정을 정합니다.','학생이 느끼는 안전과 피해 반복 여부'],
@@ -16,7 +16,7 @@ const tasks=[
  ['온라인 안전·생활 조정','피해·협박과 이용조절 어려움을 구분하고 피해가 보고되면 보호를 우선합니다.','피해 접촉 반복 여부와 일상 기능의 변화']];
 function analyze(p){
  if(!M.validate(p))throw Error('완료된 25문항 평가자료가 필요합니다.');
- const decision=M.context(p),domains=M.domains(p),context=C.reconcile(p.answers,p.caseContext||''),ecosystem=E.parse(p);
+ const decision=M.context(p),domains=M.domains(p),context=C.reconcile(p.answers,p.caseContext||''),ecosystem=E.parse(p),semantic=S&&S.formulate?S.formulate(p.answers):null;
  const active=ecosystem.institutions.filter(x=>x.status==='이용·개입 언급');
  const extra=new Set(context.signals.filter(s=>['reported','unverified'].includes(s.polarity)&&s.timeHint!=='historical-mention').flatMap(s=>domains.filter(d=>d.numbers.some(n=>s.items.includes(n))).map(d=>d.i)));
  const ordered=M.rank(domains).filter(d=>d.sum||d.unknown||extra.has(d.i));
@@ -28,7 +28,7 @@ function analyze(p){
  const references=ledger.filter(e=>e.kind==='narrative');
  const relevant=(ids)=>references.filter(e=>context.signals.some(z=>ids.includes(z.tag)&&e.text.includes(z.clause))).map(e=>'['+e.id+'] '+e.text).join(' / ');
  const familyEvidence=ecosystem.family.map(f=>f.label+'('+f.status+' · 서술 근거, 확인 전)').join(' / ');
- const priorityEvidence=plans.slice(0,3).map(x=>x.title+' ('+(x.evidence.join(', ')||'서술·미상 확인')+')').join(' / ');
+ const priorityEvidence=semantic&&semantic.top.length?semantic.top.slice(0,3).map(x=>x.topic+' '+x.value+'점: '+x.meaning).join(' / '):plans.slice(0,3).map(x=>x.title+' ('+(x.evidence.join(', ')||'서술·미상 확인')+')').join(' / ');
  const summary=decision.incomplete?'아직 확인하지 않은 문항은 '+decision.unknownItems.join('·')+'번입니다. 확인된 응답 합계는 '+decision.knownTotal+'점이며, 아래는 현재 확인된 어려움에 대한 지원 방향입니다.':'25문항 응답 합계는 '+decision.knownTotal+'/100점입니다.';
  const note=String(p.caseContext||'');
  const clauses=ledger.filter(e=>e.kind==='narrative');
@@ -64,7 +64,7 @@ function analyze(p){
  const cieActions=cie.map((x,i)=>({id:'CIE-'+(i+1),...x,evidence:x.items.map(n=>n+'번 '+p.answers[n-1]+'점'),status:'미확인 가설'}));
  if(cieActions.length)formulation.push('OY-CIE 맥락 통합검토(가설·확인과제): '+cieActions.slice(0,4).map(x=>x.hypothesis+' [근거 '+(x.evidence.join('·')||'서술 확인')+'] '+x.verification).join(' '));
  const cieSummary=cieActions.length?'OY-CIE 검토가설 '+cieActions.length+'건: '+cieActions.slice(0,3).map(x=>x.hypothesis+' (근거 '+(x.evidence.join('·')||'서술·미상 확인')+')').join(' '):'확인된 척도와 서술을 토대로 생활 장면과 학생 희망을 확인합니다.';
- const integrated=formulation.join(' ')||'현재 보고된 어려움을 학생이 가장 불편한 생활 장면부터 구체화하세요. 빈도·지속기간·학교와 가정에서의 차이를 확인한 뒤, 우선 과제 한 가지를 학생과 합의하고 변화 여부를 점검합니다.';
+ const integrated=[semantic?semantic.narratives.join(' '):'',formulation.join(' ')].filter(Boolean).join(' ')||'현재 보고된 어려움을 학생이 가장 불편한 생활 장면부터 구체화하세요. 빈도·지속기간·학교와 가정에서의 차이를 확인한 뒤, 우선 과제 한 가지를 학생과 합의하고 변화 여부를 점검합니다.';
  const sections=[
  {title:'학생 상황 요약',text:summary+' '+(priorityEvidence?'주요 검토 과제: '+priorityEvidence+'. ':'이번 응답에서 자동 계획할 어려움이 보고되지 않았습니다. ')+(context.fields.situation?'서술에 보고된 상황(독립 확인 전): '+context.fields.situation+' / ':'')+(familyEvidence?'가족·생활 관계 단서: '+familyEvidence+'. ':'')+'문항별 근거의 실제 발생시기·빈도·학생의 생활 영향과 정보원을 확인해야 합니다. 서술은 점수 또는 학대·진단 확정 근거가 아닙니다.'},
  {title:'현재 안전과 즉시 필요한 확인',text:decision.title+' · '+decision.safetyReview+(context.needsSafetyAttention?' 서술에 안전 관련 단서가 있어 현재 상태·접촉 안전성을 별도 확인해야 합니다.':'')},
@@ -76,11 +76,12 @@ function analyze(p){
  {title:'종합사정 및 우선순위',text:cieSummary+' 우선 실행과제: '+(plans.slice(0,5).map(x=>'['+x.id+'] '+x.title+' — '+x.action).join(' / ')||'학생 희망과 필요한 예방·경과 확인을 면담에서 협의합니다.')},
  {title:'근거·미확인·확인 계획',text:[decision.unknownItems.length?'미상: '+decision.unknownItems.join('·')+'번은 0점으로 취급하지 않고 확인 전으로 유지':'',context.mismatches.map(x=>x.items.join('·')+'번: '+x.issue).join(' / '),'문항 근거의 실제 장면·기간·정보원, 학생 희망, 담당·확인일·정보공유 근거를 면담에서 기록해야 합니다.'].filter(Boolean).join(' / ')}
  ];
- return {version:VERSION,decision,domains,context,ecosystem,active,cieActions,plans,primaryPlans:plans.slice(0,5),ledger,sections,high:p.answers.flatMap((v,i)=>Number.isInteger(v)&&v>=3?[{item:i+1,score:v}]:[]),pairs:W.PAIRS.filter(x=>p.answers[x.item-1]>0&&p.answers[x.other-1]>0),weights:W.audit(p.answers),questions:['지금 가장 먼저 도움받고 싶은 일은 무엇인가요?','그 일이 언제, 어떤 상황에서 가장 어렵게 느껴지나요?','이미 도움을 주는 사람이나 기관이 있나요? 어떤 도움이 더 필요할까요?']};
+ return {version:VERSION,decision,domains,context,ecosystem,active,semantic,cieActions,plans,primaryPlans:plans.slice(0,5),ledger,sections,high:p.answers.flatMap((v,i)=>Number.isInteger(v)&&v>=3?[{item:i+1,score:v}]:[]),pairs:W.PAIRS.filter(x=>p.answers[x.item-1]>0&&p.answers[x.other-1]>0),weights:W.audit(p.answers),questions:['지금 가장 먼저 도움받고 싶은 일은 무엇인가요?','그 일이 언제, 어떤 상황에서 가장 어렵게 느껴지나요?','이미 도움을 주는 사람이나 기관이 있나요? 어떤 도움이 더 필요할까요?']};
 }
 function text(p,page,includeContext=false){
  const full=analyze(p),a=includeContext?full:analyze({...p,caseContext:''});
  const lines=['OY-RALS V'+VERSION+' · '+page+' · 실무자 검토 전 초안',a.decision.title,a.decision.incomplete?'확인 합계 '+a.decision.knownTotal+'/'+a.decision.knownMaximum+' · 미상 '+a.decision.unknownItems.length+'개 · 전체 판단 보류':'원점수 '+a.decision.knownTotal+'/100','안전 관련 확인: '+a.decision.safetyReview,'정보 확인: '+a.decision.knownCount+'/25 · 미상 '+a.decision.unknownItems.length+'문항'];
+ if(a.semantic)lines.push('문항별 의미·가중치 통합 해석: '+a.semantic.narratives.join(' '),'검토 우선순위(가설): '+a.semantic.top.map(x=>x.id+'번 '+x.value+'점 '+x.meaning+' / '+x.priority).join(' · '),'가중치는 연구 가정이며 검증된 위험확률이 아님.');
  const planLines=a.plans.map(x=>'['+x.id+'] '+x.title+' / 근거 '+[...x.sourceItemIds,...x.sourceTextIds].join(', ')+' / 실행 초안 '+x.action+' / 변화 지표 '+x.outcome+' / 연계 후보 '+(x.candidates.map(c=>c.name+'('+c.service+')').join(', ')||'추가 확인'));
  if(page==='사례사정')lines.push(...a.sections.map(x=>x.title+'\n'+x.text),'OY-CIE 잠정 해석은 사실 확인·학생 의견·정보원 대조 후 채택합니다.');
  else if(page==='사례협의')lines.push('협의 목적: 확인된 어려움의 우선순위, 현재 안전, 기존 지원과 신규 의뢰의 역할 조정','협의 전 검토 가설:',...(a.cieActions.map(x=>x.id+' / '+x.hypothesis+' / '+x.verification)),'협의 안건:',...a.plans.slice(0,5).map(x=>x.title+' / '+x.evidence.join('·')+' / 결정할 내용: 담당·지원 가능성·회신 기한'),'교사: 교내 안전·수업·출결 조정 / 교육복지사: 교내외 연계 조율 / 사회복지사: 가구 사정·자원 조정','주관기관·참석자·공유 근거·회의 결정: 미확정. 실제 회의 개최로 기록하지 않음.');
