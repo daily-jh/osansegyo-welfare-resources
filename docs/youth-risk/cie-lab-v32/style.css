@@ -15,3 +15,7 @@ body,button,input,select,textarea{font-family:SUIT,sans-serif}
 .v32panel #v32-question{border-radius:15px;padding:14px;font-size:1rem}
 @media(max-width:650px){.v32-chat{padding:10px;max-height:470px}.v32-message{max-width:97%;font-size:.9rem;padding:12px}}
 @media print{body.printing-v32 .v32-chat{max-height:none;overflow:visible;border:0;background:#fff}.v32-message{break-inside:avoid}}
+
+/* Conversation-first mobile layout: technical inputs remain available on demand. */
+.lab-top{padding:22px 8px 12px}.lab-kicker{font-size:.8rem;font-weight:800;color:#3764a6;letter-spacing:.07em}.lab-top h1{font-size:clamp(1.6rem,5vw,2.25rem);line-height:1.35;letter-spacing:-.04em;margin:10px 0}.lab-top p{color:#617185;margin:0 0 12px}.lab-input-details,.lab-status-details{margin:16px 0;border:1px solid #dce5ef;background:#fff;border-radius:18px;padding:14px}.lab-input-details>summary,.lab-status-details>summary{font-weight:750;cursor:pointer;padding:5px;list-style-position:inside}.lab-input-details>summary span{float:right;color:#718196;font-size:.8rem;font-weight:400}.lab-input-details .workspace{margin-top:16px}.lab-input-details .workspace .panel{box-shadow:none}.lab-status-details .stats{margin:14px 0}.lab-status-details .notice{margin-top:12px}.v32panel{margin-top:8px}.v32panel .panel-title{align-items:flex-start}.v32panel #v32-question{min-height:52px}
+@media(max-width:650px){.lab-top{padding:12px 3px 4px}.lab-top h1{font-size:1.7rem}.lab-input-details>summary span{float:none;display:block;margin-left:22px}.v32panel{margin-top:6px}}
