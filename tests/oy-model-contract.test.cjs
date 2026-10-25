@@ -61,6 +61,13 @@ test('item-specific need categories do not invent housing debt or diagnoses',()=
  assert.ok(a.plans.some(x=>x.item===21));
  assert.ok(a.plans.every(x=>x.narrativeOnly||x.sourceItemIds.length>0));
 });
+test('economic unknown sibling is a check, not a proposed service',()=>{
+ const answers=Array(25).fill(0);answers[18]=3;answers[20]='unknown';
+ const a=G.analyze(payload(answers));
+ assert.ok(a.plans.some(x=>x.item===19));
+ assert.ok(!a.plans.some(x=>x.item===21));
+ assert.ok(a.decision.unknownItems.includes(21));
+});
 test('unknown remains unknown in semantic interpreter',()=>{
  const answers=Array(25).fill(0);answers[0]='unknown';
  const interpreted=S.interpret(answers);
