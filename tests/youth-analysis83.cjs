@@ -9,3 +9,6 @@ for(let seed=0;seed<1000;seed++){
 for(const [v,q]of [[0,'선별 지원·관찰'],[4,'복합 조정']]){const p=make(Array(25).fill(v)),a=M.analyze(p,F.build(p));A.equal(a.matrix.quadrant,q);A.match(M.matrixHTML(a),/<circle/);}
 const p=make(Array(25).fill(0));p.answers[9]=4;let a=M.analyze(p,F.build(p));A.equal(a.rows[3].level,'상');A.equal(a.rows[0].level,'하');p.caseContext='<img src=x onerror=alert(1)> 수학 과제가 어려움.';A.doesNotMatch(F.html(p),/<img/);A.match(F.html(p),/영역별 해석과 지원 방향/);A.match(F.html(p),/종합의견 · 사례관리 보고서/);A.ok(F.html(p).lastIndexOf('종합의견')>F.html(p).indexOf('확인근거'));
 console.log('PASS analysis 8.3: 1000 deterministic scenarios; CORE invariance, unknown ranges, quadrants, 10-domain levels, escaped report and canonical formulation');
+
+// All four quadrants are reachable: concentration and breadth are distinct descriptions.
+for(const [indexes,values,want]of [[[9,10],[4,4],'집중 지원'],[[0,2,5,8,11],[2,2,2,2,2],'폭넓은 예방·조정']]){const p=make(Array(25).fill(0));indexes.forEach((i,k)=>p.answers[i]=values[k]);A.equal(M.analyze(p,F.build(p)).matrix.quadrant,want);}
