@@ -1,0 +1,21 @@
+name: OY-RALS V8.7 regression
+on:
+  pull_request:
+    paths:
+      - 'docs/youth-risk/**'
+      - '.github/workflows/oy-rals-v87-regression.yml'
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: V8.7 safety and goals regression
+        run: node docs/youth-risk/tests/v87-safety-goals-regression.cjs
+      - name: V8.7 integration regression
+        run: node docs/youth-risk/tests/v87-integration-regression.cjs
