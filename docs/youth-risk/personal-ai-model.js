@@ -2,6 +2,7 @@
 'use strict';
 const M=typeof module!=='undefined'?require('./support-model.js'):root.YouthMap;
 const L=typeof module!=='undefined'?require('./resource-links.js'):root.YouthLinks;
+const Privacy=typeof module!=='undefined'?require('./privacy-guard-v87.js'):root.OYPrivacyGuardV87;
 const sizes=[2,3,3,3,2,2,3,3,2,2];
 const routes={
   chatgpt:'https://chatgpt.com/',
@@ -40,7 +41,7 @@ function create(data,role,narrative,criteria){
     return '- '+d.name+focus+'\n  '+lines.join('\n  ');
   }).join('\n');
   const safety=decision.urgent?'안전신호 확인됨: 즉시 안전확인·관련 보호 절차 우선':decision.safetyUnknown.length||decision.pendingChecks.length?'안전확인 미완료: 확인을 마치기 전 위험 부재 단정 금지':'확인된 긴급 안전신호 없음 (안전 위험 부재 확정은 아님)';
-  const note=minimizeIdentifiers(narrative).trim();
+  const privacy=Privacy?.inspect(narrative),note=(privacy?.redacted||minimizeIdentifiers(narrative)).trim();
   const profile=M.student(data);
   const candidates=M.validate(data)?M.referrals(data).slice(0,8).map(g=>g.name+' / '+g.services.map(r=>r['서비스명']).join(' · ')+' / '+L.contactText(g.primary)+' / '+M.describe(data,M.domains(data)[g.domainIds[0]],g.primary).condition+' / '+(g.primary.routingReason||'실제 대상·관할 확인')).join('\n'):'자원 DB 미연결 · 기관명·연락처를 창작하지 말고 별도 확인';
   const V=typeof module!=='undefined'&&module.exports?require('./interpretation-v2.js'):root.YouthInterpretation;
@@ -89,6 +90,10 @@ function create(data,role,narrative,criteria){
     '',
     '[25문항 원자료]',
     domainText,
+    '',
+    '[외부 AI 전달 전 개인정보 검토 · 필수]',
+    '서술 입력은 일부 직접식별정보만 자동 가립니다. 가족구성·학교·지역·특이사건 조합의 재식별 가능성을 실무자가 직접 확인해야 합니다. 외부 AI 전달에 관한 기관 방침과 학생정보 최소화 요건을 확인하세요.',
+    privacy?.identifierTypes?.length?'자동 확인된 직접식별 항목: '+privacy.identifierTypes.map(x=>x.type+' '+x.count+'건').join(', '):'자동 탐지된 직접식별 항목 없음(완전한 비식별 보장 아님)',
     '',
     '[추가 서술식 기록 · 출처와 확인 여부 검토 필요]',
     note||'(추가로 보고된 서술식 정보 없음. 상담을 통한 상황·강점·의견 확인 필요)',

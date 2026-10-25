@@ -175,6 +175,29 @@
         "clinicalValidityEstablished": false
       },
       "limitations": "TEST tool: professional review mandatory; narrative and scoring separate; casework is a draft"
+    },
+    "safetyStateV87": {
+      "version": "8.7.0",
+      "file": "safety-state-v87.js",
+      "COREPointChange": false,
+      "unknownItemBehavior": "missing safety 1/2/7/25 and pending followups trigger review; not urgent without evidence",
+      "independentHumanReview": true
+    },
+    "goalComposerV87": {
+      "version": "8.7.0",
+      "file": "goal-composer-v87.js",
+      "originalItemGoalsPreserved": true,
+      "maximumVisibleGoals": 5,
+      "clusteringPolicy": "separate protection/self-harm/sexual exploitation, then health, education, care, housing and support",
+      "unshownGoalsRemainInCanonicalState": true
+    },
+    "privacyGuardV87": {
+      "version": "8.7.0",
+      "file": "privacy-guard-v87.js",
+      "externalAIRequestRedaction": true,
+      "externalAIDisclosureRequiresHumanReview": true,
+      "ZIPExportSensitiveDataRequiresConfirmation": true,
+      "doesNotGuaranteeAnonymization": true
     }
   },
   "validation": {
@@ -219,6 +242,13 @@
       "humanValidation": false,
       "browserRenderingVerified": false,
       "notes": "Web-port is functional adaptation; full 15000-record offline research dataset intentionally not served to visitors."
+    },
+    "v87": {
+      "simulationCountPlanned": 5000,
+      "clinicalValidityEstablished": false,
+      "safeCOREInvariant": true,
+      "explicitHumanReviewRequired": true,
+      "sourceConsentNotGrantedByUI": true
     }
   },
   "sources": [
@@ -258,6 +288,6 @@
       "url": "https://www.law.go.kr/LSW/lsInfoP.do?efYd=20260301&lsiSeq=283671&urlMode=lsInfoP"
     }
   ],
-  "deployedCaseworkVersion": "8.6.0",
+  "deployedCaseworkVersion": "8.7.0",
   "deployedCaseworkDate": "2026-10-25"
 }

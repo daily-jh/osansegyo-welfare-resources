@@ -1,0 +1,25 @@
+'use strict';
+const assert=require('node:assert/strict');
+const F=require('../case-formulation-v72.js');
+const C=require('../criteria.js');
+const S=require('../scale-interpretation-v821.js');
+const domains=S.DOMAIN_NAMES.map((name,i)=>({name,items:Array(S.DOMAIN_SIZES[i]).fill('문항')}));
+let seed=871;const rand=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296};
+const notes=['','학교폭력 피해는 없다고 학생이 말했다.','학생은 수학이 어렵고 미술을 좋아한다.','주거 환경이 불안정하고 돌봄에 공백이 있다.','안전 관련 제보 사실 여부를 아직 확인하지 못했다.'];
+for(let i=0;i<5000;i++){let answers=Array.from({length:25},()=>rand()<.13?'unknown':rand()<.3?0:Math.floor(rand()*5));
+ if(i%12===0)answers=Array(25).fill('unknown');
+ if(i%13===0)answers=Array(25).fill(4);
+ if(i%17===0)answers=Array(25).fill(0);
+ const p={answers,domains,caseContext:notes[i%notes.length],followups:{},explicit:[]};
+ const a=C.evaluate(answers,S.DOMAIN_SIZES,false,{});
+ const b=F.build(p);
+ assert.equal(b.decision.knownTotal,a.knownTotal);
+ assert.equal(b.decision.urgent,a.urgent);
+ assert.equal(b.version,'8.7-integrated');
+ assert.equal(b.safetyReviewRequired,!!(a.urgent||a.safetyUnknown.length||a.pendingChecks.length||b.canonical86.safety.narrativeReported||b.canonical86.safety.uncertainNarrativeIds.length));
+ assert.ok(b.rows.length<=5);
+ assert.ok(b.canonical86.ICMS.composed.sourceFullyCovered);
+ assert.ok(b.canonical86.ICMS.goals.every(g=>b.canonical86.ICMS.composed.sourceGoalIds.includes(g.id)));
+ assert.ok(b.rows.every(g=>g.teacher!==g.worker));
+}
+console.log('PASS: 5000 V8.7 synthetic regressions; original CORE unchanged; safety flags consistent; <=5 main goals; individual actions retained');

@@ -86,7 +86,7 @@ function assessment(){
       followups:context.followups||{}
     },
     includedDomains:Array.isArray(context.includedDomains)?context.includedDomains.slice():undefined,
-    narrative:YouthPersonalAI.minimizeIdentifiers($('studentNarrative')?.value||'')
+    narrative:(window.OYPrivacyGuardV87?.inspect(YouthPersonalAI.minimizeIdentifiers($('studentNarrative')?.value||''))?.redacted||YouthPersonalAI.minimizeIdentifiers($('studentNarrative')?.value||''))
   };
 }
 window.addEventListener('youth-ai-context-v1',event=>{
