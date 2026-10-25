@@ -11,6 +11,31 @@ const links=PAIRS.filter(([a,b])=>typeof answers[a-1]==='number'&&answers[a-1]>0
 const ranked=items.filter(x=>typeof x.value==='number'&&x.value>0).sort((a,b)=>Number(b.safety)-Number(a.safety)||b.value-a.value||a.id-b.id);
 return {version:'OY-CIE-V2-research',items,links,ranked,unknown:items.filter(x=>x.value==='unknown'),safety:ranked.filter(x=>x.safety),knownTotal:answers.reduce((n,x)=>n+(typeof x==='number'?x:0),0),caveat:'연관 가설은 인과관계·검증된 위험확률이 아니며 원점수·공식 안전판정과 분리됨'};}
 
+const EVIDENCE_LIBRARY=Object.freeze([
+ {id:'KYCI-2024',title:'청소년 위기스크리닝 척도 개정',year:2024,url:'https://kyci.or.kr/userSite/lib/public_read.asp?Gubun=T&Page=1&idx=R361',appliesTo:['screening','referral','practice'],transfer:'청소년 위기 선별 및 개입 연계의 절차 설계',limitation:'OY-CIE 개별 문항의 타당도·절단점·가중치를 입증하지 않음'},
+ {id:'COSMIN-2018',title:'COSMIN content validity Delphi study',year:2018,url:'https://pmc.ncbi.nlm.nih.gov/articles/PMC5891557/',appliesTo:['anchors','content-validity','comprehension'],transfer:'문항·응답범주·회상기간의 관련성·포괄성·이해가능성 점검',limitation:'외부 연구의 내용타당도를 본 척도로 이전할 수 없음'},
+ {id:'COSMIN-2025',title:'Content validity: COSMIN perspective',year:2025,url:'https://pubmed.ncbi.nlm.nih.gov/40562250/',appliesTo:['validation','content-validity'],transfer:'대상자와 전문가의 질적 검토 및 반복 수정',limitation:'개발 가설을 임상적 판단으로 확정할 수 없음'},
+ {id:'SDQ-2001',title:'Psychometric properties of the SDQ',year:2001,url:'https://pubmed.ncbi.nlm.nih.gov/11699809/',appliesTo:['multi-informant','strengths','function'],transfer:'학생·교사·보호자 등 정보원 간 차이와 강점 영역 검토',limitation:'SDQ의 절단점·진단 예측치를 OY-CIE에 적용 금지'}
+]);
+const REASONING_RULES=Object.freeze({
+ input:['CORE 25개 응답','현재 안전 관련 정보','학생 서술','정보원별 진술','기존 지원 및 보호요인'],
+ invariants:['CORE 원점수 변경 금지','미상은 0점으로 대체 금지','안전판정은 가중합과 분리','문항 점수는 사건의 사실·인과·진단 증거가 아님'],
+ priority:'안전 신호 우선 → 문항별 응답 수준 → 복합 보고 → 실제 생활 영향 확인 → 학생 희망 및 강점 → 실무자 결정',
+ evidenceGrades:{observed:'직접 보고된 응답',hypothesis:'문항 동시 보고로 제기한 가설',unknown:'면담·추가 정보 필요',validated:'본 시스템에서 아직 없음'},
+ uncertainty:'점수 의미의 세부 앵커·가중치·교차 가설은 전문가 및 사례 기반 검증 전',
+ outputs:['학생 상황 요약','안전 확인','우선 면담 질문','대안 가설','지원계획 근거']
+});
+function evidenceAssessment(answers){
+ const f=formulate(answers);
+ const observed=f.scored.map(x=>({item:x.id,score:x.value,topic:x.topic,meaning:x.meaning,provenance:'CORE 응답',certainty:'observed',impact:x.impact,weight:x.weight}));
+ const hypotheses=f.intersections.map(x=>({items:[x.a,x.b],statement:x.meaning,verification:x.next,certainty:'hypothesis',notCausal:true}));
+ const alternatives=[];
+ if(f.scored.some(x=>x.id===9)&&f.scored.some(x=>[17,18,19,20].includes(x.id)))alternatives.push('출결 어려움은 돌봄·주거 상황과 관련될 수 있으나, 또래관계·건강·학교환경 등 다른 설명도 확인해야 합니다.');
+ if(f.scored.some(x=>x.id===11)&&f.scored.some(x=>[1,2,3,6,7].includes(x.id)))alternatives.push('학교생활 동기 응답을 개인의 의지 부족으로 해석하지 말고 안전·관계·정서 및 학교환경을 함께 확인해야 합니다.');
+ if(f.scored.some(x=>[1,2,7,25].includes(x.id)))alternatives.push('안전 관련 응답은 점수 수준이나 총점과 무관하게 현재 상황과 보호 필요성을 별도로 확인합니다.');
+ const priorities=observed.slice(0,4).map(x=>({topic:x.topic,score:x.score,why:'해당 문항의 응답 수준과 사전 설정된 검토 우선순위',next:f.base.items[x.item-1].verify[0],notDiagnosis:true}));
+ return {version:'OY-CIE-evidence-v3.0',observed,hypotheses,alternatives,priorities,missing:f.unknown,coreTotal:f.rawScore,coreComplete:!f.rawIncomplete,safetySignals:f.base.safety.map(x=>x.id),evidenceLibrary:EVIDENCE_LIBRARY,reasoningRules:REASONING_RULES,modelStatus:'연구 기반 설계 가설·실증 검증 전'};
+}
 const PRIORITY_WEIGHTS=Object.freeze([1.30,1.20,1.12,1.18,1.10,1.02,1.35,1.05,1.00,0.98,0.96,1.12,1.18,1.00,1.03,1.12,1.01,1.09,1.14,1.11,1.06,0.98,1.06,0.97,1.32]);
 const RESPONSE_IMPACT=Object.freeze([0,0.18,0.42,0.72,1]);
 function formulate(answers){
@@ -33,5 +58,5 @@ function formulate(answers){
    '현재 안전과 학생의 희망·강점·기존 지원을 확인한 뒤 실제 지원 우선순위를 결정합니다.'].filter(Boolean);
  return {version:'OY-CIE-meaning-priority-v2.3-anchor-caution',base,scored,intersections,unknown,top,headline,narratives,assumptions:'응답 영향 곡선과 문항별 우선검토 가중치는 연구·개발 가정이며 검증된 확률·위험 절단점이 아닙니다.',rawScore:base.knownTotal,rawIncomplete:unknown.length>0};
 }
-const api=Object.freeze({TOPICS,PAIRS,LABELS,ITEM_LEVELS,RESEARCH,PROBES,PRIORITY_WEIGHTS,RESPONSE_IMPACT,interpret,formulate});if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.OYCIESemanticV2=api;
+const api=Object.freeze({TOPICS,PAIRS,LABELS,ITEM_LEVELS,RESEARCH,PROBES,PRIORITY_WEIGHTS,RESPONSE_IMPACT,interpret,formulate,EVIDENCE_LIBRARY,REASONING_RULES,evidenceAssessment});if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.OYCIESemanticV2=api;
 })(typeof window!=='undefined'?window:globalThis);
