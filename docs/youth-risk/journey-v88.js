@@ -1,7 +1,7 @@
 (function(){'use strict';
 const $=id=>document.getElementById(id),esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let state=null,tab='사례사정',drafts={},draftLabels={},revision=null,preparedSource='',relations=null;
-const box=document.createElement('section');box.id='journey88';box.className='journey88';box.hidden=true;$('stepTitle').after(box);
+const box=document.createElement('section');box.id='journey88';box.className='journey88';box.hidden=true;$('resultTools').after(box);
 const reportText=(p,page,include)=>window.OYModelGateway?.text?window.OYModelGateway.text(p,page,include):OYJourney.text(p,page,include);
 const stageName=()=>state.stage===1?'척도 입력':state.stage===2?(state.view==='map'?'지원연계 맵':'결과 해석'):state.stage===3?tab:'상담기록·계획조정·점검';
 function table(head,rows){return '<div class="j88-scroll"><table><thead><tr>'+head.map(x=>'<th scope="col">'+esc(x)+'</th>').join('')+'</tr></thead><tbody>'+rows.map(r=>'<tr>'+r.map(x=>'<td>'+esc(x)+'</td>').join('')+'</tr>').join('')+'</tbody></table></div>';}

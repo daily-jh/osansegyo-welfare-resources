@@ -7,6 +7,7 @@ on:
     paths:
       - 'docs/youth-risk/**'
       - 'tests/oy-model-contract.test.cjs'
+      - 'tests/youth-stage-navigation-regression.cjs'
       - '.github/workflows/oy-rals-model-contract.yml'
   pull_request:
     paths:
@@ -31,3 +32,5 @@ jobs:
           node --check docs/youth-risk/journey-v88.js
       - name: Verify 1200 synthetic cases and invariants
         run: node --test tests/oy-model-contract.test.cjs
+      - name: Verify completed evaluation can open stages 3 and 4
+        run: node tests/youth-stage-navigation-regression.cjs
