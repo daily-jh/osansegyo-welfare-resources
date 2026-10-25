@@ -41,7 +41,7 @@ function create(data,role,narrative,criteria){
     return '- '+d.name+focus+'\n  '+lines.join('\n  ');
   }).join('\n');
   const safety=decision.urgent?'안전신호 확인됨: 즉시 안전확인·관련 보호 절차 우선':decision.safetyUnknown.length||decision.pendingChecks.length?'안전확인 미완료: 확인을 마치기 전 위험 부재 단정 금지':'확인된 긴급 안전신호 없음 (안전 위험 부재 확정은 아님)';
-  const privacy=Privacy?.inspect(narrative),note=(privacy?.redacted||minimizeIdentifiers(narrative)).trim();
+  const privacy=(Privacy||root.OYPrivacyGuardV87)?.inspect(narrative),note=(privacy?.redacted||minimizeIdentifiers(narrative)).trim();
   const profile=M.student(data);
   const candidates=M.validate(data)?M.referrals(data).slice(0,8).map(g=>g.name+' / '+g.services.map(r=>r['서비스명']).join(' · ')+' / '+L.contactText(g.primary)+' / '+M.describe(data,M.domains(data)[g.domainIds[0]],g.primary).condition+' / '+(g.primary.routingReason||'실제 대상·관할 확인')).join('\n'):'자원 DB 미연결 · 기관명·연락처를 창작하지 말고 별도 확인';
   const V=typeof module!=='undefined'&&module.exports?require('./interpretation-v2.js'):root.YouthInterpretation;
