@@ -1,0 +1,25 @@
+/* OY-RALS V2 assessment iframe visual alignment. Presentation only; no scoring changes. */
+:root{--assessment-accent:#1769d2;--assessment-border:#dce5f0;--assessment-ink:#243449}
+html{-webkit-text-size-adjust:100%}
+body{color:var(--assessment-ink);font-size:16px;line-height:1.65}
+button,input,select,textarea{font-size:16px;touch-action:manipulation}
+:where(button,a,input,textarea,select):focus-visible{outline:3px solid var(--assessment-accent)!important;outline-offset:3px}
+:where(button,[role="button"]){min-height:44px}
+:where(input:not([type="radio"]):not([type="checkbox"]),select,textarea){min-height:44px}
+:where(textarea){line-height:1.65;resize:vertical}
+:where(.panel,.notice,.intro-stat,.question,.question-card,.summary-card,.result-card){border-radius:18px}
+:where(.wrap){max-width:1180px}
+:where(h1,h2,h3){letter-spacing:-.035em;word-break:keep-all}
+:where(p,li){line-height:1.7}
+:where(.options){gap:8px}
+:where(.options label){min-height:44px;display:flex;align-items:center}
+@media(max-width:700px){
+ body{font-size:16px}
+ .wrap{width:calc(100% - 24px)}
+ :where(h1){font-size:clamp(26px,7vw,34px)}
+ :where(h2){font-size:clamp(21px,5.5vw,28px)}
+ :where(.options){max-width:100%}
+ :where(.notice,.intro-stat){padding:16px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media print{body{background:#fff} :where(.panel,.question,.question-card,.result-card){box-shadow:none!important;break-inside:avoid}}
