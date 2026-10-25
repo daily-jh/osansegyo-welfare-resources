@@ -13,13 +13,16 @@
  function read(){const followups={};for(const i of ids){const el=$('follow-'+i);if(el&&el.value!=='unknown')followups[String(i)]=el.value;}
   return {answers:Array.from({length:25},(_,i)=>{const v=$('q'+(i+1)).value;return v==='unknown'?'unknown':Number(v)}),caseContext:$('narrative').value,explicit:$('explicit').value?[$('explicit').value]:[],followups};}
  const redactFormat=/(?:\b\d{6}[- ]?[1-8]\d{6}\b|(?:01[016789])[- ]?\d{3,4}[- ]?\d{4}|[\w.%+-]+@[\w.-]+\.[A-Za-z]{2,})/;
+ function bubble(kind,value){const el=document.createElement('div');el.className='v32-message '+kind;el.textContent=value;$('v32-chat').append(el);el.scrollIntoView({block:'nearest'});}
+ function resetChat(){const chat=$('v32-chat');chat.replaceChildren();bubble('assistant','새 연구 회차입니다. 질문을 입력하면 현재 평가의 근거를 확인합니다.');}
  function execute(){const runId=++seq;try{const question=$('v32-question').value.trim();const input=read();if(redactFormat.test(question+' '+input.caseContext))throw Error('식별정보 형식 발견: 공개 시연 입력 불가');
   const result=E.run(input,question,{engine:B,criteria:window.YouthCriteria,kb,playbook,pairModel:pair,role:$('role').value,state:thread,route});if(runId!==seq)return;
-  thread=result.dialogueState;latest=result;$('v32-answer').textContent=result.answer;$('v32-evidence').textContent=JSON.stringify({review:result.review,source:result.sourceStatus,gates:result.gates,issues:result.issues,actions:result.actions.map(a=>({id:a.id,evidenceIds:a.evidenceIds,status:a.status,confirmedOwner:a.confirmedOwner,goalAgreed:a.goalAgreed})),playbookIds:result.usedPlaybookIds},null,2);
+  thread=result.dialogueState;latest=result;bubble('user',question||'현재 사례의 근거를 분석해줘');bubble('assistant',result.answer);$('v32-answer').textContent=result.answer;$('v32-evidence').textContent=JSON.stringify({review:result.review,source:result.sourceStatus,gates:result.gates,issues:result.issues,actions:result.actions.map(a=>({id:a.id,evidenceIds:a.evidenceIds,status:a.status,confirmedOwner:a.confirmedOwner,goalAgreed:a.goalAgreed})),playbookIds:result.usedPlaybookIds},null,2);
   $('v32-print').disabled=$('v32-copy').disabled=$('v32-export').disabled=false;info('분석 완료 · 임상·실무 승인 전 초안 · 대화 맥락은 현재 평가 회차에만 유지');
  }catch(e){latest=null;thread=null;$('v32-export').disabled=$('v32-copy').disabled=$('v32-print').disabled=true;$('v32-evidence').textContent='';$('v32-answer').textContent='분석 중단: '+e.message;info('자료 확인 필요');}}
  $('v32-run').onclick=execute;
- $('v32-reset').onclick=()=>{$('v32-question').value='';invalidate();};
+ $('v32-reset').onclick=()=>{$('v32-question').value='';invalidate();resetChat();};
+ $('v32-question').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.isComposing){e.preventDefault();execute();}});
  $('v32-question').addEventListener('input',()=>{seq++;latest=null;$('v32-export').disabled=$('v32-copy').disabled=$('v32-print').disabled=true;info('새 질문 입력 · 분석 실행 필요');});
  $('v32-copy').onclick=async()=>{if(!latest)return;try{await navigator.clipboard.writeText(latest.answer);info('분석 결과 복사 · 외부 공유 전 개인정보 확인');}catch{info('클립보드 사용 불가');}};
  $('v32-print').onclick=()=>{if(!latest)return;document.body.classList.add('printing-v32');window.print();};
@@ -43,7 +46,7 @@
    $('narrative').value='';
    $('v32-question').value='이 평가의 근거를 검토하고 안전 확인, 추가 면담 질문, 지원계획 우선순위를 제안해줘';
    $('intent').value='plan';
-   invalidate();
+   invalidate();resetChat();
    info('평가 25문항을 가져왔습니다. 서술과 개인정보는 가져오지 않았습니다. 아래에서 「근거 확인·응답 생성」을 눌러주세요.');
    $('v32-run').scrollIntoView({behavior:'smooth',block:'center'});
   });
