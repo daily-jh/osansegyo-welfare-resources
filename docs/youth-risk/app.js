@@ -149,11 +149,11 @@ function domainAnswers(i){var offset=domains.slice(0,i).reduce(function(n,d){ret
 var $=function(id){return document.getElementById(id)};
 var clean=function(t){return String(t==null?"":t).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})};
 function makeQuestions(){
-var section=$("questions"), html="", idx=0;
+var section=$("questions"), html='<p class="scale-scoring-note">척도 해석 안내: 0점은 이번 응답에서 해당 어려움이 보고되지 않았다는 뜻입니다. 1~4점은 실무자의 응답 수준이며, 임상적으로 검증된 위험확률은 아닙니다. 모르면 미상을 선택하세요. 유사 문항은 각각의 직접 근거를 구분해 응답합니다.</p>', idx=0;
 domains.forEach(function(d,di){
 html+='<section class="domain-card" id="domain'+di+'" aria-labelledby="dt'+di+'"><div class="domain-header"><span class="domain-index">'+(di+1)+'</span><span class="domain-title" id="dt'+di+'">'+clean(d.name)+'</span><span class="domain-count" id="dc'+di+'">0/'+d.items.length+'문항 · 0/'+(d.items.length*4)+'점</span></div>';
 d.items.forEach(function(q, itemIndex){
-html+='<div class="question" id="qi'+idx+'" data-answer-state="pending"><div class="question-heading"><div class="question-text" id="qt'+idx+'"><span class="question-number">'+String(idx+1).padStart(2,"0")+'</span>'+clean(q)+'</div><span class="answer-state" id="qs'+idx+'">미응답</span></div><details class="question-help"><summary>판단 도움말</summary><p class="item-hint" id="qh'+idx+'">'+clean(d.hints[itemIndex])+'</p></details><div class="options" role="radiogroup" aria-labelledby="qt'+idx+'" aria-describedby="qs'+idx+'">';
+var spec=window.YouthScaleV821?.META[idx];html+='<div class="question" id="qi'+idx+'" data-answer-state="pending"><div class="question-heading"><div class="question-text" id="qt'+idx+'"><span class="question-number">'+String(idx+1).padStart(2,"0")+'</span>'+clean(q)+'</div><span class="answer-state" id="qs'+idx+'">미응답</span></div><details class="question-help"><summary>판단 도움말 · 구분할 개념</summary><p class="item-hint" id="qh'+idx+'">'+clean(d.hints[itemIndex])+'</p>'+(spec?'<p class="item-hint"><strong>평가 초점:</strong> '+clean(spec.indicator)+'</p><p class="item-hint"><strong>혼동 주의:</strong> '+clean(spec.boundary)+'</p><p class="item-hint"><strong>확인 질문:</strong> '+clean(spec.question)+'</p>':'')+'</details><div class="options" role="radiogroup" aria-labelledby="qt'+idx+'" aria-describedby="qs'+idx+'">';
 for(var v=0;v<=4;v++)html+='<label class="score-choice" title="'+v+'점"><input type="radio" name="q'+idx+'" value="'+v+'" aria-label="'+v+'점"><span>'+v+'</span></label>';
 html+='<label class="score-choice unknown-choice"><input type="radio" name="q'+idx+'" value="unknown" aria-label="미상 · 아직 확인하지 못함"><span>미상</span></label></div></div>';idx++;
 });html+='</section>';
