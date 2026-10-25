@@ -29,6 +29,7 @@ async function scenario(browser,width){
  assert.ok((await page.locator('#journey88').innerText()).includes('단기 목표'));
  await page.locator('#journey88 [data-j88-tab="사례사정"]').click();
  assert.ok(await page.locator('#j88-relations').count(),'relation editor is present');
+ await page.locator('#j88-relations details > summary').click();
  await page.locator('#j88-rel-editor [data-add-relation]').click();
  await page.locator('#j88-rel-editor [data-relation="label"]').first().fill('가상 보호자');
  assert.ok(await page.locator('#j88-rel-svg svg').count(),'manual family ecosystem entry generates SVG');
