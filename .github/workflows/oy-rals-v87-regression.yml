@@ -39,6 +39,8 @@ jobs:
 
       - name: OY-CIE V3.2 CORE and dialogue regression
         run: node tests/cie-v32-regression.cjs
+      - name: OY-CIE V3.2 in-flow read-only integration contract
+        run: node tests/cie-flow-v32-contract.cjs
 
       - name: Interpretation semantics and PDF privacy
         run: node tests/youth-interpretation-regression.cjs
