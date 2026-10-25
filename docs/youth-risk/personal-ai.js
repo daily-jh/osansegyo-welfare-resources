@@ -50,10 +50,10 @@ $('personalAiResponse').addEventListener('input',refresh);
 $('personalAiPreview').addEventListener('click',()=>{
   if(!assessment){status.textContent='25문항 평가 완료 후 3단계에서 분석자료를 확인할 수 있습니다.';return}
   try{
-    packet=YouthPersonalAI.create(assessment,role,area.value,YouthCriteria);
+    const rawPacket=YouthPersonalAI.create(assessment,role,area.value,YouthCriteria);const check=window.OYPrivacyGuardV87?.inspect(rawPacket);packet=check?check.redacted:rawPacket;
     preview.value=packet;lastPrepared=packet;dirty=false;
     $('personalAiDetails').open=true;
-    status.textContent='25문항 평가 결과와 학생 추가 기록을 합쳤습니다. 내용을 확인하고 식별정보를 제외한 뒤 아래 항목을 체크해 주세요.';
+    status.textContent='V8.7 직접식별정보 자동 가림 적용 · 아직 비식별 완료를 의미하지 않습니다. 가족·기관·장소와 희귀 사건을 직접 재검토한 뒤 확인란을 체크하세요.';
     refresh();preview.focus();
   }catch(err){status.textContent=err.message;packet='';lastPrepared='';refresh()}
 });
