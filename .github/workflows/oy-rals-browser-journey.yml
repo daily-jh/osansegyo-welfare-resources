@@ -1,0 +1,43 @@
+name: OY-RALS real browser journey regression
+on:
+  pull_request:
+    paths:
+      - 'docs/youth-risk/**'
+      - 'tests/youth-ui-browser-regression.cjs'
+      - '.github/workflows/oy-rals-browser-journey.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/youth-risk/**'
+      - 'tests/youth-ui-browser-regression.cjs'
+      - '.github/workflows/oy-rals-browser-journey.yml'
+permissions:
+  contents: read
+jobs:
+  browser-journey:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser runner
+        run: |
+          npm install --no-save --no-audit --no-fund playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Start static GitHub Pages mirror
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 --directory docs > /tmp/oy-rals-http.log 2>&1 &
+          sleep 2
+          curl -fsS http://127.0.0.1:8765/youth-risk/ >/dev/null
+      - name: Verify case assessment, plan, map, PDF print on desktop and mobile
+        run: node tests/youth-ui-browser-regression.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: synthetic-oy-rals-browser-screenshots
+          path: artifacts/youth-stage-browser/
+          if-no-files-found: ignore
+          retention-days: 7
