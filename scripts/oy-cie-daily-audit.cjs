@@ -10,7 +10,7 @@ const today=arg('--date')||new Date().toISOString().slice(0,10),prevPath=arg('--
 if(!/^20\d{2}-\d{2}-\d{2}$/.test(today))throw Error('Invalid date');
 const hash=x=>crypto.createHash('sha256').update(JSON.stringify(x)).digest('hex').slice(0,20);
 let seed=parseInt(hash('OY-CIE:'+today).slice(0,8),16),rand=()=>{seed^=seed<<13;seed^=seed>>>17;seed^=seed<<5;return(seed>>>0)/4294967296},pick=n=>Math.floor(rand()*n);
-const labels=['zero','safety_unknown','core_safety','followup_pending','score_positive','text_selfharm','negated_selfharm','historical_selfharm','third_person','narrative_food','contradictory_food','peer_attendance','care_basic','long_tail_safety','followup_question','random_domains'];
+const labels=['zero','safety_unknown','core_safety','followup_pending','score_positive','text_selfharm','negated_selfharm','historical_selfharm','third_person','narrative_food','contradictory_food','peer_attendance','care_basic','long_tail_safety','followup_question','random_domains','mental_narrative','health_narrative','access_narrative','care_narrative','relation_narrative','digital_narrative'];
 const notes=['','학생이 최근 자해를 생각한다고 말했다.','학생은 자해하지 않는다고 말했다.','지난해 학생이 자해했으나 지금은 그런 생각이 없다고 말했다.','보호자가 자해했고 학생은 자해하지 않았다고 말했다.','학생은 최근 결식하고 있다고 말했다.','최근 결식은 없다고 말했다.','학생이 친구들에게 괴롭힘을 당해 결석이 늘었다고 말했다.','동생을 돌보느라 식사를 거른다고 말했다.','학교에서 자해 예방교육을 실시했다.','학생은 불안하고 등교가 어렵다고 말했다.','생활비 문제로 필요한 치료를 받기 어렵다는 말이 있었다.'];
 const questions=['사례사정','안전 확인','서비스계획','지원연계 기관','면담 질문','근거 검증','강점 희망','그럼 더 구체적으로?'];
 function fixture(g,i){
@@ -32,6 +32,12 @@ function fixture(g,i){
  if(g==='long_tail_safety')n=(notes[10]+' ').repeat(110)+notes[1];
  if(g==='followup_question'){a[9]=2;n=notes[10];}
  if(g==='random_domains')n=notes[i%notes.length];
+ if(g==='mental_narrative')n='학생이 불안과 불면으로 일상생활이 어렵다고 말했다.';
+ if(g==='health_narrative')n='학생이 통증 때문에 진료를 받기 어렵다고 말했다.';
+ if(g==='access_narrative')n='학생이 수업 조정을 요청했다고 말했다.';
+ if(g==='care_narrative')n='학생이 동생을 돌보느라 쉬지 못한다고 말했다.';
+ if(g==='relation_narrative')n='학생이 사회적 고립으로 외롭다고 말했다.';
+ if(g==='digital_narrative')n='학생이 온라인 협박을 받고 있다고 말했다.';
  if(g==='random_domains'&&i%19===0)explicit=['현장 별도 안전확인 필요'];
  if(g==='followup_pending'&&i%13===0)followups[4]='unknown';
  return {answers:a,caseContext:n,followups,explicit};
@@ -51,7 +57,7 @@ if(idx.count!==5550||routeKeys.size>5550)throw Error('Routing catalog invalid');
 const stats={date:today,timezone:'Asia/Seoul',categoryCount:Object.fromEntries(labels.map(l=>[l,0])),requested:1024,executed:0,exceptions:0,coreMismatch:0,safetyMismatch:0,unknownMismatch:0,mandatorySafetyMissing:0,brokenEvidenceRefs:0,unwantedServiceApproval:0,privacyLeak:0,technicalOnly:true,expertRatings:0,corpusCount:corpus.loaded,pairCount:P.entries.length,templateCount:pb.recordCount,routeCount:idx.count};
 const faults=[];
 for(let k=0;k<1024;k++){
- const type=labels[Math.floor(k/64)],p=fixture(type,k);stats.categoryCount[type]++;
+ const type=labels[k%labels.length],p=fixture(type,k);stats.categoryCount[type]++;
  try{
   const official=C.evaluate(p.answers,B.GROUPS,p.explicit.length>0,p.followups);
   const res=D.run(p,questions[(k+pick(questions.length))%questions.length],{engine:B,criteria:C,kb,playbook:pb,route:idx,pairModel:P,role:['teacher','social-worker','education-welfare'][k%3]});
@@ -82,6 +88,6 @@ write('dedupe-review.json',{status:'review_only_do_not_modify_origins',publicRes
 write('canonical-index.json',{schema:'oy-cie.public-canonical-index.v1',reviewOnly:true,originalSourcesUnmodified:true,responseEntryIds:itemDedupe.canonicalIds,playbookEntryIds:templateDedupe.canonicalIds,crossHypothesisEntryIds:pairDedupe.canonicalIds,uniqueRoutingKeys:[...routeKeys]});
 write('patch-proposals.json',{status:'requires_human_approval',proposals:[...new Set(faults.map(x=>x.code))].map(code=>({code,fixTarget:code.includes('core')?'CORE_IMMUTABLE':'CIE_NONCORE_REVIEW',steps:['reproduce','propose_draft_patch','independent_tests','expert_review','reviewed_PR'],autoDeploy:false}))});
 write('runs/'+today+'.json',{stats,uniqueFailureKeysToday:[...new Set(faults.map(x=>x.key))]});
-const md='# OY-CIE daily audit · '+today+'\n\n- UTC 00:00 / Asia/Seoul 09:00 (GitHub scheduler may delay)\n- Synthetic cases: '+stats.executed+'/1024 in 16 categories\n- Exceptions / CORE / safety / unknown / mandatory safety / evidence / privacy: '+['exceptions','coreMismatch','safetyMismatch','unknownMismatch','mandatorySafetyMissing','brokenEvidenceRefs','privacyLeak'].map(x=>stats[x]).join(' / ')+'\n- Identical-source-scope DB duplicate candidates: '+[itemDedupe.duplicates,templateDedupe.duplicates,pairDedupe.duplicates,idx.rows.length-routeKeys.size].join(' / ')+'\n- Cumulative unique incident classes: '+unique.length+'\n- Verdict: '+stats.verdict+'\n- Fixed official CORE, no identifiable student records; no automatic main-branch patch. Duplicate source candidates require human review.\n';
+const md='# OY-CIE daily audit · '+today+'\n\n- UTC 00:00 / Asia/Seoul 09:00 (GitHub scheduler may delay)\n- Synthetic cases: '+stats.executed+'/1024 in '+labels.length+' categories\n- Exceptions / CORE / safety / unknown / mandatory safety / evidence / privacy: '+['exceptions','coreMismatch','safetyMismatch','unknownMismatch','mandatorySafetyMissing','brokenEvidenceRefs','privacyLeak'].map(x=>stats[x]).join(' / ')+'\n- Identical-source-scope DB duplicate candidates: '+[itemDedupe.duplicates,templateDedupe.duplicates,pairDedupe.duplicates,idx.rows.length-routeKeys.size].join(' / ')+'\n- Cumulative unique incident classes: '+unique.length+'\n- Verdict: '+stats.verdict+'\n- Fixed official CORE, no identifiable student records; no automatic main-branch patch. Duplicate source candidates require human review.\n';
 fs.writeFileSync(path.join(out,'summary.md'),md);console.log(md);
 if(blocker)process.exitCode=1;
