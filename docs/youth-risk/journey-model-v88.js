@@ -2,7 +2,7 @@
 (function(root){'use strict';
 const node=typeof module!=='undefined'&&module.exports;
 const M=node?require('./support-model.js'):root.YouthMap,C=node?require('./case-context-core.js'):root.YouthCaseContextCore,W=node?require('./weight-model.js'):root.YouthWeightModel,E=node?require('./case-context-v81.js'):root.YouthContextV81,S=node?require('./cie-semantic-layer-v2.js'):root.OYCIESemanticV2;
-const VERSION='8.9.0-semantic-integrated';
+const VERSION='8.9.2-evidence-reasoning';
 const tasks=[
  ['현재 보호 상황 확인','현재 위치·위해·안전한 연락 상대를 확인하고 사안별 보호절차를 검토합니다.','추가 위해와 보호 공백 여부'],
  ['또래관계의 안전 확인','상호 갈등·피해·위협을 구분하고 학교 담당과 안전한 접촉·생활 조정을 정합니다.','학생이 느끼는 안전과 피해 반복 여부'],
@@ -16,7 +16,7 @@ const tasks=[
  ['온라인 안전·생활 조정','피해·협박과 이용조절 어려움을 구분하고 피해가 보고되면 보호를 우선합니다.','피해 접촉 반복 여부와 일상 기능의 변화']];
 function analyze(p){
  if(!M.validate(p))throw Error('완료된 25문항 평가자료가 필요합니다.');
- const decision=M.context(p),domains=M.domains(p),context=C.reconcile(p.answers,p.caseContext||''),ecosystem=E.parse(p),semantic=S&&S.formulate?S.formulate(p.answers):null;
+ const decision=M.context(p),domains=M.domains(p),context=C.reconcile(p.answers,p.caseContext||''),ecosystem=E.parse(p),semantic=S&&S.formulate?S.formulate(p.answers):null,evidence=S&&S.evidenceAssessment?S.evidenceAssessment(p.answers):null;
  const active=ecosystem.institutions.filter(x=>x.status==='이용·개입 언급');
  const extra=new Set(context.signals.filter(s=>['reported','unverified'].includes(s.polarity)&&s.timeHint!=='historical-mention').flatMap(s=>domains.filter(d=>d.numbers.some(n=>s.items.includes(n))).map(d=>d.i)));
  const ordered=M.rank(domains).filter(d=>d.sum||d.unknown||extra.has(d.i));
@@ -76,7 +76,7 @@ function analyze(p){
  {title:'종합사정 및 우선순위',text:cieSummary+' 우선 실행과제: '+(plans.slice(0,5).map(x=>'['+x.id+'] '+x.title+' — '+x.action).join(' / ')||'학생 희망과 필요한 예방·경과 확인을 면담에서 협의합니다.')},
  {title:'근거·미확인·확인 계획',text:[decision.unknownItems.length?'미상: '+decision.unknownItems.join('·')+'번은 0점으로 취급하지 않고 확인 전으로 유지':'',context.mismatches.map(x=>x.items.join('·')+'번: '+x.issue).join(' / '),'문항 근거의 실제 장면·기간·정보원, 학생 희망, 담당·확인일·정보공유 근거를 면담에서 기록해야 합니다.'].filter(Boolean).join(' / ')}
  ];
- return {version:VERSION,decision,domains,context,ecosystem,active,semantic,cieActions,plans,primaryPlans:plans.slice(0,5),ledger,sections,high:p.answers.flatMap((v,i)=>Number.isInteger(v)&&v>=3?[{item:i+1,score:v}]:[]),pairs:W.PAIRS.filter(x=>p.answers[x.item-1]>0&&p.answers[x.other-1]>0),weights:W.audit(p.answers),questions:['지금 가장 먼저 도움받고 싶은 일은 무엇인가요?','그 일이 언제, 어떤 상황에서 가장 어렵게 느껴지나요?','이미 도움을 주는 사람이나 기관이 있나요? 어떤 도움이 더 필요할까요?']};
+ return {version:VERSION,decision,domains,context,ecosystem,active,semantic,evidence,cieActions,plans,primaryPlans:plans.slice(0,5),ledger,sections,high:p.answers.flatMap((v,i)=>Number.isInteger(v)&&v>=3?[{item:i+1,score:v}]:[]),pairs:W.PAIRS.filter(x=>p.answers[x.item-1]>0&&p.answers[x.other-1]>0),weights:W.audit(p.answers),questions:['지금 가장 먼저 도움받고 싶은 일은 무엇인가요?','그 일이 언제, 어떤 상황에서 가장 어렵게 느껴지나요?','이미 도움을 주는 사람이나 기관이 있나요? 어떤 도움이 더 필요할까요?']};
 }
 function text(p,page,includeContext=false){
  const full=analyze(p),a=includeContext?full:analyze({...p,caseContext:''});
