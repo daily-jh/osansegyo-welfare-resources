@@ -21,7 +21,7 @@ function html(x){
   '<div><dt>사회복지사·지역의 역할</dt><dd>'+esc(r.worker)+'</dd></div>'+
   '<div><dt>개입 후 확인할 것</dt><dd>'+esc(r.measure)+'</dd></div></dl></article>';
  const lead=x.lead||[],others=x.others||[];
- parts.push(section('판정에 따른 우선 개입계획',lead.length?lead.map(item).join(''):'<p>확정할 지원과제가 없습니다. 학생의 생활과 원하는 도움을 먼저 확인합니다.</p>'+
+ parts.push(section('판정에 따른 우선 개입계획',(lead.length?lead.map(item).join(''):'<p>확정할 지원과제가 없습니다. 학생의 생활과 원하는 도움을 먼저 확인합니다.</p>')+
   (others.length?'<details><summary>함께 확인할 나머지 과제 '+others.length+'개</summary>'+others.map((r,i)=>item(r,i+lead.length)).join('')+'</details>':'')));
  parts.push('<details class="formulation-section"><summary>판정 근거·서술 인식·문항 불일치 확인 ('+evidence.length+'개)</summary>'+
    '<p>입력한 문장의 긍정·부정·가정·미확인 인식은 자동 판별입니다. 실제 사실확정과 안전조치는 담당자가 직접 수행합니다.</p>'+
