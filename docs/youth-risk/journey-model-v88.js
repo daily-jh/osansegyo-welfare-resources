@@ -19,7 +19,9 @@ function analyze(p){
  const decision=M.context(p),domains=M.domains(p),context=C.reconcile(p.answers,p.caseContext||''),ecosystem=E.parse(p),semantic=S&&S.formulate?S.formulate(p.answers):null,evidence=S&&S.evidenceAssessment?S.evidenceAssessment(p.answers):null;
  const active=ecosystem.institutions.filter(x=>x.status==='이용·개입 언급');
  const extra=new Set(context.signals.filter(s=>['reported','unverified'].includes(s.polarity)&&s.timeHint!=='historical-mention').flatMap(s=>domains.filter(d=>d.numbers.some(n=>s.items.includes(n))).map(d=>d.i)));
- const ordered=M.rank(domains).filter(d=>d.sum||d.unknown||extra.has(d.i));
+ const pendingDomains=domains.filter(d=>!d.sum&&d.unknown&&!extra.has(d.i)).map(d=>({domain:d.i,name:d.name,unknownItems:d.numbers.filter(n=>p.answers[n-1]==='unknown')}));
+  // Unknown-only domains are verification tasks, never automatic service plans.
+  const ordered=M.rank(domains).filter(d=>d.sum>0||extra.has(d.i));
  let plans=ordered.map(d=>({domain:d.i,title:tasks[d.i][0],evidence:d.numbers.filter(n=>p.answers[n-1]>0).map(n=>n+'번 '+p.answers[n-1]+'점'),narrativeOnly:!d.sum&&extra.has(d.i),action:tasks[d.i][1],outcome:tasks[d.i][2],when:d.safety||d.critical?'현재 안전·필수생활부터 확인':'첫 면담에서 확인 · 실행일 협의',candidates:M.groupedCandidates(p,d).slice(0,3).map(g=>({name:g.name,service:g.primary['서비스명'],condition:M.describe(p,d,g.primary).condition,url:g.primary['홈페이지']||''}))}));
  plans=plans.map(plan=>{
  const selected=domains[plan.domain].numbers.filter(n=>typeof p.answers[n-1]==='number'&&p.answers[n-1]>0).sort((a,b)=>p.answers[b-1]-p.answers[a-1]||a-b);
@@ -86,7 +88,7 @@ const specific={19:['食','필수생활 공백 확인','오늘 식사·옷·위�
  {title:'종합사정 및 우선순위',text:cieSummary+' 우선 실행과제: '+(plans.slice(0,5).map(x=>'['+x.id+'] '+x.title+' — '+x.action).join(' / ')||'학생 희망과 필요한 예방·경과 확인을 면담에서 협의합니다.')},
  {title:'근거·미확인·확인 계획',text:[decision.unknownItems.length?'미상: '+decision.unknownItems.join('·')+'번은 0점으로 취급하지 않고 확인 전으로 유지':'',context.mismatches.map(x=>x.items.join('·')+'번: '+x.issue).join(' / '),'문항 근거의 실제 장면·기간·정보원, 학생 희망, 담당·확인일·정보공유 근거를 면담에서 기록해야 합니다.'].filter(Boolean).join(' / ')}
  ];
- return {version:VERSION,decision,domains,context,ecosystem,active,semantic,evidence,cieActions,plans,primaryPlans:plans.slice(0,5),ledger,sections,high:p.answers.flatMap((v,i)=>Number.isInteger(v)&&v>=3?[{item:i+1,score:v}]:[]),pairs:W.PAIRS.filter(x=>p.answers[x.item-1]>0&&p.answers[x.other-1]>0),weights:W.audit(p.answers),questions:['지금 가장 먼저 도움받고 싶은 일은 무엇인가요?','그 일이 언제, 어떤 상황에서 가장 어렵게 느껴지나요?','이미 도움을 주는 사람이나 기관이 있나요? 어떤 도움이 더 필요할까요?']};
+ return {version:VERSION,decision,domains,pendingDomains,context,ecosystem,active,semantic,evidence,cieActions,plans,primaryPlans:plans.slice(0,5),ledger,sections,high:p.answers.flatMap((v,i)=>Number.isInteger(v)&&v>=3?[{item:i+1,score:v}]:[]),pairs:W.PAIRS.filter(x=>p.answers[x.item-1]>0&&p.answers[x.other-1]>0),weights:W.audit(p.answers),questions:['지금 가장 먼저 도움받고 싶은 일은 무엇인가요?','그 일이 언제, 어떤 상황에서 가장 어렵게 느껴지나요?','이미 도움을 주는 사람이나 기관이 있나요? 어떤 도움이 더 필요할까요?']};
 }
 function text(p,page,includeContext=false){
  const full=analyze(p),a=includeContext?full:analyze({...p,caseContext:''});
