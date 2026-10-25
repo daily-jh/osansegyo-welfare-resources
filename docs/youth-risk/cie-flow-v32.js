@@ -3,9 +3,9 @@
 (()=>{'use strict';
 const anchor=document.getElementById('journey88');if(!anchor||document.getElementById('cie-flow-v32'))return;
 const p=document.createElement('section');p.id='cie-flow-v32';p.className='cie-flow-v32';p.hidden=true;
-p.setAttribute('aria-label','OY-CIE V3.2 연구형 심층해석');
+p.setAttribute('aria-label','OY-CIE V3.3.1 연구형 심층해석');
 p.innerHTML=[
-'<header><div><small>OY-CIE V3.2 · 원래 흐름 속 보조 해석</small><h3>근거 기반 추가 질문·확인과제</h3><p>V8.9.3 기존 해석을 보완하는 선택 기능 · 공식 CORE 결과는 그대로 유지합니다.</p></div><a href="cie-lab-v32/" target="_blank" rel="noopener noreferrer">연구작업실 ↗</a></header>',
+'<header><div><small>OY-CIE V3.3.1 · 기존 평가 흐름 속 보조 해석</small><h3>근거 기반 추가 질문·확인과제</h3><p>V8.9.3 기존 해석을 보완하는 선택 기능 · 공식 CORE 결과는 그대로 유지합니다.</p></div><a href="cie-lab-v32/" target="_blank" rel="noopener noreferrer">연구작업실 ↗</a></header>',
 '<div class="cie-settings"><label>실무 관점 <select id="cie-flow-role"><option value="teacher">교사</option><option value="education-welfare">교육복지사</option><option value="social-worker" selected>사회복지사</option></select></label><label><input type="checkbox" id="cie-flow-narrative"> 서술형 함께 분석 <small>(선택 · 기기 안에서 처리)</small></label></div>',
 '<label for="cie-flow-question">이 단계에서 확인할 질문</label><div class="cie-query"><input id="cie-flow-question" maxlength="500"><button id="cie-flow-run" type="button">다시 분석</button></div>',
 '<p class="cie-flow-status" id="cie-flow-status" role="status">평가 완료 후 분석합니다.</p><div class="cie-flow-result" id="cie-flow-result">분석 대기</div>',
