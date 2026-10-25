@@ -7,6 +7,8 @@ on:
   schedule:
     # Monthly 09:00 KST (UTC 00:00); GitHub may delay scheduled runs.
     - cron: '0 0 1 * *'
+    # Weekly Monday 09:00 KST (UTC 00:00): link/source checks, not live-availability guarantees
+    - cron: '0 0 * * 1'
 permissions:
   contents: read
 jobs:
