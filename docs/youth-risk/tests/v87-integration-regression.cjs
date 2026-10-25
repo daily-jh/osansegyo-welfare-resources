@@ -54,5 +54,5 @@ assert.match(read('flow.js'),/window\.confirm\(message\)/);
 assert.match(read('personal-ai.js'),/OYPrivacyGuardV87/);
 assert.match(read('local-ai.js'),/OYPrivacyGuardV87/);
 assert.match(read('app.js'),/OYPrivacyGuardV87/);
-assert.match(read('index.html'),/지원연계 중심 V8\.8/);
+assert.match(read('index.html'),/지원연계·사례관리 통합 · CORE 25문항 유지/);
 console.log('PASS V8.7: '+total+' synthetic regression cases; CORE unchanged, safe unknown, ≤5 primary goals, all original goals preserved, privacy and page wiring');

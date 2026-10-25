@@ -16,11 +16,12 @@ const answers=Array(25).fill(0);answers[0]=3;answers[18]=3;answers[19]='unknown'
 const p=sample(answers,'친부와 따로 거주하는 상황. 현재 외할머니 집에서 친모와 함께 지낸다고 입력됨.');
 const frozen=JSON.stringify(p);
 const a=J.analyze(p);
-assert.equal(J.VERSION,'8.8.1');
+assert.match(J.VERSION,/^\d+\.\d+\.\d+/,'model version must follow semantic version prefix');
 assert.equal(JSON.stringify(p),frozen,'analysis must not mutate input');
 assert.deepEqual(a.decision,C.evaluate(answers,sizes,false,{}),'CORE truth source');
 assert.ok(a.plans.some(x=>x.id==='P-Q19'&&x.evidence[0].includes('3점')));
-assert.ok(a.plans.some(x=>x.id==='P-Q20'&&x.evidence[0].includes('미상')),'Unknown need preserved as review task');
+assert.ok(!a.plans.some(x=>x.id==='P-Q20'),'Unknown-only need must not create a service plan');
+assert.ok(a.decision.unknownItems.includes(20),'Unknown remains on separate verification list');
 assert.ok(!a.plans.some(x=>x.domain===3),'Zero-score domain must not become an unsupported task');
 assert.ok(['어머니','아버지','할머니'].every(name=>a.ecosystem.family.some(f=>f.label===name)));
 assert.ok(!a.ecosystem.family.find(f=>f.label==='아버지').status.startsWith('동거'));
@@ -46,7 +47,7 @@ const redacted=exportFiles(p,{includeContext:false,journeySnapshot:{drafts:{secr
 assert.ok(!redacted.some(f=>['case-context.txt','11-v88-authored-fields.json','12-v88-family-support-diagram.html'].includes(f.name)));
 const included=exportFiles(p,{includeContext:true,journeySnapshot:{drafts:{note:'가상 실무 의견'},draftLabels:{note:'지원 확인'},relations:R.seed(a)}});
 for(const name of ['01-summary.html','02-review.txt','03-service-plan.html','04-case-conference.html','11-v88-authored-fields.json','12-v88-family-support-diagram.html'])assert.ok(included.some(f=>f.name===name),name);
-assert.ok(included.find(f=>f.name==='02-review.txt').content.startsWith('OY-RALS V8.8.1'));
+assert.ok(included.find(f=>f.name==='02-review.txt').content.startsWith('OY-RALS V'+J.VERSION));
 assert.ok(included.find(f=>f.name==='03-service-plan.html').content.includes('서비스계획'));
 assert.ok(included.find(f=>f.name==='04-case-conference.html').content.includes('사례협의'));
 assert.ok(included.filter(f=>/^0[1234]-/.test(f.name)).every(f=>!f.content.includes('[LEGACY RESULT]')));
