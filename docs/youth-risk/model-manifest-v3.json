@@ -101,6 +101,25 @@
         "runtimeLoaded": true,
         "notClinicalEvidence": true
       }
+    },
+    "scaleInterpretationV821": {
+      "file": "scale-interpretation-v821.js",
+      "version": "8.2.1",
+      "itemCount": 25,
+      "domainCount": 10,
+      "rawMaximum": 100,
+      "officialScoreChanged": false,
+      "officialSafetyGateChanged": false,
+      "semantics": "item-specific constructs, pairwise differential interpretation, observed and unknown separation, domain-specific score-only followups",
+      "integration": [
+        "case-formulation-v72.js",
+        "case-evidence-v82.js",
+        "case-examples.html",
+        "workbench.html",
+        "assessment.html"
+      ],
+      "validation": "synthetic and regression only; no psychometric validity",
+      "clinicalRiskPrediction": false
     }
   },
   "validation": {
@@ -128,6 +147,15 @@
       "testing": "synthetic 25 base archetypes x 200 variants; not independent human cases",
       "humanValidity": false,
       "limitations": "Regression results do not estimate clinical sensitivity or specificity"
+    },
+    "scaleV821": {
+      "notValidatedOnStudentSamples": true,
+      "notCrossValidated": true,
+      "notReliabilityTested": true,
+      "referenceGuidelines": [
+        "COSMIN manual version 2.0: measurement quality",
+        "NICE NG225: risk scales not for suicide prediction"
+      ]
     }
   },
   "sources": [
