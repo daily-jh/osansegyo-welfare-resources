@@ -30,3 +30,6 @@ jobs:
 
       - name: V8.8.1 absolute principles, core and ZIP consistency
         run: node docs/youth-risk/tests/v88-absolute-principles-regression.cjs
+
+      - name: V3 assessment UI, scroll and report contracts
+        run: node tests/youth-v3-interface-contract.cjs
