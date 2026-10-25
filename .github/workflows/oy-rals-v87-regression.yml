@@ -33,3 +33,6 @@ jobs:
 
       - name: V3 assessment UI, scroll and report contracts
         run: node tests/youth-v3-interface-contract.cjs
+
+      - name: CORE unknown, safety and district routing invariants
+        run: node tests/youth-core-routing-invariants.cjs
