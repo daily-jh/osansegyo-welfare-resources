@@ -346,7 +346,7 @@ clearSummary();
 $("domainJump").innerHTML+=domains.map(function(d,i){return '<option value="'+i+'">'+(i+1)+'. '+clean(d.name)+'</option>'}).join('');
 $("domainJump").addEventListener("change",function(){if(this.value!==""){var target=$("domain"+this.value);target.scrollIntoView({block:"start"});target.querySelector("input").focus({preventScroll:true})}});
 $("findPending").onclick=findPending;
-$("openSupport").onclick=openSupport;$("openWorkbench").onclick=function(){if(!ready)return;var w=window.open('case-examples.html?v=20261023-security1','_blank');if(w)supportWindows.add(w)};$("aiAllowed").onchange=updateCopyGate;$("aiAnonymous").onchange=updateCopyGate;$("safetyFollowups").onchange=updateUrgent;
+$("openSupport").onclick=openSupport;$("openWorkbench").onclick=function(){if(!ready)return;var w=window.open('case-examples.html?v=20261025-analysis83','_blank');if(w)supportWindows.add(w)};$("aiAllowed").onchange=updateCopyGate;$("aiAnonymous").onchange=updateCopyGate;$("safetyFollowups").onchange=updateUrgent;
 $("pendingList").addEventListener("click",function(e){var b=e.target.closest("[data-question]");if(b){var target=$("qi"+b.dataset.question);target.scrollIntoView({block:"center"});target.querySelector("input").focus({preventScroll:true})}});
 $("resourceFilter").onchange=filterResources;
 $("copyAll").addEventListener("click",copyPacket);
