@@ -1,0 +1,22 @@
+/* Apple Design Skill HIG-informed web adaptation, 2026-10-25.
+   Typography, layout, buttons, accessibility; no data or business logic changes. */
+:root{--hig-text:#172c41;--hig-secondary:#506579;--hig-accent:#1769d2;--hig-focus:#1769d2}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif}
+:where(.hero-description,.section-head p,.org-summary,.filter-hint){line-height:1.7;overflow-wrap:break-word}
+:where(.top-nav a,.quick-tag,.region-tabs button,.category-chips button,.primary-cta,.search-box button,.filter-controls select){min-height:44px}
+:where(.search-box input,.filter-controls select){font-size:16px}
+:where(.top-nav a,.primary-cta,.quick-tag,.region-tabs button,.category-chips button,.search-box button,.filter-controls select):focus-visible{outline:3px solid var(--hig-focus)!important;outline-offset:3px}
+:where(.top-nav a,.quick-tag,.region-tabs button,.category-chips button,.search-box button):active{transform:scale(.985)}
+:where(.org-card,.search-panel){min-width:0}
+:where(.org-summary,.org-name,.service-label){overflow-wrap:anywhere}
+@media(max-width:700px){
+ .hero-description,.section-head p:not(.eyebrow){font-size:16px;line-height:1.7}
+ .quick-row{flex-wrap:wrap;gap:10px}
+ .quick-tag,.category-chips button{min-height:44px;font-size:14px}
+ .org-card{padding:20px}
+ .org-summary{font-size:15px}
+ .top-nav{max-width:100%}
+}
+@media(prefers-reduced-motion:reduce){:where(.top-nav a,.primary-cta,.quick-tag,.region-tabs button,.category-chips button,.search-box button){transition:none!important;animation:none!important;transform:none!important}}
+@media print{:where(.top-nav,.search-panel,.quick-row){display:none!important}}
