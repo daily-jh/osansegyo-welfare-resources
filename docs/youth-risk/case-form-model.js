@@ -23,10 +23,10 @@ function build(p,f={}){const x=legacyBuild(p,f),F=typeof module!=='undefined'&&m
    if(/학생.{0,30}(?:원하|희망|바라|요청)/.test(note))auto['Ct가 바라는 도움']='학생 희망이 서술되어 있음 · 실제 표현과 우선순위 면담 확인';
    const byItem={1:0,2:0,3:4,4:9,5:4,6:1,7:0,8:1,9:6,10:6,11:6,12:1,13:1,14:6,15:6,16:2,17:3,18:2,19:5,20:8,21:5,22:4,23:4,24:4,25:0};
    for(let i=0;i<x.needs.length;i++){
-     const goals=cs.ICMS.goals.filter(g=>byItem[Number((g.id.match(/Q(\d+)/)||[])[1])]===i);
+     const goals=cs.ICMS.goals.filter(g=>byItem[g.item]===i);
      x.needs[i].draft=goals.length?{assessment:goals.map(g=>g.goal).join(' '),priority:goals.map(g=>g.id+' · '+g.concept+' / '+g.action).join(' '),strength:auto['강점·활용 자원']||''}:{};
    }
-   return {...x,version:'8.6-shared-case-state',autoDraft:auto,canonicalPriority:cs.ICMS.goals.map(g=>g.id),sourceEvidence:ev.evidence.map(e=>e.id),draftNotice:'V8.6 공동 사정은 입력 서술과 척도 응답 기반의 검토 초안입니다. 실제 면담·동의·제공·회의 결정을 자동으로 확정하지 않습니다.'};
+   return {...x,version:'8.7-shared-case-state',autoDraft:auto,canonicalPriority:cs.ICMS.goals.map(g=>g.id),sourceEvidence:ev.evidence.map(e=>e.id),draftNotice:'V8.6 공동 사정은 입력 서술과 척도 응답 기반의 검토 초안입니다. 실제 면담·동의·제공·회의 결정을 자동으로 확정하지 않습니다.'};
  }
  const a=v.evidence82;if(!a)return x;const join=xs=>[...new Set(xs.map(z=>z.text))].join(' '),auto={};
  auto['가정·가족 및 돌봄']=join(a.facts.filter(z=>a.family.some(k=>k.evidenceId===z.id)||z.topics.includes('care')));
