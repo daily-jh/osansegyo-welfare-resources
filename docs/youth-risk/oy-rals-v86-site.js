@@ -29,12 +29,12 @@ function html(x){
    (evidence.length?'<h4>원문별 근거</h4><ol>'+evidence.slice(0,30).map(v=>'<li>'+esc(v.id+' ['+v.polarity+'] '+(v.excerpt||v.text||''))+'</li>').join('')+'</ol>':'<p>구체적인 서술형 자료 없음</p>')+
    (x.pending?.length?'<h4>실무자에게 남길 확인 질문</h4><ul>'+x.pending.slice(0,20).map(q=>'<li>'+esc(q)+'</li>').join('')+'</ul>':'')+
    '<p><strong>공식 CORE 점수·안전판정은 변경하지 않았습니다.</strong> 보고된 안전 징후는 별도 직접 확인이 필요합니다.</p></details>');
- parts.push('<p class="formulation-section">V8.6 통합사정 초안 · 모든 목표·회의·지원 이행은 담당자의 확인과 학생 의견을 거쳐야 합니다. 실증 타당도가 확립된 진단도구가 아닙니다.</p>');
+ parts.push('<p class="formulation-section">V8.7 통합사정 초안 · 모든 목표·회의·지원 이행은 담당자의 확인과 학생 의견을 거쳐야 합니다. 실증 타당도가 확립된 진단도구가 아닙니다.</p>');
  return parts.join('');
 }
 function text(x){
  if(!x?.canonical86)return '';
- return ['[V8.6 통합사정 · 협의 전]',...(x.sections82||[]).map(s=>s.title+'\n'+s.text),'종합 판단\n'+(x.judgement||'면담에서 확인 필요'),
+ return ['[V8.7 통합사정 · 협의 전]',...(x.sections82||[]).map(s=>s.title+'\n'+s.text),'종합 판단\n'+(x.judgement||'면담에서 확인 필요'),
   '[우선 개입목표]',...(x.rows||[]).map((r,i)=>(i+1)+'. '+r.title+'\n목표: '+r.goal+'\n첫 행동: '+r.action+'\n교사: '+r.teacher+'\n사회복지사: '+r.worker+'\n점검: '+r.measure),
   '[추가 확인]',...(x.pending||[]),'[주의] 실제 면담·안전·동의·서비스 제공 여부는 담당자가 확인합니다.'].join('\n\n');
 }
