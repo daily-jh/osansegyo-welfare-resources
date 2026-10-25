@@ -2,7 +2,7 @@
 (function(root){'use strict';
 const node=typeof module!=='undefined'&&module.exports;
 const M=node?require('./support-model.js'):root.YouthMap,C=node?require('./case-context-core.js'):root.YouthCaseContextCore,W=node?require('./weight-model.js'):root.YouthWeightModel,E=node?require('./case-context-v81.js'):root.YouthContextV81;
-const VERSION='8.8.3';
+const VERSION='8.8.5';
 const tasks=[
  ['현재 보호 상황 확인','현재 위치·위해·안전한 연락 상대를 확인하고 사안별 보호절차를 검토합니다.','추가 위해와 보호 공백 여부'],
  ['또래관계의 안전 확인','상호 갈등·피해·위협을 구분하고 학교 담당과 안전한 접촉·생활 조정을 정합니다.','학생이 느끼는 안전과 피해 반복 여부'],
@@ -74,19 +74,17 @@ function analyze(p){
  ];
  return {version:VERSION,decision,domains,context,ecosystem,active,cieActions,plans,primaryPlans:plans.slice(0,5),ledger,sections,high:p.answers.flatMap((v,i)=>Number.isInteger(v)&&v>=3?[{item:i+1,score:v}]:[]),pairs:W.PAIRS.filter(x=>p.answers[x.item-1]>0&&p.answers[x.other-1]>0),weights:W.audit(p.answers),questions:['지금 가장 먼저 도움받고 싶은 일은 무엇인가요?','그 일이 언제, 어떤 상황에서 가장 어렵게 느껴지나요?','이미 도움을 주는 사람이나 기관이 있나요? 어떤 도움이 더 필요할까요?']};
 }
-function text(p,page,includeContext=false){const full=analyze(p);const a=includeContext?full:analyze({...p,caseContext:''});if(!includeContext)a.sections[6]={...full.sections[6]};
- return ['OY-RALS V'+VERSION+' · '+page+' · 실무자 검토 전 초안',
- a.decision.title,a.decision.incomplete?'확인 합계 '+a.decision.knownTotal+'/'+a.decision.knownMaximum+' · 미상 '+a.decision.unknownItems.length+'개 · 전체 판단 보류':'원점수 '+a.decision.knownTotal+'/100',
- '응답: '+p.answers.map((v,i)=>(i+1)+'번 '+v).join(', '),'안전 추가확인: '+JSON.stringify(p.followups||{}),'별도 안전 체크: '+(p.explicit.join(' / ')||'보고 없음'),
- '개별 3~4점: '+(a.high.map(x=>x.item+'번 '+x.score+'점').join(', ')||'없음'),
- '가중치는 개발 가정 보조지표이며 통계적 상관·위험확률이 아닙니다. 총점과 안전판정을 변경하지 않습니다.',
- ...(page==='사례사정'?a.sections.map(x=>x.title+'\n'+x.text):[]),
- ...a.plans.map(x=>'['+x.id+'] '+x.title+' | 근거 ID: '+[...x.sourceItemIds,...x.sourceTextIds].join(', ')+' | 근거: '+(x.evidence.join(', ')||'미상 또는 서술 확인 필요')+' | 행동: '+x.action+' | 생활 변화: '+x.outcome+' | 기관 후보: '+(x.candidates.map(r=>r.name+' ('+r.service+' · '+r.condition+')').join('; ')||'추가 확인 필요')),
- ...(includeContext?['선택 서술(독립 확인 전): '+(p.caseContext||'없음'),'현재 이용기관 언급: '+(a.active.map(x=>x.label).join(', ')||'확인된 언급 없음'),'서술·척도 확인: '+a.context.mismatches.map(x=>x.items.join(',')+'번 '+x.issue).join(' / ')]:[]),
- '역할: 교사=교내 관찰·교육 조정 / 교육복지사=학교 내외 연계 조율 / 사회복지사=가구 사정·지역지원 조정. 주관기관·공유 근거·동의 범위는 실제 협의 후 확정.',
- '담당·실행일·기준선·목표·점검일: 미확정. 문의·접수·이용을 구분합니다.',
- '지원연계 후보 검토 상태: '+(p.linkageReviewStatus||'미확인 · 실제 접수·이용 확정 아님'),
- ({'결과 해석':'작성 초점: 원점수·미상·개별 높은 응답 → 함께 나타난 생활 어려움 → 서술 대조 → 우선 확인 질문.','지원연계 맵':'작성 초점: 학생의 욕구 → 기존 기관과 역할 조정 → 적합한 기관 후보 → 접수 조건 → 문의·접수·이용 단계 → 미연계 사유·다음 확인일.','사례사정':'작성 초점: 학생 상황 요약 / 보고된 사실 / 잠정 해석 / 학생 희망·강점 / 가족·지지체계 / 미확인 사항 / 종합의견.','사례협의':'작성 초점: 협의 안건 / 기존 지원 / 기관별 제안 / 주관기관 / 공유 근거·동의 범위 / 미결정 사항 / 회신 기한. 미개최 회의를 실제 회의록처럼 작성하지 않음.','서비스계획':'작성 초점: 욕구·근거 / 합의 전 목표 / 실행 내용 / 담당·일정 / 활동 실적 / 생활 변화 성과 / 기준선·목표값 / 점검일.','상담기록·계획조정·점검':'작성 초점: 실제 상담일·정보원 / 직접 진술·관찰 / 계획 이행 / 생활 변화 / 변경 이유 / 다음 점검. 입력되지 않은 상담을 생성하지 않음.'})[page]||'현재 화면의 확인·지원 과제를 정리합니다.',
- 'AI 실증 검증(가상 사례 기반 로직 검수)은 실제 표본의 신뢰도·타당도 검증과 구분합니다.','기획·개발·저작권: 김지훈 · 오산세교종합사회복지관'].join('\n\n');}
+function text(p,page,includeContext=false){
+ const full=analyze(p),a=includeContext?full:analyze({...p,caseContext:''});
+ const lines=['OY-RALS V'+VERSION+' · '+page+' · 실무자 검토 전 초안',a.decision.title,a.decision.incomplete?'확인 합계 '+a.decision.knownTotal+'/'+a.decision.knownMaximum+' · 미상 '+a.decision.unknownItems.length+'개 · 전체 판단 보류':'원점수 '+a.decision.knownTotal+'/100','안전 관련 확인: '+a.decision.safetyReview,'정보 확인: '+a.decision.knownCount+'/25 · 미상 '+a.decision.unknownItems.length+'문항'];
+ const planLines=a.plans.map(x=>'['+x.id+'] '+x.title+' / 근거 '+[...x.sourceItemIds,...x.sourceTextIds].join(', ')+' / 실행 초안 '+x.action+' / 변화 지표 '+x.outcome+' / 연계 후보 '+(x.candidates.map(c=>c.name+'('+c.service+')').join(', ')||'추가 확인'));
+ if(page==='사례사정')lines.push(...a.sections.map(x=>x.title+'\n'+x.text),'OY-CIE 잠정 해석은 사실 확인·학생 의견·정보원 대조 후 채택합니다.');
+ else if(page==='사례협의')lines.push('협의 목적: 확인된 어려움의 우선순위, 현재 안전, 기존 지원과 신규 의뢰의 역할 조정','협의 전 검토 가설:',...(a.cieActions.map(x=>x.id+' / '+x.hypothesis+' / '+x.verification)),'협의 안건:',...a.plans.slice(0,5).map(x=>x.title+' / '+x.evidence.join('·')+' / 결정할 내용: 담당·지원 가능성·회신 기한'),'교사: 교내 안전·수업·출결 조정 / 교육복지사: 교내외 연계 조율 / 사회복지사: 가구 사정·자원 조정','주관기관·참석자·공유 근거·회의 결정: 미확정. 실제 회의 개최로 기록하지 않음.');
+ else if(page==='서비스계획')lines.push('학생과 합의하기 전 서비스계획 초안','OY-CIE 검토사항:',...a.cieActions.map(x=>x.id+' / '+x.hypothesis+' / 확인 전 확정 금지'),'계획 과제:',...a.plans.map(x=>x.title+' / 근거 '+x.evidence.join('·')+' / 단기: '+x.action+' / 중장기: '+x.outcome+'의 변화 목표를 학생과 합의 / 담당·시작일·기준선·목표치·점검일: 미확정'));
+ else lines.push('학생의 상황과 지원 방향: '+a.sections[6].text,'지원 과제:',...planLines);
+ if(includeContext)lines.push('선택 서술(미확인): '+(p.caseContext||'없음'),'현재 이용기관 언급: '+(a.active.map(x=>x.label).join(', ')||'확인 필요'),'서술·척도 대조: '+a.context.mismatches.map(x=>x.issue).join(' / '));
+ lines.push('연계 검토: '+(p.linkageReviewStatus||'검토 전')+' · 문의·접수·이용은 별도 확인','본 문서는 실제 상담·사례회의·서비스 제공을 증명하지 않습니다. 실증 타당도 미검증.','기획·개발·저작권: 김지훈 · 오산세교종합사회복지관');
+ return lines.join('\n\n');
+}
 const api={VERSION,analyze,text};if(node)module.exports=api;else root.OYJourney=api;
 })(typeof window!=='undefined'?window:globalThis);
