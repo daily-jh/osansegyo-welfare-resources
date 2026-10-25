@@ -1,0 +1,16 @@
+const assert=require('node:assert/strict'),m=require('../docs/assets/service-guide-model.js');
+const e=(id,org,need,target=[],scope='오산시')=>({o:{id:'O'+id,name:org,level:scope,status:'미확인',phone:'031-000-0000'},s:{id,name:'복지서비스'+id,tags:{need:[need],target,form:['상담']},contacts:[],operationType:'상시',verification:{status:'확인완료'}}});
+const a=e('1','복지관','돌봄',['노인']),b=e('2','돌봄센터','돌봄',['노인']),c=e('3','학생돌봄센터','돌봄',['청소년']),d=e('4','경제센터','소득·생계',['노인']);
+assert.equal(m.matches(a,{need:'돌봄',target:'노인'}),true);
+assert.equal(m.matches(a,{need:'돌봄',target:'청소년'}),false);
+assert.equal(m.matches(a,{need:'소득·생계'}),false);
+assert.equal(m.intakeState(a.s).includes('현재 접수 별도 문의'),true);
+assert.equal(m.sourceState(a.s,null),'기존 근거 확인(재대조 전)');
+assert.equal(m.sourceState(a.s,{evidenceLevel:'related_subservice_official'}),'공식 하위사업 부분 대조');
+assert.equal(m.route(a.o,a.s,null).level,'기관 대표번호·담당부서 연결 필요');
+const alts=m.alternatives(a,[a,b,c,d],{target:'노인'});
+assert.equal(alts.length,1);assert.equal(alts[0].entry.s.id,'2');
+assert.equal(m.alternatives(a,[a,c,d],{},3).length,0);
+const unknown=e('5','포괄돌봄','돌봄',[]);assert.equal(m.alternatives(a,[a,unknown],{target:'노인'}).length,1);
+assert.equal(m.alternatives({...a,s:{...a.s,tags:{need:[],target:[]}}},[b],{}).length,0);
+console.log('PASS: multi-dimensional eligibility filters, unsupported intake claims prevented, alternatives respect target, official scope separate');
