@@ -50,9 +50,11 @@ const RULES=[
 ];
 const clean=t=>String(t??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const textOf=p=>typeof p.caseContext==='string'?p.caseContext:p.caseContext?.text||'';
-function status(part,rx){
+function status(part,rx,kind){
  const pos=part.search(rx);if(pos<0)return null;const after=part.slice(pos).slice(0,105),before=part.slice(Math.max(0,pos-38),pos);
- if(/(?:예방교육|예방\s*교육|훈련용|가상사례|가정한\s*사례|가상의|만약|교직원\s*연수)/.test(part))return 'hypothetical';
+ if(/(?:예방교육|예방\s*교육|훈련용|가상사례|가정한\s*사례|가상의|만약|교직원\s*연수)/.test(part)&&!/(?:학생이|학생은).{0,55}(?:맞았|당했|자해를\s*했|죽고\s*싶다고|협박받)/.test(part))return 'hypothetical';
+ if(kind==='self_harm'&&/(?:죽고\s*싶다고\s*말|자해\s*흔적이\s*(?:발견|확인)|자해했(?:다|다고)|자해를\s*했(?:다|다고))/.test(part)&&!/(?:죽고\s*싶다는\s*말을\s*(?:하지|한\s*적\s*없)|자해를\s*(?:하지|한\s*적\s*없))/.test(part))return 'affirmed';
+ if(kind==='family_harm'&&/(?:보호자|아버지|어머니|엄마|아빠|집에서).{0,25}(?:맞았다고|때렸다고|폭행을\s*당했다고)/.test(part)&&!/(?:맞은\s*적\s*없|폭행\s*당한\s*적\s*없)/.test(part))return 'affirmed';
  if(/(?:피해|학대|폭력|자해|사건|발생|진술|신고|현재\s*안전)\s*(?:사실|유무|여부)?.{0,9}(?:미확인|알\s*수\s*없|불분명)|(?:피해|발생)\s*여부.{0,8}(?:모름|미확인)/.test(after.slice(0,60))&&!/(?:때렸다고|맞았다고|죽고\s*싶다고|흔적이\s*있|당했다고)/.test(part))return 'uncertain';
  if(/(?:없었|없다|없음|없다고|없어|않았|않는다|발생하지\s*않|받은\s*적\s*없|당한\s*적\s*없|아니라고|부인)/.test(after.slice(0,60))&& !/(?:없어서|없어\s*어렵|미제공|없으므로\s*부족)/.test(after.slice(0,60)))return 'negated';
  if(/(?:당한\s*적\s*없|발생하지\s*않|없다고)/.test(before.slice(-24)+after.slice(0,65)))return 'negated';
@@ -61,7 +63,7 @@ function status(part,rx){
 function evidence(p){
  const raw=textOf(p),segments=raw.split(/(?<=[.!?。])\s*|[\n;]+|\s+(?:하지만|그러나|반면|다만|그런데)\s+/).map(x=>x.trim()).filter(Boolean).slice(0,160);
  const out=[];
- for(let i=0;i<segments.length;i++)for(const r of RULES){const st=status(segments[i],r.rx);if(!st)continue;out.push({id:'E'+(out.length+1),kind:r.kind,item:r.item,polarity:st,text:segments[i],source:'입력 서술 · 사실 확인 전'});}
+ for(let i=0;i<segments.length;i++)for(const r of RULES){const st=status(segments[i],r.rx,r.kind);if(!st)continue;out.push({id:'E'+(out.length+1),kind:r.kind,item:r.item,polarity:st,text:segments[i],source:'입력 서술 · 사실 확인 전'});}
  const strengths=[...new Set(segments.filter(x=>/관심|좋아|강점|희망|잘하/.test(x)).flatMap(x=>x.match(/미술|음악|그림|운동|축구|과학|코딩|사진|독서|춤|요리|농구/g)||[]))];
  const services=segments.filter(x=>/(?:복지관|센터|사업|프로그램)/.test(x)&&/(?:참여\s*중|이용\s*중|지원받|지원\s*받|참여하고|이용하고)/.test(x)&&!/(?:미이용|참여하지|이용하지|않|없)/.test(x));
  const family=[...new Set(segments.flatMap(x=>(x.match(/어머님|어머니|아버지|아빠|엄마|성인\s*오빠|오빠|동생|할머니|할아버지/g)||[])))];
