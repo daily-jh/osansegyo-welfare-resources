@@ -41,7 +41,13 @@ function fixture(i){
  return {p:{answers:a,caseContext:note,explicit,followups},typ,profile};
 }
 const counts={requested:120000,executed:0,exceptions:0,coreScoreMismatch:0,coreSafetyMismatch:0,unknownMismatch:0,missingCoreSafetyGate:0,missingNarrativeEvidenceRefs:0,unconfirmedServiceClaim:0,unexpectedIdentifiableText:0,discordantKCarr:0,patterns:profiles.length,categories:samples.categories.length,roles:ROLES.length,questionTypes:QUESTIONS.length,semanticContrasts:{positive:0,negated:0,historical:0},positivesWithEvidence:0,negativesPromotedAsPresent:0,qualitativeReviewerJudgments:0,neuralModelExecution:0,groundTruthAccuracy:null};
-const archive=[],unknownCases=[],faults=[],responseDedup=new Set(),shapeDedup=new Set();
+const archive=[],unknownCases=[],faults=[],responseDedup=new Set(),shapeDedup=new Set(),negativeExamples=[],seedContrasts=[];
+let uniqueSeen=0;
+for(const cat of samples.categories)for(const v of cat.variants){
+ const matched=B.parseNarrative(v.text).signals.find(x=>x.type===cat.cue);
+ if(!matched||matched.status!==v.status)seedContrasts.push({sourceId:cat.id,expected:v.status,observed:matched?.status||'not_matched',text:v.text});
+}
+counts.seedContrastTests=targets.length;counts.seedContrastFailures=seedContrasts.length;
 function check(caseId,i,runner){
  const {p,typ,profile}=fixture(i),q=QUESTIONS[Math.floor(i/profiles.length)%QUESTIONS.length],role=ROLES[Math.floor(i/QUESTIONS.length)%ROLES.length];
  const before=JSON.stringify(p.answers),base=C.evaluate(p.answers,B.GROUPS,p.explicit.length>0,p.followups);
@@ -54,14 +60,22 @@ function check(caseId,i,runner){
  if(!result.review.allActionRefsExist)counts.missingNarrativeEvidenceRefs++;
  if(result.actions.some(x=>x.goalAgreed||x.serviceStarted||x.confirmedOwner))counts.unconfirmedServiceClaim++;
  if(result.answer.includes(p.caseContext))counts.unexpectedIdentifiableText++;
- if(typ.status==='negated'){counts.semanticContrasts.negated++;if(result.gates.some(x=>x.id==='TEXT-SAFETY')&&/^(selfharm|protection|threat)$/.test(typ.cue))counts.negativesPromotedAsPresent++;}
+ if(typ.status==='negated'){counts.semanticContrasts.negated++;
+  if(p.caseContext===typ.text&&/^(selfharm|protection|threat)$/.test(typ.cue)&&result.gates.some(x=>x.id==='TEXT-SAFETY')){
+    counts.negativesPromotedAsPresent++;if(negativeExamples.length<30)negativeExamples.push({caseId,sourceId:typ.sourceId,profile,kind:typ.cue,note:p.caseContext,signals:B.parseNarrative(p.caseContext).signals.filter(x=>['selfharm','protection','threat'].includes(x.type)).map(x=>({type:x.type,status:x.status}))});
+  }
+}
  if(typ.status==='historical')counts.semanticContrasts.historical++;
  if(typ.status==='reported_unverified')counts.semanticContrasts.positive++;
  if(result.actions.some(x=>x.evidenceIds.some(id=>id.includes(typ.cue))))counts.positivesWithEvidence++;
  const signature=crypto.createHash('sha256').update(JSON.stringify([role,result.intent,result.actions.map(x=>x.id),result.issues.map(x=>x.issue),result.gates.map(x=>x.id)])).digest('hex').slice(0,20);
  shapeDedup.add(signature);
  const key=JSON.stringify([role,result.intent,safeText(result.answer)]),newUnique=!responseDedup.has(key);
- if(newUnique){responseDedup.add(key);if(archive.length<1500&&archive.length%5!==4)archive.push({caseId,sourceId:typ.sourceId,profile,kind:typ.status,role,intent:result.intent,official:{knownTotal:base.knownTotal,unknownCount:base.unknownItems.length,urgent:base.urgent},evidence:result.actions.map(x=>({domainId:x.id,evidenceIds:x.evidenceIds,status:x.status})),gates:result.gates.map(g=>g.id),answer:result.answer,modelStatus:"synthetic_unvalidated",notExpertRated:true});}
+ if(newUnique){responseDedup.add(key);uniqueSeen++;
+ const sample={caseId,sourceId:typ.sourceId,profile,kind:typ.status,role,intent:result.intent,official:{knownTotal:base.knownTotal,unknownCount:base.unknownItems.length,urgent:base.urgent},evidence:result.actions.map(x=>({domainId:x.id,evidenceIds:x.evidenceIds,status:x.status})),gates:result.gates.map(g=>g.id),answer:result.answer,modelStatus:"synthetic_unvalidated",notExpertRated:true};
+ if(archive.length<1600)archive.push(sample);
+ else {const j=Math.floor(rand()*uniqueSeen);if(j<1600)archive[j]=sample;}
+}
  if(runner&&i%67===0)unknownCases.push({caseId,role,profile,kCarr:!!K.assess({caseContext:p.caseContext,role}).hasSafetySignal,cieTextSafety:result.gates.some(g=>g.id==='TEXT-SAFETY'),corpus:S.interpret(p.answers).safety.length,agreementNotGroundTruth:true});
  counts.executed++;
 }
@@ -73,7 +87,8 @@ fs.writeFileSync(path.join(release,'metrics.json'),JSON.stringify(counts,null,2)
 fs.writeFileSync(path.join(release,'representative-interpretations.jsonl'),archive.map(x=>JSON.stringify(x)).join('\n')+'\n');
 fs.writeFileSync(path.join(release,'cross-model-observations.json'),JSON.stringify(unknownCases,null,2));
 fs.writeFileSync(path.join(release,'exceptions.json'),JSON.stringify(faults,null,2));
-const serious=['exceptions','coreScoreMismatch','coreSafetyMismatch','unknownMismatch','missingCoreSafetyGate','missingNarrativeEvidenceRefs','unconfirmedServiceClaim','unexpectedIdentifiableText'];
+fs.writeFileSync(path.join(release,'seed-contrast-audit.json'),JSON.stringify({seedFailures:seedContrasts,negatedSafetyReviewCases:negativeExamples},null,2));
+const serious=['exceptions','coreScoreMismatch','coreSafetyMismatch','unknownMismatch','missingCoreSafetyGate','missingNarrativeEvidenceRefs','unconfirmedServiceClaim','unexpectedIdentifiableText','seedContrastFailures'];
 console.log('OY-CIE V3.3 SYNTHETIC BENCHMARK '+JSON.stringify(counts));
 console.log('SAMPLES '+archive.length+', cross-model snapshots '+unknownCases.length);
 if(serious.some(x=>counts[x]>0)){console.error('FAIL CRITICAL: '+serious.filter(x=>counts[x]>0).map(x=>x+' '+counts[x]).join('; '));process.exitCode=1;}
