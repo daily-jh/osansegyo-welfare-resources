@@ -64,3 +64,15 @@ button,a,input,select,textarea{touch-action:manipulation}
 .flow-bottom .flow-btn{width:100%}
 .result-action-grid{grid-template-columns:minmax(0,1fr)}
 }
+
+/* V3 accessibility and workflow polish */
+.flow-skip-link{position:absolute;top:-90px;left:16px;z-index:9999;padding:12px 18px;background:#fff;color:#1255a5;border:2px solid #1769d2;border-radius:12px;font-weight:800}
+.flow-skip-link:focus{top:12px}
+:where(.flow-nav button,.flow-bottom button,.hero-actions button,.bridge-actions button):focus-visible{outline:3px solid #1769d2!important;outline-offset:4px}
+:where(.flow-nav button,.flow-bottom button,.bridge-actions button){transition:background-color .15s ease,border-color .15s ease,box-shadow .15s ease}
+:where(.flow-nav button,.flow-bottom button,.bridge-actions button):not(:disabled):hover{box-shadow:0 5px 16px rgba(21,65,115,.12)}
+:where(.flow-nav button,.flow-bottom button):disabled{opacity:.64;cursor:not-allowed}
+:where(.flow-focus,.youth-resource-card,.home-role-grid article){overflow-wrap:anywhere}
+:where(.flow-btn,.bridge-primary,.bridge-secondary){text-align:center}
+@media(max-width:700px){.flow-skip-link{left:12px;right:12px;text-align:center}.flow-nav button{min-height:48px}.flow-bottom{margin-bottom:32px}}
+@media print{.flow-skip-link{display:none!important}}
