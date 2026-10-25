@@ -1,7 +1,7 @@
 /* V3.2 read-only conversational extension to V3.1 demo. No persistent case storage. */
 (()=>{'use strict';
  const E=window.OYCIE32,B=window.OYCIE30,$=id=>document.getElementById(id);
- let kb=null,playbook=null,route=null,pair=null,thread=null,latest=null,seq=0;
+ let kb=null,playbook=null,route=null,pair=null,thread=null,latest=null,seq=0,mode='free';
  function info(msg){$('v32-status').textContent=msg;}
  function invalidate(){seq++;latest=null;thread=null;$('v32-answer').textContent='평가·서술·질문이 변경됐습니다. 근거를 다시 분석해 주세요.';$('v32-evidence').textContent='';$('v32-print').disabled=$('v32-copy').disabled=$('v32-export').disabled=true;info('재분석 필요 · 대화 맥락 초기화');}
  const selectors=['items','followups','role','explicit','narrative','question','intent'];
@@ -15,7 +15,11 @@
  const redactFormat=/(?:\b\d{6}[- ]?[1-8]\d{6}\b|(?:01[016789])[- ]?\d{3,4}[- ]?\d{4}|[\w.%+-]+@[\w.-]+\.[A-Za-z]{2,})/;
  function bubble(kind,value){const el=document.createElement('div');el.className='v32-message '+kind;el.textContent=value;$('v32-chat').append(el);el.scrollIntoView({block:'nearest'});}
  function resetChat(){const chat=$('v32-chat');chat.replaceChildren();bubble('assistant','새 연구 회차입니다. 질문을 입력하면 현재 평가의 근거를 확인합니다.');}
- function execute(){const runId=++seq;try{const question=$('v32-question').value.trim();const input=read();if(redactFormat.test(question+' '+input.caseContext))throw Error('식별정보 형식 발견: 공개 시연 입력 불가');
+ function setMode(m){mode=m;for(const x of ['free','case']){$('mode-'+x).classList.toggle('active',x===m);$('mode-'+x).setAttribute('aria-pressed',String(x===m));} $('lab-mode-help').textContent=m==='free'?'척도 없이 사례관리 관련 질문을 할 수 있습니다. 개인별 위험판정은 하지 않습니다.':'25문항과 서술을 바탕으로 분석합니다. 평가 내용을 아래에서 입력하거나 가져오세요.';invalidate();resetChat();if(m==='case')$('lab-input-details').open=true;}
+ $('mode-free').onclick=()=>setMode('free');$('mode-case').onclick=()=>setMode('case');
+ function freeAnswer(q){const rules=[[/사례관리|사정|판정|초기상담/,'사례관리에서는 보고된 사실·해석·미확인을 분리하고, 당사자 희망·기존 지원·생활환경을 함께 사정합니다.'],[/계획|목표|개입|점검/,'서비스계획은 단기 행동, 중장기 변화, 담당자, 기준선, 완료 기준과 점검일을 구분하여 당사자와 협의합니다.'],[/면담|상담|질문/,'첫 면담에서는 지금 가장 필요한 변화, 어려움이 시작된 시점, 이미 이용하는 지원, 안전과 생활상의 우선 요구를 확인합니다.'],[/학교|교사|학맞통/,'학교와 복지관의 역할은 학교생활 관찰·상담·지역자원 조정을 중심으로 나누되 정보 공유 범위는 별도 협의합니다.'],[/자원|연계|의뢰|기관/,'기존 지원을 우선 확인하고 이용조건·접근성·담당 창구를 대조합니다. 기관 추천은 실제 접수나 이용 확정이 아닙니다.'],[/강점|희망|자기결정/,'학생이 원하는 변화와 이미 활용하는 강점·관계·대처 경험을 확인하고 목표를 공동 결정합니다.'],[/안전|학대|폭력|자해/,'현재 안전과 진술의 주체·시점부터 확인하고, 필요한 보호조치는 연구 답변을 기다리지 않고 법정 절차에 따라 진행합니다.']];const matched=rules.filter(x=>x[0].test(q)).slice(0,3);return (matched.length?matched.map(x=>x[1]).join('\\n\\n'):'이 질문은 현재 OY-CIE 지식 범위에서 신뢰할 만한 답변을 생성하기 어렵습니다. 사례관리·면담·지원계획 등 구체적 주제로 질문해 주세요.')+'\\n\\n[한계] 자유 질문 모드는 정해진 주제별 안내이며 범용 생성형 AI가 아닙니다. 개별 학생의 점수나 진단을 추정하지 않습니다.';}
+ function execute(){const runId=++seq;try{if(mode==='free'){const q=$('v32-question').value.trim();if(q.length<2||q.length>500)throw Error('질문은 2~500자로 입력하세요');if(redactFormat.test(q))throw Error('식별정보 형식 발견');const answer=freeAnswer(q);bubble('user',q);bubble('assistant',answer);latest={answer,version:'OY-CIE-free-v1',official:null,intent:'free',role:'research',sourceStatus:'연구형 주제 안내',review:{noScale:true},actions:[],usedPlaybookIds:[]};$('v32-answer').textContent=answer;$('v32-evidence').textContent='자유 질문: 개별 척도·판정 근거 없음';$('v32-print').disabled=$('v32-copy').disabled=$('v32-export').disabled=false;info('자유 질문 응답 · 전문가 검토 전');return;}
+const question=$('v32-question').value.trim();const input=read();if(redactFormat.test(question+' '+input.caseContext))throw Error('식별정보 형식 발견: 공개 시연 입력 불가');
   const result=E.run(input,question,{engine:B,criteria:window.YouthCriteria,kb,playbook,pairModel:pair,role:$('role').value,state:thread,route});if(runId!==seq)return;
   thread=result.dialogueState;latest=result;bubble('user',question||'현재 사례의 근거를 분석해줘');bubble('assistant',result.answer);$('v32-answer').textContent=result.answer;$('v32-evidence').textContent=JSON.stringify({review:result.review,source:result.sourceStatus,gates:result.gates,issues:result.issues,actions:result.actions.map(a=>({id:a.id,evidenceIds:a.evidenceIds,status:a.status,confirmedOwner:a.confirmedOwner,goalAgreed:a.goalAgreed})),playbookIds:result.usedPlaybookIds},null,2);
   $('v32-print').disabled=$('v32-copy').disabled=$('v32-export').disabled=false;info('분석 완료 · 임상·실무 승인 전 초안 · 대화 맥락은 현재 평가 회차에만 유지');
@@ -46,7 +50,7 @@
    $('narrative').value='';
    $('v32-question').value='이 평가의 근거를 검토하고 안전 확인, 추가 면담 질문, 지원계획 우선순위를 제안해줘';
    $('intent').value='plan';
-   invalidate();resetChat();
+   setMode('case');
    info('평가 25문항을 가져왔습니다. 서술과 개인정보는 가져오지 않았습니다. 아래에서 「근거 확인·응답 생성」을 눌러주세요.');
    $('v32-run').scrollIntoView({behavior:'smooth',block:'center'});
   });
