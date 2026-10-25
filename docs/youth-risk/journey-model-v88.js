@@ -2,7 +2,7 @@
 (function(root){'use strict';
 const node=typeof module!=='undefined'&&module.exports;
 const M=node?require('./support-model.js'):root.YouthMap,C=node?require('./case-context-core.js'):root.YouthCaseContextCore,W=node?require('./weight-model.js'):root.YouthWeightModel,E=node?require('./case-context-v81.js'):root.YouthContextV81;
-const VERSION='8.8.0';
+const VERSION='8.8.1';
 const tasks=[
  ['현재 보호 상황 확인','현재 위치·위해·안전한 연락 상대를 확인하고 사안별 보호절차를 검토합니다.','추가 위해와 보호 공백 여부'],
  ['또래관계의 안전 확인','상호 갈등·피해·위협을 구분하고 학교 담당과 안전한 접촉·생활 조정을 정합니다.','학생이 느끼는 안전과 피해 반복 여부'],
