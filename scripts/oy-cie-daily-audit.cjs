@@ -5,7 +5,7 @@ const root=path.resolve(__dirname,'..'),dir=path.join(root,'docs/youth-risk');
 const C=require(path.join(dir,'criteria.js')),B=require(path.join(dir,'cie-lab-v32/engine.js')),D=require(path.join(dir,'cie-lab-v32/dialogue-v32.js')),P=require(path.join(dir,'research-knowledge-base.js'));
 const read=name=>JSON.parse(fs.readFileSync(path.join(dir,name),'utf8'));
 const kb=read('data/response-knowledge-600-v1.json'),pb=read('cie-lab-v32/practice-playbook-v32.json'),idx=read('cie-lab-v32/compiled-routing-index.json');
-const args=process.argv.slice(2),arg=k=>args[args.indexOf(k)+1],out=path.resolve(arg('--out')||'audit/oy-cie-daily');
+const args=process.argv.slice(2),arg=k=>{const i=args.indexOf(k);return i<0?null:args[i+1];},out=path.resolve(arg('--out')||'audit/oy-cie-daily');
 const today=arg('--date')||new Date().toISOString().slice(0,10),prevPath=arg('--previous');
 if(!/^20\d{2}-\d{2}-\d{2}$/.test(today))throw Error('Invalid date');
 const hash=x=>crypto.createHash('sha256').update(JSON.stringify(x)).digest('hex').slice(0,20);
