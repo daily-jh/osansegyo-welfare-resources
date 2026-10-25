@@ -42,17 +42,35 @@ function crossDomainAssessment(answers){
   scoreEvidence:p.items.map(i=>interpretItemScore(i,answers[i-1]))
  }));
 }
+const COMBINATION_SPACE=Object.freeze({items:25,scoredLevels:5,unknownIncluded:true,totalScored:'298023223876953125',totalWithUnknown:'28430288029929701376',method:'실시간 조합 생성; 전체 경우의 수를 저장하거나 실증 검증했다는 뜻이 아님'});
+function scoreCombination(answers){
+ if(!Array.isArray(answers)||answers.length!==25||answers.some(v=>v!=='unknown'&&(!Number.isInteger(v)||v<0||v>4)))throw Error('25문항 0~4점·미상 필요');
+ const items=answers.map((v,i)=>interpretItemScore(i+1,v));
+ const pairs=[];
+ for(let a=0;a<25;a++)for(let b=a+1;b<25;b++){
+  const va=answers[a],vb=answers[b];
+  if(typeof va!=='number'||typeof vb!=='number'||va===0||vb===0)continue;
+  const known=PAIRS.find(p=>p[0]===a+1&&p[1]===b+1);
+  const safety=[1,2,7,25].includes(a+1)||[1,2,7,25].includes(b+1);
+  const strength=Math.min(va,vb);
+  const mode=known?'사전 정의된 공동 보고 가설':safety?'안전 문항을 포함한 공동 보고':'두 영역의 동시 응답';
+  pairs.push({a:a+1,b:b+1,scores:[va,vb],mode,priority:safety?'안전 우선 확인':strength>=3?'생활 영향 우선 확인':'맥락 확인',meaning:known?known[2]:TOPICS[a]+' 및 '+TOPICS[b]+' 어려움이 함께 보고됨',verify:known?known[3]:'두 응답의 시점·실제 생활 영향·학생이 원하는 지원을 각각 확인',causal:false,validated:false,strength});
+ }
+ pairs.sort((x,y)=>Number(y.priority==='안전 우선 확인')-Number(x.priority==='안전 우선 확인')||y.strength-x.strength||x.a-y.a||x.b-y.b);
+ return {version:'OY-CIE-combinatorial-v3.3',items,pairs,pairCount:pairs.length,triples:crossDomainAssessment(answers),safety:items.filter(x=>[1,2,7,25].includes(x.item)&&typeof x.score==='number'&&x.score>0),unknown:items.filter(x=>x.score==='unknown'),knownTotal:answers.reduce((t,v)=>t+(typeof v==='number'?v:0),0),complete:answers.every(v=>v!=='unknown'),combinationSpace:COMBINATION_SPACE,interpretationStatus:'규칙 기반 가설·실증 검증 전'};
+}
 function evidenceAssessment(answers){
  const f=formulate(answers);
  const observed=f.scored.map(x=>({item:x.id,score:x.value,topic:x.topic,meaning:x.meaning,provenance:'CORE 응답',certainty:'observed',impact:x.impact,weight:x.weight}));
  const multiDomain=crossDomainAssessment(answers);
+ const combinations=scoreCombination(answers);
  const hypotheses=f.intersections.map(x=>({items:[x.a,x.b],statement:x.meaning,verification:x.next,certainty:'hypothesis',notCausal:true}));
  const alternatives=[];
  if(f.scored.some(x=>x.id===9)&&f.scored.some(x=>[17,18,19,20].includes(x.id)))alternatives.push('출결 어려움은 돌봄·주거 상황과 관련될 수 있으나, 또래관계·건강·학교환경 등 다른 설명도 확인해야 합니다.');
  if(f.scored.some(x=>x.id===11)&&f.scored.some(x=>[1,2,3,6,7].includes(x.id)))alternatives.push('학교생활 동기 응답을 개인의 의지 부족으로 해석하지 말고 안전·관계·정서 및 학교환경을 함께 확인해야 합니다.');
  if(f.scored.some(x=>[1,2,7,25].includes(x.id)))alternatives.push('안전 관련 응답은 점수 수준이나 총점과 무관하게 현재 상황과 보호 필요성을 별도로 확인합니다.');
  const priorities=observed.slice(0,4).map(x=>({topic:x.topic,score:x.score,why:'해당 문항의 응답 수준과 사전 설정된 검토 우선순위',next:f.base.items[x.item-1].verify[0],notDiagnosis:true}));
- return {version:'OY-CIE-evidence-v3.2',observed,hypotheses,multiDomain,alternatives,priorities,missing:f.unknown,coreTotal:f.rawScore,coreComplete:!f.rawIncomplete,safetySignals:f.base.safety.map(x=>x.id),evidenceLibrary:EVIDENCE_LIBRARY,reasoningRules:REASONING_RULES,modelStatus:'연구 기반 설계 가설·실증 검증 전'};
+ return {version:'OY-CIE-evidence-v3.2',observed,hypotheses,multiDomain,combinations,alternatives,priorities,missing:f.unknown,coreTotal:f.rawScore,coreComplete:!f.rawIncomplete,safetySignals:f.base.safety.map(x=>x.id),evidenceLibrary:EVIDENCE_LIBRARY,reasoningRules:REASONING_RULES,modelStatus:'연구 기반 설계 가설·실증 검증 전'};
 }
 const SCORE_MEANING_RULES=Object.freeze({
  0:{status:'미보고',interpretation:'이번 응답에서 해당 문항의 어려움이 보고되지 않았습니다.',action:'다른 자료와 불일치하면 확인',certainty:'응답 사실만 확인'},
@@ -89,5 +107,5 @@ function formulate(answers){
    '현재 안전과 학생의 희망·강점·기존 지원을 확인한 뒤 실제 지원 우선순위를 결정합니다.'].filter(Boolean);
  return {version:'OY-CIE-meaning-priority-v2.3-anchor-caution',base,scored,intersections,unknown,top,headline,narratives,assumptions:'응답 영향 곡선과 문항별 우선검토 가중치는 연구·개발 가정이며 검증된 확률·위험 절단점이 아닙니다.',rawScore:base.knownTotal,rawIncomplete:unknown.length>0};
 }
-const api=Object.freeze({TOPICS,PAIRS,LABELS,ITEM_LEVELS,RESEARCH,PROBES,PRIORITY_WEIGHTS,RESPONSE_IMPACT,interpret,formulate,interpretItemScore,SCORE_MEANING_RULES,EVIDENCE_LIBRARY,REASONING_RULES,evidenceAssessment,MULTI_DOMAIN_PATTERNS,crossDomainAssessment});if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.OYCIESemanticV2=api;
+const api=Object.freeze({TOPICS,PAIRS,LABELS,ITEM_LEVELS,RESEARCH,PROBES,PRIORITY_WEIGHTS,RESPONSE_IMPACT,interpret,formulate,interpretItemScore,SCORE_MEANING_RULES,EVIDENCE_LIBRARY,REASONING_RULES,evidenceAssessment,MULTI_DOMAIN_PATTERNS,crossDomainAssessment,COMBINATION_SPACE,scoreCombination});if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.OYCIESemanticV2=api;
 })(typeof window!=='undefined'?window:globalThis);
