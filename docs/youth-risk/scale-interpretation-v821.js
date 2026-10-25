@@ -78,7 +78,7 @@ function enrich(x,p){
    const task={id:'scale821-q20',title:'20번 주거 고점 · 실제 어려움의 내용과 안전 확인',domains:[7],sourceGoals:['G-08'],positive:[20],unknown:[],narrative:false,safety:false,peak:p.answers[19],selected:true,scoreOnly:true,status:'척도 근거 확인 전 · 실행 협의 전',goal:'20번에서 응답한 주거 어려움의 유형·실제 영향과 필요한 보호·지원을 확인함.',action:'20번 고점의 근거를 학생에게 확인하고 거처의 안정성·실제 환경·현재 안전을 구분해 기록함. 체납·퇴거는 보고된 경우에만 추가 검토함.',teacher:'교내에서 확인한 학생의 주거 관련 학습·휴식·출결 영향을 기록하고 안전한 상담 경로를 마련함.',worker:'주거 문제의 실제 유형·현재 지원·이용 장벽을 확인하고 필요한 지역자원 문의·의뢰 여부를 협의함.',when:'첫 면담 시점 · 실제 일정 합의 전',measure:'실제 주거 어려움의 유형·시점·학생 생활 영향과 추가 확인 담당을 기록함.',baseline:'주거 문제 유형 및 생활 영향 미확인',references:[],sourceEvidence:[],rank:85};
    rows=[...rows]; const afterSafety=rows.findIndex(r=>!r.safety);rows.splice(afterSafety<0?rows.length:afterSafety,0,task);added=true;
  }
- const lead=rows.slice(0,3),others=rows.slice(3),first=added&&lead.length?lead[0].action:x.first;
+ const lead=rows.slice(0,3),others=rows.slice(3);let first=added&&lead.length?lead[0].action:x.first;if(!rows.length&&!x.safety){if(a.safetyUnknown.length)first='미상으로 남은 '+a.safetyUnknown.join('·')+'번 안전문항의 현재 상황·직접 안전확인 필요를 먼저 검토하고, 확인된 지원은 병행함.';else if(p.answers[19]>0)first='20번 주거 관련 응답의 구체적인 문제 유형·시점·생활 영향을 학생과 확인함. 보고되지 않은 체납·퇴거를 전제로 지원을 계획하지 않음.';else if(a.highItems.length)first='고점 '+a.highItems.join('·')+'번 문항에 해당하는 실제 장면·기간·학생의 도움 희망을 확인한 뒤 첫 조정 과제를 정함.';else first='학생에게 어떤 어려움과 변화 희망이 있는지 확인하고, 실제 생활 장면과 이미 받은 지원을 기록한 뒤 목표를 협의함.';}
  return {...x,rows,lead,others,first,scale821:a,scale821AppendedHousingReview:added};
 }
 function html(r){
