@@ -25,7 +25,7 @@ function details(entry){
  '<p><b>지원내용</b> '+esc(s.description||'서비스 내용 미등록')+'</p>'+
  '<p><b>공식 확인 범위</b> '+esc(verifyText)+'</p>'+
  '<p><b>공개 안내 확인일</b> '+esc(ev?.checkedOn||v.date||'미확인')+' <small>※ 과거 자료의 확인일은 이번 재검증 일자가 아닙니다.</small></p>'+
- '<p><b>현재 접수 상태</b> '+esc(M.intakeState(s))+'</p>'+extra+
+ '<p><b>현재 접수 상태</b> '+esc(M.intakeState(s,ev))+'</p>'+extra+
  '<p><b>신청·의뢰</b> '+esc(s.method||'접수절차 확인 필요')+'</p>'+
  '<p><b>연락 창구</b> '+esc(route.dept||'담당부서 확인 필요')+' '+telLink+(route.extension?' · 내선 '+esc(route.extension):'')+'<br/><small>'+esc(route.level)+'</small></p>'+
  '<p><b>첫 문의</b> '+esc(ev?.ask||'서비스 대상·소득·거주지·접수방식·준비서류·현재 접수 및 대기기간')+'</p>'+
