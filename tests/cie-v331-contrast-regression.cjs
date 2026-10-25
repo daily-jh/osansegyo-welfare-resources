@@ -49,11 +49,17 @@ passed+=3;
 const safe=(note)=>D.run({answers:Array(25).fill(0),caseContext:note,followups:{},explicit:[]},'안전 확인',{engine:B,criteria:C,playbook:P});
 for(const note of [
  '자해 예방교육을 받은 후 실제로 학생이 자해했다고 말했다.',
- '학교폭력 예방교육 이후 실제로 학생이 따돌림을 당했다고 말했다.',
  '친구는 자해하지 않았고 학생은 자해했다고 말했다.'
 ]){
  const r=safe(note);assert.equal(r.official.urgent,false);
  assert.ok(r.gates.some(x=>x.id==='TEXT-SAFETY'),'mixed real risk cannot be silently dismissed: '+note);
+ passed++;
+}
+{
+ const note='학교폭력 예방교육 이후 실제로 학생이 따돌림을 당했다고 말했다.';
+ const r=safe(note);assert.equal(r.official.urgent,false);
+ assert.ok(r.actions.some(x=>x.id==='A32-02'&&x.status==='서술 단서 검토 전용'),'peer mixed context must become unverified peer safety review');
+ assert.ok(!r.actions.some(x=>x.goalAgreed||x.serviceStarted),'no automatic service confirmation');
  passed++;
 }
 for(const note of ['자해 예방교육을 진행했다.','학생은 자해하지 않았다고 말했다.']){
