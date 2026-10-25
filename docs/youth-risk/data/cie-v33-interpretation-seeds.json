@@ -1,0 +1,243 @@
+{
+  "schema": "OY-CIE-interpretation-samples-v3.3",
+  "version": "3.3.0-research-candidate",
+  "status": "synthetic_developer_expected_not_expert_labeled",
+  "notice": "가상 서술형 표현 실험자료. 전문 실증 정답·신경망 학습데이터·실제 학생기록이 아님. 고유 시드 36개, 12개 표현 범주 × 3가지 시점·부정 대비. 도메인 정합성 기대치는 모델 개발 검수용.",
+  "categories": [
+    {
+      "id": "SC01",
+      "cue": "protection",
+      "domainIndex": 0,
+      "variants": [
+        {
+          "status": "reported_unverified",
+          "text": "학생이 보호자에게 폭행을 당했다고 말했다."
+        },
+        {
+          "status": "negated",
+          "text": "최근 폭행 피해가 없다고 말했다."
+        },
+        {
+          "status": "historical",
+          "text": "지난해 학생이 폭행 피해를 겪었다는 말이 있었다."
+        }
+      ]
+    },
+    {
+      "id": "SC02",
+      "cue": "selfharm",
+      "domainIndex": 2,
+      "variants": [
+        {
+          "status": "reported_unverified",
+          "text": "학생이 현재 자해했다고 말했다."
+        },
+        {
+          "status": "negated",
+          "text": "학생이 현재 자해하지 않는다고 말했다."
+        },
+        {
+          "status": "historical",
+          "text": "작년에 학생이 자해했으나 현재 상황은 미확인이다."
+        }
+      ]
+    },
+    {
+      "id": "SC03",
+      "cue": "peers",
+      "domainIndex": 1,
+      "variants": [
+        {
+          "status": "reported_unverified",
+          "text": "학생이 친구에게 괴롭힘을 당했다고 말했다."
+        },
+        {
+          "status": "negated",
+          "text": "최근 친구의 괴롭힘은 없다고 말했다."
+        },
+        {
+          "status": "historical",
+          "text": "지난해 따돌림을 겪었다고 말했다."
+        }
+      ]
+    },
+    {
+      "id": "SC04",
+      "cue": "mental",
+      "domainIndex": 2,
+      "variants": [
+        {
+          "status": "reported_unverified",
+          "text": "학생이 불안 때문에 잠을 못 잔다고 말했다."
+        },
+        {
+          "status": "negated",
+          "text": "학생이 최근 불안은 없다고 말했다."
+        },
+        {
+          "status": "historical",
+          "text": "작년에 우울감으로 힘들었다고 말했다."
+        }
+      ]
+    },
+    {
+      "id": "SC05",
+      "cue": "school",
+      "domainIndex": 3,
+      "variants": [
+        {
+          "status": "reported_unverified",
+          "text": "학생이 결석이 늘었다고 말했다."
+        },
+        {
+          "status": "negated",
+          "text": "최근 결석은 없다고 말했다."
+        },
+        {
+          "status": "historical",
+          "text": "작년에는 결석이 많았다고 말했다."
+        }
+      ]
+    },
+    {
+      "id": "SC06",
+      "cue": "health",
+      "domainIndex": 4,
+      "variants": [
+        {
+          "status": "reported_unverified",
+          "text": "학생이 통증 때문에 진료받기 어렵다고 말했다."
+        },
+        {
+          "status": "negated",
+          "text": "최근 통증은 없다고 말했다."
+        },
+        {
+          "status": "historical",
+          "text": "지난해 통증이 심했다고 말했다."
+        }
+      ]
+    },
+    {
+      "id": "SC07",
+      "cue": "access",
+      "domainIndex": 5,
+      "variants": [
+        {
+          "status": "reported_unverified",
+          "text": "학생이 수업 조정이 필요하다고 말했다."
+        },
+        {
+          "status": "negated",
+          "text": "수업 조정이 필요하지 않다고 말했다."
+        },
+        {
+          "status": "historical",
+          "text": "지난해 수업 조정이 필요했다고 말했다."
+        }
+      ]
+    },
+    {
+      "id": "SC08",
+      "cue": "care",
+      "domainIndex": 6,
+      "variants": [
+        {
+          "status": "reported_unverified",
+          "text": "학생이 동생을 돌보느라 쉬지 못했다고 말했다."
+        },
+        {
+          "status": "negated",
+          "text": "현재 돌봄 공백은 없다고 말했다."
+        },
+        {
+          "status": "historical",
+          "text": "작년에 보호자 부재로 돌봄 공백이 있었다고 말했다."
+        }
+      ]
+    },
+    {
+      "id": "SC09",
+      "cue": "basic",
+      "domainIndex": 7,
+      "variants": [
+        {
+          "status": "reported_unverified",
+          "text": "학생이 결식한다고 말했다."
+        },
+        {
+          "status": "negated",
+          "text": "최근 결식은 없다고 말했다."
+        },
+        {
+          "status": "historical",
+          "text": "지난해 결식이 있었다고 말했다."
+        }
+      ]
+    },
+    {
+      "id": "SC10",
+      "cue": "relation",
+      "domainIndex": 8,
+      "variants": [
+        {
+          "status": "reported_unverified",
+          "text": "학생이 사회적 고립으로 힘들다고 말했다."
+        },
+        {
+          "status": "negated",
+          "text": "최근 사회적 고립은 없다고 말했다."
+        },
+        {
+          "status": "historical",
+          "text": "지난해 사회적 고립을 겪었다고 말했다."
+        }
+      ]
+    },
+    {
+      "id": "SC11",
+      "cue": "digital",
+      "domainIndex": 9,
+      "variants": [
+        {
+          "status": "reported_unverified",
+          "text": "학생이 온라인 협박을 받고 있다고 말했다."
+        },
+        {
+          "status": "negated",
+          "text": "현재 온라인 협박 피해는 없다고 말했다."
+        },
+        {
+          "status": "historical",
+          "text": "작년에 온라인 협박을 받은 적이 있다고 말했다."
+        }
+      ]
+    },
+    {
+      "id": "SC12",
+      "cue": "threat",
+      "domainIndex": null,
+      "variants": [
+        {
+          "status": "reported_unverified",
+          "text": "학생이 현재 협박을 받고 있다고 말했다."
+        },
+        {
+          "status": "negated",
+          "text": "현재 협박은 없다고 말했다."
+        },
+        {
+          "status": "historical",
+          "text": "과거 협박이 있었으나 현재 상황은 확인해야 한다."
+        }
+      ]
+    }
+  ],
+  "caseworkGuards": [
+    "공식 25문항 원점수·안전판정 변경 금지",
+    "0점·미상은 서로 다름",
+    "전언·과거·부정·주체가 다른 서술에서 실제 사건을 확정하지 않음",
+    "가설과 지원계획은 학생 의사·실무자 확인 전 미확정",
+    "중복되는 응답은 동일 의미·근거·적용범위 기준 대표본 하나 보존"
+  ]
+}

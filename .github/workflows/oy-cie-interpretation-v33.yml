@@ -1,0 +1,31 @@
+name: OY-CIE Korean interpretation expansion 120k
+on:
+  pull_request:
+    paths:
+      - 'docs/youth-risk/cie-lab-v32/engine.js'
+      - 'docs/youth-risk/cie-lab-v32/dialogue-v32.js'
+      - 'docs/youth-risk/data/cie-v33-interpretation-seeds.json'
+      - 'tests/cie-v33-interpretation-benchmark.cjs'
+      - '.github/workflows/oy-cie-interpretation-v33.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  interpretation-benchmark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate 120k interpretations and evidence semantics
+        run: node tests/cie-v33-interpretation-benchmark.cjs
+      - name: Retain representative research-only examples and comparison data
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: oy-cie-v33-interpretation-examples
+          path: artifacts/oy-cie-v33-interpretation/
+          if-no-files-found: error
+          retention-days: 90

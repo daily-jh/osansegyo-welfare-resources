@@ -4,7 +4,7 @@
  */
 (function(root,factory){'use strict';const a=factory();if(typeof module!=='undefined'&&module.exports)module.exports=a;else root.OYCIE32=a;})(typeof window!=='undefined'?window:globalThis,function(){'use strict';
 const VERSION='3.2.0-candidate';
-const typeToDomain={protection:0,selfharm:2,peers:1,school:3,basic:7};
+const typeToDomain={protection:0,selfharm:2,peers:1,school:3,basic:7,mental:2,health:4,access:5,care:6,relation:8,digital:9};
 const safetyTypes=new Set(['protection','selfharm','threat']);
 const recognizedStatuses=new Set(['reported_unverified','secondhand','historical','ambiguous_negation_review']);
 const softFollowup=/^(?:그럼|그러면|그렇다면|그것|그쪽|여기서|다음|계속|좀 더|자세히|그 외|이어서|위 내용|이 내용|그 부분)/;
@@ -29,7 +29,7 @@ for(const d of state){const textActive=d.textPositive.length||d.textHistorical.l
 }
 return {domains:state,originalPositiveDomains:[...positiveDomainIndices],safetyNarrative};}
 let baseEngine=null;
-function asRef(id){return /^Q\d{2}$/.test(id)||/^N\d{4}-(?:selfharm|protection|threat|basic|peers|school|strength)$/.test(id);}
+function asRef(id){return /^Q\d{2}$/.test(id)||/^N\d{4}-(?:selfharm|protection|threat|basic|peers|school|mental|health|access|care|relation|digital|strength)$/.test(id);}
 function makeAction({domainIndex,domain,intent,playbook,role}){const refs=[...domain.score.map(x=>x.id),...domain.unknown,...domain.textPositive,...domain.textHistorical,...domain.textSecondhand,...domain.textAmbiguous].filter(asRef);const scalePositive=domain.score.length>0;const onlyText=!scalePositive&&(domain.textPositive.length+domain.textHistorical.length+domain.textSecondhand.length+domain.textAmbiguous.length)>0;
 let state=onlyText?'서술 단서 검토 전용':scalePositive?'척도 기반 검토 초안':domain.unknown.length?'미상 확인 전용':'자료 없음';
 let step=onlyText?`서술 근거만 있는 ${playbook.title.split(' · ')[0]} 영역입니다. 확정된 개입이 아니라 실제 상황의 확인을 먼저 제안합니다. ${playbook.reviewQuestion}`:playbook.guidance;
