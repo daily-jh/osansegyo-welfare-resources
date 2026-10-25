@@ -26,11 +26,11 @@ function apply(base,p,options={}){
   {title:'강점과 기존 지원',text:[...info.strengths,...info.existingSupport].join(' ')||'아직 구체적으로 확인된 강점·이용 중 서비스가 없습니다. 학생의 선택과 실제 지원 이용을 면담에서 확인합니다.'},
   ...(info.causalHypotheses.length?[{title:'문제 간 관계 가설',text:info.causalHypotheses.join(' ')}]:[])
  ];
- const lead=rows.slice(0,5),others=rows.slice(5),actualSafety=state.safety.officialCORE||state.safety.narrativeReported;
+ const primaryRows=rows.slice(0,5),lead=primaryRows,others=rows.slice(5),actualSafety=state.safety.officialCORE||state.safety.narrativeReported;
  return {...base,version:'8.7-integrated',source:'CORE unchanged / V8.7 SafetyState GoalComposer + V8.6 ICSI K-CARR ICMS',
   sections82:sections,paragraphs:sections.map(x=>x.text),judgement:info.judgement,understanding:info.judgement,
   first:rows[0]?.action||(state.safety.reviewPending?'안전 관련 미상·추가확인 문항의 현재 상황과 안전한 연락 경로를 먼저 확인합니다.':'학생이 원하는 변화와 생활상의 실제 어려움을 첫 면담에서 확인합니다.'),
-  rows,lead,others,strengths:info.strengths,pending:state.uncertainties.map(x=>x.question),
+  rows:primaryRows,allRows:rows,lead,others,strengths:info.strengths,pending:state.uncertainties.map(x=>x.question),
   safety:actualSafety,safetyReviewRequired:state.safety.reviewRequired,safetyState87:state.safety,
   canonical86:state, v8:{...(base.v8||{}),version:'8.6',narrativeSafety:state.safety.narrativeReported,questions:state.uncertainties.map(x=>x.question)}
  };
