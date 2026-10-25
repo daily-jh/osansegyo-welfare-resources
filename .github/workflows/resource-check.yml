@@ -31,6 +31,13 @@ jobs:
           node tests/resource-expansion.cjs
           node tests/resource-overview.cjs
           for test in tests/youth-*.cjs; do node "$test"; done
+      - name: Universal service guide verification and mobile Chrome smoke test
+        run: |
+          node --check docs/assets/service-guide-model.js
+          node --check docs/assets/service-evidence.js
+          node --check docs/assets/service-guide.js
+          node tests/service-guide.cjs
+          node tests/service-guide-mobile.cjs
       - name: Site security and optional backend regression checks
         run: |
           node tests/site-security.cjs
