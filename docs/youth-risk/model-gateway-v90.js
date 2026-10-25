@@ -71,8 +71,10 @@ function text(p,page,includeContext=false){
  const baseline=G.OYJourney.text(p,page,includeContext);
  if(!includeContext||typeof p?.caseContext!=='string'||!p.caseContext.trim()||!G.KCarrNarrativeV8?.assess)return baseline;
  try{
-  const k=G.KCarrNarrativeV8.assess({caseContext:p.caseContext,role:'social-worker'});
+  const k=G.KCarrNarrativeV8.assess({caseContext:p.caseContext,officialScore:p.answers.filter(Number.isInteger).reduce((sum,v)=>sum+v,0),role:'social-worker'});
   if(k.abstain)return baseline;
+  if(page==='서비스계획')return baseline+'\n\n서술형 분석에 따른 실행 검토안\n'+(k.executionPlan||[]).map(a=>[a.stage,a.owner,a.action].filter(Boolean).join(' / ')).join('\n');
+  if(page==='사례협의')return baseline+'\n\n서술형 분석에서 추가 확인할 질문\n'+(k.nextQuestions||[]).map(q=>'- '+q).join('\n');
   return baseline+'\n\nK-CARR 서술형 분석 · 실무자 검토 초안\n'+[k.situationOverview,k.integratedJudgment].filter(Boolean).join('\n')+'\n추가 확인 질문:\n'+(k.nextQuestions||[]).map(q=>'- '+q).join('\n')+'\n이 내용은 미확인 서술을 근거로 한 가설이며 공식 점수·안전판정을 변경하지 않습니다.';
  }catch(_){return baseline+'\n\n서술형 심화분석은 생성하지 못했습니다. 공식 척도 결과와 안전확인은 유지됩니다.';}
 }

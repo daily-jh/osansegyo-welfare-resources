@@ -99,3 +99,10 @@ test('deterministic synthetic 1200-case invariant sweep',()=>{
   assert.ok(a.sections.length>=8,'case '+caseId);
  }
 });
+test('K-CARR exports match the selected casework document and explicit privacy scope',()=>{
+ const p=payload(Array(25).fill(0),'학생은 최근 결식하고 학교에 지각하며 상담을 원합니다.');
+ assert.match(G.text(p,'사례협의',true),/서술형 분석에서 추가 확인할 질문/);
+ assert.match(G.text(p,'서비스계획',true),/서술형 분석에 따른 실행 검토안/);
+ assert.doesNotMatch(G.text(p,'서비스계획',true),/K-CARR 서술형 분석 · 실무자 검토 초안/);
+ assert.match(G.text(p,'사례사정',false),/서술에 따른 심화 해석은 제외됨/);
+});

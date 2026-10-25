@@ -92,7 +92,7 @@ const specific={19:['食','필수생활 공백 확인','오늘 식사·옷·위�
 }
 function text(p,page,includeContext=false){
  const full=analyze(p),a=includeContext?full:analyze({...p,caseContext:''});
- const lines=['OY-RALS V'+VERSION+' · '+page+' · 실무자 검토 전 초안',a.decision.title,a.decision.incomplete?'확인 합계 '+a.decision.knownTotal+'/'+a.decision.knownMaximum+' · 미상 '+a.decision.unknownItems.length+'개 · 전체 판단 보류':'원점수 '+a.decision.knownTotal+'/100','안전 관련 확인: '+a.decision.safetyReview,'정보 확인: '+a.decision.knownCount+'/25 · 미상 '+a.decision.unknownItems.length+'문항'];
+ const lines=['출력 범위: '+(includeContext?'척도와 선택 서술을 반영한 해석 포함':'척도 중심 결과 · 서술에 따른 심화 해석은 제외됨'), 'OY-RALS V'+VERSION+' · '+page+' · 실무자 검토 전 초안',a.decision.title,a.decision.incomplete?'확인 합계 '+a.decision.knownTotal+'/'+a.decision.knownMaximum+' · 미상 '+a.decision.unknownItems.length+'개 · 전체 판단 보류':'원점수 '+a.decision.knownTotal+'/100','안전 관련 확인: '+a.decision.safetyReview,'정보 확인: '+a.decision.knownCount+'/25 · 미상 '+a.decision.unknownItems.length+'문항'];
  if(a.semantic)lines.push('문항별 의미·가중치 통합 해석: '+a.semantic.narratives.join(' '),'검토 우선순위(가설): '+a.semantic.top.map(x=>x.id+'번 '+x.value+'점 '+x.meaning+' / '+x.priority).join(' · '),'가중치는 연구 가정이며 검증된 위험확률이 아님.');
  const planLines=a.plans.map(x=>'['+x.id+'] '+x.title+' / 근거 '+[...x.sourceItemIds,...x.sourceTextIds].join(', ')+' / 실행 초안 '+x.action+' / 변화 지표 '+x.outcome+' / 연계 후보 '+(x.candidates.map(c=>c.name+'('+c.service+')').join(', ')||'추가 확인'));
  if(page==='사례사정')lines.push(...a.sections.map(x=>x.title+'\n'+x.text),'OY-CIE 잠정 해석은 사실 확인·학생 의견·정보원 대조 후 채택합니다.');
