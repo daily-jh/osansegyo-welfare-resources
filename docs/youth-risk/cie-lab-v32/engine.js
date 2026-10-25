@@ -26,7 +26,7 @@ const NARRATIVE_CUES=[
 const NARRATIVE_NEGATIVE=/(?:없(?:다|음|다고|어요|었다|었음)?|아니(?:다|고|라|었다)?|않(?:다|음|았다|는다고)?|부인|한\s*적\s*없|하지\s*않|하지\s*못|하고\s*싶지\s*않|안\s*했|안\s*한다|안\s*하)/;
 const HISTORICAL=/(?:지난해|작년|과거|예전|이전에는|종결된|당시|몇\s*년\s*전)/;
 const HYPOTHETICAL=/(?:예방교육|예시|가상의|가정하면|만약|교육자료|설명했다)/;
-const HEARSAY=/(?:소문|전언|들었다|전해졌다|라고\s*한다|것\s*같다)/;
+const HEARSAY=/(?:소문|전언|전해졌다|라고\s*한다|것\s*같다|(?:말을|소문을|이야기를|얘기를|진술을|소식을)\s*들었다)/;
 // Double-negated persistence is not evidence of absence; review rather than silently dismiss.
 const NEGATION_AMBIGUITY=/(?:멈추지|그만두지|중단하지|끊지|없지\s*않|부인.*사실이\s*아니|하지\s*않겠다고\s*말하지)/;
 const THIRD_PARTY=/(?:보호자|아버지|어머니|엄마|아빠|친구|교사).{0,16}(?:자해|자살|죽고\s*싶)/;
