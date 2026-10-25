@@ -4,6 +4,19 @@ const VERSION='8.6.0'; const groupSizes=[2,3,3,3,2,2,3,3,2,2];
 function validate(p){if(!p||!Array.isArray(p.answers)||p.answers.length!==25||p.answers.some(v=>v!=='unknown'&&(!Number.isInteger(v)||v<0||v>4)))throw Error('원본 CORE 25개 응답을 0~4/unknown으로 입력해야 합니다');}
 function ownScore(p,opts){const fn=opts.officialCORE||opts.criteria?.evaluate||(typeof window!=='undefined'&&window.YouthCriteria?.evaluate);if(opts.officialDecision)return {value:opts.officialDecision,source:'caller-provided-official-decision'};if(fn)return {value:fn(p.answers,groupSizes,!!p.explicit?.length,p.followups||{}),source:'official-CORE-adapter'};return {value:null,source:'unattached: official CORE input or evaluate function required'};}
 function getNote(p){return typeof p.caseContext==='string'?p.caseContext:typeof p.caseContext?.text==='string'?p.caseContext.text:'';}
+// Standalone compatibility for older cached page loaders; separate V8.7 modules take precedence.
+function fallbackCompose(goals){
+ const buckets=[[1,2],[7],[25],[3,4,5],[6,8,12,13],[9,10,11,14,15],[16,17,18],[19,21],[20],[22,23],[24]];
+ const indexed=n=>buckets.findIndex(a=>a.includes(n));
+ const groups=new Map();for(const g of goals){let key=indexed(g.item);if(key<0)key='extra-'+g.id;if(!groups.has(key))groups.set(key,[]);groups.get(key).push(g)}
+ const out=[...groups].map(([group,items])=>{items.sort((a,b)=>a.priority-b.priority||(b.score||0)-(a.score||0));
+ const k=items[0],uniq=a=>[...new Set(a.filter(Boolean))];return {
+ id:'C87-'+String(group),concept:k.concept+(items.length>1?' 외 '+(items.length-1)+'개 문항 확인':''),priority:k.priority,score:k.score||0,item:k.item,sourceNumbers:uniq(items.map(x=>x.item)),sourceGoalIds:uniq(items.map(x=>x.id)),evidenceIds:uniq(items.flatMap(x=>x.evidenceIds||[])),goal:'문항별 근거·학생 의견을 확인하여 조정 사항을 협의함',action:k.action,teacher:k.teacher,worker:k.worker,verification:k.verification,actionDetails:items.map(x=>({id:x.id,item:x.item,concept:x.concept,action:x.action,teacher:x.teacher,worker:x.worker,verification:x.verification})),scope:'V8.7 grouped verification',reviewPending:true,completed:false};
+ }).sort((a,b)=>a.priority-b.priority||b.score-a.score);
+ const sourceGoalIds=[...new Set(out.flatMap(g=>g.sourceGoalIds))];
+ return {goals:out,shown:out.slice(0,5),deferred:out.slice(5),primaryGoalIds:out.slice(0,5).map(x=>x.id),allGoalIds:out.map(x=>x.id),sourceGoalIds,sourceFullyCovered:goals.every(x=>sourceGoalIds.includes(x.id)),sourceCount:goals.length,version:'8.7.0-compatibility'};
+}
+
 function build(payload,opts={}){
  validate(payload);const role=opts.role||'social-worker';if(!['teacher','social-worker','education-welfare'].includes(role))throw Error('role must be teacher, education-welfare or social-worker');
  const raw=getNote(payload),ex=E.extract(raw),core=ownScore(payload,opts);const reconcile=R.reconcile(payload.answers,ex.evidence);const route=A.route(payload.answers,{evidence:ex.evidence,hasNarrative:!!raw.trim(),visibleLimit:opts.visibleLimit||6});
@@ -22,7 +35,16 @@ function build(payload,opts={}){
  const exposed=new Set(['housing_arrears','housing_concern','meal_gap','economic','learning','attendance','peer_harm','peer_conflict','family_conflict','care_burden','mood','family_harm','self_harm','online_coercion','school_access','parent_work']);for(const x of credible){if(!exposed.has(x.kind))continue;facts.push({id:'F-'+x.id,type:'life_event',text:x.label+': '+x.excerpt,confidence:'user_reported_unverified',evidenceIds:[x.id]});}
  const uniqueFacts=facts.filter((v,i,a)=>!a.slice(0,i).some(x=>x.text===v.text));
  const disclosed=credible.filter(e=>['family_harm','self_harm','peer_harm','online_coercion'].includes(e.kind));
- const safetyState=S.build(payload.answers,core.value,disclosed.map(e=>e.id),uncertaintySafety.map(e=>e.id));let safety={...safetyState,method:'현재 안전을 실무자가 직접 확인하며 공식 CORE의 점수·판정은 변경하지 않음'};const grouped=G.build(route.goals,{limit:5});
+ const evidenceIds=disclosed.map(e=>e.id),uncertainIds=uncertaintySafety.map(e=>e.id);
+ const safetyState=S?.build?S.build(payload.answers,core.value,evidenceIds,uncertainIds):{
+ version:'8.7.0-compatibility',officialCORE:safetyOriginal,narrativeReported:narrativeSafety,
+ reportedEvidenceIds:evidenceIds,uncertainNarrativeIds:uncertainIds,
+ unknownSafetyItems:[1,2,7,25].filter(n=>payload.answers[n-1]==='unknown'),
+ pendingFollowupItems:core.value?.pendingChecks||[],
+ reviewRequired:safetyOriginal||narrativeSafety||uncertainIds.length>0||[1,2,7,25].some(n=>payload.answers[n-1]==='unknown')||(core.value?.pendingChecks?.length||0)>0,
+ officialDecisionUnchanged:true};
+ const safety={...safetyState,reviewPending:safetyState.reviewRequired&&!safetyOriginal&&!narrativeSafety,method:'현재 안전을 실무자가 직접 확인하며 공식 CORE의 점수·판정은 변경하지 않음'};
+ const grouped=G?.build?G.build(route.goals,{limit:5}):fallbackCompose(route.goals);
  const goalIds=route.goals.map(g=>g.id);const primary=route.shown.map(g=>g.concept);
  let assessment={situation:uniqueFacts.map(f=>f.text).slice(0,14),strengths:uniqueFacts.filter(x=>x.type==='strength').map(x=>x.text),existingSupport:uniqueFacts.filter(x=>x.type==='service').map(x=>x.text),observations:raw.trim()?reconcile.issues.slice(0,7).map(x=>x.question):['서술형 정보 없이 척도 응답의 직접 근거를 우선 확인합니다.'],judgement:route.goals.length?'우선 확인·협의할 사항은 '+primary.slice(0,3).join(' / ')+'입니다. 각 과제는 입력된 척도 또는 보고된 생활장면을 근거로 하는 검토안이며 학생이 바라는 변화와 실제 기준선을 면담에서 결정합니다.':'현재 점수와 입력 서술에서 개별 지원 필요를 확정하기 어렵습니다. 학생의 바람·강점·최근 생활을 확인하고 관찰을 이어갑니다.',causalHypotheses:[],disclaimer:'보고된 정보와 확인된 사실을 구분합니다. 인과관계·학대 판정·진단·자격·서비스 신청 및 제공을 임의 확정하지 않습니다.'};
  if(credible.some(x=>x.kind==='parent_work')&&credible.some(x=>x.kind==='meal_gap'))assessment.causalHypotheses.push('보호자 근로 여건과 식사 공백의 시간적 관계는 가설입니다. 요일·돌봄 경로와 실제 지원을 확인해야 합니다.');
