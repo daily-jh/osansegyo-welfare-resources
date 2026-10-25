@@ -18,6 +18,17 @@ async function scenario(browser,width){
  await page.waitForFunction(()=>document.querySelector('#resultTools')?.hidden===false,{timeout:15000});
  assert.equal(await page.locator('#resultTools .result-optional-feature').count(),2);
  assert.equal(await page.locator('#journey88').isVisible(),true,'stage 2 interpretation visible');
+ assert.equal(await page.locator('#cie-flow-v32').isVisible(),true,'optional V3.2 in-flow panel visible');
+ await page.waitForFunction(()=>/해석 완료|심층해석 보류/.test(document.querySelector('#cie-flow-status')?.textContent||''),{timeout:15000});
+ assert.match(await page.locator('#cie-flow-status').innerText(),/해석 완료/,'V3.2 must actually return Korean inference');
+ const originalCore=await page.evaluate(a=>window.YouthCriteria.evaluate(a,[2,3,3,3,2,2,3,3,2,2],false,{}).knownTotal,answers);
+ await page.locator('#cie-flow-question').fill('서비스계획에서 확인해야 할 근거는?');
+ assert.match(await page.locator('#cie-flow-status').innerText(),/다시 분석/,'changing question invalidates old result');
+ await page.locator('#cie-flow-run').click();
+ await page.waitForFunction(()=>document.querySelector('#cie-flow-status')?.textContent?.includes('해석 완료'),{timeout:15000});
+ assert.ok((await page.locator('#cie-flow-result').innerText()).length>30,'V3.2 produces useful answer');
+ assert.equal(await page.evaluate(a=>window.YouthCriteria.evaluate(a,[2,3,3,3,2,2,3,3,2,2],false,{}).knownTotal,answers),originalCore,'V3.2 never changes CORE');
+
  await page.locator('.flow-nav [data-stage="3"]').click();
  await page.waitForFunction(()=>document.querySelector('#journey88')?.textContent?.includes('사정에서 실행계획까지'),{timeout:15000});
  const text=await page.locator('#journey88').innerText();
