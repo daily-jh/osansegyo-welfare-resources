@@ -21,3 +21,6 @@
 #oyCaseContext .oy-context-description{color:#344e66;line-height:1.7}
 #oyCaseContext button{min-height:44px;padding:10px 16px}
 @media(max-width:600px){#oyCaseContext{padding:16px;margin:18px 0}#oyCaseContext textarea{min-height:200px}#oyCaseContext summary{font-size:18px}}
+
+@font-face{font-family:OYContext;src:url('fonts/SUIT-Variable.woff2') format('woff2');font-weight:100 900;font-display:swap}
+#oyCaseContext,#oyCaseContext textarea,#oyCaseContext button{font-family:OYContext,sans-serif}
