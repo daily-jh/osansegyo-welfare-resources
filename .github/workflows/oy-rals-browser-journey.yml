@@ -3,14 +3,14 @@ on:
   pull_request:
     paths:
       - 'docs/youth-risk/**'
-      - 'tests/youth-ui-browser-regression.cjs'
+      - 'e2e/youth-ui-browser-regression.cjs'
       - '.github/workflows/oy-rals-browser-journey.yml'
   push:
     branches:
       - main
     paths:
       - 'docs/youth-risk/**'
-      - 'tests/youth-ui-browser-regression.cjs'
+      - 'e2e/youth-ui-browser-regression.cjs'
       - '.github/workflows/oy-rals-browser-journey.yml'
 permissions:
   contents: read
@@ -33,7 +33,7 @@ jobs:
           sleep 2
           curl -fsS http://127.0.0.1:8765/youth-risk/ >/dev/null
       - name: Verify case assessment, plan, map, PDF print on desktop and mobile
-        run: node tests/youth-ui-browser-regression.cjs
+        run: node e2e/youth-ui-browser-regression.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
