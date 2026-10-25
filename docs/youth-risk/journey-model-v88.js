@@ -2,7 +2,7 @@
 (function(root){'use strict';
 const node=typeof module!=='undefined'&&module.exports;
 const M=node?require('./support-model.js'):root.YouthMap,C=node?require('./case-context-core.js'):root.YouthCaseContextCore,W=node?require('./weight-model.js'):root.YouthWeightModel,E=node?require('./case-context-v81.js'):root.YouthContextV81;
-const VERSION='8.8.2';
+const VERSION='8.8.3';
 const tasks=[
  ['현재 보호 상황 확인','현재 위치·위해·안전한 연락 상대를 확인하고 사안별 보호절차를 검토합니다.','추가 위해와 보호 공백 여부'],
  ['또래관계의 안전 확인','상호 갈등·피해·위협을 구분하고 학교 담당과 안전한 접촉·생활 조정을 정합니다.','학생이 느끼는 안전과 피해 반복 여부'],
@@ -58,6 +58,8 @@ function analyze(p){
  if(context.needsSafetyAttention)cie.unshift('서술에서 안전 관련 단서가 포착되었습니다. 문항 점수가 낮아도 현재 위해 여부와 긴급 보호 필요성을 직접 확인해야 하며, 자동 추론만으로 안전을 확정하지 않습니다.');
  if(observed.length>1&&!cie.length)cie.push('여러 영역의 어려움이 동시에 보고되었습니다. 영역 간 인과관계를 단정하지 말고 발생 시점·생활 영향·기존 지원을 대조하여 학생이 우선 희망하는 변화부터 협의하세요.');
  if(cie.length)formulation.push('OY-CIE 맥락 통합검토(가설·확인과제): '+cie.join(' '));
+ const cieActions=cie.map((hypothesis,i)=>({id:'CIE-'+(i+1),hypothesis,verification:'학생·담당자의 실제 장면·시점·정보원을 대조하고 확인일을 기록',status:'미확인 가설',priority:i===0&&context.needsSafetyAttention?'안전 우선':'우선순위 협의'}));
+ const cieSummary=cieActions.length?'OY-CIE 검토가설 '+cieActions.length+'건: '+cieActions.slice(0,3).map(x=>x.hypothesis).join(' '):'확인된 척도와 서술을 토대로 생활 장면과 학생 희망을 확인합니다.';
  const integrated=formulation.join(' ')||'현재 보고된 어려움을 학생이 가장 불편한 생활 장면부터 구체화하세요. 빈도·지속기간·학교와 가정에서의 차이를 확인한 뒤, 우선 과제 한 가지를 학생과 합의하고 변화 여부를 점검합니다.';
  const sections=[
  {title:'학생 상황 요약',text:summary+' '+(priorityEvidence?'주요 검토 과제: '+priorityEvidence+'. ':'이번 응답에서 자동 계획할 어려움이 보고되지 않았습니다. ')+(context.fields.situation?'서술에 보고된 상황(독립 확인 전): '+context.fields.situation+' / ':'')+(familyEvidence?'가족·생활 관계 단서: '+familyEvidence+'. ':'')+'문항별 근거의 실제 발생시기·빈도·학생의 생활 영향과 정보원을 확인해야 합니다. 서술은 점수 또는 학대·진단 확정 근거가 아닙니다.'},
@@ -67,10 +69,10 @@ function analyze(p){
  {title:'학생의 말·희망·동기',text:references.filter(e=>/원함|원하|원치|원하지|희망|거부|동의|하고 싶/.test(e.text)).map(e=>'['+e.id+'] '+e.text).join(' / ')||context.fields.studentWishes||'학생이 바라는 변화와 원하지 않는 지원, 정보공유 의견은 직접 확인해야 합니다.'},
  {title:'강점·보호요인·기존 지원',text:[context.fields.strengths,context.fields.existingSupport].filter(Boolean).join(' / ')||'이번 입력에서 구체적 강점·이용 중 지원을 추출하지 못했습니다. 강점이나 지원이 없다는 뜻은 아닙니다.'},
  {title:'상황을 함께 이해하기 · 잠정 해석과 지도 방향',text:integrated},
- {title:'종합사정 및 우선순위',text:plans.slice(0,5).map(x=>'['+x.id+'] '+x.title+' — '+x.action).join(' / ')||'학생 희망과 필요한 예방·경과 확인을 면담에서 협의합니다.'},
+ {title:'종합사정 및 우선순위',text:cieSummary+' 우선 실행과제: '+(plans.slice(0,5).map(x=>'['+x.id+'] '+x.title+' — '+x.action).join(' / ')||'학생 희망과 필요한 예방·경과 확인을 면담에서 협의합니다.')},
  {title:'근거·미확인·확인 계획',text:[decision.unknownItems.length?'미상: '+decision.unknownItems.join('·')+'번은 0점으로 취급하지 않고 확인 전으로 유지':'',context.mismatches.map(x=>x.items.join('·')+'번: '+x.issue).join(' / '),'문항 근거의 실제 장면·기간·정보원, 학생 희망, 담당·확인일·정보공유 근거를 면담에서 기록해야 합니다.'].filter(Boolean).join(' / ')}
  ];
- return {version:VERSION,decision,domains,context,ecosystem,active,plans,primaryPlans:plans.slice(0,5),ledger,sections,high:p.answers.flatMap((v,i)=>Number.isInteger(v)&&v>=3?[{item:i+1,score:v}]:[]),pairs:W.PAIRS.filter(x=>p.answers[x.item-1]>0&&p.answers[x.other-1]>0),weights:W.audit(p.answers),questions:['지금 가장 먼저 도움받고 싶은 일은 무엇인가요?','그 일이 언제, 어떤 상황에서 가장 어렵게 느껴지나요?','이미 도움을 주는 사람이나 기관이 있나요? 어떤 도움이 더 필요할까요?']};
+ return {version:VERSION,decision,domains,context,ecosystem,active,cieActions,plans,primaryPlans:plans.slice(0,5),ledger,sections,high:p.answers.flatMap((v,i)=>Number.isInteger(v)&&v>=3?[{item:i+1,score:v}]:[]),pairs:W.PAIRS.filter(x=>p.answers[x.item-1]>0&&p.answers[x.other-1]>0),weights:W.audit(p.answers),questions:['지금 가장 먼저 도움받고 싶은 일은 무엇인가요?','그 일이 언제, 어떤 상황에서 가장 어렵게 느껴지나요?','이미 도움을 주는 사람이나 기관이 있나요? 어떤 도움이 더 필요할까요?']};
 }
 function text(p,page,includeContext=false){const full=analyze(p);const a=includeContext?full:analyze({...p,caseContext:''});if(!includeContext)a.sections[6]={...full.sections[6]};
  return ['OY-RALS V'+VERSION+' · '+page+' · 실무자 검토 전 초안',
