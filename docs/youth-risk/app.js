@@ -259,7 +259,7 @@ var domainScores=domains.map(function(d,i){return sumKnown(domainAnswers(i))});
 var explicit=getUrgent(),inferred=inferredSignals();
 var urgent=explicit.length>0||inferred.length>0;
 var decision=YouthCriteria.evaluate(answers,domains.map(function(d){return d.items.length}),explicit.length>0,followupState());var rank=decision.level;
-if(decision.incomplete){YouthPartial.render(snapshot(),decision);resizeSummary();renderResources(domainScores);$("openSupport").disabled=false;$("openWorkbench").disabled=false;$("supportStatus").textContent='미상 표시를 유지한 잠정 연결지도를 볼 수 있습니다.';updateCopyGate();notifyComplete();$("result").scrollIntoView({behavior:'smooth',block:'start'});return;}
+if(decision.incomplete){YouthPartial.render(snapshot(),decision);resizeSummary();renderResources(domainScores);$("openSupport").disabled=false;$("openWorkbench").disabled=false;$("supportStatus").textContent='미상 표시를 유지한 잠정 연결지도를 볼 수 있습니다.';updateCopyGate();notifyComplete();if(window.parent===window)$("result").scrollIntoView({behavior:'smooth',block:'start'});return;}
 var who=$("studentName").value.trim(),heading=decision.title;
 var html='<div class="result-main'+(urgent?' urgent':'')+'"><span class="eyebrow">TEST 평가결과'+(who?' · '+clean(who):'')+'</span><div class="sum">'+total+'<small> / 100점</small></div><h3>'+clean(heading)+'</h3><p>'+clean(window.YouthNarrative?YouthNarrative.build(snapshot(),'teacher').overview:urgent?"선택된 안전신호가 우선입니다. 점수 산출을 기다리지 말고 필요한 긴급조치를 실시하세요.":decision.description)+'</p><p class="sub">'+clean(decision.reason)+'<br><a href="criteria.html">판정 기준·문항별 우선순위 보기</a></p></div>';
 html+='<div class="routes">'+interventionPlan(decision,YouthInsights.analyze(answers)).map(function(p){return '<article class="route"><h4>'+clean(p.title)+'</h4><p>'+clean(p.text)+'</p></article>'}).join('')+'</div>';
@@ -279,7 +279,7 @@ renderResources(domainScores);
 renderSummary(total,domainScores,explicit.concat(inferred));
 notifyComplete();
 $("openSupport").disabled=false;$("openWorkbench").disabled=false;$("supportStatus").textContent="선택 보기입니다. 영역별 신호와 기관·사업의 연결을 그림으로 확인하세요.";
-$("result").scrollIntoView({behavior:"smooth",block:"start"});
+if(window.parent===window)$("result").scrollIntoView({behavior:"smooth",block:"start"});
 }
 function parseCsv(text){
 var rows=[],row=[],value="",quoted=false;
@@ -356,7 +356,7 @@ $("selectSummary").addEventListener("click",function(){$("summaryText").focus();
 $("complete").addEventListener("click",calculate);
 $("asideComplete").addEventListener("click",calculate);
 $("safetyChecks").addEventListener("change",updateUrgent);
-$("reset").addEventListener("click",function(){if(!confirm("이름과 평가 점수 및 긴급 체크 항목을 모두 초기화하시겠습니까?"))return;answers.fill(null);if(window.siteUsage)window.siteUsage.reset();ready=false;window.YouthCaseContextForm?.reset();$("studentName").value="";$("studentGender").value="미확인";$("studentDong").value="";$("welfareZoneHint").textContent=YouthMap.welfareZoneText(studentProfile());document.querySelectorAll('input[type="radio"],input[data-urgent]').forEach(function(x){x.checked=false});document.querySelectorAll(".question.has-value").forEach(function(x){x.classList.remove("has-value")});updateProgress();updateFollowups();updateUrgent();$("assessment").scrollIntoView({behavior:"smooth"})});
+$("reset").addEventListener("click",function(){if(!confirm("이름과 평가 점수 및 긴급 체크 항목을 모두 초기화하시겠습니까?"))return;answers.fill(null);if(window.siteUsage)window.siteUsage.reset();ready=false;window.YouthCaseContextForm?.reset();$("studentName").value="";$("studentGender").value="미확인";$("studentDong").value="";$("welfareZoneHint").textContent=YouthMap.welfareZoneText(studentProfile());document.querySelectorAll('input[type="radio"],input[data-urgent]').forEach(function(x){x.checked=false});document.querySelectorAll(".question.has-value").forEach(function(x){x.classList.remove("has-value")});updateProgress();updateFollowups();updateUrgent();if(window.parent===window)$("assessment").scrollIntoView({behavior:"smooth"})});
 var sharedRows=YouthResourceAdapter.rows(window.WELFARE_DATA);
 if(sharedRows.length){csv=sharedRows;$('resourceStatus').textContent='복지자원 홈페이지와 동일한 기관·주소·연락처 DB: '+csv.length+'개 서비스 · 실제 대상·관할·운영 확인 필요';}
 else { $('resourceStatus').textContent='최신 주소·연락처 원본을 불러오지 못했습니다. 전체 복지자원 검색에서 확인해 주세요.'; }
