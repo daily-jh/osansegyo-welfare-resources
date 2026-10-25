@@ -1,0 +1,21 @@
+/* Apple Design Skill HIG-informed workflow refinement. No scoring or stage changes. */
+:root{--hig-ink:#172c41;--hig-secondary:#506579;--hig-accent:#1769d2}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif}
+:where(.welcome-steps p,.home-role-grid p,#flowStatus){font-size:16px;line-height:1.7;color:var(--hig-secondary)}
+:where(.flow-nav button,.flow-bottom button,.hero-actions button,.bridge-actions button,.youth-header-links a){min-height:44px}
+:where(.flow-nav button,.flow-bottom button,.hero-actions button,.bridge-actions button,.youth-header-links a):focus-visible{outline:3px solid var(--hig-accent)!important;outline-offset:3px}
+:where(.flow-nav button,.flow-bottom button,.hero-actions button,.bridge-actions button):not(:disabled):active{transform:scale(.985)}
+:where(.flow-focus,.home-role-grid article,.welcome-steps article,.youth-resource-card){min-width:0;overflow-wrap:anywhere}
+:where(#stepTitle,.hero-copy h1){word-break:keep-all;text-wrap:balance}
+:where(.flow-status,#flowStatus){overflow-wrap:break-word}
+@media(max-width:700px){
+ :where(.welcome-steps p,.home-role-grid p,#flowStatus){font-size:16px}
+ .flow-nav{gap:8px}
+ .flow-nav button{font-size:14px;line-height:1.4}
+ .flow-bottom .flow-btn{font-size:16px}
+ .youth-header-links a{font-size:14px}
+ .result-action-grid button{min-height:72px}
+}
+@media(prefers-reduced-motion:reduce){:where(.flow-nav button,.flow-bottom button,.hero-actions button,.bridge-actions button){transition:none!important;animation:none!important;transform:none!important}}
+@media print{:where(.flow-header,.flow-nav,.flow-bottom,.hero-actions){display:none!important}}
