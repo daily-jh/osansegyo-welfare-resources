@@ -39,3 +39,6 @@ jobs:
 
       - name: OY-CIE V3.2 CORE and dialogue regression
         run: node tests/cie-v32-regression.cjs
+
+      - name: Interpretation semantics and PDF privacy
+        run: node tests/youth-interpretation-regression.cjs

@@ -32,16 +32,18 @@ function analyze(p){
  const summary=decision.incomplete?'아직 확인하지 않은 문항은 '+decision.unknownItems.join('·')+'번입니다. 확인된 응답 합계는 '+decision.knownTotal+'점이며, 아래는 현재 확인된 어려움에 대한 지원 방향입니다.':'25문항 응답 합계는 '+decision.knownTotal+'/100점입니다.';
  const note=String(p.caseContext||'');
  const clauses=ledger.filter(e=>e.kind==='narrative');
- const interest=clauses.filter(e=>/관심|좋아|즐기|잘하|하고 싶/.test(e.text));
+ const interest=clauses.filter(e=>/관심|좋아|즐기|잘하|하고 싶/.test(e.text)&&!/관심.{0,6}없|싫어|좋아하지 않|원하지 않|과거|예전|만약/.test(e.text));
  const service=clauses.filter(e=>/상담|서비스|지원/.test(e.text)&&/받고|이용 중|이용중|참여 중/.test(e.text)&&!/받고 싶|받지 않|과거|지난해|종결/.test(e.text));
  if(service.length&&!context.fields.existingSupport)context.fields.existingSupport=service.map(e=>e.text).join(' / ');
  if(interest.length&&!context.fields.strengths)context.fields.strengths=interest.map(e=>e.text).join(' / ');
  const formulation=[];
  if(domains[3].sum&&domains[8].sum)formulation.push('학습 참여와 관계·지지의 어려움이 함께 보고되었습니다. 수업에서의 실패 경험과 또래관계의 긴장이 서로 부담을 키우는지 살펴볼 필요가 있습니다. 최근 힘들었던 수업과 갈등 장면을 각각 한 가지씩 재구성해, 과제 난도·설명 방식·또래 반응 중 조정할 지점을 찾으세요.');
- if(/ADHD|주의력결핍|주의력 결핍/i.test(note))formulation.push('서술에는 ADHD가 보고되어 있습니다. 실제 진단·치료 상태를 확인하면서 과제 시작, 지시 기억, 기다리기, 감정이 올라오는 상황을 구분해 보세요. 학업·관계 문제 전체를 진단명 하나로 설명하기보다 짧은 지시, 과제 분할, 예고된 휴식이 참여에 도움이 되는지 학생과 시험해 보는 것이 좋습니다.');
- if(domains[7].sum)formulation.push('생활환경의 어려움은 상담만으로 해결하기 어려울 수 있습니다. 특히 주거 응답은 안전한 거처, 수면·학습 공간, 이사 불안 중 무엇을 뜻하는지 나누어 확인하고 실제 환경 조정을 계획에 포함하세요.');
+ if(clauses.some(e=>/ADHD|주의력\s*결핍/i.test(e.text)&&!/없|아니|아님|않|부인|만약|예시|친구|보호자|과거|예전/.test(e.text)))formulation.push('서술에는 ADHD가 보고되어 있습니다. 실제 진단·치료 상태를 확인하면서 과제 시작, 지시 기억, 기다리기, 감정이 올라오는 상황을 구분해 보세요. 학업·관계 문제 전체를 진단명 하나로 설명하기보다 짧은 지시, 과제 분할, 예고된 휴식이 참여에 도움이 되는지 학생과 시험해 보는 것이 좋습니다.');
+ if(Number.isInteger(p.answers[18])&&p.answers[18]>0)formulation.push('필수생활의 공백이 보고되었습니다. 오늘 식사·의복·위생용품 중 무엇이 부족한지 확인하고, 제공할 물품과 전달 시점을 정하세요.');
+ if(Number.isInteger(p.answers[19])&&p.answers[19]>0)formulation.push('주거의 어려움이 보고되었습니다. 안전한 거처와 수면·학습 공간 중 실제 어려움을 구분하고 환경 조정을 협의하세요.');
+ if(Number.isInteger(p.answers[20])&&p.answers[20]>0)formulation.push('필요한 서비스의 비용 장벽이 보고되었습니다. 이용하지 못한 의료·교육·활동이 무엇인지, 비용·자격·이동 중 어떤 장벽인지 확인하고 담당 창구에 지원 가능 범위를 문의하세요.');
  if(service.length)formulation.push('이미 상담을 받고 있다는 보고가 있으므로 새로운 상담기관을 추가하기 전에 현재 상담에서 다루는 내용과 학교에서 필요한 도움을 확인하세요. 학생 동의와 공유 범위를 정한 뒤 기존 담당자와 학교의 역할을 조정하는 것이 우선입니다.');
- if(interest.length)formulation.push('관심 활동은 학생과 관계를 만들고 성공 경험을 쌓을 출발점입니다. '+(/태권도/.test(note)?'태권도는 학생이 원하는 활동 방식·비용·이동·지도자와의 관계를 확인한 뒤 작은 참여 목표로 연결해 볼 수 있습니다. 운동이 치료 효과를 보장한다고 설명하지 마세요.':'학생이 원하는 참여 방식과 비용·이동의 장벽을 확인해 실행 가능한 작은 목표로 연결하세요.'));
+ if(interest.length)formulation.push('관심 활동은 학생과 관계를 만들고 성공 경험을 쌓을 출발점입니다. '+(interest.some(e=>/태권도/.test(e.text))?'태권도는 학생이 원하는 활동 방식·비용·이동·지도자와의 관계를 확인한 뒤 작은 참여 목표로 연결해 볼 수 있습니다. 운동이 치료 효과를 보장한다고 설명하지 마세요.':'학생이 원하는 참여 방식과 비용·이동의 장벽을 확인해 실행 가능한 작은 목표로 연결하세요.'));
  const integrated=formulation.join(' ')||'현재 보고된 어려움을 학생이 가장 불편한 생활 장면부터 구체화하세요. 빈도·지속기간·학교와 가정에서의 차이를 확인한 뒤, 우선 과제 한 가지를 학생과 합의하고 변화 여부를 점검합니다.';
  const sections=[
  {title:'학생 상황 요약',text:summary+' '+(priorityEvidence?'주요 검토 과제: '+priorityEvidence+'. ':'이번 응답에서 자동 계획할 어려움이 보고되지 않았습니다. ')+(context.fields.situation?'서술에 보고된 상황(독립 확인 전): '+context.fields.situation+' / ':'')+(familyEvidence?'가족·생활 관계 단서: '+familyEvidence+'. ':'')+'문항별 근거의 실제 발생시기·빈도·학생의 생활 영향과 정보원을 확인해야 합니다. 서술은 점수 또는 학대·진단 확정 근거가 아닙니다.'},
@@ -56,7 +58,7 @@ function analyze(p){
  ];
  return {version:VERSION,decision,domains,context,ecosystem,active,plans,primaryPlans:plans.slice(0,5),ledger,sections,high:p.answers.flatMap((v,i)=>Number.isInteger(v)&&v>=3?[{item:i+1,score:v}]:[]),pairs:W.PAIRS.filter(x=>p.answers[x.item-1]>0&&p.answers[x.other-1]>0),weights:W.audit(p.answers),questions:['지금 가장 먼저 도움받고 싶은 일은 무엇인가요?','그 일이 언제, 어떤 상황에서 가장 어렵게 느껴지나요?','이미 도움을 주는 사람이나 기관이 있나요? 어떤 도움이 더 필요할까요?']};
 }
-function text(p,page,includeContext=false){const a=analyze({...p,caseContext:includeContext?p.caseContext:''});
+function text(p,page,includeContext=false){const full=analyze(p);const a=includeContext?full:analyze({...p,caseContext:''});if(!includeContext)a.sections[6]={...full.sections[6]};
  return ['OY-RALS V'+VERSION+' · '+page+' · 실무자 검토 전 초안',
  a.decision.title,a.decision.incomplete?'확인 합계 '+a.decision.knownTotal+'/'+a.decision.knownMaximum+' · 미상 '+a.decision.unknownItems.length+'개 · 전체 판단 보류':'원점수 '+a.decision.knownTotal+'/100',
  '응답: '+p.answers.map((v,i)=>(i+1)+'번 '+v).join(', '),'안전 추가확인: '+JSON.stringify(p.followups||{}),'별도 안전 체크: '+(p.explicit.join(' / ')||'보고 없음'),

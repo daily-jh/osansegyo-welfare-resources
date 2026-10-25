@@ -47,7 +47,7 @@ function infer(input){
   for(const def of TYPES){if(!def.re.test(clause))continue;
    const key=def.id+'|'+clause;if(seen.has(key))continue;seen.add(key);
    const polarity=hypo?'hypothetical':neg?'negated':uncertain?'unverified':'reported';
-   signals.push({tag:def.id,items:def.items.slice(),label:def.label,polarity,source:who(clause),timeHint:old?'historical-mention':/(?:현재|지금|요즘|최근|오늘)/.test(clause)?'current-or-recent':'unconfirmed',safety:!!def.safety,clause:redact(clause).slice(0,180),action:def.ask,evidenceClass:'unverified_optional_free_text',humanConfirmationRequired:true});
+   signals.push({tag:def.id,items:def.items.slice(),label:def.label,polarity,subject:/(?:친구|보호자|부모|어머니|아버지)(?:가|는|의).{0,20}(?:자해|자살|죽고)/.test(clause)?'third-party':'unconfirmed',source:who(clause),timeHint:old?'historical-mention':/(?:현재|지금|요즘|최근|오늘)/.test(clause)?'current-or-recent':'unconfirmed',safety:!!def.safety,clause:redact(clause).slice(0,180),action:def.ask,evidenceClass:'unverified_optional_free_text',humanConfirmationRequired:true});
   }
  }
  const section=(rx,n=3)=>clauses.filter(x=>rx.test(x)&&!HYPOTHETICAL.test(x)&&!NEG.test(x)).slice(0,n).map(x=>redact(x).slice(0,230)).join(' / ');
