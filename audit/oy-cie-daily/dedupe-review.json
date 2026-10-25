@@ -1,0 +1,26 @@
+{
+  "status": "review_only_do_not_modify_origins",
+  "publicResearchKB": {
+    "records": 600,
+    "unique": 600,
+    "duplicates": 0,
+    "aliases": []
+  },
+  "templates": {
+    "records": 80,
+    "unique": 80,
+    "duplicates": 0,
+    "aliases": []
+  },
+  "crossPairs": {
+    "records": 300,
+    "unique": 300,
+    "duplicates": 0,
+    "aliases": []
+  },
+  "route": {
+    "total": 5550,
+    "unique": 5550,
+    "duplicates": 0
+  }
+}

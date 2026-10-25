@@ -1,0 +1,69 @@
+{
+  "stats": {
+    "date": "2026-10-25",
+    "timezone": "Asia/Seoul",
+    "categoryCount": {
+      "zero": 64,
+      "safety_unknown": 64,
+      "core_safety": 64,
+      "followup_pending": 64,
+      "score_positive": 64,
+      "text_selfharm": 64,
+      "negated_selfharm": 64,
+      "historical_selfharm": 64,
+      "third_person": 64,
+      "narrative_food": 64,
+      "contradictory_food": 64,
+      "peer_attendance": 64,
+      "care_basic": 64,
+      "long_tail_safety": 64,
+      "followup_question": 64,
+      "random_domains": 64
+    },
+    "requested": 1024,
+    "executed": 1024,
+    "exceptions": 0,
+    "coreMismatch": 0,
+    "safetyMismatch": 0,
+    "unknownMismatch": 0,
+    "mandatorySafetyMissing": 0,
+    "brokenEvidenceRefs": 0,
+    "unwantedServiceApproval": 0,
+    "privacyLeak": 0,
+    "technicalOnly": true,
+    "expertRatings": 0,
+    "corpusCount": 600,
+    "pairCount": 300,
+    "templateCount": 80,
+    "routeCount": 5550,
+    "uniqueFailuresToday": 0,
+    "cumulativeUniqueFindings": 0,
+    "duplicateFailureObservations": 0,
+    "dedup": {
+      "researchKB": {
+        "total": 600,
+        "unique": 600,
+        "duplicates": 0
+      },
+      "templates": {
+        "total": 80,
+        "unique": 80,
+        "duplicates": 0
+      },
+      "pairs": {
+        "total": 300,
+        "unique": 300,
+        "duplicates": 0
+      },
+      "route": {
+        "total": 5550,
+        "unique": 5550,
+        "duplicates": 0
+      }
+    },
+    "verdict": "SYNTHETIC_TECHNICAL_PASS",
+    "operationalCoreModified": false,
+    "autopatchedMain": false
+  },
+  "uniqueFailureKeysToday": []
+}
