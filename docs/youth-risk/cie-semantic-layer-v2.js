@@ -10,5 +10,28 @@ const items=answers.map((value,i)=>({id:i+1,topic:TOPICS[i],value,meaning:value=
 const links=PAIRS.filter(([a,b])=>typeof answers[a-1]==='number'&&answers[a-1]>0&&typeof answers[b-1]==='number'&&answers[b-1]>0).map(([a,b,meaning,question])=>({a,b,meaning,question,score:Math.min(answers[a-1],answers[b-1]),sum:answers[a-1]+answers[b-1]})).sort((x,y)=>y.score-x.score||y.sum-x.sum||x.a-y.a);
 const ranked=items.filter(x=>typeof x.value==='number'&&x.value>0).sort((a,b)=>Number(b.safety)-Number(a.safety)||b.value-a.value||a.id-b.id);
 return {version:'OY-CIE-V2-research',items,links,ranked,unknown:items.filter(x=>x.value==='unknown'),safety:ranked.filter(x=>x.safety),knownTotal:answers.reduce((n,x)=>n+(typeof x==='number'?x:0),0),caveat:'연관 가설은 인과관계·검증된 위험확률이 아니며 원점수·공식 안전판정과 분리됨'};}
-const api=Object.freeze({TOPICS,PAIRS,LABELS,ITEM_LEVELS,RESEARCH,PROBES,interpret});if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.OYCIESemanticV2=api;
+
+const PRIORITY_WEIGHTS=Object.freeze([1.30,1.20,1.12,1.18,1.10,1.02,1.35,1.05,1.00,0.98,0.96,1.12,1.18,1.00,1.03,1.12,1.01,1.09,1.14,1.11,1.06,0.98,1.06,0.97,1.32]);
+const RESPONSE_IMPACT=Object.freeze([0,0.18,0.42,0.72,1]);
+function formulate(answers){
+ const base=interpret(answers);
+ const scored=base.items.filter(x=>typeof x.value==='number'&&x.value>0).map(x=>{
+   const raw=RESPONSE_IMPACT[x.value],weight=PRIORITY_WEIGHTS[x.id-1],impact=raw*weight;
+   return {...x,weight,impact,priority:impact>=0.9?'먼저 확인':impact>=0.5?'구체적 사정':'경과·맥락 확인'};
+ }).sort((a,b)=>Number(b.safety)-Number(a.safety)||b.impact-a.impact||a.id-b.id);
+ const intersections=base.links.map(link=>{
+   const a=base.items[link.a-1],b=base.items[link.b-1];
+   const combined=Math.min(RESPONSE_IMPACT[a.value],RESPONSE_IMPACT[b.value]);
+   return {...link,combined,reason:a.topic+'('+a.value+'점: '+a.meaning+')과 '+b.topic+'('+b.value+'점: '+b.meaning+')이 함께 보고되었습니다.',next:'두 어려움의 발생 시점과 실제 생활 영향이 연결되는지 확인: '+link.question};
+ }).sort((a,b)=>b.combined-a.combined||a.a-b.a);
+ const unknown=base.unknown.map(x=>({id:x.id,topic:x.topic,meaning:'미상은 0점이 아니므로 해당 영역 판단을 보류합니다.'}));
+ const top=scored.slice(0,4);
+ const headline=top.length?top.slice(0,3).map(x=>x.topic+'에서 '+x.meaning).join('; '):'현재 응답에서 뚜렷하게 보고된 어려움은 없지만 실제 생활의 불편과 미확인 사항을 살펴봐야 합니다.';
+ const narratives=[headline+(top.length?'.':''),
+   intersections.length?'함께 보고된 어려움: '+intersections.slice(0,2).map(x=>x.reason+' '+x.next).join(' '):'현재 정의된 교차 가설에 해당하는 동시 보고는 확인되지 않았습니다.',
+   unknown.length?'정보가 확인되지 않은 문항 '+unknown.map(x=>x.id+'번').join('·')+'은 낮은 위험으로 간주하지 않습니다.':'',
+   '현재 안전과 학생의 희망·강점·기존 지원을 확인한 뒤 실제 지원 우선순위를 결정합니다.'].filter(Boolean);
+ return {version:'OY-CIE-meaning-priority-v2.2',base,scored,intersections,unknown,top,headline,narratives,assumptions:'응답 영향 곡선과 문항별 우선검토 가중치는 연구·개발 가정이며 검증된 확률·위험 절단점이 아닙니다.',rawScore:base.knownTotal,rawIncomplete:unknown.length>0};
+}
+const api=Object.freeze({TOPICS,PAIRS,LABELS,ITEM_LEVELS,RESEARCH,PROBES,PRIORITY_WEIGHTS,RESPONSE_IMPACT,interpret,formulate});if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.OYCIESemanticV2=api;
 })(typeof window!=='undefined'?window:globalThis);
