@@ -1,5 +1,10 @@
-name: OY-RALS V8.7 regression
+name: OY-RALS core and linkage regression
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/youth-risk/**'
+      - '.github/workflows/oy-rals-v87-regression.yml'
   pull_request:
     paths:
       - 'docs/youth-risk/**'
@@ -22,3 +27,6 @@ jobs:
 
       - name: V8.8 interpretation and linkage regression
         run: node tests/youth-journey-v88.cjs
+
+      - name: V8.8.1 absolute principles, core and ZIP consistency
+        run: node docs/youth-risk/tests/v88-absolute-principles-regression.cjs
