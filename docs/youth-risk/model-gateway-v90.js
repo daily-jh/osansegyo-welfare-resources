@@ -10,6 +10,7 @@ const G=NODE?{
  YouthPlanning:requireModule('planning-model'),
  YouthCaseContextCore:requireModule('case-context-core'),
  YouthContextV81:requireModule('case-context-v81'),
+ KCarrNarrativeV8:requireModule('k-carr-narrative-v81'),
  OYCIESemanticV2:requireModule('cie-semantic-layer-v2'),
  OYJourney:requireModule('journey-model-v88'),
  OYRelations:requireModule('relations-v88')
@@ -20,7 +21,8 @@ const CONTRACTS=Object.freeze([
  {id:'ICSI',module:'OYCIESemanticV2',method:'interpretItemScore',role:'문항별·교차점수 해석',implementation:'shared'},
  {id:'NCB',module:'YouthCaseContextCore',method:'reconcile',role:'서술형 맥락 연결',implementation:'native'},
  {id:'OY-CIE',module:'OYCIESemanticV2',method:'formulate',role:'통합 근거·맥락 추론',implementation:'shared'},
- {id:'K-CARR',module:'OYJourney',method:'text',role:'한국어 사례응답',implementation:'embedded'},
+ {id:'K-CARR',module:'KCarrNarrativeV8',method:'assess',role:'서술형 전문 사례분석',implementation:'native'},
+ {id:'K-CARR-output',module:'OYJourney',method:'text',role:'사정보고서 서술',implementation:'embedded'},
  {id:'ICMS',module:'YouthPlanning',method:'analyze',role:'개입·서비스계획',implementation:'embedded'},
  {id:'Relations',module:'OYRelations',method:'svg',role:'가계도·생태도',implementation:'native'}
 ]);
@@ -58,8 +60,22 @@ function analyze(p){
  if(answers.length!==p.answers.length||answers.some((v,i)=>v!==p.answers[i]))throw Error('CORE_INPUT_MUTATED');
  const audit=inspect(p,analyzed);
  if(!audit.ok)throw Error('MODEL_CONTRACT_FAILED:'+audit.errors.join(','));
- return {...analyzed,modelTrace:{gateway:VERSION,contracts:status(),audit}};
+ let kCarr=null,kCarrIssue=null;
+ if(typeof p.caseContext==='string'&&p.caseContext.trim()&&G.KCarrNarrativeV8?.assess){
+  try{kCarr=G.KCarrNarrativeV8.assess({caseContext:p.caseContext,officialScore:audit.rawKnownTotal,role:'social-worker'});}
+  catch(_){kCarrIssue='K_CARR_REVIEW_UNAVAILABLE';}
+ }
+ return {...analyzed,kCarr,modelTrace:{gateway:VERSION,contracts:status(),audit,kCarrIssue}};
 }
-const api=Object.freeze({VERSION,CONTRACTS,status,inspect,analyze});
+function text(p,page,includeContext=false){
+ const baseline=G.OYJourney.text(p,page,includeContext);
+ if(!includeContext||typeof p?.caseContext!=='string'||!p.caseContext.trim()||!G.KCarrNarrativeV8?.assess)return baseline;
+ try{
+  const k=G.KCarrNarrativeV8.assess({caseContext:p.caseContext,role:'social-worker'});
+  if(k.abstain)return baseline;
+  return baseline+'\n\nK-CARR 서술형 분석 · 실무자 검토 초안\n'+[k.situationOverview,k.integratedJudgment].filter(Boolean).join('\n')+'\n추가 확인 질문:\n'+(k.nextQuestions||[]).map(q=>'- '+q).join('\n')+'\n이 내용은 미확인 서술을 근거로 한 가설이며 공식 점수·안전판정을 변경하지 않습니다.';
+ }catch(_){return baseline+'\n\n서술형 심화분석은 생성하지 못했습니다. 공식 척도 결과와 안전확인은 유지됩니다.';}
+}
+const api=Object.freeze({VERSION,CONTRACTS,status,inspect,analyze,text});
 if(NODE)module.exports=api;else root.OYModelGateway=api;
 })(typeof window!=='undefined'?window:globalThis);
