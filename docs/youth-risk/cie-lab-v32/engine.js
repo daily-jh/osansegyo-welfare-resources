@@ -26,7 +26,7 @@ const NARRATIVE_CUES=[
 const NARRATIVE_NEGATIVE=/(?:없(?:다|음|다고|어요|었다|었음)?|아니(?:다|고|라|었다)?|않(?:다|음|았다|는다고)?|부인|한\s*적\s*없|하지\s*않|하지\s*못|하고\s*싶지\s*않|안\s*했|안\s*한다|안\s*하)/;
 const HISTORICAL=/(?:지난해|작년|과거|예전|이전에는|종결된|당시|몇\s*년\s*전)/;
 const HYPOTHETICAL=/(?:예방교육|예시|가상의|가정하면|만약|교육자료|설명했다)/;
-const HEARSAY=/(?:소문|전언|들었다|전해졌다|라고\s*한다|것\s*같다)/;
+const HEARSAY=/(?:소문|전언|전해졌다|라고\s*한다|것\s*같다|(?:말을|소문을|이야기를|얘기를|진술을|소식을)\s*들었다)/;
 // Double-negated persistence is not evidence of absence; review rather than silently dismiss.
 const NEGATION_AMBIGUITY=/(?:멈추지|그만두지|중단하지|끊지|없지\s*않|부인.*사실이\s*아니|하지\s*않겠다고\s*말하지)/;
 const THIRD_PARTY=/(?:보호자|아버지|어머니|엄마|아빠|친구|교사).{0,16}(?:자해|자살|죽고\s*싶)/;
@@ -35,7 +35,8 @@ function checkPayload(p){if(!p||!Array.isArray(p.answers)||p.answers.length!==25
 function official(p,criteria){if(!criteria||typeof criteria.evaluate!=='function')throw Error('공식 CORE 미설치');return criteria.evaluate(p.answers,GROUPS,p.explicit.length>0,p.followups);}
 function itemDomain(n){let start=0;for(let i=0;i<GROUPS.length;i++){start+=GROUPS[i];if(n<=start)return i;}return -1;}
 function parseNarrative(input){
- const all=String(input||'').split(/(?<=[.!?。])\s+|[.!?。\n]+|(?:하지만|그러나|그런데|다만|반면|으나|지만)[,\s]*/u).map(x=>x.trim()).filter(t=>t.length>=2);
+ const normalized=String(input||'').replace(/(않았고|없었고|아니었고)\s*(?=(?:학생|친구|보호자|부모|아버지|어머니|교사)(?:은|는|이|가)\s*)/gu,'$1. ');
+ const all=normalized.split(/(?<=[.!?。])\s+|[.!?。\n]+|(?:하지만|그러나|그런데|다만|반면|으나|지만)[,\s]*/u).map(x=>x.trim()).filter(t=>t.length>=2);
  // Keep first 120 and last 40; promote safety-bearing clauses anywhere in the note.
  // This does NOT verify semantics. Excluded clauses must be reported explicitly.
  const positions=new Set();if(all.length<=180){all.forEach((_,i)=>positions.add(i));}else{
@@ -52,7 +53,8 @@ function parseNarrative(input){
   for(const c of NARRATIVE_CUES){const m=clause.match(c.rx);if(!m)continue;
    const prefix=clause.slice(Math.max(0,m.index-8),m.index),suffix=clause.slice(m.index+m[0].length,m.index+m[0].length+17);
    const context=prefix+m[0]+suffix;
-   const status=HYPOTHETICAL.test(clause)?'hypothetical':NEGATION_AMBIGUITY.test(clause)?'ambiguous_negation_review':NARRATIVE_NEGATIVE.test(context)?'negated':HISTORICAL.test(clause)?'historical':HEARSAY.test(clause)?'secondhand':'reported_unverified';
+   const educationalMixed=HYPOTHETICAL.test(clause)&&/(?:예방교육|교육자료|가정|예시).{0,48}(?:\s후|\s이후|\s뒤).{0,24}실제로/.test(clause);
+   const status=educationalMixed?'ambiguous_context_review':HYPOTHETICAL.test(clause)?'hypothetical':NEGATION_AMBIGUITY.test(clause)?'ambiguous_negation_review':NARRATIVE_NEGATIVE.test(context)?'negated':HISTORICAL.test(clause)?'historical':HEARSAY.test(clause)?'secondhand':'reported_unverified';
    const subject=third&&c.id==='selfharm'?'third_party_mentioned':'not_confirmed';
    out.push({id:`N${String(originalIndex+1).padStart(4,'0')}-${c.id}`,type:c.id,sourceSentenceIndex:originalIndex+1,label:c.label,status,subject,textIncluded:false,requiresHumanCheck:true});
   }
