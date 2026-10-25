@@ -1,0 +1,33 @@
+name: OY-RALS model contract smoke
+on:
+  push:
+    branches:
+      - main
+      - 'integration/**'
+    paths:
+      - 'docs/youth-risk/**'
+      - 'tests/oy-model-contract.test.cjs'
+      - '.github/workflows/oy-rals-model-contract.yml'
+  pull_request:
+    paths:
+      - 'docs/youth-risk/**'
+      - 'tests/oy-model-contract.test.cjs'
+      - '.github/workflows/oy-rals-model-contract.yml'
+permissions:
+  contents: read
+jobs:
+  model-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify JS syntax
+        run: |
+          node --check docs/youth-risk/model-gateway-v90.js
+          node --check docs/youth-risk/journey-model-v88.js
+          node --check docs/youth-risk/journey-v88.js
+      - name: Verify 1200 synthetic cases and invariants
+        run: node --test tests/oy-model-contract.test.cjs
