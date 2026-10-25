@@ -6,7 +6,7 @@ const RESEARCH=Object.freeze({version:'OY-CIE-content-validity-v2.1',status:'연
 const PROBES=[["현재 안전한 장소","보호 가능한 성인","행동의 시점"],["돌봄 제공자","실제 돌봄 공백 시간","안전한 보호 대안"],["피해 발생 시점","반복 여부","학교 내 보호 조치"],["강요·협박의 현재성","접촉 경로","안전한 도움 요청"],["구체적인 행동과 영향","피해 여부","갈등의 맥락"],["정서 고통 지속기간","수면·학습 영향","학생이 원하는 도움"],["현재 안전과 생각·행동","안전한 보호자","즉각 전문평가 필요성"],["변화 시작 시점","일상 영향","신체·정서 요인"],["결석·지각의 실제 이유","발생 시간","학교 내 조정 가능성"],["막히는 학습 활동","기존 지원","학습환경 조정"],["학교 소속감","원하는 변화","관계 자원"],["행동 발생 맥락","안전 영향","대체 행동 지원"],["증상의 현재성","진료·지원 여부","응급 신호"],["수업 조정 필요","실제 지원 여부","조정 효과"],["필요 지원과 실제 접근","기존 서비스","학생 선호"],["식사·위생·보호 상황","공백 시간","대체 돌봄"],["가족 변화의 시점","학생 생활 영향","보호적 관계"],["학생의 돌봄 시간","등교·휴식 영향","성인 대체 가능성"],["실제 부족한 필수품","생활 영향","당일 지원"],["거주 안정","수면·이동 영향","현재 안전"],["이용하지 못한 서비스","비용·자격 장벽","대체 지원"],["참여 희망 활동","제약 원인","접근 가능한 활동"],["연락 가능한 지지자","도움 요청 경험","연락 안전성"],["디지털 이용의 기능 영향","수면·학습 변화","온라인 관계"],["피해 현재성","협박·유포 위험","안전한 신고·보호"]];
 const LABELS={0:'이번 응답에서 보고되지 않음',1:'낮은 수준의 징후 보고',2:'주의가 필요한 어려움 보고',3:'높은 수준의 어려움 보고',4:'매우 높은 수준의 어려움 보고',unknown:'정보 미확인'};
 function interpret(answers){if(!Array.isArray(answers)||answers.length!==25||answers.some(v=>v!=='unknown'&&(!Number.isInteger(v)||v<0||v>4)))throw Error('25문항 0~4점·미상 필요');
-const items=answers.map((value,i)=>({id:i+1,topic:TOPICS[i],value,meaning:value==='unknown'?'해당 문항의 정보가 확인되지 않아 판단을 보류합니다.':value===0?TOPICS[i]+' 관련 어려움이 이번 응답에서 보고되지 않았습니다.':'해당 영역 '+value+'점 응답입니다. 추가 확인할 상황: '+ITEM_LEVELS[i][value]+'. 실제 발생·빈도·지속기간·생활 영향은 별도 면담으로 확인해야 합니다.',safety:[1,2,7,25].includes(i+1),verify:PROBES[i],evidenceStatus:'개발 가설·문항별 실증 검증 전',interpretationLimit:'원문 문항별 응답 앵커 검증 전: 점수만으로 발생 사실·빈도·지속기간·생활 영향·진단·인과관계·긴급도 확정 불가',anchorVerified:false}));
+const items=answers.map((value,i)=>({id:i+1,topic:TOPICS[i],value,meaning:interpretItemScore(i+1,value).meaning,scoreInterpretation:interpretItemScore(i+1,value).interpretation,scoreAction:interpretItemScore(i+1,value).action,safety:[1,2,7,25].includes(i+1),verify:PROBES[i],evidenceStatus:'개발 가설·문항별 실증 검증 전',interpretationLimit:'원문 문항별 응답 앵커 검증 전: 점수만으로 발생 사실·빈도·지속기간·생활 영향·진단·인과관계·긴급도 확정 불가',anchorVerified:false}));
 const links=PAIRS.filter(([a,b])=>typeof answers[a-1]==='number'&&answers[a-1]>0&&typeof answers[b-1]==='number'&&answers[b-1]>0).map(([a,b,meaning,question])=>({a,b,meaning,question,score:Math.min(answers[a-1],answers[b-1]),sum:answers[a-1]+answers[b-1]})).sort((x,y)=>y.score-x.score||y.sum-x.sum||x.a-y.a);
 const ranked=items.filter(x=>typeof x.value==='number'&&x.value>0).sort((a,b)=>Number(b.safety)-Number(a.safety)||b.value-a.value||a.id-b.id);
 return {version:'OY-CIE-V2-research',items,links,ranked,unknown:items.filter(x=>x.value==='unknown'),safety:ranked.filter(x=>x.safety),knownTotal:answers.reduce((n,x)=>n+(typeof x==='number'?x:0),0),caveat:'연관 가설은 인과관계·검증된 위험확률이 아니며 원점수·공식 안전판정과 분리됨'};}
@@ -36,6 +36,19 @@ function evidenceAssessment(answers){
  const priorities=observed.slice(0,4).map(x=>({topic:x.topic,score:x.score,why:'해당 문항의 응답 수준과 사전 설정된 검토 우선순위',next:f.base.items[x.item-1].verify[0],notDiagnosis:true}));
  return {version:'OY-CIE-evidence-v3.0',observed,hypotheses,alternatives,priorities,missing:f.unknown,coreTotal:f.rawScore,coreComplete:!f.rawIncomplete,safetySignals:f.base.safety.map(x=>x.id),evidenceLibrary:EVIDENCE_LIBRARY,reasoningRules:REASONING_RULES,modelStatus:'연구 기반 설계 가설·실증 검증 전'};
 }
+const SCORE_MEANING_RULES=Object.freeze({
+ 0:{status:'미보고',interpretation:'이번 응답에서 해당 문항의 어려움이 보고되지 않았습니다.',action:'다른 자료와 불일치하면 확인',certainty:'응답 사실만 확인'},
+ 1:{status:'초기 확인',interpretation:'낮은 응답 수준입니다. 상황의 종류·시점과 실제 영향을 확인합니다.',action:'학생의 언어로 구체적인 경험 질문',certainty:'사건·빈도·영향 확정 불가'},
+ 2:{status:'구체적 사정',interpretation:'중간 응답 수준입니다. 상황의 맥락과 생활 영향을 구체적으로 확인합니다.',action:'시점·빈도·학교·가정 기능 영향 확인',certainty:'사건·빈도·영향 확정 불가'},
+ 3:{status:'우선 사정',interpretation:'높은 응답 수준입니다. 안전과 실제 생활 영향의 우선 확인이 필요합니다.',action:'안전·기능·학생 희망을 구분해 우선 면담',certainty:'위해 사실·중증도 자동 확정 불가'},
+ 4:{status:'신속 사정',interpretation:'가장 높은 응답 수준입니다. 상황의 현재성과 안전·생활 영향 확인을 서둘러야 합니다.',action:'현재 안전·보호 및 지원 공백 우선 확인',certainty:'진단·응급도 자동 확정 불가'},
+ unknown:{status:'미상',interpretation:'확인되지 않은 응답입니다. 0점으로 대체하지 않습니다.',action:'학생에게 안전한 방식으로 확인',certainty:'판단 보류'}
+});
+function interpretItemScore(item,score){
+ if(!Number.isInteger(item)||item<1||item>25||!(score==='unknown'||Number.isInteger(score)&&score>=0&&score<=4))throw Error('문항 번호 또는 응답 범위 오류');
+ const topic=TOPICS[item-1],rule=SCORE_MEANING_RULES[score],probe=PROBES[item-1],context=score===0?topic+' 영역의 어려움이 이번 응답에서 보고되지 않았습니다.':score==='unknown'?topic+' 관련 정보가 확인되지 않았습니다.':topic+' 영역에서 '+score+'점이 보고되었습니다. 검토할 상황은 '+ITEM_LEVELS[item-1][score]+'입니다.';
+ return {item,score,topic,status:rule.status,meaning:context,interpretation:rule.interpretation,action:rule.action,questions:probe,certainty:rule.certainty,anchorVerified:false,source:'학생·평가자 입력 CORE 문항 응답',evidenceLevel:'개발 가설',caution:'원문 응답 앵커와 실제 상황을 확인하기 전 사건·지속기간·인과관계를 확정하지 않습니다.'};
+}
 const PRIORITY_WEIGHTS=Object.freeze([1.30,1.20,1.12,1.18,1.10,1.02,1.35,1.05,1.00,0.98,0.96,1.12,1.18,1.00,1.03,1.12,1.01,1.09,1.14,1.11,1.06,0.98,1.06,0.97,1.32]);
 const RESPONSE_IMPACT=Object.freeze([0,0.18,0.42,0.72,1]);
 function formulate(answers){
@@ -58,5 +71,5 @@ function formulate(answers){
    '현재 안전과 학생의 희망·강점·기존 지원을 확인한 뒤 실제 지원 우선순위를 결정합니다.'].filter(Boolean);
  return {version:'OY-CIE-meaning-priority-v2.3-anchor-caution',base,scored,intersections,unknown,top,headline,narratives,assumptions:'응답 영향 곡선과 문항별 우선검토 가중치는 연구·개발 가정이며 검증된 확률·위험 절단점이 아닙니다.',rawScore:base.knownTotal,rawIncomplete:unknown.length>0};
 }
-const api=Object.freeze({TOPICS,PAIRS,LABELS,ITEM_LEVELS,RESEARCH,PROBES,PRIORITY_WEIGHTS,RESPONSE_IMPACT,interpret,formulate,EVIDENCE_LIBRARY,REASONING_RULES,evidenceAssessment});if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.OYCIESemanticV2=api;
+const api=Object.freeze({TOPICS,PAIRS,LABELS,ITEM_LEVELS,RESEARCH,PROBES,PRIORITY_WEIGHTS,RESPONSE_IMPACT,interpret,formulate,interpretItemScore,SCORE_MEANING_RULES,EVIDENCE_LIBRARY,REASONING_RULES,evidenceAssessment});if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.OYCIESemanticV2=api;
 })(typeof window!=='undefined'?window:globalThis);
