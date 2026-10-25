@@ -23,3 +23,5 @@ body,button,input,select,textarea{font-family:SUIT,sans-serif}
 /* Single visible answer stream: keep legacy answer node for engine/export compatibility. */
 .v32panel #v32-answer{display:none}
 @media print{body.printing-v32 .v32panel #v32-answer{display:none}}
+
+.lab-modes{display:flex;gap:8px;margin:14px 0 8px}.lab-modes button{flex:1;border:1px solid #d8e1eb;border-radius:14px;background:#fff;color:#43556a;font-weight:750;padding:12px 9px}.lab-modes button.active{background:#173e70;color:#fff;border-color:#173e70}
