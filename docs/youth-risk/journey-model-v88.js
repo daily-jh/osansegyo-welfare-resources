@@ -28,8 +28,8 @@ function analyze(p){
  const references=ledger.filter(e=>e.kind==='narrative');
  const relevant=(ids)=>references.filter(e=>context.signals.some(z=>ids.includes(z.tag)&&e.text.includes(z.clause))).map(e=>'['+e.id+'] '+e.text).join(' / ');
  const familyEvidence=ecosystem.family.map(f=>f.label+'('+f.status+' · 서술 근거, 확인 전)').join(' / ');
- const priorityEvidence=plans.slice(0,3).map(x=>'['+x.id+'] '+x.title+' ('+(x.evidence.join(', ')||'서술·미상 확인')+')').join(' / ');
- const summary=decision.incomplete?'미상 '+decision.unknownItems.length+'개가 있어 전체 판단을 보류합니다. 확인 합계는 '+decision.knownTotal+'점입니다.':'25문항 응답 합계는 '+decision.knownTotal+'/100점입니다.';
+ const priorityEvidence=plans.slice(0,3).map(x=>x.title+' ('+(x.evidence.join(', ')||'서술·미상 확인')+')').join(' / ');
+ const summary=decision.incomplete?'아직 확인하지 않은 문항은 '+decision.unknownItems.join('·')+'번입니다. 확인된 응답 합계는 '+decision.knownTotal+'점이며, 아래는 현재 확인된 어려움에 대한 지원 방향입니다.':'25문항 응답 합계는 '+decision.knownTotal+'/100점입니다.';
  const note=String(p.caseContext||'');
  const clauses=ledger.filter(e=>e.kind==='narrative');
  const interest=clauses.filter(e=>/관심|좋아|즐기|잘하|하고 싶/.test(e.text));
