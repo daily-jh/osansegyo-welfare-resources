@@ -76,7 +76,10 @@ function check(caseId,i,runner){
  if(archive.length<1600)archive.push(sample);
  else {const j=Math.floor(rand()*uniqueSeen);if(j<1600)archive[j]=sample;}
 }
- if(runner&&i%67===0)unknownCases.push({caseId,role,profile,kCarr:!!K.assess({caseContext:p.caseContext,role}).hasSafetySignal,cieTextSafety:result.gates.some(g=>g.id==='TEXT-SAFETY'),corpus:S.interpret(p.answers).safety.length,agreementNotGroundTruth:true});
+ if(runner&&i%67===0){const k=K.assess({caseContext:p.caseContext,role});const kcarrSafety=!!k.hasSafetySignal,cieTextSafety=result.gates.some(g=>g.id==='TEXT-SAFETY');
+ if(kcarrSafety!==cieTextSafety)counts.discordantKCarr++;
+ unknownCases.push({caseId,sourceId:typ.sourceId,kind:typ.status,role,profile,kCarrSafetyFlag:kcarrSafety,cieTextSafetyReview:cieTextSafety,disagreement:kcarrSafety!==cieTextSafety,officialCOREUrgent:base.urgent,corpusSafetyItems:S.interpret(p.answers).safety.length,agreementNotGroundTruth:true,expertReviewStatus:'not_reviewed'});
+}
  counts.executed++;
 }
 const START=Date.now();
