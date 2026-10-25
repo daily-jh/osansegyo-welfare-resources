@@ -16,8 +16,8 @@ let browser,ws,temp;
  try{
   await new Promise(r=>srv.listen(0,'127.0.0.1',r));const port=srv.address().port;
   temp=fs.mkdtempSync(path.join(os.tmpdir(),'resource-smoke-'));
-  let chromeError='';browser=spawn(chrome,['--headless','--no-sandbox','--disable-dev-shm-usage','--disable-gpu','--no-first-run','--disable-background-networking','--remote-debugging-port=0','--user-data-dir='+temp,'about:blank'],{stdio:['ignore','ignore','pipe']});browser.stderr.on('data',data=>{chromeError+=(data+'').slice(0,1000)});browser.on('error',err=>{chromeError+=' spawn: '+err.message});
-  let debugPort;for(let i=0;i<100;i++){try{const a=fs.readFileSync(path.join(temp,'DevToolsActivePort'),'utf8').split('\n');debugPort=+a[0];if(debugPort)break}catch{}await delay(100)}
+  let chromeError='';browser=spawn(chrome,['--headless=new','--no-sandbox','--disable-dev-shm-usage','--disable-gpu','--disable-software-rasterizer','--no-first-run','--disable-background-networking','--remote-debugging-port=0','--user-data-dir='+temp,'about:blank'],{stdio:['ignore','ignore','pipe']});browser.stderr.on('data',data=>{chromeError+=(data+'').slice(0,1000)});browser.on('error',err=>{chromeError+=' spawn: '+err.message});
+  let debugPort;for(let i=0;i<300;i++){try{const a=fs.readFileSync(path.join(temp,'DevToolsActivePort'),'utf8').split('\n');debugPort=+a[0];if(debugPort)break}catch{}await delay(100)}
   assert.ok(debugPort,'Chrome CDP listening port; bin='+chrome+'; exit='+browser.exitCode+'; '+chromeError.slice(-2000));
   const targets=await (await fetch('http://127.0.0.1:'+debugPort+'/json')).json();
   const page=targets.find(x=>x.type==='page');assert.ok(page?.webSocketDebuggerUrl,'CDP page target');
