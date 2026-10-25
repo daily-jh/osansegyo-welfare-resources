@@ -75,3 +75,12 @@ button,a,input,select,textarea{touch-action:manipulation}
 .org-card{padding:20px}
 .section-head{align-items:flex-start;gap:12px;flex-wrap:wrap}
 }
+
+/* V3 keyboard navigation and dense-result readability */
+:where(.top-nav a,.primary-cta,.quick-tag,.region-tabs button,.category-chips button):focus-visible{outline:3px solid #1769d2!important;outline-offset:3px}
+:where(.top-nav a,.quick-tag,.region-tabs button,.category-chips button){transition:background-color .15s ease,border-color .15s ease}
+:where(.search-box,.search-panel):focus-within{border-color:#1769d2;box-shadow:0 0 0 3px rgba(23,105,210,.12)}
+:where(.org-card,.service-tag){overflow-wrap:anywhere}
+:where(.org-card a){text-underline-offset:3px}
+:where(.org-card a):focus-visible{outline:3px solid #1769d2;outline-offset:3px;border-radius:4px}
+@media(max-width:700px){.top-nav a{min-height:44px}.search-panel{overflow:visible}.org-name{font-size:20px}}
