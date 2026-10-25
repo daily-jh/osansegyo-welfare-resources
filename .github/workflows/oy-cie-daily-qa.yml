@@ -1,0 +1,65 @@
+name: OY-CIE 09 KST daily 1024-case audit
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: oy-cie-daily-audit
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Load previous deduplicated findings
+        shell: bash
+        run: |
+          mkdir -p "$RUNNER_TEMP/oy-cie"
+          if git fetch origin oy-cie-daily-qa:refs/remotes/origin/oy-cie-daily-qa 2>/dev/null && git show origin/oy-cie-daily-qa:audit/oy-cie-daily/cumulative.json > "$RUNNER_TEMP/oy-cie/previous.json"; then
+            echo 'Previous registry loaded.'
+          else
+            echo '{"findings":[]}' > "$RUNNER_TEMP/oy-cie/previous.json"
+          fi
+      - name: Run 1024 stratified synthetic audits
+        id: run
+        continue-on-error: true
+        run: node scripts/oy-cie-daily-audit.cjs --out "$RUNNER_TEMP/oy-cie/output" --previous "$RUNNER_TEMP/oy-cie/previous.json"
+      - name: Upload review files
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: oy-cie-qa-${{ github.run_id }}
+          path: ${{ runner.temp }}/oy-cie/output
+          retention-days: 90
+          if-no-files-found: warn
+      - name: Save de-duplicated findings on isolated QA branch
+        if: always() && steps.run.outcome != 'skipped'
+        shell: bash
+        run: |
+          set -e
+          test -f "$RUNNER_TEMP/oy-cie/output/latest.json" || exit 1
+          if git show-ref --verify --quiet refs/remotes/origin/oy-cie-daily-qa; then
+            git checkout -B oy-cie-daily-qa origin/oy-cie-daily-qa
+          else
+            git checkout --orphan oy-cie-daily-qa
+            git rm -rfq --cached .
+            find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          fi
+          mkdir -p audit/oy-cie-daily
+          cp -R "$RUNNER_TEMP/oy-cie/output/." audit/oy-cie-daily/
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add audit/oy-cie-daily
+          if ! git diff --cached --quiet; then
+            git commit -m 'audit(OY-CIE): daily deduplicated QA, no CORE changes'
+            git push origin HEAD:oy-cie-daily-qa
+          fi
+      - name: Fail on safety or provenance blocker
+        if: steps.run.outcome == 'failure'
+        run: exit 1
