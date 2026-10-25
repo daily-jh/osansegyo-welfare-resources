@@ -36,3 +36,6 @@ jobs:
 
       - name: CORE unknown, safety and district routing invariants
         run: node tests/youth-core-routing-invariants.cjs
+
+      - name: OY-CIE V3.2 CORE and dialogue regression
+        run: node tests/cie-v32-regression.cjs
