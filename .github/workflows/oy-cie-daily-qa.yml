@@ -1,5 +1,10 @@
 name: OY-CIE 09 KST daily 1024-case audit
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/oy-cie-daily-audit.cjs'
+      - '.github/workflows/oy-cie-daily-qa.yml'
   schedule:
     - cron: '0 0 * * *'
   workflow_dispatch:
