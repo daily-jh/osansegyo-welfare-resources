@@ -21,7 +21,7 @@
  function intakeState(s,e,day=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date())){
   // 접수 공고는 작성 시점의 게시 상태이며 신청 가능 확정이 아니다.
   const ie=e?.intakeEvidence;
-  if(ie?.state==='published_accepting'&&/^\\d{4}-\\d{2}-\\d{2}$/.test(ie.asOf||'')&&/^\\d{4}-\\d{2}-\\d{2}$/.test(ie.expiresOn||'')){
+  if(ie?.state==='published_accepting'&&/^\d{4}-\d{2}-\d{2}$/.test(ie.asOf||'')&&/^\d{4}-\d{2}-\d{2}$/.test(ie.expiresOn||'')){
     if(day>=ie.asOf&&day<=ie.expiresOn)return '공식 공고상 접수중('+ie.asOf+' 확인) · 실제 신청·잔여석 재확인';
     return '이전 접수공고 기록 · 최신 접수 재확인';
   }
