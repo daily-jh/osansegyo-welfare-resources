@@ -4,6 +4,16 @@ window.OWR_SERVICE_EVIDENCE = {
   schemaVersion: 1,
   reviewedOn: "2026-10-25",
   items: {
+    "SVC-00020": {
+      evidenceLevel:"service_official",evidenceLabel:"2026년 가족상담 공식 사업공고·담당전화·기본조건 확인",
+      sourceUrl:"https://osan.familynet.or.kr/center/lay1/program/S295T322C449/receipt/view.do?seq=190294",
+      checkedOn:"2026-10-25",
+      eligibility:{age:"지역주민 누구나(개인·부부·가족 등)",residence:"상담을 희망하는 오산시민(공고 내용)",fee:"무료(해당 2026년 가족상담 안내)",documents:"사전 접수방법 문의"},
+      contact:{unit:"오산시가족센터 2026년 가족상담",phone:"031-378-9766",extension:"",route:"공식 가족상담 사업 문의전화"},
+      ask:"초기상담 접수, 상담 유형·회기·시간, 담당자 배정 및 실제 예약 가능일",
+      caution:"공식 게시물에 '접수중'으로 표기되더라도 예약 가능 일시·현장 사정은 달라질 수 있습니다.",
+      intakeEvidence:{state:"published_accepting",asOf:"2026-10-25",expiresOn:"2026-10-26",sourceUrl:"https://osan.familynet.or.kr/center/lay1/program/S295T322C449/receipt/view.do?seq=190294",note:"공식 사업 페이지 게시상태(접수중), 2026-10-25 열람. 신청 성공·잔여좌석 확인 아님."}
+    },
     "SVC-00027": {
       evidenceLevel: "service_official", evidenceLabel: "공식 홈페이지에서 세부 서비스 안내 확인(접수 미확인)",
       sourceUrl: "https://www.osmh.or.kr/Business", checkedOn: "2026-10-25",
