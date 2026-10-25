@@ -5,21 +5,21 @@
 <meta name="referrer" content="no-referrer">
 <meta name="robots" content="noindex, nofollow">
 <title>OY-CIE 독립 한국어 사례추론 · 연구형 검증 작업실</title>
-<link rel="stylesheet" href="style.css?v=20261026-chat4">
+<link rel="stylesheet" href="style.css?v=20261026-modes1">
 <script defer src="../criteria.js"></script>
 <script defer src="../research-knowledge-base.js"></script>
 <script defer src="../k-carr-narrative-v81.js"></script>
 <script defer src="engine.js"></script>
 <script defer src="app.js"></script>
 <script defer src="dialogue-v32.js"></script>
-<script defer src="ui-v32.js?v=20261026-chat4"></script>
+<script defer src="ui-v32.js?v=20261026-modes1"></script>
 </head><body>
 <header class="topbar"><a class="brand" href="../">OY-CIE <span>LAB</span></a><span class="version">대화형 연구 화면 · 2026.10.26 UI 개편 · 합성사례 시연용</span><a href="../../" class="toplink">오산 복지자원 ↗</a></header>
 <main class="layout"><section class="lab-top"><span class="lab-kicker">OY-CIE · 독립 근거 추론</span><h1>사례를 질문하고, 근거를 확인하세요</h1><p>질문하면 OY-CIE 자체 분석 엔진이 응답합니다. CORE 점수와 안전판정은 별도로 유지됩니다.</p></section><section class="panel v32panel" id="dialogueV32" aria-label="V3.2 근거기반 후속질문 확장">
   <div class="panel-title"><h2>OY-CIE 대화형 연구</h2><span id="v32-db">지식자료 연결 확인 중…</span></div>
   <p class="v32help">현재 평가 회차의 문항·서술과 연결해 후속 질문을 분석합니다. 질문을 입력하고 분석하세요. 필요한 경우 아래에서 25문항·서술을 수정할 수 있습니다. 외부 GPT를 사용하지 않습니다.</p>
-  <div class="promptrow" aria-label="추천 질문"><button type="button" data-v32-prompt="점수와 서술형이 충돌하는 영역을 확인해줘">척도–서술 불일치</button><button type="button" data-v32-prompt="서비스계획에서 우선 확인할 행동과 근거는?">실행계획·근거</button><button type="button" data-v32-prompt="지원연계에서 접수 전 확인할 조건은?">지원연계 검토</button></div>
-  <div id="v32-chat" class="v32-chat" role="log" aria-live="polite" aria-label="OY-CIE 질문과 답변"><div class="v32-message assistant">OY-CIE 연구 작업실입니다. 질문을 입력하면 현재 평가의 근거를 확인해 분석합니다. 답변은 실무자 검토 전 초안입니다.</div></div><label class="field">후속 질문 <input id="v32-question" maxlength="500" value="이 학생의 서술과 척도 응답 사이에 확인해야 할 점은?"/></label>
+  <div class="lab-modes" role="group" aria-label="연구 방식"><button type="button" id="mode-free" class="active" aria-pressed="true">자유 질문</button><button type="button" id="mode-case" aria-pressed="false">척도 결과로 대화</button></div><p id="lab-mode-help" class="v32help">척도 없이 사례관리·면담·지원계획 등을 질문할 수 있습니다. 사례별 점수나 판정은 생성하지 않습니다.</p><div class="promptrow" aria-label="추천 질문"><button type="button" data-v32-prompt="점수와 서술형이 충돌하는 영역을 확인해줘">척도–서술 불일치</button><button type="button" data-v32-prompt="서비스계획에서 우선 확인할 행동과 근거는?">실행계획·근거</button><button type="button" data-v32-prompt="지원연계에서 접수 전 확인할 조건은?">지원연계 검토</button></div>
+  <div id="v32-chat" class="v32-chat" role="log" aria-live="polite" aria-label="OY-CIE 질문과 답변"><div class="v32-message assistant">OY-CIE 연구 작업실입니다. 질문을 입력하면 현재 평가의 근거를 확인해 분석합니다. 답변은 실무자 검토 전 초안입니다.</div></div><label class="field">후속 질문 <input id="v32-question" maxlength="500" placeholder="사례관리, 면담, 서비스계획 등에 대해 자유롭게 질문하세요" value=""/></label>
   <div class="actions"><button type="button" class="primary" id="v32-run">근거 확인·응답 생성</button><button type="button" id="v32-reset">대화 맥락 지우기</button></div>
   <p id="v32-status" class="v32status" aria-live="polite">분석 대기 · 실무 승인 전 초안</p>
   <pre id="v32-answer" class="answer" aria-live="polite">평가 입력을 선택하고 후속 질문을 실행하세요.</pre>
