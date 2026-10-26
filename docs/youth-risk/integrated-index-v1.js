@@ -76,8 +76,13 @@ function analyze(p){
  // warrant multidisciplinary work even if the 100-point sum is diluted.
  const intersectingDomains=ds.filter(d=>d.peak>=2);
  const concentrated=intersectingDomains.length>=2&&intersectingDomains.some(d=>d.peak>=3);
- const patternFloor=observedLevel>=3?4:observedLevel>=2||concentrated?3:observedLevel>=1?2:1;
+ // Two separate basic-needs items already at 2+ merit concrete shared-service
+ // prioritization, even if their shared three-item domain contributes little
+ // to the 100-point total. This is a work-order heuristic, not a poverty diagnosis.
+ const multipleBasicNeeds=[19,20,21].filter(n=>typeof answers[n-1]==='number'&&answers[n-1]>=2).length>=2;
+ const patternFloor=observedLevel>=3?4:observedLevel>=2||concentrated||multipleBasicNeeds?3:observedLevel>=1?2:1;
  const patternReason=observedLevel>=3?'3개 이상 중요 영역·고점 문항 동시 보고':
+  multipleBasicNeeds?'식사·주거·서비스 비용 중 2가지 이상 2점 이상 응답으로 생활지원 통합 조정 우선':
   concentrated?'서로 다른 2개 이상 영역에 2점 이상 응답이 있고 3~4점 집중영역 포함':
   observedLevel>=2?'복수 생활영역에 집중지원 필요 응답':
   observedLevel>=1?'2점 이상 응답에 따른 개별지원 우선':'보편 예방·관찰 응답';
