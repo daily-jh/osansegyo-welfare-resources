@@ -4,124 +4,214 @@
 <meta name="referrer" content="no-referrer">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
 <title>시스템 작동방법 · 오산 청소년 위기징후 평가연계 시스템</title>
-<meta name="description" content="오산 청소년 위기징후 평가연계 시스템의 평가, 안전확인, 종합사정, 실행계획, 기록까지 실제 이용 절차와 모델의 한계를 안내합니다.">
+<meta name="description" content="OY-RALS의 다섯 단계 화면, 결과 탭 읽는 법, AI에 묻기, 지역자원 확인 배지, 모델 구조, 개인정보와 검증 범위를 2026.10.26 화면 기준으로 안내합니다.">
+<script defer src="../assets/report-download.js?v=20261026-rev1"></script>
 <style>
-:root{--ink:#182d41;--sub:#4d6174;--line:#dce6ee;--navy:#163d63;--accent:#147d81;--wash:#f4f8fa;--blue:#e9f4fa;--white:#fff;--warn:#fff5e8}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fbfdfe;color:var(--ink);font-family:system-ui,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;line-height:1.65;word-break:keep-all}
-a{color:var(--navy);text-underline-offset:3px}a:hover{color:var(--accent)}.container{width:min(1060px,calc(100% - 36px));margin:auto}.skip{position:absolute;left:-10000px;top:0;background:white;padding:12px}.skip:focus{left:12px;z-index:10}
-.site-header{background:white;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:8}.header-inner{display:flex;align-items:center;justify-content:space-between;gap:15px;min-height:66px}.brand{display:flex;gap:11px;align-items:center;text-decoration:none;color:var(--ink);font-weight:800}.brand img{width:36px;height:36px}.header-link{font-size:14px;font-weight:700;text-decoration:none;border:1px solid var(--line);padding:8px 15px;border-radius:12px;white-space:nowrap}
-.hero{background:linear-gradient(120deg,#e7f2f7 0%,#f7fafc 72%);border-bottom:1px solid var(--line);padding:62px 0 56px}.eyebrow{font-size:13px;color:var(--accent);font-weight:800;letter-spacing:.08em}.hero h1{font-size:clamp(30px,4.2vw,49px);line-height:1.21;letter-spacing:-.045em;margin:14px 0 18px}.hero p{max-width:720px;color:var(--sub);font-size:18px;margin:0 0 24px}.hero-actions{display:flex;gap:10px;flex-wrap:wrap}.link-pill{display:inline-flex;align-items:center;padding:12px 19px;border-radius:12px;font-size:15px;font-weight:800;text-decoration:none;background:var(--navy);color:white}.link-pill:hover{color:#fff;background:#255881}.link-pill.secondary{background:white;color:var(--navy);border:1px solid #c8d9e5}.anchor-nav{display:flex;flex-wrap:wrap;gap:9px;margin:25px 0 0}.anchor-nav a{font-size:13px;text-decoration:none;color:var(--sub);border-bottom:1px solid #92b8ca;padding:4px 2px}
-main{padding-bottom:70px}.section{padding:54px 0 4px;scroll-margin-top:86px}.section h2{font-size:clamp(24px,3vw,31px);letter-spacing:-.03em;line-height:1.32;margin:0 0 14px}.section-lead{color:var(--sub);margin:0 0 25px;max-width:820px}.section-count{font-size:12px;font-weight:800;color:var(--accent);letter-spacing:.08em}.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}.step{border:1px solid var(--line);background:#fff;border-radius:18px;padding:24px 18px;min-height:230px}.step-index{font-size:14px;font-weight:800;color:var(--accent)}.step h3{margin:10px 0;font-size:19px;line-height:1.35}.step p{font-size:14px;margin:0;color:var(--sub)}.flow-arrow{color:#a9c3cf}.panel{border:1px solid var(--line);border-radius:20px;background:white;padding:26px;margin:18px 0}.panel h3{margin:0 0 10px;font-size:20px}.panel p:last-child{margin-bottom:0}.split{display:grid;grid-template-columns:1fr 1fr;gap:16px}.detail-table{width:100%;border-collapse:collapse;font-size:14px}.detail-table th,.detail-table td{text-align:left;padding:12px;border-bottom:1px solid var(--line);vertical-align:top}.detail-table th{background:var(--wash);width:32%;font-weight:800}.notes{padding:20px 23px;background:var(--warn);border:1px solid #f2dcc0;border-radius:16px}.notes strong{color:#794f24}.notes p{margin:5px 0 0;font-size:14px}.numbered{counter-reset:list;padding:0;margin:0;list-style:none}.numbered li{display:flex;gap:13px;padding:14px 0;border-bottom:1px solid var(--line)}.numbered li:last-child{border-bottom:0}.index-dot{flex:none;display:grid;place-items:center;width:29px;height:29px;border-radius:50%;background:var(--blue);color:var(--navy);font-weight:800;font-size:13px}.numbered strong{display:block;margin-bottom:3px}.numbered p{margin:0;font-size:14px;color:var(--sub)}.process{display:flex;align-items:stretch;justify-content:space-between;gap:10px}.process .model{flex:1;border:1px solid var(--line);border-radius:14px;background:var(--wash);padding:18px 14px}.process .model b{display:block;font-size:15px}.process .model small{display:block;margin-top:5px;line-height:1.5;color:var(--sub)}.process .arrow{align-self:center;font-size:20px;color:#7c9fae}
-details{background:white;border:1px solid var(--line);border-radius:15px;padding:0 19px;margin:12px 0}summary{list-style:none;cursor:pointer;font-weight:800;padding:17px 0}summary::-webkit-details-marker{display:none}summary:after{content:"+";float:right;color:var(--accent);font-size:20px;font-weight:500}details[open] summary:after{content:"−"}details .detail-body{color:var(--sub);font-size:14px;padding:0 2px 19px}details p{margin:8px 0}details ul{margin:8px 0 0;padding-left:20px}.footer{border-top:1px solid var(--line);padding:27px 0 36px;color:var(--sub);font-size:13px}
-.tag{display:inline-block;font-size:12px;font-weight:800;color:#216d6f;background:#e7f5f3;border-radius:8px;padding:4px 9px}
-@media(max-width:780px){.hero{padding:42px 0}.hero p{font-size:16px}.steps{grid-template-columns:repeat(2,1fr)}.split{grid-template-columns:1fr}.process{display:grid;grid-template-columns:1fr}.process .arrow{transform:rotate(90deg);justify-self:center;margin:-6px 0}.section{padding:43px 0 0}.header-inner{min-height:60px}.brand span{font-size:13px}}
-@media(max-width:440px){.steps{grid-template-columns:1fr}.step{min-height:0;padding:18px}.panel{padding:18px}.header-link{font-size:12px;padding:7px}.brand img{width:30px;height:30px}.brand span{max-width:195px}.hero h1{font-size:30px}}
-@media print{.site-header,.hero-actions,.anchor-nav{display:none!important}.site-header{position:static}.hero,.step,.panel{break-inside:avoid}.section{padding:25px 0 0}details{break-inside:avoid}}
-</style><style>
-.journey-five{grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.journey-five .step{padding:20px 14px;min-height:200px}
-.arch-stage{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin:20px 0}.arch-node{border:1px solid #ccdfe9;background:white;padding:16px 13px;border-radius:16px;min-height:125px;position:relative}
-.arch-node:after{content:'›';position:absolute;right:-13px;top:38px;font-weight:900;color:#47768c;font-size:23px;z-index:1}.arch-node:last-child:after{display:none}
-.arch-node b{display:block;color:#183e61;font-size:16px}.arch-node small{display:block;font-size:13px;color:#4b6273;margin-top:8px}.arch-number{color:#147d81;font-weight:900;display:block;margin-bottom:9px;font-size:13px}
-.arch-flowline{text-align:center;color:#44768f;font-weight:800;letter-spacing:.04em;margin:9px 0}.arch-layer{border:1px solid #cbdee9;border-radius:18px;background:#f5fafd;padding:19px;margin:18px 0}.arch-layer h3{margin:0 0 12px;font-size:19px}
-.arch-models{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.arch-model{border:1px solid #d9e6f0;padding:14px;background:white;border-radius:13px}
-.arch-model strong{display:block;font-size:15px;color:#1d4a6c}.arch-model span{display:block;font-size:13px;line-height:1.6;color:#50697d;margin-top:5px}
-.arch-output{display:flex;flex-wrap:wrap;gap:9px}.arch-output span{background:#fff;border:1px solid #cddfeb;border-radius:10px;padding:9px 13px;font-size:13px;font-weight:650}
-.arch-explain{font-size:13px;color:#496479}.arch-table{width:100%;border-collapse:collapse;font-size:14px}.arch-table th,.arch-table td{padding:12px;text-align:left;border-bottom:1px solid #dce6ee;vertical-align:top}.arch-table th{width:29%;color:#194b6e;background:#f3f8fc}
-@media(max-width:900px){.journey-five,.arch-stage{grid-template-columns:repeat(2,minmax(0,1fr))}.arch-node:after{display:none}.arch-models{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:580px){.journey-five,.arch-stage,.arch-models{grid-template-columns:1fr}.journey-five .step,.arch-node{min-height:0}.arch-node:after{display:none}}
-@media print{.arch-node,.arch-layer,.arch-model{break-inside:avoid}.arch-stage,.arch-models{grid-template-columns:repeat(2,1fr)}}
+@font-face{font-family:SUIT;src:url(fonts/SUIT-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}
+:root{--accent:#1769d2;--accent-hover:#0f58b5;--accent-soft:#e8f1fc;--text:#16273a;--secondary:#46586b;--tertiary:#5b6b7c;--separator:#dfe5ec;--fill:#f2f5f8;--bg:#f6f8fb;--surface:#fff;--red:#c42b2b;--red-soft:#fdeceb;--red-text:#b02424;--amber:#c26a00;--radius-l:20px;--radius-m:14px;--shadow:0 1px 2px rgba(18,38,63,.04),0 6px 20px rgba(18,38,63,.05)}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{margin:0;background:var(--bg);color:var(--text);font-family:SUIT,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;font-size:17px;line-height:1.65;word-break:keep-all;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-underline-offset:3px}a:hover{color:var(--accent-hover)}
+.container{width:min(1080px,calc(100% - 32px));margin:auto}
+.skip{position:absolute;left:-10000px;top:0;background:#fff;padding:12px}.skip:focus{left:12px;z-index:100}
+.site-header{position:sticky;top:0;z-index:50;background:rgba(250,251,253,.86);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--separator)}
+.header-inner{display:flex;align-items:center;gap:10px 14px;min-height:64px;flex-wrap:wrap;padding:8px 0}
+.brand{display:flex;gap:11px;align-items:center;text-decoration:none;color:var(--text);font-weight:800;font-size:16px;letter-spacing:-.01em;margin-right:auto}.brand img{width:34px;height:34px}
+.header-link{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border-radius:999px;font-size:14px;font-weight:700;text-decoration:none;color:var(--secondary)}.header-link:hover{background:var(--fill);color:var(--text)}
+.hero{padding:64px 0 40px}.eyebrow{display:inline-block;font-size:13px;color:var(--accent);font-weight:700;background:var(--accent-soft);border-radius:999px;padding:6px 12px}
+.hero h1{font-size:clamp(32px,4.6vw,52px);line-height:1.15;letter-spacing:-.035em;margin:18px 0 16px}
+.hero p{max-width:720px;color:var(--secondary);font-size:19px;margin:0 0 26px}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:999px;font-size:16px;font-weight:700;text-decoration:none;background:var(--accent);color:#fff}.btn:hover{background:var(--accent-hover);color:#fff}
+.btn.secondary{background:var(--surface);color:var(--accent);box-shadow:inset 0 0 0 1px var(--separator)}.btn.secondary:hover{background:var(--fill)}
+.anchor-nav{display:flex;flex-wrap:wrap;gap:6px;margin:28px 0 0}.anchor-nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border-radius:999px;background:var(--surface);box-shadow:inset 0 0 0 1px var(--separator);font-size:14px;font-weight:600;color:var(--secondary);text-decoration:none}.anchor-nav a:hover{color:var(--text)}
+main{padding-bottom:72px}
+.section{padding:52px 0 0}.section h2{font-size:clamp(25px,3vw,32px);letter-spacing:-.03em;line-height:1.3;margin:6px 0 12px}
+.section-count{font-size:13px;font-weight:700;color:var(--tertiary);letter-spacing:.04em}
+.lead{color:var(--secondary);margin:0 0 24px;max-width:820px}
+.card{background:var(--surface);border-radius:var(--radius-l);box-shadow:var(--shadow);padding:24px}
+.steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.step{background:var(--surface);border-radius:var(--radius-l);box-shadow:var(--shadow);padding:20px 18px}
+.step-index{font-size:13px;font-weight:800;color:var(--accent)}.step h3{margin:6px 0 8px;font-size:18px;letter-spacing:-.02em;line-height:1.35}
+.step p{margin:0;font-size:15px;color:var(--secondary)}.step .out{display:block;margin-top:12px;padding-top:10px;border-top:1px solid var(--separator);font-size:13px;color:var(--tertiary)}
+.alert{display:flex;gap:14px;align-items:flex-start;margin:20px 0 0;padding:18px 20px;border-radius:var(--radius-m);background:var(--red-soft);color:var(--red-text)}.alert b{display:block;color:var(--red);margin-bottom:2px}.alert p{margin:0;font-size:15px}.alert svg{flex:none;margin-top:3px}
+.walk{counter-reset:w;list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.walk li{counter-increment:w;position:relative;background:var(--surface);border-radius:var(--radius-m);box-shadow:var(--shadow);padding:16px 18px 16px 62px}
+.walk li:before{content:counter(w);position:absolute;left:18px;top:15px;width:30px;height:30px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center}
+.walk b{display:block;font-size:16px}.walk span{display:block;font-size:15px;color:var(--secondary)}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.tab-card h3{margin:0 0 6px;font-size:19px}.tab-card p{margin:0;color:var(--secondary);font-size:15px}.tab-card ul{margin:10px 0 0;padding-left:18px;color:var(--secondary);font-size:15px}
+.table-wrap{overflow-x:auto;background:var(--surface);border-radius:var(--radius-l);box-shadow:var(--shadow)}
+table{width:100%;border-collapse:collapse;font-size:15px;min-width:620px}th,td{padding:14px 16px;text-align:left;vertical-align:top;border-bottom:1px solid var(--separator)}tr:last-child td{border-bottom:0}
+th{font-size:13px;color:var(--tertiary);font-weight:700;background:var(--fill)}td b{display:block}
+.pill{display:inline-block;font-size:13px;font-weight:700;border-radius:999px;padding:3px 10px;background:var(--accent-soft);color:var(--accent);white-space:nowrap}.pill.red{background:var(--red-soft);color:var(--red-text)}.pill.gray{background:var(--fill);color:var(--secondary)}.pill.amber{background:#fff4e5;color:var(--amber)}
+.rules{list-style:none;margin:0;padding:0;display:grid;gap:10px}.rules li{background:var(--surface);border-radius:var(--radius-m);box-shadow:var(--shadow);padding:16px 18px}.rules b{display:block;margin-bottom:2px}.rules span{color:var(--secondary);font-size:15px}
+.badges{display:grid;gap:8px}.badges div{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}.badges p{margin:0;font-size:15px;color:var(--secondary)}
+/* connection diagram */
+.arch-stage{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin:0 0 6px}
+.arch-node{background:var(--surface);border-radius:var(--radius-m);box-shadow:var(--shadow);padding:16px 14px;position:relative}
+.arch-node:after{content:'›';position:absolute;right:-11px;top:34px;font-weight:700;color:var(--tertiary);font-size:20px}.arch-node:last-child:after{display:none}
+.arch-number{display:block;font-size:12px;font-weight:800;color:var(--accent);letter-spacing:.04em;margin-bottom:6px}.arch-node b{display:block;font-size:16px;line-height:1.35}.arch-node small{display:block;font-size:13px;color:var(--secondary);margin-top:6px;line-height:1.5}
+.arch-flowline{text-align:center;color:var(--tertiary);font-size:13px;font-weight:700;margin:12px 0}
+.arch-layer{background:var(--surface);border-radius:var(--radius-l);box-shadow:var(--shadow);padding:22px;margin:0}
+.arch-layer h3{margin:0 0 12px;font-size:18px}.arch-models{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.arch-model{background:var(--fill);border-radius:var(--radius-m);padding:14px}.arch-model strong{display:block;font-size:15px}.arch-model span{display:block;font-size:13px;line-height:1.6;color:var(--secondary);margin-top:4px}
+.arch-model.core{background:var(--accent-soft)}.arch-model.core strong{color:var(--accent)}
+.arch-output{display:flex;flex-wrap:wrap;gap:8px}.arch-output span{background:var(--fill);border-radius:999px;padding:7px 13px;font-size:13px;font-weight:600;color:var(--secondary)}
+.note{font-size:14px;color:var(--tertiary);margin:12px 2px 0}
+details.fold{background:var(--surface);border-radius:var(--radius-m);box-shadow:var(--shadow);padding:0 18px;margin:10px 0}
+details.fold summary{list-style:none;cursor:pointer;font-weight:700;min-height:52px;display:flex;align-items:center;justify-content:space-between;gap:12px}details.fold summary::-webkit-details-marker{display:none}
+details.fold summary:after{content:"+";color:var(--accent);font-size:22px;font-weight:500}details.fold[open] summary:after{content:"−"}
+details.fold .body{color:var(--secondary);font-size:15px;padding:0 0 16px}details.fold p{margin:6px 0}
+.docs{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.docs li{background:var(--surface);border-radius:var(--radius-l);box-shadow:var(--shadow);padding:20px;display:flex;flex-direction:column;gap:6px}
+.docs b{font-size:17px}.docs span{font-size:14px;color:var(--secondary)}.docs .dl{display:flex;gap:8px;margin-top:8px}
+.docs .dl a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:72px;padding:0 14px;border-radius:12px;background:var(--accent-soft);font-size:15px;font-weight:700;text-decoration:none}.docs .dl a:hover{background:#dbe8f8}
+.footer{border-top:1px solid var(--separator);margin-top:64px;padding:26px 0 36px;color:var(--tertiary);font-size:14px}
+@media(max-width:900px){.steps,.arch-stage{grid-template-columns:repeat(2,minmax(0,1fr))}.arch-node:after{display:none}.arch-models,.grid3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){body{font-size:16px}.hero{padding:40px 0 28px}.hero p{font-size:17px}.steps,.arch-stage,.arch-models,.grid2,.grid3,.docs{grid-template-columns:1fr}.brand span{font-size:14px;max-width:200px}.site-header{position:static}}
+@media print{.site-header,.actions,.anchor-nav{display:none!important}body{background:#fff}.step,.card,.arch-node,.arch-layer,.rules li,.walk li{box-shadow:none;border:1px solid var(--separator);break-inside:avoid}}
 </style></head>
 <body>
 <a class="skip" href="#main">본문으로 이동</a>
 <header class="site-header"><div class="container header-inner">
 <a class="brand" href="./"><img src="images/system-logo.svg" alt=""><span>오산 청소년 위기징후 평가연계 시스템</span></a>
 <a class="header-link" href="./">평가 화면으로 돌아가기</a>
+<div data-report-download data-base="../reports/"></div>
 </div></header>
+<main id="main">
 <section class="hero"><div class="container">
-<div class="eyebrow">OY-RALS · USER GUIDE · 2026.10.26 / 5단계 통합</div>
-<h1>시스템은 이렇게<br>작동합니다</h1>
-<p>학생의 응답을 점수로만 끝내지 않습니다. <strong>어떤 어려움이 보고됐는지 확인하고, 교사·사회복지사가 무엇부터 해야 하는지</strong> 검토할 수 있도록 사정과 계획 초안을 연결합니다.</p>
-<div class="hero-actions"><a class="link-pill" href="./">25문항 평가 시작하기</a><a class="link-pill secondary" href="#how">이용 절차 살펴보기</a></div>
-<nav class="anchor-nav" aria-label="이 페이지 안내"><a href="#how">이용 절차</a><a href="#interpret">결과 해석</a><a href="#casework">역할별 활용</a><a href="#architecture">연결 구조도</a><a href="#technology">모델 설명</a><a href="#privacy">개인정보·검증</a></nav>
+<span class="eyebrow">OY-RALS · 이용 안내 · 2026.10.26 화면 기준</span>
+<h1>시스템은 이렇게 작동합니다</h1>
+<p>25문항 응답을 점수로만 끝내지 않습니다. 안전을 먼저 확인하고, 해석지로 학생을 이해하고, 지역자원과 사례관리 계획으로 이어지도록 다섯 단계 화면이 연결되어 있습니다.</p>
+<div class="actions"><a class="btn" href="./">25문항 평가 시작하기</a><a class="btn secondary" href="#documents">연구보고서 받기</a></div>
+<nav class="anchor-nav" aria-label="이 페이지의 내용"><a href="#how">다섯 단계</a><a href="#walkthrough">처음부터 끝까지</a><a href="#interpret">결과 읽기</a><a href="#ai">AI에 묻기</a><a href="#resources">자원 확인 배지</a><a href="#architecture">연결 구조</a><a href="#technology">모델 역할</a><a href="#privacy">개인정보·검증</a><a href="#documents">연구자료</a></nav>
+<div class="alert" role="note"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2.5 20h19z"/><path d="M12 10v4.5M12 17.5v.1"/></svg><div><b>안전 문제가 의심되면 평가 완료를 기다리지 않습니다.</b><p>학대·자해·성착취·현재 위해 신호가 있으면 소속기관의 보호·신고·긴급 대응 절차를 먼저 따릅니다. 화면의 결과는 이 절차를 대신하지 않습니다.</p></div></div>
 </div></section>
-<main id="main" class="container">
-<section id="how" class="section"><span class="section-count">01 / HOW TO USE</span><h2>학생 지원을 잇는 5단계</h2><p class="section-lead">평가 결과는 정량·서술·종합의견으로 나뉘며, 이후 자원연계·사례사정·AI 심화해석·기록과 점검을 연결합니다.</p><div class="steps journey-five">
-<article class="step"><span class="step-index">STEP 01</span><h3>척도 평가</h3><p>25문항(총 100점)·미상·안전판정, 10영역 레이더, 교차분석, 서술기록·종합의견을 독립 확인</p></article>
-<article class="step"><span class="step-index">STEP 02</span><h3>자원연계 지도</h3><p>영역별 기관과 사업 후보 조회. 접수요건·관할·기존 지원·최종 확인일 검토</p></article>
-<article class="step"><span class="step-index">STEP 03</span><h3>사례개념화·개입계획</h3><p>사례사정 및 판정·개입계획 수립·사례회의·진행관리. 가계도·생태도 연결</p></article>
-<article class="step"><span class="step-index">STEP 04</span><h3>AI 사례자문 작업실</h3><p>현재 사례자료를 선택하여 OY-CIE 규칙·검색 기반 심화질문과 근거 확인</p></article>
-<article class="step"><span class="step-index">STEP 05</span><h3>사례기록·모니터링</h3><p>초기상담·회의·서비스 수행·재사정·종결 관련 기록과 인쇄·PDF</p></article>
+
+<div class="container">
+<section class="section" id="how" aria-labelledby="howTitle"><span class="section-count">01 · HOW TO USE</span><h2 id="howTitle">학생 지원을 잇는 다섯 단계</h2>
+<p class="lead">화면 위쪽의 단계 버튼으로 이동합니다. 모든 단계는 같은 회차의 25문항 응답과 안전판정을 함께 씁니다. 앞 단계에서 응답을 고치면 다시 완료해야 뒤 단계에 반영됩니다.</p>
+<div class="steps">
+<article class="step"><span class="step-index">STEP 01</span><h3>선별평가·결과해석</h3><p>25문항을 0~4점 또는 미상으로 입력하고, 결과 탭 ① 척도 해석 ② 서술기록 분석 ③ 통합 사정의견을 읽습니다.</p><span class="out">해석지 · 보조지표 도식 · 결과 PDF</span></article>
+<article class="step"><span class="step-index">STEP 02</span><h3>지역자원 연계</h3><p>지원영역별 기관·사업 후보를 지도와 연결 그림으로 봅니다. 추천 근거·이용조건·확인 배지를 함께 확인합니다.</p><span class="out">자원연계 후보 · 연결 그림</span></article>
+<article class="step"><span class="step-index">STEP 03</span><h3>사례개념화·개입계획</h3><p>사례사정·판정, 개입계획, 사례회의 안건, 가계도·생태도를 정리합니다.</p><span class="out">사정지 · 계획 초안</span></article>
+<article class="step"><span class="step-index">STEP 04</span><h3>AI 사례자문 작업실</h3><p>해석지 곳곳의 「AI에 묻기」로 받은 외부 AI 답변을 모아 검토하고, 보고서·안건지 요청문을 만듭니다. 선택 기능입니다.</p><span class="out">외부 AI 자문 모음</span></article>
+<article class="step"><span class="step-index">STEP 05</span><h3>사례기록·모니터링</h3><p>초기상담·회의·서비스 수행·재사정·종결 기록을 작성하고 인쇄·PDF로 남깁니다.</p><span class="out">기록 · 인쇄 · PDF</span></article>
+</div></section>
+
+<section class="section" id="walkthrough" aria-labelledby="walkTitle"><span class="section-count">02 · WALKTHROUGH</span><h2 id="walkTitle">처음부터 끝까지, 한 사례의 흐름</h2>
+<p class="lead">처음 쓰는 교사·교육복지사·사회복지사를 위한 순서입니다. 각 단계는 협의 전 초안을 만들 뿐이며, 결정은 면담과 사례회의에서 합니다.</p>
+<ol class="walk">
+<li><b>안전 신호부터 확인합니다</b><span>1·2·7·25번은 1점이라도 있으면 점수와 관계없이 오늘 안전을 직접 확인합니다. 4번이 1점 이상이거나 5·12·13번이 3점 이상이면 현재 위험 여부를 추가로 묻습니다.</span></li>
+<li><b>25문항을 입력합니다</b><span>최근 1개월의 관찰·상담을 기준으로, 마음의 어려움은 최근 2주를 중심으로 답합니다. 모르는 내용은 0점이 아니라 ‘미상’을 고릅니다.</span></li>
+<li><b>필요하면 서술기록을 적습니다</b><span>학생 이름·연락처·주소 같은 식별정보는 쓰지 않습니다. 서술은 공식 점수를 바꾸지 않고 ② 서술기록 분석과 ③ 통합 사정의견에만 쓰입니다.</span></li>
+<li><b>완료를 누르고 ① 척도 해석을 읽습니다</b><span>CORE 공식 판정, 레이더와 영역별 응답강도, 해석지(요약 → 영역 해석 → 교차 패턴 → 강점 → 개입 수준 → 계획 → 면담 질문 → 재평가 기준)를 차례로 봅니다.</span></li>
+<li><b>면담 질문으로 학생의 이야기를 듣습니다</b><span>해석지의 첫 질문은 학생에게 바로 쓸 수 있는 문장입니다. 학생이 바라는 도움과 이미 받고 있는 지원을 함께 확인합니다.</span></li>
+<li><b>02 지역자원 연계에서 후보를 고릅니다</b><span>행정동을 선택하면 관할이 맞는 후보가 정리됩니다. 카드의 확인 배지를 보고, 미검증 자원은 기관에 직접 문의한 뒤 연계합니다.</span></li>
+<li><b>03에서 계획과 사례회의 안건을 정리합니다</b><span>주관 기관과 협력 기관, 단계별 개입계획, 사례회의 안건을 실제 상황에 맞게 고칩니다.</span></li>
+<li><b>05에서 기록하고, 정한 날짜에 다시 평가합니다</b><span>재평가 기준에 적힌 목표 수준과 비교해 변화를 확인합니다. 이 사이트는 자동으로 영구 저장하지 않으므로 필요한 자료는 직접 저장합니다.</span></li>
+</ol></section>
+
+<section class="section" id="interpret" aria-labelledby="interpretTitle"><span class="section-count">03 · READ THE RESULT</span><h2 id="interpretTitle">결과 탭 세 개와 단계 표시 읽기</h2>
+<p class="lead">01 단계의 결과는 세 탭으로 나뉩니다. 서술기록을 입력하지 않았다면 ①만 읽어도 충분합니다.</p>
+<div class="grid3">
+<div class="card tab-card"><h3>① 척도 해석</h3><p>25문항만으로 만든 해석입니다.</p><ul><li>통합지원 5단계와 CORE 공식 판정</li><li>10개 영역 레이더·영역별 응답강도</li><li>보조지표 해석도구(4구간 표, 5개 상위 축, 생태체계 링)</li><li>심층 해석지와 개입 수준·계획·면담 질문</li></ul></div>
+<div class="card tab-card"><h3>② 서술기록 분석</h3><p>입력한 서술을 문장 단위로 읽습니다.</p><ul><li>어떤 생활 영역의 단서인지</li><li>부정(“없다고 함”)·추정·전언·과거 언급 구분</li><li>척도 응답과 맞는지, 어긋나는지</li></ul></div>
+<div class="card tab-card"><h3>③ 통합 사정의견</h3><p>척도와 서술을 함께 읽은 종합 의견입니다.</p><ul><li>핵심 지원축과 교차 특성</li><li>우선 실행과 권장 진행체계</li><li>서술이 없으면 척도만으로 작성</li></ul></div>
 </div>
-<div class="notes" style="margin-top:21px"><strong>안전 문제가 의심된다면 평가 완료를 기다리지 않습니다.</strong><p>학대·자해·성착취·현재 위해 등의 신호가 있다면 소속기관의 보호·신고·긴급 대응 절차를 우선 수행해야 합니다. 자동 결과는 이를 대신하지 않습니다.</p></div>
-</section>
-<section id="architecture" class="section"><span class="section-count">02 / CONNECTED ARCHITECTURE</span>
-<h2>실제 홈페이지의 모델·화면 연결 구조도</h2><p class="section-lead">화면은 다섯 단계로 구분하지만, CORE 25문항과 별도 안전판정은 모든 단계에서 동일한 원자료를 사용합니다. 단말기 내 사례자료를 모델 게이트웨이가 분석하고 결과 화면·보고서로 전달합니다.</p>
-<figure style="margin:0" aria-label="평가에서 지원연계, 사례사정, AI 분석, 기록까지 흐르는 구조">
+<h3 style="margin:32px 0 10px;font-size:20px">화면에 함께 나오는 세 가지 단계</h3>
+<p class="lead" style="margin-bottom:14px">세 표시는 계산 규칙과 지위가 다릅니다. 공식 판정은 CORE 하나이며, 안전 신호는 세 표시 모두에 앞섭니다.</p>
+<div class="table-wrap"><table>
+<thead><tr><th scope="col">표시</th><th scope="col">범주</th><th scope="col">무엇으로 정하나</th><th scope="col">지위</th></tr></thead>
+<tbody>
+<tr><td><b>CORE 지원검토 단계</b></td><td>0~3단계, 미상이 있으면 보류</td><td>지원집중 영역 수와 3~4점 문항 수</td><td><span class="pill">공식 판정</span></td></tr>
+<tr><td><b>통합지원 5단계 (SUPPORT-5)</b></td><td>1 안정관찰 ~ 5 최우선 안전대응</td><td>점수 구간·응답 패턴·안전 기준 중 가장 높은 단계</td><td><span class="pill gray">개발형 보조지표</span></td></tr>
+<tr><td><b>개입 수준</b> (해석지)</td><td>관찰·예방 ~ 위기개입 후 집중 사례관리</td><td>CORE 단계와 안전 신호</td><td><span class="pill gray">사례관리 강도 초안</span></td></tr>
+</tbody></table></div>
+<p class="note">예: 6·9·19번이 각 3점이면 CORE 3단계(다기관 집중지원 필요성 검토), 통합지원 제4단계(고위기개입), 개입 수준 집중 사례관리(다기관)로 표시됩니다. 이름이 달라도 같은 응답을 다른 관점에서 본 것입니다.</p>
+<h3 style="margin:32px 0 10px;font-size:20px">점수를 읽을 때 지킬 네 가지</h3>
+<ul class="rules">
+<li><b>100점은 문항 응답의 합계입니다.</b><span>25문항 × 0~4점이지만 미래 위험을 예측하거나 지원 자격을 정하는 점수가 아닙니다.</span></li>
+<li><b>‘미상’과 ‘0점’은 다릅니다.</b><span>미상은 판단 보류이며 0점으로 바꾸지 않습니다. 0점도 이번 응답에서 보고되지 않았다는 뜻이지 위험이 없다는 증명은 아닙니다.</span></li>
+<li><b>4구간은 규준이 아닙니다.</b><span>보조지표의 1~4구간은 척도 범위(문항당 0~4점)를 네 등분한 위치이며, 다른 학생과 비교한 백분위가 아닙니다.</span></li>
+<li><b>서술과 점수가 다르면 질문으로 남깁니다.</b><span>시스템은 점수를 임의로 고치지 않습니다. 실제 상황과 평가 시점을 다시 확인합니다.</span></li>
+</ul></section>
+
+<section class="section" id="ai" aria-labelledby="aiTitle"><span class="section-count">04 · ASK AI</span><h2 id="aiTitle">「AI에 묻기」 사용법</h2>
+<p class="lead">해석지 각 부분의 제목 옆과 보고서 출력 옆에 있습니다. 사이트는 자료를 외부로 자동 전송하지 않으며, 외부 AI 답변은 공식 점수와 안전판정을 바꾸지 않습니다.</p>
+<div class="grid2">
+<div class="card tab-card"><h3>1. 해석지에서 바로 찾기</h3><p>「이번 주에 먼저 할 일은?」, 「면담 첫 질문은?」, 「학교·복지관은 각각 무엇을?」, 「사례회의에서 다룰 안건은?」 같은 자주 묻는 질문은 해석지에 이미 있는 내용으로 바로 답합니다.</p></div>
+<div class="card tab-card"><h3>2. 외부 AI에 묻기</h3><p>더 깊은 질문은 짧은 요청문을 복사한 뒤 ChatGPT·Claude·Gemini 중 쓰는 서비스에 붙여 넣습니다. 기본은 척도 결과만 담기고, 서술기록은 직접 선택할 때만 들어갑니다. 복사 전 개인정보 확인 항목에 체크해야 합니다.</p></div>
+<div class="card tab-card"><h3>3. 답변 검토·저장</h3><p>받은 답변을 붙여 넣고 사실과 다른 부분을 고친 뒤 「04 자문 모음에 저장」을 누릅니다. 답변은 이 브라우저 탭에만 있고, 탭을 닫으면 사라집니다.</p></div>
+<div class="card tab-card"><h3>4. 보고서를 AI로 작성·보완</h3><p>보고서 출력 옆 「AI로 보고서 작성·보완」이나 04 화면의 버튼으로 통합사례보고서·사례회의 안건지 요청문을 만듭니다. 결과물은 실무자 검토본으로만 씁니다.</p></div>
+</div>
+<p class="note">기관의 외부 AI 이용 기준을 먼저 확인하세요. 안전 확인이 필요한 응답이 있으면 외부 AI에 묻기 전에 학생의 현재 안전부터 직접 확인합니다. 이전의 규칙형 대화 엔진(OY-CIE)은 메인 흐름에서 빠지고 머리글의 「OY-CIE 연구 작업실」에만 남아 있습니다.</p></section>
+
+<section class="section" id="resources" aria-labelledby="resTitle"><span class="section-count">05 · RESOURCES</span><h2 id="resTitle">자원 카드의 확인 배지 읽기</h2>
+<p class="lead">사업이 있다는 것과 지금 신청할 수 있다는 것은 다릅니다. 카드에는 확인 배지, 추천 근거, 대상, 신청방법, 접수창구, 신청상태가 먼저 보이고 나머지는 접혀 있습니다.</p>
+<div class="card badges">
+<div><span class="pill">접수기간 중</span><p>등록된 접수 회차가 열려 있고 지역 이용이 가능한 경우에만 표시됩니다.</p></div>
+<div><span class="pill gray">상시 운영 사업 · 접수 가능 여부는 문의</span><p>사업은 계속 운영되지만 지금 자리가 있는지는 기관에 확인해야 합니다.</p></div>
+<div><span class="pill gray">공모·모집형 · 현재 모집 여부 확인</span><p>정해진 시기에만 모집하는 사업입니다.</p></div>
+<div><span class="pill amber">운영·접수 상태 미확인</span><p>운영 여부와 접수 상태가 확인되지 않았습니다.</p></div>
+<div><span class="pill red">미검증 · 기존 목록 자료</span><p>기존 목록에서 옮겨 온 정보로, 공식 안내나 담당자 확인이 아직 없습니다.</p></div>
+</div>
+<p class="note">2026년 10월 기준 등록 서비스 220개 가운데 확인완료 15개, 사업별 확인 필요 78개, 미확인 127개입니다. 실제 의뢰 전에는 기관 공식 안내나 담당자 회신을 확인하세요. 연계 진행 기록(상태·담당·메모)은 이 화면에 저장하지 않습니다.</p></section>
+
+<section class="section" id="architecture" aria-labelledby="archTitle"><span class="section-count">06 · CONNECTED ARCHITECTURE</span><h2 id="archTitle">화면과 모델의 연결 구조</h2>
+<p class="lead">화면은 다섯 단계로 나뉘지만 CORE 25문항과 안전판정은 모든 단계에서 같은 원자료를 씁니다. 브라우저 안의 사례자료를 모델 게이트웨이(OYModelGateway)가 각 모델에 전달하고 결과 화면·보고서로 돌려줍니다.</p>
 <div class="arch-stage">
-<div class="arch-node"><span class="arch-number">01 · INPUT</span><b>척도 평가</b><small>평가 iframe → 검증된 결과 메시지 → CORE·서술분석</small></div>
-<div class="arch-node"><span class="arch-number">02 · MATCH</span><b>자원연계 지도</b><small>영역·지역·지원후보 → 기관·사업·서비스 조건</small></div>
+<div class="arch-node"><span class="arch-number">01 · INPUT</span><b>선별평가·결과해석</b><small>평가 화면 → 결과 메시지 → CORE·해석지·서술 분석</small></div>
+<div class="arch-node"><span class="arch-number">02 · MATCH</span><b>지역자원 연계</b><small>지원영역·행정동 → 기관·사업·확인 상태</small></div>
 <div class="arch-node"><span class="arch-number">03 · CASE</span><b>사례개념화·개입계획</b><small>사정·판정·계획·가계도·생태도</small></div>
-<div class="arch-node"><span class="arch-number">04 · REASON</span><b>AI 사례자문 작업실</b><small>OY-CIE 규칙·지식 검색 + 선택자료·질문</small></div>
-<div class="arch-node"><span class="arch-number">05 · DOCUMENT</span><b>사례기록·모니터링</b><small>실제 지원·회의·재사정 기록 → PDF·백업</small></div>
+<div class="arch-node"><span class="arch-number">04 · CONSULT</span><b>AI 사례자문 작업실</b><small>AI에 묻기 답변 모음·보고서 요청문</small></div>
+<div class="arch-node"><span class="arch-number">05 · DOCUMENT</span><b>사례기록·모니터링</b><small>지원·회의·재사정 기록 → PDF</small></div>
 </div>
-<div class="arch-flowline" aria-hidden="true">↕ &nbsp; 동일한 회차·응답·안전판정으로 연결 &nbsp; ↕</div>
-<div class="arch-layer">
-<h3>공통 제어 계층 · OYModelGateway / 안전 불변 규칙</h3>
-<div class="arch-models">
-<div class="arch-model"><strong>CORE / YouthCriteria</strong><span>25문항 0~4점 합계·미상 처리·독립 안전판정. 해석 모델은 원점수를 변경하지 않습니다.</span></div>
-<div class="arch-model"><strong>SUPPORT-5</strong><span>별도 5단계 지원우선순위. 문항 가중·영역 교차를 이용하는 자체 개발형 업무지표입니다.</span></div>
-<div class="arch-model"><strong>ICSI / OYCIESemanticV2</strong><span>개별 문항점수 의미, 주요 문항쌍의 동시응답 구조 설명</span></div>
-<div class="arch-model"><strong>NCB / YouthCaseContextCore</strong><span>자유서술을 문장·부정·시점·문항·영역별로 분해·대조</span></div>
-<div class="arch-model"><strong>OY-CIE / CIE dialogue</strong><span>근거 규칙·연구자료 검색으로 질문 응답. 서버형 학습 LLM이 아닌 로컬 규칙·검색형 분석</span></div>
-<div class="arch-model"><strong>K-CARR / ICMS</strong><span>서술형 사례사정 보강, 서비스계획·사례회의 실행방향 추천</span></div>
-<div class="arch-model"><strong>Relations</strong><span>가계도·생태도 관계 확인과 강도·방향·자원후보의 시각화</span></div>
-<div class="arch-model"><strong>YouthMap / 자원 데이터</strong><span>동별 관할·기관·프로그램 추천. 실제 접수/제공 완료를 자동 확정하지 않음</span></div>
-<div class="arch-model"><strong>Privacy / Export / Print</strong><span>외부 AI 요청문 가림 검토, 비식별 JSON 복원, 별도 선택형 ZIP·PDF 인쇄</span></div>
+<p class="arch-flowline">↕ 같은 회차·응답·안전판정으로 연결 ↕</p>
+<div class="arch-layer"><h3>공통 계층 · OYModelGateway와 안전 불변 규칙</h3><div class="arch-models">
+<div class="arch-model core"><strong>CORE · YouthCriteria</strong><span>25문항 0~4점 합계, 미상 처리, 독립 안전판정. 다른 모델은 원점수를 바꾸지 않습니다.</span></div>
+<div class="arch-model"><strong>SUPPORT-5</strong><span>통합지원 1~5단계. 점수 구간·응답 패턴·안전 기준을 함께 보는 개발형 보조지표입니다.</span></div>
+<div class="arch-model"><strong>문항 지식·교차 패턴 (ICSI 계승)</strong><span>문항별 0~4점 앵커, 23개 교차 패턴, 일상 단서와 첫 질문.</span></div>
+<div class="arch-model"><strong>심층 해석지</strong><span>① 척도 해석의 해석지, 개입 수준·주관기관·단계별 계획·재평가 기준.</span></div>
+<div class="arch-model"><strong>서술기록 분석 · NCB · K-CARR</strong><span>자유서술을 문장·부정·추정·출처로 나누고 척도와 대조합니다.</span></div>
+<div class="arch-model"><strong>ICMS</strong><span>사례사정·서비스계획·사례회의 실행 방향의 초안.</span></div>
+<div class="arch-model"><strong>Relations</strong><span>가계도·생태도의 관계 확인과 강도·방향 시각화.</span></div>
+<div class="arch-model"><strong>YouthMap · 자원연계 데이터</strong><span>관할·기관·사업 후보와 확인 배지. 접수·제공 완료를 자동으로 확정하지 않습니다.</span></div>
+<div class="arch-model"><strong>AI에 묻기 · OY-CIE</strong><span>해석지 기반 즉답과 외부 AI 요청문. OY-CIE 규칙형 엔진은 연구 작업실에만 남아 있습니다.</span></div>
+<div class="arch-model"><strong>개인정보 · 내보내기 · 인쇄</strong><span>요청문 가림 검토, 식별정보를 뺀 JSON 백업, 선택형 ZIP·PDF.</span></div>
 </div></div>
-<div class="arch-flowline" aria-hidden="true">↓ &nbsp; 선택한 지원기록 및 결과를 근거와 함께 출력 &nbsp; ↓</div>
-<div class="arch-layer"><h3>출력·정보보호 계층</h3><div class="arch-output"><span>원점수와 안전판정</span><span>영역별·교차영역 분석</span><span>서술 및 종합의견</span><span>자원연계 안내</span><span>사정·계획·관계도</span><span>기록·사례회의</span><span>인쇄/PDF</span><span>비식별 JSON 백업</span></div>
-<p class="arch-explain">기본 평가 데이터는 브라우저 메모리에서 처리합니다. JSON 백업에는 자유서술·이름을 넣지 않습니다. 서술·사례기록을 포함한 ZIP은 별도 체크 후 다운로드하며, 외부 AI 전송은 사용자가 직접 결정합니다.</p></div>
-<figcaption class="arch-explain">실제 코드 기준: <code>flow.js</code>의 회차·iframe 메시지 → <code>model-gateway-v90.js</code> 및 결과 뷰 → <code>ai-workbench-stage-v1.js</code>·<code>cie-flow-v32.js</code> → <code>workbench.html</code>·출력 모듈. 모델 연결 여부는 운영 브라우저 및 GitHub Actions로 별도 검사합니다.</figcaption></figure>
-<div class="panel"><h3>안정성 검수와 장애 복구 경로</h3><table class="arch-table"><tbody>
-<tr><th>평가 결과가 열리지 않음</th><td>25개 문항이 모두 선택됐는지 확인 → 완료 버튼 → 상위 화면의 결과 탭. 입력을 변경했다면 다시 완료해야 합니다. 지속되면 비식별 JSON을 내려받고 다시 열어 복원합니다.</td></tr>
-<tr><th>지도가 비거나 기관이 없음</th><td>평가 회차와 지도 iframe 연결 확인 → 관할·사업 조건 조회. 비어 있어도 CORE 결과와 안전조치는 유지됩니다.</td></tr>
-<tr><th>AI 연구 결과 지연·오류</th><td>질문/선택자료 범위를 확인하고 다시 분석합니다. CIE를 사용할 수 없어도 CORE·사정·자원연계 기능은 독립 작동합니다.</td></tr>
-<tr><th>PDF 미출력·표 잘림</th><td>인쇄 미리보기에서 A4/배율/배경 그래픽을 확인합니다. 가능한 경우 전체 자료 ZIP의 HTML 파일을 열어 브라우저에서 PDF로 인쇄합니다.</td></tr>
-<tr><th>새로고침·종료 위험</th><td>자동 영구 저장이 없습니다. 평가 JSON 및 필요한 보고서를 먼저 저장하고, 외부 AI·공유 전 개인정보를 직접 검수합니다.</td></tr>
-<tr><th>검증 현황</th><td>CORE/모델 계약·합성 사례·브라우저 E2E·복지자원 회귀 검사를 분리해 실행하며 실증 타당도를 의미하지 않습니다. <a href="https://github.com/daily-jh/osansegyo-welfare-resources/actions" target="_blank" rel="noopener noreferrer">최신 자동검사 보기</a></td></tr>
-</tbody></table></div>
-</section><section id="interpret" class="section"><span class="section-count">02 / READ THE RESULT</span><h2>점수를 읽을 때 지켜야 할 네 가지</h2>
-<div class="panel"><ol class="numbered">
-<li><span class="index-dot">1</span><div><strong>100점은 문항 응답의 합계입니다.</strong><p>25문항 × 0~4점으로 산정하지만, 총점이 개인의 미래 위험을 예측하거나 지원자격을 결정하는 점수는 아닙니다.</p></div></li>
-<li><span class="index-dot">2</span><div><strong>‘미상’과 ‘0점’은 다릅니다.</strong><p>미상은 판단 보류이며 0점으로 대체하지 않습니다. 0점도 이번 응답에서 해당 어려움이 보고되지 않았다는 뜻이지 위험이 없다는 증명은 아닙니다.</p></div></li>
-<li><span class="index-dot">3</span><div><strong>같은 영역 안의 문항도 구분합니다.</strong><p>돌봄 공백(16번), 생활물품 부족(19번), 주거 어려움(20번), 비용 장벽(21번)을 하나의 경제문제로 자동 합치지 않습니다.</p></div></li>
-<li><span class="index-dot">4</span><div><strong>서술과 점수가 다르면 질문을 남깁니다.</strong><p>예를 들어 9번 출결이 4점인데 결석 기록이 없다면 실제 상황과 평가 시점을 다시 확인합니다. 시스템이 임의로 점수를 수정하지 않습니다.</p></div></li>
-</ol></div>
-<div class="split">
-<div class="panel"><h3>서술형을 입력한 경우</h3><p>가족·학교생활·강점·이용 중인 서비스를 구분하고, 부정·가정·전언·미확인 표현을 점검합니다. 한 문장 안의 의미를 잘못 읽을 수 있으므로 <strong>원문과 근거를 반드시 비교</strong>해야 합니다.</p></div>
-<div class="panel"><h3>서술형을 입력하지 않은 경우</h3><p>점수별로 확인할 상황과 첫 질문을 제시합니다. 실제 결석, 체납, 진단, 폭력, 서비스 제공 등 <strong>확인되지 않은 사건은 사실로 생성하지 않습니다.</strong></p></div>
-</div></section>
-<section id="casework" class="section"><span class="section-count">03 / PROFESSIONAL PRACTICE</span><h2>교사와 사회복지사가 각자의 역할로 사용합니다</h2>
-<p class="section-lead">보고서가 제시하는 모든 과제는 <strong>협의 전 초안</strong>입니다. 학생이 바라는 변화와 정보공유·담당·일정은 실제 면담과 사례회의에서 결정합니다.</p>
-<div class="split">
-<div class="panel"><span class="tag">교사 · 학교</span><h3 style="margin-top:12px">관찰·보호·수업 조정</h3><p>출결·교과·또래관계·교실 환경의 직접 근거를 확인하고, 안전한 면담과 학교 내 보호·학습 조정을 진행합니다. 필요하면 학맞통 등 교내 협의 절차를 검토합니다.</p></div>
-<div class="panel"><span class="tag">사회복지사 · 교육복지사</span><h3 style="margin-top:12px">생활 사정·자원 조정</h3><p>가족의 실제 돌봄·경제·주거 여건, 기존 지원의 내용과 공백, 지역기관 이용장벽을 확인하고 의뢰·제공·점검을 조정합니다.</p></div>
+<p class="arch-flowline">↓ 선택한 결과를 근거와 함께 출력 ↓</p>
+<div class="arch-output"><span>원점수와 안전판정</span><span>영역·교차 분석</span><span>해석지</span><span>서술 분석·통합 사정의견</span><span>자원연계 안내</span><span>사정·계획·관계도</span><span>기록·사례회의</span><span>인쇄/PDF</span><span>식별정보 제외 JSON</span></div>
+<details class="fold"><summary>문제가 생겼을 때</summary><div class="body">
+<p><b>결과가 열리지 않음</b> · 25개 문항이 모두 선택됐는지 확인하고 완료를 다시 누릅니다. 계속되면 식별정보 제외 JSON을 저장한 뒤 새로고침하고 불러옵니다.</p>
+<p><b>지도가 비거나 기관이 없음</b> · 행정동을 선택했는지 확인합니다. 지도가 비어도 CORE 결과와 안전조치는 그대로입니다.</p>
+<p><b>AI 요청문이 복사되지 않음</b> · 개인정보 확인 항목에 체크했는지 확인합니다. 자동 복사가 막히면 요청문이 선택된 상태로 남으니 직접 복사합니다.</p>
+<p><b>PDF가 잘림</b> · 인쇄 미리보기에서 A4·배율·배경 그래픽을 확인합니다.</p>
+<p><b>새로고침·창 닫기</b> · 자동 영구 저장이 없습니다. 필요한 보고서와 JSON을 먼저 저장합니다.</p>
+</div></details></section>
+
+<section class="section" id="technology" aria-labelledby="techTitle"><span class="section-count">07 · MODEL ROLES</span><h2 id="techTitle">모델은 서로 대체하지 않고 역할을 나눕니다</h2>
+<p class="lead">CORE는 원점수와 안전판정의 단일 기준입니다. SUPPORT-5, 문항 지식·교차 패턴(ICSI 계승), 서술기록 분석(NCB·K-CARR), ICMS, Relations, AI에 묻기와 OY-CIE 연구 작업실은 해석·연계·기록을 보강할 뿐 점수를 다시 채점하지 않습니다. 자원연계는 후보와 확인 상태를 보여 줄 뿐 접수·제공을 확정하지 않습니다.</p>
+<div class="card"><p style="margin:0;color:var(--secondary);font-size:15px">자동검사는 모델 연결, 25문항 점수 불변, 미상·긴급 신호, 해석지 구조(지정 가상 사례 11건과 난수 응답 3,000건), 서술 분석(난수 600건), 지역자원 후보, PC·모바일 브라우저 이용 경로를 확인합니다. 자동검사 통과는 점수의 실증 타당도나 실제 서비스 효과를 입증하지 않습니다. <a href="https://github.com/daily-jh/osansegyo-welfare-resources/actions" target="_blank" rel="noopener noreferrer">최신 자동검사 보기 ↗</a></p></div></section>
+
+<section class="section" id="privacy" aria-labelledby="privacyTitle"><span class="section-count">08 · SAFETY & TRANSPARENCY</span><h2 id="privacyTitle">개인정보와 검증 범위</h2>
+<div class="grid3">
+<div class="card tab-card"><h3>개인정보는 최소한으로</h3><p>학생 이름, 전화번호, 상세주소, 불필요한 질병·가족정보를 서술에 쓰지 마세요. 입력은 브라우저 안에서 처리되지만, 파일로 저장하거나 외부 AI에 붙여 넣으면 별도 보호가 필요합니다. 전체 ZIP은 선택에 따라 서술 원문을 담을 수 있으니 공유 전 확인합니다.</p></div>
+<div class="card tab-card"><h3>합성검사와 현장 검증은 다릅니다</h3><p>개발 과정의 합성·가상 응답 검사는 코드 회귀검사입니다. 실제 학생 대상 전문가 일치도, 학생의 변화, 개입 효과, 위험 예측 정확도는 검증되지 않았습니다.</p></div>
+<div class="card tab-card"><h3>문항·판정의 한계</h3><p>25문항은 현장 검토용 비표준화 TEST 척도입니다. 0~4점 간격과 문항별 앵커, 교차 패턴은 전문가 내용타당도 검토 전 개발판입니다. 자해·자살 위험을 점수나 색으로 예측하지 않습니다.</p></div>
 </div>
-<div class="panel"><h3>같은 사례에서도 실행안은 다르게 제안됩니다</h3>
-<table class="detail-table"><tbody>
-<tr><th>9번 · 출결 4점</th><td><strong>학교:</strong> 출결기록과 등교 어려움의 상황을 확인하고 교내 조정을 협의.<br><strong>지역:</strong> 이동·돌봄·건강과 관련한 학교 밖 장벽을 확인.</td></tr>
-<tr><th>16번 · 돌봄 3점</th><td><strong>학교:</strong> 급식·방과후 보호와 안전한 성인 연결 가능성 검토.<br><strong>지역:</strong> 실제 돌봄 공백 시간과 대체 돌봄·식사 제공 지원 확인.</td></tr>
-<tr><th>20번 · 주거 4점</th><td><strong>학교:</strong> 휴식·학습·출결에 미치는 영향 파악.<br><strong>지역:</strong> 거주 안전·환경·지원 조건 확인. 실제 보고가 없다면 체납·퇴거로 단정하지 않음.</td></tr>
-</tbody></table></div>
-</section>
-<section id="technology" class="section"><span class="section-count">04 / MODEL ROLES</span><h2>모델은 서로 대체하지 않고 단계별로 협업합니다</h2>
-<p class="section-lead">CORE는 결과의 원점수와 안전판정의 단일 기준입니다. SUPPORT-5·ICSI·NCB·OY-CIE·K-CARR·ICMS·Relations는 각각 해석·연계·기록을 보강하며 점수를 다시 채점하지 않습니다.</p>
-<div class="panel"><h3>연결성 검사에 포함한 항목</h3><p>모델 모듈 로드·메서드 계약, 25문항 점수 불변, 결측/긴급 신호, 지역자원 후보, 사례사정·계획, CIE 응답, 가계도·생태도 및 PC·모바일 브라우저를 검증합니다. <strong>자동검사 성공은 점수의 실증 타당도 또는 실제 서비스 효과 입증과 다릅니다.</strong></p></div></section>
-<section id="privacy" class="section"><span class="section-count">05 / SAFETY & TRANSPARENCY</span><h2>개인정보와 검증 결과</h2>
-<div class="split"><div class="panel"><h3>개인정보는 최소한으로</h3><p>식별 가능한 학생 이름, 전화번호, 상세주소, 불필요한 질병·가족정보를 자유서술에 기재하지 마세요. 기본 상담 입력은 브라우저에서 처리되지만, 파일로 저장하거나 외부 AI로 복사하면 별도 보호가 필요합니다.</p><p>전체 ZIP 다운로드는 선택 항목에 따라 서술 원문·실제 기록을 포함할 수 있으므로 공유 전 내용을 확인해야 합니다.</p></div>
-<div class="panel"><h3>합성검사와 현장 검증은 다릅니다</h3><p>V8.6 기반 모델 개발 과정에서 상세 서술 2,500건, 간단 서술 2,500건, 서술 없음 10,000건의 합성 시나리오를 검사했습니다. 이는 코드 회귀검사이지 독립된 실제 학생 15,000명의 타당도 평가가 아닙니다.</p><p>실제 전문가 일치도·학생의 변화·중재 효과, 위험 예측 정확도는 별도로 검증되지 않았습니다.</p></div></div>
-<details><summary>문항·판정의 전문적 한계</summary><div class="detail-body"><p>25문항은 연구용·현장 검토용 비표준화 TEST 척도입니다. 공식 CORE 점수와 규칙 기반 설명 계층은 분리되며, 0~4점의 간격이 임상적으로 등간 검증되었다고 가정하지 않습니다. 자해·자살 위험을 미래 점수나 색상등급으로 예측하지 않습니다.</p><p>참고: <a href="https://www.nice.org.uk/guidance/ng225/chapter/recommendations" target="_blank" rel="noopener noreferrer">NICE NG225 자해 평가 원칙</a> · <a href="https://www.cosmin.nl/" target="_blank" rel="noopener noreferrer">COSMIN 측정도구 검증 프레임워크</a></p></div></details>
-<details><summary>버전별 세부 기술자료</summary><div class="detail-body"><p>운영 해석 화면 V8.8.7 / 공식 CORE 25문항·100점 계산 불변. 이전 V7~V8.3 변경 이력과 상세 기술 검수는 별도 문서로 관리하며, 본 사용안내에는 반복해 표시하지 않습니다. V8.7의 목표 묶음은 척도 문항별 확인사항을 없애지 않으며, 개인정보 자동 가림은 사람이 확인해야 합니다.</p><p>개발 검수자료는 <a href="model-manifest-v3.json">모델 등록부</a>와 <a href="EVIDENCE-CASEWORK-V82-AUDIT.md">이전 근거 분석</a>에서 추가 확인할 수 있습니다. 이후 운영 버전·검수 상태가 변경되면 안내도 함께 갱신합니다.</p></div></details>
-</section>
-<section class="section" id="ai-workflow"><span class="section-count">선택형 AI 지원</span><h2>AI 사례자문 작업실 사용 방법</h2><div class="panel"><p>④ AI 사례자문 작업실은 현재 사례의 척도·서술·종합의견·사정·계획·자원을 선택해 OY-CIE 규칙·검색형 엔진에 질문하고 분석결과를 화면에서 확인·복사·인쇄할 수 있습니다. <strong>외부 AI</strong>를 이용하려면 개인정보 가림 및 기관 기준을 확인한 뒤 요청문을 직접 복사·붙여넣어 사용합니다. 외부 AI 답변은 시스템에 자동으로 수신되거나 확정 결정으로 저장되지 않습니다.</p></div></section></main><footer class="footer"><div class="container"><strong>오산 청소년 위기징후 평가연계 시스템</strong><div>기획·개발·저작: 오산세교종합사회복지관 김지훈 팀장 · © 2026 김지훈</div><div>공익 실무지원용 TEST · 담당자의 직접 사정과 법정 안전·보호 절차를 대체하지 않습니다.</div></div></footer>
+<p class="note">참고: <a href="https://www.nice.org.uk/guidance/ng225/chapter/recommendations" target="_blank" rel="noopener noreferrer">NICE NG225 자해 평가 원칙</a> · <a href="https://www.cosmin.nl/" target="_blank" rel="noopener noreferrer">COSMIN 측정도구 검증 프레임워크</a> · <a href="model-manifest-v3.json">모델 등록부</a> · <a href="EVIDENCE-CASEWORK-V82-AUDIT.md">이전 근거 분석</a></p></section>
+
+<section class="section" id="documents" aria-labelledby="docsTitle"><span class="section-count">09 · DOCUMENTS</span><h2 id="docsTitle">연구자료 내려받기</h2>
+<p class="lead">2026년 10월 26일 개정판입니다. PDF가 기준본이며 Word는 기관 양식에 맞춰 고쳐 쓸 수 있습니다. 수록 사례는 모두 가상 응답이며 실제 학생 정보는 없습니다. 같은 자료는 화면 오른쪽 위 「연구보고서 다운로드」에서도 받을 수 있습니다.</p>
+<ul class="docs">
+<li><b>연구·기술검토 보고서</b><span>척도 구조, 모델·화면 구성, 세 가지 단계 표시, 자원연계, 타당화 연구계획 · 31쪽</span><div class="dl"><a href="../reports/oy-rals-research-report-rev-20261026.pdf?v=20261026-rev1" download="OY-RALS_연구기술검토보고서_개정판_20261026.pdf">PDF</a><a href="../reports/oy-rals-research-report-rev-20261026.docx?v=20261026-rev1" download="OY-RALS_연구기술검토보고서_개정판_20261026.docx">Word</a></div></li>
+<li><b>해설 및 실무판정지침</b><span>문항별 해석카드와 앵커, 결과 화면 읽는 법, 교차 패턴 첫 질문 · 17쪽</span><div class="dl"><a href="../reports/oy-rals-practice-guide-rev-20261026.pdf?v=20261026-rev1" download="OY-RALS_해설및실무판정지침_개정판_20261026.pdf">PDF</a><a href="../reports/oy-rals-practice-guide-rev-20261026.docx?v=20261026-rev1" download="OY-RALS_해설및실무판정지침_개정판_20261026.docx">Word</a></div></li>
+<li><b>모델·자원·AI 구조도</b><span>A4 가로 · 화면 단계와 모듈 대응 · 6쪽</span><div class="dl"><a href="../reports/oy-rals-architecture-diagram-rev-20261026.pdf?v=20261026-rev1" download="OY-RALS_모델자원AI구조도_개정판_20261026.pdf">PDF</a><a href="../reports/oy-rals-architecture-diagram-rev-20261026.docx?v=20261026-rev1" download="OY-RALS_모델자원AI구조도_개정판_20261026.docx">Word</a></div></li>
+<li><b>후속 시스템화 운영설계</b><span>데이터 표준·연계 상태·검증 로드맵 · 3쪽</span><div class="dl"><a href="../reports/oy-rals-operations-design-rev-20261026.pdf?v=20261026-rev1" download="OY-RALS_후속시스템화운영설계_개정판_20261026.pdf">PDF</a><a href="../reports/oy-rals-operations-design-rev-20261026.docx?v=20261026-rev1" download="OY-RALS_후속시스템화운영설계_개정판_20261026.docx">Word</a></div></li>
+</ul></section>
+</div>
+</main>
+<footer class="footer"><div class="container"><strong>오산 청소년 위기징후 평가연계 시스템</strong><div>기획·개발·저작: 오산세교종합사회복지관 김지훈 팀장 · © 2026 김지훈</div><div>공익 실무지원용 TEST · 담당자의 직접 사정과 법정 안전·보호 절차를 대체하지 않습니다.</div></div></footer>
 </body></html>
