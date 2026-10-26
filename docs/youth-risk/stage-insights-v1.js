@@ -40,7 +40,7 @@ function grade(x){
 }
 function topStats(x){
  const stats=[
- ['CORE 원점수',x.complete?x.raw+' / 100':'확인 '+x.raw+'점'],
+ ['응답상태',x.known+' / 25문항'],
  ['통합지표',x.composite===null?'응답 미완료':x.composite+' / 100'],
  ['가중위험',x.weighted===null?'—':x.weighted+' / 100'],
  ['교차위험',x.crossScore+' / 100'],
