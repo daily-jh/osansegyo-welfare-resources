@@ -20,7 +20,7 @@ root.innerHTML='<header><span class="oy-ai-eyebrow">STEP 04 · OY-CIE RESEARCH</
 ['resources','자원연계 후보',true,false]
 ].map(([id,label,checked,required])=>'<label><input type="checkbox" data-ai-scope="'+id+'" '+(checked?'checked ':'')+(required?'disabled ':'')+'/>'+label+'</label>').join('')+'</div></div>'+
 '<label for="oy-ai-question">무엇을 더 검토하고 싶으신가요?</label>'+
-'<textarea id="oy-ai-question" rows="4" maxlength="900" placeholder="학생의 출결 어려움과 돌봄상황이 함께 보고된 이유를 확인하려면 어떤 질문과 협의가 필요한가요?"></textarea>'+
+'<textarea id="oy-ai-question" rows="4" maxlength="500" placeholder="학생의 출결 어려움과 돌봄상황이 함께 보고된 이유를 확인하려면 어떤 질문과 협의가 필요한가요?"></textarea>'+
 '<div class="oy-ai-actions"><button type="button" id="oy-ai-ask" class="flow-btn flow-primary">OY-CIE에 질문하기</button><button type="button" id="oy-ai-copy" class="flow-btn">선택자료·질문 복사</button><button type="button" id="oy-ai-print" class="flow-btn">연구자료 PDF 인쇄</button></div>'+
 '<p role="status" id="oy-ai-workbench-status">평가 완료 후 현재 사례의 근거 자료를 불러옵니다.</p>'+
 '<details id="oy-ai-material-details"><summary>연결된 근거 자료·모델 확인</summary><pre id="oy-ai-material"></pre></details>'+
