@@ -42,7 +42,7 @@
 .oy-viz-heatmap{display:grid;grid-template-columns:repeat(13,minmax(0,1fr));gap:5px;margin:8px 0 24px}
 .oy-viz-heatmap>div{border:1px solid #d4e0e9;border-radius:9px;min-width:0;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;line-height:1.2;background:#eef2f5;color:#284a62}
 .oy-viz-heatmap b{font-size:10px}.oy-viz-heatmap span{font-size:16px;font-weight:800}
-.oy-viz-heatmap .v1{background:#fbe8ec;color:#8a2a40}.oy-viz-heatmap .v2{background:#e2a5b3;color:#6e1d31}.oy-viz-heatmap .v3{background:#cf6880;color:#fff}.oy-viz-heatmap .v4{background:#a82e4a;color:#fff}.oy-viz-heatmap .vu{background:repeating-linear-gradient(45deg,#dfe5ec 0 6px,#f4f6f9 6px 12px);color:#4c667c}
+.oy-viz-heatmap .v1{background:#fdeceb;color:#b02424}.oy-viz-heatmap .v2{background:#f1c4c0;color:#8f1d1d}.oy-viz-heatmap .v3{background:#e07068;color:#fff}.oy-viz-heatmap .v4{background:#b02424;color:#fff}.oy-viz-heatmap .vu{background:repeating-linear-gradient(45deg,#dfe5ec 0 6px,#f4f6f9 6px 12px);color:#4c667c}
 .oy-viz-method{border:1px solid #dfe8f1;border-radius:14px;padding:14px 18px;margin-top:20px}
 .oy-viz-method summary{cursor:pointer;font-weight:750}.oy-viz-method p,.oy-viz-note{line-height:1.75;color:#4e687d}
 .oy-viz-path{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin:18px 0 24px}
@@ -97,5 +97,7 @@
 .oy-radar-key{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 14px;margin:10px auto 0;font-size:13px;color:#4c667c}
 .oy-radar-key i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:-1px}.oy-radar-key i.u{background:#fff;border:2px dashed #7a8ea4;box-sizing:border-box}
 .oy-radar-key .flow-btn{min-height:44px;font-size:14px}
-.oy-viz-radar-legend span.oy-radar-hot{color:#a82e4a;font-weight:700}.oy-viz-radar-legend span.oy-radar-hot i{color:#a82e4a}
+.oy-viz-radar-legend span.oy-radar-hot{color:#b02424;font-weight:700}.oy-viz-radar-legend span.oy-radar-hot i{color:#b02424}
 @media print{.oy-radar-key .flow-btn{display:none}.oy-viz-radar svg{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+.oy-viz-main-radar .oy-viz-radar svg{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",Pretendard,sans-serif}
+.oy-radar-key{font-size:12px;color:#56677a}.oy-radar-key .flow-btn{border-radius:999px}

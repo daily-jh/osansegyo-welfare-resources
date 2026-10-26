@@ -41,8 +41,9 @@ const bandText=r=>r.band?BANDS[r.band-1].name+' · '+BANDS[r.band-1].label:'확�
 function bandStrip(r,label){
  const x=r.pct===null?null:Math.max(0,Math.min(100,r.pct));
  return '<div class="osf-strip" role="img" aria-label="'+esc(label+' 응답강도 '+pctText(r)+', '+bandText(r))+'">'
-  +'<div class="osf-strip-bands">'+BANDS.map(b=>'<span class="osf-b'+b.id+(r.band===b.id?' is-on':'')+'"><b>'+b.name+'</b><small>'+b.range+' · '+b.label+'</small></span>').join('')+'</div>'
-  +(x===null?'<p class="osf-muted">확인된 응답이 없어 위치를 표시하지 않습니다.</p>':'<div class="osf-marker" style="left:'+x.toFixed(1)+'%"><i aria-hidden="true"></i><span>'+esc(pctText(r))+'</span></div>')+'</div>';
+  +'<div class="osf-track">'+BANDS.map(b=>'<span class="osf-seg osf-g'+b.id+(r.band===b.id?' is-on':'')+'"></span>').join('')+(x===null?'':'<i class="osf-knob" style="left:'+x.toFixed(1)+'%"></i>')+'</div>'
+  +'<div class="osf-scale">'+BANDS.map(b=>'<span class="'+(r.band===b.id?'is-on':'')+'"><b>'+b.name+' · '+b.label+'</b><small>'+b.range+'</small></span>').join('')+'</div>'
+  +(x===null?'<p class="osf-muted">확인된 응답이 없어 위치를 표시하지 않습니다.</p>':'')+'</div>';
 }
 function bandTable(rows,head){
  return '<div class="osf-table"><table class="osf-bandtable"><caption class="osf-sr">'+esc(head)+'별 응답강도 4구간 위치</caption><thead><tr><th scope="col">'+esc(head)+'</th>'+BANDS.map(b=>'<th scope="col" class="osf-b'+b.id+'h">'+b.name+'<small>'+b.range+'</small></th>').join('')+'<th scope="col">미상</th></tr></thead><tbody>'
@@ -56,17 +57,19 @@ function distBar(d){
 }
 function itemMap(f){
  let h='<div class="osf-itemmap">';
- f.domains.forEach((d,di)=>{h+='<div class="osf-group"><h5>'+esc(d.name)+'</h5><div>'+f.items.filter(it=>it.domain===di).map(it=>'<span class="osf-cell osf-s'+(isNum(it.value)?it.value:'u')+(it.safety?' osf-safe':'')+'" title="'+esc(it.n+'번 '+it.topic+' · '+(isNum(it.value)?it.value+'점':'미상'))+'"><b>'+it.n+'</b><small>'+esc(it.topic)+'</small><em>'+(isNum(it.value)?it.value:'?')+'</em></span>').join('')+'</div></div>'});
+ f.domains.forEach((d,di)=>{h+='<div class="osf-group"><h5>'+esc(d.name)+'</h5><ul>'+f.items.filter(it=>it.domain===di).map(it=>'<li'+(it.safety?' class="osf-safe"':'')+' title="'+esc(it.n+'번 '+it.topic)+'"><span class="osf-num">'+it.n+'</span><span class="osf-topic">'+esc(it.topic)+(it.safety?' <small>안전</small>':'')+'</span><span class="osf-val osf-s'+(isNum(it.value)?it.value:'u')+'">'+(isNum(it.value)?it.value:'미상')+'</span></li>').join('')+'</ul></div>'});
  return h+'</div>';
 }
+// Ecological levels drawn as concentric progress rings (inner = individual, outer = community).
 function ecoDiagram(f){
- const size=360,c=180,R=[48,92,136,176];
- const fill=r=>r.band===null?'#eef2f7':r.pct===0?'#f2f5f9':['#f7f9fc','#fbe8ec','#e2a5b3','#a82e4a'][r.band-1];
- const order=[3,2,1,0];
- const rings=order.map(i=>{const e=f.eco[i];return '<circle cx="'+c+'" cy="'+c+'" r="'+R[i]+'" fill="'+fill(e)+'" stroke="#ffffff" stroke-width="3"/>'}).join('');
- const labels=f.eco.map((e,i)=>{const y=i===0?c+6:c-R[i]+(i===3?22:20);const dark=e.band===4;return '<text x="'+c+'" y="'+y+'" text-anchor="middle" font-size="15" font-weight="700" fill="'+(dark?'#ffffff':'#24496c')+'">'+esc(e.name)+'</text>'+(i?'<text x="'+c+'" y="'+(y+17)+'" text-anchor="middle" font-size="12" fill="'+(dark?'#ffffff':'#4c667c')+'">'+esc(pctText(e))+'</text>':'')}).join('');
- return '<div class="osf-eco"><svg viewBox="0 0 '+size+' '+size+'" role="img" aria-label="생태체계 4수준 도식: 색이 진할수록 그 수준의 응답강도 구간이 높습니다." shape-rendering="geometricPrecision">'+rings+labels+'</svg>'
-  +'<ul>'+f.eco.map(e=>'<li><strong>'+esc(e.name)+'</strong> '+esc(bandText(e))+(e.hard.length?'<br><span class="osf-warn">'+esc(e.hard.join(', '))+'</span>':'<br><span class="osf-muted">두드러진 어려움 없음</span>')+(e.unknown?'<br><span class="osf-muted">미상 '+e.unknown+'문항</span>':'')+'</li>').join('')+'</ul></div>';
+ const size=320,c=160,R=[52,78,104,130],W=20;
+ const col=r=>r.band===null?'#c7cdd6':['#1765bd','#e07068','#c42b2b','#b02424'][r.band-1];
+ const rings=f.eco.map((e,i)=>{const len=2*Math.PI*R[i],v=e.pct===null?0:Math.max(e.pct>0?2:0,e.pct)/100;
+  return '<circle cx="'+c+'" cy="'+c+'" r="'+R[i]+'" fill="none" stroke="#eef1f5" stroke-width="'+W+'"/>'
+   +(v?'<circle cx="'+c+'" cy="'+c+'" r="'+R[i]+'" fill="none" stroke="'+col(e)+'" stroke-width="'+W+'" stroke-linecap="round" stroke-dasharray="'+(len*v).toFixed(1)+' '+len.toFixed(1)+'" transform="rotate(-90 '+c+' '+c+')"/>':'')
+   +(e.pct===null?'<circle cx="'+c+'" cy="'+c+'" r="'+R[i]+'" fill="none" stroke="#b8c4d1" stroke-width="2" stroke-dasharray="3 5"/>':'');}).join('');
+ return '<div class="osf-eco"><svg viewBox="0 0 '+size+' '+size+'" role="img" aria-label="'+esc('생태체계 응답강도 링: '+f.eco.map(e=>e.name+' '+pctText(e)).join(', '))+'" shape-rendering="geometricPrecision">'+rings+'<text x="'+c+'" y="'+(c+6)+'" text-anchor="middle" font-size="15" font-weight="600" fill="#16273a" font-family="-apple-system, BlinkMacSystemFont, \'Apple SD Gothic Neo\', \'Pretendard\', sans-serif">생태체계</text></svg>'
+  +'<ul>'+f.eco.map((e,i)=>'<li><i style="background:'+col(e)+'"></i><div><strong>'+esc(e.name)+'</strong><span class="osf-pct">'+esc(pctText(e))+'</span><small>'+esc(['안쪽 첫째 링','둘째 링','셋째 링','바깥 링'][i])+' · '+esc(bandText(e))+'</small>'+(e.hard.length?'<em class="osf-warn">'+esc(e.hard.join(', '))+'</em>':'')+(e.unknown?'<small>미상 '+e.unknown+'문항</small>':'')+'</div></li>').join('')+'</ul></div>';
 }
 function safetyStrip(f){
  return '<ul class="osf-safety">'+f.safety.map(s=>{const st=s.value==='unknown'?'u':s.value>0?'on':'off';return '<li class="osf-sf-'+st+'"><strong>'+esc(s.topic)+'</strong><span>'+(st==='u'?'미상 · 확인 필요':st==='on'?'응답 있음 · 우선 확인':'보고 없음')+'</span></li>'}).join('')+'</ul>';
@@ -79,8 +82,8 @@ function html(f){
   +sec('domains','10개 영역 × 4구간 가로형 표','각 영역이 어느 구간에 놓이는지 한 줄씩 비교합니다. 붉은색이 진할수록 응답강도가 높습니다.',bandTable(f.domains,'영역'))
   +sec('axes','5개 상위 축','영역을 안전·정서·학교·생활 기반·관계 축으로 묶어 큰 흐름을 봅니다.',bandTable(f.axes,'상위 축'))
   +sec('dist','25문항 응답 분포','0점부터 4점, 미상까지 문항 수를 한 줄로 보여줍니다.',distBar(f.dist))
-  +sec('eco','생태체계 도식','개인에서 지역사회까지 어려움이 놓인 수준을 동심원으로 보여줍니다.',ecoDiagram(f))
-  +sec('map','25문항 지도','영역별로 묶은 문항의 응답입니다. 테두리가 붉은 칸은 안전 문항입니다.',itemMap(f))
+  +sec('eco','생태체계 링','안쪽부터 개인·가족·학교·지역사회입니다. 링이 길수록 그 수준의 응답강도가 높습니다.',ecoDiagram(f))
+  +sec('map','25문항 지도','영역별로 묶은 문항의 응답입니다. ‘안전’ 표시는 안전 문항입니다.',itemMap(f))
   +'<footer class="osf-notice"><strong>구간 기준</strong> '+esc(f.notice)+'</footer></article>';
 }
 function text(f){
