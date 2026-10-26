@@ -78,7 +78,7 @@ function scoreDashboard(x,p){
  +(top.length?cells(['동시보고·핵심패턴','강도·문항근거','CIE 문항해석','학교 우선 행동','복지관·지역기관 연계'],top.map(t=>{const e=patternEvidence(t,p);return [t.label+' · '+(CROSS_GUIDE[t.id]?.[0]||'동시응답형'),t.strength+'/100 · '+e.questions,e.cie||'해당 문항들의 생활영향을 함께 보는 내부 교차 가설',CROSS_GUIDE[t.id]?.[1]||'학교 내 영향 장면 정리',CROSS_GUIDE[t.id]?.[2]||'지원담당자 간 의뢰 조정'];})):'<p>설정된 교차조합에서 둘 다 양성인 영역은 없습니다.</p>')
  +'<details class="oy-viz-cross-details"><summary>전체 교차영역 패턴 보기</summary><div class="oy-viz-matrix">'+x.cross.map(t=>'<div class="'+(t.active?'on':'')+'"><strong>'+esc(t.label)+'</strong><span>'+esc(t.active?t.strength+'점':'해당 없음')+'</span></div>').join('')+'</div></details></section>'
  +'<details class="oy-viz-raw-details"><summary>25문항 개별응답 히트맵 · 0~4점</summary><div class="oy-viz-heatmap">'+p.answers.map((v,i)=>'<div class="v'+(v==='unknown'?'u':v)+'" aria-label="'+(i+1)+'번 '+(v==='unknown'?'미상':v+'점')+'"><b>'+(i+1)+'</b><span>'+(v==='unknown'?'?':v)+'</span></div>').join('')+'</div></details>'
- +'<div class="oy-viz-copy"><button type="button" id="oy-viz-copy-assessment" class="flow-btn flow-primary">현재 척도·분석 요청문 복사 → 외부 AI 활용</button><p id="oy-viz-copy-status" role="status">학생 이름과 자유서술은 제외한 25문항·영역 결과·지원단계를 복사합니다.</p><textarea id="oy-viz-copy-text" readonly hidden rows="7" aria-label="복사용 요청문"></textarea></div>'
+ +'<div class="oy-viz-copy"><label class="oy-ai-privacy-gate"><input type="checkbox" id="oy-viz-copy-reviewed"> 학생 식별정보가 제외되었는지와 척도 응답이 민감정보임을 검토했습니다. 복사 후 외부 AI의 개인정보 처리 기준을 따릅니다.</label><button type="button" id="oy-viz-copy-assessment" class="flow-btn flow-primary">현재 척도·분석 요청문 복사 → 외부 AI 활용</button><p id="oy-viz-copy-status" role="status">학생 이름과 자유서술은 제외한 25문항·영역 결과·지원단계를 복사합니다.</p><textarea id="oy-viz-copy-text" readonly hidden rows="7" aria-label="복사용 요청문"></textarea></div>'
  +'<details class="oy-viz-method"><summary>5단계 보조지표의 산식·원점수 확인</summary><p>CORE 40%, 가중치 25%, 영역교차 20%, 핵심문항 10%, 유효 서술단서 5%. 다영역 집중과 안전 신호가 있는 경우 실행단계가 상향될 수 있습니다. 내부 업무 분류로서 실증 타당도는 검증되지 않았습니다.</p>'
  +cells(['구성','결과','근거'],[['CORE 확인 원점수',x.raw+'/100','기존 공식 점수 유지'],['문항별 가중치',x.weighted+'/100',x.weightsVersion],['교차영역',x.crossScore+'/100','동시응답 강도'],['핵심 안전문항',x.criticalScore+'/100','Q1·Q2·Q7·Q25'],['서술 맥락',x.narrative===null?'미입력':x.narrative+'/100','현재성·부정·가정 구분']])+'</details></div>';
 }
@@ -137,6 +137,7 @@ function render(s){
 window.OYStageInsights=Object.freeze({render,version:'1.0.0'});
 function copyAssessment(){
  if(!current?.payload)return;
+ if(!document.getElementById('oy-viz-copy-reviewed')?.checked){const status=document.getElementById('oy-viz-copy-status');if(status)status.textContent='민감한 척도 내용의 외부 복사 전에 개인정보 확인 항목을 선택해 주세요.';document.getElementById('oy-viz-copy-reviewed')?.focus();return;}
  const p=current.payload,x=window.OYFiveLevelIndex.analyze({...p,caseContext:''});
  const lines=['오산 청소년 위기징후 평가연계 시스템 · 비식별 AI 분석 요청','CORE 25문항은 변경하지 말고, 보고된 응답에 따라 교사·교육복지사·사회복지사 역할별 지원 방향을 작성해 주세요.','미상은 0점이 아니며 교차영역은 인과관계가 아닙니다. 실제 신고·서비스 제공 여부는 만들지 마세요.',
  '원점수: '+x.raw+'/100 · 미상 '+x.unknown+' · 안전판정: '+x.official.safetyReview,
