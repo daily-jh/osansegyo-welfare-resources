@@ -13,10 +13,10 @@ p.innerHTML=[
 '<p class="cie-flow-caution">TEST · 규칙·검색 기반 응답(학습형 LLM 아님) · 실무자 검토 전 초안. 진단·신고·서비스 제공을 확정하지 않으며 학생 식별정보 입력을 금지합니다.</p>'
 ].join('');anchor.after(p);
 const $=id=>p.querySelector('#'+id),role=$('cie-flow-role'),note=$('cie-flow-narrative'),question=$('cie-flow-question'),run=$('cie-flow-run'),status=$('cie-flow-status'),answer=$('cie-flow-result'),audit=$('cie-flow-audit');
-const prompts={result:'학생의 핵심 어려움과 우선 확인 질문을 문항 근거로 정리해줘',map:'지원연계 기관의 대상과 접수 전에 확인할 조건을 정리해줘',assessment:'종합사정·사례협의·서비스계획의 확인 근거를 정리해줘',record:'계획 이행과 재사정 전에 확인할 사항을 정리해줘'};
+const prompts={result:'학생의 핵심 어려움과 우선 확인 질문을 문항 근거로 정리해줘',map:'지원연계 기관의 대상과 접수 전에 확인할 조건을 정리해줘',assessment:'종합사정·사례협의·서비스계획의 확인 근거를 정리해줘',record:'계획 이행과 재사정 전에 확인할 사항을 정리해줘',research:'평가 근거와 사례사정·서비스계획을 함께 살펴보고 우선 질문과 개입대안을 정리해줘'};
 let current=null,contextKey='',count=0,thread=null,loading=null,kb=null,playbook=null,route=null;
 function clear(){count++;thread=null;run.disabled=false;answer.textContent='현재 평가 자료를 확인하고 있습니다.';audit.textContent='이전 회차 결과는 폐기했습니다.';status.textContent='평가 완료 후 해석합니다.';}
-function mode(s){return s.stage===2?(s.view==='map'?'map':'result'):s.stage===3?'assessment':'record';}
+function mode(s){if(s.stage===5)return 'research';return s.stage===2?(s.view==='map'?'map':'result'):s.stage===3?'assessment':'record';}
 async function load(){
  if(loading)return loading;
  loading=Promise.all([
@@ -40,8 +40,8 @@ async function evaluate(){
  try{
   await load();if(token!==count)return;
   const v=s.payload,raw={answers:v.answers,explicit:v.explicit||[],followups:v.followups||{},caseContext:note.checked?String(v.caseContext||''):''};
-  const q=question.value.trim();if(q.length<2)throw Error('질문을 2자 이상 입력하세요.');
-  const result=model.run(raw,q,{engine:base,criteria:core,kb,playbook,route,pairModel:window.YouthResearchKB?.match?window.YouthResearchKB:null,role:role.value,state:thread});
+  const q=question.value.trim();if(q.length<2)throw Error('질문을 2자 이상 입력하세요.');if(q.length>500)throw Error('질문을 500자 이내로 작성해 주세요.');
+  const result=model.run(raw,q,{engine:base,criteria:core,kb,playbook,route,pairModel:window.YouthResearchKB?.match?window.YouthResearchKB:null,role:role.value,state:thread,linkedDocuments:s.stage===5?(window.OYAIWorkbench?.contextFor?.(v.flowRevision)?.materials||[]):[]});
   if(token!==count)return;
   thread=result.dialogueState;answer.textContent=result.answer;
   audit.textContent=JSON.stringify({flowRevision:v.flowRevision,official:result.official,issues:result.issues,gates:result.gates,review:result.review,knowledge:result.baseKnowledgeIds,playbook:result.usedPlaybookIds,corpus:kb?'600개 개발원고 검수 전':'미연결',role:result.role},null,2);
@@ -52,7 +52,7 @@ async function evaluate(){
 window.addEventListener('oy-journey-view',e=>{
  const s=e.detail;if(!s?.ready||!s.payload||s.stage===1){current=null;contextKey='';clear();p.hidden=true;return;}
  const prev=current?.payload,changed=!prev||prev.flowRevision!==s.payload.flowRevision||prev.caseContext!==s.payload.caseContext||JSON.stringify(prev.answers)!==JSON.stringify(s.payload.answers)||JSON.stringify(prev.followups)!==JSON.stringify(s.payload.followups)||JSON.stringify(prev.explicit)!==JSON.stringify(s.payload.explicit);
- current=s;p.hidden=false;const next=mode(s);
+ current=s;p.hidden=false;p.classList.toggle('cie-research-stage',s.stage===5);const next=mode(s);
  if(changed){clear();note.checked=false;}
  if(changed||next!==contextKey){contextKey=next;question.value=prompts[next];thread=null;evaluate();}
 });
