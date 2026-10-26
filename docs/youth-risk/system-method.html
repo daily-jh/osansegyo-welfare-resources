@@ -146,7 +146,7 @@ details.fold .body{color:var(--secondary);font-size:15px;padding:0 0 16px}detail
 <div class="card tab-card"><h3>3. 답변 검토·저장</h3><p>받은 답변을 붙여 넣고 사실과 다른 부분을 고친 뒤 「04 자문 모음에 저장」을 누릅니다. 답변은 이 브라우저 탭에만 있고, 탭을 닫으면 사라집니다.</p></div>
 <div class="card tab-card"><h3>4. 보고서를 AI로 작성·보완</h3><p>보고서 출력 옆 「AI로 보고서 작성·보완」이나 04 화면의 버튼으로 통합사례보고서·사례회의 안건지 요청문을 만듭니다. 결과물은 실무자 검토본으로만 씁니다.</p></div>
 </div>
-<p class="note">기관의 외부 AI 이용 기준을 먼저 확인하세요. 안전 확인이 필요한 응답이 있으면 외부 AI에 묻기 전에 학생의 현재 안전부터 직접 확인합니다. 이전의 규칙형 대화 엔진(OY-CIE)은 메인 흐름에서 빠지고 머리글의 「OY-CIE 연구 작업실」에만 남아 있습니다.</p></section>
+<p class="note">기관의 외부 AI 이용 기준을 먼저 확인하세요. 안전 확인이 필요한 응답이 있으면 외부 AI에 묻기 전에 학생의 현재 안전부터 직접 확인합니다. 이전의 규칙형 대화 엔진(OY-CIE)은 메인 흐름과 머리글에서 모두 빠졌고, 연구용 페이지 파일만 저장소에 보존되어 있습니다.</p></section>
 
 <section class="section" id="resources" aria-labelledby="resTitle"><span class="section-count">05 · RESOURCES</span><h2 id="resTitle">자원 카드의 확인 배지 읽기</h2>
 <p class="lead">사업이 있다는 것과 지금 신청할 수 있다는 것은 다릅니다. 카드에는 확인 배지, 추천 근거, 대상, 신청방법, 접수창구, 신청상태가 먼저 보이고 나머지는 접혀 있습니다.</p>
@@ -178,7 +178,7 @@ details.fold .body{color:var(--secondary);font-size:15px;padding:0 0 16px}detail
 <div class="arch-model"><strong>ICMS</strong><span>사례사정·서비스계획·사례회의 실행 방향의 초안.</span></div>
 <div class="arch-model"><strong>Relations</strong><span>가계도·생태도의 관계 확인과 강도·방향 시각화.</span></div>
 <div class="arch-model"><strong>YouthMap · 자원연계 데이터</strong><span>관할·기관·사업 후보와 확인 배지. 접수·제공 완료를 자동으로 확정하지 않습니다.</span></div>
-<div class="arch-model"><strong>AI에 묻기 · OY-CIE</strong><span>해석지 기반 즉답과 외부 AI 요청문. OY-CIE 규칙형 엔진은 연구 작업실에만 남아 있습니다.</span></div>
+<div class="arch-model"><strong>AI에 묻기 · OY-CIE</strong><span>해석지 기반 즉답과 외부 AI 요청문. OY-CIE 규칙형 엔진은 화면에서 내려 연구 기록으로만 보존합니다.</span></div>
 <div class="arch-model"><strong>개인정보 · 내보내기 · 인쇄</strong><span>요청문 가림 검토, 식별정보를 뺀 JSON 백업, 선택형 ZIP·PDF.</span></div>
 </div></div>
 <p class="arch-flowline">↓ 선택한 결과를 근거와 함께 출력 ↓</p>
@@ -192,7 +192,7 @@ details.fold .body{color:var(--secondary);font-size:15px;padding:0 0 16px}detail
 </div></details></section>
 
 <section class="section" id="technology" aria-labelledby="techTitle"><span class="section-count">07 · MODEL ROLES</span><h2 id="techTitle">모델은 서로 대체하지 않고 역할을 나눕니다</h2>
-<p class="lead">CORE는 원점수와 안전판정의 단일 기준입니다. SUPPORT-5, 문항 지식·교차 패턴(ICSI 계승), 서술기록 분석(NCB·K-CARR), ICMS, Relations, AI에 묻기와 OY-CIE 연구 작업실은 해석·연계·기록을 보강할 뿐 점수를 다시 채점하지 않습니다. 자원연계는 후보와 확인 상태를 보여 줄 뿐 접수·제공을 확정하지 않습니다.</p>
+<p class="lead">CORE는 원점수와 안전판정의 단일 기준입니다. SUPPORT-5, 문항 지식·교차 패턴(ICSI 계승), 서술기록 분석(NCB·K-CARR), ICMS, Relations, AI에 묻기, 연구 기록으로 남은 OY-CIE는 해석·연계·기록을 보강할 뿐 점수를 다시 채점하지 않습니다. 자원연계는 후보와 확인 상태를 보여 줄 뿐 접수·제공을 확정하지 않습니다.</p>
 <div class="card"><p style="margin:0;color:var(--secondary);font-size:15px">자동검사는 모델 연결, 25문항 점수 불변, 미상·긴급 신호, 해석지 구조(지정 가상 사례 11건과 난수 응답 3,000건), 서술 분석(난수 600건), 지역자원 후보, PC·모바일 브라우저 이용 경로를 확인합니다. 자동검사 통과는 점수의 실증 타당도나 실제 서비스 효과를 입증하지 않습니다. <a href="https://github.com/daily-jh/osansegyo-welfare-resources/actions" target="_blank" rel="noopener noreferrer">최신 자동검사 보기 ↗</a></p></div></section>
 
 <section class="section" id="privacy" aria-labelledby="privacyTitle"><span class="section-count">08 · SAFETY & TRANSPARENCY</span><h2 id="privacyTitle">개인정보와 검증 범위</h2>
