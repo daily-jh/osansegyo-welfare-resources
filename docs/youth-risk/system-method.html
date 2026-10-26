@@ -17,6 +17,19 @@ details{background:white;border:1px solid var(--line);border-radius:15px;padding
 @media(max-width:780px){.hero{padding:42px 0}.hero p{font-size:16px}.steps{grid-template-columns:repeat(2,1fr)}.split{grid-template-columns:1fr}.process{display:grid;grid-template-columns:1fr}.process .arrow{transform:rotate(90deg);justify-self:center;margin:-6px 0}.section{padding:43px 0 0}.header-inner{min-height:60px}.brand span{font-size:13px}}
 @media(max-width:440px){.steps{grid-template-columns:1fr}.step{min-height:0;padding:18px}.panel{padding:18px}.header-link{font-size:12px;padding:7px}.brand img{width:30px;height:30px}.brand span{max-width:195px}.hero h1{font-size:30px}}
 @media print{.site-header,.hero-actions,.anchor-nav{display:none!important}.site-header{position:static}.hero,.step,.panel{break-inside:avoid}.section{padding:25px 0 0}details{break-inside:avoid}}
+</style><style>
+.journey-five{grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.journey-five .step{padding:20px 14px;min-height:200px}
+.arch-stage{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin:20px 0}.arch-node{border:1px solid #ccdfe9;background:white;padding:16px 13px;border-radius:16px;min-height:125px;position:relative}
+.arch-node:after{content:'›';position:absolute;right:-13px;top:38px;font-weight:900;color:#47768c;font-size:23px;z-index:1}.arch-node:last-child:after{display:none}
+.arch-node b{display:block;color:#183e61;font-size:16px}.arch-node small{display:block;font-size:13px;color:#4b6273;margin-top:8px}.arch-number{color:#147d81;font-weight:900;display:block;margin-bottom:9px;font-size:13px}
+.arch-flowline{text-align:center;color:#44768f;font-weight:800;letter-spacing:.04em;margin:9px 0}.arch-layer{border:1px solid #cbdee9;border-radius:18px;background:#f5fafd;padding:19px;margin:18px 0}.arch-layer h3{margin:0 0 12px;font-size:19px}
+.arch-models{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.arch-model{border:1px solid #d9e6f0;padding:14px;background:white;border-radius:13px}
+.arch-model strong{display:block;font-size:15px;color:#1d4a6c}.arch-model span{display:block;font-size:13px;line-height:1.6;color:#50697d;margin-top:5px}
+.arch-output{display:flex;flex-wrap:wrap;gap:9px}.arch-output span{background:#fff;border:1px solid #cddfeb;border-radius:10px;padding:9px 13px;font-size:13px;font-weight:650}
+.arch-explain{font-size:13px;color:#496479}.arch-table{width:100%;border-collapse:collapse;font-size:14px}.arch-table th,.arch-table td{padding:12px;text-align:left;border-bottom:1px solid #dce6ee;vertical-align:top}.arch-table th{width:29%;color:#194b6e;background:#f3f8fc}
+@media(max-width:900px){.journey-five,.arch-stage{grid-template-columns:repeat(2,minmax(0,1fr))}.arch-node:after{display:none}.arch-models{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:580px){.journey-five,.arch-stage,.arch-models{grid-template-columns:1fr}.journey-five .step,.arch-node{min-height:0}.arch-node:after{display:none}}
+@media print{.arch-node,.arch-layer,.arch-model{break-inside:avoid}.arch-stage,.arch-models{grid-template-columns:repeat(2,1fr)}}
 </style></head>
 <body>
 <a class="skip" href="#main">본문으로 이동</a>
@@ -25,24 +38,59 @@ details{background:white;border:1px solid var(--line);border-radius:15px;padding
 <a class="header-link" href="./">평가 화면으로 돌아가기</a>
 </div></header>
 <section class="hero"><div class="container">
-<div class="eyebrow">OY-RALS · USER GUIDE · V8.7</div>
+<div class="eyebrow">OY-RALS · USER GUIDE · 2026.10.26 / 5단계 통합</div>
 <h1>시스템은 이렇게<br>작동합니다</h1>
 <p>학생의 응답을 점수로만 끝내지 않습니다. <strong>어떤 어려움이 보고됐는지 확인하고, 교사·사회복지사가 무엇부터 해야 하는지</strong> 검토할 수 있도록 사정과 계획 초안을 연결합니다.</p>
 <div class="hero-actions"><a class="link-pill" href="./">25문항 평가 시작하기</a><a class="link-pill secondary" href="#how">이용 절차 살펴보기</a></div>
-<nav class="anchor-nav" aria-label="이 페이지 안내"><a href="#how">이용 절차</a><a href="#interpret">결과 해석</a><a href="#casework">역할별 활용</a><a href="#technology">모델 구조</a><a href="#privacy">개인정보·검증</a></nav>
+<nav class="anchor-nav" aria-label="이 페이지 안내"><a href="#how">이용 절차</a><a href="#interpret">결과 해석</a><a href="#casework">역할별 활용</a><a href="#architecture">연결 구조도</a><a href="#technology">모델 설명</a><a href="#privacy">개인정보·검증</a></nav>
 </div></section>
 <main id="main" class="container">
-<section id="how" class="section"><span class="section-count">01 / HOW TO USE</span><h2>네 단계로 이어지는 학생 지원</h2>
-<p class="section-lead">최초 평가만 이용해도 됩니다. 종합사정, 사례회의, 계획과 기록은 필요에 따라 선택적으로 진행합니다.</p>
-<div class="steps">
-<article class="step"><span class="step-index">STEP 01</span><h3>25문항 평가</h3><p>10개 영역을 0~4점 또는 미상으로 응답합니다. 필요한 경우 학생의 생활상황을 자유서술로 추가합니다.</p></article>
-<article class="step"><span class="step-index">STEP 02</span><h3>결과·안전 확인</h3><p>영역별 점수, 고점 문항, 안전 신호, 척도와 서술이 다른 부분을 확인하고 지역자원 후보를 살핍니다.</p></article>
-<article class="step"><span class="step-index">STEP 03</span><h3>사정·실행계획</h3><p>학생 상황, 강점, 기존 서비스와 미확인 정보에 근거해 목표·첫 행동·담당별 역할·점검기준 초안을 검토합니다.</p></article>
-<article class="step"><span class="step-index">STEP 04</span><h3>기록·변화 점검</h3><p>실제 면담·합의·의뢰·서비스 제공을 기록하고 학생의 변화에 따라 목표와 지원을 조정합니다.</p></article>
+<section id="how" class="section"><span class="section-count">01 / HOW TO USE</span><h2>학생 지원을 잇는 5단계</h2><p class="section-lead">평가 결과는 정량·서술·종합의견으로 나뉘며, 이후 자원연계·사례사정·AI 심화해석·기록과 점검을 연결합니다.</p><div class="steps journey-five">
+<article class="step"><span class="step-index">STEP 01</span><h3>척도 평가</h3><p>25문항(총 100점)·미상·안전판정, 10영역 레이더, 교차분석, 서술기록·종합의견을 독립 확인</p></article>
+<article class="step"><span class="step-index">STEP 02</span><h3>자원연계 지도</h3><p>영역별 기관과 사업 후보 조회. 접수요건·관할·기존 지원·최종 확인일 검토</p></article>
+<article class="step"><span class="step-index">STEP 03</span><h3>사례 톺아보기</h3><p>사례사정 및 판정·서비스계획 추천·통합사례 진행. 가계도·생태도 연결</p></article>
+<article class="step"><span class="step-index">STEP 04</span><h3>AI 연구 작업실</h3><p>현재 사례자료를 선택하여 OY-CIE 규칙·검색 기반 심화질문과 근거 확인</p></article>
+<article class="step"><span class="step-index">STEP 05</span><h3>기록 및 점검</h3><p>초기상담·회의·서비스 수행·재사정·종결 관련 기록과 인쇄·PDF</p></article>
 </div>
 <div class="notes" style="margin-top:21px"><strong>안전 문제가 의심된다면 평가 완료를 기다리지 않습니다.</strong><p>학대·자해·성착취·현재 위해 등의 신호가 있다면 소속기관의 보호·신고·긴급 대응 절차를 우선 수행해야 합니다. 자동 결과는 이를 대신하지 않습니다.</p></div>
 </section>
-<section id="interpret" class="section"><span class="section-count">02 / READ THE RESULT</span><h2>점수를 읽을 때 지켜야 할 네 가지</h2>
+<section id="architecture" class="section"><span class="section-count">02 / CONNECTED ARCHITECTURE</span>
+<h2>실제 홈페이지의 모델·화면 연결 구조도</h2><p class="section-lead">화면은 다섯 단계로 구분하지만, CORE 25문항과 별도 안전판정은 모든 단계에서 동일한 원자료를 사용합니다. 단말기 내 사례자료를 모델 게이트웨이가 분석하고 결과 화면·보고서로 전달합니다.</p>
+<figure style="margin:0" aria-label="평가에서 지원연계, 사례사정, AI 분석, 기록까지 흐르는 구조">
+<div class="arch-stage">
+<div class="arch-node"><span class="arch-number">01 · INPUT</span><b>척도 평가</b><small>평가 iframe → 검증된 결과 메시지 → CORE·서술분석</small></div>
+<div class="arch-node"><span class="arch-number">02 · MATCH</span><b>자원연계 지도</b><small>영역·지역·지원후보 → 기관·사업·서비스 조건</small></div>
+<div class="arch-node"><span class="arch-number">03 · CASE</span><b>사례 톺아보기</b><small>사정·판정·계획·가계도·생태도</small></div>
+<div class="arch-node"><span class="arch-number">04 · REASON</span><b>AI 연구 작업실</b><small>OY-CIE 규칙·지식 검색 + 선택자료·질문</small></div>
+<div class="arch-node"><span class="arch-number">05 · DOCUMENT</span><b>기록 및 점검</b><small>실제 지원·회의·재사정 기록 → PDF·백업</small></div>
+</div>
+<div class="arch-flowline" aria-hidden="true">↕ &nbsp; 동일한 회차·응답·안전판정으로 연결 &nbsp; ↕</div>
+<div class="arch-layer">
+<h3>공통 제어 계층 · OYModelGateway / 안전 불변 규칙</h3>
+<div class="arch-models">
+<div class="arch-model"><strong>CORE / YouthCriteria</strong><span>25문항 0~4점 합계·미상 처리·독립 안전판정. 해석 모델은 원점수를 변경하지 않습니다.</span></div>
+<div class="arch-model"><strong>SUPPORT-5</strong><span>별도 5단계 지원우선순위. 문항 가중·영역 교차를 이용하는 자체 개발형 업무지표입니다.</span></div>
+<div class="arch-model"><strong>ICSI / OYCIESemanticV2</strong><span>개별 문항점수 의미, 주요 문항쌍의 동시응답 구조 설명</span></div>
+<div class="arch-model"><strong>NCB / YouthCaseContextCore</strong><span>자유서술을 문장·부정·시점·문항·영역별로 분해·대조</span></div>
+<div class="arch-model"><strong>OY-CIE / CIE dialogue</strong><span>근거 규칙·연구자료 검색으로 질문 응답. 서버형 학습 LLM이 아닌 로컬 규칙·검색형 분석</span></div>
+<div class="arch-model"><strong>K-CARR / ICMS</strong><span>서술형 사례사정 보강, 서비스계획·사례회의 실행방향 추천</span></div>
+<div class="arch-model"><strong>Relations</strong><span>가계도·생태도 관계 확인과 강도·방향·자원후보의 시각화</span></div>
+<div class="arch-model"><strong>YouthMap / 자원 데이터</strong><span>동별 관할·기관·프로그램 추천. 실제 접수/제공 완료를 자동 확정하지 않음</span></div>
+<div class="arch-model"><strong>Privacy / Export / Print</strong><span>외부 AI 요청문 가림 검토, 비식별 JSON 복원, 별도 선택형 ZIP·PDF 인쇄</span></div>
+</div></div>
+<div class="arch-flowline" aria-hidden="true">↓ &nbsp; 선택한 지원기록 및 결과를 근거와 함께 출력 &nbsp; ↓</div>
+<div class="arch-layer"><h3>출력·정보보호 계층</h3><div class="arch-output"><span>원점수와 안전판정</span><span>영역별·교차영역 분석</span><span>서술 및 종합의견</span><span>자원연계 안내</span><span>사정·계획·관계도</span><span>기록·사례회의</span><span>인쇄/PDF</span><span>비식별 JSON 백업</span></div>
+<p class="arch-explain">기본 평가 데이터는 브라우저 메모리에서 처리합니다. JSON 백업에는 자유서술·이름을 넣지 않습니다. 서술·사례기록을 포함한 ZIP은 별도 체크 후 다운로드하며, 외부 AI 전송은 사용자가 직접 결정합니다.</p></div>
+<figcaption class="arch-explain">실제 코드 기준: <code>flow.js</code>의 회차·iframe 메시지 → <code>model-gateway-v90.js</code> 및 결과 뷰 → <code>ai-workbench-stage-v1.js</code>·<code>cie-flow-v32.js</code> → <code>workbench.html</code>·출력 모듈. 모델 연결 여부는 운영 브라우저 및 GitHub Actions로 별도 검사합니다.</figcaption></figure>
+<div class="panel"><h3>안정성 검수와 장애 복구 경로</h3><table class="arch-table"><tbody>
+<tr><th>평가 결과가 열리지 않음</th><td>25개 문항이 모두 선택됐는지 확인 → 완료 버튼 → 상위 화면의 결과 탭. 입력을 변경했다면 다시 완료해야 합니다. 지속되면 비식별 JSON을 내려받고 다시 열어 복원합니다.</td></tr>
+<tr><th>지도가 비거나 기관이 없음</th><td>평가 회차와 지도 iframe 연결 확인 → 관할·사업 조건 조회. 비어 있어도 CORE 결과와 안전조치는 유지됩니다.</td></tr>
+<tr><th>AI 연구 결과 지연·오류</th><td>질문/선택자료 범위를 확인하고 다시 분석합니다. CIE를 사용할 수 없어도 CORE·사정·자원연계 기능은 독립 작동합니다.</td></tr>
+<tr><th>PDF 미출력·표 잘림</th><td>인쇄 미리보기에서 A4/배율/배경 그래픽을 확인합니다. 가능한 경우 전체 자료 ZIP의 HTML 파일을 열어 브라우저에서 PDF로 인쇄합니다.</td></tr>
+<tr><th>새로고침·종료 위험</th><td>자동 영구 저장이 없습니다. 평가 JSON 및 필요한 보고서를 먼저 저장하고, 외부 AI·공유 전 개인정보를 직접 검수합니다.</td></tr>
+<tr><th>검증 현황</th><td>CORE/모델 계약·합성 사례·브라우저 E2E·복지자원 회귀 검사를 분리해 실행하며 실증 타당도를 의미하지 않습니다. <a href="https://github.com/daily-jh/osansegyo-welfare-resources/actions" target="_blank" rel="noopener noreferrer">최신 자동검사 보기</a></td></tr>
+</tbody></table></div>
+</section><section id="interpret" class="section"><span class="section-count">02 / READ THE RESULT</span><h2>점수를 읽을 때 지켜야 할 네 가지</h2>
 <div class="panel"><ol class="numbered">
 <li><span class="index-dot">1</span><div><strong>100점은 문항 응답의 합계입니다.</strong><p>25문항 × 0~4점으로 산정하지만, 총점이 개인의 미래 위험을 예측하거나 지원자격을 결정하는 점수는 아닙니다.</p></div></li>
 <li><span class="index-dot">2</span><div><strong>‘미상’과 ‘0점’은 다릅니다.</strong><p>미상은 판단 보류이며 0점으로 대체하지 않습니다. 0점도 이번 응답에서 해당 어려움이 보고되지 않았다는 뜻이지 위험이 없다는 증명은 아닙니다.</p></div></li>
@@ -66,12 +114,14 @@ details{background:white;border:1px solid var(--line);border-radius:15px;padding
 <tr><th>20번 · 주거 4점</th><td><strong>학교:</strong> 휴식·학습·출결에 미치는 영향 파악.<br><strong>지역:</strong> 거주 안전·환경·지원 조건 확인. 실제 보고가 없다면 체납·퇴거로 단정하지 않음.</td></tr>
 </tbody></table></div>
 </section>
-<section id="technology" class="section"><span class="section-count">04 / 사례지원 원칙</span><h2>평가 결과가 실제 지원으로 이어지는 방법</h2><p class="section-lead">복잡한 모델 명칭을 알 필요는 없습니다. 교사와 사회복지사는 다음 네 가지를 확인하면 됩니다.</p><div class="steps"><div class="step"><span class="step-index">01</span><h3>점수 확인</h3><p>25문항 원점수와 미상, 안전 관련 신호를 확인합니다.</p></div><div class="step"><span class="step-index">02</span><h3>상황 이해</h3><p>학생의 서술·강점·기존 지원과 척도 결과를 대조합니다. 추정은 사실과 구분합니다.</p></div><div class="step"><span class="step-index">03</span><h3>지원 연결</h3><p>필요한 기관과 지원 가능성을 확인하고 학생의 희망을 우선합니다.</p></div><div class="step"><span class="step-index">04</span><h3>계획과 점검</h3><p>담당자·실행일·생활 변화 목표를 합의하고 이후 결과를 점검합니다.</p></div></div><div class="panel" style="margin-top:18px"><h3>자동 분석의 한계</h3><p>OY-CIE는 근거와 규칙에 따라 확인 질문과 개입 방향을 제안하는 연구형 해석 도구입니다. 학습된 생성형 언어모델이 아니며, 진단·신고·기관 접수·서비스 승인을 대신하지 않습니다. 실제 이용 조건은 <a href="../#searchArea">오산 복지자원 찾기</a>와 해당 기관에서 확인합니다.</p></div></section>
+<section id="technology" class="section"><span class="section-count">04 / MODEL ROLES</span><h2>모델은 서로 대체하지 않고 단계별로 협업합니다</h2>
+<p class="section-lead">CORE는 결과의 원점수와 안전판정의 단일 기준입니다. SUPPORT-5·ICSI·NCB·OY-CIE·K-CARR·ICMS·Relations는 각각 해석·연계·기록을 보강하며 점수를 다시 채점하지 않습니다.</p>
+<div class="panel"><h3>연결성 검사에 포함한 항목</h3><p>모델 모듈 로드·메서드 계약, 25문항 점수 불변, 결측/긴급 신호, 지역자원 후보, 사례사정·계획, CIE 응답, 가계도·생태도 및 PC·모바일 브라우저를 검증합니다. <strong>자동검사 성공은 점수의 실증 타당도 또는 실제 서비스 효과 입증과 다릅니다.</strong></p></div></section>
 <section id="privacy" class="section"><span class="section-count">05 / SAFETY & TRANSPARENCY</span><h2>개인정보와 검증 결과</h2>
 <div class="split"><div class="panel"><h3>개인정보는 최소한으로</h3><p>식별 가능한 학생 이름, 전화번호, 상세주소, 불필요한 질병·가족정보를 자유서술에 기재하지 마세요. 기본 상담 입력은 브라우저에서 처리되지만, 파일로 저장하거나 외부 AI로 복사하면 별도 보호가 필요합니다.</p><p>전체 ZIP 다운로드는 선택 항목에 따라 서술 원문·실제 기록을 포함할 수 있으므로 공유 전 내용을 확인해야 합니다.</p></div>
 <div class="panel"><h3>합성검사와 현장 검증은 다릅니다</h3><p>V8.6 기반 모델 개발 과정에서 상세 서술 2,500건, 간단 서술 2,500건, 서술 없음 10,000건의 합성 시나리오를 검사했습니다. 이는 코드 회귀검사이지 독립된 실제 학생 15,000명의 타당도 평가가 아닙니다.</p><p>실제 전문가 일치도·학생의 변화·중재 효과, 위험 예측 정확도는 별도로 검증되지 않았습니다.</p></div></div>
 <details><summary>문항·판정의 전문적 한계</summary><div class="detail-body"><p>25문항은 연구용·현장 검토용 비표준화 TEST 척도입니다. 공식 CORE 점수와 규칙 기반 설명 계층은 분리되며, 0~4점의 간격이 임상적으로 등간 검증되었다고 가정하지 않습니다. 자해·자살 위험을 미래 점수나 색상등급으로 예측하지 않습니다.</p><p>참고: <a href="https://www.nice.org.uk/guidance/ng225/chapter/recommendations" target="_blank" rel="noopener noreferrer">NICE NG225 자해 평가 원칙</a> · <a href="https://www.cosmin.nl/" target="_blank" rel="noopener noreferrer">COSMIN 측정도구 검증 프레임워크</a></p></div></details>
 <details><summary>버전별 세부 기술자료</summary><div class="detail-body"><p>운영 해석 화면 V8.8.7 / 공식 CORE 25문항·100점 계산 불변. 이전 V7~V8.3 변경 이력과 상세 기술 검수는 별도 문서로 관리하며, 본 사용안내에는 반복해 표시하지 않습니다. V8.7의 목표 묶음은 척도 문항별 확인사항을 없애지 않으며, 개인정보 자동 가림은 사람이 확인해야 합니다.</p><p>개발 검수자료는 <a href="model-manifest-v3.json">모델 등록부</a>와 <a href="EVIDENCE-CASEWORK-V82-AUDIT.md">이전 근거 분석</a>에서 추가 확인할 수 있습니다. 이후 운영 버전·검수 상태가 변경되면 안내도 함께 갱신합니다.</p></div></details>
 </section>
-<section class="section" id="ai-workflow"><div class="container"><span class="section-count">선택형 AI 지원</span><h2>OY-CIE와 함께 지원계획 검토하기</h2><p class="section-lead">평가 결과를 확인하고 지역자원 후보를 살펴본 뒤, 종합사정 단계의 <strong>AI 연구·지원설계</strong> 탭에서 심화 질문을 준비할 수 있습니다. 외부 AI 사용은 선택이며, 기존의 점수·안전판정·사례기록을 자동으로 바꾸지 않습니다.</p><div class="steps"><div class="step"><span class="step-index">01</span><h3>평가</h3><p>25문항·미상·안전 신호를 확인합니다.</p></div><div class="step"><span class="step-index">02</span><h3>자원 검토</h3><p>기존 지원과 기관 후보를 확인합니다. 접수 완료로 표시하지 않습니다.</p></div><div class="step"><span class="step-index">03</span><h3>AI 연구·지원설계</h3><p>학생 희망·강점·접근 장벽을 정리하고 OY-CIE 로컬 연구 분석 또는 외부 AI 요청문을 선택합니다.</p></div><div class="step"><span class="step-index">04</span><h3>실무자 확정</h3><p>AI 답변을 근거와 대조한 뒤 사례협의·서비스계획을 조정하고 PDF로 보관합니다.</p></div></div><div class="panel"><h3>GPT와 연결되는 방식</h3><p>「AI 요청문 작성 도구 열기」를 누르면 현재 결과에 맞는 지원계획서 요청문 초안이 준비됩니다. 실무자가 개인정보 포함 여부를 검토하고 동의한 다음 요청문을 복사하여 ChatGPT 등 개인 AI에서 실행합니다. <strong>현재 홈페이지는 외부 AI 답변을 직접 수신하거나 자동 반영하지 않습니다.</strong> 학생의 신상정보는 외부 서비스에 입력하지 않는 것을 원칙으로 하고 소속기관의 개인정보 처리 기준을 따릅니다.</p></div></div></section></main><footer class="footer"><div class="container"><strong>오산 청소년 위기징후 평가연계 시스템</strong><div>기획·개발·저작: 오산세교종합사회복지관 김지훈 팀장 · © 2026 김지훈</div><div>공익 실무지원용 TEST · 담당자의 직접 사정과 법정 안전·보호 절차를 대체하지 않습니다.</div></div></footer>
+<section class="section" id="ai-workflow"><span class="section-count">선택형 AI 지원</span><h2>AI 연구 작업실 사용 방법</h2><div class="panel"><p>④ AI 연구 작업실은 현재 사례의 척도·서술·종합의견·사정·계획·자원을 선택해 OY-CIE 규칙·검색형 엔진에 질문하고 분석결과를 화면에서 확인·복사·인쇄할 수 있습니다. <strong>외부 AI</strong>를 이용하려면 개인정보 가림 및 기관 기준을 확인한 뒤 요청문을 직접 복사·붙여넣어 사용합니다. 외부 AI 답변은 시스템에 자동으로 수신되거나 확정 결정으로 저장되지 않습니다.</p></div></section></main><footer class="footer"><div class="container"><strong>오산 청소년 위기징후 평가연계 시스템</strong><div>기획·개발·저작: 오산세교종합사회복지관 김지훈 팀장 · © 2026 김지훈</div><div>공익 실무지원용 TEST · 담당자의 직접 사정과 법정 안전·보호 절차를 대체하지 않습니다.</div></div></footer>
 </body></html>
