@@ -13,7 +13,8 @@ const G=NODE?{
  KCarrNarrativeV8:requireModule('k-carr-narrative-v81'),
  OYCIESemanticV2:requireModule('cie-semantic-layer-v2'),
  OYJourney:requireModule('journey-model-v88'),
- OYRelations:requireModule('relations-v88')
+ OYRelations:requireModule('relations-v88'),
+ OYFiveLevelIndex:requireModule('integrated-index-v1')
 }:root;
 const VERSION='9.0.0-contract-20261026';
 const CONTRACTS=Object.freeze([
@@ -24,7 +25,8 @@ const CONTRACTS=Object.freeze([
  {id:'K-CARR',module:'KCarrNarrativeV8',method:'assess',role:'서술형 전문 사례분석',implementation:'native'},
  {id:'K-CARR-output',module:'OYJourney',method:'text',role:'사정보고서 서술',implementation:'embedded'},
  {id:'ICMS',module:'YouthPlanning',method:'analyze',role:'개입·서비스계획',implementation:'embedded'},
- {id:'Relations',module:'OYRelations',method:'svg',role:'가계도·생태도',implementation:'native'}
+ {id:'Relations',module:'OYRelations',method:'svg',role:'가계도·생태도',implementation:'native'},
+ {id:'SUPPORT-5',module:'OYFiveLevelIndex',method:'analyze',role:'5단계 지원우선순위·가중·교차 해석',implementation:'independent'}
 ]);
 function status(){
  return CONTRACTS.map(item=>{
@@ -65,7 +67,10 @@ function analyze(p){
   try{kCarr=G.KCarrNarrativeV8.assess({caseContext:p.caseContext,officialScore:audit.rawKnownTotal,role:'social-worker'});}
   catch(_){kCarrIssue='K_CARR_REVIEW_UNAVAILABLE';}
  }
- return {...analyzed,kCarr,modelTrace:{gateway:VERSION,contracts:status(),audit,kCarrIssue}};
+ let supportPriority=null,priorityIssue=null;
+ try{supportPriority=G.OYFiveLevelIndex?.analyze?G.OYFiveLevelIndex.analyze(p):null;}
+ catch(e){priorityIssue=String(e?.message||'support-priority-error');}
+ return {...analyzed,kCarr,supportPriority,modelTrace:{gateway:VERSION,contracts:status(),audit,kCarrIssue,priorityIssue}};
 }
 function text(p,page,includeContext=false){
  const baseline=G.OYJourney.text(p,page,includeContext);
