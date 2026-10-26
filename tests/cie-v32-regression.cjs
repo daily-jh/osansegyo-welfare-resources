@@ -24,7 +24,7 @@ test('invalid score blocked by CORE',()=>{const a=Z();a[0]=5;assert.throws(()=>r
 test('no raw note leak',()=>{const r=run(P(Z(),'학생의 비공개 코드 GOLDEN_PRIVATE_XYZ 결식 언급'),'계획');assert.ok(!JSON.stringify(r).includes('GOLDEN_PRIVATE_XYZ'))});
 test('template tamper blocked',()=>{const bad=JSON.parse(JSON.stringify(playbook));bad.entries[12].sourceStatus='empirically_validated';assert.throws(()=>E.validatePlaybook(bad),/무결성/)});
 test('missing core fail closed',()=>assert.throws(()=>E.run(P(),'안전',{engine:BASE,playbook}),/CORE/));
-test('static source policy: no remote scripts',()=>{let html=fs.readFileSync(path.join(__dirname,'../docs/youth-risk/cie-lab-v32/index.html'),'utf8');assert.ok(!/<script[^>]*src=["']https?:/i.test(html));assert.ok(!/localStorage|sessionStorage/i.test(fs.readFileSync(path.join(__dirname,'../docs/youth-risk/cie-lab-v32/ui-v32.js'),'utf8')))});
+test('standalone research page removed (2026-10-26); engine stays for regression only',()=>{const dir=path.join(__dirname,'../docs/youth-risk/cie-lab-v32');for(const f of ['index.html','app.js','ui-v32.js','style.css'])assert.ok(!fs.existsSync(path.join(dir,f)),f+' should be removed');for(const f of ['engine.js','dialogue-v32.js'])assert.ok(!/localStorage|sessionStorage|fetch\(/i.test(fs.readFileSync(path.join(dir,f),'utf8')))});
 
 // 80 explicit route cardinalities and status checks (these are not clinician judgments).
 for(let i=0;i<10;i++)for(const intent of ['summary','safety','plan','meeting','interview','resource','evidence','strength']){
