@@ -31,7 +31,7 @@ function resultScorePage(a){
 function resultNarrativePage(a){
  const c=a.context;
  if(!c.hasContext) return '<section class="j88-result-pane"><h3>서술기록 기반 해석</h3><p>추가 서술기록이 입력되지 않아 맥락 추론을 수행할 근거가 없습니다. 평가 입력에서 사례 서술을 추가한 뒤 완료해 주세요.</p><p>척도 결과와 안전판정은 별도로 유지됩니다.</p></section>';
- const fields=Object.entries(c.fields||{}).filter(([_,v])=>typeof v==='string'&&v.trim()).slice(0,12);
+ const fields=Object.entries(c.fields||{}).filter(([_,v])=>typeof v==='string'&&v.trim()).slice(0,12).map(([k,v])=>[({situation:'학생 상황',observations:'관찰·상담기록',studentWishes:'학생 희망',strengths:'강점·보호요인',existingSupport:'기존 지원',urgentNeeds:'긴급 필요'})[k]||k,v]);
  const k=a.kCarr&&!a.kCarr.abstain?a.kCarr:null;
  return '<section class="j88-result-pane"><p class="j88-view-note">서술기록에서 추출한 단서만 살펴봅니다. 이 페이지에서 척도 점수를 재산정하거나 사건을 확정하지 않습니다.</p>'
  +'<h3>서술에서 확인·보고된 정보</h3>'
@@ -136,7 +136,7 @@ function resultExport(){
   base.push('서술형 분석은 점수 및 안전판정을 수정하지 않습니다.');
   if(!a.context.hasContext)base.push('서술 입력 없음 · 해석 보류');
   else {
-   Object.entries(a.context.fields||{}).filter(([k,v])=>typeof v==='string'&&v.trim()).forEach(([k,v])=>base.push('서술항목 '+k+': '+escapePrivate(v)));
+   Object.entries(a.context.fields||{}).filter(([k,v])=>typeof v==='string'&&v.trim()).forEach(([k,v])=>base.push('서술항목 '+(({situation:'학생 상황',observations:'관찰·상담기록',studentWishes:'학생 희망',strengths:'강점·보호요인',existingSupport:'기존 지원',urgentNeeds:'긴급 필요'})[k]||k)+': '+escapePrivate(v)));
    (a.context.signals||[]).slice(0,25).forEach(x=>base.push('맥락 단서: '+escapePrivate(x.clause)+' / '+x.polarity+' / 확인: '+escapePrivate(x.action)));
    if(a.kCarr&&!a.kCarr.abstain)base.push('K-CARR 가설: '+escapePrivate(a.kCarr.integratedJudgment||''));
    if(includeRaw)base.push('서술 원문(비식별 검사·실무자 확인 필수): '+escapePrivate(p.caseContext||''));
