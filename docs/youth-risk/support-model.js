@@ -40,6 +40,12 @@ function additional(p,d,row){if(!row.directorySource)return null;
  }else if(/^(평안한사랑병원|오산신경정신병원)$/.test(name)&&d.i===2){
   items=[6,7,8].filter(n=>p.answers[n-1]>=(n===7?1:3));
   condition='정신건강 진료 추가 문의 후보 · 소아청소년 진료·예약·의뢰·비용 확인. 입원·응급수용 가능 여부는 확정하지 않음';
+ }else if(name==='스마트쉼센터'&&d.i===9){
+  items=[24].filter(n=>p.answers[n-1]>=2);
+  condition='스마트폰·인터넷 과의존 전문 상담 추가 문의 후보 · 운영 지역과 찾아가는 상담 신청 조건 확인. 이용 시간보다 수면·학습·대면 활동에 미치는 영향으로 판단';
+ }else if(/마약상담 1342/.test(name)&&d.i===4){
+  items=[13].filter(n=>p.answers[n-1]>=2);
+  condition='약물 사용이 언급된 경우의 24시간 익명 상담 후보 · 음주·흡연만이면 학교·청소년상담복지센터를 먼저 연결. 상담이 처벌로 이어지지 않는지 학생에게 먼저 설명';
  }else if(/해바라기센터/.test(name)&&[1,9].includes(d.i)){
   items=(d.i===1?[4]:[25]).filter(n=>p.answers[n-1]>0);
   condition='현재 피해·신고·보호 절차 우선. 복합 문항만으로 성폭력 피해를 확정하지 않으며 실제 피해유형·연령·운영시간에 맞는 전문지원인지 확인';
@@ -57,7 +63,7 @@ function caseChecks(p,numbers){var a=p.answers,ns=numbers||a.map((v,i)=>v>0?i+1:
  return out;
 }
 function describe(p,d,row){var a=p.answers,decision=context(p),profile=profiles.find(x=>x[0]===(row.profileName||row['기관명'])&&x[1]===(row.profileService||row['서비스명'])),extra=additional(p,d,row),evidence=extra?extra.items:d.numbers.filter(n=>a[n-1]>0);if(profile)evidence=evidence.filter(n=>profile[2].includes(n));var max=Math.max(0,...evidence.map(n=>a[n-1])),safety=evidence.some(n=>[1,2,7,25].includes(n)),critical=evidence.some(n=>decision.critical.includes(n));var t=[row['서비스명'],row['지원분야'],row['주요내용']].join(' '),fit=tokens[d.i].filter(k=>t.includes(k)).length;
-var order=profile?profile[3]:extra?(/병원/.test(row['기관명'])?4:5):3;if(row['기관명']==='오산시정신건강복지센터'&&!safety&&max<3)order=2;if(row['서비스명']==='긴급복지지원 상담'&&!critical)order=3;if(row['서비스명']==='청소년안전망·청소년동반자 연계'&&((decision.integrated&&!d.critical&&!d.safety)||(d.i===9&&d.safety)))order=0;if(row['서비스명']==='위기학생 지역전문기관 연계'&&(decision.integrated&&!d.critical&&!d.safety))order=0;
+var order=profile?profile[3]:extra?(/병원/.test(row['기관명'])?4:5):3;if(row['기관명']==='오산시정신건강복지센터'&&!safety&&max<3)order=2;if(extra&&(row['기관명']==='스마트쉼센터'||/마약상담 1342/.test(row['기관명']))&&max>=3)order=2;if(row['서비스명']==='긴급복지지원 상담'&&!critical)order=3;if(row['서비스명']==='청소년안전망·청소년동반자 연계'&&((decision.integrated&&!d.critical&&!d.safety)||(d.i===9&&d.safety)))order=0;if(row['서비스명']==='위기학생 지역전문기관 연계'&&(decision.integrated&&!d.critical&&!d.safety))order=0;
 var label=safety?'안전과 전문지원 먼저':critical?'생활·건강부터 살피기':max>=3?'생활의 어려움부터 돕기':max>=2?'반복되는 어려움 돕기':'관찰·상담 문의';var reason=profile?profile[4]:'학생에게 필요한 도움을 이 사업에서 받을 수 있는지 상담해 보세요';if(decision.integrated&&/사례관리|청소년안전망|지역전문기관/.test(row['서비스명']))reason+=' · 여러 어려움을 함께 도울 방법을 문의해 보세요';var condition=extra?extra.condition:profile?profile[5]:/장애|발달/.test(t)?'연령·진단·등록·서비스 필요 등 실제 대상 조건 문의':'실제 대상·관할·비용·운영·접수 조건 문의';return {evidence,max,safety,critical,order,fit,label,reason,condition:[condition,...caseChecks(p,evidence)].join(' · ')}}
 function identity(value){return String(value||'').normalize('NFKC').replace(/\s+/g,'').toLowerCase()}
 // Administrative dong is explicitly selected, never inferred from a street or legal dong.

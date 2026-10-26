@@ -109,7 +109,7 @@ const SCORE_MEANING_RULES=Object.freeze({
 });
 function interpretItemScore(item,score){
  if(!Number.isInteger(item)||item<1||item>25||!(score==='unknown'||Number.isInteger(score)&&score>=0&&score<=4))throw Error('문항 번호 또는 응답 범위 오류');
- const topic=TOPICS[item-1],rule=SCORE_MEANING_RULES[score],probe=PROBES[item-1],context=score===0?topic+' 영역의 어려움이 이번 응답에서 보고되지 않았습니다.':score==='unknown'?topic+' 관련 정보가 확인되지 않았습니다.':topic+' 영역에서 '+score+'점이 보고되었습니다. 검토할 상황은 '+ITEM_LEVELS[item-1][score]+'입니다.';
+ const topic=TOPICS[item-1],rule=SCORE_MEANING_RULES[score],probe=PROBES[item-1],context=score===0?topic+' 영역의 어려움이 이번 응답에서 보고되지 않았습니다.':score==='unknown'?topic+' 관련 정보가 확인되지 않았습니다.':topic+' 영역에서 '+score+'점이 보고되었습니다. 검토할 상황은 '+String(ITEM_LEVELS[item-1][score]).replace(/[.。]\s*$/,'')+'입니다.';
  return {item,score,topic,status:rule.status,meaning:context,interpretation:rule.interpretation,action:rule.action,questions:probe,certainty:rule.certainty,anchorVerified:false,source:'학생·평가자 입력 CORE 문항 응답',evidenceLevel:'개발 가설',caution:'원문 응답 앵커와 실제 상황을 확인하기 전 사건·지속기간·인과관계를 확정하지 않습니다.'};
 }
 const PRIORITY_WEIGHTS=Object.freeze([1.30,1.20,1.12,1.18,1.10,1.02,1.35,1.05,1.00,0.98,0.96,1.12,1.18,1.00,1.03,1.12,1.01,1.09,1.14,1.11,1.06,0.98,1.06,0.97,1.32]);

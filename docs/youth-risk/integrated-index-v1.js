@@ -9,7 +9,7 @@ const M=node?require('./support-model.js'):window.YouthMap;
 const W=node?require('./weight-model.js'):window.YouthWeightModel;
 const N=node?require('./case-context-core.js'):window.YouthCaseContextCore;
 const VERSION='1.0.0-operational-20261026';
-const NAMES=Object.freeze(['안정관찰','초기주의','집중지원','고위기개입','최우선 안전대응']);
+const NAMES=Object.freeze(['안정관찰','초기주의','집중지원','다기관 집중개입','최우선 안전대응']);
 const ACTIONS=Object.freeze([
  '보편 예방·강점 확인 및 변화 관찰',
  '해당 영역 개별지원과 2주 내 경과 점검',
@@ -98,10 +98,17 @@ function analyze(p){
  }
  // Current-risk follow-up left as "not yet confirmed": run as provisional level 4 until it is answered.
  const pendingChecks=official.pendingChecks||[];
- if(pendingChecks.length&&(safetyFloor===null||safetyFloor<4)){safetyFloor=4;safetyReason='현재 안전 추가확인 미확인('+pendingChecks.join('·')+'번) — 확인 전까지 잠정 제4단계로 운영';}
+ let pendingOnly=false;
+ if(pendingChecks.length&&(safetyFloor===null||safetyFloor<4)){safetyFloor=4;pendingOnly=true;safetyReason='현재 안전 추가확인 미확인('+pendingChecks.join('·')+'번) — 확인 전까지 잠정 제4단계로 운영';}
  if(safetyText)safetyFloor=Math.max(safetyFloor||1,4);
+ // A first-hand narrative cue that already carries injury, strangulation or a self-harm means/plan is same-day work.
+ const immediate=(context.immediate||[]).length?context.immediate:(p.narrativeRedacted&&p.narrativeRedacted.immediate||[]);
+ if(safetyText)pendingOnly=false;
+ if(immediate.length){pendingOnly=false;safetyFloor=5;safetyReason='서술에 '+immediate.map(x=>x.reason).join(', ')+'이 있어 당일 안전 확보 우선';}
  // Safety-based support paths stay available even when unrelated items are unknown.
  if(safetyFloor!==null)tier=tier===null?safetyFloor:Math.max(tier,safetyFloor);
+ // The level stands only until the follow-up is answered; say so in the name itself, not only in the reason.
+ const provisional=pendingOnly&&tier===4&&Math.max(base||0,patternFloor)<4;
  if(JSON.stringify(answers)!==before)throw Error('CORE_INPUT_MUTATED');
  if(raw!==audit.rawKnownTotal)throw Error('CORE_SCORE_MISMATCH');
  return Object.freeze({
@@ -110,9 +117,9 @@ function analyze(p){
   weighted,domainStrengths:strengths.map(v=>v===null?null:ROUND(v*100)),
   cross,crossScore,critical,criticalScore,narrative,narrativeAvailable,
   coefficients,composite,baseTier:base,tier,
-  label:tier===null?'관측영역 지원단계 미분류':NAMES[tier-1],action:tier===null?'관측된 영역별 지원 우선 실행':ACTIONS[tier-1],
+  label:tier===null?'관측영역 지원단계 미분류':NAMES[tier-1]+(provisional?' (잠정)':''),provisional,action:tier===null?'관측된 영역별 지원 우선 실행':ACTIONS[tier-1],
   observedLevel,patternFloor,patternReason,
-  safetyFloor,safetyReason:safetyText?(safetyReason?safetyReason+' · 서술 안전단서 포함':'서술에 현재 보호 관련 단서가 나타나 보호경로 우선 배치'):safetyReason,
+  safetyFloor,safetyReason:immediate.length?safetyReason:safetyText?(safetyReason?safetyReason+' · 서술 안전단서 포함':'서술에 현재 보호 관련 단서가 나타나 보호경로 우선 배치'):safetyReason,
   domainRows:ds.map((d,i)=>{const offset=W.GROUPS.slice(0,i).reduce((a,b)=>a+b,0);
    const knownIdx=d.values.map((v,k)=>typeof v==='number'?offset+k:-1).filter(k=>k>=0);
    const wNum=knownIdx.reduce((sum,k)=>sum+answers[k]*audit.weights[k],0);
@@ -120,7 +127,7 @@ function analyze(p){
    return {id:i,name:d.name,raw:d.sum,max:d.known*4,unknown:d.unknown,
     normalized:d.known?ROUND(100*d.sum/(d.known*4)):null,weighted:wMax?ROUND(100*wNum/wMax):null};}),
   activePairs:cross.filter(x=>x.active).sort((a,b)=>b.strength-a.strength||b.weight-a.weight),
-  observations:positives.length,
+  observations:positives.length,immediate:immediate.map(x=>x.reason),
   note:'자체 개발 지표로 5단계 지원우선순위를 분류합니다. 검증된 진단·발생확률·신고 판단 기준이 아니며 CORE 원점수·공식 안전판정은 변경하지 않습니다.'
  });
 }

@@ -8,7 +8,7 @@
 if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.OYResultReadout=api;
 })(typeof window!=='undefined'?window:globalThis,function(){'use strict';
 const G=typeof window!=='undefined'?window:globalThis;
-const NAMES=['안정관찰','초기주의','집중지원','고위기개입','최우선 안전대응'];
+const NAMES=['안정관찰','초기주의','집중지원','다기관 집중개입','최우선 안전대응'];
 const SIZES=[2,3,3,3,2,2,3,3,2,2];
 const SAFETY_ITEMS=[1,2,7,25];
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));

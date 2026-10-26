@@ -1,7 +1,7 @@
 /* OY-RALS v4.0/v4.2 single free-text case-context interpreter.
    All extracted cues are unverified review prompts; NEVER diagnosis, risk scoring, or auto-reporting. */
 (function(root,factory){'use strict';const api=factory();if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.YouthCaseContextCore=api;})(typeof window!=='undefined'?window:globalThis,function(){'use strict';
-const VERSION='1.3.0-others-20261026',LIMITS=Object.freeze({text:5000}),MAX_CLAUSES=65;
+const VERSION='1.4.0-immediate-20261027',LIMITS=Object.freeze({text:5000}),MAX_CLAUSES=65;
 const TYPES=Object.freeze([
  {id:'protection',items:[1,2],label:'학대·보호 관련 언급',re:/학대|방임|체벌|맞았|폭행|가정폭력|보호자.{0,12}(?:위협|폭력)|보호.{0,4}부재|(?:아버지|아빠|어머니|엄마|보호자|부모|계부|계모|새아빠|새엄마|양부|양모|할아버지|할머니|삼촌|이모|고모)(?:가|께서|이|는|은|한테|에게)?[^.,]{0,14}(?:때리|때렸|때린|때려|목을\s?졸|졸랐|발로\s?차|걷어차|던졌|던지|가둬|가뒀)/,safety:true,ask:'현재 안전·발생시기·당사자 진술과 법정 신고·보호절차를 담당자가 확인합니다.'},
  {id:'peer',items:[3,4,5],label:'또래관계·학교폭력',re:/따돌림|왕따|학교폭력|괴롭힘|놀림|또래.{0,6}(?:위협|폭행)|금품.{0,6}요구|협박/,ask:'피해인지 행동인지와 학교의 안전조치, 동일 사건 여부를 구분합니다.'},
@@ -43,6 +43,21 @@ const WISH=/(?:원한다고|원한다|원해|원함|원했|바란다|바라|바�
 const STRENGTH=/(?:잘한다|잘하고|잘함|좋아하|좋아함|좋아해|잘\s?지낸|잘\s?챙기|잘\s?챙긴|아끼고|편해진|먼저\s?말을\s?거|즐겁게|즐겨|강점|장점|믿고\s?의지|신뢰하|신뢰함|스스로|극복|노력|도움\s?청|친한\s?친구|격려|격려해)/;
 const SUPPORT=/(?:상담\s?중|치료\s?중|이용\s?중|이용중|연계중|지원\s?받|이미\s?연계|접수\s?완료|접수\s?전|신청\s?중|진료\s?중|문의\s?전|Wee센터|위센터|복지관|가족센터|교육복지)/i;
 const URGENT=/(?:당장|즉시|오늘\s?중|시급|급히|긴급|이번\s?주\s?내|조속히)/;
+// A current, first-hand cue that already carries injury or a means/plan needs same-day protection, not a later check.
+// Strangulation is a lethality marker on its own; a visible bruise or wound is current by being visible.
+const INJURY_NOW=/(?:목을\s?졸|졸랐|(?:멍|상처|피멍|혹)(?:이|가)?\s?(?:있|보|생겼|났|들어)|피가\s?(?:나|났)|부었|부어\s?있|다쳤|골절|화상)/;
+const RECENT=/(?:어제|오늘|그저께|방금|어젯밤|지난밤|이번\s?주|주말에|며칠\s?전|아침에)/;
+const MEANS_PLAN=/(?:유서|(?:약|수면제|진통제)(?:을|를)?\s?[^.,]{0,6}(?:모아|모았|모으)|약\s?봉투|방법을?\s?(?:찾|검색|알아)|날짜를?\s?정|구체적.{0,4}계획)/;
+function immediateOf(s){
+ if(!s||!s.safety||s.subject==='third-party'||s.timeHint==='historical-mention'||!['reported','unverified'].includes(s.polarity))return null;
+ if(s.tag==='protection'&&s.polarity==='reported'&&(/목을\s?졸|졸랐/.test(s.clause)||INJURY_NOW.test(s.clause)||(RECENT.test(s.clause)&&/(?:멍|상처|피|다쳤|부었)/.test(s.clause))))return {tag:s.tag,reason:'최근 보호자에 의한 신체 피해 진술과 상처 기록',clause:s.clause};
+ if(s.tag==='selfharm'&&MEANS_PLAN.test(s.clause))return {tag:s.tag,reason:'자해·죽음 관련 표현과 수단·계획 기록',clause:s.clause};
+ return null;
+}
+// Physical-neglect signs. One alone is a basic-needs question; two or more together are a protection question.
+// The wording is itself negative ("먹지 않음", "집에 없음"), so only an explicit reassurance cancels a sign.
+const NEGLECT=[/같은\s?옷|얇은\s?옷|계절에\s?맞지\s?않|(?:겨울|추운).{0,10}(?:여름\s?옷|반팔)/,/씻지\s?(?:못|않)|위생\s?상태|냄새가\s?(?:나|심)/,/끼니|굶|라면으로|아침을?\s?(?:거의\s?)?(?:먹지|거르|안\s?먹|못\s?먹)|허겁지겁|남은\s?(?:빵|음식)을?\s?챙/,/병원에\s?(?:간\s?적이\s?없|가지\s?못)|데려가지\s?않|치료를?\s?(?:받지\s?못|못\s?받)|충치/,/(?:보호자|부모|엄마|아빠|어머니|아버지).{0,12}(?:집에\s?(?:거의\s?)?없|들어오지\s?않|며칠씩)|혼자\s?(?:지내|있|잔다)|돌봐\s?줄.{0,6}없/];
+const REASSURE=/(?:거르지\s?않|굶지\s?않|잘\s?(?:먹|챙겨|씻)|문제\s?없|해당\s?없|걱정\s?없)/;
 function cleanString(v){return String(v==null?'':v).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g,' ').trim().slice(0,LIMITS.text)}
 function redact(s){return String(s||'').replace(/\b01[016789][- ]?\d{3,4}[- ]?\d{4}\b/g,'[연락처 생략]').replace(/\b\d{6}[- ]?[1-8]\d{6}\b/g,'[고유식별번호 생략]').replace(/[a-z\d._%+-]+@[a-z\d.-]+\.[a-z]{2,}/gi,'[이메일 생략]').replace(/\b\d{2,4}[- ]\d{3,4}[- ]\d{4}\b/g,'[전화번호 생략]');}
 function normalize(input){
@@ -69,6 +84,9 @@ function infer(input){
    signals.push({tag:def.id,items:def.items.slice(),label:def.label,polarity,subject:third?'third-party':'unconfirmed',source:who(clause),timeHint:old?'historical-mention':/(?:현재|지금|요즘|최근|오늘)/.test(clause)?'current-or-recent':'unconfirmed',safety:!!def.safety,clause:redact(clause).slice(0,180),action:def.ask,evidenceClass:'unverified_optional_free_text',humanConfirmationRequired:true});
   }
  }
+ const neglect=clauses.filter(cl=>!HYPOTHETICAL.test(cl)&&!HISTORICAL.test(cl)&&!REASSURE.test(cl)&&!aboutOthers(cl));
+ const kinds=NEGLECT.map(rx=>neglect.find(cl=>rx.test(cl))).filter(Boolean);
+ if(kinds.length>=2)signals.push({tag:'neglectPattern',items:[2,16,19],label:'방임 의심 생활 단서가 함께 나타남',polarity:'unverified',subject:'unconfirmed',source:'여러 문장',timeHint:'current-or-recent',safety:true,clause:kinds.map(x=>redact(x).slice(0,80)).join(' / ').slice(0,180),action:'의복·식사·위생·의료·보호자 부재가 겹치는지 단정하지 않고 확인하고, 방임이 의심되면 아동보호전문기관과 상의합니다.',evidenceClass:'unverified_optional_free_text',humanConfirmationRequired:true});
  const section=(rx,n=3)=>clauses.filter(x=>rx.test(x)&&!HYPOTHETICAL.test(x)&&!NEG.test(x)).slice(0,n).map(x=>redact(x).slice(0,230)).join(' / ');
  const fields={situation:redact(c.text).slice(0,400),observations:section(/(?:관찰|보았|기록|변화|확인|호소)/),studentWishes:section(WISH),strengths:section(STRENGTH),existingSupport:section(SUPPORT),urgentNeeds:section(URGENT)};
  const privacyWarnings=[];if(redact(c.text)!==c.text)privacyWarnings.push('연락처·식별번호·이메일과 같은 형식이 감지되어 표시할 때 일부 가렸습니다. 자동 익명화가 완전하다는 뜻은 아닙니다.');
@@ -80,7 +98,7 @@ function infer(input){
 }
 function reconcile(answers,input){
  if(!Array.isArray(answers)||answers.length!==25||answers.some(v=>v!=='unknown'&&(!Number.isInteger(v)||v<0||v>4)))throw Error('기존 25문항 0~4점 또는 미상이 필요합니다.');
- const x=infer(input),out={version:VERSION,hasContext:x.hasContext,signals:x.signals,issues:x.issues,fields:x.fields,privacyWarnings:x.privacyWarnings,alignment:[],mismatches:[],unknownCandidates:[],needsSafetyAttention:false,manualReviewRequired:false};
+ const x=infer(input),out={version:VERSION,hasContext:x.hasContext,signals:x.signals,issues:x.issues,fields:x.fields,privacyWarnings:x.privacyWarnings,alignment:[],mismatches:[],unknownCandidates:[],immediate:[],needsSafetyAttention:false,manualReviewRequired:false};
  const dedup=new Set();
  for(const signal of x.signals){if(signal.polarity==='hypothetical')continue;
   const candidates=signal.items.map(n=>({item:n,score:answers[n-1]}));
@@ -95,9 +113,10 @@ function reconcile(answers,input){
    if(positive.length)out.mismatches.push({tag:signal.tag,items:positive.map(z=>z.item),issue:'부정 표현과 양성 점수가 공존합니다. 시점·사건·출처 차이를 확인하십시오.'});
   }
  }
+ out.immediate=x.signals.map(immediateOf).filter(Boolean);
  out.needsSafetyAttention=x.signals.some(s=>s.safety&&(s.polarity==='reported'||s.polarity==='unverified')&&s.timeHint!=='historical-mention'&&s.subject!=='third-party');
  out.manualReviewRequired=out.needsSafetyAttention||out.mismatches.length>0||out.unknownCandidates.length>0;
  return out;
 }
-return Object.freeze({VERSION,LIMITS,TYPES,normalize,splitClauses,redact,infer,reconcile,aboutOthers});
+return Object.freeze({VERSION,LIMITS,TYPES,normalize,splitClauses,redact,infer,reconcile,aboutOthers,immediateOf});
 });
