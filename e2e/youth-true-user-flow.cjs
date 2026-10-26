@@ -10,6 +10,8 @@ async function run(browserType,name,width,full){
  const browser=await browserType.launch({headless:true,args:name==='chromium'?['--no-sandbox']:[]});
  const page=await browser.newPage({viewport:{width,height:900},acceptDownloads:true});
  const exceptions=[];page.on('pageerror',err=>exceptions.push(String(err)));
+ // Browser tests must not send synthetic visits or assessments to the production analytics worker.
+ await page.route('https://osan-youth-usage.daily-89.workers.dev/**',route=>route.fulfill({status:200,contentType:'application/json',headers:{'Access-Control-Allow-Origin':'*','Access-Control-Allow-Headers':'Content-Type','Access-Control-Allow-Methods':'POST, OPTIONS'},body:JSON.stringify({day:'2026-10-26',since:'2026-10-20',visitsToday:0,visitsTotal:0,assessmentsToday:0,assessmentsTotal:0})}));
  page.on('dialog',d=>d.dismiss());
  try {
   await page.goto(base,{waitUntil:'domcontentloaded',timeout:45000});
