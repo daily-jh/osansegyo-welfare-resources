@@ -28,7 +28,8 @@ assert.equal(included.includeNarrative,true);assert.equal(included.context.hasCo
 assert.deepEqual(hidden.decision,included.decision);
 assert.equal(hidden.plans.length,0,'zero answers without opted-in narrative must not fabricate plans');
 const pending=R.build(payload(Array(25).fill('unknown')));
-assert.equal(pending.plans.length,0);assert.equal(pending.completeness.upper,100);assert.equal(pending.completeness.lower,0);
+// Unknown safety items owe one check task, never a service plan.
+assert.equal(pending.plans.filter(x=>!x.safetyCheck).length,0);assert.equal(pending.plans.filter(x=>x.safetyCheck).length,1);assert.equal(pending.completeness.upper,100);assert.equal(pending.completeness.lower,0);
 assert.equal(pending.rows.flatMap(d=>d.items).length,25);
 assert.ok(pending.priorities.some(t=>t.type==='미상 확인'));
 const safe=payload(Array(25).fill(0));safe.answers[0]=1;
