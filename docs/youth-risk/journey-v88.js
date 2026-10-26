@@ -23,11 +23,14 @@ function privatePayload(p){return window.OYNarrativeInterpretation?.redact?windo
 function narrativeSafetyLine(){const s=window.OYNarrativeInterpretation?.safetySummary?.(state.payload);return s&&s.safety.length?'서술기록: 안전 관련 표현 있음('+s.safety.map(x=>x.topic).join(', ')+') — 이 결과지는 점수만 반영합니다. 원문은 화면에서, 서술을 함께 반영한 단계는 ③ 통합 사정의견에서 확인하고 오늘 안에 직접 안전 면담을 합니다.':''}
 function narrReport(kind,p,page){const N=window.OYNarrativeInterpretation;if(!N||!p)return '';try{if(kind==='narrativeHtml'||kind==='narrativeText')return N[kind](N.narrative(p));return N[kind](N.integrate(p),page);}catch(_){return '';}}
 function figures(kind,p){const F=window.OYScaleFigures;if(!F||!p)return '';try{return F[kind](F.build(p));}catch(_){return '';}}
+// The paged deep report places each figure on the page it belongs to, so the standalone figures article
+// is only rendered when the report falls back to its linear form.
+function scalePages(p){const deep=deepReport('html',p);return (deep.indexOf('odi-paged')>=0?'':figures('html',p))+deep;}
 function deepReport(kind,p){const M=window.OYDeepInterpretation||window.OYCommonScaleReport;if(!M||!p)return '';try{return M[kind](M.build(p));}catch(_){return '';}}
 function resultScorePage(a){
  const d=a.decision;
  return '<section class="j88-result-pane" aria-label="척도 해석"><p class="j88-view-note">CORE 원점수와 공식 안전판정은 불변입니다. 5단계 통합지원 분류는 별도의 개발형 보조지표입니다.</p><div id="oy-index-visual-slot"></div>'
- +figures('html',state.payload)+deepReport('html',state.payload)
+ +scalePages(state.payload)
  +'<details class="j88-raw-accordion"><summary>원점수 · 25문항 상세 결과 펼치기</summary><div class="j88-metrics"><article><small>CORE 원점수</small><strong>'+esc(d.incomplete?'판정 보류':d.knownTotal+' / 100')+'</strong><span>미상 '+d.unknownItems.length+'개는 0점 처리하지 않습니다.</span></article>'
  +'<article><small>확인한 문항</small><strong>'+d.knownCount+' / 25</strong><span>미상·응답별 확인 상태 구분</span></article>'
  +'<article><small>3~4점 응답</small><strong>'+a.high.length+'개</strong><span>높은 개별 응답만 집계</span></article></div>'

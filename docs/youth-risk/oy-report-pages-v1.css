@@ -1,0 +1,85 @@
+/* OY-RALS paged report v1: the deep interpretation read as magazine pages. Scoped to .odi-paged so the linear
+   report, the narrative report and the shared site styles are untouched. Without JS the pages simply stack. */
+.odi-paged{--odi-pro:#5b3fa8;--odi-pro-soft:#f1edfb}
+.odi-paged .odi-pagetrack{display:block}
+.odi-paged .odi-page{padding-bottom:4px}
+.odi-paged .odi-page+.odi-page{border-top:2px solid var(--odi-line);margin-top:22px}
+.odi-paged .odi-open{padding:26px 0 10px;border-bottom:2px solid var(--odi-text);margin-bottom:10px}
+.odi-paged .odi-pageno{margin:0;font-size:13px;font-weight:700;color:var(--odi-accent);letter-spacing:.06em}
+.odi-paged .odi-open h2{margin:4px 0 6px;font-size:1.7rem;letter-spacing:-.02em}
+.odi-paged .odi-open>p{margin:0;color:var(--odi-sub)}
+.odi-paged .odi-tags{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 0}
+.odi-pill-term{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--odi-pro-soft);color:var(--odi-pro);font-size:13px;font-weight:700;white-space:nowrap}
+.odi-paged .odi-sec{border-bottom:0;padding:20px 4px 4px}
+.odi-paged .odi-sec h3{font-size:1.15rem}
+/* cover */
+.odi-paged .odi-map{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:18px;align-items:start;margin-top:10px}
+.odi-mapsvg{width:100%;height:auto;max-width:420px;display:block;margin:0 auto}
+.odi-links{list-style:none;margin:0;padding:0!important;display:grid;gap:8px}
+.odi-links li{padding:10px 14px;border:1px solid var(--odi-line);border-radius:12px;background:#fff;font-size:15px;line-height:1.6;margin:0}
+.odi-links strong{display:block}
+.odi-pname{font-size:13px;color:var(--odi-pro);font-weight:700}
+.odi-toc{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));margin-top:22px}
+.odi-toc button{font:inherit;text-align:left;cursor:pointer;color:var(--odi-text);background:#fff;border:1px solid var(--odi-line);border-radius:12px;padding:12px 14px;min-height:44px;display:grid;gap:2px}
+.odi-toc button:hover{border-color:var(--odi-accent)}
+.odi-toc button span{font-size:12px;font-weight:700;color:var(--odi-accent);letter-spacing:.05em}
+/* ladder */
+.odi-ladder{list-style:none;margin:6px 0 0;padding:0!important;position:relative}
+.odi-ladder::before{content:"";position:absolute;left:15px;top:20px;bottom:20px;width:2px;background:linear-gradient(var(--odi-accent),var(--odi-pro))}
+.odi-rung{position:relative;padding:2px 0 18px 48px;margin:0}
+.odi-rung::before{content:attr(data-rung);position:absolute;left:0;top:0;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:14px;font-weight:800;background:#fff;border:2px solid var(--odi-accent);color:var(--odi-accent)}
+.odi-rung[data-rung="3"]::before{border-color:var(--odi-pro);color:var(--odi-pro)}
+.odi-rung[data-rung="4"]::before{background:var(--odi-accent);color:#fff}
+.odi-rung h4{margin:4px 0 2px;font-size:1.05rem;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.odi-rung h4 small{font-size:12px;font-weight:700;color:var(--odi-sub);letter-spacing:.04em}
+.odi-signchips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.odi-signchips span{font-size:14px;padding:4px 10px;border-radius:8px;background:var(--odi-fill)}
+.odi-pair{border:1px solid var(--odi-line);border-radius:var(--ads-radius-m,14px);padding:14px 16px;margin:10px 0;background:#fff}
+.odi-plain{font-weight:700;font-size:1.02rem;margin:0}
+.odi-with{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0 2px;font-size:14px;color:var(--odi-sub)}
+.odi-term{border-radius:var(--ads-radius-m,14px);padding:14px 16px;margin:10px 0;background:var(--odi-pro-soft)}
+.odi-from{font-size:13px;color:var(--odi-sub)}
+.odi-termname{margin:2px 0 4px;font-weight:700;color:var(--odi-pro);font-size:1.04rem}
+.odi-term .odi-advice{background:#fff}
+.odi-todo{display:grid;gap:8px;margin:6px 0 0}
+.odi-todo>div{padding:12px 14px;border-radius:12px;background:var(--odi-fill)}
+.odi-todo dt{font-size:13px;font-weight:700;color:var(--odi-sub);display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.odi-todo dd{margin:3px 0 0}
+.odi-termcell{color:var(--odi-pro);font-weight:700}
+.odi-paged .odi-figsec{padding-top:10px}
+.odi-paged .oy-scale-figures{margin:0}
+/* pager chrome, added by oy-report-pages-v1.js */
+.odi-pager{position:sticky;top:0;z-index:6;display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:10px 0;margin-bottom:4px;background:color-mix(in srgb,#fff 92%,transparent);backdrop-filter:saturate(1.4) blur(12px);-webkit-backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--odi-line)}
+@supports not (background:color-mix(in srgb,#fff 92%,transparent)){.odi-pager{background:#fff}}
+.odi-pager-btn{width:44px;height:44px;border-radius:50%;border:1px solid var(--odi-line);background:#fff;color:var(--odi-accent);font-size:20px;line-height:1;cursor:pointer;display:grid;place-items:center}
+.odi-pager-btn:disabled{color:#b9c4d0;cursor:default}
+.odi-pager-where{min-width:0}
+.odi-pager-where b{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.odi-dots{display:flex;gap:4px;margin-top:6px}
+.odi-paged .odi-pager .odi-dots button{flex:1;height:6px;min-height:6px;min-width:10px;border:0;padding:0;border-radius:3px;background:var(--odi-line);cursor:pointer;position:relative;appearance:none}
+.odi-dots button::after{content:"";position:absolute;inset:-14px 0}
+.odi-paged .odi-pager .odi-dots button.is-on{background:var(--odi-accent)}
+.odi-paged .odi-pager .odi-dots button.is-done{background:#9fb8d6}
+.odi-next{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;margin:22px 0 6px;padding:16px 20px;border:1px solid var(--odi-line);border-radius:var(--ads-radius-m,14px);background:#fff;font:inherit;text-align:left;cursor:pointer;color:var(--odi-text)}
+.odi-next span{display:block;font-size:13px;color:var(--odi-sub)}
+.odi-next b{font-size:1.06rem}
+.odi-next i{font-style:normal;font-size:22px;color:var(--odi-accent)}
+.odi-swipe .odi-pagetrack{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;align-items:flex-start;overscroll-behavior-x:contain;transition:height .3s ease}
+.odi-swipe .odi-pagetrack::-webkit-scrollbar{display:none}
+.odi-swipe .odi-page{flex:0 0 100%;min-width:0;scroll-snap-align:start;scroll-snap-stop:always;
+ /* keeps the tables inside off-screen pages from widening the document itself */contain:paint}
+.odi-swipe .odi-page+.odi-page{border-top:0;margin-top:0}
+@media(max-width:720px){
+ .odi-paged .odi-open h2{font-size:1.45rem}
+ .odi-paged .odi-map{grid-template-columns:1fr}
+ .odi-rung{padding-left:42px}
+ .odi-paged .odi-sec{padding-left:0;padding-right:0}
+}
+@media print{
+ .odi-pager,.odi-next,.odi-toc{display:none!important}
+ .odi-swipe .odi-pagetrack{display:block!important;height:auto!important;overflow:visible!important}
+ .odi-swipe .odi-page{display:block!important;break-before:page;contain:none}
+ .odi-paged .odi-page:first-child{break-before:auto}
+ .odi-rung,.odi-pair,.odi-term{break-inside:avoid}
+}
+@media (prefers-reduced-motion:reduce){.odi-swipe .odi-pagetrack{transition:none}}

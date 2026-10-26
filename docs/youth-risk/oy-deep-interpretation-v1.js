@@ -265,6 +265,138 @@ function sections(r){
  return out;
 }
 const TITLES={critical:'우선 안전 확인',understanding:'사례개념화',case:'개입 수준과 주관기관',ecology:'생태체계 사정',plan:'단계별 개입계획',agenda:'사례회의 안건',consult:'슈퍼비전·자문 의견',code:'응답 프로파일 유형',profile:'영역별 프로파일',detail:'영역별 심층 해석',patterns:'문제 유지 고리 (교차 패턴)',strengths:'강점·보호요인',roles:'직무별 실천 과제',questions:'면담 확인 질문',reassess:'재사정 지표',validity:'응답 타당도 점검'};
+// Paged report. The same sections, regrouped into life themes a practitioner can page through,
+// each theme climbing from plain wording to the professional concept. Text, scores and judgements are unchanged.
+let ladderMod;
+function ladder(){
+ if(ladderMod===undefined)ladderMod=node?(function(){try{return require('./oy-concept-ladder-v1.js')}catch(_){return null}})():(root.OYConceptLadder||null);
+ return ladderMod;
+}
+function figuresOf(r){
+ const F=node?(function(){try{return require('./oy-scale-figures-v1.js')}catch(_){return null}})():root.OYScaleFigures;
+ if(!F)return null;
+ try{return {api:F,f:F.build({answers:r.items.map(x=>x.value)})}}catch(_){return null}
+}
+function themeState(r,L){
+ const T=L.THEMES.map((t,i)=>({...t,i,doms:t.domains.map(d=>r.profile[d]),names:t.domains.map(d=>r.profile[d].name),
+  peak:Math.max(-1,...t.domains.map(d=>r.profile[d].peak??-1)),
+  detail:r.detail.filter(d=>t.domains.indexOf(d.id)>=0),
+  safety:r.critical.list.filter(x=>x.n&&t.domains.indexOf(K.DOMAIN_OF[x.n-1])>=0),
+  own:[],linked:[]}));
+ const edges=[];
+ r.patterns.active.forEach(p=>{
+  const ts=[];p.items.forEach(n=>{const i=L.THEME_OF_DOMAIN[K.DOMAIN_OF[n-1]];if(i!==undefined&&ts.indexOf(i)<0)ts.push(i)});
+  if(!ts.length)return;
+  T[ts[0]].own.push(p);
+  if(ts.length>1){ts.slice(1).forEach(i=>T[i].linked.push(p));edges.push({a:ts[0],b:ts[1],p});}
+ });
+ T.forEach(t=>{t.active=t.peak>=2||t.own.length||t.linked.length||t.safety.length});
+ return {T,edges};
+}
+// Pentagon of the five themes; a line means two themes are held together by one cross pattern.
+function linkMap(S){
+ const W=380,H=350,cx=190,cy=182,R=118;
+ const pos=S.T.map((t,i)=>{const a=-Math.PI/2+i*2*Math.PI/5;return [cx+R*Math.cos(a),cy+R*Math.sin(a)]});
+ const fill=p=>p>=4?'#b02424':p===3?'#e07068':p===2?'#f1c4c0':'#ffffff',ink=p=>p>=4?'#ffffff':'#16273a';
+ const groups={};S.edges.forEach(e=>{const k=Math.min(e.a,e.b)+'-'+Math.max(e.a,e.b);(groups[k]=groups[k]||[]).push(e.p.name)});
+ let s='<svg viewBox="0 0 '+W+' '+H+'" class="odi-mapsvg" role="img" aria-label="'+esc('생활 주제 연결 지도: '+(S.edges.length?S.edges.map(e=>S.T[e.a].title+'와 '+S.T[e.b].title+'이 '+e.p.name+'으로 이어짐').join(', '):'두 주제에 걸친 패턴 없음'))+'">';
+ Object.keys(groups).forEach(k=>{const ab=k.split('-'),a=+ab[0],b=+ab[1],names=groups[k],p1=pos[a],p2=pos[b];
+  s+='<g><title>'+esc(names.join(' · '))+'</title><line x1="'+p1[0]+'" y1="'+p1[1]+'" x2="'+p2[0]+'" y2="'+p2[1]+'" stroke="#1765bd" stroke-opacity=".5" stroke-width="'+(2+names.length*2.5)+'" stroke-linecap="round"/>'
+   +(names.length>1?'<circle cx="'+(p1[0]+p2[0])/2+'" cy="'+(p1[1]+p2[1])/2+'" r="11" fill="#fff" stroke="#1765bd"/><text x="'+(p1[0]+p2[0])/2+'" y="'+((p1[1]+p2[1])/2+4.5)+'" text-anchor="middle" font-size="12" font-weight="700" fill="#1765bd">'+names.length+'</text>':'')+'</g>';});
+ S.T.forEach((t,i)=>{const x=pos[i][0],y=pos[i][1],inner=t.own.filter(p=>!S.edges.some(e=>e.p===p)).length;
+  s+='<g><circle cx="'+x+'" cy="'+y+'" r="33" fill="'+fill(t.peak)+'" stroke="'+(t.peak>=2?'none':'#dbe3ec')+'" stroke-width="1.5"/>'
+   +(inner?'<circle cx="'+x+'" cy="'+y+'" r="38" fill="none" stroke="#1765bd" stroke-opacity=".5" stroke-width="2" stroke-dasharray="4 4"/>':'')
+   +'<text x="'+x+'" y="'+(y+5)+'" text-anchor="middle" font-size="13" font-weight="700" fill="'+ink(t.peak)+'">'+esc(t.peak<0?'미상':LEVELS[t.peak])+'</text>'
+   +'<text x="'+x+'" y="'+(y+(y>cy?54:-44))+'" text-anchor="middle" font-size="13.5" font-weight="700" fill="#16273a">'+esc(t.title)+'</text></g>';});
+ return s+'</svg>';
+}
+function themeBody(r,t,L,fig){
+ const items=t.doms.reduce((a,d)=>a.concat(d.items),[]).filter(n=>isNum(r.items[n-1].value)&&r.items[n-1].value>=2);
+ const pats=t.own.concat(t.linked);
+ const reads=t.detail.reduce((a,d)=>a.concat(d.readings),[]).slice(0,4);
+ const signs=[];items.forEach(n=>{const d=K.item(n).d.split(/,\s*/)[0];if(signs.indexOf(d)<0&&signs.length<5)signs.push(d)});
+ let h='<ol class="odi-ladder">';
+ h+='<li class="odi-rung" data-rung="1"><h4>쉽게 말하면 <small>누구나</small></h4>'
+  +(reads.length?'<ul>'+reads.map(x=>'<li><strong>'+esc(x.topic)+'</strong> '+esc(x.text)+'</li>').join('')+'</ul>':'<p>이 주제에서는 어려움이 가볍게 보고되었습니다.</p>')
+  +t.detail.reduce((a,d)=>a+d.notes.map(n=>'<p class="odi-muted">'+esc(n)+'</p>').join(''),'')
+  +(signs.length?'<p class="odi-muted">학교와 집에서는 이런 모습으로 보입니다.</p><div class="odi-signchips">'+signs.map(x=>'<span>'+esc(x)+'</span>').join('')+'</div>':'')+'</li>';
+ if(pats.length){
+  h+='<li class="odi-rung" data-rung="2"><h4>함께 보면 좋은 것 <small>실무</small></h4><p class="odi-muted">이 주제의 어려움은 혼자 움직이지 않습니다. 아래 짝을 한 번에 다루면 지원이 덜 겉돕니다.</p>'
+   +pats.map(p=>{
+    const others=[];p.items.forEach(n=>{const i=L.THEME_OF_DOMAIN[K.DOMAIN_OF[n-1]];if(i!==undefined&&i!==t.i&&others.indexOf(L.THEMES[i].title)<0)others.push(L.THEMES[i].title)});
+    const c=L.concept(p.id);
+    return '<div class="odi-pair"><p class="odi-plain">'+esc(c?c.plain:p.name)+'</p><p class="odi-with">'+p.items.map(n=>'<span class="odi-chip">'+esc(topic(n))+'</span>').join('<span aria-hidden="true">+</span>')+(others.length?'<span class="odi-muted"> · 이어진 주제: '+esc(others.join(', '))+'</span>':'')+'</p><p>'+esc(p.loop)+'</p><p class="odi-signs"><strong>일상에서</strong> '+esc(p.sign)+'</p></div>'}).join('')+'</li>';
+  h+='<li class="odi-rung" data-rung="3"><h4>전문 개념으로 <small>사례관리자·슈퍼바이저</small></h4>'
+   +pats.map(p=>{const c=L.concept(p.id);return '<div class="odi-term">'+(c?'<span class="odi-from">'+esc(c.plain)+' →</span><p class="odi-termname">'+esc(c.term)+' <span class="odi-muted">· '+esc(p.name)+'</span></p><p>'+esc(c.why)+'</p>':'<p class="odi-termname">'+esc(p.name)+'</p><p>'+esc(p.loop)+'</p>')+'<p class="odi-advice"><strong>자문 포인트</strong> '+esc(p.advice)+'</p></div>'}).join('')+'</li>';
+ }
+ const firsts=[];pats.forEach(p=>{if(firsts.indexOf(p.first)<0&&firsts.length<2)firsts.push(p.first)});
+ if(!firsts.length&&items.length)firsts.push(K.item(items[0]).e);
+ const qs=(pats.length?pats.slice(0,2).map(p=>p.q):items.slice(0,2).map(n=>K.item(n).q));
+ const re=r.reassess.filter(x=>t.domains.indexOf(K.DOMAIN_OF[x.n-1])>=0).slice(0,3);
+ const res=[];items.forEach(n=>K.item(n).res.split(/,\s*/).forEach(x=>{if(res.indexOf(x)<0&&res.length<5)res.push(x)}));
+ h+='<li class="odi-rung" data-rung="4"><h4>그래서 이번 주에 <small>모두</small></h4><dl class="odi-todo">'
+  +(firsts.length?'<div><dt>먼저 할 일</dt><dd>'+firsts.map(esc).join('<br>')+'</dd></div>':'')
+  +(qs.length?'<div><dt>학생에게 물어볼 말</dt><dd>'+qs.map(q=>'“'+esc(q)+'”').join('<br>')+'</dd></div>':'')
+  +(res.length?'<div><dt>연계 자원 유형</dt><dd>'+esc(res.join(' · '))+'</dd></div>':'')
+  +(re.length?'<div><dt>다시 볼 기준 <span class="odi-pill-term">재사정 지표</span></dt><dd>'+re.map(x=>'<strong>'+esc(x.topic)+'</strong> 지금: '+esc(x.nowText)+' → 다음 목표: '+esc(x.target)).join('<br>')+'</dd></div>':'')
+  +'</dl></li></ol>';
+ if(fig)h+=fig.api.part(fig.f,'domains',{only:t.names,title:'이 주제의 구간 위치',desc:'이 주제에 속한 영역이 척도 범위의 어느 구간에 놓이는지 봅니다.'});
+ return h;
+}
+function page(key,title,deck,inner,opts){
+ const o=opts||{};
+ return '<section class="odi-page odi-page-'+key+'" data-page="'+key+'" aria-label="'+esc(title)+'">'
+  +(o.cover?'':'<header class="odi-open"><p class="odi-pageno"><span class="odi-page-index"></span></p><h2>'+esc(title)+'</h2>'+(deck?'<p>'+esc(deck)+'</p>':'')+(o.tags||'')+'</header>')
+  +inner+'</section>';
+}
+function pagedHtml(r,body,head,glance,L){
+ const S=themeState(r,L),fig=figuresOf(r);
+ const sec=(k,title,inner)=>'<section class="odi-sec odi-s-'+k+'"><h3>'+esc(title)+'</h3>'+inner+'</section>';
+ const first=r.understanding.split(/(?<=다\.)\s/)[0],rest=r.understanding.slice(first.length).trim();
+ const pages=[];
+ // 1. Cover: who this student is, what is unsafe now, and how the difficulties hold each other together.
+ let cover=head+glance;
+ if(r.critical.list.length||r.critical.pending.length)cover+=sec('critical','먼저 안전부터',body.critical());
+ cover+=sec('understanding','이 아이 이야기 <span class="odi-pill-term">사례개념화</span>'.replace(/<[^>]+>/g,''),'<p class="odi-lead">'+esc(rest||r.understanding)+'</p>');
+ if(fig)cover+='<div class="odi-sec odi-figsec">'+fig.api.part(fig.f,'total')+'</div>';
+ cover+='<section class="odi-sec odi-s-patterns"><h3>함께 움직이는 어려움</h3>'
+  +'<p class="odi-muted">원은 생활 주제, 굵은 선은 두 주제의 어려움이 서로를 붙잡고 있다는 뜻입니다. 선이 많이 모이는 곳이 이 사례의 중심입니다.</p>'
+  +'<div class="odi-map">'+linkMap(S)
+  +(S.edges.length?'<ul class="odi-links">'+S.edges.slice(0,6).map(e=>{const c=L.concept(e.p.id);return '<li><strong>'+esc(topic(e.p.items[0]))+' ↔ '+esc(topic(e.p.items[1]))+'</strong>'+esc(c?c.plain:e.p.loop.split(/(?<=다\.)\s/)[0])+'<br><span class="odi-pname">'+esc(c?c.term:e.p.name)+'</span></li>'}).join('')+'</ul>'
+   :'<p class="odi-muted">두 주제에 걸쳐 함께 움직이는 어려움은 나타나지 않았습니다. 주제별로 따로 읽어도 됩니다.</p>')+'</div>'
+  +(r.patterns.pending.length?'<p class="odi-muted"><strong>미상 때문에 판단을 보류한 패턴</strong> '+esc(r.patterns.pending.map(p=>p.name).join(' · '))+'</p>':'')
+  +'</section><nav class="odi-toc" aria-label="차례"></nav>';
+ pages.push(page('cover','표지 · 한 장으로 이해하기','',cover,{cover:true}));
+ // 2. One page per life theme that this response actually raises.
+ const act=S.T.filter(t=>t.active).sort((a,b)=>(b.safety.length?1:0)-(a.safety.length?1:0)||b.peak-a.peak||(b.own.length+b.linked.length)-(a.own.length+a.linked.length));
+ act.forEach(t=>{
+  const tags='<p class="odi-tags"><span class="odi-pill-term">'+esc(t.term)+'</span>'+t.doms.map(d=>'<span class="odi-chip odi-l'+(d.peak??'u')+'">'+esc(d.name)+' · '+esc(d.label)+'</span>').join('')+'</p>';
+  let inner='';
+  if(t.safety.length)inner+='<section class="odi-sec odi-s-critical"><h3>이 주제의 안전 신호</h3><ul class="odi-list">'+t.safety.map(x=>'<li><strong>'+esc(x.topic)+'</strong><p>'+esc(x.reading)+'</p><p class="odi-act">'+esc(x.action)+'</p></li>').join('')+'</ul></section>';
+  inner+='<section class="odi-sec odi-s-theme-'+t.key+'"><h3>'+esc(t.title)+' 해석</h3>'+themeBody(r,t,L,fig)+'</section>';
+  pages.push(page('theme-'+t.key,t.title,t.deck,inner,{tags}));
+ });
+ // 3. What is holding, 4. who does what, 5. the figures and terms behind it all.
+ let str=sec('strengths','잘 버티고 있는 부분',body.strengths());
+ const quiet=S.T.filter(t=>!t.active);
+ if(quiet.length)str+='<p class="odi-muted">어려움이 두드러지지 않은 생활 주제: '+esc(quiet.map(t=>t.title).join(', '))+'</p>';
+ str+=sec('questions','면담에서 묻기',body.questions());
+ if(fig)str+='<div class="odi-sec odi-figsec">'+fig.api.part(fig.f,'safety')+'</div>';
+ pages.push(page('strengths','잘 버티고 있는 부분','지원을 시작할 발판입니다. 어려움보다 먼저 이 부분을 학생에게 말해 주면 대화가 쉬워집니다.',str));
+ let plan=sec('case','얼마나 자주, 누가 <span>개입 수준</span>'.replace(/<[^>]+>/g,''),body.case())+sec('plan','단계별 개입계획',body.plan())+sec('roles','직무별 실천 과제',body.roles())+sec('ecology','생태체계 사정',body.ecology());
+ if(fig)plan+='<div class="odi-sec odi-figsec">'+fig.api.part(fig.f,'eco')+'</div>';
+ plan+=sec('agenda','사례회의 안건',body.agenda());
+ pages.push(page('plan','함께 돕는 계획','누가, 얼마나 자주, 어떤 순서로 돕는지입니다.',plan));
+ let pro='<section class="odi-sec odi-s-gloss"><h3>쉬운 말 ↔ 전문 용어</h3><p class="odi-muted">이 해석지에서 같은 내용을 부르는 두 가지 이름입니다.</p><div class="odi-table"><table><thead><tr><th scope="col">쉬운 말</th><th scope="col">전문 용어</th><th scope="col">뜻</th></tr></thead><tbody>'
+  +L.GLOSSARY.map(g=>'<tr><th scope="row">'+esc(g.plain)+'</th><td class="odi-termcell">'+esc(g.term)+'</td><td>'+esc(g.text)+'</td></tr>').join('')+'</tbody></table></div></section>';
+ pro+=sec('code','응답 프로파일 유형',body.code())+sec('profile','영역별 프로파일',body.profile());
+ if(fig)pro+='<div class="odi-sec odi-figsec">'+['domains','axes','dist','map'].map(k=>fig.api.part(fig.f,k)).join('')+fig.api.noticeHtml(fig.f)+'</div>';
+ pro+=sec('consult','슈퍼비전·자문 의견',body.consult())+sec('reassess','재사정 지표',body.reassess())+sec('validity','응답 타당도 점검',body.validity());
+ pro+=appendixHtml(r);
+ pages.push(page('expert','전문가 노트','슈퍼비전과 기록에 쓰는 도식, 용어, 원자료입니다.',pro));
+ return '<article class="oy-deep-report odi-paged" data-report-version="'+VERSION+'" data-pages="'+pages.length+'"><div class="odi-pagetrack">'+pages.join('')+'</div>'
+  +'<footer class="odi-notice"><h3>해석 안내</h3><p>'+esc(r.notice)+'</p></footer></article>';
+}
 function html(r){
  const s=r.summary,ul=a=>'<ul>'+a.map(x=>'<li>'+x+'</li>').join('')+'</ul>';
  const body={
@@ -285,8 +417,11 @@ function html(r){
   reassess:()=>r.reassess.length?ul(r.reassess.map(x=>'<strong>'+esc(x.topic)+'</strong> 지금: '+esc(x.nowText)+'<br>다음 목표: '+esc(x.target))):'<p>다음 평가에서 지금의 응답이 유지되는지와 새로운 어려움이 생겼는지 봅니다.</p>',
   validity:()=>'<p><strong>'+esc(r.validity.level)+'</strong> · '+esc(r.validity.summary)+'</p>'+ul(r.validity.rows.map(x=>'<strong>'+esc(x.label)+'</strong> '+esc(x.text)))
  };
- let h='<article class="oy-deep-report" data-report-version="'+VERSION+'"><header class="odi-head"><span class="odi-kicker">OY-RALS 척도 심층해석</span><h2>'+esc(r.code.name)+'</h2><p>CORE 공식 판정: '+esc(r.title)+'</p></header>';
- h+='<section class="odi-sec odi-glance"><h3>한눈에 보기</h3><dl><div><dt>지원 수준</dt><dd>'+esc(s.level)+'</dd></div><div class="'+(s.safety==='이번 응답의 안전 신호 없음'?'':'odi-alert')+'"><dt>현재 안전</dt><dd>'+esc(s.safety)+'</dd></div><div><dt>핵심 어려움</dt><dd>'+(s.keys.length?s.keys.map(k=>'<span class="odi-chip">'+esc(k)+'</span>').join(''):'두드러진 어려움 없음')+'</dd></div><div><dt>이번 주 첫 행동</dt><dd>'+esc(s.first)+'</dd></div><div><dt>해석 신뢰도</dt><dd>'+esc(r.validity.level)+' · '+esc(r.validity.summary)+'</dd></div></dl></section>';
+ const glance='<section class="odi-sec odi-glance"><h3>한눈에 보기</h3><dl><div><dt>지원 수준</dt><dd>'+esc(s.level)+'</dd></div><div class="'+(s.safety==='이번 응답의 안전 신호 없음'?'':'odi-alert')+'"><dt>현재 안전</dt><dd>'+esc(s.safety)+'</dd></div><div><dt>핵심 어려움</dt><dd>'+(s.keys.length?s.keys.map(k=>'<span class="odi-chip">'+esc(k)+'</span>').join(''):'두드러진 어려움 없음')+'</dd></div><div><dt>이번 주 첫 행동</dt><dd>'+esc(s.first)+'</dd></div><div><dt>해석 신뢰도</dt><dd>'+esc(r.validity.level)+' · '+esc(r.validity.summary)+'</dd></div></dl></section>';
+ const head='<header class="odi-head"><span class="odi-kicker">OY-RALS 척도 심층해석</span><h2>'+esc(r.code.name)+'</h2><p>CORE 공식 판정: '+esc(r.title)+'</p></header>';
+ const L=ladder();
+ if(L){try{return pagedHtml(r,body,head,glance,L)}catch(_){/* fall through to the linear report */}}
+ let h='<article class="oy-deep-report" data-report-version="'+VERSION+'">'+head+glance;
  sections(r).forEach((k,i)=>{h+='<section class="odi-sec odi-s-'+k+'"><h3><span class="odi-num">'+(i+1)+'</span>'+esc(TITLES[k])+'</h3>'+body[k]()+'</section>'});
  h+=appendixHtml(r)+'<footer class="odi-notice"><h3>해석 안내</h3><p>'+esc(r.notice)+'</p></footer></article>';
  return h;
@@ -332,7 +467,23 @@ function blocks(r){
   validity:()=>[r.validity.level+' · '+r.validity.summary,...r.validity.rows.map(x=>'- '+x.label+': '+x.text)]
  };
 }
-function sectionText(r,key){const B=blocks(r);return B[key]?B[key]().join('\n'):'';}
+// Theme sections carry the same readings regrouped, so the ask panel can quote them like any other section.
+function themeText(r,key){
+ const L=ladder();if(!L)return '';
+ const t=themeState(r,L).T.filter(x=>x.key===key)[0];if(!t)return '';
+ const out=[t.title+' ('+t.term+')'];
+ t.detail.forEach(d=>{out.push('▸ '+d.name+' ('+d.label+')','  '+d.lead);d.readings.forEach(x=>out.push('  - '+x.topic+': '+x.text));d.notes.forEach(n=>out.push('  '+n))});
+ t.own.concat(t.linked).forEach(p=>{const c=L.concept(p.id);
+  out.push('▸ '+(c?c.plain:p.name),'  전문 개념: '+(c?c.term:p.name)+(c?' — '+c.why:''),'  '+p.loop,'  첫 개입: '+p.first,'  자문 포인트: '+p.advice)});
+ const re=r.reassess.filter(x=>t.domains.indexOf(K.DOMAIN_OF[x.n-1])>=0);
+ re.forEach(x=>out.push('- 다시 볼 기준 '+x.topic+': 지금 '+x.nowText+' → '+x.target));
+ return out.join('\n');
+}
+function sectionText(r,key){
+ if(String(key).indexOf('theme-')===0)return themeText(r,String(key).slice(6));
+ if(key==='gloss'){const L=ladder();return L?L.GLOSSARY.map(g=>'- '+g.plain+' = '+g.term+': '+g.text).join('\n'):''}
+ const B=blocks(r);return B[key]?B[key]().join('\n'):'';
+}
 function text(r){
  const s=r.summary,L=[],B=blocks(r);
  L.push('■ OY-RALS 척도 심층해석 · '+r.code.name,'CORE 공식 판정: '+r.title,'','[한눈에 보기]','지원 수준: '+s.level,'현재 안전: '+s.safety,'핵심 어려움: '+(s.keys.join(', ')||'두드러진 어려움 없음'),'이번 주 첫 행동: '+s.first,'해석 신뢰도: '+r.validity.level);
