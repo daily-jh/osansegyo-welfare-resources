@@ -84,7 +84,7 @@ function code(values,prof,patterns,valid){
  if(top.length===1){
   const d=top[0],p=patterns.find(x=>x.items.every(n=>K.DOMAIN_OF[n-1]===d.id));
   return {kind:'single',domains:[d.id],name:p?p.name:d.name+' 집중 프로파일',
-   text:d.name+' 영역 한 곳에 어려움이 모여 있는 프로파일입니다. '+(p?p.loop+' 구체적으로 보면, '+leadText:leadText+' 다른 영역은 상대적으로 유지되고 있어, 이 영역에 지원을 집중하면 변화가 빠르게 나타나는 유형입니다.')};
+   text:d.name+' 영역 한 곳에 어려움이 모여 있는 프로파일입니다. '+(p?p.loop+' 구체적으로 보면, '+leadText:leadText+' 다른 영역은 상대적으로 유지되고 있어, 이 영역부터 집중해 지원해 볼 수 있습니다.')};
  }
  const ids=top.map(d=>d.id);
  const p=patterns.find(x=>{const ds=x.items.map(n=>K.DOMAIN_OF[n-1]);return ids.every(id=>ds.includes(id))})||patterns.find(x=>x.items.some(n=>ids.includes(K.DOMAIN_OF[n-1])));
