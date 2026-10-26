@@ -18,14 +18,14 @@ async function scenario(browser,width){
  await page.waitForFunction(()=>document.querySelector('#resultTools')?.hidden===false,{timeout:15000});
  assert.equal(await page.locator('#resultTools .result-optional-feature').count(),2);
  assert.equal(await page.locator('#journey88').isVisible(),true,'stage 2 interpretation visible');
- assert.equal(await page.locator('#cie-flow-v32').isVisible(),true,'optional V3.2 in-flow panel visible');
- await page.waitForFunction(()=>/해석 완료|심층해석 보류/.test(document.querySelector('#cie-flow-status')?.textContent||''),{timeout:15000});
- assert.match(await page.locator('#cie-flow-status').innerText(),/해석 완료/,'V3.2 must actually return Korean inference');
+  assert.equal(await page.locator('#cie-flow-v32').isVisible(),false,'CIE question panel absent in score stage');
  assert.equal(await page.locator('.flow-nav [data-oy-step]').count(),5,'five main steps exposed');
  assert.equal(await page.locator('[data-j88-result-tab="score"]').getAttribute('aria-pressed'),'true','quantitative first');
- assert.ok((await page.locator('#journey88').innerText()).includes('10개 평가 영역별 원점수'));
+  assert.equal(await page.locator('.j88-raw-accordion').first().getAttribute('open'),null,'raw scores closed initially');
  assert.equal(await page.locator('#oy-index-visual-slot .oy-viz-dashboard').count(),1,'five-level integrated dashboard visible');
  assert.equal(await page.locator('.oy-viz-radar svg').count(),1,'ten-axis radar visible');
+  assert.equal(await page.locator('.oy-viz-radar svg').getAttribute('viewBox'),'0 0 500 500','radar enlarged');
+  assert.equal(await page.locator('#oy-viz-copy-assessment').count(),1,'AI copy action present');
  assert.equal(await page.locator('.oy-viz-heatmap > div').count(),25,'25-item heatmap');
  assert.equal(await page.locator('#oy-index-visual-slot .oy-viz-scale > div').count(),5,'five-stage classification');
  assert.match(await page.locator('#oy-index-visual-slot .oy-viz-grade-head strong').innerText(),/제5단계/,'high Q7 raises safety priority');
@@ -44,11 +44,7 @@ async function scenario(browser,width){
  assert.equal(await page.locator('.j88-operational-summary').count(),1,'system integrated judgment summary exists');
  assert.match(await page.locator('.j88-operational-summary').innerText(),/우선 실행|권장 진행체계/,'direct actionable guidance');
  const originalCore=await page.evaluate(a=>window.YouthCriteria.evaluate(a,[2,3,3,3,2,2,3,3,2,2],false,{}).knownTotal,answers);
- await page.locator('#cie-flow-question').fill('서비스계획에서 확인해야 할 근거는?');
- assert.match(await page.locator('#cie-flow-status').innerText(),/다시 분석/,'changing question invalidates old result');
- await page.locator('#cie-flow-run').click();
- await page.waitForFunction(()=>document.querySelector('#cie-flow-status')?.textContent?.includes('해석 완료'),{timeout:15000});
- assert.ok((await page.locator('#cie-flow-result').innerText()).length>30,'V3.2 produces useful answer');
+  assert.equal(await page.locator('#cie-flow-v32').isVisible(),false,'CIE hidden outside research stage');
  assert.equal(await page.evaluate(a=>window.YouthCriteria.evaluate(a,[2,3,3,3,2,2,3,3,2,2],false,{}).knownTotal,answers),originalCore,'V3.2 never changes CORE');
 
  await page.locator('.flow-nav [data-oy-step="3"]').click();
@@ -58,9 +54,9 @@ async function scenario(browser,width){
  assert.ok(!text.includes('이 단계의 결과를 표시하지 못했습니다.'),'no error fallback');
  assert.match(await page.locator('#oy-viz-stage-v1').innerText(),/사례 톺아보기 · 실행 구조/,'case stage visual timeline');
  await page.locator('#journey88 [data-j88-tab="사례협의"]').click();
- assert.ok((await page.locator('#journey88').innerText()).includes('회의에서 결정해야 할 사항'));
+ assert.ok((await page.locator('#journey88').innerText()).includes('통합사례 진행안'));
  await page.locator('#journey88 [data-j88-tab="서비스계획"]').click();
- assert.ok((await page.locator('#journey88').innerText()).includes('단기 목표'));
+ assert.ok((await page.locator('#journey88').innerText()).includes('단기 첫 1~2주'));
  await page.locator('#journey88 [data-j88-tab="사례사정"]').click();
  assert.ok(await page.locator('#j88-relations').count(),'relation editor is present');
  await page.locator('#j88-relations details > summary').click();
@@ -82,6 +78,8 @@ async function scenario(browser,width){
  await page.locator('#oy-ai-ask').click();
  await page.waitForFunction(()=>document.querySelector('#cie-flow-status')?.textContent?.includes('해석 완료'),{timeout:15000});
  assert.match(await page.locator('#cie-flow-result').innerText(),/선택된 사례관리 문서/,'CIE answer includes linked assessed plan evidence');
+  await page.waitForFunction(()=>document.querySelector('#oy-ai-answer')?.textContent?.length>100,{timeout:15000});
+  assert.match(await page.locator('#oy-ai-answer').innerText(),/CORE|지원|선택된 사례관리 문서/,'inline research result');
  await page.locator('#oy-ai-print').click();
  assert.match(await page.locator('#oy-ai-print-root').innerText(),/OY-RALS AI 연구자료/,'AI research handoff has printable output');
  await page.evaluate(()=>window.dispatchEvent(new Event('afterprint')));
@@ -92,7 +90,9 @@ async function scenario(browser,width){
  assert.match(await page.locator('#oy-viz-stage-v1').innerText(),/회차별 실행흐름/,'records monitoring timeline');
  await page.locator('.flow-nav [data-oy-step="2"]').click();
  assert.equal(await page.locator('#linkageReviewPanel').isVisible(),true,'map review remains reachable');
- assert.match(await page.locator('#oy-viz-stage-v1').innerText(),/연계 구조 · 우선 지원축/,'linkage diagram');
+  assert.equal(await page.locator('#oy-viz-stage-v1').isVisible(),false,'duplicate map card removed');
+  assert.equal(await page.locator('#mapArea').isVisible(),true,'map retained');
+  assert.equal(await page.evaluate(()=>Boolean(document.getElementById('mapArea').compareDocumentPosition(document.getElementById('linkageReviewPanel')) & Node.DOCUMENT_POSITION_FOLLOWING)),true,'next step after map');
  await page.locator('.flow-nav [data-oy-step="3"]').click();
  assert.ok((await page.locator('#journey88').innerText()).includes('사례사정'),'stage3 remains directly reachable after map visit');
  assert.deepEqual(errors,[], 'Browser JS exceptions: '+errors.join(' | '));
