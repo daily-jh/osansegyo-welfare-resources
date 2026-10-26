@@ -1,0 +1,131 @@
+/* Apple Design Skill v6 — 오산 복지자원 찾기, 2026-10-26.
+   Grounded in the HIG mirror (NutshellEngineering/apple-design-skill):
+   typography (17pt default · 11pt minimum, avoid light weights), accessibility
+   (4.5:1 text contrast, 44×44 controls), layout (consistent spacing, grouping),
+   color (one meaning per color), icons (one simple, consistent stroke family).
+   Presentation only — search, filters, data and printing logic are untouched. */
+:root{
+  --ads-text:#16273a;
+  --ads-secondary:#46586b;   /* ≥ 6.5:1 on white */
+  --ads-tertiary:#5b6b7c;    /* ≥ 5:1 on #f5f7fa */
+  --ads-separator:#dfe5ec;
+  --ads-fill:#f2f5f8;
+  --ads-bg:#f6f8fb;
+  --ads-surface:#fff;
+  --ads-accent:#1769d2;
+  --ads-accent-hover:#0f58b5;
+  --ads-accent-soft:#e8f1fc;
+  --ads-radius-s:10px;
+  --ads-radius-m:14px;
+  --ads-radius-l:20px;
+  --ads-shadow:0 1px 2px rgba(18,38,63,.04),0 6px 20px rgba(18,38,63,.05);
+  --ads-shadow-hover:0 2px 4px rgba(18,38,63,.05),0 12px 30px rgba(18,38,63,.09);
+  /* type scale (px): caption 13 · footnote 14 · subhead 15 · body 17 · title3 20 · title2 24 · title1 30 */
+  --ads-caption:13px;--ads-footnote:14px;--ads-subhead:15px;--ads-body:17px;
+}
+body{color:var(--ads-text);background:var(--ads-bg);font-weight:400}
+html{scroll-padding-top:84px}
+
+/* 1. Typography — lift every label to the 13px caption floor, keep weights ≥ regular */
+.brand-copy small,.nav-mark,.edition,.eyebrow,.section-decoration,.overline{letter-spacing:.04em}
+.brand-copy small{font-size:11px;color:var(--ads-tertiary);font-weight:600}
+.overline,.eyebrow,p.eyebrow,span.eyebrow{font-size:var(--ads-caption);color:var(--ads-secondary);font-weight:700}
+.edition{font-size:12px;color:var(--ads-secondary);border-color:var(--ads-separator)}
+.hero-description{font-size:clamp(16px,1.35vw,18px);line-height:1.75;color:var(--ads-secondary)}
+.art-float small{font-size:var(--ads-caption);color:var(--ads-tertiary)}
+.stat-label{font-size:var(--ads-footnote);color:var(--ads-secondary);font-weight:600}
+.stat-unit{font-size:var(--ads-caption);color:var(--ads-tertiary)}
+.stat-date small,.connected-card small{font-size:var(--ads-caption);color:var(--ads-tertiary);line-height:1.6}
+.section-head p:not(.eyebrow){color:var(--ads-secondary)}
+.filter-hint,.quick-row>span{font-size:var(--ads-footnote);color:var(--ads-secondary);font-weight:600}
+.reset-link{font-size:var(--ads-footnote);color:var(--ads-secondary)}
+.result-subcount{font-size:var(--ads-footnote);color:var(--ads-tertiary)}
+.favorite-toggle{font-size:var(--ads-footnote);color:var(--ads-secondary)}
+.search-guide,.advanced-filters p,.load-status{font-size:var(--ads-footnote);color:var(--ads-secondary);line-height:1.7}
+.print-toolbar span{font-size:var(--ads-footnote)}
+.type-label{font-size:var(--ads-caption);color:var(--ads-tertiary)}
+.region-label{font-size:var(--ads-caption)}
+.service-tag{font-size:var(--ads-caption)}
+.card-footer .service-total{font-size:var(--ads-caption);color:var(--ads-tertiary)}
+.org-summary{font-size:var(--ads-subhead);color:var(--ads-secondary);line-height:1.7}
+.footer-right p,.about-lead p{font-size:var(--ads-caption)}
+.maintenance p,.rights-notice p{font-size:var(--ads-subhead);color:var(--ads-secondary);line-height:1.75}
+/* decorative numbering adds noise without meaning */
+.section-decoration,.nav-mark{display:none!important}
+
+/* 2. Header — translucent bar, one row, clear current page */
+.site-header{position:sticky;top:0;z-index:50;background:rgba(250,251,253,.82);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--ads-separator);min-height:64px;padding:8px 0}
+.top-nav a{font-size:var(--ads-subhead);color:var(--ads-secondary);font-weight:600;display:inline-flex;align-items:center;padding:0 4px;border-radius:8px}
+.top-nav a:hover{color:var(--ads-text)}
+.top-nav a.active,.top-nav a[aria-current="page"]{color:var(--ads-text);box-shadow:inset 0 -2px 0 var(--ads-accent)}
+
+/* 3. Icons — one stroke family, tinted fills, legible arrows */
+.ads-icon{display:block;flex:0 0 auto}
+.small-icon,.stat-icon{font-size:0}
+.small-icon .ads-icon{width:22px;height:22px}
+.stat-icon .ads-icon{width:22px;height:22px}
+.small-icon.peach{color:#b4532f}.small-icon.green{color:#2f7a5f}.small-icon.yellow{color:#8a6a12}
+.stat-icon.navy{color:#33606f}.stat-icon.coral{color:#b4532f}.stat-icon.olive{color:#4d7353}
+.art-arrow{color:#7d8a96;display:flex}
+.art-spark{opacity:.55}
+
+/* 4. Controls — 44px hit targets, capsule primary actions, one accent color */
+.primary-cta,.hero-actions .primary-cta{border-radius:999px}
+.primary-cta{background:var(--ads-accent)!important;background-image:none!important;color:#fff!important;min-height:48px;padding:0 24px;box-shadow:0 4px 14px rgba(23,105,210,.2);font-weight:700}
+.primary-cta:hover{background:var(--ads-accent-hover)!important}
+.hero-text-link{display:inline-flex;align-items:center;min-height:44px;color:var(--ads-accent);font-weight:700}
+.quick-tag{min-height:44px;font-size:var(--ads-footnote);border-radius:999px;padding:0 16px;color:var(--ads-secondary);background:var(--ads-surface);border-color:var(--ads-separator)}
+.quick-tag:hover{color:var(--ads-accent);border-color:#b9d1f2;background:var(--ads-accent-soft)}
+.category-chips button{min-height:44px;font-size:var(--ads-footnote);border-radius:999px}
+.region-tabs button{min-height:44px;font-size:var(--ads-footnote);border-radius:var(--ads-radius-m)}
+.reset-link,.expand-button,.program-link,.share-link,.star-button{min-height:44px}
+.star-button{min-width:44px}
+.print-choice{min-height:44px;display:inline-flex;align-items:center;gap:8px;font-size:var(--ads-footnote)}
+.print-choice input,.favorite-toggle input{width:20px;height:20px}
+.favorite-toggle{min-height:44px}
+.maintenance-links a,.footer-right a{display:inline-flex;align-items:center;min-height:44px}
+.search-box{border-radius:var(--ads-radius-m)}
+.search-box input{font-size:var(--ads-body)}
+.search-box button{background:var(--ads-accent);min-height:48px;border-radius:var(--ads-radius-s)}
+
+/* 5. Surfaces — consistent radius, quiet hairlines, soft depth */
+.org-card,.search-panel,.filter-panel,.connected-card,.stats-box{border-radius:var(--ads-radius-l);border-color:var(--ads-separator);box-shadow:var(--ads-shadow)}
+.org-card:hover,.org-card.expanded{border-color:#c6d6e8;box-shadow:var(--ads-shadow-hover)}
+.org-card{padding:24px}
+.card-footer{border-top-color:var(--ads-separator)}
+.org-name{letter-spacing:-.02em}
+
+/* 6. Secondary details found in the second pass */
+.region-label.osan{color:#3f6655}.region-label.gyeonggi{color:#4b6788}.region-label.private{color:#8a5a2e}
+.star-button{color:#7d8a96}
+.star-button.active{color:#c2702f}
+.connected-actions a{min-height:44px;display:inline-flex;align-items:center;border-radius:999px;padding:0 18px;font-size:var(--ads-subhead);font-weight:700}
+.connected-actions a.connected-primary{background:var(--ads-accent)!important;background-image:none!important;color:#fff!important;border-color:var(--ads-accent)!important}
+.connected-actions a.connected-primary:hover{background:var(--ads-accent-hover)!important}
+.connected-card{background:var(--ads-surface);border:1px solid var(--ads-separator)}
+.advanced-filters summary{min-height:44px;padding-block:10px;font-size:var(--ads-subhead);cursor:pointer}
+.edition{font-size:var(--ads-caption)}
+.about-lead>p:not(.eyebrow){font-size:var(--ads-subhead);color:var(--ads-secondary)}
+.about-lead .eyebrow.light{color:#a4532c}
+/* resource-map overview */
+.overview-eyebrow{font-size:var(--ads-caption);letter-spacing:.04em}
+.overview-card-count{font-size:var(--ads-caption);color:#2f5680}
+.overview-card-index{font-size:var(--ads-caption);color:var(--ads-tertiary)}
+.overview-no-match{color:var(--ads-tertiary)}
+.overview-note{color:var(--ads-secondary)}
+
+@media(max-width:700px){
+  .site-header{position:relative}
+  .top-nav{flex-wrap:nowrap!important;justify-content:flex-start!important;gap:4px 18px!important;overflow-x:auto;scrollbar-width:none;max-width:100%}
+  .top-nav::-webkit-scrollbar{display:none}
+  .top-nav a{font-size:var(--ads-footnote);min-height:44px;white-space:nowrap;flex:none}
+  .hero-description{font-size:16px}
+  .org-card{padding:20px}
+  .quick-tag{padding:0 14px}
+}
+@media(prefers-reduced-motion:reduce){.org-card,.quick-tag,.primary-cta{transition:none!important}}
+@media print{
+  body{background:#fff!important}
+  .site-header{position:static!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:#fff!important}
+  .org-card,.search-panel,.filter-panel,.connected-card,.stats-box{box-shadow:none!important}
+}
