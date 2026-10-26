@@ -60,6 +60,16 @@ assert.ok(seen['전부 0'].validity.rows.some(r=>r.label==='어려움 보고 없
 assert.equal(seen['안전 미상'].validity.level,'보류');
 assert.ok(seen['방임 대조'].validity.rows.some(r=>r.label==='문항 간 대조'));
 assert.ok(seen['또래피해-등교회피'].patterns.active.some(p=>p.id==='peer-avoidance'));
+// Integrated case management view
+const cw=k=>seen[k].casework;
+assert.equal(cw('돌봄-학교이탈').level.id,'intensive');
+assert.equal(cw('돌봄-학교이탈').lead,'복지관 통합사례관리');
+assert.equal(cw('온라인 성착취').level.id,'crisis');
+assert.ok(/아동보호·수사기관/.test(cw('방임 대조').leadText));
+assert.ok(/먼저 연락하지 않고/.test(cw('방임 대조').family)&&/먼저 연락하지 않고/.test(cw('안전 미상').family));
+assert.ok(cw('안전 미상').agenda.some(a=>a.includes('확인되지 않은 내용')));
+assert.equal(cw('전부 0').level.id,'monitor');
+for(const k of Object.keys(V)){const w=cw(k);assert.equal(w.plan.length,3);assert.ok(w.plan[0].rows.length>=1);assert.equal(w.ecology.length,4);assert.ok(w.notes.length>=1)}
 let seed=7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
 for(let i=0;i<3000;i++)check(Array.from({length:25},()=>{const r=rnd();return r<0.06?'unknown':r<0.5?0:Math.floor(rnd()*5)}),'random#'+i);
 console.log('oy-deep-interpretation: ok',Object.keys(V).length,'virtual cases + 3000 random');
