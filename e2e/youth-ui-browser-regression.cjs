@@ -84,6 +84,7 @@ async function scenario(browser,width){
  assert.match(await page.locator('#cie-flow-result').innerText(),/선택된 사례관리 문서/,'CIE answer includes linked assessed plan evidence');
   await page.waitForFunction(()=>document.querySelector('#oy-ai-answer')?.textContent?.length>100,{timeout:15000});
   assert.match(await page.locator('#oy-ai-answer').innerText(),/CORE|지원|선택된 사례관리 문서/,'inline research result');
+ await page.locator('#oy-ai-privacy-confirm').check();
  await page.locator('#oy-ai-print').click();
  assert.match(await page.locator('#oy-ai-print-root').innerText(),/OY-RALS AI 연구자료/,'AI research handoff has printable output');
  await page.evaluate(()=>window.dispatchEvent(new Event('afterprint')));
