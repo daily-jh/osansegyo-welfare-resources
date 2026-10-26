@@ -97,7 +97,8 @@ function render(s){
   const a=window.OYModelGateway?.analyze?.(s.payload);
   const x=a?.supportPriority||window.OYFiveLevelIndex.analyze(s.payload);
   if(s.stage===2&&s.view==='result'){
-   if(slot){slot.innerHTML=scoreDashboard(x,s.payload);}
+   const objective=window.OYFiveLevelIndex.analyze({...s.payload,caseContext:''});
+   if(slot){slot.innerHTML=scoreDashboard(objective,s.payload);}
    if(all){all.innerHTML=grade(x)+topStats(x);}
    return;
   }
