@@ -110,7 +110,7 @@ const specific={19:['食','필수생활 공백 확인','오늘 식사·옷·위�
  {title:'학생의 말·희망·동기',text:references.filter(e=>/원함|원하|원치|원하지|희망|거부|동의|하고 싶/.test(e.text)).map(e=>'['+e.id+'] '+e.text).join(' / ')||context.fields.studentWishes||'학생이 바라는 변화와 원하지 않는 지원, 정보공유 의견은 직접 확인해야 합니다.'},
  {title:'강점·보호요인·기존 지원',text:[context.fields.strengths,context.fields.existingSupport].filter(Boolean).join(' / ')||'이번 입력에서 구체적 강점·이용 중 지원을 추출하지 못했습니다. 강점이나 지원이 없다는 뜻은 아닙니다.'},
  {title:'상황을 함께 이해하기 · 잠정 해석과 지도 방향',text:integrated},
- {title:'종합사정 및 우선순위',text:cieSummary+' 우선 실행과제: '+(plans.slice(0,3).map(x=>'['+x.id+'] '+x.title+' — '+x.action).join(' / ')+(plans.length>3?' (그 밖의 과제 '+(plans.length-3)+'건은 서비스계획에 있습니다)':'')||'학생 희망과 필요한 예방·경과 확인을 면담에서 협의합니다.')},
+ {title:'종합사정 및 우선순위',text:cieSummary+' 우선 실행과제: '+(plans.slice(0,3).map((x,i)=>(i+1)+') '+x.title+' — '+x.action).join(' / ')+(plans.length>3?' (그 밖의 과제 '+(plans.length-3)+'건은 서비스계획에 있습니다)':'')||'학생 희망과 필요한 예방·경과 확인을 면담에서 협의합니다.')},
  {title:'근거·미확인·확인 계획',text:[decision.unknownItems.length?'미상: '+decision.unknownItems.join('·')+'번은 0점으로 취급하지 않고 확인 전으로 유지':'',context.mismatches.map(x=>x.items.join('·')+'번: '+x.issue).join(' / '),'문항 근거의 실제 장면·기간·정보원, 학생 희망, 담당·확인일·정보공유 근거를 면담에서 기록해야 합니다.'].filter(Boolean).join(' / ')}
  ];
  const result={version:VERSION,decision,domains,pendingDomains,context,ecosystem,active,semantic,evidence,cieActions,plans,primaryPlans:plans.slice(0,3),ledger,sections,high:p.answers.flatMap((v,i)=>Number.isInteger(v)&&v>=3?[{item:i+1,score:v}]:[]),pairs:W.PAIRS.filter(x=>p.answers[x.item-1]>0&&p.answers[x.other-1]>0),weights:W.audit(p.answers),questions:['지금 가장 먼저 도움받고 싶은 일은 무엇인가요?','그 일이 언제, 어떤 상황에서 가장 어렵게 느껴지나요?','이미 도움을 주는 사람이나 기관이 있나요? 어떤 도움이 더 필요할까요?']};

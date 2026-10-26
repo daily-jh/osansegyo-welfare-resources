@@ -186,7 +186,7 @@ function casework(values,c,prof,patterns,crit,str,p){
  const route=route0&&{...route0,lead:leadRoute&&leadRoute.lead||null};
  const lead=route&&route.lead?route.lead:main&&!(route&&['protect','crisis'].includes(main))?OWNER[main]:route?OWNER.school:'학교 담임',immediate=route?route.immediate:'';
  const partners=order.filter(o=>o!==main&&!(route&&route.lead&&['protect','crisis'].includes(o))).map(o=>OWNER[o]).concat(route&&route.lead&&main?[OWNER[main]]:[]);
- const leadText=route&&route.lead?'안전 신호가 있어 오늘의 즉시 대응과 이후 사례관리 주관을 나눕니다. 즉시 대응은 '+route.immediate+'이 맡고, 이후 사례관리는 '+route.lead.replace(/ \(.*\)$/,'')+'이 주관합니다.':(first==='protect'?'아동보호·수사기관의 판단과 보호 조치가 가장 먼저입니다. 그 뒤 ':first==='crisis'?'정신건강 위기대응 기관과 함께 하는 안전 확인이 가장 먼저입니다. 그 뒤 ':'')+(main==='welfare'?'생활 기반·가족 영역의 비중이 커서 복지관 통합사례관리가 주관하고 학교가 협력하는 구조가 맞습니다.':main==='school'?'어려움이 학교생활 안에 주로 드러나 학교(담임·교육복지사)가 주관하고 지역 기관이 협력하는 구조가 맞습니다.':'지원 영역에 맞는 기관이 주관합니다.');
+ const leadText=route&&route.lead?'안전 신호가 있어 오늘의 즉시 대응과 이후 사례관리 주관을 나눕니다. 오늘의 즉시 대응: '+route.immediate+'. 이후 사례관리: '+josa(route.lead.replace(/ \(.*\)$/,''),'이','가')+' 주관합니다.':(first==='protect'?'아동보호·수사기관의 판단과 보호 조치가 가장 먼저입니다. 그 뒤 ':first==='crisis'?'정신건강 위기대응 기관과 함께 하는 안전 확인이 가장 먼저입니다. 그 뒤 ':'')+(main==='welfare'?'생활 기반·가족 영역의 비중이 커서 복지관 통합사례관리가 주관하고 학교가 협력하는 구조가 맞습니다.':main==='school'?'어려움이 학교생활 안에 주로 드러나 학교(담임·교육복지사)가 주관하고 지역 기관이 협력하는 구조가 맞습니다.':'지원 영역에 맞는 기관이 주관합니다.');
  // ecology
  const ecology=ECO.map(([id,name])=>{
   const items=K.ITEMS.filter(k=>k.eco===id);
@@ -419,7 +419,7 @@ function html(r){
   reassess:()=>r.reassess.length?ul(r.reassess.map(x=>'<strong>'+esc(x.topic)+'</strong> 지금: '+esc(x.nowText)+'<br>다음 목표: '+esc(x.target))):'<p>다음 평가에서 지금의 응답이 유지되는지와 새로운 어려움이 생겼는지 봅니다.</p>',
   validity:()=>'<p><strong>'+esc(r.validity.level)+'</strong> · '+esc(r.validity.summary)+'</p>'+ul(r.validity.rows.map(x=>'<strong>'+esc(x.label)+'</strong> '+esc(x.text)))
  };
- const glance='<section class="odi-sec odi-glance"><h3>한눈에 보기</h3><dl><div><dt>사례관리 수준</dt><dd>'+esc(s.level)+'</dd></div><div class="'+(s.safety==='이번 응답의 안전 신호 없음'?'':'odi-alert')+'"><dt>현재 안전</dt><dd>'+esc(s.safety)+'</dd></div><div><dt>핵심 어려움</dt><dd>'+(s.keys.length?s.keys.map(k=>'<span class="odi-chip">'+esc(k)+'</span>').join(''):'두드러진 어려움 없음')+'</dd></div><div><dt>이번 주 첫 행동</dt><dd>'+esc(s.first)+'</dd></div><div><dt>해석 신뢰도</dt><dd>'+esc(r.validity.level)+' · '+esc(r.validity.summary)+'</dd></div></dl></section>';
+ const glance='<section class="odi-sec odi-glance"><h3>한눈에 보기</h3><dl><div><dt>사례관리 수준</dt><dd>'+esc(s.level)+'</dd></div><div class="'+(s.safety==='이번 응답의 안전 신호 없음'?'':'odi-alert')+'"><dt>현재 안전</dt><dd>'+esc(s.safety)+'</dd></div><div><dt>핵심 어려움</dt><dd>'+(s.keys.length?s.keys.map(k=>'<span class="odi-chip">'+esc(k)+'</span>').join(''):'두드러진 어려움 없음')+'</dd></div><div><dt>첫 행동</dt><dd>'+esc(s.first)+'</dd></div><div><dt>해석 신뢰도</dt><dd>'+esc(r.validity.level)+' · '+esc(r.validity.summary)+'</dd></div></dl></section>';
  const head='<header class="odi-head"><span class="odi-kicker">OY-RALS 척도 심층해석</span><h2>'+esc(r.code.name)+'</h2><p>CORE 공식 판정: '+esc(r.title)+'</p></header>';
  const L=ladder();
  if(L){try{return pagedHtml(r,body,head,glance,L)}catch(_){/* fall through to the linear report */}}
@@ -488,7 +488,7 @@ function sectionText(r,key){
 }
 function text(r){
  const s=r.summary,L=[],B=blocks(r);
- L.push('■ OY-RALS 척도 심층해석 · '+r.code.name,'CORE 공식 판정: '+r.title,'','[한눈에 보기]','사례관리 수준: '+s.level,'현재 안전: '+s.safety,'핵심 어려움: '+(s.keys.join(', ')||'두드러진 어려움 없음'),'이번 주 첫 행동: '+s.first,'해석 신뢰도: '+r.validity.level);
+ L.push('■ OY-RALS 척도 심층해석 · '+r.code.name,'CORE 공식 판정: '+r.title,'','[한눈에 보기]','사례관리 수준: '+s.level,'현재 안전: '+s.safety,'핵심 어려움: '+(s.keys.join(', ')||'두드러진 어려움 없음'),'첫 행동: '+s.first,'해석 신뢰도: '+r.validity.level);
  sections(r).forEach((k,i)=>L.push('','['+(i+1)+'. '+TITLES[k]+']',...B[k]()));
  const a=appendixRows(r);
  L.push('','[근거 자료 · 문항과 점수]','원점수: '+s.total,'CORE 판단: '+r.title,r.core.reason,'영역별 점수',...a.domains.map(x=>'- '+x[0]+': '+x[1]+' · 평균 '+x[2]+' · '+x[3]+(x[4]!=='없음'?' · 미상 '+x[4]:'')),'25문항 응답',...a.items.map(x=>'- '+x[0]+' '+x[1]+': '+x[2]),...(a.critical.length?['결정적 문항: '+a.critical.map(x=>x[0]+' '+x[2]).join(', ')]:[]),...(a.patterns.length?['패턴별 근거: '+a.patterns.map(x=>x[0]+' '+x[1]).join(' / ')]:[]),...(a.reassess.length?['재평가 기준: '+a.reassess.map(x=>x[0]+' '+x[2]+'→'+x[3]).join(', ')]:[]));

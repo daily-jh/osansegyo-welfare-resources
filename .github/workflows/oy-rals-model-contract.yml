@@ -72,3 +72,4 @@ jobs:
           node tests/youth-safety-check-plan.cjs
           node tests/oy-scale-figures.cjs
           node tests/oy-paged-report-regression.cjs
+          node tests/youth-eval100-regression.cjs
