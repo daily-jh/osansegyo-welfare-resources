@@ -38,7 +38,9 @@ test('unknown-only cases are verification queues, not service referrals',()=>{
  const answers=Array(25).fill(0);answers[19]='unknown';answers[6]='unknown';
  const a=G.analyze(payload(answers));
  assert.equal(a.decision.incomplete,true);
- assert.equal(a.plans.length,0);
+ // Unknown safety item 7 leaves one check task owed today, with no agency or service.
+ assert.equal(a.plans.filter(x=>!x.safetyCheck).length,0);
+ assert.deepEqual(a.plans.map(x=>[x.id,x.sourceItemIds.join(),x.candidates.length]),[['P-SAFETY-CHECK','Q07',0]]);
  assert.equal(a.pendingDomains.length,2);
  assert.equal(a.modelTrace.audit.unknownCount,2);
 });

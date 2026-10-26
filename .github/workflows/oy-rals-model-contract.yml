@@ -67,5 +67,6 @@ jobs:
           node tests/oy-ask-model.cjs
           node tests/oy-narrative-interpretation.cjs
           node tests/youth-narrative-safety-regression.cjs
+          node tests/youth-safety-check-plan.cjs
           node tests/oy-scale-figures.cjs
           node tests/oy-paged-report-regression.cjs

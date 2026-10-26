@@ -3,7 +3,7 @@
 const node=typeof module!=='undefined'&&module.exports;
 const M=node?require('./support-model.js'):root.YouthMap,C=node?require('./case-context-core.js'):root.YouthCaseContextCore,W=node?require('./weight-model.js'):root.YouthWeightModel,E=node?require('./case-context-v81.js'):root.YouthContextV81,S=node?require('./cie-semantic-layer-v2.js'):root.OYCIESemanticV2;
 const I=node?require('./case-interpretation-core.js'):root.OYCaseInterpretation;
-const VERSION='8.9.4-integrated-case-interpretation';
+const VERSION='8.9.5-safety-check-owed';
 const tasks=[
  ['현재 보호 상황 확인','현재 위치·위해·안전한 연락 상대를 확인하고 사안별 보호절차를 검토합니다.','추가 위해와 보호 공백 여부'],
  ['또래관계의 안전 확인','상호 갈등·피해·위협을 구분하고 학교 담당과 안전한 접촉·생활 조정을 정합니다.','학생이 느끼는 안전과 피해 반복 여부'],
@@ -38,6 +38,18 @@ const specific={19:['食','필수생활 공백 확인','오늘 식사·옷·위�
  plans=plans.flatMap(plan=>{if(plan.domain!==7)return [plan];const ns=[19,20,21].filter(n=>Number.isInteger(p.answers[n-1])&&p.answers[n-1]>0); /* unknown siblings remain verification items */return ns.length?ns.map(n=>({...plan,item:n,title:p.answers[n-1]==='unknown'?'추가 확인 · '+specific[n][1]:specific[n][1],evidence:[n+'번 '+(p.answers[n-1]==='unknown'?'미상 · 필요 여부 확인':p.answers[n-1]+'점')],action:specific[n][2],outcome:specific[n][3],candidates:(p.answers[n-1]==='unknown'?[]:M.groupedCandidates(p,domains[7]).filter(g=>M.describe(p,domains[7],g.primary).evidence.includes(n))).slice(0,3).map(g=>({name:g.name,service:g.primary['서비스명'],condition:M.describe(p,domains[7],g.primary).condition}))})):[plan];});
  const ledger=[...p.answers.map((value,i)=>({id:'Q'+String(i+1).padStart(2,'0'),kind:'scale-response',value,status:value==='unknown'?'unknown':'reported',source:'평가자 입력',time:'평가 시점',ruleVersion:VERSION})),...C.splitClauses(p.caseContext||'').map((text,i)=>({id:'E'+String(i+1).padStart(3,'0'),kind:'narrative',text:C.redact(text),status:'reported-unverified',source:'자유서술 · 정보원 직접 확인 필요',time:/(과거|작년|지난해|예전)/.test(text)?'과거 언급':/(현재|최근|오늘)/.test(text)?'현재·최근 언급':'시점 미확인',ruleVersion:VERSION}))];
  plans=plans.map(x=>({...x,id:x.item?'P-Q'+x.item:'P-D'+x.domain,sourceItemIds:(x.item?[x.item]:domains[x.domain].numbers.filter(n=>p.answers[n-1]>0||p.answers[n-1]==='unknown')).map(n=>'Q'+String(n).padStart(2,'0')),sourceTextIds:ledger.filter(e=>e.kind==='narrative'&&context.signals.some(z=>z.items.some(n=>domains[x.domain].numbers.includes(n))&&e.text.includes(z.clause))).map(e=>e.id),status:'draft'}));
+ // An unknown safety item or unanswered current-risk follow-up is a check owed today, not an absent need.
+ // It never sets a score, level or service; it names who checks what, and when.
+ const owed=[...(decision.safetyUnknown||[]).map(n=>({n,why:'미상'})),...(decision.pendingChecks||[]).filter(n=>!(decision.safetyUnknown||[]).includes(n)).map(n=>({n,why:'현재 위험 추가확인 미완료'}))];
+ if(owed.length){
+  const where=n=>domains.find(d=>d.numbers.includes(n)),label=o=>o.n+'번('+(where(o.n)?.name||'안전 문항')+' · '+o.why+')';
+  plans.unshift({id:'P-SAFETY-CHECK',domain:where(owed[0].n)?.i??0,title:'안전 확인 미완료 · 오늘 직접 확인',safetyCheck:true,
+   evidence:owed.map(label),narrativeOnly:false,
+   action:'오늘 안에 담임·상담교사 등 담당자가 학생과 안전한 곳에서 직접 면담해 '+owed.map(label).join(', ')+'의 현재 상황을 확인하고 결과를 평가에 기록합니다. 확인 전에는 안전하다고 보지 않으며, 위해가 확인되면 신고의무와 보호절차를 바로 따릅니다.',
+   outcome:'미확인 안전 문항의 확인 완료와 필요 시 보호절차 착수',
+   when:'오늘 안에 직접 확인',candidates:[],
+   sourceItemIds:owed.map(o=>'Q'+String(o.n).padStart(2,'0')),sourceTextIds:[],status:'draft'});
+ }
  const references=ledger.filter(e=>e.kind==='narrative');
  const relevant=(ids)=>references.filter(e=>context.signals.some(z=>ids.includes(z.tag)&&e.text.includes(z.clause))).map(e=>'['+e.id+'] '+e.text).join(' / ');
  const familyEvidence=ecosystem.family.map(f=>f.label+'('+f.status+' · 서술 근거, 확인 전)').join(' / ');
