@@ -1,0 +1,52 @@
+/* © 2026 오산세교종합사회복지관 김지훈 팀장. All rights reserved. */
+/* v8 메인 보조 도구: 긴급전화 목록, 쉬운 말·다국어 안내, 24시간 표시.
+   editorial-v7 기조를 따른다: 머리선(hairline) + 키커 + 제목, 그림자 대신 조용한 면, 파랑=행동, 빨강=위급만. */
+.help-now{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:20px 40px;margin-top:40px;margin-bottom:8px;padding-top:20px;border-top:1px solid var(--ads-text,#16273a)}
+.help-now-head .eyebrow{margin:0}
+.help-now-head h2{margin:8px 0 10px;font-size:clamp(24px,2.6vw,30px);line-height:1.3;letter-spacing:-.02em;color:var(--ads-text,#16273a)}
+.help-now-head p{margin:0;color:var(--ads-secondary,#46586b);font-size:var(--ads-subhead,15px);line-height:1.7}
+.help-now-head p strong{color:#b02424}
+
+/* 번호 목록: 잡지 색인처럼 머리선으로 나눈 행 */
+.help-now-list{grid-column:2;list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:28px;border-top:1px solid var(--ed-rule,#dfe5ec)}
+.help-now-list li{border-bottom:1px solid var(--ed-rule,#dfe5ec)}
+.help-now-list a{display:grid;grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"num label icon" "num note icon";align-items:center;column-gap:14px;min-height:64px;padding:12px 6px;color:var(--ads-text,#16273a);text-decoration:none;border-radius:10px;transition:background .15s}
+.help-now-list a:hover,.help-now-list a:focus-visible{background:var(--ads-fill,#f2f5f8)}
+.help-now-list strong{grid-area:num;min-width:6.1em;white-space:nowrap;font-size:20px;font-weight:700;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.help-now-list span{grid-area:label;font-weight:700;font-size:var(--ads-subhead,15px);line-height:1.35}
+.help-now-list small{grid-area:note;color:var(--ads-secondary,#46586b);font-size:var(--ads-caption,13px);line-height:1.35}
+.help-now-list a::after{content:"";grid-area:icon;width:20px;height:20px;background:var(--ed-accent,#1765bd);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 4h3.5l1.6 4.2-2.2 1.4a11 11 0 0 0 6.5 6.5l1.4-2.2L20 15.5V19a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1z'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 4h3.5l1.6 4.2-2.2 1.4a11 11 0 0 0 6.5 6.5l1.4-2.2L20 15.5V19a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1z'/%3E%3C/svg%3E") center/contain no-repeat}
+/* 112·119만 빨강: 생명·신체 위험 */
+.help-now-list li:nth-child(-n+2) strong{color:#b02424}
+.help-now-list li:nth-child(-n+2) a::after{background:#c42b2b}
+
+/* 쉬운 말·다국어: 오른쪽 단 아래 조용한 면 두 개 */
+.help-now-guides{grid-column:2;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}
+.easy-guide,.lang-guide{padding:18px 20px;border-radius:var(--ads-radius-m,14px);background:var(--ads-fill,#f2f5f8)}
+.easy-guide h3{margin:0 0 8px;font-size:var(--ads-body,17px);letter-spacing:-.01em}
+.easy-guide ol{margin:0;padding-left:20px;font-size:var(--ads-subhead,15px);line-height:1.7;color:var(--ads-text,#16273a)}
+.lang-guide summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:44px;font-weight:700;font-size:var(--ads-body,17px);color:var(--ads-text,#16273a)}
+.lang-guide summary::-webkit-details-marker{display:none}
+.lang-guide summary::after{content:"";flex:none;width:9px;height:9px;border-right:2px solid var(--ed-accent,#1765bd);border-bottom:2px solid var(--ed-accent,#1765bd);transform:rotate(45deg) translateY(-3px);transition:transform .15s}
+.lang-guide[open] summary::after{transform:rotate(-135deg) translateY(-3px)}
+.lang-guide summary small{display:block;font-weight:600;font-size:var(--ads-caption,13px);color:var(--ads-secondary,#46586b)}
+.lang-grid{display:grid;gap:12px;margin-top:8px;padding-top:12px;border-top:1px solid var(--ed-rule,#dfe5ec)}
+.lang-grid b{font-size:var(--ads-caption,13px);letter-spacing:.04em;color:var(--ads-secondary,#46586b)}
+.lang-grid p{margin:2px 0 0;font-size:var(--ads-subhead,15px);line-height:1.6}
+.lang-note{margin:12px 0 0;font-size:var(--ads-caption,13px);line-height:1.6;color:var(--ads-tertiary,#5b6b7c)}
+
+/* 카드 표시: 범주 라벨과 24시간 칩은 기존 type-label 모양을 따른다 */
+.region-label.national{color:#2f5f8a}
+.allday-label{display:inline-flex;align-items:center;margin-left:6px;padding:2px 8px;border-radius:6px;background:var(--ed-accent-soft,#e8f1fc);color:var(--ed-accent,#1765bd);font-size:var(--ads-caption,13px);font-weight:700}
+
+@media (max-width:900px){
+  .help-now{grid-template-columns:1fr;gap:16px}
+  .help-now-list,.help-now-guides{grid-column:auto}
+}
+@media (max-width:700px){
+  .help-now{margin-top:28px}
+  .help-now-list{grid-template-columns:1fr}
+  .help-now-list a{min-height:56px;padding:10px 4px}
+  .help-now-guides{grid-template-columns:1fr}
+  .toolbar-actions{flex-wrap:wrap}
+}

@@ -1,6 +1,6 @@
 /* © 2026 오산세교종합사회복지관 김지훈 팀장. All rights reserved. */
 window.WELFARE_DATA = {
-  "date": "2026-10-24",
+  "date": "2026-10-26",
   "schemaVersion": 2,
   "note": "기존 자료 정리일이며, 기관·사업별 실제 운영 확인일과 다릅니다. 연계 전 최신 공식 공고를 확인해 주세요.",
   "taxonomy": {
@@ -99,6 +99,7 @@ window.WELFARE_DATA = {
       "site": "https://www.osgwc.or.kr/",
       "phone": "031-290-8501",
       "source": "https://www.osgwc.or.kr/",
+      "scope": "오산시",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "1권역: 신장1동·신장2동·세마동",
@@ -260,6 +261,7 @@ window.WELFARE_DATA = {
       "site": "https://osanwelfare.co.kr/",
       "phone": "031-378-2740",
       "source": "https://osanwelfare.co.kr/",
+      "scope": "오산시",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "2권역: 남촌동·중앙동",
@@ -392,6 +394,7 @@ window.WELFARE_DATA = {
       "site": "https://www.ossw.or.kr/home/",
       "phone": "031-376-6193~6",
       "source": "https://www.ossw.or.kr/home/",
+      "scope": "오산시",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "3권역: 대원1동·대원2동·초평동",
@@ -525,6 +528,7 @@ window.WELFARE_DATA = {
       "site": "https://www.osan.go.kr/main.do",
       "phone": "",
       "source": "https://www.osan.go.kr/main.do",
+      "scope": "오산시",
       "reviewed": "",
       "status": "미확인",
       "jurisdiction": "",
@@ -557,6 +561,7 @@ window.WELFARE_DATA = {
       "site": "https://www.osan.go.kr/",
       "phone": "031-8036-8036",
       "source": "https://www.osan.go.kr/",
+      "scope": "오산시",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -652,6 +657,7 @@ window.WELFARE_DATA = {
       "site": "https://osan.gcps.or.kr/",
       "phone": "031-8077-9610",
       "source": "https://osan.gcps.or.kr/gnosan/json/branchinfo",
+      "scope": "오산시",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -755,6 +761,7 @@ window.WELFARE_DATA = {
       "site": "https://osan.familynet.or.kr/center/index.do",
       "phone": "031-372-1335",
       "source": "https://osan.familynet.or.kr/center/lay1/program/S295T315C321/center_info/view.do",
+      "scope": "오산시",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -886,6 +893,7 @@ window.WELFARE_DATA = {
       "site": "https://www.osan1318.or.kr/1318/main.do",
       "phone": "031-372-4004",
       "source": "https://www.osan1318.or.kr/1318/main.do",
+      "scope": "오산시",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -988,6 +996,7 @@ window.WELFARE_DATA = {
       "site": "https://www.osan1318.or.kr/1318/main.do",
       "phone": "031-372-4004",
       "source": "https://www.osan.go.kr/depart/contents.do?mId=0405020000",
+      "scope": "오산시",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -1085,6 +1094,7 @@ window.WELFARE_DATA = {
       "site": "https://www.osmh.or.kr/",
       "phone": "031-374-8680",
       "source": "https://www.osmh.or.kr/",
+      "scope": "오산시",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -1221,6 +1231,7 @@ window.WELFARE_DATA = {
       "site": "https://www.osan.go.kr/depart/contents.do?mId=0502070000",
       "phone": "031-8036-6036",
       "source": "https://www.osan.go.kr/depart/contents.do?mId=0502070000",
+      "scope": "오산시",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -1349,6 +1360,7 @@ window.WELFARE_DATA = {
       "site": "https://www.osrc.or.kr/",
       "phone": "031-290-8560",
       "source": "https://www.osrc.or.kr/",
+      "scope": "오산시",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -1486,6 +1498,7 @@ window.WELFARE_DATA = {
       "site": "https://hanaul.or.kr/",
       "phone": "031-8043-5909",
       "source": "https://hanaul.or.kr/",
+      "scope": "오산시",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -1582,6 +1595,7 @@ window.WELFARE_DATA = {
       "site": "https://osannoin.or.kr/",
       "phone": "031-290-8530",
       "source": "https://osannoin.or.kr/",
+      "scope": "오산시",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -1681,6 +1695,7 @@ window.WELFARE_DATA = {
       "site": "http://ossc.kr/",
       "phone": "031-372-6090",
       "source": "http://ossc.kr/",
+      "scope": "오산시",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -1746,6 +1761,7 @@ window.WELFARE_DATA = {
       "site": "http://www.osjw.or.kr/g5/index.php",
       "phone": "031-375-3322",
       "source": "http://www.osjw.or.kr/g5/index.php",
+      "scope": "오산시",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -1842,6 +1858,7 @@ window.WELFARE_DATA = {
       "site": "https://www.work.go.kr/osan/main.do",
       "phone": "031-8024-9805",
       "source": "https://www.work.go.kr/osan/main.do",
+      "scope": "오산시",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -1942,6 +1959,7 @@ window.WELFARE_DATA = {
       "site": "https://www.osan1365.or.kr/",
       "phone": "031-372-1365",
       "source": "https://www.osan1365.or.kr/board/board.php?p=4&table=mn01_04_02",
+      "scope": "오산시",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -2039,6 +2057,7 @@ window.WELFARE_DATA = {
       "site": "https://www.osan1365.or.kr/board/board.php?p=4&table=mn01_04_02",
       "phone": "031-373-7412",
       "source": "https://www.osan1365.or.kr/board/board.php?p=4&table=mn01_04_02",
+      "scope": "오산시",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -2136,6 +2155,7 @@ window.WELFARE_DATA = {
       "site": "https://www.osan.go.kr/depart/contents.do?mId=0403020500",
       "phone": "",
       "source": "https://www.osan.go.kr/depart/contents.do?mId=0403020500",
+      "scope": "오산시",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -2202,6 +2222,7 @@ window.WELFARE_DATA = {
       "site": "https://www.gg.go.kr/",
       "phone": "031-120",
       "source": "https://www.gg.go.kr/",
+      "scope": "경기도",
       "reviewed": "2026-10-24",
       "status": "미확인",
       "jurisdiction": "",
@@ -2423,6 +2444,7 @@ window.WELFARE_DATA = {
       "site": "https://gcfwc.ggwf.or.kr/",
       "phone": "1899-6014",
       "source": "https://gcfwc.ggwf.or.kr/",
+      "scope": "경기도",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -2525,6 +2547,7 @@ window.WELFARE_DATA = {
       "site": "https://housing.gg.go.kr/",
       "phone": "031-548-4046",
       "source": "https://housing.gg.go.kr/html/27100.do",
+      "scope": "경기도",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -2622,6 +2645,7 @@ window.WELFARE_DATA = {
       "site": "https://www.medical.or.kr/center/index.do",
       "phone": "031-250-8800",
       "source": "https://www.medical.or.kr/center/index.do",
+      "scope": "경기도",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -2723,6 +2747,7 @@ window.WELFARE_DATA = {
       "site": "https://www.ggnurim.or.kr/",
       "phone": "031-299-5000",
       "source": "https://www.ggnurim.or.kr/",
+      "scope": "경기도",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -2851,6 +2876,7 @@ window.WELFARE_DATA = {
       "site": "https://www.broso.or.kr/gyeonggi/mainPage.do",
       "phone": "031-548-1393",
       "source": "https://www.broso.or.kr/gyeonggi/mainPage.do",
+      "scope": "경기도",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -2949,6 +2975,7 @@ window.WELFARE_DATA = {
       "site": "https://www.hi1318.or.kr/",
       "phone": "031-248-1318",
       "source": "https://www.hi1318.or.kr/",
+      "scope": "경기도",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -3051,6 +3078,7 @@ window.WELFARE_DATA = {
       "site": "https://gg.pass.or.kr/",
       "phone": "031-882-8579",
       "source": "https://gg.pass.or.kr/",
+      "scope": "경기도",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -3149,6 +3177,7 @@ window.WELFARE_DATA = {
       "site": "https://ggwf.gg.go.kr/",
       "phone": "1577-4312",
       "source": "https://ggwf.gg.go.kr/",
+      "scope": "경기도",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -3247,6 +3276,7 @@ window.WELFARE_DATA = {
       "site": "https://www.gjf.or.kr/main/main.do",
       "phone": "031-270-9600",
       "source": "https://www.gjf.or.kr/main/main.do",
+      "scope": "경기도",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -3345,6 +3375,7 @@ window.WELFARE_DATA = {
       "site": "https://www.goehs.kr/goehs/cm/cntnts/cntntsView.do?cntntsId=2147&mi=18023",
       "phone": "031-371-0606",
       "source": "https://www.goehs.kr/goehs/cm/cntnts/cntntsView.do?cntntsId=2147&mi=18023",
+      "scope": "경기도",
       "reviewed": "2026-10-24",
       "status": "미확인",
       "jurisdiction": "",
@@ -3527,6 +3558,7 @@ window.WELFARE_DATA = {
       "site": "https://www.chorogusan.or.kr/",
       "phone": "1588-1940",
       "source": "https://www.chorogusan.or.kr/main.do",
+      "scope": "전국 민간",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -3697,6 +3729,7 @@ window.WELFARE_DATA = {
       "site": "https://www.goodneighbors.kr/",
       "phone": "02-6717-4000",
       "source": "https://www.goodneighbors.kr/",
+      "scope": "전국 민간",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -3831,6 +3864,7 @@ window.WELFARE_DATA = {
       "site": "https://www.worldvision.or.kr/",
       "phone": "02-2078-7000",
       "source": "https://www.worldvision.or.kr/",
+      "scope": "전국 민간",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -3967,6 +4001,7 @@ window.WELFARE_DATA = {
       "site": "https://www.sc.or.kr/",
       "phone": "02-6900-4400",
       "source": "https://www.sc.or.kr/",
+      "scope": "전국 민간",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -4066,6 +4101,7 @@ window.WELFARE_DATA = {
       "site": "https://www.miral.org/",
       "phone": "02-3411-4664",
       "source": "https://www.miral.org/etc/map.do",
+      "scope": "전국 민간",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -4196,6 +4232,7 @@ window.WELFARE_DATA = {
       "site": "https://purme.org/",
       "phone": "02-720-7002",
       "source": "https://purme.org/",
+      "scope": "전국 민간",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -4330,6 +4367,7 @@ window.WELFARE_DATA = {
       "site": "https://beautifulfund.org/",
       "phone": "02-766-1004",
       "source": "https://beautifulfund.org/",
+      "scope": "전국 민간",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -4430,6 +4468,7 @@ window.WELFARE_DATA = {
       "site": "https://www.sdream.or.kr/portal",
       "phone": "02-727-5400",
       "source": "https://www.sdream.or.kr/portal",
+      "scope": "전국 민간",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -4565,6 +4604,7 @@ window.WELFARE_DATA = {
       "site": "https://www.gfound.org/",
       "phone": "02-6335-0100",
       "source": "https://www.gfound.org/",
+      "scope": "전국 민간",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -4665,6 +4705,7 @@ window.WELFARE_DATA = {
       "site": "https://www.habitat.or.kr/",
       "phone": "1544-3396",
       "source": "https://www.habitat.or.kr/",
+      "scope": "전국 민간",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -4765,6 +4806,7 @@ window.WELFARE_DATA = {
       "site": "https://chest.or.kr/",
       "phone": "02-6262-3000",
       "source": "https://chest.or.kr/",
+      "scope": "전국 민간",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -4897,6 +4939,7 @@ window.WELFARE_DATA = {
       "site": "https://www.redcross.or.kr/",
       "phone": "1577-8179",
       "source": "https://www.redcross.or.kr/main/cm/conts/contsView.do?mi=1384&contsId=1102",
+      "scope": "전국 민간",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -4994,6 +5037,7 @@ window.WELFARE_DATA = {
       "site": "https://www.babo.or.kr/",
       "phone": "02-727-2506",
       "source": "https://www.babo.or.kr/",
+      "scope": "전국 민간",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -5093,6 +5137,7 @@ window.WELFARE_DATA = {
       "site": "https://www.kfhi.or.kr/",
       "phone": "02-544-9544",
       "source": "https://www.kfhi.or.kr/",
+      "scope": "전국 민간",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -5194,6 +5239,7 @@ window.WELFARE_DATA = {
       "site": "https://www.kclf.org/",
       "phone": "02-766-7671",
       "source": "https://www.kclf.org/",
+      "scope": "전국 민간",
       "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
@@ -5292,6 +5338,7 @@ window.WELFARE_DATA = {
       "site": "",
       "phone": "",
       "source": "https://osan.welinfo.kr/?board=programList",
+      "scope": "오산시",
       "reviewed": "",
       "status": "미확인",
       "jurisdiction": "",
@@ -5324,6 +5371,7 @@ window.WELFARE_DATA = {
       "site": "https://www.osanidream.or.kr/",
       "phone": "031-374-5540",
       "source": "https://osan.welinfo.kr/?board=programList",
+      "scope": "오산시",
       "reviewed": "",
       "status": "미확인",
       "jurisdiction": "",
@@ -5356,10 +5404,129 @@ window.WELFARE_DATA = {
       "site": "https://www.osanchild.or.kr/",
       "phone": "",
       "source": "https://osan.welinfo.kr/?board=programList",
-      "reviewed": "",
+      "scope": "오산시",
+      "reviewed": "2026-10-26",
       "status": "미확인",
       "jurisdiction": "",
-      "services": [],
+      "services": [
+        {
+          "id": "SVC-Z26-021",
+          "name": "시간제보육",
+          "category": "돌봄·생활",
+          "target": "오산시 영유아 가정",
+          "description": "필요한 시간만큼 영유아를 맡기는 시간제보육실 운영. 대상 연령·이용료·예약은 센터 안내 확인.",
+          "method": "센터 누리집·전화 예약",
+          "operation": "공식 공개 안내에서 창구 존재 확인. 현재 운영시간·대상·접수는 연계 전 재확인.",
+          "editedOn": "2026-10-26",
+          "tags": {
+            "target": [
+              "영유아",
+              "가족·한부모"
+            ],
+            "need": [
+              "돌봄"
+            ],
+            "form": [
+              "서비스 제공",
+              "시설 이용"
+            ],
+            "intake": [
+              "온라인",
+              "전화"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osanchild.or.kr/",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-10-26",
+            "method": "공식 공개 안내 웹 열람; 실제 접수·운영시간·대상 선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-01-26"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-Z26-022",
+          "name": "장난감·도서 대여",
+          "category": "돌봄·생활",
+          "target": "오산시 영유아 가정",
+          "description": "장난감·도서 대여점 운영. 회원가입·대여 조건 확인.",
+          "method": "센터 회원가입 후 이용",
+          "operation": "공식 공개 안내에서 창구 존재 확인. 현재 운영시간·대상·접수는 연계 전 재확인.",
+          "editedOn": "2026-10-26",
+          "tags": {
+            "target": [
+              "영유아"
+            ],
+            "need": [
+              "돌봄",
+              "교육"
+            ],
+            "form": [
+              "현물",
+              "시설 이용"
+            ],
+            "intake": [
+              "직접 방문",
+              "온라인"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osanchild.or.kr/",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-10-26",
+            "method": "공식 공개 안내 웹 열람; 실제 접수·운영시간·대상 선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-01-26"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-Z26-023",
+          "name": "부모 전문가 상담·부모교육",
+          "category": "가족·아동",
+          "target": "영유아 부모",
+          "description": "양육 고민 전문가 상담과 부모교육 신청. 아이사랑놀이터 등 놀이공간 별도 안내.",
+          "method": "센터 누리집 신청",
+          "operation": "공식 공개 안내에서 창구 존재 확인. 현재 운영시간·대상·접수는 연계 전 재확인.",
+          "editedOn": "2026-10-26",
+          "tags": {
+            "target": [
+              "영유아",
+              "가족·한부모"
+            ],
+            "need": [
+              "가족지원",
+              "돌봄"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "온라인"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osanchild.or.kr/",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-10-26",
+            "method": "공식 공개 안내 웹 열람; 실제 접수·운영시간·대상 선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-01-26"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
       "contact": {
         "contact_id": "CON-4cd8235704",
         "owner_type": "organization",
@@ -5388,6 +5555,7 @@ window.WELFARE_DATA = {
       "site": "https://www.osan.go.kr/main.do",
       "phone": "031-8036-8036",
       "source": "https://www.osan.go.kr/main.do",
+      "scope": "오산시",
       "reviewed": "2026-10-22",
       "status": "운영중",
       "jurisdiction": "오산시",
@@ -5556,6 +5724,7 @@ window.WELFARE_DATA = {
       "site": "https://www.osan.go.kr/main.do",
       "phone": "031-8036-8036",
       "source": "https://www.osan.go.kr/main.do",
+      "scope": "오산시",
       "reviewed": "2026-10-22",
       "status": "운영중",
       "jurisdiction": "오산시",
@@ -5740,6 +5909,7 @@ window.WELFARE_DATA = {
       "site": "https://www.osan.go.kr/main.do",
       "phone": "031-8036-8036",
       "source": "https://www.osan.go.kr/main.do",
+      "scope": "오산시",
       "reviewed": "2026-10-22",
       "status": "운영중",
       "jurisdiction": "오산시",
@@ -5924,6 +6094,7 @@ window.WELFARE_DATA = {
       "site": "https://www.osan.go.kr/main.do",
       "phone": "031-8036-8036",
       "source": "https://www.osan.go.kr/main.do",
+      "scope": "오산시",
       "reviewed": "2026-10-22",
       "status": "운영중",
       "jurisdiction": "오산시",
@@ -6108,6 +6279,7 @@ window.WELFARE_DATA = {
       "site": "https://www.osan.go.kr/main.do",
       "phone": "031-8036-8036",
       "source": "https://www.osan.go.kr/main.do",
+      "scope": "오산시",
       "reviewed": "2026-10-22",
       "status": "운영중",
       "jurisdiction": "오산시",
@@ -6292,6 +6464,7 @@ window.WELFARE_DATA = {
       "site": "https://www.osan.go.kr/main.do",
       "phone": "031-8036-8036",
       "source": "https://www.osan.go.kr/main.do",
+      "scope": "오산시",
       "reviewed": "2026-10-22",
       "status": "운영중",
       "jurisdiction": "오산시",
@@ -6476,6 +6649,7 @@ window.WELFARE_DATA = {
       "site": "https://www.osan.go.kr/main.do",
       "phone": "031-8036-8036",
       "source": "https://www.osan.go.kr/main.do",
+      "scope": "오산시",
       "reviewed": "2026-10-22",
       "status": "운영중",
       "jurisdiction": "오산시",
@@ -6660,6 +6834,7 @@ window.WELFARE_DATA = {
       "site": "https://www.osan.go.kr/main.do",
       "phone": "031-8036-8036",
       "source": "https://www.osan.go.kr/main.do",
+      "scope": "오산시",
       "reviewed": "2026-10-22",
       "status": "운영중",
       "jurisdiction": "오산시",
@@ -6844,6 +7019,7 @@ window.WELFARE_DATA = {
       "site": "https://www.osan.go.kr/main.do",
       "phone": "031-8036-8036",
       "source": "https://www.osan.go.kr/main.do",
+      "scope": "오산시",
       "reviewed": "2026-10-22",
       "status": "운영중",
       "jurisdiction": "오산시",
@@ -6952,6 +7128,7 @@ window.WELFARE_DATA = {
       "site": "https://www.bokji.net/ssn/bin/13.bokji",
       "phone": "",
       "source": "https://www.gg.go.kr/bbs/boardView.do?bIdx=218024475&bsIdx=496&menuId=3261&page=1",
+      "scope": "오산시",
       "reviewed": "2026-10-22",
       "status": "미확인",
       "jurisdiction": "오산시",
@@ -7055,6 +7232,7 @@ window.WELFARE_DATA = {
       "site": "https://osan.nid.or.kr/",
       "phone": "031-8036-6611",
       "source": "https://www.osan.go.kr/ostv/cast/viewer/board.do?key=1d70d0e98c9884a631f744996476ce2989f5a89079c35e96cbd016d44babcb3e31740822049d111d",
+      "scope": "오산시",
       "reviewed": "2026-10-22",
       "status": "운영중",
       "jurisdiction": "오산시",
@@ -7160,6 +7338,7 @@ window.WELFARE_DATA = {
       "site": "https://www.gg.go.kr/contents/contents.do?ciIdx=1526&menuId=3451",
       "phone": "031-120-0",
       "source": "https://www.gg.go.kr/contents/contents.do?ciIdx=1526&menuId=3451",
+      "scope": "경기도",
       "reviewed": "2026-10-22",
       "status": "운영중",
       "jurisdiction": "사업별 관할·접수기준 확인",
@@ -7233,6 +7412,7 @@ window.WELFARE_DATA = {
       "site": "https://www.mentalhealth.or.kr/",
       "phone": "",
       "source": "https://www.mentalhealth.or.kr/MentalBusiness/BusinessContent.asp",
+      "scope": "경기도",
       "reviewed": "2026-10-22",
       "status": "운영중",
       "jurisdiction": "사업별 관할·접수기준 확인",
@@ -7336,6 +7516,7 @@ window.WELFARE_DATA = {
       "site": "https://www.atrac.or.kr/main/main.html",
       "phone": "",
       "source": "https://www.atrac.or.kr/main/main.html",
+      "scope": "경기도",
       "reviewed": "2026-10-22",
       "status": "운영중",
       "jurisdiction": "사업별 관할·접수기준 확인",
@@ -7441,6 +7622,7 @@ window.WELFARE_DATA = {
       "site": "https://www.ggaapd.or.kr/",
       "phone": "",
       "source": "https://ggwf.gg.go.kr/wp-content/uploads/sites/30/2024/12/정책연구-2024-08_경기도-장애인권익옹호기관-운영-현황-및-개선방안.pdf",
+      "scope": "경기도",
       "reviewed": "2026-10-22",
       "status": "미확인",
       "jurisdiction": "사업별 관할·접수기준 확인",
@@ -7510,6 +7692,7 @@ window.WELFARE_DATA = {
       "site": "https://www.gg.go.kr/contents/contents.do?ciIdx=1472&menuId=3302",
       "phone": "",
       "source": "https://www.gg.go.kr/contents/contents.do?ciIdx=1472&menuId=3302",
+      "scope": "경기도",
       "reviewed": "2026-10-24",
       "status": "운영중",
       "jurisdiction": "사업별 관할·접수기준 확인",
@@ -7712,6 +7895,7 @@ window.WELFARE_DATA = {
       "site": "https://www.gg.go.kr/contents/contents.do?ciIdx=1470&menuId=3300",
       "phone": "031-1366",
       "source": "https://www.gg.go.kr/contents/contents.do?ciIdx=1470&menuId=3300",
+      "scope": "경기도",
       "reviewed": "2026-10-22",
       "status": "운영중",
       "jurisdiction": "사업별 관할·접수기준 확인",
@@ -7782,6 +7966,7 @@ window.WELFARE_DATA = {
       "site": "http://www.ggsunflower.or.kr/html/",
       "phone": "031-216-1117",
       "source": "https://www.gg.go.kr/contents/contents.do?ciIdx=1471&menuId=3301",
+      "scope": "경기도",
       "reviewed": "2026-10-22",
       "status": "운영중",
       "jurisdiction": "사업별 관할·접수기준 확인",
@@ -7853,6 +8038,7 @@ window.WELFARE_DATA = {
       "site": "http://www.sunflower1375.or.kr/",
       "phone": "031-708-1375",
       "source": "https://www.gg.go.kr/contents/contents.do?ciIdx=1471&menuId=3301",
+      "scope": "경기도",
       "reviewed": "2026-10-22",
       "status": "운영중",
       "jurisdiction": "사업별 관할·접수기준 확인",
@@ -7924,6 +8110,7 @@ window.WELFARE_DATA = {
       "site": "https://hosp.ajoumc.or.kr/",
       "phone": "1688-6114",
       "source": "https://hosp.ajoumc.or.kr/",
+      "scope": "경기도",
       "reviewed": "2026-10-22",
       "status": "운영중",
       "jurisdiction": "사업별 관할·접수기준 확인",
@@ -8033,6 +8220,7 @@ window.WELFARE_DATA = {
       "site": "https://dongtan.hallym.or.kr/",
       "phone": "1522-2500",
       "source": "https://dongtan.hallym.or.kr/",
+      "scope": "경기도",
       "reviewed": "2026-10-22",
       "status": "운영중",
       "jurisdiction": "사업별 관할·접수기준 확인",
@@ -8142,6 +8330,7 @@ window.WELFARE_DATA = {
       "site": "https://www.snubh.org/index.do",
       "phone": "1588-3369",
       "source": "https://www.snubh.org/index.do",
+      "scope": "경기도",
       "reviewed": "2026-10-22",
       "status": "운영중",
       "jurisdiction": "사업별 관할·접수기준 확인",
@@ -8251,6 +8440,7 @@ window.WELFARE_DATA = {
       "site": "https://www.medical.or.kr/suwon/index.do",
       "phone": "031-888-0114",
       "source": "https://www.medical.or.kr/suwon/index.do",
+      "scope": "경기도",
       "reviewed": "2026-10-22",
       "status": "운영중",
       "jurisdiction": "사업별 관할·접수기준 확인",
@@ -8445,6 +8635,7 @@ window.WELFARE_DATA = {
       "site": "https://www.klac.or.kr/",
       "phone": "",
       "source": "https://www.klac.or.kr/",
+      "scope": "전국 공공",
       "reviewed": "2026-10-22",
       "status": "운영중",
       "jurisdiction": "사업별 관할·접수기준 확인",
@@ -8513,6 +8704,7 @@ window.WELFARE_DATA = {
       "site": "https://edu.ccrs.or.kr/main.do",
       "phone": "1600-5500",
       "source": "https://edu.ccrs.or.kr/main.do",
+      "scope": "전국 공공",
       "reviewed": "2026-10-22",
       "status": "운영중",
       "jurisdiction": "사업별 관할·접수기준 확인",
@@ -8582,6 +8774,7 @@ window.WELFARE_DATA = {
       "site": "https://m.myhome.go.kr/hws/portal/main/selectSimpleSrchDataView.do",
       "phone": "1600-1004",
       "source": "https://m.myhome.go.kr/hws/portal/main/selectSimpleSrchDataView.do",
+      "scope": "전국 공공",
       "reviewed": "2026-10-22",
       "status": "운영중",
       "jurisdiction": "사업별 관할·접수기준 확인",
@@ -8653,6 +8846,7 @@ window.WELFARE_DATA = {
       "site": "https://www.bokjiro.go.kr/ssis-tbu/",
       "phone": "",
       "source": "https://www.bokjiro.go.kr/ssis-tbu/",
+      "scope": "전국 공공",
       "reviewed": "2026-10-22",
       "status": "운영중",
       "jurisdiction": "사업별 관할·접수기준 확인",
@@ -8724,6 +8918,7 @@ window.WELFARE_DATA = {
       "site": "https://www.bokji.net/ssn/bin/13.bokji",
       "phone": "",
       "source": "https://www.bokji.net/ssn/bin/13.bokji",
+      "scope": "전국 민간",
       "reviewed": "2026-10-22",
       "status": "운영중",
       "jurisdiction": "사업별 관할·접수기준 확인",
@@ -8827,6 +9022,7 @@ window.WELFARE_DATA = {
       "site": "https://kfpd.org/51",
       "phone": "",
       "source": "https://kfpd.org/51",
+      "scope": "전국 민간",
       "reviewed": "2026-10-22",
       "status": "운영중",
       "jurisdiction": "사업별 관할·접수기준 확인",
@@ -8932,6 +9128,7 @@ window.WELFARE_DATA = {
       "site": "https://womenfund.or.kr/business",
       "phone": "",
       "source": "https://womenfund.or.kr/business",
+      "scope": "전국 민간",
       "reviewed": "2026-10-22",
       "status": "운영중",
       "jurisdiction": "사업별 관할·접수기준 확인",
@@ -9035,6 +9232,7 @@ window.WELFARE_DATA = {
       "site": "https://www.withgo.or.kr/index.do",
       "phone": "",
       "source": "https://www.withgo.or.kr/index.do",
+      "scope": "전국 민간",
       "reviewed": "2026-10-22",
       "status": "운영중",
       "jurisdiction": "사업별 관할·접수기준 확인",
@@ -9141,6 +9339,7 @@ window.WELFARE_DATA = {
       "site": "https://www.heart-heart.org/",
       "phone": "",
       "source": "https://www.heart-heart.org/",
+      "scope": "전국 민간",
       "reviewed": "2026-10-22",
       "status": "운영중",
       "jurisdiction": "사업별 관할·접수기준 확인",
@@ -9247,6 +9446,7 @@ window.WELFARE_DATA = {
       "site": "https://www.kidsfuture.or.kr/",
       "phone": "",
       "source": "https://www.kidsfuture.or.kr/",
+      "scope": "전국 민간",
       "reviewed": "2026-10-22",
       "status": "운영중",
       "jurisdiction": "사업별 관할·접수기준 확인",
@@ -9316,6 +9516,7 @@ window.WELFARE_DATA = {
       "site": "https://www.heart.or.kr/",
       "phone": "",
       "source": "https://www.heart.or.kr/",
+      "scope": "전국 민간",
       "reviewed": "2026-10-22",
       "status": "운영중",
       "jurisdiction": "사업별 관할·접수기준 확인",
@@ -9385,6 +9586,7 @@ window.WELFARE_DATA = {
       "site": "https://www.kord.or.kr/index.php",
       "phone": "",
       "source": "https://www.kord.or.kr/index.php",
+      "scope": "전국 민간",
       "reviewed": "2026-10-22",
       "status": "운영중",
       "jurisdiction": "사업별 관할·접수기준 확인",
@@ -9516,6 +9718,7 @@ window.WELFARE_DATA = {
       "site": "https://www.hugmomhugin.co.kr/branch/main/main.html?jijummid=osan",
       "phone": "031-8068-6255",
       "source": "https://www.hugmomhugin.co.kr/branch/main/main.html?jijummid=osan",
+      "scope": "오산시",
       "reviewed": "2026-10-23",
       "status": "운영중",
       "jurisdiction": "오산시",
@@ -9590,6 +9793,7 @@ window.WELFARE_DATA = {
       "site": "",
       "phone": "031-377-1355",
       "source": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+      "scope": "오산시",
       "reviewed": "2026-10-23",
       "status": "미확인",
       "jurisdiction": "오산시",
@@ -9664,6 +9868,7 @@ window.WELFARE_DATA = {
       "site": "",
       "phone": "031-373-8853",
       "source": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+      "scope": "오산시",
       "reviewed": "2026-10-23",
       "status": "미확인",
       "jurisdiction": "오산시",
@@ -9738,6 +9943,7 @@ window.WELFARE_DATA = {
       "site": "",
       "phone": "031-374-7579",
       "source": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+      "scope": "오산시",
       "reviewed": "2026-10-23",
       "status": "미확인",
       "jurisdiction": "오산시",
@@ -9812,6 +10018,7 @@ window.WELFARE_DATA = {
       "site": "",
       "phone": "031-376-5362",
       "source": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+      "scope": "오산시",
       "reviewed": "2026-10-23",
       "status": "미확인",
       "jurisdiction": "오산시",
@@ -9886,6 +10093,7 @@ window.WELFARE_DATA = {
       "site": "",
       "phone": "031-376-5975",
       "source": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+      "scope": "오산시",
       "reviewed": "2026-10-23",
       "status": "미확인",
       "jurisdiction": "오산시",
@@ -9960,6 +10168,7 @@ window.WELFARE_DATA = {
       "site": "",
       "phone": "031-377-4242",
       "source": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+      "scope": "오산시",
       "reviewed": "2026-10-23",
       "status": "미확인",
       "jurisdiction": "오산시",
@@ -10034,6 +10243,7 @@ window.WELFARE_DATA = {
       "site": "",
       "phone": "031-372-7567",
       "source": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+      "scope": "오산시",
       "reviewed": "2026-10-23",
       "status": "미확인",
       "jurisdiction": "오산시",
@@ -10108,6 +10318,7 @@ window.WELFARE_DATA = {
       "site": "",
       "phone": "031-378-7675",
       "source": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+      "scope": "오산시",
       "reviewed": "2026-10-23",
       "status": "미확인",
       "jurisdiction": "오산시",
@@ -10182,6 +10393,7 @@ window.WELFARE_DATA = {
       "site": "",
       "phone": "031-375-5001",
       "source": "https://honeypot.slowkids.net/providers/%EA%B2%BD%EA%B8%B0%EB%8F%84/%EC%98%A4%EC%82%B0%EC%8B%9C",
+      "scope": "오산시",
       "reviewed": "2026-10-23",
       "status": "미확인",
       "jurisdiction": "오산시",
@@ -10256,6 +10468,7 @@ window.WELFARE_DATA = {
       "site": "http://www.oshankook.net/",
       "phone": "031-379-8300",
       "source": "https://www.hira.or.kr/ra/hosp/hospInfoAjax.do?ykiho=JDQ4MTYyMiM1MSMkMSMkMCMkODkkMzgxMzUxIzExIyQxIyQzIyQxMyQzNjEyMjIjNDEjJDEjJDgjJDgz",
+      "scope": "오산시",
       "reviewed": "2026-10-23",
       "status": "운영중",
       "jurisdiction": "오산시",
@@ -10329,6 +10542,7 @@ window.WELFARE_DATA = {
       "site": "https://osanhospital.co.kr/",
       "phone": "1544-5355",
       "source": "https://osanhospital.co.kr/",
+      "scope": "오산시",
       "reviewed": "2026-10-23",
       "status": "운영중",
       "jurisdiction": "오산시",
@@ -10402,6 +10616,7 @@ window.WELFARE_DATA = {
       "site": "",
       "phone": "031-375-4197",
       "source": "https://hospital.ottl.net/%EA%B2%BD%EA%B8%B0/%EC%98%A4%EC%82%B0%EC%8B%9C/%EB%B3%91%EC%9B%90/",
+      "scope": "오산시",
       "reviewed": "2026-10-23",
       "status": "미확인",
       "jurisdiction": "오산시",
@@ -10475,6 +10690,7 @@ window.WELFARE_DATA = {
       "site": "",
       "phone": "031-373-7585",
       "source": "https://www.hira.or.kr/ra/hosp/hospInfoAjax.do?ykiho=JDQ4MTYyMiM1MSMkMSMkMCMkOTkkMzgxOTYxIzExIyQxIyQ3IyQ4OSQyNjE0ODEjNDEjJDEjJDgjJDgz",
+      "scope": "오산시",
       "reviewed": "2026-10-23",
       "status": "운영중",
       "jurisdiction": "오산시",
@@ -10548,6 +10764,7 @@ window.WELFARE_DATA = {
       "site": "",
       "phone": "1522-7525",
       "source": "https://hospital.ottl.net/%EA%B2%BD%EA%B8%B0/%EC%98%A4%EC%82%B0%EC%8B%9C/%EB%B3%91%EC%9B%90/",
+      "scope": "오산시",
       "reviewed": "2026-10-23",
       "status": "미확인",
       "jurisdiction": "오산시",
@@ -10621,6 +10838,7 @@ window.WELFARE_DATA = {
       "site": "",
       "phone": "1661-0032",
       "source": "https://www.hira.or.kr/ra/hosp/hospInfoAjax.do?ykiho=31209581",
+      "scope": "오산시",
       "reviewed": "2026-10-23",
       "status": "운영중",
       "jurisdiction": "오산시",
@@ -10694,6 +10912,7 @@ window.WELFARE_DATA = {
       "site": "",
       "phone": "1800-6655",
       "source": "https://hospital.ottl.net/%EA%B2%BD%EA%B8%B0/%EC%98%A4%EC%82%B0%EC%8B%9C/%EB%B3%91%EC%9B%90/",
+      "scope": "오산시",
       "reviewed": "2026-10-23",
       "status": "미확인",
       "jurisdiction": "오산시",
@@ -10767,6 +10986,7 @@ window.WELFARE_DATA = {
       "site": "",
       "phone": "1670-8971",
       "source": "https://www.hira.or.kr/ra/hosp/hospInfoAjax.do?ykiho=JDQ4MTYyMiM1MSMkMSMkMCMkOTkkMzgxOTYxIzExIyQxIyQzIyQ5OSQzNjEwMDIjNTEjJDEjJDIjJDgz",
+      "scope": "오산시",
       "reviewed": "2026-10-23",
       "status": "운영중",
       "jurisdiction": "오산시",
@@ -10840,6 +11060,7 @@ window.WELFARE_DATA = {
       "site": "",
       "phone": "031-372-8600",
       "source": "https://hospitalfact.kr/clinics/%ED%8F%89%EC%95%88%ED%95%9C%EC%82%AC%EB%9E%91%EB%B3%91%EC%9B%90-9dd7483c-dae8-4e28-bbf8-377a2858f27b/",
+      "scope": "오산시",
       "reviewed": "2026-10-23",
       "status": "미확인",
       "jurisdiction": "오산시",
@@ -10914,6 +11135,7 @@ window.WELFARE_DATA = {
       "site": "",
       "phone": "",
       "source": "https://clinics.seoul.kr/gyeonggi-do/osan-si/psychiatry",
+      "scope": "오산시",
       "reviewed": "2026-10-23",
       "status": "미확인",
       "jurisdiction": "오산시",
@@ -10988,6 +11210,7 @@ window.WELFARE_DATA = {
       "site": "",
       "phone": "031-373-9966",
       "source": "https://clinics.seoul.kr/gyeonggi-do/osan-si/osan-dong/psychiatry",
+      "scope": "오산시",
       "reviewed": "2026-10-23",
       "status": "미확인",
       "jurisdiction": "오산시",
@@ -11062,6 +11285,7 @@ window.WELFARE_DATA = {
       "site": "https://happyosan.com/",
       "phone": "031-377-8274",
       "source": "https://happyosan.com/contact",
+      "scope": "오산시",
       "reviewed": "2026-10-23",
       "status": "운영중",
       "jurisdiction": "오산시",
@@ -11136,6 +11360,7 @@ window.WELFARE_DATA = {
       "site": "",
       "phone": "031-831-3665",
       "source": "https://clinics.seoul.kr/gyeonggi-do/osan-si/gwol-dong/psychiatry",
+      "scope": "오산시",
       "reviewed": "2026-10-23",
       "status": "미확인",
       "jurisdiction": "오산시",
@@ -11210,6 +11435,7 @@ window.WELFARE_DATA = {
       "site": "https://goehs.kr/goehs/cm/cntnts/cntntsView.do?cntntsId=2150&mi=18070",
       "phone": "031-377-4329",
       "source": "https://goehs.kr/goehs/cm/cntnts/cntntsView.do?cntntsId=2150&mi=18070",
+      "scope": "오산시",
       "reviewed": "2026-10-24",
       "status": "운영중",
       "jurisdiction": "화성·오산 지역 / 학교급별 접수 절차 확인",
@@ -11362,6 +11588,7 @@ window.WELFARE_DATA = {
       "site": "https://www.goe.go.kr/",
       "phone": "031-1396",
       "source": "https://www.goe.go.kr/goe/na/ntt/selectNttInfo.do?nttSn=2341259",
+      "scope": "경기도",
       "reviewed": "2026-10-24",
       "status": "운영중",
       "jurisdiction": "경기도 학생 / 학교·교육지원청별 접수 확인",
@@ -11511,6 +11738,7 @@ window.WELFARE_DATA = {
       "site": "https://www.nyhc.or.kr/",
       "phone": "031-333-1740",
       "source": "https://youth.go.kr/youth/youth/contents/emtGhvrHlForm.yt",
+      "scope": "경기도",
       "reviewed": "2026-10-24",
       "status": "운영중",
       "jurisdiction": "전국 대상 모집 / 경기도 용인 소재",
@@ -11615,6 +11843,1440 @@ window.WELFARE_DATA = {
       "addressStatus": "미확인",
       "addressCheckedOn": "",
       "addressNote": "방문주소·과정별 모집요건은 공식 센터에 확인"
+    },
+    {
+      "id": "ORG-Z26-1388",
+      "name": "청소년상담 1388",
+      "level": "민간",
+      "kind": "전국 공공 상담창구",
+      "summary": "9~24세 청소년과 보호자를 위한 365일 24시간 전화·문자·카카오톡·사이버 상담. 지역 청소년상담복지센터·청소년안전망으로 연결.",
+      "site": "https://www.1388.go.kr/",
+      "phone": "1388",
+      "source": "https://www.bokjiro.go.kr/ssis-tbu/cms/pc/news/promotion/1307645_1118.html",
+      "scope": "전국 공공",
+      "reviewed": "2026-10-26",
+      "status": "운영중",
+      "jurisdiction": "전국 / 오산은 오산시청소년상담복지센터와 연결",
+      "services": [
+        {
+          "id": "SVC-Z26-001",
+          "name": "청소년 24시간 고민상담",
+          "category": "정신건강",
+          "target": "9~24세 청소년·보호자",
+          "description": "학업·관계·가족·위기 고민을 전화·문자·카카오톡 「청소년상담1388」·1388.go.kr로 상담. 필요 시 지역 청소년상담복지센터 연결.",
+          "method": "국번 없이 1388(휴대전화는 지역번호+1388), 문자 1388, 카카오톡 채널",
+          "operation": "공식 공개 안내에서 창구 존재 확인. 현재 운영시간·대상·접수는 연계 전 재확인.",
+          "editedOn": "2026-10-26",
+          "tags": {
+            "target": [
+              "청소년",
+              "청년"
+            ],
+            "need": [
+              "정신건강",
+              "안전·권리보호"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": [
+              "전화",
+              "온라인"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "가능",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/cms/pc/news/promotion/1307645_1118.html",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-10-26",
+            "method": "공식 공개 안내 웹 열람; 실제 접수·운영시간·대상 선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-01-26"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-Z26-1388",
+        "owner_type": "organization",
+        "owner_id": "ORG-Z26-1388",
+        "dept": "",
+        "phone": "1388",
+        "fax": "",
+        "email": "",
+        "hours": "365일 24시간",
+        "note": "대표전화",
+        "source_url": "https://www.bokjiro.go.kr/ssis-tbu/cms/pc/news/promotion/1307645_1118.html",
+        "verified_on": "2026-10-26"
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": ""
+    },
+    {
+      "id": "ORG-Z26-109",
+      "name": "자살예방상담전화 109 · 정신건강위기상담 1577-0199",
+      "level": "민간",
+      "kind": "전국 공공 위기상담",
+      "summary": "자살 생각·정신건강 위기에 대한 24시간 전화상담. 2024년 1월 1393을 109로 통합했고 1577-0199는 정신건강 위기상담으로 유지. 한국생명존중희망재단 안내 기준.",
+      "site": "https://www.kfsp.or.kr/",
+      "phone": "109",
+      "source": "https://www.kfsp.or.kr/",
+      "scope": "전국 공공",
+      "reviewed": "2026-10-26",
+      "status": "운영중",
+      "jurisdiction": "전국",
+      "services": [
+        {
+          "id": "SVC-Z26-002",
+          "name": "자살예방 24시간 전화상담",
+          "category": "정신건강",
+          "target": "자살 생각이 있거나 주변인이 걱정되는 누구나",
+          "description": "자살 위기 상담과 지역 정신건강복지센터·응급 연계. 생명이 급한 상황은 112·119 우선.",
+          "method": "국번 없이 109 (정신건강 위기상담은 1577-0199)",
+          "operation": "공식 공개 안내에서 창구 존재 확인. 현재 운영시간·대상·접수는 연계 전 재확인.",
+          "editedOn": "2026-10-26",
+          "tags": {
+            "target": [
+              "청소년",
+              "청년",
+              "중장년",
+              "노인"
+            ],
+            "need": [
+              "정신건강",
+              "안전·권리보호"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": [
+              "전화"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "가능",
+          "source": "https://www.kfsp.or.kr/",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-10-26",
+            "method": "공식 공개 안내 웹 열람; 실제 접수·운영시간·대상 선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-01-26"
+          },
+          "contacts": [
+            {
+              "contact_id": "CON-Z26-0199",
+              "owner_type": "service",
+              "owner_id": "SVC-Z26-002",
+              "dept": "정신건강 위기상담",
+              "phone": "1577-0199",
+              "fax": "",
+              "email": "",
+              "hours": "",
+              "note": "",
+              "source_url": "https://www.kfsp.or.kr/",
+              "verified_on": "2026-10-26"
+            }
+          ],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-Z26-109",
+        "owner_type": "organization",
+        "owner_id": "ORG-Z26-109",
+        "dept": "",
+        "phone": "109",
+        "fax": "",
+        "email": "",
+        "hours": "24시간",
+        "note": "대표전화",
+        "source_url": "https://www.kfsp.or.kr/",
+        "verified_on": "2026-10-26"
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": ""
+    },
+    {
+      "id": "ORG-Z26-129",
+      "name": "보건복지상담센터 129",
+      "level": "민간",
+      "kind": "전국 공공 상담창구",
+      "summary": "보건의료·사회복지·아동·노인·장애인 제도 안내 상담. 긴급복지·복지사각지대·학대·정신건강 상담은 24시간 긴급상담으로 분류.",
+      "site": "https://www.129.go.kr/",
+      "phone": "129",
+      "source": "https://www.129.go.kr/",
+      "scope": "전국 공공",
+      "reviewed": "2026-10-26",
+      "status": "운영중",
+      "jurisdiction": "전국",
+      "services": [
+        {
+          "id": "SVC-Z26-003",
+          "name": "보건복지 제도 상담·긴급지원 연결",
+          "category": "경제·긴급",
+          "target": "복지제도 안내가 필요한 국민, 위기가구",
+          "description": "긴급복지지원·복지사각지대·학대·정신건강 상담은 24시간, 일반 상담은 평일 09:00~18:00. 전화·채팅·카카오톡·수어 영상 상담.",
+          "method": "국번 없이 129",
+          "operation": "공식 공개 안내에서 창구 존재 확인. 현재 운영시간·대상·접수는 연계 전 재확인.",
+          "editedOn": "2026-10-26",
+          "tags": {
+            "target": [
+              "위기가구",
+              "1인가구",
+              "노인",
+              "장애인"
+            ],
+            "need": [
+              "소득·생계",
+              "사례관리"
+            ],
+            "form": [
+              "상담",
+              "정보 제공"
+            ],
+            "intake": [
+              "전화",
+              "온라인"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "가능",
+          "source": "https://www.129.go.kr/",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-10-26",
+            "method": "공식 공개 안내 웹 열람; 실제 접수·운영시간·대상 선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-01-26"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-Z26-129",
+        "owner_type": "organization",
+        "owner_id": "ORG-Z26-129",
+        "dept": "",
+        "phone": "129",
+        "fax": "",
+        "email": "",
+        "hours": "일반 평일 09:00~18:00 / 긴급상담 24시간",
+        "note": "대표전화",
+        "source_url": "https://www.129.go.kr/",
+        "verified_on": "2026-10-26"
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": ""
+    },
+    {
+      "id": "ORG-Z26-D4U",
+      "name": "디지털성범죄피해자지원센터",
+      "level": "민간",
+      "kind": "전국 공공 피해지원기관",
+      "summary": "한국여성인권진흥원이 운영. 디지털성범죄 피해 상담, 불법촬영물 삭제지원·유포 모니터링, 수사·법률·의료 연계를 한 곳에서 지원.",
+      "site": "https://d4u.stop.or.kr/",
+      "phone": "02-735-8994",
+      "source": "https://www.korea.kr/news/pressReleaseView.do?newsId=156287727",
+      "scope": "전국 공공",
+      "reviewed": "2026-10-26",
+      "status": "운영중",
+      "jurisdiction": "전국 / 경기도 안에서는 마주봄센터와 함께 확인",
+      "services": [
+        {
+          "id": "SVC-Z26-004",
+          "name": "디지털성범죄 피해 상담·삭제지원",
+          "category": "안전·권리보호",
+          "target": "불법촬영·유포·협박 등 디지털성범죄 피해자, 가족",
+          "description": "피해 상담, 불법촬영물 삭제 요청·유포 모니터링, 수사·법률·의료·보호 연계. 피해 자료는 공유하지 말고 센터 안내에 따라 보존.",
+          "method": "02-735-8994 전화 또는 온라인 상담게시판. 공식 누리집에 1366 안내도 함께 표시.",
+          "operation": "공식 공개 안내에서 창구 존재 확인. 현재 운영시간·대상·접수는 연계 전 재확인.",
+          "editedOn": "2026-10-26",
+          "tags": {
+            "target": [
+              "청소년",
+              "청년",
+              "위기가구"
+            ],
+            "need": [
+              "안전·권리보호",
+              "법률·금융",
+              "정신건강"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화",
+              "온라인"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "가능",
+          "source": "https://d4u.stop.or.kr/",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-10-26",
+            "method": "공식 공개 안내 웹 열람; 실제 접수·운영시간·대상 선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-01-26"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-Z26-D4U",
+        "owner_type": "organization",
+        "owner_id": "ORG-Z26-D4U",
+        "dept": "",
+        "phone": "02-735-8994",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.korea.kr/news/pressReleaseView.do?newsId=156287727",
+        "verified_on": ""
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "상담시간은 2018년 보도 기준이므로 재확인"
+    },
+    {
+      "id": "ORG-Z26-1342",
+      "name": "한국마약퇴치운동본부 마약상담 1342",
+      "level": "민간",
+      "kind": "전국 공공 중독상담",
+      "summary": "마약류 사용자·가족·지인을 위한 24시간 익명 전화상담과 카카오톡 상담. 전국 함께한걸음센터(경기 포함) 회복지원으로 연계. 식약처 산하 공공기관.",
+      "site": "",
+      "phone": "1342",
+      "source": "https://www.dailymedi.com/news/news_view.php?wr_id=939794",
+      "scope": "전국 공공",
+      "reviewed": "2026-10-26",
+      "status": "운영중",
+      "jurisdiction": "전국 / 경기함께한걸음센터 연계",
+      "services": [
+        {
+          "id": "SVC-Z26-005",
+          "name": "마약류 24시간 익명 상담",
+          "category": "정신건강",
+          "target": "마약류 사용자·가족·지인",
+          "description": "익명 전화·카카오톡 상담 후 치료보호기관·회복지원 정보 제공. 처벌 관련 불안은 상담에서 먼저 확인.",
+          "method": "국번 없이 1342, 카카오톡 상담",
+          "operation": "언론 보도로 존재 확인, 공식 안내 미열람. 연계 전 기관에 직접 확인.",
+          "editedOn": "2026-10-26",
+          "tags": {
+            "target": [
+              "청소년",
+              "청년",
+              "중장년"
+            ],
+            "need": [
+              "정신건강",
+              "의료·건강"
+            ],
+            "form": [
+              "상담",
+              "정보 제공"
+            ],
+            "intake": [
+              "전화",
+              "온라인"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.dailymedi.com/news/news_view.php?wr_id=939794",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-Z26-006",
+          "name": "함께한걸음센터 회복지원 연계",
+          "category": "정신건강",
+          "target": "마약류 중독 회복이 필요한 사람과 가족",
+          "description": "전국 함께한걸음센터(경기함께한걸음센터 포함)의 상담·재활 프로그램 연계. 지역 중독관리통합지원센터와 협약 운영.",
+          "method": "1342 상담 후 센터 연결",
+          "operation": "언론 보도로 존재 확인, 공식 안내 미열람. 연계 전 기관에 직접 확인.",
+          "editedOn": "2026-10-26",
+          "tags": {
+            "target": [
+              "청년",
+              "중장년"
+            ],
+            "need": [
+              "정신건강",
+              "사례관리"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화",
+              "협력기관 추천"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://m.dailypharm.com/user/news/9797",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-Z26-1342",
+        "owner_type": "organization",
+        "owner_id": "ORG-Z26-1342",
+        "dept": "",
+        "phone": "1342",
+        "fax": "",
+        "email": "",
+        "hours": "24시간(보도 기준)",
+        "note": "대표전화",
+        "source_url": "https://www.dailymedi.com/news/news_view.php?wr_id=939794",
+        "verified_on": ""
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "공식 누리집 직접 열람 실패(2026-10-26), 보도 기준"
+    },
+    {
+      "id": "ORG-Z26-GMBL",
+      "name": "경기남부도박문제예방치유센터",
+      "level": "경기도",
+      "kind": "중독 상담기관",
+      "summary": "한국도박문제예방치유원 지역센터. 도박문제 당사자·가족 상담과 치유·회복 지원. 전국 상담전화 1336과 연결.",
+      "site": "",
+      "phone": "031-243-8280",
+      "source": "https://www.dhlottery.co.kr/hpns/ovmPrvnDscsnInfoView",
+      "scope": "경기도",
+      "reviewed": "2026-10-26",
+      "status": "운영중",
+      "jurisdiction": "경기 남부 / 오산 이용 가능 여부는 센터 확인",
+      "services": [
+        {
+          "id": "SVC-Z26-007",
+          "name": "도박문제 상담·치유",
+          "category": "정신건강",
+          "target": "도박문제 당사자와 가족",
+          "description": "도박문제 상담, 치유·회복 프로그램, 가족상담. 온라인·청소년 도박도 상담 대상인지 센터에 확인.",
+          "method": "031-243-8280 또는 전국 도박문제 상담 1336",
+          "operation": "공식 공개 안내에서 창구 존재 확인. 현재 운영시간·대상·접수는 연계 전 재확인.",
+          "editedOn": "2026-10-26",
+          "tags": {
+            "target": [
+              "청소년",
+              "청년",
+              "중장년",
+              "가족·한부모"
+            ],
+            "need": [
+              "정신건강",
+              "법률·금융"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화",
+              "직접 방문"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.dhlottery.co.kr/hpns/ovmPrvnDscsnInfoView",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-10-26",
+            "method": "공식 공개 안내 웹 열람; 실제 접수·운영시간·대상 선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-01-26"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-Z26-GMBL",
+        "owner_type": "organization",
+        "owner_id": "ORG-Z26-GMBL",
+        "dept": "",
+        "phone": "031-243-8280",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.dhlottery.co.kr/hpns/ovmPrvnDscsnInfoView",
+        "verified_on": "2026-10-26"
+      },
+      "address": "경기도 수원시 팔달구 효원로 119(매교동) 청궁빌딩 6층",
+      "addressSource": "https://www.dhlottery.co.kr/hpns/ovmPrvnDscsnInfoView",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-10-26",
+      "addressNote": "동행복권 도박문제 상담 안내의 지역센터 목록 기준"
+    },
+    {
+      "id": "ORG-Z26-DANURI",
+      "name": "다누리콜센터 1577-1366",
+      "level": "민간",
+      "kind": "전국 공공 다문화 상담",
+      "summary": "결혼이민자·이주여성·다문화가족을 위한 다국어 생활·위기 상담 창구. 성평등가족부 운영 지원.",
+      "site": "https://www.liveinkorea.kr/",
+      "phone": "1577-1366",
+      "source": "https://www.mogef.go.kr/cc/dcc/cc_dcc_f001.do",
+      "scope": "전국 공공",
+      "reviewed": "2026-10-26",
+      "status": "운영중",
+      "jurisdiction": "전국 / 오산은 오산시가족센터와 연결",
+      "services": [
+        {
+          "id": "SVC-Z26-008",
+          "name": "다문화가족 다국어 상담",
+          "category": "가족지원",
+          "target": "결혼이민자·이주여성·다문화가족",
+          "description": "생활정보·가족갈등·폭력피해 등 상담과 지역 가족센터 연결. 24시간 365일, 13개 언어(한국어·영어·중국어·베트남어·타갈로그어·크메르어·몽골어·러시아어·일본어·태국어·라오스어·우즈베크어·네팔어). 인천시 외국인 안내 기준.",
+          "method": "1577-1366",
+          "operation": "공식 공개 안내에서 창구 존재 확인. 현재 운영시간·대상·접수는 연계 전 재확인.",
+          "editedOn": "2026-10-26",
+          "tags": {
+            "target": [
+              "다문화",
+              "가족·한부모"
+            ],
+            "need": [
+              "가족지원",
+              "안전·권리보호"
+            ],
+            "form": [
+              "상담",
+              "정보 제공"
+            ],
+            "intake": [
+              "전화"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "가능",
+          "source": "https://www.incheon.go.kr/ml_kr/MLKR050202",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-10-26",
+            "method": "공식 공개 안내 웹 열람; 실제 접수·운영시간·대상 선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-01-26"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-Z26-DANURI",
+        "owner_type": "organization",
+        "owner_id": "ORG-Z26-DANURI",
+        "dept": "",
+        "phone": "1577-1366",
+        "fax": "",
+        "email": "",
+        "hours": "24시간 365일",
+        "note": "대표전화",
+        "source_url": "https://www.incheon.go.kr/ml_kr/MLKR050202",
+        "verified_on": "2026-10-26"
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "운영시간·지원언어 재확인"
+    },
+    {
+      "id": "ORG-Z26-1389",
+      "name": "노인학대 신고전화 1577-1389",
+      "level": "민간",
+      "kind": "전국 공공 신고창구",
+      "summary": "노인학대 신고와 상담을 노인보호전문기관으로 연결하는 전국 대표번호. 경기도 안에 노인보호전문기관 6곳과 학대피해노인전용쉼터 3곳 운영(2026년 6월 보도).",
+      "site": "",
+      "phone": "1577-1389",
+      "source": "https://news.seoul.go.kr/welfare/archives/16277",
+      "scope": "전국 공공",
+      "reviewed": "2026-10-26",
+      "status": "미확인",
+      "jurisdiction": "전국 / 오산 관할 노인보호전문기관 확인 필요",
+      "services": [
+        {
+          "id": "SVC-Z26-009",
+          "name": "노인학대 신고·상담",
+          "category": "안전·권리보호",
+          "target": "학대가 의심되는 노인, 가족·이웃·종사자",
+          "description": "신고 접수 후 노인보호전문기관이 현장조사·분리·회복지원·재발 점검. 긴급 위험은 112.",
+          "method": "1577-1389 / 긴급 112",
+          "operation": "언론 보도로 존재 확인, 공식 안내 미열람. 연계 전 기관에 직접 확인.",
+          "editedOn": "2026-10-26",
+          "tags": {
+            "target": [
+              "노인"
+            ],
+            "need": [
+              "안전·권리보호",
+              "사례관리"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://news.seoul.go.kr/welfare/archives/16277",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-Z26-1389",
+        "owner_type": "organization",
+        "owner_id": "ORG-Z26-1389",
+        "dept": "",
+        "phone": "1577-1389",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://news.seoul.go.kr/welfare/archives/16277",
+        "verified_on": ""
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": ""
+    },
+    {
+      "id": "ORG-Z26-8295",
+      "name": "장애인학대 신고전화 1644-8295",
+      "level": "민간",
+      "kind": "전국 공공 신고창구",
+      "summary": "장애인학대 신고를 지역 장애인권익옹호기관으로 연결하는 전국 대표번호. 오산은 경기남부장애인권익옹호기관과 함께 확인.",
+      "site": "",
+      "phone": "1644-8295",
+      "source": "https://www.koddi.or.kr/webzine/didimdol/vol297/subpage_004.html",
+      "scope": "전국 공공",
+      "reviewed": "2026-10-26",
+      "status": "운영중",
+      "jurisdiction": "전국",
+      "services": [
+        {
+          "id": "SVC-Z26-010",
+          "name": "장애인학대 신고·상담",
+          "category": "안전·권리보호",
+          "target": "학대·착취가 의심되는 장애인, 주변인",
+          "description": "신고 접수 후 지역 장애인권익옹호기관이 조사·보호·회복을 지원. 수사기관 신고도 가능.",
+          "method": "1644-8295 / 긴급 112",
+          "operation": "공식 공개 안내에서 창구 존재 확인. 현재 운영시간·대상·접수는 연계 전 재확인.",
+          "editedOn": "2026-10-26",
+          "tags": {
+            "target": [
+              "장애인"
+            ],
+            "need": [
+              "안전·권리보호",
+              "사례관리"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.koddi.or.kr/webzine/didimdol/vol297/subpage_004.html",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-10-26",
+            "method": "공식 공개 안내 웹 열람; 실제 접수·운영시간·대상 선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-01-26"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-Z26-8295",
+        "owner_type": "organization",
+        "owner_id": "ORG-Z26-8295",
+        "dept": "",
+        "phone": "1644-8295",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.koddi.or.kr/webzine/didimdol/vol297/subpage_004.html",
+        "verified_on": "2026-10-26"
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": ""
+    },
+    {
+      "id": "ORG-Z26-1397",
+      "name": "서민금융진흥원 서민금융콜센터 1397",
+      "level": "민간",
+      "kind": "전국 공공 금융상담",
+      "summary": "대출·보증 등 서민금융, 채무조정, 취업·복지 연계를 안내하는 통합 콜센터. 전국 서민금융통합지원센터와 연결.",
+      "site": "",
+      "phone": "1397",
+      "source": "https://m.go.seoul.co.kr/news/2019/01/02/20190102019001",
+      "scope": "전국 공공",
+      "reviewed": "2026-10-26",
+      "status": "미확인",
+      "jurisdiction": "전국 / 경기도서민금융복지지원센터와 함께 확인",
+      "services": [
+        {
+          "id": "SVC-Z26-011",
+          "name": "서민금융·채무 통합상담",
+          "category": "법률·금융",
+          "target": "대출·보증·채무로 어려운 서민",
+          "description": "서민금융 상품 안내, 채무조정·복지·취업 연계. 금융상품 승인을 보장하지 않음.",
+          "method": "국번 없이 1397",
+          "operation": "언론 보도로 존재 확인, 공식 안내 미열람. 연계 전 기관에 직접 확인.",
+          "editedOn": "2026-10-26",
+          "tags": {
+            "target": [
+              "청년",
+              "중장년",
+              "1인가구",
+              "위기가구"
+            ],
+            "need": [
+              "법률·금융",
+              "소득·생계"
+            ],
+            "form": [
+              "상담",
+              "정보 제공"
+            ],
+            "intake": [
+              "전화",
+              "직접 방문"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://m.go.seoul.co.kr/news/2019/01/02/20190102019001",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-Z26-1397",
+        "owner_type": "organization",
+        "owner_id": "ORG-Z26-1397",
+        "dept": "",
+        "phone": "1397",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://m.go.seoul.co.kr/news/2019/01/02/20190102019001",
+        "verified_on": ""
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "2019년 보도 기준, 운영시간 재확인"
+    },
+    {
+      "id": "ORG-Z26-117",
+      "name": "학교폭력 신고·상담 117",
+      "level": "민간",
+      "kind": "전국 공공 신고창구",
+      "summary": "학교폭력·여성폭력 등 신고를 받는 경찰 신고센터. Wee센터·청소년상담 인력과 연계하는 원스톱 대응체계.",
+      "site": "",
+      "phone": "117",
+      "source": "https://hangyo.com/mobile/article.html?no=39022",
+      "scope": "전국 공공",
+      "reviewed": "2026-10-26",
+      "status": "미확인",
+      "jurisdiction": "전국 / 긴급 위험은 112",
+      "services": [
+        {
+          "id": "SVC-Z26-012",
+          "name": "학교폭력 신고·상담",
+          "category": "안전·권리보호",
+          "target": "학교폭력 피해·목격 학생, 보호자, 교사",
+          "description": "학교폭력 신고 접수와 Wee센터·청소년상담 연계. 생명·신체 위험이 있으면 112.",
+          "method": "국번 없이 117",
+          "operation": "언론 보도로 존재 확인, 공식 안내 미열람. 연계 전 기관에 직접 확인.",
+          "editedOn": "2026-10-26",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년"
+            ],
+            "need": [
+              "안전·권리보호",
+              "교육"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": [
+              "전화"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://hangyo.com/mobile/article.html?no=39022",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-Z26-117",
+        "owner_type": "organization",
+        "owner_id": "ORG-Z26-117",
+        "dept": "",
+        "phone": "117",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://hangyo.com/mobile/article.html?no=39022",
+        "verified_on": ""
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "2012년 보도 기준, 현재 운영방식 재확인"
+    },
+    {
+      "id": "ORG-Z26-SMART",
+      "name": "스마트쉼센터",
+      "level": "민간",
+      "kind": "전국 공공 과의존 상담",
+      "summary": "스마트폰·인터넷 과의존 예방교육과 상담. 학교·기관 신청 시 찾아가는 집중상담 운영(전국 18곳, 2025년 보도).",
+      "site": "",
+      "phone": "",
+      "source": "https://newsseoul.co.kr/news/view/1065603004187755",
+      "scope": "전국 공공",
+      "reviewed": "2026-10-26",
+      "status": "미확인",
+      "jurisdiction": "전국 / 경기 센터 위치 확인 필요",
+      "services": [
+        {
+          "id": "SVC-Z26-013",
+          "name": "스마트폰 과의존 상담·찾아가는 상담",
+          "category": "정신건강",
+          "target": "스마트폰·인터넷 사용 조절이 어려운 아동·청소년·성인, 학교·기관",
+          "description": "개인 상담과 예방교육, 학교·기관 신청형 찾아가는 집중상담.",
+          "method": "스마트쉼센터 누리집 신청",
+          "operation": "언론 보도로 존재 확인, 공식 안내 미열람. 연계 전 기관에 직접 확인.",
+          "editedOn": "2026-10-26",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년",
+              "청년"
+            ],
+            "need": [
+              "정신건강",
+              "교육"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": [
+              "온라인",
+              "공모"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://newsseoul.co.kr/news/view/1065603004187755",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-Z26-SMART",
+        "owner_type": "organization",
+        "owner_id": "ORG-Z26-SMART",
+        "dept": "",
+        "phone": "",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "",
+        "verified_on": ""
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": ""
+    },
+    {
+      "id": "ORG-Z26-HOPE",
+      "name": "경기도 자립지원전담기관 희망너울",
+      "level": "경기도",
+      "kind": "자립준비청년 지원",
+      "summary": "경기도 보호종료 자립준비청년의 취업역량 강화, 멘토링, 정서지원 등 자립지원 사업 수행.",
+      "site": "",
+      "phone": "1566-2714",
+      "source": "https://www.gg.go.kr/myggd/vol179/sub2_4.html",
+      "scope": "경기도",
+      "reviewed": "2026-10-26",
+      "status": "운영중",
+      "jurisdiction": "경기도 자립준비청년",
+      "services": [
+        {
+          "id": "SVC-Z26-014",
+          "name": "자립준비청년 취업역량·멘토링 지원",
+          "category": "취업·자립",
+          "target": "경기도 자립준비청년(보호종료 아동)",
+          "description": "교육 수강료·자격증 응시료·체험비 지원(2024년 기준 금액), 취업 역량 교육, 멘토-멘티 정서지원. 연도별 사업 재확인.",
+          "method": "1566-2714(취업역량) / 1566-2741(멘토링)",
+          "operation": "공식 공개 안내에서 창구 존재 확인. 현재 운영시간·대상·접수는 연계 전 재확인.",
+          "editedOn": "2026-10-26",
+          "tags": {
+            "target": [
+              "청년"
+            ],
+            "need": [
+              "고용·자립",
+              "정신건강"
+            ],
+            "form": [
+              "현금",
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화",
+              "협력기관 추천"
+            ]
+          },
+          "operationType": "공모형",
+          "localAvailable": "확인 필요",
+          "source": "https://www.gg.go.kr/myggd/vol179/sub2_4.html",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-10-26",
+            "method": "공식 공개 안내 웹 열람; 실제 접수·운영시간·대상 선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-01-26"
+          },
+          "contacts": [
+            {
+              "contact_id": "CON-Z26-HOPE2",
+              "owner_type": "service",
+              "owner_id": "SVC-Z26-014",
+              "dept": "멘토-멘티 함께 서기",
+              "phone": "1566-2741",
+              "fax": "",
+              "email": "",
+              "hours": "",
+              "note": "",
+              "source_url": "https://www.gg.go.kr/myggd/vol179/sub2_4.html",
+              "verified_on": "2026-10-26"
+            }
+          ],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-Z26-HOPE",
+        "owner_type": "organization",
+        "owner_id": "ORG-Z26-HOPE",
+        "dept": "취업역량 강화",
+        "phone": "1566-2714",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.gg.go.kr/myggd/vol179/sub2_4.html",
+        "verified_on": "2026-10-26"
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": ""
+    },
+    {
+      "id": "ORG-Z26-LABOR",
+      "name": "경기도노동권익센터",
+      "level": "경기도",
+      "kind": "노동 권익 상담",
+      "summary": "임금체불·부당해고 등 노동 상담과 권리구제 안내. 남부센터는 수원역 2층(2025년 1월 보도).",
+      "site": "",
+      "phone": "",
+      "source": "https://www.hankyung.com/article/202501169612h",
+      "scope": "경기도",
+      "reviewed": "2026-10-26",
+      "status": "미확인",
+      "jurisdiction": "경기도 노동자 / 남부센터 수원역",
+      "services": [
+        {
+          "id": "SVC-Z26-015",
+          "name": "임금체불·노동권익 상담",
+          "category": "법률·금융",
+          "target": "경기도 노동자",
+          "description": "임금체불·부당해고 상담, 권리구제 절차와 체불임금 생계비 융자 안내, 노무사 심층상담 연결.",
+          "method": "남부센터(수원역 2층) 방문 또는 센터 문의",
+          "operation": "언론 보도로 존재 확인, 공식 안내 미열람. 연계 전 기관에 직접 확인.",
+          "editedOn": "2026-10-26",
+          "tags": {
+            "target": [
+              "청년",
+              "중장년"
+            ],
+            "need": [
+              "법률·금융",
+              "고용·자립"
+            ],
+            "form": [
+              "상담",
+              "정보 제공"
+            ],
+            "intake": [
+              "직접 방문",
+              "전화"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.hankyung.com/article/202501169612h",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-Z26-LABOR",
+        "owner_type": "organization",
+        "owner_id": "ORG-Z26-LABOR",
+        "dept": "",
+        "phone": "",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "",
+        "verified_on": ""
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "전화번호·상시 운영 재확인"
+    },
+    {
+      "id": "ORG-Z26-JARAM",
+      "name": "오산시 함께자람센터(다함께돌봄)",
+      "level": "오산시",
+      "kind": "초등 방과후 돌봄",
+      "summary": "오산시가 운영하는 다함께돌봄센터. 초등학생 방과후 돌봄과 일부 센터의 이른 아침·야간 긴급돌봄 제공(2026년 7월 보도 21곳 운영).",
+      "site": "",
+      "phone": "",
+      "source": "https://www.dailian.co.kr/news/view/1672769",
+      "scope": "오산시",
+      "reviewed": "2026-10-26",
+      "status": "운영중",
+      "jurisdiction": "오산시 / 센터별 정원·우선순위 확인",
+      "services": [
+        {
+          "id": "SVC-Z26-016",
+          "name": "초등 방과후 돌봄",
+          "category": "돌봄·생활",
+          "target": "오산시 초등학생",
+          "description": "방과후 상시·일시 돌봄과 프로그램. 센터별 정원·대기·우선순위 확인.",
+          "method": "센터별 신청(오산시 안내 확인)",
+          "operation": "언론 보도로 존재 확인, 공식 안내 미열람. 연계 전 기관에 직접 확인.",
+          "editedOn": "2026-10-26",
+          "tags": {
+            "target": [
+              "아동"
+            ],
+            "need": [
+              "돌봄",
+              "교육"
+            ],
+            "form": [
+              "서비스 제공",
+              "시설 이용"
+            ],
+            "intake": [
+              "직접 방문",
+              "온라인"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.dailian.co.kr/news/view/1672769",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-Z26-017",
+          "name": "이른 아침·야간 긴급돌봄",
+          "category": "돌봄·생활",
+          "target": "긴급 돌봄이 필요한 오산시 초등학생 가정",
+          "description": "일부 센터(2026년 7월 보도 14곳)에서 07시~등교 전, 19시~24시 돌봄. 사전 신청 필요.",
+          "method": "사전 신청(센터별 확인)",
+          "operation": "언론 보도로 존재 확인, 공식 안내 미열람. 연계 전 기관에 직접 확인.",
+          "editedOn": "2026-10-26",
+          "tags": {
+            "target": [
+              "아동",
+              "가족·한부모"
+            ],
+            "need": [
+              "돌봄"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": [
+              "직접 방문",
+              "전화"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.dailian.co.kr/news/view/1672769",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-Z26-JARAM",
+        "owner_type": "organization",
+        "owner_id": "ORG-Z26-JARAM",
+        "dept": "",
+        "phone": "",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "",
+        "verified_on": ""
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "센터별 위치·전화는 오산시 공식 안내로 확인"
+    },
+    {
+      "id": "ORG-Z26-SAEIL",
+      "name": "오산여성새로일하기센터",
+      "level": "오산시",
+      "kind": "경력단절 여성 취업지원",
+      "summary": "경력단절 여성의 직업교육훈련과 취업 연계. 오산고용복지플러스센터 건물 안에 위치(2026년 9월 보도).",
+      "site": "",
+      "phone": "",
+      "source": "https://gninews.co.kr/news/article.html?no=853734",
+      "scope": "오산시",
+      "reviewed": "2026-10-26",
+      "status": "운영중",
+      "jurisdiction": "오산시 및 인근",
+      "services": [
+        {
+          "id": "SVC-Z26-018",
+          "name": "경력단절 여성 직업교육·취업연계",
+          "category": "취업·자립",
+          "target": "취업을 원하는 경력단절 여성",
+          "description": "직종별 직업교육훈련 과정(예: 방과후학교 코디·강사 과정)과 취업상담·연계. 과정별 모집기간 확인.",
+          "method": "센터 모집공고 확인 후 신청",
+          "operation": "언론 보도로 존재 확인, 공식 안내 미열람. 연계 전 기관에 직접 확인.",
+          "editedOn": "2026-10-26",
+          "tags": {
+            "target": [
+              "중장년",
+              "가족·한부모"
+            ],
+            "need": [
+              "고용·자립",
+              "교육"
+            ],
+            "form": [
+              "서비스 제공",
+              "상담"
+            ],
+            "intake": [
+              "직접 방문",
+              "공모"
+            ]
+          },
+          "operationType": "공모형",
+          "localAvailable": "확인 필요",
+          "source": "https://gninews.co.kr/news/article.html?no=853734",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-Z26-SAEIL",
+        "owner_type": "organization",
+        "owner_id": "ORG-Z26-SAEIL",
+        "dept": "",
+        "phone": "",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "",
+        "verified_on": ""
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "오산고용복지플러스센터 건물 내, 정확한 층·전화 재확인"
+    },
+    {
+      "id": "ORG-Z26-YH1",
+      "name": "오산중앙청소년문화의집",
+      "level": "오산시",
+      "kind": "청소년 시설",
+      "summary": "청소년 활동·동아리·여가 공간. 2013년 개관, 시설개선 사업 추진(2025년 8월 보도).",
+      "site": "",
+      "phone": "",
+      "source": "https://kyeonggi.com/article/20250818580249",
+      "scope": "오산시",
+      "reviewed": "2026-10-26",
+      "status": "미확인",
+      "jurisdiction": "오산시 청소년",
+      "services": [
+        {
+          "id": "SVC-Z26-019",
+          "name": "청소년 활동·공간 이용",
+          "category": "교육·청소년",
+          "target": "오산시 청소년",
+          "description": "동아리·여가·체험 활동과 공간 이용. 프로그램·운영시간 확인.",
+          "method": "시설 문의",
+          "operation": "언론 보도로 존재 확인, 공식 안내 미열람. 연계 전 기관에 직접 확인.",
+          "editedOn": "2026-10-26",
+          "tags": {
+            "target": [
+              "청소년"
+            ],
+            "need": [
+              "교육",
+              "지역참여·자원봉사"
+            ],
+            "form": [
+              "시설 이용",
+              "서비스 제공"
+            ],
+            "intake": [
+              "직접 방문"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://kyeonggi.com/article/20250818580249",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-Z26-YH1",
+        "owner_type": "organization",
+        "owner_id": "ORG-Z26-YH1",
+        "dept": "",
+        "phone": "",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "",
+        "verified_on": ""
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소·전화·운영주체 재확인"
+    },
+    {
+      "id": "ORG-Z26-YH2",
+      "name": "꿈빛나래청소년문화의집",
+      "level": "오산시",
+      "kind": "청소년 시설",
+      "summary": "청소년 활동·여가 공간. 옛 신장동사무소 건물 사용, 시설개선 사업 추진(2025년 8월 보도).",
+      "site": "",
+      "phone": "",
+      "source": "https://kyeonggi.com/article/20250818580249",
+      "scope": "오산시",
+      "reviewed": "2026-10-26",
+      "status": "미확인",
+      "jurisdiction": "오산시 청소년",
+      "services": [
+        {
+          "id": "SVC-Z26-020",
+          "name": "청소년 활동·공간 이용",
+          "category": "교육·청소년",
+          "target": "오산시 청소년",
+          "description": "동아리·여가·체험 활동과 공간 이용. 프로그램·운영시간 확인.",
+          "method": "시설 문의",
+          "operation": "언론 보도로 존재 확인, 공식 안내 미열람. 연계 전 기관에 직접 확인.",
+          "editedOn": "2026-10-26",
+          "tags": {
+            "target": [
+              "청소년"
+            ],
+            "need": [
+              "교육",
+              "지역참여·자원봉사"
+            ],
+            "form": [
+              "시설 이용",
+              "서비스 제공"
+            ],
+            "intake": [
+              "직접 방문"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://kyeonggi.com/article/20250818580249",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-Z26-YH2",
+        "owner_type": "organization",
+        "owner_id": "ORG-Z26-YH2",
+        "dept": "",
+        "phone": "",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "",
+        "verified_on": ""
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소·전화·운영주체 재확인"
     }
   ]
 };
