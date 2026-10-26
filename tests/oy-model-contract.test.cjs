@@ -18,12 +18,13 @@ const payload=(answers,caseContext='')=>({
  explicit:[],followups:{},student:{gender:'미확인',dong:''},caseContext
 });
 test('loaded executable modules are not mislabeled as independent language models',()=>{
- const statuses=G.status();assert.equal(statuses.length,8);
+ const statuses=G.status();assert.equal(statuses.length,9);
  for(const m of statuses)assert.equal(m.loaded,true,m.id+' load');
  assert.equal(statuses.find(x=>x.id==='K-CARR').implementation,'native');
  assert.equal(statuses.find(x=>x.id==='K-CARR-output').implementation,'embedded');
  assert.equal(statuses.find(x=>x.id==='ICMS').implementation,'embedded');
  assert.equal(statuses.find(x=>x.id==='CORE').method,'evaluate');
+ assert.equal(statuses.find(x=>x.id==='SUPPORT-5').implementation,'independent');
 });
 test('all-zero case: no automatic service plan',()=>{
  const a=G.analyze(payload(Array(25).fill(0)));
@@ -31,6 +32,7 @@ test('all-zero case: no automatic service plan',()=>{
  assert.equal(a.plans.length,0);
  assert.equal(a.pendingDomains.length,0);
  assert.equal(a.modelTrace.audit.ok,true);
+ assert.equal(a.supportPriority.tier,1,'gateway must expose unified five-level support index');
 });
 test('unknown-only cases are verification queues, not service referrals',()=>{
  const answers=Array(25).fill(0);answers[19]='unknown';answers[6]='unknown';
