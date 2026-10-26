@@ -67,6 +67,16 @@ function analyze(p){
  // Positive current-context cues can only retain or raise the core evidence priority.
  const composite=complete?ROUND(clamp(narrativeAvailable?baseScore*.95+Math.max(baseScore,narrative)*.05:baseScore)):null;
  let base=composite===null?null:Math.min(5,Math.floor(composite/20)+1),tier=base;
+ // Source CORE already records the number and severity of affected domains.
+ // A sparse 25-item total may hide concentrated, multi-domain difficulty:
+ // preserve raw FI but route confirmed domain concentration to a higher
+ // *operational support-priority* floor (not an estimated clinical probability).
+ const observedLevel=official.observedLevel;
+ const patternFloor=observedLevel>=3?4:observedLevel>=2?3:observedLevel>=1?2:1;
+ const patternReason=observedLevel>=3?'3개 이상 중요 영역·고점 문항 동시 보고':
+  observedLevel>=2?'복수 생활영역에 집중지원 필요 응답':
+  observedLevel>=1?'2점 이상 응답에 따른 개별지원 우선':'보편 예방·관찰 응답';
+ if(tier!==null)tier=Math.max(tier,patternFloor);
  let safetyFloor=null,safetyReason='';
  const highCritical=critical.filter(c=>c.score!==null&&c.score>=3);
  if(official.urgent){
@@ -87,6 +97,7 @@ function analyze(p){
   cross,crossScore,critical,criticalScore,narrative,narrativeAvailable,
   coefficients,composite,baseTier:base,tier,
   label:tier===null?'관측영역 지원단계 미분류':NAMES[tier-1],action:tier===null?'관측된 영역별 지원 우선 실행':ACTIONS[tier-1],
+  observedLevel,patternFloor,patternReason,
   safetyFloor,safetyReason:safetyText?(safetyReason?safetyReason+' · 서술 안전단서 포함':'서술에 현재 보호 관련 단서가 나타나 보호경로 우선 배치'):safetyReason,
   domainRows:ds.map((d,i)=>{const offset=W.GROUPS.slice(0,i).reduce((a,b)=>a+b,0);
    const knownIdx=d.values.map((v,k)=>typeof v==='number'?offset+k:-1).filter(k=>k>=0);
