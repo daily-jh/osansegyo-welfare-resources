@@ -68,6 +68,14 @@ async function run(browserType,name,width,full){
    assert.equal(parsed.answers.length,25);
    assert.equal(parsed.answers.every(v=>v===0),true);
    assert.equal(parsed.caseContext,undefined,'backup must omit freeform notes');
+   await page.reload({waitUntil:'domcontentloaded',timeout:30000});
+   await page.frameLocator('#assessmentFrame').locator('#qi0').waitFor({timeout:15000});
+   assert.equal(await page.locator('#resultTools').isVisible(),false,'new page cannot retain old case in browser storage');
+   await page.locator('#importAssessment').setInputFiles({name:'synthetic-anonymous.json',mimeType:'application/json',buffer:Buffer.from(raw)});
+   await page.waitForFunction(()=>document.querySelector('#resultTools')?.hidden===false,{timeout:20000});
+   assert.equal(await page.locator('.oy-viz-radar svg').count(),1,'imported anonymous scores recompute the case');
+   assert.equal(await page.frameLocator('#assessmentFrame').locator('input[type="radio"]:checked').count(),25,'all 25 answers restored');
+
    await page.screenshot({path:path.join(dir,name+'-'+width+'.png'),fullPage:true});
   }
   assert.deepEqual(exceptions,[],name+' JS exceptions');
