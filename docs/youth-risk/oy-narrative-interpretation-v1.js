@@ -17,6 +17,8 @@ const CUES=[
  {n:1,re:/(?:집에서|가정에서)[^.,]{0,10}(?:맞|폭력|폭행)|멍(?:이|자국)|설명(?:이|과) (?:다른|엇갈리는) 상처/},
  {n:2,re:/방임|방치|씻지 (?:못|않)|며칠(?:째)? ?(?:굶|못 먹)|계절에 맞지 않는 옷|치료를? (?:받지 못|못 받)|위생 상태가 (?:나쁘|좋지)/},
  {n:3,re:/괴롭힘|괴롭히|따돌림|따돌리|왕따|놀림|놀리|학교폭력|단톡|단체 ?채팅방?[^.,]{0,8}(?:욕|퇴장|저격)|(?:친구|또래|반 아이)[^.,]{0,10}(?:맞았|맞는|무시|갈등|다툼)/},
+ // A threat to spread images is a safety cue whatever the images are; kept under coercion, never assumed sexual.
+ {n:4,safety:true,re:/(?:촬영물|사진|영상|동영상|몸캠|나체|알몸)[^.]{0,15}(?:유포|퍼뜨|퍼트|뿌리|뿌린|올리겠|올린다고|게시|공개하)|(?:유포|퍼뜨리|퍼트리|뿌리|게시|공개)\S{0,4} ?(?:하겠|겠다|한다고)[^.]{0,10}(?:촬영물|사진|영상)/},
  {n:4,re:/돈을 (?:뺏|빼앗|요구)|갈취|셔틀|협박|강요(?:를|당)/},
  {n:5,re:/(?:친구|또래|교사|선생님)(?:를|을|에게)[^.,]{0,8}(?:때리|때렸|밀치|밀쳤|위협)|물건을 던|싸움을|폭언/},
  {n:6,re:/우울|무기력|의욕이 없|의욕(?:이)? ?(?:떨어|없)|엎드려|눈물|울었|울먹|표정이 (?:없|어둡)|웃지 않|외롭|슬퍼|슬프다|짜증이 늘|힘들다고/},
@@ -44,10 +46,14 @@ const CUES=[
 const STRENGTH=/좋아한다|좋아하고|좋아함|좋아하는|잘한다|잘하고|잘하는|성실|열심히|꾸준히|신뢰한다|믿고 따르|친한 친구|도와준다|도와주는|책임감|밝은 편|웃으며/;
 const WISH=/원한다|원함|원하고|희망한다|희망함|싶다고|바란다|받고 싶|되고 싶/;
 const SUPPORT=/이용 ?중|지원을 받|상담을 받|연계되어|연계됨|드림스타트|지역아동센터|위클래스|Wee|사례관리(?:를)? ?(?:받|중)|방과후(?:에)? ?참여/;
-const NEGATION=/^[^.,]{0,16}?(?:없다|없음|없었|없고|없는|없으|아니|않았|않는다|않고|않음|부인)/;
+const NEGATION=/^[^.,]{0,16}?(?:없다|없음|없었|없고|없는|없으|아니|않았|않는다|않고|않음|하지 ?않|싶지 ?않|부인)|^지 ?않/;
+// "Not wanting to stop" is the opposite of a denial.
+const CONTINUE=/(?:멈추|멈출|그만두|그만하|그만 ?하|끊)\S{0,4} ?(?:싶지 ?않|않)/;
 // Hiding or refusing to talk about a sign is a reason to check, never a denial.
 const CONCEAL=/숨기|숨겨|감추|감춰|가리고|가린다|말하지 ?않|말을 ?안|이야기하지 ?않|밝히지 ?않|보여주지 ?않/;
 const HYPO=/것 같|듯하|듯 하|가능성|우려|추정|의심/;
+// Teaching material and examples describe no event about this student.
+const EXAMPLE=/예방 ?교육|사례 ?교육|교육 ?자료|사례를? ?소개|예시로|매뉴얼|척도 ?문항|실습 ?문제/;
 const PAST=/작년|예전|과거|어릴 때|어렸을 때|초등학교 때|전에는|이전에는/;
 
 function sourceOf(s){
@@ -88,11 +94,11 @@ function read(p){
   out.sources[src]=(out.sources[src]||0)+1;
   clauses(s).forEach(cl=>{
    CUES.forEach(cue=>{
-    const m=cl.match(cue.re);if(!m)return;
+    const m=cl.match(cue.re);if(!m||EXAMPLE.test(cl))return;
     if(row.links.some(l=>l.n===cue.n))return;
     const after=cl.slice(m.index+m[0].length);
-    const status=CONCEAL.test(cl)?'보고':!cue.neg&&NEGATION.test(after)?'부인':HYPO.test(cl)?'추정':PAST.test(cl)?'과거':'보고';
-    const f={n:cue.n,topic:K.item(cue.n).topic,status,source:src,sentence:id,quote:short(cl),safety:SAFETY.includes(cue.n)};
+    const status=CONCEAL.test(cl)?'보고':!cue.neg&&NEGATION.test(after)&&!CONTINUE.test(cl)?'부인':HYPO.test(cl)?'추정':PAST.test(cl)?'과거':'보고';
+    const f={n:cue.n,topic:K.item(cue.n).topic,status,source:src,sentence:id,quote:short(cl),safety:SAFETY.includes(cue.n)||!!cue.safety};
     row.links.push(f);out.findings.push(f);
     (out.items[cue.n]=out.items[cue.n]||[]).push(f);
     if(f.safety&&status!=='부인')out.safety.push(f);
@@ -120,7 +126,7 @@ function compare(values,items){
   else if(has&&st==='부인'){kind=high?'conflict':'agreeLow'}
   else if(has&&st==='과거'){kind='past'}
   else if(high){kind='scale'}
-  if(kind)rows.push({n,topic:K.item(n).topic,value:v,kind,status:st,quotes:list.map(f=>({quote:f.quote,source:f.source,status:f.status})),safety:SAFETY.includes(n)});
+  if(kind)rows.push({n,topic:K.item(n).topic,value:v,kind,status:st,quotes:list.map(f=>({quote:f.quote,source:f.source,status:f.status})),safety:SAFETY.includes(n)||list.some(f=>f.safety)});
  }
  const by=k=>rows.filter(r=>r.kind===k);
  return {rows,agree:by('agree'),narrative:by('narrative'),fill:by('fill'),conflict:by('conflict'),scale:by('scale'),low:by('agreeLow'),past:by('past')};
@@ -144,7 +150,7 @@ function themes(n){
   const its=t.items.filter(i=>n.items[i]);if(!its.length)return null;
   const reported=its.filter(i=>stateOf(n.items[i])!=='부인');
   const denied=its.filter(i=>stateOf(n.items[i])==='부인');
-  const meaning=reported.map(i=>({topic:K.item(i).topic,text:K.item(i).r[1],safety:SAFETY.includes(i)}));
+  const meaning=reported.map(i=>({topic:K.item(i).topic,text:K.item(i).r[1],safety:SAFETY.includes(i)||n.items[i].some(f=>f.safety)}));
   return {id:t.id,name:t.name,items:its,reported,denied,quotes:uniq(its.flatMap(i=>n.items[i])),meaning};
  }).filter(Boolean);
 }

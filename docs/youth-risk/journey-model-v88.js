@@ -19,7 +19,7 @@ function analyze(p){
  if(!M.validate(p))throw Error('완료된 25문항 평가자료가 필요합니다.');
  const decision=M.context(p),domains=M.domains(p),context=C.reconcile(p.answers,p.caseContext||''),ecosystem=E.parse(p),semantic=S&&S.formulate?S.formulate(p.answers):null,evidence=S&&S.evidenceAssessment?S.evidenceAssessment(p.answers):null;
  const active=ecosystem.institutions.filter(x=>x.status==='이용·개입 언급');
- const extra=new Set(context.signals.filter(s=>['reported','unverified'].includes(s.polarity)&&s.timeHint!=='historical-mention').flatMap(s=>domains.filter(d=>d.numbers.some(n=>s.items.includes(n))).map(d=>d.i)));
+ const extra=new Set(context.signals.filter(s=>['reported','unverified'].includes(s.polarity)&&s.timeHint!=='historical-mention'&&s.subject!=='third-party').flatMap(s=>domains.filter(d=>d.numbers.some(n=>s.items.includes(n))).map(d=>d.i)));
  const pendingDomains=domains.filter(d=>!d.sum&&d.unknown&&!extra.has(d.i)).map(d=>({domain:d.i,name:d.name,unknownItems:d.numbers.filter(n=>p.answers[n-1]==='unknown')}));
   // Unknown-only domains are verification tasks, never automatic service plans.
   const ordered=M.rank(domains).filter(d=>d.sum>0||extra.has(d.i));
