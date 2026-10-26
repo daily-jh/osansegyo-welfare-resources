@@ -1,4 +1,5 @@
-/* Shared report templates: CORE-owned routing, score-only, no new cutoffs. */
+/* Shared report templates: CORE-owned routing, score-only, no new cutoffs.
+   Superseded on the result screen by oy-deep-interpretation-v1.js; kept as fallback and for its contract test. */
 (function(root){'use strict';
 const node=typeof module!=='undefined'&&module.exports;
 const C=node?require('./criteria.js'):root.YouthCriteria;
