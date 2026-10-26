@@ -1,11 +1,11 @@
 /* OY-RALS v4.0/v4.2 single free-text case-context interpreter.
    All extracted cues are unverified review prompts; NEVER diagnosis, risk scoring, or auto-reporting. */
 (function(root,factory){'use strict';const api=factory();if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.YouthCaseContextCore=api;})(typeof window!=='undefined'?window:globalThis,function(){'use strict';
-const VERSION='1.1.0-free-text-20261024',LIMITS=Object.freeze({text:5000}),MAX_CLAUSES=65;
+const VERSION='1.2.0-free-text-20261026',LIMITS=Object.freeze({text:5000}),MAX_CLAUSES=65;
 const TYPES=Object.freeze([
  {id:'protection',items:[1,2],label:'학대·보호 관련 언급',re:/학대|방임|체벌|맞았|폭행|가정폭력|보호자.{0,12}(?:위협|폭력)|보호.{0,4}부재/,safety:true,ask:'현재 안전·발생시기·당사자 진술과 법정 신고·보호절차를 담당자가 확인합니다.'},
  {id:'peer',items:[3,4,5],label:'또래관계·학교폭력',re:/따돌림|왕따|학교폭력|괴롭힘|놀림|또래.{0,6}(?:위협|폭행)|금품.{0,6}요구|협박/,ask:'피해인지 행동인지와 학교의 안전조치, 동일 사건 여부를 구분합니다.'},
- {id:'selfharm',items:[7],label:'자해·죽음 관련 언급',re:/자해|자살|죽고\s?싶|살기\s?싫|극단적\s?선택|(?:손목|팔목|팔뚝|허벅지).{0,6}(?:상처|흉터|베인|그은|긋)/,safety:true,ask:'현재 생각·행동·계획·수단 및 안전한 보호체계를 직접 확인합니다.'},
+ {id:'selfharm',items:[7],label:'자해·죽음 관련 언급',re:/자해|자살|죽고\s?싶|살기\s?싫|극단적\s?선택|(?:손목|팔목|팔뚝|허벅지).{0,6}(?:상처|흉터|베인|베었|베어|그은|그었|그어|긋)/,safety:true,ask:'현재 생각·행동·계획·수단 및 안전한 보호체계를 직접 확인합니다.'},
  {id:'emotion',items:[6,8],label:'정서적 어려움',re:/우울|불안|무기력|불면|수면장애|공황|정서.{0,5}곤란|심리적.{0,5}고통/,ask:'지속기간·생활영향·학생이 원하는 도움을 확인합니다.'},
  {id:'attendance',items:[9,11],label:'출결·소속감',re:/결석|지각|등교.{0,9}(?:거부|어려|회피)|학교.{0,5}가기\s?싫|수업.{0,6}불참|학업중단|학교 소속감/,ask:'출결 변화의 시점과 학교 참여를 어렵게 하는 여건을 확인합니다.'},
  {id:'learning',items:[10,14,15],label:'학습·접근성',re:/기초학습|학습곤란|학습부진|과제.{0,7}(?:어려|미제출)|수업.{0,6}이해|접근성|보조공학|교육환경.{0,7}조정/,ask:'학습지원 필요와 교육환경·서비스 접근 장벽을 구분합니다.'},
@@ -16,9 +16,18 @@ const TYPES=Object.freeze([
  {id:'peerConflict',items:[22],label:'교우 갈등·관계 부담',re:/(?:교우|친구|또래).{0,8}갈등/,ask:'상호 갈등인지 피해·위협인지, 학생이 원하는 거리와 지원을 확인합니다.'},
  {id:'support',items:[22,23],label:'관계·지지',re:/고립|친구.{0,5}없|지지.{0,6}부족|의지할.{0,5}사람.{0,3}없|도움.{0,6}받을.{0,5}(?:어른|사람).{0,4}없/,ask:'학생이 선택한 신뢰 인물과 실제 도움 요청 가능성을 확인합니다.'},
  {id:'digital',items:[24],label:'디지털 이용 조절',re:/SNS.{0,6}과몰입|게임.{0,6}과몰입|스마트폰.{0,6}(?:과다|과의존|과몰입)|디지털.{0,6}이용.{0,6}조절/,ask:'이용시간 자체보다 실제 수면·학습·관계의 영향을 확인합니다.'},
- {id:'onlineSexual',items:[25],label:'온라인 성착취·디지털 피해',re:/온라인.{0,9}성착취|그루밍|성적.{0,6}사진.{0,9}협박|성적.{0,6}영상.{0,9}유포|디지털.{0,6}성범죄|딥페이크.{0,6}(?:협박|성적)/,safety:true,ask:'현재 접촉·협박·유포 가능성과 피해보호 절차를 직접 확인합니다.'}
+ {id:'onlineSexual',items:[25],label:'온라인 성착취·디지털 피해',re:/온라인.{0,9}성착취|그루밍|성적.{0,6}사진.{0,9}협박|성적.{0,6}영상.{0,9}유포|디지털.{0,6}성범죄|딥페이크.{0,6}(?:협박|성적)/,safety:true,ask:'현재 접촉·협박·유포 가능성과 피해보호 절차를 직접 확인합니다.'},
+ // A threat to spread images is a current safety issue whatever the images are; never assume they are sexual.
+ {id:'imageThreat',items:[4,25],label:'촬영물·사진 유포 위협',re:/(?:촬영물|사진|영상|동영상|몸캠|나체|알몸).{0,15}(?:유포|퍼뜨|퍼트|뿌리|뿌린|올리겠|올린다고|게시|공개하)|(?:유포|퍼뜨리|퍼트리|뿌리|게시|공개)\S{0,4}\s?(?:하겠|겠다|한다고).{0,10}(?:촬영물|사진|영상)/,safety:true,ask:'어떤 촬영물인지 단정하지 않고, 현재 협박·유포 여부와 요구 내용, 피해 보호절차를 직접 확인합니다.'},
+ // A hidden wound or bruise is a reason to ask about its context, not evidence of abuse or self-harm.
+ {id:'woundContext',items:[1,7],label:'상처·멍의 맥락 확인',re:/(?:상처|멍(?!하)|흉터|화상).{0,12}(?:숨기|숨겨|감추|감춰|가리|가린|말하지\s?않|말을\s?안|설명하지\s?않|보여주지\s?않)|(?:숨기|숨겨|감추|감춰|가리|가린).{0,8}(?:상처|멍(?!하)|흉터)/,ask:'자해나 학대로 단정하지 않고 상처의 원인·위치·시점과 학생이 편하게 말할 수 있는 상황인지 확인합니다.'}
 ]);
-const NEG=/(?:없다|없음|없어|없었|없고|없으며|아니다|아님|아니며|하지\s?않|않았|않음|부인|해당\s?없|안\s?한다|안\s?함|아니라고)/;
+const NEG=/(?:없다|없음|없어|없었|없고|없으며|아니다|아님|아니며|하지\s?않|싶지\s?않|않았|않음|부인|해당\s?없|안\s?한다|안\s?함|아니라고)/;
+// "Not wanting to stop" is the opposite of a denial.
+const CONTINUE=/(?:멈추|멈출|그만두|그만하|그만\s?하|끊)\S{0,4}\s?(?:싶지\s?않|않)/;
+const THIRD_PARTY=/(?:친구|보호자|부모|어머니|아버지)(?:가|는|의).{0,20}(?:자해|자살|죽고|손목|팔목|팔뚝|허벅지)/;
+// The student named as the one who acts keeps the cue with the student, even when someone else reported it.
+const STUDENT_SELF=/(?:학생|본인)(?:이|은|도|의)?\s?(?:(?!친구|보호자|부모|어머니|아버지).){0,12}(?:자해|자살|죽고|손목|팔목|팔뚝|허벅지)/;
 // Hiding or refusing to talk about a sign is not a denial; it stays an unverified cue to check.
 const CONCEAL=/(?:숨기|숨겨|감추|감춰|가리고|가린다|말하지\s?않|말을\s?안|이야기하지\s?않|밝히지\s?않|보여주지\s?않)/;
 const UNCERTAIN=/(?:의심|추정|가능성|모르|미확인|확인\s?필요|전해\s?들|소문|들은\s?바|인지\s?확인|같다고\s?함)/;
@@ -45,18 +54,19 @@ function who(clause){if(/학생이\s?(?:말|진술|호소|알려|표현)|학생�
 function infer(input){
  const c=normalize(input);if(!c)return {version:VERSION,hasContext:false,signals:[],issues:[],fields:{},source:'없음',clauses:[],privacyWarnings:[]};
  const clauses=splitClauses(c.text),signals=[],seen=new Set(),issues=[];
- for(const clause of clauses){const hypo=HYPOTHETICAL.test(clause),neg=NEG.test(clause)&&!CONCEAL.test(clause),uncertain=UNCERTAIN.test(clause)||CONCEAL.test(clause),old=HISTORICAL.test(clause);
+ for(const clause of clauses){const hypo=HYPOTHETICAL.test(clause),neg=NEG.test(clause)&&!CONCEAL.test(clause)&&!CONTINUE.test(clause),uncertain=UNCERTAIN.test(clause)||CONCEAL.test(clause),old=HISTORICAL.test(clause),third=THIRD_PARTY.test(clause)&&!STUDENT_SELF.test(clause);
   for(const def of TYPES){if(!def.re.test(clause))continue;
    const key=def.id+'|'+clause;if(seen.has(key))continue;seen.add(key);
    const polarity=hypo?'hypothetical':neg?'negated':uncertain?'unverified':'reported';
-   signals.push({tag:def.id,items:def.items.slice(),label:def.label,polarity,subject:/(?:친구|보호자|부모|어머니|아버지)(?:가|는|의).{0,20}(?:자해|자살|죽고)/.test(clause)?'third-party':'unconfirmed',source:who(clause),timeHint:old?'historical-mention':/(?:현재|지금|요즘|최근|오늘)/.test(clause)?'current-or-recent':'unconfirmed',safety:!!def.safety,clause:redact(clause).slice(0,180),action:def.ask,evidenceClass:'unverified_optional_free_text',humanConfirmationRequired:true});
+   signals.push({tag:def.id,items:def.items.slice(),label:def.label,polarity,subject:third?'third-party':'unconfirmed',source:who(clause),timeHint:old?'historical-mention':/(?:현재|지금|요즘|최근|오늘)/.test(clause)?'current-or-recent':'unconfirmed',safety:!!def.safety,clause:redact(clause).slice(0,180),action:def.ask,evidenceClass:'unverified_optional_free_text',humanConfirmationRequired:true});
   }
  }
  const section=(rx,n=3)=>clauses.filter(x=>rx.test(x)&&!HYPOTHETICAL.test(x)&&!NEG.test(x)).slice(0,n).map(x=>redact(x).slice(0,230)).join(' / ');
  const fields={situation:redact(c.text).slice(0,400),observations:section(/(?:관찰|보았|기록|변화|확인|호소)/),studentWishes:section(WISH),strengths:section(STRENGTH),existingSupport:section(SUPPORT),urgentNeeds:section(URGENT)};
  const privacyWarnings=[];if(redact(c.text)!==c.text)privacyWarnings.push('연락처·식별번호·이메일과 같은 형식이 감지되어 표시할 때 일부 가렸습니다. 자동 익명화가 완전하다는 뜻은 아닙니다.');
- if(signals.some(s=>s.safety&&['reported','unverified'].includes(s.polarity)&&s.timeHint!=='historical-mention'))issues.push({type:'safety-mention',message:'안전 관련 표현이 있습니다. 사실·현재 위험 여부를 담당자가 직접 확인하고 필요한 보호절차를 진행해야 합니다.'});
+ if(signals.some(s=>s.safety&&['reported','unverified'].includes(s.polarity)&&s.timeHint!=='historical-mention'&&s.subject!=='third-party'))issues.push({type:'safety-mention',message:'안전 관련 표현이 있습니다. 사실·현재 위험 여부를 담당자가 직접 확인하고 필요한 보호절차를 진행해야 합니다.'});
  if(signals.some(s=>s.safety&&s.timeHint==='historical-mention'))issues.push({type:'historical-safety',message:'과거 안전 사건은 현재 위험과 구분하되 현시점 안전 여부를 확인합니다.'});
+ if(signals.some(s=>s.safety&&s.subject==='third-party'&&['reported','unverified'].includes(s.polarity)))issues.push({type:'third-party-safety',message:'다른 사람의 안전 관련 언급입니다. 학생 본인의 위험으로 옮기지 않되, 해당 인물의 안전은 별도 절차로 알리고 학생이 받은 영향도 확인합니다.'});
  if(signals.some(s=>s.polarity==='unverified'))issues.push({type:'uncertainty',message:'의심·추정·전언을 확인된 사실로 단정하지 않습니다.'});
  return {version:VERSION,hasContext:true,context:c,signals,issues,fields,clauses:clauses.map(x=>redact(x).slice(0,280)),privacyWarnings,source:'혼합·자유서술(출처는 문장별 추정)'};
 }
@@ -77,7 +87,7 @@ function reconcile(answers,input){
    if(positive.length)out.mismatches.push({tag:signal.tag,items:positive.map(z=>z.item),issue:'부정 표현과 양성 점수가 공존합니다. 시점·사건·출처 차이를 확인하십시오.'});
   }
  }
- out.needsSafetyAttention=x.signals.some(s=>s.safety&&(s.polarity==='reported'||s.polarity==='unverified')&&s.timeHint!=='historical-mention');
+ out.needsSafetyAttention=x.signals.some(s=>s.safety&&(s.polarity==='reported'||s.polarity==='unverified')&&s.timeHint!=='historical-mention'&&s.subject!=='third-party');
  out.manualReviewRequired=out.needsSafetyAttention||out.mismatches.length>0||out.unknownCandidates.length>0;
  return out;
 }
