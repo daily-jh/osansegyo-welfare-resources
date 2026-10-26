@@ -40,3 +40,5 @@ jobs:
         run: node tests/youth-stage-navigation-regression.cjs
       - name: Verify five-level index with 4000 synthetic cases
         run: node tests/youth-five-level-index.cjs
+      - name: Verify V3 narrative and family diagram
+        run: node tests/youth-third-revision-regression.cjs
