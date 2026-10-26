@@ -240,7 +240,7 @@ function sections(r){
  out.push('understanding','case','code','profile','detail','patterns','ecology','strengths','plan','roles','agenda','questions','consult','reassess','validity');
  return out;
 }
-const TITLES={critical:'먼저 확인할 안전 신호',understanding:'이 학생을 이해하기',case:'통합사례관리 판단',ecology:'생태체계 지도',plan:'단계별 개입 계획',agenda:'사례회의 안건',consult:'자문 의견',code:'응답 패턴',profile:'영역 프로파일',detail:'영역별 상세 해석',patterns:'어려움이 이어지는 고리',strengths:'강점과 지원의 발판',roles:'역할별 실천',questions:'면담에서 물어볼 질문',reassess:'다음 평가에서 볼 변화',validity:'응답 타당성'};
+const TITLES={critical:'우선 안전 확인',understanding:'사례개념화',case:'개입 수준과 주관기관',ecology:'생태체계 사정',plan:'단계별 개입계획',agenda:'사례회의 안건',consult:'슈퍼비전·자문 의견',code:'응답 프로파일 유형',profile:'영역별 프로파일',detail:'영역별 심층 해석',patterns:'문제 유지 고리 (교차 패턴)',strengths:'강점·보호요인',roles:'직무별 실천 과제',questions:'면담 확인 질문',reassess:'재사정 지표',validity:'응답 타당도 점검'};
 function html(r){
  const s=r.summary,ul=a=>'<ul>'+a.map(x=>'<li>'+x+'</li>').join('')+'</ul>';
  const body={
@@ -261,7 +261,7 @@ function html(r){
   reassess:()=>r.reassess.length?ul(r.reassess.map(x=>'<strong>'+esc(x.topic)+'</strong> 지금: '+esc(x.nowText)+'<br>다음 목표: '+esc(x.target))):'<p>다음 평가에서 지금의 응답이 유지되는지와 새로운 어려움이 생겼는지 봅니다.</p>',
   validity:()=>'<p><strong>'+esc(r.validity.level)+'</strong> · '+esc(r.validity.summary)+'</p>'+ul(r.validity.rows.map(x=>'<strong>'+esc(x.label)+'</strong> '+esc(x.text)))
  };
- let h='<article class="oy-deep-report" data-report-version="'+VERSION+'"><header class="odi-head"><span class="odi-kicker">OY-RALS 심층해석지</span><h2>'+esc(r.code.name)+'</h2><p>'+esc(r.title)+'</p></header>';
+ let h='<article class="oy-deep-report" data-report-version="'+VERSION+'"><header class="odi-head"><span class="odi-kicker">OY-RALS 척도 심층해석</span><h2>'+esc(r.code.name)+'</h2><p>'+esc(r.title)+'</p></header>';
  h+='<section class="odi-sec odi-glance"><h3>한눈에 보기</h3><dl><div><dt>지원 수준</dt><dd>'+esc(s.level)+'</dd></div><div class="'+(s.safety==='이번 응답의 안전 신호 없음'?'':'odi-alert')+'"><dt>현재 안전</dt><dd>'+esc(s.safety)+'</dd></div><div><dt>핵심 어려움</dt><dd>'+(s.keys.length?s.keys.map(k=>'<span class="odi-chip">'+esc(k)+'</span>').join(''):'두드러진 어려움 없음')+'</dd></div><div><dt>이번 주 첫 행동</dt><dd>'+esc(s.first)+'</dd></div><div><dt>해석 신뢰도</dt><dd>'+esc(r.validity.level)+' · '+esc(r.validity.summary)+'</dd></div></dl></section>';
  sections(r).forEach((k,i)=>{h+='<section class="odi-sec odi-s-'+k+'"><h3><span class="odi-num">'+(i+1)+'</span>'+esc(TITLES[k])+'</h3>'+body[k]()+'</section>'});
  h+=appendixHtml(r)+'<footer class="odi-notice"><h3>해석 안내</h3><p>'+esc(r.notice)+'</p></footer></article>';
@@ -307,7 +307,7 @@ function text(r){
   reassess:()=>r.reassess.map(x=>'- '+x.topic+'\n  지금: '+x.nowText+'\n  다음 목표: '+x.target),
   validity:()=>[r.validity.level+' · '+r.validity.summary,...r.validity.rows.map(x=>'- '+x.label+': '+x.text)]
  };
- L.push('■ OY-RALS 심층해석지 · '+r.code.name,r.title,'','[한눈에 보기]','지원 수준: '+s.level,'현재 안전: '+s.safety,'핵심 어려움: '+(s.keys.join(', ')||'두드러진 어려움 없음'),'이번 주 첫 행동: '+s.first,'해석 신뢰도: '+r.validity.level);
+ L.push('■ OY-RALS 척도 심층해석 · '+r.code.name,r.title,'','[한눈에 보기]','지원 수준: '+s.level,'현재 안전: '+s.safety,'핵심 어려움: '+(s.keys.join(', ')||'두드러진 어려움 없음'),'이번 주 첫 행동: '+s.first,'해석 신뢰도: '+r.validity.level);
  sections(r).forEach((k,i)=>L.push('','['+(i+1)+'. '+TITLES[k]+']',...B[k]()));
  const a=appendixRows(r);
  L.push('','[근거 자료 · 문항과 점수]','원점수: '+s.total,'CORE 판단: '+r.title,r.core.reason,'영역별 점수',...a.domains.map(x=>'- '+x[0]+': '+x[1]+' · 평균 '+x[2]+' · '+x[3]+(x[4]!=='없음'?' · 미상 '+x[4]:'')),'25문항 응답',...a.items.map(x=>'- '+x[0]+' '+x[1]+': '+x[2]),...(a.critical.length?['결정적 문항: '+a.critical.map(x=>x[0]+' '+x[2]).join(', ')]:[]),...(a.patterns.length?['패턴별 근거: '+a.patterns.map(x=>x[0]+' '+x[1]).join(' / ')]:[]),...(a.reassess.length?['재평가 기준: '+a.reassess.map(x=>x[0]+' '+x[2]+'→'+x[3]).join(', ')]:[]));

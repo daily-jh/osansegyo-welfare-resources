@@ -42,6 +42,7 @@ jobs:
           node --check docs/youth-risk/oy-item-knowledge-v1.js
           node --check docs/youth-risk/oy-cross-patterns-v1.js
           node --check docs/youth-risk/oy-deep-interpretation-v1.js
+          node --check docs/youth-risk/oy-narrative-interpretation-v1.js
       - name: Verify 1200 synthetic cases and invariants
         run: node --test tests/oy-model-contract.test.cjs
       - name: Verify completed evaluation can open stages 3 and 4
@@ -60,3 +61,4 @@ jobs:
           node tests/youth-narrative-export-privacy.cjs
           node tests/common-scale-report.cjs
           node tests/oy-deep-interpretation.cjs
+          node tests/oy-narrative-interpretation.cjs

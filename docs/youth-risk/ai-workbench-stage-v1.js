@@ -8,15 +8,15 @@ const anchor=document.getElementById('cie-flow-v32');
 const host=document.getElementById('journey88');
 if(!anchor||!host||document.getElementById('oy-ai-workbench-stage'))return;
 const root=document.createElement('section');root.id='oy-ai-workbench-stage';root.className='oy-ai-workbench';root.hidden=true;
-root.setAttribute('aria-label','현재 사례의 AI 연구 작업실');
-root.innerHTML='<header><span class="oy-ai-eyebrow">STEP 04 · OY-CIE RESEARCH</span><h2>AI 연구 작업실</h2><p>현재 사례의 척도·서술·종합의견·사정·계획·연계 자료를 선택해 연구하고, 기존 OY-CIE 엔진으로 질문할 수 있습니다.</p></header>'+
+root.setAttribute('aria-label','현재 사례의 AI 사례자문 작업실');
+root.innerHTML='<header><span class="oy-ai-eyebrow">STEP 04 · OY-CIE RESEARCH</span><h2>AI 사례자문 작업실</h2><p>현재 사례의 척도·서술·종합의견·사정·계획·연계 자료를 선택해 연구하고, 기존 OY-CIE 엔진으로 질문할 수 있습니다.</p></header>'+
 '<div class="oy-ai-scope"><h3>분석에 포함할 자료</h3><p>CORE 원응답·안전판정은 해석의 기초이므로 제외하지 않습니다. 서술기록은 동의 없이 분석이나 외부 요청문에 포함하지 않습니다.</p>'+
 '<div class="oy-ai-scope-grid">'+[
 ['score','CORE 척도·정량 결과',true,true],
 ['narrative','서술기록·맥락',false,false],
 ['opinion','통합 종합의견',true,false],
-['assessment','사례사정·판정',true,false],
-['plan','서비스계획 추천',true,false],
+['assessment','통합사정·사례판정',true,false],
+['plan','개입계획 수립',true,false],
 ['resources','자원연계 후보',true,false]
 ].map(([id,label,checked,required])=>'<label><input type="checkbox" data-ai-scope="'+id+'" '+(checked?'checked ':'')+(required?'disabled ':'')+'/>'+label+'</label>').join('')+'</div></div>'+
 '<label for="oy-ai-work-role">연구 해석 관점</label><select id="oy-ai-work-role"><option value="teacher">교사</option><option value="education-welfare">교육복지사</option><option value="social-worker" selected>사회복지사</option></select><div class="oy-ai-suggestions" role="group" aria-label="분석 질문 예시"><button type="button" data-oy-ai-example="핵심 위기와 1~2주 우선 개입을 학교·복지관으로 구분해줘">우선 개입 3가지</button><button type="button" data-oy-ai-example="학생맞춤통합지원과 복지관 사례관리의 역할을 근거별로 구분해줘">학맞통·복지관 역할</button><button type="button" data-oy-ai-example="문항 교차영역을 해석하고 목표와 성과지표를 제안해줘">교차영역·목표</button></div><label for="oy-ai-question">무엇을 더 검토하고 싶으신가요?</label>'+
@@ -43,8 +43,8 @@ function createContext(){
  add('safety','안전판정',a.decision.safetyReview);
  if(scopes.has('narrative'))add('narrative','선택 서술기록(미확인)',safe.caseContext);
  if(scopes.has('opinion'))add('opinion','정량·서술 종합의견',a.sections.find(x=>/종합사정 및 우선순위/.test(x.title))?.text);
- if(scopes.has('assessment'))add('assessment','사례사정·판정',a.sections.filter(x=>/학생 상황 요약|현재 안전|가족·돌봄|학습·출결|강점/.test(x.title)).map(x=>x.title+': '+x.text).join('\n'));
- if(scopes.has('plan'))add('plan','서비스계획 추천(실무자 승인 전)',a.plans.slice(0,8).map(x=>x.title+' / 근거 '+(x.evidence||[]).join('·')+' / 실행 검토 '+x.action+' / 변화 지표 '+x.outcome).join('\n'));
+ if(scopes.has('assessment'))add('assessment','통합사정·사례판정',a.sections.filter(x=>/학생 상황 요약|현재 안전|가족·돌봄|학습·출결|강점/.test(x.title)).map(x=>x.title+': '+x.text).join('\n'));
+ if(scopes.has('plan'))add('plan','개입계획 수립(실무자 승인 전)',a.plans.slice(0,8).map(x=>x.title+' / 근거 '+(x.evidence||[]).join('·')+' / 실행 검토 '+x.action+' / 변화 지표 '+x.outcome).join('\n'));
  if(scopes.has('resources'))add('resources','지역자원·의뢰 후보(접수 미확인)',a.plans.slice(0,6).flatMap(x=>(x.candidates||[]).map(y=>y.name+' / '+y.service)).filter((x,i,arr)=>arr.indexOf(x)===i).join('\n')||'적합 기관·서비스의 이용조건·접수 가능 여부는 별도 확인 필요');
  const status=engine.status?engine.status().map(x=>x.id+': '+(x.loaded?'연결':'미연결')).join(' / '):'모델 상태 확인 필요';
  const plain='OY-RALS 연구자료 · 실무자 검토 전\n원점수 및 안전판정 불변 · 미상은 0점 아님\n\n'+materials.map(x=>'['+x.label+']\n'+x.text).join('\n\n')+'\n\n[모델 상태]\n'+status;
