@@ -24,6 +24,12 @@ async function scenario(browser,width){
  assert.equal(await page.locator('.flow-nav [data-oy-step]').count(),5,'five main steps exposed');
  assert.equal(await page.locator('[data-j88-result-tab="score"]').getAttribute('aria-pressed'),'true','quantitative first');
  assert.ok((await page.locator('#journey88').innerText()).includes('10개 평가 영역별 원점수'));
+ await page.evaluate(()=>{window.print=()=>{};});
+ assert.equal(await page.locator('#j88-print-quick').count(),1,'direct PDF action available');
+ await page.locator('#j88-print-quick').click();
+ assert.match(await page.locator('#j88-print-root').innerText(),/10개 영역별 응답 점수/,'score PDF retains raw-only view');
+ await page.evaluate(()=>window.dispatchEvent(new Event('afterprint')));
+
  await page.locator('[data-j88-result-tab="narrative"]').click();
  assert.match(await page.locator('#journey88').innerText(),/추가 서술기록이 입력되지 않아/,'empty narrative is explicit');
  await page.locator('[data-j88-result-tab="integrated"]').click();
@@ -64,7 +70,11 @@ async function scenario(browser,width){
  await page.locator('#oy-ai-question').fill('서비스계획의 근거와 추가 확인은?');
  await page.locator('#oy-ai-ask').click();
  await page.waitForFunction(()=>document.querySelector('#cie-flow-status')?.textContent?.includes('해석 완료'),{timeout:15000});
- assert.match(await page.locator('#cie-flow-result').innerText(),/선택된 사례관리 문서|공식 CORE/,'linked research response');
+ assert.match(await page.locator('#cie-flow-result').innerText(),/선택된 사례관리 문서/,'CIE answer includes linked assessed plan evidence');
+ await page.locator('#oy-ai-print').click();
+ assert.match(await page.locator('#oy-ai-print-root').innerText(),/OY-RALS AI 연구자료/,'AI research handoff has printable output');
+ await page.evaluate(()=>window.dispatchEvent(new Event('afterprint')));
+
  await page.locator('.flow-nav [data-oy-step="5"]').click();
  await page.waitForFunction(()=>document.querySelector('#recordsArea')?.hidden===false,{timeout:10000});
  assert.equal(await page.locator('#journey88').isVisible(),true,'stage4 workbench section opens');
