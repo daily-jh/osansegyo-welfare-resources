@@ -16,20 +16,41 @@ function bar(label,score,sub=''){
  return '<div class="oy-viz-bar"><div class="oy-viz-bar-meta"><strong>'+esc(label)+'</strong><span>'+esc(score===null?'미상':round(score)+'%')+'</span></div>'+
  '<div class="oy-viz-track" role="img" aria-label="'+esc(label)+' '+esc(score===null?'미상':round(score)+'퍼센트')+'"><span style="width:'+pct(score)+'%"></span></div>'+(sub?'<small>'+esc(sub)+'</small>':'')+'</div>';
 }
+// Radar: vector-crisp SVG, range bands as rings, unknown axes kept off the polygon, red family for higher bands.
+const BAND_COLOR=['#1f5f96','#cf6880','#b8334f','#a82e4a'];
+const bandIdx=v=>v===null?null:v<25?0:v<50?1:v<75?2:3;
 function radar(scores,labels){
- const size=700,c=350,r=205;
- const point=(value,i)=>{const ang=(i/10)*2*Math.PI-Math.PI/2;return [Math.round(c+Math.cos(ang)*r*value),Math.round(c+Math.sin(ang)*r*value)];};
+ const size=700,c=350,r=215;
+ const point=(value,i)=>{const ang=(i/10)*2*Math.PI-Math.PI/2;return [+(c+Math.cos(ang)*r*value).toFixed(1),+(c+Math.sin(ang)*r*value).toFixed(1)];};
  const pts=arr=>arr.map(z=>z.join(',')).join(' ');
- const rings=[.25,.5,.75,1].map(t=>'<polygon fill="none" stroke="#dce6f1" points="'+pts(labels.map((_,i)=>point(t,i)))+'"/>').join('');
- const axis=labels.map((_,i)=>{const p=point(1,i);return '<line x1="'+c+'" y1="'+c+'" x2="'+p[0]+'" y2="'+p[1]+'" stroke="#d1dfea"/>';}).join('');
- const dots=scores.map((v,i)=>point(v===null?0:pct(v)/100,i));
- const axisLabels=labels.map((label,i)=>{const z=point(265/r,i),d=z[0]-c,anc=d>30?'start':d<-30?'end':'middle';const short=['학대·보호','학교폭력','정서·정신','학습·출결','행동·건강','발달·접근','가족·돌봄','경제·주거','관계·지지','디지털안전'];return '<text x="'+z[0]+'" y="'+(z[1]+5)+'" text-anchor="'+anc+'" font-size="17" fill="#31516a" font-weight="650"><title>'+esc(label)+'</title>'+esc(short[i])+'</text>';}).join('');
+ const ringFill=['#ffffff','#fefafb','#fdf3f5','#fbe8ec'];
+ const rings=[1,.75,.5,.25].map((t,k)=>'<polygon fill="'+ringFill[3-k]+'" stroke="#d6e2ef" stroke-width="1.5" vector-effect="non-scaling-stroke" points="'+pts(labels.map((_,i)=>point(t,i)))+'"/>').join('');
+ const ringText=[.25,.5,.75,1].map(t=>{const p=point(t,0);return '<text class="oy-radar-ring" x="'+(p[0]+6)+'" y="'+(p[1]+14)+'" font-size="13" fill="#7a8ea4">'+Math.round(t*100)+'%</text>';}).join('');
+ const axis=labels.map((_,i)=>{const p=point(1,i);return '<line x1="'+c+'" y1="'+c+'" x2="'+p[0]+'" y2="'+p[1]+'" stroke="'+(scores[i]===null?'#b8c4d1':'#cddfea')+'" stroke-width="1.5"'+(scores[i]===null?' stroke-dasharray="6 6"':'')+' vector-effect="non-scaling-stroke"/>';}).join('');
+ const short=['학대·보호','학교폭력','정서·정신','학습·출결','행동·건강','발달·접근','가족·돌봄','경제·주거','관계·지지','디지털안전'];
+ const axisLabels=labels.map((label,i)=>{const z=point(272/r,i),d=z[0]-c,anc=d>30?'start':d<-30?'end':'middle',v=scores[i],b=bandIdx(v);return '<text class="oy-radar-axis" x="'+z[0]+'" y="'+(z[1]-3)+'" text-anchor="'+anc+'" font-size="17" fill="#24496c" font-weight="700"><title>'+esc(label)+'</title>'+esc(short[i])+'<tspan x="'+z[0]+'" dy="21" font-size="15" font-weight="700" fill="'+(v===null?'#7a8ea4':BAND_COLOR[b])+'">'+(v===null?'미상':round(v)+'%')+'</tspan></text>';}).join('');
+ const known=scores.map((v,i)=>({v,i})).filter(z=>z.v!==null);
+ const poly=known.length>=3?'<polygon points="'+pts(known.map(z=>point(pct(z.v)/100,z.i)))+'" fill="url(#oyRadarFill)" stroke="#1f5f96" stroke-width="3.5" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>':known.length?'<polyline points="'+pts(known.map(z=>point(pct(z.v)/100,z.i)))+'" fill="none" stroke="#1f5f96" stroke-width="3.5" stroke-linejoin="round"/>':'';
+ const dots=scores.map((v,i)=>{if(v===null){const p=point(1,i);return '<circle tabindex="0" role="button" data-radar-index="'+i+'" cx="'+p[0]+'" cy="'+p[1]+'" r="9" fill="#ffffff" stroke="#7a8ea4" stroke-width="2.5" stroke-dasharray="4 3"><title>'+esc(labels[i]+': 미상 · 0%로 그리지 않음')+'</title></circle>';}const p=point(pct(v)/100,i),b=bandIdx(v);return '<circle tabindex="0" role="button" data-radar-index="'+i+'" cx="'+p[0]+'" cy="'+p[1]+'" r="'+(b>=2?10:8)+'" fill="'+BAND_COLOR[b]+'" stroke="#ffffff" stroke-width="3"><title>'+esc(labels[i]+': '+round(v)+'% · '+['1구간 낮음','2구간 주의','3구간 상승','4구간 현저'][b])+'</title></circle>';}).join('');
  const unknown=scores.some(v=>v===null);
- return '<div class="oy-viz-radar"><svg viewBox="0 0 '+size+' '+size+'" role="img" aria-label="영역별 응답강도: 중심 0, 바깥 100퍼센트. 바깥으로 갈수록 해당 영역의 문항 평균 응답수준이 높습니다.">'+rings+axis+axisLabels+
- '<polygon points="'+pts(dots)+'" fill="#2b78c54b" stroke="#1768ac" stroke-width="4"/>'+dots.map((p,i)=>'<circle tabindex="0" role="button" data-radar-index="'+i+'" cx="'+p[0]+'" cy="'+p[1]+'" r="8" fill="'+(scores[i]===null?'#9da8b3':'#175d9c')+'"><title>'+esc(labels[i]+': '+(scores[i]===null?'미상':round(scores[i])+'%'))+'</title></circle>').join('')+
- '</svg><p class="oy-radar-tip" role="status" data-radar-tooltip>각 점에 마우스를 올리거나 터치하면 영역별 응답강도가 표시됩니다.</p><div class="oy-viz-radar-legend">'+labels.map((t,i)=>'<span><i>'+String(i+1).padStart(2,'0')+'</i>'+esc(t)+' · '+esc(scores[i]===null?'미상':round(scores[i])+'%')+'</span>').join('')+'</div></div>'+
- (unknown?'<p class="oy-viz-note">미상만 있는 영역은 점으로 표시되며 0점 영역으로 해석하지 않습니다.</p>':'');
+ const desc=labels.map((l,i)=>l+' '+(scores[i]===null?'미상':round(scores[i])+'%')).join(', ');
+ return '<div class="oy-viz-radar"><svg viewBox="0 0 '+size+' '+size+'" role="img" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" font-family="Pretendard, \'Apple SD Gothic Neo\', \'Noto Sans KR\', sans-serif" aria-label="영역별 응답강도: 중심 0, 바깥 100퍼센트. 바깥으로 갈수록 해당 영역의 문항 평균 응답수준이 높습니다."><desc>'+esc(desc)+'</desc><defs><radialGradient id="oyRadarFill" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#276daf" stop-opacity=".18"/><stop offset="100%" stop-color="#276daf" stop-opacity=".34"/></radialGradient></defs>'+rings+axis+ringText+poly+dots+axisLabels+
+ '</svg><p class="oy-radar-tip" role="status" data-radar-tooltip>각 점에 마우스를 올리거나 터치하면 영역별 응답강도가 표시됩니다.</p><div class="oy-viz-radar-legend">'+labels.map((t,i)=>{const b=bandIdx(scores[i]);return '<span class="'+(b!==null&&b>=1?'oy-radar-hot':'')+'"><i>'+String(i+1).padStart(2,'0')+'</i>'+esc(t)+' · '+esc(scores[i]===null?'미상':round(scores[i])+'%')+'</span>';}).join('')+'</div>'+
+ '<div class="oy-radar-key"><span><i style="background:#1f5f96"></i>1구간 0~25%</span><span><i style="background:#cf6880"></i>2구간 25~50%</span><span><i style="background:#b8334f"></i>3구간 50~75%</span><span><i style="background:#a82e4a"></i>4구간 75~100%</span><span><i class="u"></i>미상</span><button type="button" class="flow-btn" data-radar-png>고해상도 이미지 저장</button></div></div>'+
+ (unknown?'<p class="oy-viz-note">미상인 영역은 점선 축과 바깥 테두리의 빈 점으로 표시하며, 다각형은 확인된 영역만 잇습니다. 0점 영역으로 해석하지 않습니다.</p>':'');
 }
+// High-resolution PNG export: rasterises the vector radar at 3x (min 2100px) on a white background.
+function radarPng(btn){
+ const svg=btn.closest('.oy-viz-radar')?.querySelector('svg');if(!svg)return;
+ const clone=svg.cloneNode(true);clone.setAttribute('xmlns','http://www.w3.org/2000/svg');
+ const scale=Math.max(3,Math.ceil((window.devicePixelRatio||1)*2)),w=700*scale;
+ clone.setAttribute('width',w);clone.setAttribute('height',w);
+ const img=new Image(),url=URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(clone)],{type:'image/svg+xml;charset=utf-8'}));
+ img.onload=()=>{const cv=document.createElement('canvas');cv.width=w;cv.height=w;const g=cv.getContext('2d');g.fillStyle='#ffffff';g.fillRect(0,0,w,w);g.imageSmoothingQuality='high';g.drawImage(img,0,0,w,w);URL.revokeObjectURL(url);cv.toBlob(b=>{if(!b)return;const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='OY-RALS-영역별-응답강도-레이더.png';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),5000);},'image/png');};
+ img.onerror=()=>URL.revokeObjectURL(url);
+ img.src=url;
+}
+document.addEventListener('click',e=>{const b=e.target.closest?.('[data-radar-png]');if(b)radarPng(b);});
 function grade(x){
  const active=x.tier,items=['안정관찰','초기주의','집중지원','고위기개입','최우선 안전대응'];
  return '<section class="oy-viz-grade" aria-label="개발형 5단계 지원우선순위"><div class="oy-viz-grade-head"><span>OY-RALS · 통합지원 단계</span><strong>'+esc(x.tier===null?('단계 미확정 · 미상 '+x.unknown+'문항 확인 필요'):'제'+active+'단계 · '+x.label)+'</strong></div>'+

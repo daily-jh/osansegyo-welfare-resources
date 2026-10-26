@@ -25,7 +25,9 @@ const dependencies=[
  ['oy-cross-patterns-v1.js','oy-deep-interpretation-v1.js'],
  ['oy-deep-interpretation-v1.js','journey-v88.js'],
  ['oy-deep-interpretation-v1.js','oy-narrative-interpretation-v1.js'],
- ['oy-narrative-interpretation-v1.js','journey-v88.js']
+ ['oy-narrative-interpretation-v1.js','journey-v88.js'],
+ ['oy-item-knowledge-v1.js','oy-scale-figures-v1.js'],
+ ['oy-scale-figures-v1.js','journey-v88.js']
 ];
 dependencies.forEach(([a,b])=>has(a,b));
 const stages=page.match(/data-oy-step="[1-5]"/g)||[];

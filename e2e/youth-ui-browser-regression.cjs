@@ -25,7 +25,7 @@ async function scenario(browser,width){
  assert.equal(await page.locator('#oy-index-visual-slot .oy-viz-dashboard').count(),1,'five-level integrated dashboard visible');
  assert.equal(await page.locator('.oy-viz-radar svg').count(),1,'ten-axis radar visible');
   assert.equal(await page.locator('.oy-viz-radar svg').getAttribute('viewBox'),'0 0 700 700','radar labeled enlarged');
-  assert.equal(await page.locator('.oy-viz-radar svg text').count(),10,'ten vertex labels rendered');
+  assert.equal(await page.locator('.oy-viz-radar svg text.oy-radar-axis').count(),10,'ten vertex labels rendered');
   assert.equal(await page.locator('.oy-viz-radar [data-radar-index]').count(),10,'ten interactive radar nodes');
   await page.locator('.oy-viz-radar [data-radar-index="0"]').dispatchEvent('pointerover');
   assert.match(await page.locator('[data-radar-tooltip]').innerText(),/응답|점|미상/,'radar displays grounded area score');
