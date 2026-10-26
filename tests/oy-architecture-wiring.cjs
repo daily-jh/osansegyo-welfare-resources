@@ -19,7 +19,15 @@ const dependencies=[
  ['narrative-structure-v1.js','journey-v88.js'],
  ['cie-lab-v32/engine.js','cie-flow-v32.js'],
  ['cie-lab-v32/dialogue-v32.js','cie-flow-v32.js'],
- ['cie-flow-v32.js','ai-workbench-stage-v1.js']
+ ['cie-flow-v32.js','ai-workbench-stage-v1.js'],
+ ['criteria.js','oy-deep-interpretation-v1.js'],
+ ['oy-item-knowledge-v1.js','oy-deep-interpretation-v1.js'],
+ ['oy-cross-patterns-v1.js','oy-deep-interpretation-v1.js'],
+ ['oy-deep-interpretation-v1.js','journey-v88.js'],
+ ['oy-deep-interpretation-v1.js','oy-narrative-interpretation-v1.js'],
+ ['oy-narrative-interpretation-v1.js','journey-v88.js'],
+ ['oy-item-knowledge-v1.js','oy-scale-figures-v1.js'],
+ ['oy-scale-figures-v1.js','journey-v88.js']
 ];
 dependencies.forEach(([a,b])=>has(a,b));
 const stages=page.match(/data-oy-step="[1-5]"/g)||[];

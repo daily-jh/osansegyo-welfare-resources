@@ -106,9 +106,9 @@ function html(x,payload,opts={}){
  const checks=r.checks.length?'<div class="oy-readout-checks"><h5>먼저 확인할 것</h5><ul>'+r.checks.slice(0,8).map(c=>'<li class="'+(c.urgent?'urgent':'')+'">'+esc(c.text)+'</li>').join('')+'</ul></div>':'';
  let tab='';
  if(opts.objective&&r.cues.entered&&opts.fullTier!==undefined&&opts.fullTier!==x.tier){
-  tab='<p class="oy-readout-tab">이 화면(①)은 점수만 반영합니다. 서술기록까지 반영한 <b>③ 종합의견</b>의 단계는 <b>'+esc(opts.fullTier?stage(opts.fullTier):'단계 미확정')+'</b>입니다'+(r.cues.reflected.some(c=>c.safety)?' — 서술에 현재 안전 관련 표현이 있어 올라갔습니다':'')+'.</p>';
+  tab='<p class="oy-readout-tab">이 화면(①)은 점수만 반영합니다. 서술기록까지 반영한 <b>③ 통합 사정의견</b>의 단계는 <b>'+esc(opts.fullTier?stage(opts.fullTier):'단계 미확정')+'</b>입니다'+(r.cues.reflected.some(c=>c.safety)?' — 서술에 현재 안전 관련 표현이 있어 올라갔습니다':'')+'.</p>';
  }else if(!opts.objective&&r.cues.entered&&opts.scoreTier!==undefined&&opts.scoreTier!==x.tier){
-  tab='<p class="oy-readout-tab">점수만 반영한 ① 객관적 척도 결과는 '+esc(opts.scoreTier?stage(opts.scoreTier):'단계 미확정')+'이며, 서술기록을 함께 반영해 '+esc(stage(x.tier))+'(으)로 정리했습니다.</p>';
+  tab='<p class="oy-readout-tab">점수만 반영한 ① 척도 해석는 '+esc(opts.scoreTier?stage(opts.scoreTier):'단계 미확정')+'이며, 서술기록을 함께 반영해 '+esc(stage(x.tier))+'(으)로 정리했습니다.</p>';
  }
  return '<section class="oy-readout" aria-label="결과 읽는 법">'+head+tab+why+checks+'</section>';
 }
