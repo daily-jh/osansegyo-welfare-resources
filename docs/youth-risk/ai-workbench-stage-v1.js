@@ -19,10 +19,10 @@ root.innerHTML='<header><span class="oy-ai-eyebrow">STEP 04 · OY-CIE RESEARCH</
 ['plan','서비스계획 추천',true,false],
 ['resources','자원연계 후보',true,false]
 ].map(([id,label,checked,required])=>'<label><input type="checkbox" data-ai-scope="'+id+'" '+(checked?'checked ':'')+(required?'disabled ':'')+'/>'+label+'</label>').join('')+'</div></div>'+
-'<label for="oy-ai-question">무엇을 더 검토하고 싶으신가요?</label>'+
+'<label for="oy-ai-work-role">연구 해석 관점</label><select id="oy-ai-work-role"><option value="teacher">교사</option><option value="education-welfare">교육복지사</option><option value="social-worker" selected>사회복지사</option></select><div class="oy-ai-suggestions" role="group" aria-label="분석 질문 예시"><button type="button" data-oy-ai-example="핵심 위기와 1~2주 우선 개입을 학교·복지관으로 구분해줘">우선 개입 3가지</button><button type="button" data-oy-ai-example="학생맞춤통합지원과 복지관 사례관리의 역할을 근거별로 구분해줘">학맞통·복지관 역할</button><button type="button" data-oy-ai-example="문항 교차영역을 해석하고 목표와 성과지표를 제안해줘">교차영역·목표</button></div><label for="oy-ai-question">무엇을 더 검토하고 싶으신가요?</label>'+
 '<textarea id="oy-ai-question" rows="4" maxlength="500" placeholder="학생의 출결 어려움과 돌봄상황이 함께 보고된 이유를 확인하려면 어떤 질문과 협의가 필요한가요?"></textarea>'+
 '<div class="oy-ai-actions"><button type="button" id="oy-ai-ask" class="flow-btn flow-primary">OY-CIE에 질문하기</button><button type="button" id="oy-ai-copy" class="flow-btn">선택자료·질문 복사</button><button type="button" id="oy-ai-print" class="flow-btn">연구자료 PDF 인쇄</button></div>'+
-'<p role="status" id="oy-ai-workbench-status">평가 완료 후 현재 사례의 근거 자료를 불러옵니다.</p>'+
+'<p role="status" id="oy-ai-workbench-status">평가 완료 후 현재 사례의 근거 자료를 불러옵니다.</p><section class="oy-ai-answer-panel" id="oy-ai-answer-panel" aria-label="OY-CIE 연구 분석결과"><h3>현재 사례 연구 결과</h3><p id="oy-ai-answer-guide">질문을 입력하고 「OY-CIE에 질문하기」를 누르면 이곳에 해석이 표시됩니다.</p><div id="oy-ai-answer" role="region" aria-live="polite"></div><div class="oy-ai-actions"><button type="button" class="flow-btn" id="oy-ai-copy-answer" disabled>분석결과 복사</button></div></section>'+
 '<details id="oy-ai-material-details"><summary>연결된 근거 자료·모델 확인</summary><pre id="oy-ai-material"></pre></details>'+
 '<p class="oy-ai-note">규칙·검색 기반 한국어 연구형 응답으로, 실제 대규모 언어모델을 사이트 내부에 탑재한 것은 아닙니다. 자동 제안은 상담·신고·연계 확정이 아니며 실무자 검토가 필요합니다.</p>';
 anchor.before(root);
@@ -56,16 +56,30 @@ function renderContext(){
 }
 const contextFor=r=>{if(!current?.ready||!current.payload||current.payload.flowRevision!==r)return null;try{const c=createContext();return {revision:c.revision,materials:c.materials.map(x=>({key:x.key,label:x.label,text:x.text.slice(0,2100)}))};}catch(_){return null;}};
 window.OYAIWorkbench=Object.freeze({contextFor});
-function ask(){
- if(modelError)return $('oy-ai-workbench-status').textContent='연결 상태를 먼저 확인해 주세요. '+modelError;
- const question=$('oy-ai-question').value.trim();
- if(question.length<2)return $('oy-ai-workbench-status').textContent='질문을 두 글자 이상 작성해 주세요.';
- const cieQuestion=document.getElementById('cie-flow-question'),cieRun=document.getElementById('cie-flow-run'),cieNote=document.getElementById('cie-flow-narrative');
- if(!cieQuestion||!cieRun||!cieNote)return $('oy-ai-workbench-status').textContent='OY-CIE 모듈이 연결되지 않았습니다.';
- cieNote.checked=selection().has('narrative');
- cieQuestion.value=question;cieRun.click();
- $('oy-ai-workbench-status').textContent='현재 사례의 선택자료를 참조하여 OY-CIE에서 분석합니다. 아래 연구 응답과 근거 ID를 검토하세요.';
- document.getElementById('cie-flow-v32')?.scrollIntoView({block:'nearest',behavior:'smooth'});
+let lastAnswer='',asking=false;
+async function ask(){
+ if(asking)return;
+ const status=$('oy-ai-workbench-status'),output=$('oy-ai-answer'),guide=$('oy-ai-answer-guide');
+ if(modelError){status.textContent='자료 연결 오류: '+modelError;return;}
+ const q=$('oy-ai-question').value.trim();
+ if(q.length<2){status.textContent='분석할 질문을 두 글자 이상 작성해 주세요.';return;}
+ if(!window.OYCIEFlowV32?.ask){status.textContent='OY-CIE 분석 인터페이스가 없습니다.';return;}
+ asking=true;$('oy-ai-ask').disabled=true;
+ guide.textContent='원점수·사정·서비스계획의 근거를 대조하고 있습니다.';
+ output.textContent='해석 중…';status.textContent='OY-CIE 한국어 연구 응답을 생성 중입니다.';
+ try{
+  const result=await window.OYCIEFlowV32.ask(q,{role:$('oy-ai-work-role').value,includeNarrative:selection().has('narrative')});
+  if(!result?.answer)throw Error('응답 엔진에서 결과를 반환하지 않았습니다.');
+  lastAnswer=result.answer;output.textContent=lastAnswer;
+  $('oy-ai-copy-answer').disabled=false;
+  guide.textContent='사례 분석 · '+String(result.role||'social-worker')+' 관점 / 근거와 실행 방향';
+  status.textContent='분석 완료 · '+lastAnswer.length+'자. 결과를 아래에서 바로 확인하고 복사·인쇄할 수 있습니다.';
+ }catch(e){
+  lastAnswer='';$('oy-ai-copy-answer').disabled=true;
+  output.textContent='분석 실패: '+String(e?.message||'모델 입력·자료 로드 오류');
+  guide.textContent='원인과 연결상태를 표시합니다.';
+  status.textContent='분석 오류가 발생했습니다. 아래 메시지와 모델 근거를 확인하세요.';
+ }finally{asking=false;$('oy-ai-ask').disabled=false;}
 }
 async function copy(){
  const q=$('oy-ai-question').value.trim();
@@ -81,18 +95,20 @@ function print(){
  const section=document.createElement('section');section.id='oy-ai-print-root';
  const h=document.createElement('h1');h.textContent='OY-RALS AI 연구자료';
  const meta=document.createElement('p');meta.textContent='실무자 검토 전 초안 · '+new Date().toLocaleDateString('ko-KR');
- const pre=document.createElement('pre');pre.textContent=c.plain+'\n\n[추가 질문]\n'+redacted($('oy-ai-question').value);
+ const pre=document.createElement('pre');pre.textContent=c.plain+'\n\n[추가 질문]\n'+redacted($('oy-ai-question').value)+'\n\n[OY-CIE 분석 응답]\n'+(lastAnswer||'아직 생성된 답변 없음');
  section.append(h,meta,pre);document.body.append(section);
  document.body.classList.add('oy-ai-print');window.print();
 }
 root.querySelectorAll('[data-ai-scope]').forEach(c=>c.addEventListener('change',()=>{renderContext();$('oy-ai-workbench-status').textContent='선택한 자료 범위를 갱신했습니다. 분석을 다시 실행하면 반영됩니다.';}));
-$('oy-ai-ask').addEventListener('click',ask);
+$('oy-ai-ask').addEventListener('click',()=>ask());
+root.querySelectorAll('[data-oy-ai-example]').forEach(b=>b.addEventListener('click',()=>{$('oy-ai-question').value=b.dataset.oyAiExample;ask();}));
+$('oy-ai-copy-answer').addEventListener('click',async()=>{if(!lastAnswer)return;try{await navigator.clipboard.writeText(redacted(lastAnswer));$('oy-ai-workbench-status').textContent='OY-CIE 분석 결과를 복사했습니다.';}catch(_){const result=$('oy-ai-answer');const range=document.createRange();range.selectNodeContents(result);const sel=window.getSelection();sel.removeAllRanges();sel.addRange(range);$('oy-ai-workbench-status').textContent='본문을 선택했습니다. Ctrl+C로 복사하세요.';}});
 $('oy-ai-copy').addEventListener('click',copy);
 $('oy-ai-print').addEventListener('click',print);
 window.addEventListener('afterprint',()=>{document.body.classList.remove('oy-ai-print');document.getElementById('oy-ai-print-root')?.remove();});
 window.addEventListener('oy-journey-view',e=>{
  current=e.detail;root.hidden=!current?.ready||current.stage!==5;
- if(current?.payload?.flowRevision!==revision){revision=current?.payload?.flowRevision;$('oy-ai-question').value='';}
+ if(current?.payload?.flowRevision!==revision){revision=current?.payload?.flowRevision;$('oy-ai-question').value='';lastAnswer='';$('oy-ai-answer').textContent='';$('oy-ai-copy-answer').disabled=true;$('oy-ai-answer-guide').textContent='질문을 작성하면 기존 사례자료를 연결해 분석합니다.';}
  if(!root.hidden){renderContext();$('oy-ai-workbench-status').textContent='해당 사례의 검토 자료를 불러왔습니다. 질문을 작성해 주세요.';}
 });
 })();
