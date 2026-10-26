@@ -24,7 +24,11 @@ async function scenario(browser,width){
   assert.equal(await page.locator('.j88-raw-accordion').first().getAttribute('open'),null,'raw scores closed initially');
  assert.equal(await page.locator('#oy-index-visual-slot .oy-viz-dashboard').count(),1,'five-level integrated dashboard visible');
  assert.equal(await page.locator('.oy-viz-radar svg').count(),1,'ten-axis radar visible');
-  assert.equal(await page.locator('.oy-viz-radar svg').getAttribute('viewBox'),'0 0 500 500','radar enlarged');
+  assert.equal(await page.locator('.oy-viz-radar svg').getAttribute('viewBox'),'0 0 700 700','radar labeled enlarged');
+  assert.equal(await page.locator('.oy-viz-radar svg text').count(),10,'ten vertex labels rendered');
+  assert.equal(await page.locator('.oy-viz-radar [data-radar-index]').count(),10,'ten interactive radar nodes');
+  await page.locator('.oy-viz-radar [data-radar-index="0"]').dispatchEvent('pointerover');
+  assert.match(await page.locator('[data-radar-tooltip]').innerText(),/응답|점|미상/,'radar displays grounded area score');
   assert.equal(await page.locator('#oy-viz-copy-assessment').count(),1,'AI copy action present');
  assert.equal(await page.locator('.oy-viz-heatmap > div').count(),25,'25-item heatmap');
  assert.equal(await page.locator('#oy-index-visual-slot .oy-viz-scale > div').count(),5,'five-stage classification');
