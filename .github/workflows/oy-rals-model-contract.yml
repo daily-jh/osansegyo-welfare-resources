@@ -38,3 +38,5 @@ jobs:
         run: node --test tests/oy-model-contract.test.cjs
       - name: Verify completed evaluation can open stages 3 and 4
         run: node tests/youth-stage-navigation-regression.cjs
+      - name: Verify five-level index with 4000 synthetic cases
+        run: node tests/youth-five-level-index.cjs
