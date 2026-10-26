@@ -60,4 +60,10 @@ check('lead agency sentences use the right particle and no internal plan codes r
  }
 });
 
+check('everyday strengths in a record are recognised',()=>{
+ for(const t of ['요리를 좋아해 나중에 조리사가 되고 싶다고 함.','축구부 친구들과는 잘 지낸다고 함.','동생을 아끼고 잘 챙긴다고 스스로 이야기함.','음악을 들으면 마음이 편해진다고 함.']){
+  assert.ok(N.reconcile(zero,t).fields.strengths,'case-context-core missed a strength: '+t);
+ }
+});
+
 console.log('youth-eval100-regression: '+run+' checks passed');

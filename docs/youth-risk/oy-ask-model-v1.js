@@ -29,7 +29,7 @@ function faqFor(section){const ids=[...(NEAR[section]||[]),...GENERAL];return [.
 function answer(r,id){
  const f=FAQ.find(x=>x.id===id);if(!f)throw Error('ASK_FAQ_UNKNOWN');
  const parts=[];
- if(id==='first')parts.push('이번 주 첫 행동: '+r.summary.first);
+ if(id==='first')parts.push('첫 행동: '+r.summary.first);
  f.keys.forEach(k=>{const t=D.sectionText(r,k);if(!t)return;
   if(id==='family'){const line=t.split('\n').find(x=>/^보호자 참여/.test(x));if(line)parts.push(line);return;}
   if(id==='first'&&k==='plan'){const lines=t.split('\n'),i=lines.findIndex(x=>/^▸/.test(x)),j=lines.findIndex((x,n)=>n>i&&/^▸/.test(x));parts.push(lines.slice(Math.max(i,0),j>0?j:undefined).join('\n'));return;}

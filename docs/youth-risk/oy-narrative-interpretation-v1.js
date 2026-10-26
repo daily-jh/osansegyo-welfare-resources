@@ -44,7 +44,7 @@ const CUES=[
  {n:24,re:/게임|스마트폰|휴대폰|핸드폰|유튜브|SNS|새벽까지[^.,]{0,8}(?:폰|온라인|영상)/i},
  {n:25,re:/(?:사진|영상)(?:을)? ?(?:요구|보내 달|유포)|성적인? (?:요구|대화|사진)|몸캠|그루밍|랜덤 ?채팅|조건 ?만남|모르는 (?:사람|어른)[^.,]{0,8}(?:연락|만나)/}
 ];
-const STRENGTH=/좋아한다|좋아하고|좋아함|좋아하는|잘한다|잘하고|잘하는|성실|열심히|꾸준히|신뢰한다|믿고 따르|친한 친구|도와준다|도와주는|책임감|밝은 편|웃으며/;
+const STRENGTH=/좋아한다|좋아하고|좋아함|좋아하는|좋아해|잘한다|잘하고|잘하는|잘 지낸|잘 챙기|잘 챙긴|아끼고|편해진|먼저 말을 거|즐겁게|표정이 밝|성실|열심히|꾸준히|신뢰한다|믿고 따르|친한 친구|도와준다|도와주는|책임감|밝은 편|웃으며/;
 const WISH=/원한다|원함|원하고|희망한다|희망함|싶다고|바란다|받고 싶|되고 싶/;
 const SUPPORT=/이용 ?중|지원을 받|상담을 받|연계되어|연계됨|드림스타트|지역아동센터|위클래스|Wee|사례관리(?:를)? ?(?:받|중)|방과후(?:에)? ?참여/;
 const NEGATION=/^[^.,]{0,16}?(?:없다|없음|없었|없고|없는|없으|아니|않았|않는다|않고|않음|하지 ?않|싶지 ?않|부인)|^지 ?않/;
@@ -334,7 +334,7 @@ function hasCritical(I){return I.deep.critical.list.length||I.narrative.read.saf
 function integratedHtml(I){
  const B=integratedBody(I),keys=(hasCritical(I)?['critical']:[]).concat(['understanding','compare','patterns','case','ecology','plan','agenda','strengths','questions']);
  let h='<article class="oy-deep-report onr-report onr-integrated" data-report-version="'+VERSION+'"><header class="odi-head"><span class="odi-kicker">OY-RALS 통합 사정의견서 · 척도'+(I.present?'와 서술기록':'')+' 통합</span><h2>'+esc(I.level.name)+'</h2><p>CORE 공식 판정: '+esc(I.deep.title)+'</p></header>';
- h+='<section class="odi-sec odi-glance"><h3>한눈에 보기</h3><dl><div><dt>개입 수준</dt><dd>'+esc(I.level.name)+'</dd></div><div class="'+(I.safety==='이번 응답의 안전 신호 없음'?'':'odi-alert')+'"><dt>현재 안전</dt><dd>'+esc(I.safety)+'</dd></div><div><dt>핵심 과제</dt><dd>'+(I.keys.length?I.keys.map(k=>'<span class="odi-chip">'+esc(k)+'</span>').join(''):'두드러진 어려움 없음')+'</dd></div><div><dt>이번 주 첫 행동</dt><dd>'+esc(I.first)+'</dd></div><div><dt>종합 근거</dt><dd>'+esc('25문항 응답'+(I.present?' · 서술기록 '+I.narrative.glance.sentences+'문장 ('+I.narrative.glance.sources.join(', ')+')':' · 서술기록 없음'))+'</dd></div></dl></section>';
+ h+='<section class="odi-sec odi-glance"><h3>한눈에 보기</h3><dl><div><dt>개입 수준</dt><dd>'+esc(I.level.name)+'</dd></div><div class="'+(I.safety==='이번 응답의 안전 신호 없음'?'':'odi-alert')+'"><dt>현재 안전</dt><dd>'+esc(I.safety)+'</dd></div><div><dt>핵심 과제</dt><dd>'+(I.keys.length?I.keys.map(k=>'<span class="odi-chip">'+esc(k)+'</span>').join(''):'두드러진 어려움 없음')+'</dd></div><div><dt>첫 행동</dt><dd>'+esc(I.first)+'</dd></div><div><dt>종합 근거</dt><dd>'+esc('25문항 응답'+(I.present?' · 서술기록 '+I.narrative.glance.sentences+'문장 ('+I.narrative.glance.sources.join(', ')+')':' · 서술기록 없음'))+'</dd></div></dl></section>';
  keys.forEach((k,i)=>{h+=sec(k,i+1,ITITLES[k],B[k]())});
  h+=(I.present?sentenceAppendix(I.narrative,'근거 자료 · 문항·점수와 서술 문장'):'<section class="odi-appendix"><h3>근거 자료 · 문항·점수와 서술 문장</h3><p>원점수 '+esc(I.deep.summary.total)+' · CORE 판단: '+esc(I.deep.title)+'</p><p class="odi-muted">문항별 점수는 ① 척도 해석의 근거 자료에서 확인합니다.</p></section>')+'<footer class="odi-notice"><h3>해석 안내</h3><p>'+esc(I.notice)+'</p></footer></article>';
  return h;
@@ -362,7 +362,7 @@ function narrativeText(nv){
  return L.join('\n');
 }
 function integratedText(I){
- const L=['■ OY-RALS 통합 사정의견서 · 척도'+(I.present||I.redacted?'와 서술기록':'')+' 통합','CORE 공식 판정: '+I.deep.title,'','[한눈에 보기]','개입 수준: '+I.level.name,'현재 안전: '+I.safety,'핵심 과제: '+(I.keys.join(', ')||'두드러진 어려움 없음'),'이번 주 첫 행동: '+I.first];
+ const L=['■ OY-RALS 통합 사정의견서 · 척도'+(I.present||I.redacted?'와 서술기록':'')+' 통합','CORE 공식 판정: '+I.deep.title,'','[한눈에 보기]','개입 수준: '+I.level.name,'현재 안전: '+I.safety,'핵심 과제: '+(I.keys.join(', ')||'두드러진 어려움 없음'),'첫 행동: '+I.first];
  if(hasCritical(I))L.push('','[우선 안전 확인]',...I.deep.critical.list.map(x=>'- (척도) '+x.topic+': '+x.action),...I.narrative.read.safety.map(f=>'- (서술) '+f.topic+': '+quoteLine(f)+'.'));
  L.push('','[통합 사례개념화]',I.understanding);
  if(I.present)L.push('','[척도–서술 교차검토]',...CMP.filter(([k])=>I.compare[k].length).flatMap(([k,t])=>['▸ '+t,...I.compare[k].map(x=>'  - '+x.topic)]));
