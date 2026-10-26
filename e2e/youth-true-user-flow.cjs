@@ -38,7 +38,7 @@ async function run(browserType,name,width,full){
   await page.waitForFunction(()=>document.querySelector('#mapArea')?.hidden===false,{timeout:20000});
   assert.equal(await page.locator('#linkageReviewPanel').isVisible(),true,name+' map CTA');
   await page.locator('#confirmLinkageReview').click();
-  assert.match(await page.locator('#journey88').innerText(),/사례 톺아보기/);
+  assert.match(await page.locator('#journey88').innerText(),/사례개념화·개입계획/);
   await page.locator('[data-oy-step="4"]').click();
   await page.waitForFunction(()=>document.querySelector('#oy-ai-workbench-stage')?.hidden===false,{timeout:15000});
   assert.equal(await page.locator('#oy-ai-ask').count(),1);

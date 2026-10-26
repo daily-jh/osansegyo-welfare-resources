@@ -255,7 +255,7 @@ function sentenceAppendix(n,head){
   +'<details><summary>척도·서술 대조표</summary>'+t(['문항','내용','척도 응답','서술','관계'],crs)+'</details></section>';
 }
 function narrativeHtml(nv){
- if(!nv.present)return '<article class="oy-deep-report onr-report"><header class="odi-head"><span class="odi-kicker">OY-RALS 서술기록 분석</span><h2>서술기록 미입력</h2><p>25문항 응답만으로 ① 척도 해석과 ③ 통합 사정의견을 확인할 수 있습니다.</p></header>'
+ if(!nv.present)return '<article class="oy-deep-report onr-report"><header class="odi-head"><span class="odi-kicker">OY-RALS 서술기록 분석</span><h2>서술기록 미입력</h2><p>서술기록이 입력되지 않았습니다. 25문항 응답만으로 ① 척도 해석과 ③ 통합 사정의견을 확인할 수 있습니다.</p></header>'
   +sec('guide',1,'서술기록에 담으면 좋은 내용',ul(['학생이 직접 한 말 (따옴표로)','교사·보호자가 본 구체적인 장면과 빈도','학생이 바라는 변화와 받고 싶은 도움','학생의 강점, 좋아하는 사람과 활동','이미 받고 있는 지원과 담당 기관','안전과 관련해 들은 말이나 본 모습']))
   +(nv.gaps.length?sec('gaps',2,'척도 응답에 맞춰 기록할 내용',ul(nv.gaps.map(g=>'<strong>'+esc(g.topic)+'</strong> '+esc(g.text)))):'')+'</article>';
  const g=nv.glance;let i=0;
