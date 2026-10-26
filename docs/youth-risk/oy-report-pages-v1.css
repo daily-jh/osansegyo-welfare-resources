@@ -64,22 +64,28 @@
 .odi-next span{display:block;font-size:13px;color:var(--odi-sub)}
 .odi-next b{font-size:1.06rem}
 .odi-next i{font-style:normal;font-size:22px;color:var(--odi-accent)}
-.odi-swipe .odi-pagetrack{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;align-items:flex-start;overscroll-behavior-x:contain;transition:height .3s ease}
-.odi-swipe .odi-pagetrack::-webkit-scrollbar{display:none}
-.odi-swipe .odi-page{flex:0 0 100%;min-width:0;scroll-snap-align:start;scroll-snap-stop:always;
- /* keeps the tables inside off-screen pages from widening the document itself */contain:paint}
+.odi-swipe .odi-pagetrack{display:block}
+.odi-swipe .odi-page{display:none;min-width:0}
+.odi-swipe .odi-page.is-current{display:block}
 .odi-swipe .odi-page+.odi-page{border-top:0;margin-top:0}
+.odi-swipe .odi-page.odi-in-next{animation:odi-in-next .26s ease-out}
+.odi-swipe .odi-page.odi-in-prev{animation:odi-in-prev .26s ease-out}
+@keyframes odi-in-next{from{opacity:.2;transform:translateX(28px)}to{opacity:1;transform:none}}
+@keyframes odi-in-prev{from{opacity:.2;transform:translateX(-28px)}to{opacity:1;transform:none}}
+/* boxed sections keep their inner margin; the generic page section padding would otherwise strip it */
+.odi-paged .odi-s-critical{padding:22px 20px 14px}
 @media(max-width:720px){
  .odi-paged .odi-open h2{font-size:1.45rem}
  .odi-paged .odi-map{grid-template-columns:1fr}
  .odi-rung{padding-left:42px}
  .odi-paged .odi-sec{padding-left:0;padding-right:0}
+ .odi-paged .odi-s-critical{padding:18px 16px 10px}
 }
 @media print{
  .odi-pager,.odi-next,.odi-toc{display:none!important}
  .odi-swipe .odi-pagetrack{display:block!important;height:auto!important;overflow:visible!important}
- .odi-swipe .odi-page{display:block!important;break-before:page;contain:none}
+ .odi-swipe .odi-page{display:block!important;break-before:page;animation:none!important}
  .odi-paged .odi-page:first-child{break-before:auto}
  .odi-rung,.odi-pair,.odi-term{break-inside:avoid}
 }
-@media (prefers-reduced-motion:reduce){.odi-swipe .odi-pagetrack{transition:none}}
+@media (prefers-reduced-motion:reduce){.odi-swipe .odi-page{animation:none!important}}
