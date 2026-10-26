@@ -1,4 +1,4 @@
-(function(){'use strict';var p=null,ds=[],selected=0,received=false,printRoot=null,planningWindows=new Set();var $=id=>document.getElementById(id),esc=t=>String(t==null?'':t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+(function(){'use strict';if(window.parent!==window){document.documentElement.classList.add('oy-embedded-support');const st=document.createElement('style');st.textContent='.oy-embedded-support .plan-bridge{display:none!important}';document.head.append(st);}var p=null,ds=[],selected=0,received=false,printRoot=null,planningWindows=new Set();var $=id=>document.getElementById(id),esc=t=>String(t==null?'':t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function link(t){try{var u=new URL(t);return /^https?:$/.test(u.protocol)?u.href:''}catch{return ''}}
 function unavailable(){if(received)return;$('emptyState').hidden=false;$('loadStatus').textContent='원래 평가 화면에서 연결지도를 열어 주세요.'}
 function meanText(d,digits){return d.unknown?'미상 '+d.unknown+'개':d.mean.toFixed(digits||1)}
