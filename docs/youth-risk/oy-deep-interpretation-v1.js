@@ -105,7 +105,7 @@ function critical(values,c,p){
  const list=[];
  // Explicit urgent checks lead the safety section in the evaluator's own words.
  ((p&&p.explicit)||[]).forEach(t=>list.push({n:null,kind:'긴급',value:null,topic:'체크된 긴급 상황',reading:/^\d+번 추가확인: /.test(t)?topic(+String(t).match(/^\d+/)[0])+' 현재 안전 추가확인에서 “'+String(t).replace(/^\d+번 추가확인: /,'')+'”을 선택했습니다.':'평가 화면에서 “'+t+'” 항목을 체크했습니다.',action:'일반 상담 예약이나 사례회의를 기다리지 않고 지금 바로 보호 조치를 시작합니다. 급박한 위해는 112·119, 학대·성적 침해 의심은 신고 절차를 따릅니다.'}));
- SAFETY.forEach(n=>{const v=values[n-1];if(isNum(v)&&v>0)list.push({n,kind:'안전',value:v,topic:topic(n),reading:K.reading(n,v),action:K.item(n).e});else if(v==='unknown')list.push({n,kind:'안전 미상',value:v,topic:topic(n),reading:josa(topic(n),'이','가')+' 아직 확인되지 않아(미상) 현재 안전 판단을 마치지 못했습니다.',action:'이 내용부터 직접 확인합니다.'})});
+ SAFETY.forEach(n=>{const v=values[n-1];if(isNum(v)&&v>0)list.push({n,kind:'안전',value:v,topic:topic(n),reading:K.reading(n,v),action:K.item(n).e});else if(v==='unknown')list.push({n,kind:'안전 미상',value:v,topic:topic(n),reading:josa(topic(n),'이','가')+' 아직 확인되지 않아(미상) 현재 안전 판단을 마치지 못했습니다.',action:'오늘 안에 학생과 안전한 곳에서 직접 면담해 '+josa(topic(n),'을','를')+' 확인하고 결과를 평가에 기록합니다.'})});
  PRIORITY.forEach(n=>{const v=values[n-1];if(isNum(v)&&v>=3)list.push({n,kind:'우선',value:v,topic:topic(n),reading:K.reading(n,v),action:K.item(n).e})});
  const pending=c.pendingChecks.map(topic);
  return {list,pending,procedure:c.urgent||c.safetyUnknown.length||c.pendingChecks.length?'안전 신호가 있는 문항은 총점이나 다른 지원보다 먼저 다룹니다. 학대·위해가 의심되면 사실 확정을 기다리지 않고 신고의무와 소속기관 보호 절차를 따르며, 즉각적인 위험은 112·119로 연락합니다.':''};
