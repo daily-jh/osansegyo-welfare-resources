@@ -66,6 +66,11 @@ function run(raw,question,options={}){
  if(actions.length)bullets.push(`[${intent} · 실행 전 확인안]\n`+actions.map(a=>`• ${a.title} (${a.status})\n${a.proposedAction}\n근거: ${a.evidenceIds.join(', ')||'없음'} / 담당 미확정 / 학생과 협의 전`).join('\n\n'));
  else bullets.push('[추가 확인] 이용 가능한 문항·서술 근거가 부족하여 사례별 실행과제를 확정할 수 없습니다.');
  if(base.knowledgeIds.length)bullets.push('[기존 한국어 응답 DB · 미검증 참고]\n'+base.segments.filter(x=>x.kind==='research_response').slice(0,3).map(x=>x.text).join('\n'));
+
+ const docRules={score:['score','safety'],summary:['opinion','assessment'],plan:['plan','assessment','opinion'],meeting:['assessment','plan','opinion'],resource:['resources','plan'],interview:['assessment','opinion','narrative'],safety:['safety','score'],strength:['assessment','opinion','narrative'],evidence:['score','assessment','opinion','narrative']};
+ const allowed=new Set(docRules[intent]||docRules.summary);
+ const linked=Array.isArray(options.linkedDocuments)?options.linkedDocuments.filter(x=>x&&allowed.has(x.key)&&typeof x.text==='string').slice(0,4):[];
+ if(linked.length)bullets.push('[선택된 사례관리 문서와의 교차 검토 · OY-RALS 모델 초안]\\n'+linked.map(x=>'- '+String(x.label||x.key).slice(0,60)+': '+x.text.slice(0,850)).join('\\n')+'\\n이 내용은 개발모델이 제안한 확인자료이지, 확정 사실·서비스 제공·개입 승인을 의미하지 않습니다.');
  bullets.push('[근거 추적·한계] '+(citations.join(', ')||'추적할 사례 근거 없음')+' / 자료원·기간·반대 설명·학생의 희망을 직접 확인하십시오. 본 답변은 규칙·검색 기반 연구형 초안이며 진단·위험확률·의뢰 접수 또는 서비스를 확정하지 않습니다.');
  const review={safetyPreserved:!officialNeed||gates.some(x=>x.id==='CORE-SAFETY'),unverifiedTextNotUpgradedToScale:actions.every(a=>a.status!=='서술 단서 검토 전용'||!a.goalAgreed),allActionRefsExist:actions.every(a=>a.evidenceIds.every(asRef)),caseRevision:rev,expertsMeasured:false,privateDataPrechecked:!privacyFormat.test(q+p.caseContext),status:'technical_gate_only_not_semantic_validity'};
  if(!review.safetyPreserved||!review.allActionRefsExist||!review.unverifiedTextNotUpgradedToScale)throw Error('V3.2 안전·근거 검증 실패');
