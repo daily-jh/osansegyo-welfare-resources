@@ -17,16 +17,17 @@ function bar(label,score,sub=''){
  '<div class="oy-viz-track" role="img" aria-label="'+esc(label)+' '+esc(score===null?'미상':round(score)+'퍼센트')+'"><span style="width:'+pct(score)+'%"></span></div>'+(sub?'<small>'+esc(sub)+'</small>':'')+'</div>';
 }
 function radar(scores,labels){
- const size=500,c=250,r=184;
+ const size=700,c=350,r=205;
  const point=(value,i)=>{const ang=(i/10)*2*Math.PI-Math.PI/2;return [Math.round(c+Math.cos(ang)*r*value),Math.round(c+Math.sin(ang)*r*value)];};
  const pts=arr=>arr.map(z=>z.join(',')).join(' ');
  const rings=[.25,.5,.75,1].map(t=>'<polygon fill="none" stroke="#dce6f1" points="'+pts(labels.map((_,i)=>point(t,i)))+'"/>').join('');
  const axis=labels.map((_,i)=>{const p=point(1,i);return '<line x1="'+c+'" y1="'+c+'" x2="'+p[0]+'" y2="'+p[1]+'" stroke="#d1dfea"/>';}).join('');
  const dots=scores.map((v,i)=>point(v===null?0:pct(v)/100,i));
+ const axisLabels=labels.map((label,i)=>{const z=point(265/r,i),d=z[0]-c,anc=d>30?'start':d<-30?'end':'middle';const short=['학대·보호','학교폭력','정서·정신','학습·출결','행동·건강','발달·접근','가족·돌봄','경제·주거','관계·지지','디지털안전'];return '<text x="'+z[0]+'" y="'+(z[1]+5)+'" text-anchor="'+anc+'" font-size="17" fill="#31516a" font-weight="650"><title>'+esc(label)+'</title>'+esc(short[i])+'</text>';}).join('');
  const unknown=scores.some(v=>v===null);
  return '<div class="oy-viz-radar"><svg viewBox="0 0 '+size+' '+size+'" role="img" aria-label="영역별 응답강도: 중심 0, 바깥 100퍼센트. 바깥으로 갈수록 해당 영역의 문항 평균 응답수준이 높습니다.">'+rings+axis+
- '<polygon points="'+pts(dots)+'" fill="#2b78c54b" stroke="#1768ac" stroke-width="4"/>'+dots.map((p,i)=>'<circle cx="'+p[0]+'" cy="'+p[1]+'" r="4" fill="'+(scores[i]===null?'#9da8b3':'#175d9c')+'"/>').join('')+
- '</svg><div class="oy-viz-radar-legend">'+labels.map((t,i)=>'<span><i>'+String(i+1).padStart(2,'0')+'</i>'+esc(t)+' · '+esc(scores[i]===null?'미상':round(scores[i])+'%')+'</span>').join('')+'</div></div>'+
+ '<polygon points="'+pts(dots)+'" fill="#2b78c54b" stroke="#1768ac" stroke-width="4"/>'+dots.map((p,i)=>'<circle tabindex="0" role="button" data-radar-index="'+i+'" cx="'+p[0]+'" cy="'+p[1]+'" r="8" fill="'+(scores[i]===null?'#9da8b3':'#175d9c')+'"><title>'+esc(labels[i]+': '+(scores[i]===null?'미상':round(scores[i])+'%'))+'</title></circle>').join('')+
+ '</svg><p class="oy-radar-tip" role="status" data-radar-tooltip>각 점에 마우스를 올리거나 터치하면 영역별 응답강도가 표시됩니다.</p><div class="oy-viz-radar-legend">'+labels.map((t,i)=>'<span><i>'+String(i+1).padStart(2,'0')+'</i>'+esc(t)+' · '+esc(scores[i]===null?'미상':round(scores[i])+'%')+'</span>').join('')+'</div></div>'+
  (unknown?'<p class="oy-viz-note">미상만 있는 영역은 점으로 표시되며 0점 영역으로 해석하지 않습니다.</p>':'');
 }
 function grade(x){
