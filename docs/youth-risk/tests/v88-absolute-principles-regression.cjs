@@ -55,7 +55,7 @@ const main=fs.readFileSync(path.join(__dirname,'../flow.js'),'utf8');
 assert.ok(main.includes("n>=3&&ready&&!linkageReviewed&&!linkageDeferred"),'Must explicitly review or defer linkage');
 assert.ok(main.includes('confirmLinkageReview')&&main.includes('deferLinkageReview'),'Safety deferral supported');
 const map=fs.readFileSync(path.join(__dirname,'../support.js'),'utf8');
-assert.ok(map.includes("if($('signalsOnly').checked&&!a.sum&&!a.unknown)return"),'Zero-only nodes filtered');
+assert.ok(map.includes("shown=ds.filter(a=>!only||a.sum||a.unknown||a.i===selected)"),'Zero-only nodes filtered');
 const markup=fs.readFileSync(path.join(__dirname,'../support.html'),'utf8');
 assert.match(markup,/id="signalsOnly"[^>]*checked>/,'Signal filter defaults to on');
 console.log('V8.8.1 synthetic regression PASSED: 1200 CORE comparisons, family, unknown, source, gated linkage, ZIP privacy and version consistency.');

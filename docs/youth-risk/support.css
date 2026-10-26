@@ -28,3 +28,4 @@ body.map-page{font-family:var(--map-font);font-size:17px;line-height:1.7;color:v
 .service-alternatives li{margin:6px 0}.service-alternatives li small{display:block;font-size:12px;color:#66798e}
 @media(max-width:760px){.intake-table div{grid-template-columns:1fr;gap:2px}}
 .service-card .referral-direction p{font-size:13px;margin:6px 0}
+.map-viewport svg.map-compact{min-width:0;max-width:560px;margin:0 auto}
