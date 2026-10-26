@@ -308,7 +308,7 @@ function narrativeHtml(nv){
 }
 function integratedBody(I,keys){
  const r=I.deep,cmp=I.compare,B={
-  critical:()=>{const n=I.narrative.read.safety;return (r.critical.list.length?'<ul class="odi-list">'+r.critical.list.map(x=>'<li><strong>'+esc(x.topic)+'</strong> <span class="odi-who">척도</span><p>'+esc(x.reading)+'</p><p class="odi-act">'+esc(x.action)+'</p></li>').join('')+'</ul>':'')+(n.length?'<ul class="odi-list">'+n.map(f=>'<li><strong>'+esc(f.topic)+'</strong> <span class="odi-who">서술</span><p>'+esc(quoteLine(f))+'.</p><p class="odi-act">'+esc(K.item(f.n).e)+'</p></li>').join('')+'</ul>':'')+(r.critical.procedure?'<p class="odi-procedure">'+esc(r.critical.procedure)+'</p>':'<p class="odi-procedure">안전 관련 내용은 이 보고서와 관계없이 소속기관의 보호·신고 절차를 먼저 따릅니다.</p>')},
+  critical:()=>{const n=I.narrative.read.safety;return (r.critical.list.length?'<ul class="odi-list">'+r.critical.list.map(x=>'<li><strong>'+esc(x.topic)+'</strong> <span class="odi-who">척도</span><p>'+esc(x.reading)+'</p><p class="odi-act">'+esc(x.action)+'</p></li>').join('')+'</ul>':'')+(n.length?'<ul class="odi-list">'+byTopic(n).map(g=>'<li><strong>'+esc(g.topic)+'</strong> <span class="odi-who">서술</span>'+g.quotes.map(q=>'<p>'+esc(q)+'.</p>').join('')+(r.critical.list.some(x=>x.n===g.n)?'':'<p class="odi-act">'+esc(K.item(g.n).e)+'</p>')+'</li>').join('')+'</ul>':'')+(r.critical.procedure?'<p class="odi-procedure">'+esc(r.critical.procedure)+'</p>':'<p class="odi-procedure">안전 관련 내용은 이 보고서와 관계없이 소속기관의 보호·신고 절차를 먼저 따릅니다.</p>')},
   understanding:()=>'<p class="odi-lead">'+esc(I.understanding)+'</p>',
   compare:()=>I.present?cmpHtml(cmp):'<p>서술기록이 없어 대조를 생략했습니다. 면담·관찰 내용을 서술기록에 더하면 이 부분이 채워집니다.</p>',
   patterns:()=>{const a=r.patterns.active.slice(0,2),b=I.newPatterns.slice(0,2);return (a.length?a.map(p=>'<div class="odi-card"><h4>'+esc(p.name)+' <span class="odi-who">척도</span></h4><p>'+esc(p.loop)+'</p><p class="odi-advice"><strong>자문 포인트</strong> '+esc(p.advice)+'</p></div>').join(''):'')+(b.length?b.map(p=>'<div class="odi-card"><h4>'+esc(p.name)+' <span class="odi-who">서술을 더해 드러남</span></h4><p>'+esc(p.loop)+'</p><p class="odi-advice"><strong>자문 포인트</strong> '+esc(p.advice)+'</p></div>').join(''):'')||'<p>두 가지 이상의 어려움이 맞물린 고리는 나타나지 않았습니다.</p>'},
@@ -329,6 +329,9 @@ function ecoRows(I){
   return {id:e.id,name:e.name,hard:e.hard.join(', ')||'두드러진 어려움 없음',quotes:quotes.join(' · ')||'—',res:res.join(', ')||'—'};
  });
 }
+// One entry per safety topic: several quotes about the same cue share one action line,
+// and a cue the scale already raised keeps the scale's action instead of repeating it.
+const byTopic=list=>{const m=new Map();list.forEach(f=>{if(!m.has(f.n))m.set(f.n,{n:f.n,topic:f.topic,quotes:[]});m.get(f.n).quotes.push(quoteLine(f));});return [...m.values()];};
 const ITITLES={critical:'우선 안전 확인',understanding:'통합 사례개념화',compare:'척도–서술 교차검토',patterns:'문제 유지 고리 (교차 패턴)',case:'개입 수준과 주관기관',ecology:'생태체계 사정',plan:'단계별 개입계획',agenda:'사례회의 안건',strengths:'강점·보호요인과 학생의 욕구',questions:'면담 확인 질문'};
 function hasCritical(I){return I.deep.critical.list.length||I.narrative.read.safety.length}
 function integratedHtml(I){
