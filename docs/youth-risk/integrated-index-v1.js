@@ -59,14 +59,13 @@ function analyze(p){
  const positives=context.signals.filter(x=>x&&['reported','unverified'].includes(x.polarity)&&x.timeHint!=='historical-mention'&&x.subject!=='third-party');
  const distinct=new Set(positives.map(x=>x.tag));
  const safetyText=positives.some(x=>x.safety);
- const narrativeAvailable=Boolean(context.hasContext);
+ const narrativeAvailable=positives.length>0;
  const narrative=narrativeAvailable?ROUND(clamp(distinct.size*17+(safetyText?15:0))):null;
  // Redistribute unavailable narrative's 5% share, never synthesize a zero.
  const coefficients={raw:0.40,weighted:0.25,cross:0.20,critical:0.10,narrative:narrativeAvailable?0.05:0};
- const denom=Object.values(coefficients).reduce((a,b)=>a+b,0);
- const composite=complete?ROUND(clamp((raw*coefficients.raw+weighted*coefficients.weighted+
-  crossScore*coefficients.cross+criticalScore*coefficients.critical+
-  (narrative||0)*coefficients.narrative)/denom)):null;
+ const baseScore=(raw*.40+weighted*.25+crossScore*.20+criticalScore*.10)/.95;
+ // Positive current-context cues can only retain or raise the core evidence priority.
+ const composite=complete?ROUND(clamp(narrativeAvailable?baseScore*.95+Math.max(baseScore,narrative)*.05:baseScore)):null;
  let base=composite===null?null:Math.min(5,Math.floor(composite/20)+1),tier=base;
  let safetyFloor=null,safetyReason='';
  const highCritical=critical.filter(c=>c.score!==null&&c.score>=3);
@@ -76,7 +75,9 @@ function analyze(p){
   }else if(official.lowSafetyOnly){safetyFloor=2;safetyReason='안전 관련 1점 응답에 따른 초기 보호 우선';}
   else {safetyFloor=4;safetyReason='핵심 안전문항 양성에 따른 우선 보호경로';}
  }
- if(tier!==null&&safetyFloor!==null)tier=Math.max(tier,safetyFloor);
+ if(safetyText)safetyFloor=Math.max(safetyFloor||1,4);
+ // Safety-based support paths stay available even when unrelated items are unknown.
+ if(safetyFloor!==null)tier=tier===null?safetyFloor:Math.max(tier,safetyFloor);
  if(JSON.stringify(answers)!==before)throw Error('CORE_INPUT_MUTATED');
  if(raw!==audit.rawKnownTotal)throw Error('CORE_SCORE_MISMATCH');
  return Object.freeze({
@@ -85,8 +86,8 @@ function analyze(p){
   weighted,domainStrengths:strengths.map(v=>v===null?null:ROUND(v*100)),
   cross,crossScore,critical,criticalScore,narrative,narrativeAvailable,
   coefficients,composite,baseTier:base,tier,
-  label:tier===null?'응답자료 미완료':NAMES[tier-1],action:tier===null?'현재 확인된 문항의 안전·지원 과제 먼저 처리':ACTIONS[tier-1],
-  safetyFloor,safetyReason,
+  label:tier===null?'관측영역 지원단계 미분류':NAMES[tier-1],action:tier===null?'관측된 영역별 지원 우선 실행':ACTIONS[tier-1],
+  safetyFloor,safetyReason:safetyText?(safetyReason?safetyReason+' · 서술 안전단서 포함':'서술에 현재 보호 관련 단서가 나타나 보호경로 우선 배치'):safetyReason,
   domainRows:ds.map((d,i)=>{const offset=W.GROUPS.slice(0,i).reduce((a,b)=>a+b,0);
    const knownIdx=d.values.map((v,k)=>typeof v==='number'?offset+k:-1).filter(k=>k>=0);
    const wNum=knownIdx.reduce((sum,k)=>sum+answers[k]*audit.weights[k],0);
