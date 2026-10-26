@@ -40,4 +40,7 @@ const pending=build({7:'unknown'});
 assert.equal(pending.summary.level,pending.casework.level.name);
 assert.ok(!pending.understanding.includes('신호 신호'),'no doubled word');
 assert.ok(pending.understanding.includes('아직 확인되지 않아'),'an unknown item is not called a signal');
+// An unknown safety item names what to check today, not "this" (item numbers stay in the evidence section).
+const owed=build({7:'unknown'}).critical.list.find(x=>x.n===7);
+assert.match(owed.action,/^오늘 안에 학생과 안전한 곳에서 직접 면담해 자해.+를 확인하고/);
 console.log('interpretation hypothesis wording regression passed');

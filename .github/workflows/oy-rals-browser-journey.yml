@@ -5,6 +5,7 @@ on:
       - 'docs/youth-risk/**'
       - 'e2e/youth-ui-browser-regression.cjs'
       - 'e2e/youth-true-user-flow.cjs'
+      - 'e2e/youth-review-fixes-flow.cjs'
       - '.github/workflows/oy-rals-browser-journey.yml'
   push:
     branches:
@@ -13,6 +14,7 @@ on:
       - 'docs/youth-risk/**'
       - 'e2e/youth-ui-browser-regression.cjs'
       - 'e2e/youth-true-user-flow.cjs'
+      - 'e2e/youth-review-fixes-flow.cjs'
       - '.github/workflows/oy-rals-browser-journey.yml'
 permissions:
   contents: read
@@ -36,6 +38,8 @@ jobs:
           curl -fsS http://127.0.0.1:8765/youth-risk/ >/dev/null
       - name: Verify case assessment, plan, map, PDF print on desktop and mobile
         run: node e2e/youth-ui-browser-regression.cjs
+      - name: Follow the external review fixes through real clicks
+        run: node e2e/youth-review-fixes-flow.cjs
       - name: Validate real user clicks, live AI inference, PDF output and cross-browser interaction
         run: node e2e/youth-true-user-flow.cjs
       - name: Inspect actual A4 PDF document and embedded Korean result text
