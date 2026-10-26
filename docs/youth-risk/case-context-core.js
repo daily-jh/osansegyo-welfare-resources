@@ -1,7 +1,7 @@
 /* OY-RALS v4.0/v4.2 single free-text case-context interpreter.
    All extracted cues are unverified review prompts; NEVER diagnosis, risk scoring, or auto-reporting. */
 (function(root,factory){'use strict';const api=factory();if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.YouthCaseContextCore=api;})(typeof window!=='undefined'?window:globalThis,function(){'use strict';
-const VERSION='1.2.0-free-text-20261026',LIMITS=Object.freeze({text:5000}),MAX_CLAUSES=65;
+const VERSION='1.3.0-others-20261026',LIMITS=Object.freeze({text:5000}),MAX_CLAUSES=65;
 const TYPES=Object.freeze([
  {id:'protection',items:[1,2],label:'학대·보호 관련 언급',re:/학대|방임|체벌|맞았|폭행|가정폭력|보호자.{0,12}(?:위협|폭력)|보호.{0,4}부재/,safety:true,ask:'현재 안전·발생시기·당사자 진술과 법정 신고·보호절차를 담당자가 확인합니다.'},
  {id:'peer',items:[3,4,5],label:'또래관계·학교폭력',re:/따돌림|왕따|학교폭력|괴롭힘|놀림|또래.{0,6}(?:위협|폭행)|금품.{0,6}요구|협박/,ask:'피해인지 행동인지와 학교의 안전조치, 동일 사건 여부를 구분합니다.'},
@@ -14,7 +14,7 @@ const TYPES=Object.freeze([
  {id:'family',items:[17],label:'가족관계',re:/가족.{0,3}갈등|부모.{0,6}갈등|양육스트레스|가정.{0,6}불화/,ask:'가족관계와 학생의 생활영향, 연락의 안전성을 구분합니다.'},
  {id:'basic',items:[19,20,21],label:'경제·주거·필수생활',re:/결식|끼니|식비|주거.{0,5}(?:불안|위험)|월세.{0,5}체납|퇴거|의료비|치료비.{0,6}부담|생필품.{0,6}부족|생활비.{0,6}부족|식사.{0,4}못/,ask:'실제 부족한 필수생활과 신청·접수·지원 제공 여부를 구분합니다.'},
  {id:'peerConflict',items:[22],label:'교우 갈등·관계 부담',re:/(?:교우|친구|또래).{0,8}갈등/,ask:'상호 갈등인지 피해·위협인지, 학생이 원하는 거리와 지원을 확인합니다.'},
- {id:'support',items:[22,23],label:'관계·지지',re:/고립|친구.{0,5}없|지지.{0,6}부족|의지할.{0,5}사람.{0,3}없|도움.{0,6}받을.{0,5}(?:어른|사람).{0,4}없/,ask:'학생이 선택한 신뢰 인물과 실제 도움 요청 가능성을 확인합니다.'},
+ {id:'support',items:[22,23],label:'관계·지지',re:/고립|(?:친한\s?)?친구(?:가|들이|는|도)?\s?(?:한\s?명도\s?|별로\s?)?없|지지.{0,6}부족|의지할.{0,5}사람.{0,3}없|도움.{0,6}받을.{0,5}(?:어른|사람).{0,4}없/,negWording:true,ask:'학생이 선택한 신뢰 인물과 실제 도움 요청 가능성을 확인합니다.'},
  {id:'digital',items:[24],label:'디지털 이용 조절',re:/SNS.{0,6}과몰입|게임.{0,6}과몰입|스마트폰.{0,6}(?:과다|과의존|과몰입)|디지털.{0,6}이용.{0,6}조절/,ask:'이용시간 자체보다 실제 수면·학습·관계의 영향을 확인합니다.'},
  {id:'onlineSexual',items:[25],label:'온라인 성착취·디지털 피해',re:/온라인.{0,9}성착취|그루밍|성적.{0,6}사진.{0,9}협박|성적.{0,6}영상.{0,9}유포|디지털.{0,6}성범죄|딥페이크.{0,6}(?:협박|성적)/,safety:true,ask:'현재 접촉·협박·유포 가능성과 피해보호 절차를 직접 확인합니다.'},
  // A threat to spread images is a current safety issue whatever the images are; never assume they are sexual.
@@ -25,9 +25,14 @@ const TYPES=Object.freeze([
 const NEG=/(?:없다|없음|없어|없었|없고|없으며|아니다|아님|아니며|하지\s?않|싶지\s?않|않았|않음|부인|해당\s?없|안\s?한다|안\s?함|아니라고)/;
 // "Not wanting to stop" is the opposite of a denial.
 const CONTINUE=/(?:멈추|멈출|그만두|그만하|그만\s?하|끊)\S{0,4}\s?(?:싶지\s?않|않)/;
-const THIRD_PARTY=/(?:친구|보호자|부모|어머니|아버지)(?:가|는|의).{0,20}(?:자해|자살|죽고|손목|팔목|팔뚝|허벅지)/;
-// The student named as the one who acts keeps the cue with the student, even when someone else reported it.
-const STUDENT_SELF=/(?:학생|본인)(?:이|은|도|의)?\s?(?:(?!친구|보호자|부모|어머니|아버지).){0,12}(?:자해|자살|죽고|손목|팔목|팔뚝|허벅지)/;
+// Someone else is the one who self-harms, or a peer is the one hurt ("친구가 아버지에게 맞았다").
+// "친구가 때렸다" stays with the student. Harm to a sibling or parent at home also stays with the student:
+// it is the student's household, and a missed cue costs more than a check.
+const OTHERS='(?:친구|동생|형|오빠|언니|누나|선배|후배|다른 학생|보호자|부모|어머니|아버지|엄마|아빠)',PEERS='(?:친구|선배|후배|다른 학생)';
+const THIRD_PARTY=new RegExp('(?:^|[\\s,])'+OTHERS+'(?:가|는|의|이)\\s?.{0,20}(?:자해|자살|죽고|손목|팔목|팔뚝|허벅지)|(?:^|[\\s,])'+PEERS+'(?:가|는|이)\\s?[^.,]{0,16}(?:맞았|학대(?:를)? ?(?:당|받)|폭행(?:을)? ?당)');
+// The student named as the one who acts or is hurt keeps the cue with the student, even when someone else reported it.
+const STUDENT_SELF=new RegExp('(?:학생|본인)(?:이|은|도|의)?\\s?(?:(?!'+OTHERS+'(?:가|는|이|의)).){0,14}(?:자해|자살|죽고|손목|팔목|팔뚝|허벅지|맞았|학대(?:를)? ?(?:당|받)|폭행(?:을)? ?당)');
+const aboutOthers=clause=>THIRD_PARTY.test(clause)&&!STUDENT_SELF.test(clause);
 // Hiding or refusing to talk about a sign is not a denial; it stays an unverified cue to check.
 const CONCEAL=/(?:숨기|숨겨|감추|감춰|가리고|가린다|말하지\s?않|말을\s?안|이야기하지\s?않|밝히지\s?않|보여주지\s?않)/;
 const UNCERTAIN=/(?:의심|추정|가능성|모르|미확인|확인\s?필요|전해\s?들|소문|들은\s?바|인지\s?확인|같다고\s?함)/;
@@ -54,10 +59,12 @@ function who(clause){if(/학생이\s?(?:말|진술|호소|알려|표현)|학생�
 function infer(input){
  const c=normalize(input);if(!c)return {version:VERSION,hasContext:false,signals:[],issues:[],fields:{},source:'없음',clauses:[],privacyWarnings:[]};
  const clauses=splitClauses(c.text),signals=[],seen=new Set(),issues=[];
- for(const clause of clauses){const hypo=HYPOTHETICAL.test(clause),neg=NEG.test(clause)&&!CONCEAL.test(clause)&&!CONTINUE.test(clause),uncertain=UNCERTAIN.test(clause)||CONCEAL.test(clause),old=HISTORICAL.test(clause),third=THIRD_PARTY.test(clause)&&!STUDENT_SELF.test(clause);
+ for(const clause of clauses){const hypo=HYPOTHETICAL.test(clause),neg=NEG.test(clause)&&!CONCEAL.test(clause)&&!CONTINUE.test(clause),uncertain=UNCERTAIN.test(clause)||CONCEAL.test(clause),old=HISTORICAL.test(clause),third=aboutOthers(clause);
   for(const def of TYPES){if(!def.re.test(clause))continue;
    const key=def.id+'|'+clause;if(seen.has(key))continue;seen.add(key);
-   const polarity=hypo?'hypothetical':neg?'negated':uncertain?'unverified':'reported';
+   // A cue worded as an absence ("친구가 없다") is not denied by its own "없"; look for a denial elsewhere.
+   const denied=def.negWording?NEG.test(clause.replace(def.re,' '))&&!CONCEAL.test(clause)&&!CONTINUE.test(clause):neg;
+   const polarity=hypo?'hypothetical':denied?'negated':uncertain?'unverified':'reported';
    signals.push({tag:def.id,items:def.items.slice(),label:def.label,polarity,subject:third?'third-party':'unconfirmed',source:who(clause),timeHint:old?'historical-mention':/(?:현재|지금|요즘|최근|오늘)/.test(clause)?'current-or-recent':'unconfirmed',safety:!!def.safety,clause:redact(clause).slice(0,180),action:def.ask,evidenceClass:'unverified_optional_free_text',humanConfirmationRequired:true});
   }
  }
@@ -91,5 +98,5 @@ function reconcile(answers,input){
  out.manualReviewRequired=out.needsSafetyAttention||out.mismatches.length>0||out.unknownCandidates.length>0;
  return out;
 }
-return Object.freeze({VERSION,LIMITS,TYPES,normalize,splitClauses,redact,infer,reconcile});
+return Object.freeze({VERSION,LIMITS,TYPES,normalize,splitClauses,redact,infer,reconcile,aboutOthers});
 });
