@@ -62,7 +62,7 @@ function resultIntegratedPage(a){
  return '<section class="j88-result-pane"><p class="j88-view-note">CORE 정량·서술기록을 대조한 시스템 지원경로 분류입니다. 공식 점수·보호판정은 불변입니다.</p>'+systemOutcome(a)+'<div id="oy-integrated-visual-slot"></div>'
  +'<details class="j88-raw-accordion"><summary>척도 원자료와 해석 근거 전체 보기</summary>'+interpretation(a)+'</details>'
  +(a.context.mismatches?.length?'<h3>정량·서술 불일치 검토</h3>'+table(['관련 문항','해석 차이·확인 필요'],a.context.mismatches.map(x=>[x.items.join(' · '),x.issue])):'<p>자동 대조에서 특정한 정량·서술 불일치가 추출되지 않았습니다. 일치가 검증되었다는 의미는 아닙니다.</p>')
- +'<h3>종합사정 및 지원 방향</h3><p>'+esc(a.sections.find(x=>x.title==='종합사정 및 우선순위')?.text||'사정 근거 추가 확인이 필요합니다.')+'</p>'
+ +'<h3>종합사정 및 지원 방향</h3>'+integratedSections(a)
  +(a.cieActions?.length?'<details><summary>OY-CIE 근거·추가 확인과제</summary>'+table(['가설','근거','확인 질문'],a.cieActions.slice(0,8).map(x=>[x.hypothesis,x.evidence.join(' · ')||'서술·미상 확인',x.verification]))+'</details>':'')
  +'</section>';
 }
