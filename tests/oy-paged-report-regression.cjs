@@ -2,10 +2,10 @@
 /* Paged deep interpretation: the report must regroup into life-theme pages without changing the model,
    keep every figure placed, keep the safety section on the cover, and leave the text export linear. */
 const assert=require('assert');
-const D=require('../oy-deep-interpretation-v1.js');
-const L=require('../oy-concept-ladder-v1.js');
-const X=require('../oy-cross-patterns-v1.js');
-const K=require('../oy-item-knowledge-v1.js');
+const D=require('../docs/youth-risk/oy-deep-interpretation-v1.js');
+const L=require('../docs/youth-risk/oy-concept-ladder-v1.js');
+const X=require('../docs/youth-risk/oy-cross-patterns-v1.js');
+const K=require('../docs/youth-risk/oy-item-knowledge-v1.js');
 
 const zero=Array(25).fill(0);
 const set=(map)=>{const a=zero.slice();Object.keys(map).forEach(k=>{a[+k-1]=map[k]});return a};
