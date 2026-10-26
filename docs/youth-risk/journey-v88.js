@@ -41,8 +41,23 @@ function resultNarrativePage(a){
  +(k?'<h3>K-CARR 서술형 사례 분석</h3><p>'+esc(k.situationOverview||'')+'</p><p>'+esc(k.integratedJudgment||'')+'</p>':'')
  +'<p>서술형 분석은 문맥을 잘못 해석할 수 있습니다. 부정·과거·타인 관련 진술과 사실·추정의 구별을 실무자가 확인해 주세요.</p></section>';
 }
+function systemOutcome(a){
+ const x=window.OYFiveLevelIndex?.analyze(state.payload);
+ if(!x)return '';
+ const top=x.domainRows.filter(d=>d.raw>0).sort((u,v)=>v.normalized-u.normalized||v.raw-u.raw).slice(0,3);
+ const school=[1,3,8].some(i=>x.domainRows[i].raw>0);
+ const family=[6,7].some(i=>x.domainRows[i].raw>0);
+ const pathway=x.official.urgent?'현재 안전 대응 → 학교·기관 보호체계 병행':school&&family?'학교 내 학맞통 + 복지관 통합사례관리 병행':school?'학교 내 학생맞춤통합지원 중심':family?'복지관·공공지원 연계 중심':'응답 영역별 개별지원과 변화 점검';
+ return '<section class="j88-operational-summary" aria-label="시스템 종합 판정">'
+ +'<span>OY-RALS · 시스템 분석 결과</span><h3>'+esc(x.tier?'제'+x.tier+'단계 '+x.label:'응답 미완료 · 확인된 문항 우선')+'</h3>'
+ +'<dl><div><dt>핵심 지원축</dt><dd>'+esc(top.map(d=>d.name).join(' · ')||'이번 응답에서 양성 문항 보고 없음')+'</dd></div>'
+ +'<div><dt>교차 특성</dt><dd>'+esc(x.activePairs.slice(0,3).map(z=>z.label).join(' · ')||'설정된 복합패턴 동시 양성 없음')+'</dd></div>'
+ +'<div><dt>우선 실행</dt><dd>'+esc(x.action)+'</dd></div>'
+ +'<div><dt>권장 진행체계</dt><dd>'+esc(pathway)+'</dd></div></dl>'
+ +'<small>기준: 현재 입력된 25문항 및 선택 서술로 산출한 지원우선순위. 실제 발생 사실·진단·행정적 서비스 이용 결정을 대신하지 않습니다.</small></section>';
+}
 function resultIntegratedPage(a){
- return '<section class="j88-result-pane"><p class="j88-view-note">CORE 정량·서술기록을 대조한 시스템 지원경로 분류입니다. 공식 점수·보호판정은 불변입니다.</p><div id="oy-integrated-visual-slot"></div>'
+ return '<section class="j88-result-pane"><p class="j88-view-note">CORE 정량·서술기록을 대조한 시스템 지원경로 분류입니다. 공식 점수·보호판정은 불변입니다.</p>'+systemOutcome(a)+'<div id="oy-integrated-visual-slot"></div>'
  +interpretation(a)
  +(a.context.mismatches?.length?'<h3>정량·서술 불일치 검토</h3>'+table(['관련 문항','해석 차이·확인 필요'],a.context.mismatches.map(x=>[x.items.join(' · '),x.issue])):'<p>자동 대조에서 특정한 정량·서술 불일치가 추출되지 않았습니다. 일치가 검증되었다는 의미는 아닙니다.</p>')
  +'<h3>종합사정 및 지원 방향</h3><p>'+esc(a.sections.find(x=>x.title==='종합사정 및 우선순위')?.text||'사정 근거 추가 확인이 필요합니다.')+'</p>'
@@ -145,6 +160,9 @@ function resultExport(){
    if(includeRaw)base.push('서술 원문(비식별 검사·실무자 확인 필수): '+escapePrivate(p.caseContext||''));
   }
  }else{
+  const idx=window.OYFiveLevelIndex?.analyze(p);
+  if(idx)base.push('시스템 지원우선순위: '+(idx.tier?'제'+idx.tier+'단계 '+idx.label:'응답자료 미완료')+' / '+idx.action,
+    '교차 지원축: '+idx.activePairs.slice(0,4).map(pair=>pair.label).join(' · '));
   base.push('공식 점수: '+(a.decision.incomplete?'전체판정 보류':a.decision.knownTotal+'/100'),'안전확인: '+a.decision.safetyReview);
   a.sections.filter(x=>['학생 상황 요약','강점·보호요인·기존 지원','상황을 함께 이해하기 · 잠정 해석과 지도 방향','종합사정 및 우선순위','근거·미확인·확인 계획'].includes(x.title)).forEach(x=>base.push(x.title+'\n'+escapePrivate(x.text)));
   (a.context.mismatches||[]).forEach(x=>base.push('척도·서술 대조: '+x.items.join('·')+'번 / '+escapePrivate(x.issue)));
