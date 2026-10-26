@@ -24,6 +24,12 @@ async function scenario(browser,width){
  assert.equal(await page.locator('.flow-nav [data-oy-step]').count(),5,'five main steps exposed');
  assert.equal(await page.locator('[data-j88-result-tab="score"]').getAttribute('aria-pressed'),'true','quantitative first');
  assert.ok((await page.locator('#journey88').innerText()).includes('10개 평가 영역별 원점수'));
+ assert.equal(await page.locator('#oy-index-visual-slot .oy-viz-dashboard').count(),1,'five-level integrated dashboard visible');
+ assert.equal(await page.locator('.oy-viz-radar svg').count(),1,'ten-axis radar visible');
+ assert.equal(await page.locator('.oy-viz-heatmap > div').count(),25,'25-item heatmap');
+ assert.equal(await page.locator('#oy-index-visual-slot .oy-viz-scale > div').count(),5,'five-stage classification');
+ assert.match(await page.locator('#oy-index-visual-slot .oy-viz-grade-head strong').innerText(),/제5단계/,'high Q7 raises safety priority');
+ assert.equal(await page.evaluate(()=>window.OYFiveLevelIndex.analyze({answers:Array(25).fill(0),domains:Array.from({length:10},(_,i)=>({name:'영역',items:Array.from({length:[2,3,3,3,2,2,3,3,2,2][i]},()=> '가상 문항')})),routes:Array.from({length:10},()=>[]),resources:[],explicit:[],followups:{}}).tier),1,'all-zero responses return stage 1');
  await page.evaluate(()=>{window.print=()=>{};});
  assert.equal(await page.locator('#j88-print-quick').count(),1,'direct PDF action available');
  await page.locator('#j88-print-quick').click();
@@ -34,6 +40,7 @@ async function scenario(browser,width){
  assert.match(await page.locator('#journey88').innerText(),/추가 서술기록이 입력되지 않아/,'empty narrative is explicit');
  await page.locator('[data-j88-result-tab="integrated"]').click();
  assert.ok((await page.locator('#journey88').innerText()).includes('종합사정 및 지원 방향'));
+ assert.equal(await page.locator('#oy-integrated-visual-slot .oy-viz-grade').count(),1,'integrated opinion receives five-level badge');
  const originalCore=await page.evaluate(a=>window.YouthCriteria.evaluate(a,[2,3,3,3,2,2,3,3,2,2],false,{}).knownTotal,answers);
  await page.locator('#cie-flow-question').fill('서비스계획에서 확인해야 할 근거는?');
  assert.match(await page.locator('#cie-flow-status').innerText(),/다시 분석/,'changing question invalidates old result');
@@ -47,6 +54,7 @@ async function scenario(browser,width){
  const text=await page.locator('#journey88').innerText();
  assert.ok(text.includes('사례사정'),'stage3 default tab renders');
  assert.ok(!text.includes('이 단계의 결과를 표시하지 못했습니다.'),'no error fallback');
+ assert.match(await page.locator('#oy-viz-stage-v1').innerText(),/사례 톺아보기 · 실행 구조/,'case stage visual timeline');
  await page.locator('#journey88 [data-j88-tab="사례협의"]').click();
  assert.ok((await page.locator('#journey88').innerText()).includes('회의에서 결정해야 할 사항'));
  await page.locator('#journey88 [data-j88-tab="서비스계획"]').click();
@@ -67,6 +75,7 @@ async function scenario(browser,width){
  await page.waitForFunction(()=>document.querySelector('#oy-ai-workbench-stage')?.hidden===false,{timeout:10000});
  assert.equal(await page.locator('#journey88').isVisible(),false,'case panel hidden in AI workspace');
  assert.equal(await page.locator('#cie-flow-v32').isVisible(),true,'CIE dialogue remains in integrated AI stage');
+ assert.match(await page.locator('#oy-viz-stage-v1').innerText(),/모델 연결도/,'AI model connectivity diagram');
  await page.locator('#oy-ai-question').fill('서비스계획의 근거와 추가 확인은?');
  await page.locator('#oy-ai-ask').click();
  await page.waitForFunction(()=>document.querySelector('#cie-flow-status')?.textContent?.includes('해석 완료'),{timeout:15000});
@@ -78,8 +87,10 @@ async function scenario(browser,width){
  await page.locator('.flow-nav [data-oy-step="5"]').click();
  await page.waitForFunction(()=>document.querySelector('#recordsArea')?.hidden===false,{timeout:10000});
  assert.equal(await page.locator('#journey88').isVisible(),true,'stage4 workbench section opens');
+ assert.match(await page.locator('#oy-viz-stage-v1').innerText(),/회차별 실행흐름/,'records monitoring timeline');
  await page.locator('.flow-nav [data-oy-step="2"]').click();
  assert.equal(await page.locator('#linkageReviewPanel').isVisible(),true,'map review remains reachable');
+ assert.match(await page.locator('#oy-viz-stage-v1').innerText(),/연계 구조 · 우선 지원축/,'linkage diagram');
  await page.locator('.flow-nav [data-oy-step="3"]').click();
  assert.ok((await page.locator('#journey88').innerText()).includes('사례사정'),'stage3 remains directly reachable after map visit');
  assert.deepEqual(errors,[], 'Browser JS exceptions: '+errors.join(' | '));
