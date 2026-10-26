@@ -6,7 +6,7 @@ const ui=fs.readFileSync(path.join(__dirname,'../docs/youth-risk/journey-v88.js'
 // UI contract: result export analyses a narrative-free payload unless the opt-in box is checked.
 const exportFn=ui.slice(ui.indexOf('function resultExport'),ui.indexOf('function exportText'));
 A.ok(exportFn.length>0,'resultExport must exist');
-A.match(exportFn,/const p=includeRaw\?state\.payload:\{\.\.\.state\.payload,caseContext:''\}/,'export payload must drop narrative by default');
+A.match(exportFn,/const p=includeRaw\?state\.payload:privatePayload\(state\.payload\)/,'export payload must drop narrative by default');
 A.doesNotMatch(exportFn,/const p=state\.payload/,'export must not read the raw payload directly');
 A.match(exportFn,/서술 기반 해석은 기본 출력에서 제외했습니다/,'narrative tab must say narrative was excluded');
 // Print: a model failure must fall back to the text report instead of breaking the button.
@@ -32,4 +32,18 @@ A.equal(ix.narrative,null);
 // Official score is identical with or without narrative.
 A.equal(stripped.decision.knownTotal,full.decision.knownTotal);
 A.deepEqual(stripped.decision.safetyItems,full.decision.safetyItems);
+// Redacted payload: no wording leaves, but a current safety cue still sets the safety floor.
+const N=require('../docs/youth-risk/oy-narrative-interpretation-v1.js');
+const red=N.redact(withText);
+A.equal(red.caseContext,'');
+const redDump=JSON.stringify(red.narrativeRedacted);
+for(const phrase of ['가상기관복지관','친구 간 갈등','자해 생각','현재'])A.ok(!redDump.includes(phrase),'redacted summary leaked wording: '+phrase);
+A.ok(red.narrativeRedacted.stage&&red.narrativeRedacted.safety.some(x=>x.n===7));
+const rix=F.analyze(red);
+A.ok(rix.tier>=4,'narrative safety cue must survive the default export');
+A.equal(rix.narrativeAvailable,false,'redacted payload still adds no narrative score');
+const I=N.integrate(red),txt=N.integratedText(I);
+A.ok(!/서술기록이 입력되지 않아/.test(txt),'must not claim the narrative was absent');
+A.ok(/원문을 제외/.test(txt)&&/자해·죽음 관련 안전 신호/.test(txt));
+for(const phrase of ['가상기관복지관','친구 간 갈등','자해 생각'])A.ok(!txt.includes(phrase),'integrated text leaked: '+phrase);
 console.log('narrative export privacy contract: ok');

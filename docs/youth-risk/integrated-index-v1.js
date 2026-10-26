@@ -58,7 +58,8 @@ function analyze(p){
  // promoted automatically to confirmed current risk.
  const positives=context.signals.filter(x=>x&&['reported','unverified'].includes(x.polarity)&&x.timeHint!=='historical-mention'&&x.subject!=='third-party');
  const distinct=new Set(positives.map(x=>x.tag));
- const safetyText=positives.some(x=>x.safety);
+ // An export that withholds the narrative still carries whether it held a current safety cue.
+ const safetyText=positives.some(x=>x.safety)||!!(p.narrativeRedacted&&p.narrativeRedacted.stage);
  const narrativeAvailable=positives.length>0;
  const narrative=narrativeAvailable?ROUND(clamp(distinct.size*17+(safetyText?15:0))):null;
  // Redistribute unavailable narrative's 5% share, never synthesize a zero.
@@ -95,6 +96,9 @@ function analyze(p){
   }else if(official.lowSafetyOnly){safetyFloor=2;safetyReason='안전 관련 1점 응답에 따른 초기 보호 우선';}
   else {safetyFloor=4;safetyReason='핵심 안전문항 양성에 따른 우선 보호경로';}
  }
+ // Current-risk follow-up left as "not yet confirmed": run as provisional level 4 until it is answered.
+ const pendingChecks=official.pendingChecks||[];
+ if(pendingChecks.length&&(safetyFloor===null||safetyFloor<4)){safetyFloor=4;safetyReason='현재 안전 추가확인 미확인('+pendingChecks.join('·')+'번) — 확인 전까지 잠정 제4단계로 운영';}
  if(safetyText)safetyFloor=Math.max(safetyFloor||1,4);
  // Safety-based support paths stay available even when unrelated items are unknown.
  if(safetyFloor!==null)tier=tier===null?safetyFloor:Math.max(tier,safetyFloor);

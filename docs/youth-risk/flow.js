@@ -1,5 +1,7 @@
 (function(){'use strict';const $=id=>document.getElementById(id),origin=location.origin;let stage=1,revision=0,ready=false,payload=null,unsavedChanges=false,recordEdits=false,linkageReviewed=false,linkageDeferred=false,view='result',report=null,map=null,selection=[],recordFrames=new Map(),registrations=new Map();const assessment=$('assessmentFrame');registrations.set(assessment,{kind:'assessment'});const mapRoot=$('mapArea'),reviewRoot=$('linkageReviewPanel');if(mapRoot&&reviewRoot){if(typeof mapRoot.after==='function')mapRoot.after(reviewRoot);const nextHeading=reviewRoot.querySelector('h3'),nextIntro=reviewRoot.querySelector('p');if(nextHeading)nextHeading.textContent='다음 단계 · 사례개념화·개입계획';if(nextIntro)nextIntro.textContent='지도에서 필요한 기관과 사업을 살펴봤다면 다음 단계로 이동하세요. 실제 문의·접수 여부는 기록·점검에서 관리합니다.';$('confirmLinkageReview').textContent='③ 사례개념화·개입계획으로 계속 →';$('deferLinkageReview').textContent='긴급 보호 우선 · 사례개념화·개입계획으로 이동';}
 function send(f,m){f.contentWindow?.postMessage(m,origin)}
+// The map and record pages do not read the narrative; they receive only its safety signal types.
+function withNarrativeSafety(p){try{return {...p,narrativeSafety:window.OYNarrativeInterpretation?.safetySummary?.(p)||null}}catch(_){return p}}
 function frame(kind,path,p){const f=document.createElement('iframe');f.title=kind==='report'?'사례협의·실행계획':kind==='map'?'지원 연결지도':'직접 기록·점검';f.src=new URL(path,document.baseURI).href+'?v=20261025-v88';f.className='flow-frame';registrations.set(f,{kind,payload:p,revision});
  if(kind==='records'){f.addEventListener('load',()=>{f.contentDocument?.addEventListener('input',()=>{unsavedChanges=true;recordEdits=true;},true);f.contentDocument?.addEventListener('change',()=>{unsavedChanges=true;recordEdits=true;},true);});}
  if(kind==='report'){
@@ -11,7 +13,7 @@ function frame(kind,path,p){const f=document.createElement('iframe');f.title=kin
     $('reportLoading').textContent='보고서 대신 다른 페이지가 표시되어 중첩 화면을 차단했습니다. 아래 버튼으로 다시 불러오세요.';$('retryReport').hidden=false;
     return;
    }
-   send(f,{type:'youth-support-data-v1',...p});
+   send(f,{type:'youth-support-data-v1',...withNarrativeSafety(p)});
   });
  }
  return f}
@@ -44,7 +46,7 @@ window.addEventListener('message',e=>{if(e.origin!==origin)return;const entry=[.
  if(['youth-support-request-v1','youth-workbench-request-v1'].includes(t)&&meta.payload){
   if(!ready||meta.revision!==revision){send(f,{type:'youth-support-unavailable-v1'});return;}
   if(meta.kind==='report'&&!f.contentDocument?.getElementById('exampleMain'))return;
-  send(f,{type:'youth-support-data-v1',...meta.payload});
+  send(f,{type:'youth-support-data-v1',...withNarrativeSafety(meta.payload)});
  }
 });
 $('confirmLinkageReview').onclick=()=>{if(!ready)return;linkageReviewed=true;linkageDeferred=false;$('flowStatus').textContent='기관·지원 후보와 접수 확인사항을 검토한 상태로 기록합니다. 실제 문의·접수·이용은 별도 확인해야 합니다.';show(3,{scrollToStep:true});};$('deferLinkageReview').onclick=()=>{if(!ready)return;linkageDeferred=true;linkageReviewed=false;$('flowStatus').textContent='긴급 보호를 우선하도록 연계 검토를 보류했습니다. 실제 지원연계는 이후 담당자가 재확인해야 합니다.';show(3,{scrollToStep:true});};document.querySelectorAll('[data-stage]').forEach(b=>b.onclick=()=>show(+b.dataset.stage,{scrollToStep:true}));document.querySelectorAll('[data-oy-step]').forEach(b=>b.addEventListener('click',()=>{const v=+b.dataset.oyStep;if(v===1){view='result';show(ready?2:1,{scrollToStep:true})}else if(v===2){view='map';show(2,{scrollToStep:true})}else if(v===3)show(3,{scrollToStep:true});else if(v===4)show(5,{scrollToStep:true});else if(v===5)show(4,{scrollToStep:true});}));$('previousStep').onclick=()=>{if(stage===4||stage===5)show(3,{scrollToStep:true});else if(stage===3){view='map';show(2,{scrollToStep:true})}else show(1,{scrollToStep:true});};$('nextStep').onclick=()=>{if(stage===1)send(assessment,{type:'youth-flow-calculate-v1'});else show(stage+1,{scrollToStep:true})};document.querySelectorAll('[data-result-view]').forEach(b=>b.onclick=()=>{view=b.dataset.resultView;document.querySelectorAll('[data-result-view]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));show(2)});$('retryReport').onclick=()=>{if(!ready)return;show(3)};$('recordVersion').onchange=selectRecord;$('startAssessment').onclick=()=>{$('welcome').hidden=true;$('stepTitle').setAttribute('tabindex','-1');$('stepTitle').focus();$('assessmentFlow').scrollIntoView({behavior:'smooth',block:'start'})};$('resourceBridgeStart').onclick=()=>$('startAssessment').click();if(typeof document.addEventListener==='function'){document.addEventListener('input',e=>{if(e.target?.closest?.('#journey88')&&e.target.matches('textarea,input,select')){unsavedChanges=true;recordEdits=true;}},true);

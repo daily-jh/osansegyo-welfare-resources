@@ -70,4 +70,19 @@ assert.deepEqual(d.I.deep.core,a.I.deep.core,'narrative never changes CORE');
 const STORIES=[STORY,'','학생은 요즘 잠을 못 잔다고 했다. 게임을 새벽까지 한다.','보호자에 따르면 월세가 밀려 이사를 자주 했다. 학생은 성실하고 친구를 잘 도와준다.','온라인에서 모르는 사람이 사진을 보내 달라고 했다고 학생이 말했다.'];
 let seed=11;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
 for(let i=0;i<600;i++)run(Array.from({length:25},()=>{const r=rnd();return r<0.06?'unknown':r<0.5?0:Math.floor(rnd()*5)}),STORIES[i%STORIES.length],'random#'+i);
+// Concealment and second-hand relays (2026-10-26 random-10 review).
+{
+ const a=Array(25).fill(0);a[5]=3;a[6]=2;
+ const r=N.read({answers:a,caseContext:'손목에 상처가 있으나 자해 흔적을 숨기고 말하지 않음. 친구에게 "죽고 싶다"는 메시지를 보냈다고 담임이 전해 들음.'});
+ assert.ok(r.safety.some(f=>f.n===7&&f.status==='보고'),'hidden self-harm sign is a reported cue, not a denial');
+ assert.ok(!r.findings.some(f=>f.n===7&&f.status==='부인'));
+ assert.equal(r.sentences[1].source,'전해 들은 내용','a teacher relaying what they heard stays second-hand');
+ assert.ok(r.findings.some(f=>f.n===7&&f.quote.includes('손목')),'wrist wound is linked to the self-harm item');
+ const neg=N.read({answers:a,caseContext:'학생은 자해 생각은 없다고 함.'});
+ assert.ok(neg.findings.some(f=>f.n===7&&f.status==='부인'),'plain denial stays a denial');
+ const red=N.redact({answers:Array(25).fill(0),caseContext:'친구에게 죽고 싶다는 메시지를 보냈다고 전해 들음.'});
+ const I=N.integrate(red);
+ assert.ok(I.redacted&&/^오늘 안에/.test(I.first)&&I.level.id==='intensive');
+ assert.ok(!N.integratedText(I).includes('메시지'),'redacted export carries no wording');
+}
 console.log('oy-narrative-interpretation: ok');

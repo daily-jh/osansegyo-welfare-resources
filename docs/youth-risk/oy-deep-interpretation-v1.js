@@ -101,8 +101,10 @@ function domainDetail(values,d){
  const signs=items.filter(x=>isNum(x.value)&&x.value>=2).map(x=>x.sign);
  return {id:d.id,name:d.name,label:d.label,peak:d.peak,mean:d.mean,sum:d.sum,max:d.max,unknown:d.unknown,lead,readings,notes,text,signs,items};
 }
-function critical(values,c){
+function critical(values,c,p){
  const list=[];
+ // Explicit urgent checks lead the safety section in the evaluator's own words.
+ ((p&&p.explicit)||[]).forEach(t=>list.push({n:null,kind:'긴급',value:null,topic:'체크된 긴급 상황',reading:/^\d+번 추가확인: /.test(t)?topic(+String(t).match(/^\d+/)[0])+' 현재 안전 추가확인에서 “'+String(t).replace(/^\d+번 추가확인: /,'')+'”을 선택했습니다.':'평가 화면에서 “'+t+'” 항목을 체크했습니다.',action:'일반 상담 예약이나 사례회의를 기다리지 않고 지금 바로 보호 조치를 시작합니다. 급박한 위해는 112·119, 학대·성적 침해 의심은 신고 절차를 따릅니다.'}));
  SAFETY.forEach(n=>{const v=values[n-1];if(isNum(v)&&v>0)list.push({n,kind:'안전',value:v,topic:topic(n),reading:K.reading(n,v),action:K.item(n).e});else if(v==='unknown')list.push({n,kind:'안전 미상',value:v,topic:topic(n),reading:josa(topic(n),'이','가')+' 아직 확인되지 않아(미상) 현재 안전 판단을 마치지 못했습니다.',action:'이 내용부터 직접 확인합니다.'})});
  PRIORITY.forEach(n=>{const v=values[n-1];if(isNum(v)&&v>=3)list.push({n,kind:'우선',value:v,topic:topic(n),reading:K.reading(n,v),action:K.item(n).e})});
  const pending=c.pendingChecks.map(topic);
@@ -143,6 +145,16 @@ function questions(values,patterns){
 function reassess(values){
  return rankItems(values).filter(x=>x.v>=2).slice(0,6).map(x=>({n:x.n,topic:topic(x.n),now:x.v,nowText:K.item(x.n).a[x.v],target:K.item(x.n).a[x.v-1]}));
 }
+// Same conditions that put the five-level index at its safety-first ceiling: explicit check, confirmed current risk, or a 3-4 point safety item.
+function urgentLevel(values,c,p){return !!((p&&p.explicit)||[]).length||c.checkItems.some(n=>((p&&p.followups)||{})[n]==='yes')||SAFETY.some(n=>isNum(values[n-1])&&values[n-1]>=3)}
+// Who acts today versus who carries the case afterwards, for the safety signals (Claude draft; confirm against local agreements).
+function safetyRoute(has,explicit){
+ if(has(1)||has(2))return {immediate:'발견한 교직원의 아동학대 신고(112) → 시·군·구 아동학대전담공무원·아동보호전문기관',lead:'시·군·구 아동학대전담공무원·아동보호전문기관 (학교·복지관 협력)'};
+ if(has(25)||has(4))return {immediate:'경찰 신고(112·117)와 증거 보전 안내 → 해바라기센터·디지털성범죄 피해 지원기관(마주봄센터)',lead:'해바라기센터·마주봄센터 (학교는 보호 조치와 학교폭력 절차)'};
+ if(has(7))return {immediate:'학교 상담교사(Wee)·위기관리위원회의 당일 안전 면담, 급박하면 119·112',lead:'정신건강복지센터 (학교 Wee·복지관 협력)'};
+ if(explicit)return {immediate:'112·119 즉시 연락과 학교 위기관리위원회 소집',lead:null};
+ return null;
+}
 // Integrated case management view: intervention level, lead agency, ecology, phased plan, meeting agenda, consultant notes.
 const ECO=[['self','개인'],['family','가족'],['school','학교'],['community','지역사회']];
 const OWNER={protect:'아동보호·수사기관',crisis:'정신건강 위기대응',school:'학교(담임·교육복지사·Wee)',welfare:'복지관 통합사례관리',specialist:'전문 상담·치료기관'};
@@ -158,16 +170,23 @@ function casework(values,c,prof,patterns,crit,str,p){
   {id:'general',name:'일반 사례관리 (학교·복지 협력)',contact:'주 담당자가 1~2주에 1회 학생 접촉',meeting:'4주 안에 학교·복지 담당 협의(학맞통 협의 검토)',review:'3개월마다 재사정'},
   {id:'intensive',name:'집중 사례관리 (다기관)',contact:'주 담당자가 주 1회 이상 학생 접촉, 가족 접촉 병행',meeting:'2주 안에 다기관 사례회의',review:'1개월마다 진행 점검, 3개월 재사정'},
   {id:'crisis',name:'위기개입 후 집중 사례관리',contact:'당일 안전 확인, 이후 안정될 때까지 매일~주 2회 확인',meeting:'보호 조치 직후 긴급 사례회의',review:'안전 확보 후 2주 안에 전체 재사정'}];
- const level=safetyHigh?L[4]:safetyAny&&lv>=2?L[3]:L[[0,1,2,3][lv]];
- const reason=safetyHigh?'안전 신호가 뚜렷해 보호 조치가 다른 지원보다 앞서야 하는 사례입니다.':safetyAny&&lv>=2?'안전 신호와 여러 영역의 어려움이 함께 있어 한 담당자가 감당하기 어려운 사례입니다.':['어려움이 가볍게 보고되어 관계를 유지하며 지켜보는 단계입니다.','어려움이 한두 영역에 모여 있어 해당 영역 담당이 직접 지원하는 것이 효율적입니다.','두 개 이상의 생활영역이 함께 흔들려 학교와 지역 복지가 역할을 나눠야 하는 사례입니다.','여러 영역의 어려움이 동시에 크게 나타나 다기관이 한 계획으로 움직여야 하는 사례입니다.'][lv];
+ // Never below what the safety answers require: a current-risk follow-up left unconfirmed runs at the intensive level (provisional level 4),
+ // and any positive safety item (CORE urgent) starts at least at direct individual support.
+ const pending=c.pendingChecks.length>0,safetyPos=crit.list.some(x=>x.kind==='안전');
+ const level=safetyHigh?L[4]:(safetyAny&&lv>=2)||pending?L[3]:safetyPos&&lv<1?L[1]:L[[0,1,2,3][lv]];
+ const reason=safetyHigh?'안전 신호가 뚜렷해 보호 조치가 다른 지원보다 앞서야 하는 사례입니다.':safetyAny&&lv>=2?'안전 신호와 여러 영역의 어려움이 함께 있어 한 담당자가 감당하기 어려운 사례입니다.':pending?'현재 안전 추가확인이 아직 확인되지 않아, 확인을 마칠 때까지 집중 수준으로 운영합니다(잠정).':safetyPos&&lv<1?'안전 관련 응답이 있어 오늘 안에 현재 안전을 확인하고, 담당자가 직접 만나는 개별지원으로 시작합니다.':['어려움이 가볍게 보고되어 관계를 유지하며 지켜보는 단계입니다.','어려움이 한두 영역에 모여 있어 해당 영역 담당이 직접 지원하는 것이 효율적입니다.','두 개 이상의 생활영역이 함께 흔들려 학교와 지역 복지가 역할을 나눠야 하는 사례입니다.','여러 영역의 어려움이 동시에 크게 나타나 다기관이 한 계획으로 움직여야 하는 사례입니다.'][lv];
  // lead agency from where the active difficulties sit
  const own={};act.forEach(n=>{const o=K.item(n).owner;own[o]=(own[o]||0)+(val(n)||1)});
  const order=Object.keys(own).sort((a,b)=>own[b]-own[a]);
  const first=own.protect?'protect':own.crisis?'crisis':null;
  const main=order.find(o=>o==='school'||o==='welfare')||order[0];
- const lead=main?OWNER[main]:'학교 담임';
- const partners=order.filter(o=>o!==main).map(o=>OWNER[o]);
- const leadText=(first==='protect'?'아동보호·수사기관의 판단과 보호 조치가 가장 먼저입니다. 그 뒤 ':first==='crisis'?'정신건강 위기대응 기관과 함께 하는 안전 확인이 가장 먼저입니다. 그 뒤 ':'')+(main==='welfare'?'생활 기반·가족 영역의 비중이 커서 복지관 통합사례관리가 주관하고 학교가 협력하는 구조가 맞습니다.':main==='school'?'어려움이 학교생활 안에 주로 드러나 학교(담임·교육복지사)가 주관하고 지역 기관이 협력하는 구조가 맞습니다.':'지원 영역에 맞는 기관이 주관합니다.');
+ const route0=safetyRoute(n=>isNum(val(n))&&(SAFETY.includes(n)?val(n)>=1:val(n)>=2),!!(p.explicit||[]).length);
+ // A specialist agency leads only at the intensive/crisis levels and when its own item is 2+; suspected abuse always goes to the statutory route.
+ const abuseAny=[1,2].some(n=>isNum(val(n))&&val(n)>=1),leadRoute=['intensive','crisis'].includes(level.id)||abuseAny?safetyRoute(n=>isNum(val(n))&&([1,2].includes(n)?val(n)>=1:val(n)>=2),false):null;
+ const route=route0&&{...route0,lead:leadRoute&&leadRoute.lead||null};
+ const lead=route&&route.lead?route.lead:main&&!(route&&['protect','crisis'].includes(main))?OWNER[main]:route?OWNER.school:'학교 담임',immediate=route?route.immediate:'';
+ const partners=order.filter(o=>o!==main&&!(route&&route.lead&&['protect','crisis'].includes(o))).map(o=>OWNER[o]).concat(route&&route.lead&&main?[OWNER[main]]:[]);
+ const leadText=route&&route.lead?'안전 신호가 있어 오늘의 즉시 대응과 이후 사례관리 주관을 나눕니다. 즉시 대응은 '+route.immediate+'이 맡고, 이후 사례관리는 '+route.lead.replace(/ \(.*\)$/,'')+'이 주관합니다.':(first==='protect'?'아동보호·수사기관의 판단과 보호 조치가 가장 먼저입니다. 그 뒤 ':first==='crisis'?'정신건강 위기대응 기관과 함께 하는 안전 확인이 가장 먼저입니다. 그 뒤 ':'')+(main==='welfare'?'생활 기반·가족 영역의 비중이 커서 복지관 통합사례관리가 주관하고 학교가 협력하는 구조가 맞습니다.':main==='school'?'어려움이 학교생활 안에 주로 드러나 학교(담임·교육복지사)가 주관하고 지역 기관이 협력하는 구조가 맞습니다.':'지원 영역에 맞는 기관이 주관합니다.');
  // ecology
  const ecology=ECO.map(([id,name])=>{
   const items=K.ITEMS.filter(k=>k.eco===id);
@@ -185,6 +204,7 @@ function casework(values,c,prof,patterns,crit,str,p){
  const RANK=['protect','crisis','welfare','school','specialist'];
  const pOwner=pt=>OWNER[pt.items.map(n=>K.item(n).owner).sort((a,b)=>RANK.indexOf(a)-RANK.indexOf(b))[0]];
  const now=[],used=new Set();
+ if(crit.list.some(x=>x.kind==='긴급'))now.push({what:crit.list.find(x=>x.kind==='긴급').action,who:'발견한 교직원 → 112·119·보호 담당'});
  crit.list.filter(x=>x.kind.startsWith('안전')).forEach(x=>{now.push({what:x.action,who:[1,2,25].includes(x.n)?'교사 → 아동보호·수사기관':'교육복지사·상담교사'});if(x.kind==='안전'){const k=K.item(x.n);now.push({what:k.c,who:OWNER[k.owner]});used.add(x.n)}});
  const planned=[];
  top.forEach(pt=>{if(planned.some(q=>q.items.some(n=>pt.items.includes(n))&&!pt.safety))return;planned.push(pt)});
@@ -198,7 +218,8 @@ function casework(values,c,prof,patterns,crit,str,p){
  ranked.filter(x=>!used.has(x.n)).slice(0,4).forEach(x=>{const k=K.item(x.n);if(mid.length<3&&!mid.some(m=>m.what===k.c))mid.push({what:k.c,who:OWNER[k.owner]==='학교(담임·교육복지사·Wee)'?'복지관·지역 기관':OWNER[k.owner]})});
  mid.push({what:'합의한 목표의 변화를 점검하고 지원을 조정합니다. '+level.review+'.',who:lead});
  // goals from reassessment targets
- const goals=ranked.filter(x=>x.v>=2).slice(0,3).map(x=>({topic:topic(x.n),goal:'다음 재평가까지 "'+K.item(x.n).a[x.v-1]+'" 수준으로 낮아지는 것',measure:K.item(x.n).d.split(', ')[0]+' 등 일상 지표를 학생과 함께 정해 2주마다 기록'}));
+ // Safety items get a safety-plan goal, never a target of 'one level lower'.
+ const goals=ranked.filter(x=>x.v>=2).slice(0,3).map(x=>SAFETY.includes(x.n)?{topic:topic(x.n),goal:'학생과 함께 만든 안전 계획(연락할 사람·피할 수단·머물 곳)이 지켜지고, 위험이 생기면 학생이 먼저 알릴 수 있는 것',measure:'안전 계획 이행 여부와 학생이 말하는 현재 안전 정도를 주 1회 이상 확인'}:{topic:topic(x.n),goal:'다음 재평가까지 "'+K.item(x.n).a[x.v-1]+'" 수준으로 낮아지는 것',measure:K.item(x.n).d.split(', ')[0]+' 등 일상 지표를 학생과 함께 정해 2주마다 기록'});
  // meeting agenda
  const agenda=[];
  if(safetyAny)agenda.push('현재 안전 판단과 보호·신고 절차 진행 상황 공유');
@@ -217,20 +238,23 @@ function casework(values,c,prof,patterns,crit,str,p){
  if(act.some(n=>[15,16,19,20,21].includes(n))&&main==='school')notes.push({about:'학교 밖 자원',text:'생활 기반 문제는 학교 안 대책만으로 풀리지 않습니다. 지역 복지 담당을 처음부터 회의에 참여시켜 역할을 나눕니다.'});
  notes.push({about:'학생의 자기결정',text:'계획은 학생이 동의한 목표에서 출발할 때 지속됩니다. 학생이 원하지 않는 지원은 이유를 듣고 대안을 함께 찾으며, 안전 조치만은 학생 동의와 관계없이 진행됨을 미리 설명합니다.'});
  const voice=['지금 가장 바뀌었으면 하는 일 한 가지는 무엇인가요?','도움을 받는다면 누구에게, 어떤 방식으로 받고 싶나요?','받고 싶지 않은 도움이나 알리고 싶지 않은 사람이 있나요?'];
- return {level:{...level,reason},lead,partners,leadText,ecology,family,plan:[{phase:'즉시 (이번 주)',rows:now},{phase:'단기 (2~4주)',rows:short},{phase:'중기 (1~3개월)',rows:mid}],goals,agenda,notes,voice};
+ const nowPhase=urgentLevel(values,c,p)?'즉시 (지금 바로)':crit.list.some(x=>x.kind==='안전')||c.pendingChecks.length?'즉시 (오늘~이번 주)':'즉시 (이번 주)';
+ return {level:{...level,reason},lead,immediate,partners,leadText,ecology,family,plan:[{phase:nowPhase,rows:now},{phase:'단기 (2~4주)',rows:short},{phase:'중기 (1~3개월)',rows:mid}],goals,agenda,notes,voice};
 }
 function build(p){
  if(!p||!Array.isArray(p.answers)||p.answers.length!==25)throw Error('DEEP_INPUT_INVALID');
  const values=p.answers.slice(),c=C.evaluate(values,K.DOMAIN_SIZES,!!(p.explicit||[]).length,p.followups||{});
  const prof=profile(values),ax=axes(values),cross=X.match(values),patterns=cross.active;
- const valid=validity(values,c),cd=code(values,prof,patterns,valid),crit=critical(values,c),str=strengths(values,prof);
+ const valid=validity(values,c),cd=code(values,prof,patterns,valid),crit=critical(values,c,p),str=strengths(values,prof);
  const detail=prof.filter(d=>d.positive.length||d.unknown.length).map(d=>domainDetail(values,d)).sort((a,b)=>(b.peak??-1)-(a.peak??-1)||(b.mean??0)-(a.mean??0)||a.id-b.id);
  const keys=rankItems(values).filter(x=>x.v>=2||SAFETY.includes(x.n)).slice(0,3).map(x=>topic(x.n));
- const first=crit.list.some(x=>x.kind==='안전'||x.kind==='안전 미상')?'이번 주 안에 '+crit.list.filter(x=>x.kind.startsWith('안전')).map(x=>x.topic).join(', ')+'의 현재 상황을 직접 안전 면담으로 확인합니다.':patterns[0]?patterns[0].first:keys.length?K.item(rankItems(values)[0].n).e:'학생이 편하게 도움을 청할 사람과 다음 만남 날짜를 정합니다.';
+ const urgentNow=urgentLevel(values,c,p),safetyCrit=crit.list.filter(x=>x.kind.startsWith('안전')),safetyTopics=safetyCrit.map(x=>x.topic).join(', ');
+ const when=urgentNow?'지금 바로':crit.list.some(x=>x.kind==='안전')?'오늘 안에':'이번 주 안에';
+ const first=(p.explicit||[]).length?'지금 바로 체크된 긴급 상황의 보호 조치를 시작하고'+(safetyTopics?', '+josa(safetyTopics,'을','를')+' 직접 확인합니다.':' 담당 기관에 알립니다.'):safetyCrit.length?when+' '+safetyTopics+'의 현재 상황을 직접 안전 면담으로 확인합니다.':c.pendingChecks.length?'오늘 안에 '+crit.pending.join(', ')+'의 현재 위험 여부를 확인해 추가확인을 마칩니다.':patterns[0]?patterns[0].first:keys.length?K.item(rankItems(values)[0].n).e:'학생이 편하게 도움을 청할 사람과 다음 만남 날짜를 정합니다.';
  const level=c.provisional?(c.incomplete?'확인된 응답 기준 '+['관찰·예방','개별영역 지원','복합욕구 조정','다기관 집중검토'][c.observedLevel]+' 수준 · 전체 판정 보류':'안전 추가확인 대기 · '+['관찰·예방','개별영역 지원','복합욕구 조정','다기관 집중검토'][c.observedLevel]+' 수준'):['관찰·예방','개별영역 지원','복합욕구 조정','다기관 집중검토'][c.level]+' 수준';
  return {version:VERSION,core:c,title:c.title,summary:{level,safety:c.urgent?'안전 확인 우선':c.safetyUnknown.length||c.pendingChecks.length?'안전 확인 미완료':'이번 응답의 안전 신호 없음',keys,first,total:c.incomplete?'확인 '+c.knownCount+'문항 합계 '+c.knownTotal+'점 (미상 '+c.unknownItems.length+'문항)':c.knownTotal+' / 100점'},
   validity:valid,profile:prof,axes:ax,code:cd,detail,critical:crit,patterns:{active:patterns,pending:cross.pending},strengths:str,
-  understanding:understanding(values,c,cd,patterns,str,crit),casework:casework(values,c,prof,patterns,crit,str,p),items:values.map((v,i)=>({n:i+1,topic:topic(i+1),value:v,anchor:isNum(v)?K.anchor(i+1,v):null})),roles:roles(values,patterns),questions:questions(values,patterns),reassess:reassess(values),notice:NOTICE};
+  understanding:urgentNow?understanding(values,c,cd,patterns,str,crit).replace(/오늘 안에/g,'지금 바로'):understanding(values,c,cd,patterns,str,crit),casework:casework(values,c,prof,patterns,crit,str,p),items:values.map((v,i)=>({n:i+1,topic:topic(i+1),value:v,anchor:isNum(v)?K.anchor(i+1,v):null})),roles:roles(values,patterns),questions:questions(values,patterns),reassess:reassess(values),notice:NOTICE};
 }
 const esc=v=>String(v??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 // Body uses plain-language topics only; item numbers and scores live in the appendix.
@@ -246,8 +270,8 @@ function html(r){
  const body={
   critical:()=>(r.critical.list.length?'<ul class="odi-list">'+r.critical.list.map(x=>'<li><strong>'+esc(x.topic)+'</strong><p>'+esc(x.reading)+'</p><p class="odi-act">'+esc(x.action)+'</p></li>').join('')+'</ul>':'')+(r.critical.pending.length?'<p><strong>안전 추가확인 남음</strong> '+esc(r.critical.pending.join(', '))+'</p>':'')+(r.critical.procedure?'<p class="odi-procedure">'+esc(r.critical.procedure)+'</p>':''),
   understanding:()=>'<p class="odi-lead">'+esc(r.understanding)+'</p>',
-  case:()=>{const w=r.casework,l=w.level;return '<p class="odi-pattern-name">'+esc(l.name)+'</p><p>'+esc(l.reason)+'</p><dl class="odi-axes"><div><dt>접촉 빈도</dt><dd>'+esc(l.contact)+'</dd></div><div><dt>사례회의</dt><dd>'+esc(l.meeting)+'</dd></div><div><dt>점검·재사정</dt><dd>'+esc(l.review)+'</dd></div><div><dt>주관</dt><dd>'+esc(w.lead)+'</dd></div>'+(w.partners.length?'<div><dt>협력</dt><dd>'+esc(w.partners.join(', '))+'</dd></div>':'')+'</dl><p>'+esc(w.leadText)+'</p><p><strong>보호자 참여</strong> '+esc(w.family)+'</p>'},
-  ecology:()=>'<div class="odi-table odi-eco"><table><thead><tr><th scope="col">수준</th><th scope="col">어려움</th><th scope="col">유지되는 부분</th><th scope="col">연계 자원 유형</th></tr></thead><tbody>'+r.casework.ecology.map(e=>'<tr><th scope="row">'+esc(e.name)+'</th><td>'+esc(e.hard.join(', ')||'두드러진 어려움 없음')+(e.unk.length?'<br><span class="odi-muted">미상: '+esc(e.unk.join(', '))+'</span>':'')+'</td><td>'+esc(e.ok.join(', ')||'—')+'</td><td>'+esc(e.res.join(', ')||'—')+'</td></tr>').join('')+'</tbody></table></div><p class="odi-muted">구체적인 기관은 02 지역자원 연계 지도에서 대상·운영을 확인해 고릅니다.</p>',
+  case:()=>{const w=r.casework,l=w.level;return '<p class="odi-pattern-name">'+esc(l.name)+'</p><p>'+esc(l.reason)+'</p><dl class="odi-axes"><div><dt>접촉 빈도</dt><dd>'+esc(l.contact)+'</dd></div><div><dt>사례회의</dt><dd>'+esc(l.meeting)+'</dd></div><div><dt>점검·재사정</dt><dd>'+esc(l.review)+'</dd></div>'+(w.immediate?'<div><dt>즉시 대응</dt><dd>'+esc(w.immediate)+'</dd></div>':'')+'<div><dt>주관</dt><dd>'+esc(w.lead)+'</dd></div>'+(w.partners.length?'<div><dt>협력</dt><dd>'+esc(w.partners.join(', '))+'</dd></div>':'')+'</dl><p>'+esc(w.leadText)+'</p><p><strong>보호자 참여</strong> '+esc(w.family)+'</p>'},
+  ecology:()=>'<div class="odi-table odi-eco"><table><thead><tr><th scope="col">수준</th><th scope="col">어려움</th><th scope="col">보고 없는 항목</th><th scope="col">연계 자원 유형</th></tr></thead><tbody>'+r.casework.ecology.map(e=>'<tr><th scope="row">'+esc(e.name)+'</th><td>'+esc(e.hard.join(', ')||'두드러진 어려움 없음')+(e.unk.length?'<br><span class="odi-muted">미상: '+esc(e.unk.join(', '))+'</span>':'')+'</td><td>'+esc(e.ok.join(', ')||'—')+'</td><td>'+esc(e.res.join(', ')||'—')+'</td></tr>').join('')+'</tbody></table></div><p class="odi-muted">구체적인 기관은 02 지역자원 연계 지도에서 대상·운영을 확인해 고릅니다.</p>',
   plan:()=>r.casework.plan.map(ph=>'<div class="odi-card"><h4>'+esc(ph.phase)+'</h4><ul>'+ph.rows.map(x=>'<li>'+esc(x.what)+' <span class="odi-who">'+esc(x.who)+'</span></li>').join('')+'</ul></div>').join('')+(r.casework.goals.length?'<h4 class="odi-sub">목표 예시</h4>'+ul(r.casework.goals.map(g=>'<strong>'+esc(g.topic)+'</strong> '+esc(g.goal)+'<br><span class="odi-muted">확인 방법: '+esc(g.measure)+'</span>')):''),
   agenda:()=>'<ol>'+r.casework.agenda.map(a=>'<li>'+esc(a)+'</li>').join('')+'</ol>',
   consult:()=>ul(r.casework.notes.map(n=>'<strong>'+esc(n.about)+'</strong> '+esc(n.text))),
@@ -261,7 +285,7 @@ function html(r){
   reassess:()=>r.reassess.length?ul(r.reassess.map(x=>'<strong>'+esc(x.topic)+'</strong> 지금: '+esc(x.nowText)+'<br>다음 목표: '+esc(x.target))):'<p>다음 평가에서 지금의 응답이 유지되는지와 새로운 어려움이 생겼는지 봅니다.</p>',
   validity:()=>'<p><strong>'+esc(r.validity.level)+'</strong> · '+esc(r.validity.summary)+'</p>'+ul(r.validity.rows.map(x=>'<strong>'+esc(x.label)+'</strong> '+esc(x.text)))
  };
- let h='<article class="oy-deep-report" data-report-version="'+VERSION+'"><header class="odi-head"><span class="odi-kicker">OY-RALS 척도 심층해석</span><h2>'+esc(r.code.name)+'</h2><p>'+esc(r.title)+'</p></header>';
+ let h='<article class="oy-deep-report" data-report-version="'+VERSION+'"><header class="odi-head"><span class="odi-kicker">OY-RALS 척도 심층해석</span><h2>'+esc(r.code.name)+'</h2><p>CORE 공식 판정: '+esc(r.title)+'</p></header>';
  h+='<section class="odi-sec odi-glance"><h3>한눈에 보기</h3><dl><div><dt>지원 수준</dt><dd>'+esc(s.level)+'</dd></div><div class="'+(s.safety==='이번 응답의 안전 신호 없음'?'':'odi-alert')+'"><dt>현재 안전</dt><dd>'+esc(s.safety)+'</dd></div><div><dt>핵심 어려움</dt><dd>'+(s.keys.length?s.keys.map(k=>'<span class="odi-chip">'+esc(k)+'</span>').join(''):'두드러진 어려움 없음')+'</dd></div><div><dt>이번 주 첫 행동</dt><dd>'+esc(s.first)+'</dd></div><div><dt>해석 신뢰도</dt><dd>'+esc(r.validity.level)+' · '+esc(r.validity.summary)+'</dd></div></dl></section>';
  sections(r).forEach((k,i)=>{h+='<section class="odi-sec odi-s-'+k+'"><h3><span class="odi-num">'+(i+1)+'</span>'+esc(TITLES[k])+'</h3>'+body[k]()+'</section>'});
  h+=appendixHtml(r)+'<footer class="odi-notice"><h3>해석 안내</h3><p>'+esc(r.notice)+'</p></footer></article>';
@@ -273,7 +297,7 @@ function appendixRows(r){
   domains:r.profile.map(d=>[d.name,d.known?d.sum+' / '+(d.known*4):'—',d.mean===null?'—':d.mean.toFixed(1),d.label,d.unknown.length?d.unknown.join('·')+'번':'없음']),
   items:r.items.map(x=>[x.n+'번',x.topic,x.value==='unknown'?'미상':x.value+'점',x.value==='unknown'?'미상은 0점으로 계산하지 않음':x.anchor]),
   patterns:r.patterns.active.map(p=>[p.name,p.items.map(n=>n+'번').join('·'),p.extra.length?p.extra.map(n=>n+'번').join('·'):'—']).concat(r.patterns.pending.map(p=>[p.name+' (보류)',p.items.map(n=>n+'번').join('·'),'미상 '+p.unknown.join('·')+'번'])),
-  critical:r.critical.list.map(x=>[x.n+'번',x.topic,x.value==='unknown'?'미상':x.value+'점',x.kind]),
+  critical:r.critical.list.map(x=>[x.n?x.n+'번':'체크',x.topic,x.value===null?'—':x.value==='unknown'?'미상':x.value+'점',x.kind]),
   reassess:r.reassess.map(x=>[x.n+'번',x.topic,x.now+'점',(x.now-1)+'점 이하'])
  };
 }
@@ -292,8 +316,8 @@ function blocks(r){
  return {
   critical:()=>[...r.critical.list.map(x=>'- '+x.topic+': '+x.reading+'\n  → '+x.action),...(r.critical.pending.length?['- 안전 추가확인 남음: '+r.critical.pending.join(', ')]:[]),...(r.critical.procedure?[r.critical.procedure]:[])],
   understanding:()=>[r.understanding],
-  case:()=>{const w=r.casework,l=w.level;return [l.name,l.reason,'- 접촉 빈도: '+l.contact,'- 사례회의: '+l.meeting,'- 점검·재사정: '+l.review,'- 주관: '+w.lead,...(w.partners.length?['- 협력: '+w.partners.join(', ')]:[]),w.leadText,'보호자 참여: '+w.family]},
-  ecology:()=>[...r.casework.ecology.map(e=>'▸ '+e.name+'\n  어려움: '+(e.hard.join(', ')||'두드러진 어려움 없음')+(e.unk.length?' (미상: '+e.unk.join(', ')+')':'')+'\n  유지되는 부분: '+(e.ok.join(', ')||'—')+'\n  연계 자원 유형: '+(e.res.join(', ')||'—')),'구체적인 기관은 02 지역자원 연계 지도에서 대상·운영을 확인해 고릅니다.'],
+  case:()=>{const w=r.casework,l=w.level;return [l.name,l.reason,'- 접촉 빈도: '+l.contact,'- 사례회의: '+l.meeting,'- 점검·재사정: '+l.review,...(w.immediate?['- 즉시 대응: '+w.immediate]:[]),'- 주관: '+w.lead,...(w.partners.length?['- 협력: '+w.partners.join(', ')]:[]),w.leadText,'보호자 참여: '+w.family]},
+  ecology:()=>[...r.casework.ecology.map(e=>'▸ '+e.name+'\n  어려움: '+(e.hard.join(', ')||'두드러진 어려움 없음')+(e.unk.length?' (미상: '+e.unk.join(', ')+')':'')+'\n  보고 없는 항목: '+(e.ok.join(', ')||'—')+'\n  연계 자원 유형: '+(e.res.join(', ')||'—')),'구체적인 기관은 02 지역자원 연계 지도에서 대상·운영을 확인해 고릅니다.'],
   plan:()=>[...r.casework.plan.flatMap(ph=>['▸ '+ph.phase,...ph.rows.map(x=>'  - '+x.what+' ['+x.who+']')]),...(r.casework.goals.length?['목표 예시',...r.casework.goals.map(g=>'  - '+g.topic+': '+g.goal+'\n    확인 방법: '+g.measure)]:[])],
   agenda:()=>r.casework.agenda.map((a,i)=>(i+1)+'. '+a),
   consult:()=>r.casework.notes.map(n=>'- '+n.about+': '+n.text),
@@ -311,13 +335,13 @@ function blocks(r){
 function sectionText(r,key){const B=blocks(r);return B[key]?B[key]().join('\n'):'';}
 function text(r){
  const s=r.summary,L=[],B=blocks(r);
- L.push('■ OY-RALS 척도 심층해석 · '+r.code.name,r.title,'','[한눈에 보기]','지원 수준: '+s.level,'현재 안전: '+s.safety,'핵심 어려움: '+(s.keys.join(', ')||'두드러진 어려움 없음'),'이번 주 첫 행동: '+s.first,'해석 신뢰도: '+r.validity.level);
+ L.push('■ OY-RALS 척도 심층해석 · '+r.code.name,'CORE 공식 판정: '+r.title,'','[한눈에 보기]','지원 수준: '+s.level,'현재 안전: '+s.safety,'핵심 어려움: '+(s.keys.join(', ')||'두드러진 어려움 없음'),'이번 주 첫 행동: '+s.first,'해석 신뢰도: '+r.validity.level);
  sections(r).forEach((k,i)=>L.push('','['+(i+1)+'. '+TITLES[k]+']',...B[k]()));
  const a=appendixRows(r);
  L.push('','[근거 자료 · 문항과 점수]','원점수: '+s.total,'CORE 판단: '+r.title,r.core.reason,'영역별 점수',...a.domains.map(x=>'- '+x[0]+': '+x[1]+' · 평균 '+x[2]+' · '+x[3]+(x[4]!=='없음'?' · 미상 '+x[4]:'')),'25문항 응답',...a.items.map(x=>'- '+x[0]+' '+x[1]+': '+x[2]),...(a.critical.length?['결정적 문항: '+a.critical.map(x=>x[0]+' '+x[2]).join(', ')]:[]),...(a.patterns.length?['패턴별 근거: '+a.patterns.map(x=>x[0]+' '+x[1]).join(' / ')]:[]),...(a.reassess.length?['재평가 기준: '+a.reassess.map(x=>x[0]+' '+x[2]+'→'+x[3]).join(', ')]:[]));
  L.push('','[해석 안내]',r.notice);
  return L.join('\n');
 }
-const api=Object.freeze({VERSION,NOTICE,LEVELS,TITLES,build,html,text,sectionText});
+const api=Object.freeze({VERSION,NOTICE,LEVELS,TITLES,build,html,text,sectionText,safetyRoute});
 if(node)module.exports=api;else root.OYDeepInterpretation=api;
 })(typeof window!=='undefined'?window:globalThis);

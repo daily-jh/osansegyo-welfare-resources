@@ -35,9 +35,13 @@ t=run(payload({4:2,3:2},'',[],{4:'unknown'}));
 assert.ok(t.x.tier>=2);assert.ok(/안전확인 미완료/.test(t.h));
 assert.ok(t.r.checks.some(c=>/4번 현재 안전 추가확인/.test(c.text)));
 
-// Negated / third-party safety wording is not promoted, but is flagged for a human to read.
+// Hiding a sign is not a denial: the concealed self-harm cue is promoted (2026-10-26 decision).
 t=run(payload({6:2},'담임 관찰: 손목에 자해 흔적이 있는데 학생이 숨기고 말하지 않음.'));
-assert.ok(t.r.cues.held.some(c=>c.tag==='selfharm'&&/부정 표현/.test(c.why)));
+assert.ok(!t.r.cues.held.some(c=>c.tag==='selfharm'&&/부정 표현/.test(c.why)));
+assert.ok(t.x.tier>=4,'concealed self-harm keeps the narrative safety floor');
+// Negated wording is still held, not promoted.
+t=run(payload({6:2},'담임 관찰: 학생은 자해 생각은 없다고 함.'));
+assert.ok(t.r.cues.held.some(c=>c.tag==='selfharm'));
 assert.ok(t.r.checks.some(c=>/자동 판정에는 반영하지 않았습니다/.test(c.text)));
 const third=payload({},'학생이 친구가 자해한다고 걱정하며 이야기함.');
 assert.ok(/다른 사람/.test(R.mismatchText({tag:'selfharm',items:[7],issue:'자유서술과 해당 문항의 0점이 일치하는지 확인하십시오.'},third)));
