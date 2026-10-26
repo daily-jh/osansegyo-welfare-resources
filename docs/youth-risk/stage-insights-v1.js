@@ -50,14 +50,32 @@ function topStats(x){
  ];
  return '<div class="oy-viz-kpis">'+stats.map(([name,value])=>'<article><small>'+esc(name)+'</small><strong>'+esc(value)+'</strong></article>').join('')+'</div>';
 }
+function itemDomain(n){const ranges=[2,5,8,11,13,15,18,21,23,25];return ranges.findIndex(v=>n<=v);}
+function patternEvidence(pair,p){
+ const engine=window.OYCIESemanticV2;
+ const combo=engine?.scoreCombination?.(p.answers);
+ const pairs=(combo?.pairs||[]).filter(z=>(itemDomain(z.a)===pair.a&&itemDomain(z.b)===pair.b)||(itemDomain(z.a)===pair.b&&itemDomain(z.b)===pair.a));
+ const ranked=pairs.sort((a,b)=>b.strength-a.strength).slice(0,3);
+ const q=[...new Set(ranked.flatMap(z=>[z.a,z.b]))].sort((a,b)=>a-b).map(n=>n+'번 '+p.answers[n-1]+'점');
+ return {questions:q.join(' · ')||'영역별 원문항 응답',cie:ranked.map(z=>z.meaning).filter(Boolean).slice(0,2).join(' / ')};
+}
+function patternSummary(x,p){
+ const head=x.activePairs.slice(0,3),high=p.answers.map((v,i)=>({n:i+1,v,domain:itemDomain(i+1)})).filter(z=>typeof z.v==='number'&&z.v>=3);
+ const dom=x.domainRows.filter(z=>z.raw>0).sort((a,b)=>(b.normalized||0)-(a.normalized||0)).slice(0,3);
+ const focus=head.map(t=>CROSS_GUIDE[t.id]?.[0]||t.label);
+ return '<section class="oy-pattern-summary"><h4>응답 패턴의 실무적 의미</h4><p><strong>주요 교차 유형:</strong> '+esc(focus.join(' → ')||'동시 양성 보고 없음')+'</p>'+
+ '<p><strong>영역별 중심축:</strong> '+esc(dom.map(z=>z.name+' '+z.normalized+'%').join(' · ')||'양성 응답 없음')+'</p>'+
+ '<p><strong>3~4점 집중 문항:</strong> '+esc(high.slice(0,10).map(z=>z.n+'번 '+z.v+'점').join(' · ')||'고점 문항 없음')+'</p>'+
+ '<p class="oy-viz-explain">동시응답은 복합지원의 우선순위를 조정하는 신호입니다. 인과관계가 증명된 것은 아니며 각 영역에 실제로 보고된 문항을 근거로 개입과제를 연결합니다.</p></section>';
+}
 function scoreDashboard(x,p){
  const domains=x.domainRows, top=x.activePairs.slice(0,7);
  return '<div class="oy-viz-dashboard" aria-label="통합지원 단계·영역별 응답강도">'
  +'<h3>통합지원 5단계 · 응답 패턴</h3>'+grade(x)+topStats(x)
  +'<section class="oy-viz-main-radar"><h4>10개 영역의 응답강도 분포</h4><p class="oy-viz-explain"><strong>읽는 방법</strong> 중심은 0%, 바깥쪽은 100%입니다. 다각형이 특정 방향으로 커질수록 <strong>해당 영역의 평균 응답수준이 높습니다.</strong> 면적은 전체 위기점수나 발생확률이 아니며, 영역별 문항 수 차이를 보정한 형태입니다.</p>'+radar(x.domainStrengths,domains.map(z=>z.name))+'</section>'
  +'<section><h4>영역별 응답강도 · 100% 환산</h4><p class="oy-viz-explain">영역 내 응답합계 ÷ 응답한 문항의 최대 가능점수 × 100입니다. 실무에서는 <b>높은 영역부터 지원과제를 정하는 상대적 우선순위</b>로 읽습니다.</p><div class="oy-viz-bar-grid">'+domains.map(d=>bar(d.name,d.normalized,'응답 '+d.raw+'/'+d.max+'점 · 미상 '+d.unknown+'개')).join('')+'</div></section>'
- +'<section><h4>영역 간 동시응답 · '+top.length+'개 교차</h4><p class="oy-viz-explain">두 영역이 함께 보고됐다는 뜻입니다. 강도는 두 영역 중 낮은 정규화 값으로 계산한 <b>내부 비교지표</b>이며, 통계적 상관관계나 한 영역이 다른 영역을 유발했다는 뜻이 아닙니다.</p>'
- +(top.length?cells(['동시 보고 영역','동시응답 강도','학교 담당자의 첫 행동','복지관·지역기관의 연결'],top.map(t=>[t.label,t.strength+' / 100',CROSS_GUIDE[t.id]?.[1]||'학교 내 영향 장면을 정리',CROSS_GUIDE[t.id]?.[2]||'중복 의뢰를 조정'])):'<p>설정된 교차조합에서 둘 다 양성인 영역은 없습니다.</p>')
+ +patternSummary(x,p)+'<section><h4>영역 간 동시응답 · '+top.length+'개 교차</h4><p class="oy-viz-explain">두 영역이 함께 보고됐다는 뜻입니다. 강도는 두 영역 중 낮은 정규화 값으로 계산한 <b>내부 비교지표</b>이며, 통계적 상관관계나 한 영역이 다른 영역을 유발했다는 뜻이 아닙니다.</p>'
+ +(top.length?cells(['동시보고·핵심패턴','강도·문항근거','CIE 문항해석','학교 우선 행동','복지관·지역기관 연계'],top.map(t=>{const e=patternEvidence(t,p);return [t.label+' · '+(CROSS_GUIDE[t.id]?.[0]||'동시응답형'),t.strength+'/100 · '+e.questions,e.cie||'해당 문항들의 생활영향을 함께 보는 내부 교차 가설',CROSS_GUIDE[t.id]?.[1]||'학교 내 영향 장면 정리',CROSS_GUIDE[t.id]?.[2]||'지원담당자 간 의뢰 조정'];})):'<p>설정된 교차조합에서 둘 다 양성인 영역은 없습니다.</p>')
  +'<details class="oy-viz-cross-details"><summary>전체 교차영역 패턴 보기</summary><div class="oy-viz-matrix">'+x.cross.map(t=>'<div class="'+(t.active?'on':'')+'"><strong>'+esc(t.label)+'</strong><span>'+esc(t.active?t.strength+'점':'해당 없음')+'</span></div>').join('')+'</div></details></section>'
  +'<details class="oy-viz-raw-details"><summary>25문항 개별응답 히트맵 · 0~4점</summary><div class="oy-viz-heatmap">'+p.answers.map((v,i)=>'<div class="v'+(v==='unknown'?'u':v)+'" aria-label="'+(i+1)+'번 '+(v==='unknown'?'미상':v+'점')+'"><b>'+(i+1)+'</b><span>'+(v==='unknown'?'?':v)+'</span></div>').join('')+'</div></details>'
  +'<div class="oy-viz-copy"><button type="button" id="oy-viz-copy-assessment" class="flow-btn flow-primary">현재 척도·분석 요청문 복사 → 외부 AI 활용</button><p id="oy-viz-copy-status" role="status">학생 이름과 자유서술은 제외한 25문항·영역 결과·지원단계를 복사합니다.</p><textarea id="oy-viz-copy-text" readonly hidden rows="7" aria-label="복사용 요청문"></textarea></div>'
