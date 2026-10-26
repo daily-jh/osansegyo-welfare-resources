@@ -56,11 +56,11 @@ function itemText(p,n){var off=0;for(var i=0;i<p.domains.length;i++){var size=p.
 // Why this service appears: which match rule found it, which answers support it, why it ranks here.
 function basis(p,d,row){
  var meta=Map_.describe(p,d,row),prof=Map_.profileFor(row),extra=Map_.additional(p,d,row),kind,kindText;
- if(prof){kind='profile';kindText='역할 지정 사업 · 이 사업이 맡는 문항('+prof.items.filter(n=>d.numbers.includes(n)).join('·')+'번)에 응답이 있어 연결'}
+ if(prof){kind='profile';kindText='역할 지정 사업 · 이 사업이 맡는 문항에 응답이 있어 연결'}
  else if(extra){kind='additional';kindText='추가 문의 후보 · 해당 문항 점수가 기준 이상일 때만 표시'}
  else{kind='keyword';kindText='사업 설명 낱말 일치로 찾은 후보 · 이 학생에게 맞는 역할인지 먼저 확인'}
  var items=meta.evidence.map(n=>({n,score:p.answers[n-1],text:short(itemText(p,n),46),safety:SAFETY.includes(n)}));
- var why=meta.safety?'안전 관련 응답('+items.filter(x=>x.safety).map(x=>x.n+'번').join('·')+')과 직접 이어지는 기관이라 먼저 놓았습니다':meta.critical?'3~4점인 보호·건강·필수생활 문항과 이어져 앞에 놓았습니다':meta.max>=3?'3점 이상 응답이 있는 어려움과 이어집니다':meta.max>=2?'반복되는 어려움(2점)과 이어집니다':'1점 응답과 이어지는 관찰·상담 문의 후보입니다';
+ var why=meta.safety?'안전 관련 응답과 직접 이어지는 기관이라 먼저 놓았습니다':meta.critical?'3~4점인 보호·건강·필수생활 문항과 이어져 앞에 놓았습니다':meta.max>=3?'3점 이상 응답이 있는 어려움과 이어집니다':meta.max>=2?'반복되는 어려움(2점)과 이어집니다':'1점 응답과 이어지는 관찰·상담 문의 후보입니다';
  return {kind,kindText,items,why,strength:kind==='keyword'?'약함':meta.safety||meta.critical||meta.max>=3?'강함':'보통',zone:row.routingReason||''};
 }
 function key(row){return String(row.serviceId||((row['기관명']||'')+'|'+(row['서비스명']||'')))}
