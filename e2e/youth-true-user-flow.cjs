@@ -50,6 +50,7 @@ async function run(browserType,name,width,full){
    await page.waitForFunction(()=>document.querySelector('#recordsArea')?.hidden===false,{timeout:15000});
    await page.locator('[data-oy-step="1"]').click();
    await page.locator('[data-j88-result-tab="score"]').click();
+   await page.evaluate(()=>{window.print=()=>{};});
    await page.locator('#j88-print-quick').click();
    await page.waitForFunction(()=>Boolean(document.querySelector('#j88-print-root')),{timeout:10000});
    const pdf=await page.pdf({format:'A4',printBackground:true,preferCSSPageSize:true});
