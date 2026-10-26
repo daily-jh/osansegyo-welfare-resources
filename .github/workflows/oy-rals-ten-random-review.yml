@@ -1,0 +1,35 @@
+name: OY-RALS ten synthetic qualitative case review
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/oy-rals-ten-random-review.cjs'
+      - '.github/workflows/oy-rals-ten-random-review.yml'
+      - 'docs/youth-risk/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  ten-case-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run 10 pseudorandom student cases against live models and directory
+        run: node scripts/oy-rals-ten-random-review.cjs
+      - name: Share report in GitHub job summary
+        if: always()
+        run: |
+          if [ -f artifacts/oy-rals-ten-random-review/report.md ]; then
+            cat artifacts/oy-rals-ten-random-review/report.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: oy-rals-ten-synthetic-case-review
+          path: artifacts/oy-rals-ten-random-review/
+          if-no-files-found: warn
+          retention-days: 30
