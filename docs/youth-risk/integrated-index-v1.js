@@ -87,7 +87,12 @@ function analyze(p){
   coefficients,composite,baseTier:base,tier,
   label:tier===null?'응답자료 미완료':NAMES[tier-1],action:tier===null?'현재 확인된 문항의 안전·지원 과제 먼저 처리':ACTIONS[tier-1],
   safetyFloor,safetyReason,
-  domainRows:ds.map((d,i)=>({id:i,name:d.name,raw:d.sum,max:d.known*4,unknown:d.unknown,normalized:d.known?ROUND(100*d.sum/(d.known*4)):null,weighted:ROUND(ds[i].sum*audit.domains[i].mean||0)})),
+  domainRows:ds.map((d,i)=>{const offset=W.GROUPS.slice(0,i).reduce((a,b)=>a+b,0);
+   const knownIdx=d.values.map((v,k)=>typeof v==='number'?offset+k:-1).filter(k=>k>=0);
+   const wNum=knownIdx.reduce((sum,k)=>sum+answers[k]*audit.weights[k],0);
+   const wMax=knownIdx.reduce((sum,k)=>sum+4*audit.weights[k],0);
+   return {id:i,name:d.name,raw:d.sum,max:d.known*4,unknown:d.unknown,
+    normalized:d.known?ROUND(100*d.sum/(d.known*4)):null,weighted:wMax?ROUND(100*wNum/wMax):null};}),
   activePairs:cross.filter(x=>x.active).sort((a,b)=>b.strength-a.strength||b.weight-a.weight),
   observations:positives.length,
   note:'자체 개발 지표로 5단계 지원우선순위를 분류합니다. 검증된 진단·발생확률·신고 판단 기준이 아니며 CORE 원점수·공식 안전판정은 변경하지 않습니다.'
