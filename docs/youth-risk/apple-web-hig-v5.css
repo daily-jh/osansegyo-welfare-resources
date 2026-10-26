@@ -127,3 +127,12 @@ body {
   .flow-nav,.youth-header-links,.hero-actions { display:none!important; }
   body { background:#fff; color:#111; }
 }
+
+/* Five-domain introduction — equal hierarchy without crowding */
+.welcome-steps { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:12px; align-items:stretch; }
+.welcome-steps article { min-width:0; padding:18px; }
+.welcome-steps article h2 { font-size:clamp(16px,1.5vw,19px); letter-spacing:-.03em; }
+.welcome-steps article p { font-size:15px; line-height:1.62; }
+.welcome-steps article .step-number { font-size:13px; }
+@media(max-width:1040px) { .welcome-steps { grid-template-columns:repeat(3,minmax(0,1fr)); } }
+@media(max-width:650px) { .welcome-steps { grid-template-columns:1fr; gap:10px; } .welcome-steps article { padding:16px 18px; } }
