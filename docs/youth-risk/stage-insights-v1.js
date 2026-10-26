@@ -25,7 +25,7 @@ function radar(scores,labels){
  const dots=scores.map((v,i)=>point(v===null?0:pct(v)/100,i));
  const axisLabels=labels.map((label,i)=>{const z=point(265/r,i),d=z[0]-c,anc=d>30?'start':d<-30?'end':'middle';const short=['학대·보호','학교폭력','정서·정신','학습·출결','행동·건강','발달·접근','가족·돌봄','경제·주거','관계·지지','디지털안전'];return '<text x="'+z[0]+'" y="'+(z[1]+5)+'" text-anchor="'+anc+'" font-size="17" fill="#31516a" font-weight="650"><title>'+esc(label)+'</title>'+esc(short[i])+'</text>';}).join('');
  const unknown=scores.some(v=>v===null);
- return '<div class="oy-viz-radar"><svg viewBox="0 0 '+size+' '+size+'" role="img" aria-label="영역별 응답강도: 중심 0, 바깥 100퍼센트. 바깥으로 갈수록 해당 영역의 문항 평균 응답수준이 높습니다.">'+rings+axis+
+ return '<div class="oy-viz-radar"><svg viewBox="0 0 '+size+' '+size+'" role="img" aria-label="영역별 응답강도: 중심 0, 바깥 100퍼센트. 바깥으로 갈수록 해당 영역의 문항 평균 응답수준이 높습니다.">'+rings+axis+axisLabels+
  '<polygon points="'+pts(dots)+'" fill="#2b78c54b" stroke="#1768ac" stroke-width="4"/>'+dots.map((p,i)=>'<circle tabindex="0" role="button" data-radar-index="'+i+'" cx="'+p[0]+'" cy="'+p[1]+'" r="8" fill="'+(scores[i]===null?'#9da8b3':'#175d9c')+'"><title>'+esc(labels[i]+': '+(scores[i]===null?'미상':round(scores[i])+'%'))+'</title></circle>').join('')+
  '</svg><p class="oy-radar-tip" role="status" data-radar-tooltip>각 점에 마우스를 올리거나 터치하면 영역별 응답강도가 표시됩니다.</p><div class="oy-viz-radar-legend">'+labels.map((t,i)=>'<span><i>'+String(i+1).padStart(2,'0')+'</i>'+esc(t)+' · '+esc(scores[i]===null?'미상':round(scores[i])+'%')+'</span>').join('')+'</div></div>'+
  (unknown?'<p class="oy-viz-note">미상만 있는 영역은 점으로 표시되며 0점 영역으로 해석하지 않습니다.</p>':'');
