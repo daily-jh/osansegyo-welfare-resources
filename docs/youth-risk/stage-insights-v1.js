@@ -107,7 +107,7 @@ function render(s){
    return;
   }
   let html='';
-  if(s.stage===2&&s.view==='map')html=mapViz(a,x);
+  if(s.stage===2&&s.view==='map')html=''; // existing support iframe is the sole map and resource presentation
   else if(s.stage===3)html=caseViz(a,x);
   else if(s.stage===5)html=researchViz(x);
   else if(s.stage===4)html=recordsViz(a,x);
