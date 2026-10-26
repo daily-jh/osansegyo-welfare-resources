@@ -18,6 +18,10 @@ async function run(browserType,name,width,full){
   const frame=page.frameLocator('#assessmentFrame');
   await frame.locator('#qi0 input[type=radio]').first().waitFor({timeout:18000});
   assert.equal(await frame.locator('.question').count(),25,name+' form must have 25 questions');
+  // Wait until both documents finished loading and the page stopped auto-scrolling, so the first click is not lost mid-layout.
+  await page.waitForFunction(()=>document.readyState==='complete',null,{timeout:20000});
+  await page.frame({url:/assessment\.html/})?.waitForFunction(()=>document.readyState==='complete',null,{timeout:20000});
+  await page.waitForFunction(()=>new Promise(r=>{const y=scrollY;setTimeout(()=>r(scrollY===y),250)}),null,{timeout:10000});
   for(let i=0;i<25;i++){
    await frame.locator('#qi'+i+' input[type="radio"][value="0"]').check({force:true,timeout:12000});
    if(i===0)assert.match(await page.locator('#flowStatus').innerText(),/응답|완료|변경/);
@@ -38,7 +42,7 @@ async function run(browserType,name,width,full){
   await page.waitForFunction(()=>document.querySelector('#mapArea')?.hidden===false,{timeout:20000});
   assert.equal(await page.locator('#linkageReviewPanel').isVisible(),true,name+' map CTA');
   await page.locator('#confirmLinkageReview').click();
-  assert.match(await page.locator('#journey88').innerText(),/사례 톺아보기/);
+  assert.match(await page.locator('#journey88').innerText(),/사례개념화·개입계획/);
   await page.locator('[data-oy-step="4"]').click();
   await page.waitForFunction(()=>document.querySelector('#oy-ai-workbench-stage')?.hidden===false,{timeout:15000});
   assert.equal(await page.locator('#oy-ai-ask').count(),1);

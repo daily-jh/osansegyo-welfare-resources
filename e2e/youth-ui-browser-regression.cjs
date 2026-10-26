@@ -25,7 +25,7 @@ async function scenario(browser,width){
  assert.equal(await page.locator('#oy-index-visual-slot .oy-viz-dashboard').count(),1,'five-level integrated dashboard visible');
  assert.equal(await page.locator('.oy-viz-radar svg').count(),1,'ten-axis radar visible');
   assert.equal(await page.locator('.oy-viz-radar svg').getAttribute('viewBox'),'0 0 700 700','radar labeled enlarged');
-  assert.equal(await page.locator('.oy-viz-radar svg text').count(),10,'ten vertex labels rendered');
+  assert.equal(await page.locator('.oy-viz-radar svg text.oy-radar-axis').count(),10,'ten vertex labels rendered');
   assert.equal(await page.locator('.oy-viz-radar [data-radar-index]').count(),10,'ten interactive radar nodes');
   await page.locator('.oy-viz-radar [data-radar-index="0"]').dispatchEvent('pointerover');
   assert.match(await page.locator('[data-radar-tooltip]').innerText(),/응답|점|미상/,'radar displays grounded area score');
@@ -52,13 +52,13 @@ async function scenario(browser,width){
  assert.equal(await page.evaluate(a=>window.YouthCriteria.evaluate(a,[2,3,3,3,2,2,3,3,2,2],false,{}).knownTotal,answers),originalCore,'V3.2 never changes CORE');
 
  await page.locator('.flow-nav [data-oy-step="3"]').click();
- await page.waitForFunction(()=>document.querySelector('#journey88')?.textContent?.includes('사례 톺아보기'),{timeout:15000});
+ await page.waitForFunction(()=>document.querySelector('#journey88')?.textContent?.includes('사례개념화·개입계획'),{timeout:15000});
  const text=await page.locator('#journey88').innerText();
  assert.ok(text.includes('사례사정'),'stage3 default tab renders');
  assert.ok(!text.includes('이 단계의 결과를 표시하지 못했습니다.'),'no error fallback');
- assert.match(await page.locator('#oy-viz-stage-v1').innerText(),/사례 톺아보기 · 실행 구조/,'case stage visual timeline');
+ assert.match(await page.locator('#oy-viz-stage-v1').innerText(),/사례개념화·개입계획 · 실행 구조/,'case stage visual timeline');
  await page.locator('#journey88 [data-j88-tab="사례협의"]').click();
- assert.ok((await page.locator('#journey88').innerText()).includes('통합사례 진행안'));
+ assert.ok((await page.locator('#journey88').innerText()).includes('통합사례관리 진행안'));
  await page.locator('#journey88 [data-j88-tab="서비스계획"]').click();
  assert.ok((await page.locator('#journey88').innerText()).includes('단기 첫 1~2주'));
  await page.locator('#journey88 [data-j88-tab="사례사정"]').click();
