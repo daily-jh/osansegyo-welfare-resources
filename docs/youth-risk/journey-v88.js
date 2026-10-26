@@ -3,7 +3,7 @@ const $=id=>document.getElementById(id),esc=v=>String(v??'').replace(/[&<>"']/g,
 let state=null,tab='사례사정',resultTab='score',drafts={},draftLabels={},revision=null,preparedSource='',relations=null;
 const box=document.createElement('section');box.id='journey88';box.className='journey88';box.hidden=true;$('resultTools').after(box);
 const reportText=(p,page,include)=>window.OYModelGateway?.text?window.OYModelGateway.text(p,page,include):OYJourney.text(p,page,include);
-const stageName=()=>state.stage===1?'척도 입력':state.stage===2?(state.view==='map'?'지원연계 맵':'결과 해석'):state.stage===3?tab:'상담기록·계획조정·점검';
+const stageName=()=>state.stage===1?'척도 입력':state.stage===2?(state.view==='map'?'지역자원 연계 지도':resultTab==='score'?'객관적 척도 결과':resultTab==='narrative'?'서술기록 해석':'종합의견'):state.stage===3?tab:'기록 및 점검';
 function table(head,rows){return '<div class="j88-scroll"><table><thead><tr>'+head.map(x=>'<th scope="col">'+esc(x)+'</th>').join('')+'</tr></thead><tbody>'+rows.map(r=>'<tr>'+r.map(x=>'<td>'+esc(x)+'</td>').join('')+'</tr>').join('')+'</tbody></table></div>';}
 function field(id,label,value='',multiline=false){const key=stageName()+':'+id;draftLabels[key]=stageName()+' · '+label;return '<label>'+esc(label)+(multiline?'<textarea data-draft="'+esc(key)+'" rows="3">'+esc(drafts[key]??value)+'</textarea>':'<input data-draft="'+esc(key)+'" value="'+esc(drafts[key]??value)+'">')+'</label>';}
 function statusField(id,label){const key=stageName()+':'+id;draftLabels[key]=stageName()+' · '+label;const options=['검토 전','기관 정보 확인 중','전화·문의 준비','문의 완료 (접수 전)','접수 요청·심사 중','이용 확인','이용 불가·대체자원 필요','연계 보류'];return '<label>'+esc(label)+'<select data-draft="'+esc(key)+'">'+options.map(v=>'<option'+((drafts[key]??'검토 전')===v?' selected':'')+'>'+esc(v)+'</option>').join('')+'</select></label>';}
@@ -87,7 +87,40 @@ function render(){
 }
 function invalidate(){preparedSource='';$('j88-prompt').value='';$('j88-permission').checked=false;enable();}
 function enable(){box.querySelectorAll('[data-ai]').forEach(b=>b.disabled=!$('j88-permission').checked||!$('j88-prompt').value);}
-function exportText(){let t=reportText(state.payload,stageName(),$('j88-context').checked);if($('j88-context').checked)t+='\n\n작성 메모(실무자 입력):\n'+Array.from(box.querySelectorAll('[data-draft]')).map(el=>el.closest('label').firstChild.textContent+' = '+el.value).join('\n');if($('j88-context').checked&&relations?.length)t+='\n\n관계·지지체계(실무자 검토 초안):\n'+relations.map(n=>n.label+' / '+n.status+(n.cohabit?' / 동거 확인':' / 동거 미확인')+' / 근거: '+n.source).join('\n');if($('j88-context').checked&&state.stage===4){const f=Array.from($('recordFrames').querySelectorAll('iframe')).find(f=>!f.hidden);const doc=f?.contentDocument;if(doc)t+='\n\n선택 기록 화면의 실무자 입력:\n'+Array.from(doc.querySelectorAll('textarea,input:not([type=password]):not([type=file]),select')).filter(el=>el.value&&el.id&&!el.hidden).map(el=>(doc.querySelector('label[for="'+el.id+'"]')?.textContent||el.getAttribute('aria-label')||el.id)+' = '+el.value).join('\n');}return t;}
+function resultExport(){
+ const g=window.OYModelGateway;
+ const p=state.payload,includeRaw=$('j88-context').checked;
+ const a=g?.analyze?g.analyze(p):OYJourney.analyze(p);
+ const escapePrivate=t=>{try{return window.OYPrivacyGuardV87?.inspect(String(t??'')).redacted||String(t??'')}catch(_){return String(t??'')}};
+ const base=['OY-RALS · '+stageName()+' · 실무자 검토 전 초안','분석 근거: CORE 25문항 · 공식 안전판정 원본 보호','모델: '+(g?.VERSION||OYJourney.VERSION),'미상은 0점으로 계산하지 않으며, 이 도구의 실증적 타당도는 검증되지 않았습니다.'];
+ if(resultTab==='score'){
+  base.push('원점수: '+(a.decision.incomplete?'전체판정 보류':' '+a.decision.knownTotal+' / 100'));
+  base.push('응답: '+a.decision.knownCount+'/25 · 미상 '+a.decision.unknownItems.join('·'));
+  base.push('공식 안전확인: '+a.decision.safetyReview);
+  base.push('10개 영역별 응답 점수');
+  a.domains.forEach(d=>base.push(d.name+': '+(d.known?d.sum+'/'+(d.known*4):'모두 미상')+' · 미상 '+d.unknown+'개'));
+  base.push('25문항: '+p.answers.map((v,i)=>(i+1)+'번 '+(v==='unknown'?'미상':v+'점')).join(' / '));
+  base.push('이 결과지는 서술형 분석·CIE 보조 가중치를 포함하지 않습니다.');
+ }else if(resultTab==='narrative'){
+  base.push('서술형 분석은 점수 및 안전판정을 수정하지 않습니다.');
+  if(!a.context.hasContext)base.push('서술 입력 없음 · 해석 보류');
+  else {
+   Object.entries(a.context.fields||{}).filter(([k,v])=>typeof v==='string'&&v.trim()).forEach(([k,v])=>base.push('서술항목 '+k+': '+escapePrivate(v)));
+   (a.context.signals||[]).slice(0,25).forEach(x=>base.push('맥락 단서: '+escapePrivate(x.clause)+' / '+x.polarity+' / 확인: '+escapePrivate(x.action)));
+   if(a.kCarr&&!a.kCarr.abstain)base.push('K-CARR 가설: '+escapePrivate(a.kCarr.integratedJudgment||''));
+   if(includeRaw)base.push('서술 원문(비식별 검사·실무자 확인 필수): '+escapePrivate(p.caseContext||''));
+  }
+ }else{
+  base.push('공식 점수: '+(a.decision.incomplete?'전체판정 보류':a.decision.knownTotal+'/100'),'안전확인: '+a.decision.safetyReview);
+  a.sections.filter(x=>['학생 상황 요약','강점·보호요인·기존 지원','상황을 함께 이해하기 · 잠정 해석과 지도 방향','종합사정 및 우선순위','근거·미확인·확인 계획'].includes(x.title)).forEach(x=>base.push(x.title+'\n'+escapePrivate(x.text)));
+  (a.context.mismatches||[]).forEach(x=>base.push('척도·서술 대조: '+x.items.join('·')+'번 / '+escapePrivate(x.issue)));
+  if(includeRaw&&p.caseContext)base.push('선택 서술 원문: '+escapePrivate(p.caseContext));
+  base.push('선택된 가설과 우선지원은 실무자·학생이 검토 후 결정합니다.');
+ }
+ base.push('기획·개발·저작권: 김지훈 · 오산세교종합사회복지관');
+ return base.join('\n\n');
+}
+function exportText(){if(state.stage===2&&state.view==='result')return resultExport();let t=reportText(state.payload,stageName(),$('j88-context').checked);if($('j88-context').checked)t+='\n\n작성 메모(실무자 입력):\n'+Array.from(box.querySelectorAll('[data-draft]')).map(el=>el.closest('label').firstChild.textContent+' = '+el.value).join('\n');if($('j88-context').checked&&relations?.length)t+='\n\n관계·지지체계(실무자 검토 초안):\n'+relations.map(n=>n.label+' / '+n.status+(n.cohabit?' / 동거 확인':' / 동거 미확인')+' / 근거: '+n.source).join('\n');if($('j88-context').checked&&state.stage===4){const f=Array.from($('recordFrames').querySelectorAll('iframe')).find(f=>!f.hidden);const doc=f?.contentDocument;if(doc)t+='\n\n선택 기록 화면의 실무자 입력:\n'+Array.from(doc.querySelectorAll('textarea,input:not([type=password]):not([type=file]),select')).filter(el=>el.value&&el.id&&!el.hidden).map(el=>(doc.querySelector('label[for="'+el.id+'"]')?.textContent||el.getAttribute('aria-label')||el.id)+' = '+el.value).join('\n');}return t;}
 function print(integrated=false){const old=$('j88-print-root');old?.remove();const el=document.createElement('section');el.id='j88-print-root';const include=$('j88-context').checked;let text=integrated?['사례사정','사례협의','서비스계획'].map(page=>'■ '+page+'\n'+reportText(state.payload,page,include)).join('\n\n━━━━━━━━━━━━━━━━\n\n'):exportText();if(integrated&&include)text+='\n\n실무자 작성 메모\n'+Object.entries(drafts).map(([k,v])=>(draftLabels[k]||k)+' = '+v).join('\n');el.innerHTML='<h1>'+esc(integrated?'통합 사례관리 보고서':stageName())+'</h1><p>V'+esc(OYJourney.VERSION)+' · '+new Date().toLocaleDateString('ko-KR',{timeZone:'Asia/Seoul'})+' · 실무자 확인 전 초안</p><pre>'+esc(text)+'</pre>';if(include&&(integrated||tab==='사례사정'&&state.stage===3)){const d=document.createElement('section');d.innerHTML='<h2>가계도·생태도</h2>'+OYRelations.svg(relations||[]);el.append(d);}if(state.stage===2&&state.view==='map'){const svg=$('mapArea').querySelector('iframe')?.contentDocument?.querySelector('#diagram svg');if(svg)el.append(svg.cloneNode(true));}document.body.append(el);document.body.classList.add('j88-printing');window.print();}
 window.addEventListener('afterprint',()=>{document.body.classList.remove('j88-printing');$('j88-print-root')?.remove();});
 window.OYJourneyUI={exportSnapshot:()=>({revision,drafts:{...drafts},draftLabels:{...draftLabels},relations:relations?relations.map(n=>({...n})):[]})};
