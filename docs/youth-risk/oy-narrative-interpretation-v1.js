@@ -6,7 +6,8 @@ const node=typeof module!=='undefined'&&module.exports;
 const K=node?require('./oy-item-knowledge-v1.js'):root.OYItemKnowledge;
 const X=node?require('./oy-cross-patterns-v1.js'):root.OYCrossPatterns;
 const D=node?require('./oy-deep-interpretation-v1.js'):root.OYDeepInterpretation;
-const VERSION='1.0.0-20261026';
+const C=node?require('./case-context-core.js'):root.YouthCaseContextCore;
+const VERSION='1.1.0-others-20261026';
 const SAFETY=[1,2,7,25];
 const NOTICE='이 해석은 25문항 응답과 선택 서술기록을 OY-RALS 규칙으로 함께 읽어 풀어 쓴 실무 참고자료입니다. 서술 문장은 표현 단서로 분류한 것이므로 인용·부정·추정·과거 언급은 면담에서 사실 여부를 확인하며, 진단·학대 판정·위험 예측이나 서비스 자격 결정이 아닙니다. 서술은 공식 점수와 CORE 안전판정을 바꾸지 않고, 서술에 안전 관련 표현이 있으면 이 해석과 관계없이 소속기관의 보호·신고 절차를 먼저 따릅니다. 단서 사전과 대조 규칙은 전문가 내용타당도 검토 전 개발판입니다.';
 
@@ -81,7 +82,7 @@ const short=s=>{const t=clean(s);return t.length>90?t.slice(0,88)+'…':t};
 function read(p){
  const text=String(p&&p.caseContext||'').trim();
  const values=Array.isArray(p&&p.answers)?p.answers.slice():Array(25).fill('unknown');
- const out={version:VERSION,present:!!text,sentences:[],findings:[],items:{},strengths:[],wishes:[],supports:[],sources:{},safety:[],compare:null};
+ const out={version:VERSION,present:!!text,sentences:[],findings:[],items:{},strengths:[],wishes:[],supports:[],sources:{},safety:[],others:[],compare:null};
  if(!text){
   const red=p&&p.narrativeRedacted;
   if(red&&Array.isArray(red.safety)&&red.safety.length){
@@ -93,12 +94,16 @@ function read(p){
   const id='S'+String(i+1).padStart(2,'0'),src=sourceOf(s),row={id,text:s,source:src,links:[],kind:[]};
   out.sources[src]=(out.sources[src]||0)+1;
   clauses(s).forEach(cl=>{
+   // A friend's self-harm or a peer hurt by someone is that person's story: kept apart, never the student's
+   // cue or score. Same rule as the case-context parser.
+   const other=!!C?.aboutOthers?.(cl);
    CUES.forEach(cue=>{
     const m=cl.match(cue.re);if(!m||EXAMPLE.test(cl))return;
     if(row.links.some(l=>l.n===cue.n))return;
     const after=cl.slice(m.index+m[0].length);
     const status=CONCEAL.test(cl)?'보고':!cue.neg&&NEGATION.test(after)&&!CONTINUE.test(cl)?'부인':HYPO.test(cl)?'추정':PAST.test(cl)?'과거':'보고';
     const f={n:cue.n,topic:K.item(cue.n).topic,status,source:src,sentence:id,quote:short(cl),safety:SAFETY.includes(cue.n)||!!cue.safety};
+    if(other){if(f.safety&&status!=='부인'&&!out.others.some(o=>o.sentence===id))out.others.push(f);return;}
     row.links.push(f);out.findings.push(f);
     (out.items[cue.n]=out.items[cue.n]||[]).push(f);
     if(f.safety&&status!=='부인')out.safety.push(f);
@@ -282,6 +287,7 @@ function narrativeHtml(nv){
  let h='<article class="oy-deep-report onr-report" data-report-version="'+VERSION+'"><header class="odi-head"><span class="odi-kicker">OY-RALS 서술기록 분석</span><h2>'+esc(g.themes.length?g.themes.slice(0,2).join(' · ')+' 중심 기록':'맥락 중심 기록')+'</h2><p>서술기록 '+esc(g.sentences)+'문장을 출처·주제·척도 대조로 나누어 읽었습니다.</p></header>';
  h+='<section class="odi-sec odi-glance"><h3>한눈에 보기</h3><dl><div><dt>기록 출처</dt><dd>'+esc(g.sources.join(' · '))+'</dd></div><div class="'+(nv.read.safety.length?'odi-alert':'')+'"><dt>안전 관련 표현</dt><dd>'+esc(g.safety)+'</dd></div><div><dt>드러난 생활영역</dt><dd>'+(g.themes.length?g.themes.map(t=>'<span class="odi-chip">'+esc(t)+'</span>').join(''):'문항과 직접 연결되는 표현 없음')+'</dd></div><div><dt>척도와의 관계</dt><dd>'+esc(g.fit)+'</dd></div><div><dt>다음 기록에 더할 것</dt><dd>'+esc(nv.gaps.slice(0,3).map(x=>x.topic).join(', ')||'현재 기록으로 충분합니다')+'</dd></div></dl></section>';
  if(nv.read.safety.length)h+=sec('critical',++i,'서술상 안전 신호','<ul class="odi-list">'+nv.read.safety.map(f=>'<li><strong>'+esc(f.topic)+'</strong><p>'+esc(quoteLine(f))+'.</p><p class="odi-act">'+esc(K.item(f.n).e)+' '+esc(K.item(f.n).t)+'</p></li>').join('')+'</ul><p class="odi-procedure">척도 응답과 관계없이 소속기관의 안전·보호 절차를 먼저 따릅니다.</p>');
+ if(nv.read.others.length)h+=sec('others',++i,'다른 사람에 관한 안전 이야기','<ul class="odi-list">'+nv.read.others.map(f=>'<li><p>“'+esc(f.quote)+'”</p></li>').join('')+'</ul><p class="odi-muted">다른 사람의 안전에 관한 이야기입니다. 학생의 점수·단계에는 반영하지 않습니다. 해당 인물의 안전은 담당자가 확인하고, 학생이 이 일로 받은 영향은 면담에서 살펴봅니다.</p>');
  h+=sec('understanding',++i,'서술 기반 생활 사정','<p class="odi-lead">'+esc(nv.story)+'</p>');
  h+=sec('themes',++i,'생활영역별 분석',nv.themes.length?nv.themes.map(t=>'<div class="odi-domain'+(t.reported.some(n=>SAFETY.includes(n))?' odi-l4':t.reported.length?' odi-l2':'')+'"><h4>'+esc(t.name)+'<span class="odi-tag">'+esc(t.reported.length?'어려움 기록':'부인·확인 필요')+'</span></h4>'+ul(t.quotes.map(f=>esc(quoteLine(f))+(f.status!=='보고'?' <span class="odi-who">'+esc(STATUS_TEXT[f.status])+'</span>':'')))+(t.meaning.length?'<p><strong>의미</strong> '+esc(t.meaning.map(m=>m.text).join(' '))+'</p>':'')+'</div>').join(''):'<p>25문항 영역과 직접 연결되는 표현은 추출되지 않았습니다.</p>');
  const persp=Object.keys(nv.read.sources);
@@ -340,6 +346,7 @@ function narrativeText(nv){
  if(!nv.present)return '■ OY-RALS 서술기록 분석\n서술기록 미입력 · 25문항 응답만으로 해석합니다.';
  const L=['■ OY-RALS 서술기록 분석','기록 출처: '+nv.glance.sources.join(' · '),'안전 관련 표현: '+nv.glance.safety,'드러난 생활영역: '+(nv.glance.themes.join(', ')||'없음'),'척도와의 관계: '+nv.glance.fit];
  if(nv.read.safety.length)L.push('','[서술상 안전 신호]',...nv.read.safety.map(f=>'- '+f.topic+': '+quoteLine(f)+'.\n  → '+K.item(f.n).e));
+ if(nv.read.others.length)L.push('','[다른 사람에 관한 안전 이야기]',...nv.read.others.map(f=>'- “'+f.quote+'”'),'  → 다른 사람의 안전에 관한 이야기입니다. 학생의 점수·단계에는 반영하지 않습니다. 해당 인물의 안전은 담당자가 확인하고, 학생이 이 일로 받은 영향은 면담에서 살펴봅니다.');
  L.push('','[서술 기반 생활 사정]',nv.story,'','[생활영역별 분석]',...nv.themes.flatMap(t=>['▸ '+t.name,...t.quotes.map(f=>'  - '+quoteLine(f)+(f.status!=='보고'?' ('+STATUS_TEXT[f.status]+')':'')),...(t.meaning.length?['  의미: '+t.meaning.map(m=>m.text).join(' ')]:[])]));
  L.push('','[척도–서술 교차검토]',...CMP.filter(([k])=>nv.compare[k].length).flatMap(([k,t])=>['▸ '+t,...nv.compare[k].map(x=>'  - '+x.topic)]));
  if(nv.gaps.length)L.push('','[기록 보완 사항]',...nv.gaps.map(g=>'- '+g.topic+': '+g.text));

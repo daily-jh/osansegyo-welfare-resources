@@ -47,6 +47,17 @@ for(const text of ['친구가 손목을 그었다.','친구가 손목을 그은 
 }
 assert.ok(Core.infer('친구가 손목을 그었다.').issues.some(x=>x.type==='third-party-safety'));
 assert.equal(tier('친구가 알려주길 학생이 손목을 그었다고 한다.'),4,'student as actor stays a student cue');
+// The narrative reading keeps the same line: a friend's story is shown apart, never as the student's cue.
+for(const text of ['친구가 손목을 그었다.','학생은 친구가 손목을 그었다고 말했다.','친구가 아버지에게 맞았다고 학생이 전했다.']){
+ const r=Narrative.read({caseContext:text,answers:zero});
+ assert.deepEqual(r.safety,[],'second parser must not give the student a safety cue: '+text);
+ assert.equal(r.others.length,1,text);
+}
+assert.ok(readSafety('친구가 알려주길 학생이 손목을 그었다고 한다.').includes('Q7:보고'));
+assert.match(Narrative.narrativeText(Narrative.narrative({caseContext:'친구가 손목을 그었다.',answers:zero})),/다른 사람에 관한 안전 이야기/);
+// A peer hurt by someone is the peer's story; the student hurt, or harm inside the student's home, stays with the student.
+assert.equal(tier('친구가 아버지에게 맞았다고 학생이 전했다.'),1);
+for(const text of ['학생이 친구에게 맞았다.','친구가 때렸다.','동생이 학대를 당한다고 말했다.','어머니가 아버지에게 맞았다.'])assert.equal(Core.aboutOthers(text),false,text);
 
 // Image-spreading threat is a safety cue without assuming sexual content (NARR-03).
 const threat='학생이 오늘 촬영물을 퍼뜨리겠다는 협박을 받았다고 말했다.';
@@ -71,6 +82,11 @@ for(const text of ['학생은 상처를 숨기고 말하지 않으려 한다고 
  assert.ok(Journey.analyze(payload(text)).plans.length>0,'a check task must appear: '+text);
 }
 assert.equal(tags('학생이 멍하게 앉아 있었다.').length,0,'"멍하게" is not a bruise');
+
+// A cue worded as an absence is a finding, not a denial: "친구가 없다" is isolation reported.
+for(const text of ['친구가 없다.','친한 친구가 없어 혼자 다닌다.','의지할 사람이 없다.'])assert.ok(tags(text).includes('support:reported'),text);
+assert.ok(!tags('친구 갈등은 없다고 한다.').some(t=>t.startsWith('support')),'no conflict is not "no friends"');
+assert.ok(tags('고립되지 않았다.').includes('support:negated'));
 
 // Earlier behaviour kept.
 assert.equal(tier('오늘 아버지에게 맞았고 귀가가 두렵다.'),4);
