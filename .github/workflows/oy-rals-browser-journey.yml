@@ -38,6 +38,15 @@ jobs:
         run: node e2e/youth-ui-browser-regression.cjs
       - name: Validate real user clicks, live AI inference, PDF output and cross-browser interaction
         run: node e2e/youth-true-user-flow.cjs
+      - name: Inspect actual A4 PDF document and embedded Korean result text
+        run: |
+          sudo apt-get install -y poppler-utils
+          pdf=artifacts/oy-user-route/chromium-1280-score.pdf
+          test -s "$pdf"
+          pdfinfo "$pdf" | tee artifacts/oy-user-route/chromium-1280-pdfinfo.txt
+          pdfinfo "$pdf" | grep -E '^Page size: +595(\.[0-9]+)? x 842'
+          pdftotext -layout "$pdf" artifacts/oy-user-route/chromium-1280-score-extracted.txt
+          grep -Eq '영역|점수|평가' artifacts/oy-user-route/chromium-1280-score-extracted.txt
       - uses: actions/upload-artifact@v4
         if: always()
         with:
