@@ -17,9 +17,10 @@ const dependencies=[
  ['model-gateway-v90.js','journey-v88.js'],
  ['integrated-sections-v3.js','journey-v88.js'],
  ['narrative-structure-v1.js','journey-v88.js'],
- ['cie-lab-v32/engine.js','cie-flow-v32.js'],
- ['cie-lab-v32/dialogue-v32.js','cie-flow-v32.js'],
- ['cie-flow-v32.js','ai-workbench-stage-v1.js'],
+ ['oy-deep-interpretation-v1.js','oy-ask-model-v1.js'],
+ ['oy-ask-model-v1.js','oy-ask-panel-v1.js'],
+ ['oy-narrative-interpretation-v1.js','oy-ask-panel-v1.js'],
+ ['journey-v88.js','oy-ask-panel-v1.js'],
  ['criteria.js','oy-deep-interpretation-v1.js'],
  ['oy-item-knowledge-v1.js','oy-deep-interpretation-v1.js'],
  ['oy-cross-patterns-v1.js','oy-deep-interpretation-v1.js'],
@@ -39,8 +40,8 @@ for(const key of ['id="architecture"','STEP 01','STEP 02','STEP 03','STEP 04','S
 const gateway=require(path.join(dir,'model-gateway-v90.js'));
 const states=gateway.status();assert.equal(states.length,9);
 states.forEach(s=>assert.equal(s.loaded,true,s.id+' disconnected'));
-const main=read('flow.js'),ai=read('ai-workbench-stage-v1.js'),vis=read('stage-insights-v1.js'),map=read('support.js');
+const main=read('flow.js'),ai=read('oy-ask-panel-v1.js'),vis=read('stage-insights-v1.js'),map=read('support.js');
 for(const part of ['youth-flow-complete-v1','youth-flow-invalid-v1','OYUnsavedGuard','beforeunload','exportBackup'])assert.ok(main.includes(part),'flow missing '+part);
-assert.ok(ai.includes('oy-ai-privacy-confirm')&&vis.includes('oy-viz-copy-reviewed'),'PII review required for AI copy');
+assert.ok(ai.includes('oy-ask-ok')&&vis.includes('oy-viz-copy-reviewed'),'PII review required for AI copy');
 assert.ok(map.includes('alternativesFor')&&map.includes('최종검토일')&&map.includes('확인 출처'),'resource fallback and provenance');
 console.log('PASS production architecture: '+states.length+' linked gateway contracts, '+dependencies.length+' script dependencies, five stages, safety, backup, privacy and referral fallback.');

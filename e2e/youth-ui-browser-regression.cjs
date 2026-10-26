@@ -18,7 +18,10 @@ async function scenario(browser,width){
  await page.waitForFunction(()=>document.querySelector('#resultTools')?.hidden===false,{timeout:15000});
  assert.equal(await page.locator('#resultTools .result-optional-feature').count(),2);
  assert.equal(await page.locator('#journey88').isVisible(),true,'stage 2 interpretation visible');
-  assert.equal(await page.locator('#cie-flow-v32').isVisible(),false,'CIE question panel absent in score stage');
+  assert.equal(await page.locator('#cie-flow-v32').count(),0,'retired CIE question panel absent');
+  assert.ok(await page.locator('#journey88 .oy-ask-btn').count()>=5,'AI ask buttons on interpretation sections');
+  assert.equal(await page.locator('#journey88 .oy-ask-doc').count(),1,'one report-level AI button');
+  assert.equal(await page.locator('#oy-external-handoff').count(),0,'bottom handoff panel replaced by ask panel');
  assert.equal(await page.locator('.flow-nav [data-oy-step]').count(),5,'five main steps exposed');
  assert.equal(await page.locator('[data-j88-result-tab="score"]').getAttribute('aria-pressed'),'true','quantitative first');
   assert.equal(await page.locator('.j88-raw-accordion').first().getAttribute('open'),null,'raw scores closed initially');
@@ -48,7 +51,6 @@ async function scenario(browser,width){
  assert.equal(await page.locator('.j88-operational-summary').count(),1,'system integrated judgment summary exists');
  assert.match(await page.locator('.j88-operational-summary').innerText(),/우선 실행|권장 진행체계/,'direct actionable guidance');
  const originalCore=await page.evaluate(a=>window.YouthCriteria.evaluate(a,[2,3,3,3,2,2,3,3,2,2],false,{}).knownTotal,answers);
-  assert.equal(await page.locator('#cie-flow-v32').isVisible(),false,'CIE hidden outside research stage');
  assert.equal(await page.evaluate(a=>window.YouthCriteria.evaluate(a,[2,3,3,3,2,2,3,3,2,2],false,{}).knownTotal,answers),originalCore,'V3.2 never changes CORE');
 
  await page.locator('.flow-nav [data-oy-step="3"]').click();
@@ -74,20 +76,24 @@ async function scenario(browser,width){
  const print=await page.locator('#j88-print-root').innerText();
  assert.ok(print.includes('사례사정')&&print.includes('서비스계획')&&print.includes('사례협의'),'integrated print sections preserved');
  await page.locator('.flow-nav [data-oy-step="4"]').click();
- await page.waitForFunction(()=>document.querySelector('#oy-ai-workbench-stage')?.hidden===false,{timeout:10000});
+ await page.waitForFunction(()=>document.querySelector('#oy-ask-collection')?.hidden===false,{timeout:10000});
  assert.equal(await page.locator('#journey88').isVisible(),false,'case panel hidden in AI workspace');
- assert.equal(await page.locator('#cie-flow-v32').isVisible(),true,'CIE dialogue remains in integrated AI stage');
- assert.match(await page.locator('#oy-viz-stage-v1').innerText(),/모델 연결도/,'AI model connectivity diagram');
- await page.locator('#oy-handoff-legacy').evaluate(n=>n.open=true);
- await page.locator('#oy-ai-question').fill('서비스계획의 근거와 추가 확인은?');
- await page.locator('#oy-ai-ask').click();
- await page.waitForFunction(()=>document.querySelector('#cie-flow-status')?.textContent?.includes('해석 완료'),{timeout:15000});
- assert.match(await page.locator('#cie-flow-result').innerText(),/선택된 사례관리 문서/,'CIE answer includes linked assessed plan evidence');
-  await page.waitForFunction(()=>document.querySelector('#oy-ai-answer')?.textContent?.length>100,{timeout:15000});
-  assert.match(await page.locator('#oy-ai-answer').innerText(),/CORE|지원|선택된 사례관리 문서/,'inline research result');
- await page.locator('#oy-ai-privacy-confirm').check();
- await page.locator('#oy-ai-print').click();
- assert.match(await page.locator('#oy-ai-print-root').innerText(),/OY-RALS AI 연구자료/,'AI research handoff has printable output');
+ assert.match(await page.locator('#oy-viz-stage-v1').innerText(),/이용 흐름/,'AI workspace usage flow');
+ await page.locator('#oy-ask-collection .oy-ask-doc[data-ask-task="integrated"]').click();
+ assert.equal(await page.locator('#oy-ask-task').inputValue(),'integrated');
+ const prompt=await page.locator('#oy-ask-prompt').inputValue();
+ assert.match(prompt,/통합사례보고서를 작성해 주세요/,'document prompt for the integrated report');
+ await page.evaluate(()=>{window.__opened=[];window.open=u=>{window.__opened.push(u);return null;};});
+ await page.locator('[data-ask-open="chatgpt"]').click();
+ assert.deepEqual(await page.evaluate(()=>window.__opened),[],'privacy confirmation required before opening');
+ await page.locator('#oy-ask-ok').check();
+ await page.locator('[data-ask-open="chatgpt"]').click();
+ assert.deepEqual(await page.evaluate(()=>window.__opened),['https://chatgpt.com/'],'AI home opens without case data');
+ await page.locator('#oy-ask-answer').fill('가상 외부 AI 보고서 초안');
+ await page.locator('#oy-ask-save').click();
+ await page.locator('.oy-ask-close').click();
+ await page.locator('#oy-ask-print-all').click();
+ assert.match(await page.locator('#oy-ask-print-root').innerText(),/외부 AI 자문 · 실무자 검토본/,'collected answers are printable');
  await page.evaluate(()=>window.dispatchEvent(new Event('afterprint')));
 
  await page.locator('.flow-nav [data-oy-step="5"]').click();

@@ -287,9 +287,9 @@ function appendixHtml(r){
   +'<details><summary>패턴별 근거 문항</summary>'+t(['패턴','핵심 문항','함께 본 문항'],a.patterns)+'</details>'
   +'<details><summary>재평가 기준</summary>'+t(['문항','내용','현재','다음 목표'],a.reassess)+'</details></section>';
 }
-function text(r){
- const s=r.summary,L=[];
- const B={
+// Plain-text body of each section, shared by the TXT export and the ask panel.
+function blocks(r){
+ return {
   critical:()=>[...r.critical.list.map(x=>'- '+x.topic+': '+x.reading+'\n  → '+x.action),...(r.critical.pending.length?['- 안전 추가확인 남음: '+r.critical.pending.join(', ')]:[]),...(r.critical.procedure?[r.critical.procedure]:[])],
   understanding:()=>[r.understanding],
   case:()=>{const w=r.casework,l=w.level;return [l.name,l.reason,'- 접촉 빈도: '+l.contact,'- 사례회의: '+l.meeting,'- 점검·재사정: '+l.review,'- 주관: '+w.lead,...(w.partners.length?['- 협력: '+w.partners.join(', ')]:[]),w.leadText,'보호자 참여: '+w.family]},
@@ -307,6 +307,10 @@ function text(r){
   reassess:()=>r.reassess.map(x=>'- '+x.topic+'\n  지금: '+x.nowText+'\n  다음 목표: '+x.target),
   validity:()=>[r.validity.level+' · '+r.validity.summary,...r.validity.rows.map(x=>'- '+x.label+': '+x.text)]
  };
+}
+function sectionText(r,key){const B=blocks(r);return B[key]?B[key]().join('\n'):'';}
+function text(r){
+ const s=r.summary,L=[],B=blocks(r);
  L.push('■ OY-RALS 척도 심층해석 · '+r.code.name,r.title,'','[한눈에 보기]','지원 수준: '+s.level,'현재 안전: '+s.safety,'핵심 어려움: '+(s.keys.join(', ')||'두드러진 어려움 없음'),'이번 주 첫 행동: '+s.first,'해석 신뢰도: '+r.validity.level);
  sections(r).forEach((k,i)=>L.push('','['+(i+1)+'. '+TITLES[k]+']',...B[k]()));
  const a=appendixRows(r);
@@ -314,6 +318,6 @@ function text(r){
  L.push('','[해석 안내]',r.notice);
  return L.join('\n');
 }
-const api=Object.freeze({VERSION,NOTICE,LEVELS,build,html,text});
+const api=Object.freeze({VERSION,NOTICE,LEVELS,TITLES,build,html,text,sectionText});
 if(node)module.exports=api;else root.OYDeepInterpretation=api;
 })(typeof window!=='undefined'?window:globalThis);
