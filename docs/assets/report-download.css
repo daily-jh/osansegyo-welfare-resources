@@ -1,0 +1,30 @@
+/* Research report download menu · Apple design v6 tokens with fallbacks */
+.report-dl{position:relative;flex:none;font-family:inherit}
+.report-dl details{position:relative}
+.nav-wrap>.report-dl,.brand-row>.report-dl{margin-left:auto}
+.report-dl-panel,.report-dl-panel *{font-family:inherit;letter-spacing:normal!important;text-transform:none!important;word-break:keep-all}
+.report-dl-panel p{margin:0}
+.report-dl-sub{margin-top:14px!important}
+.report-dl summary{list-style:none;display:inline-flex;align-items:center;gap:7px;min-height:44px;padding:0 16px;border-radius:999px;background:var(--ads-accent,#1769d2);color:#fff;font-size:14px;font-weight:700;letter-spacing:-.01em;white-space:nowrap;cursor:pointer;box-shadow:0 1px 2px rgba(18,38,63,.12);transition:background .15s ease}
+.report-dl summary::-webkit-details-marker{display:none}
+.report-dl summary:hover{background:var(--ads-accent-hover,#0f58b5)}
+.report-dl summary:focus-visible{outline:3px solid rgba(23,105,210,.35);outline-offset:2px}
+.report-dl summary svg{flex:none}
+.report-dl-panel{position:absolute;right:0;top:calc(100% + 8px);z-index:80;width:min(380px,calc(100vw - 32px));background:var(--ads-surface,#fff);color:var(--ads-text,#16273a);border:1px solid var(--ads-separator,#dfe5ec);border-radius:var(--ads-radius-l,20px);box-shadow:0 2px 4px rgba(18,38,63,.06),0 18px 40px rgba(18,38,63,.16);padding:16px 16px 12px;text-align:left}
+.report-dl-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 2px 8px!important;font-size:15px}
+.report-dl-head span{font-size:13px;color:var(--ads-tertiary,#5b6b7c);font-weight:600}
+.report-dl ul{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.report-dl li{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 2px;border-top:1px solid var(--ads-separator,#dfe5ec)}
+.report-dl-copy{display:grid;gap:2px;min-width:0}
+.report-dl-copy b{font-size:15px;font-weight:700;line-height:1.35}
+.report-dl-copy span{font-size:13px;color:var(--ads-secondary,#46586b);line-height:1.4}
+.report-dl-links{display:flex;gap:6px;flex:none}
+.report-dl-links a{display:inline-flex;align-items:center;justify-content:center;min-width:56px;min-height:44px;padding:0 12px;border-radius:12px;background:var(--ads-accent-soft,#e8f1fc);color:var(--ads-accent,#1769d2);font-size:14px;font-weight:700;text-decoration:none}
+.report-dl-links a:hover{background:#dbe8f8}
+.report-dl-links a:focus-visible{outline:3px solid rgba(23,105,210,.35);outline-offset:2px}
+.report-dl-foot{margin:8px 2px 2px!important;font-size:13px;line-height:1.5;color:var(--ads-tertiary,#5b6b7c)}
+@media (max-width:700px){
+ .report-dl summary{padding:0 14px;font-size:14px}
+ .report-dl-panel{position:fixed;left:16px;right:16px;top:auto;width:auto;margin-top:8px}
+}
+@media print{.report-dl{display:none!important}}
