@@ -94,8 +94,8 @@ function render(s){
  const all=$('oy-integrated-visual-slot');if(all)all.replaceChildren();
  if(!s?.ready||!s.payload||!window.OYFiveLevelIndex)return;
  try{
-  const x=window.OYFiveLevelIndex.analyze(s.payload);
   const a=window.OYModelGateway?.analyze?.(s.payload);
+  const x=a?.supportPriority||window.OYFiveLevelIndex.analyze(s.payload);
   if(s.stage===2&&s.view==='result'){
    if(slot){slot.innerHTML=scoreDashboard(x,s.payload);}
    if(all){all.innerHTML=grade(x)+topStats(x);}
