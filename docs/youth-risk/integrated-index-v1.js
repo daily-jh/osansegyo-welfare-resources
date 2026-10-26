@@ -72,8 +72,13 @@ function analyze(p){
  // preserve raw FI but route confirmed domain concentration to a higher
  // *operational support-priority* floor (not an estimated clinical probability).
  const observedLevel=official.observedLevel;
- const patternFloor=observedLevel>=3?4:observedLevel>=2?3:observedLevel>=1?2:1;
+ // Multiple domains with >=2 point evidence, including one 3+ peak,
+ // warrant multidisciplinary work even if the 100-point sum is diluted.
+ const intersectingDomains=ds.filter(d=>d.peak>=2);
+ const concentrated=intersectingDomains.length>=2&&intersectingDomains.some(d=>d.peak>=3);
+ const patternFloor=observedLevel>=3?4:observedLevel>=2||concentrated?3:observedLevel>=1?2:1;
  const patternReason=observedLevel>=3?'3개 이상 중요 영역·고점 문항 동시 보고':
+  concentrated?'서로 다른 2개 이상 영역에 2점 이상 응답이 있고 3~4점 집중영역 포함':
   observedLevel>=2?'복수 생활영역에 집중지원 필요 응답':
   observedLevel>=1?'2점 이상 응답에 따른 개별지원 우선':'보편 예방·관찰 응답';
  if(tier!==null)tier=Math.max(tier,patternFloor);
