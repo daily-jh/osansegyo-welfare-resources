@@ -48,5 +48,6 @@
 #oy-ai-copy-answer[disabled]{opacity:.5}
 .j88-raw-accordion{background:#f8fafc;border:1px solid #dce6ef;border-radius:14px;padding:15px 18px;margin:18px 0}
 .j88-raw-accordion>summary{font-weight:700;cursor:pointer;min-height:44px;display:flex;align-items:center}
+.j88-map-stage{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;margin:4px 0 0;padding:14px 16px;border-radius:14px;background:#f3f6fa;color:#1d2a38;line-height:1.5}.j88-map-stage span{font-size:13px;color:#5b6b7c}.j88-map-stage strong{font-size:17px}.j88-map-stage em{font-style:normal;font-size:15px;color:#31516d;flex-basis:100%}
 .j88-map-intro{font-size:16px;line-height:1.75;color:#31516d;padding:12px 2px}
 @media(max-width:560px){.oy-ai-suggestions button{flex:1 1 auto;text-align:center}.oy-ai-answer-panel{padding:16px}}

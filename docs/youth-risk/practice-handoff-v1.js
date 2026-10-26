@@ -1,6 +1,6 @@
 (function(root){'use strict';
 const tasks={result:'평가결과·응답 패턴 분석',map:'기관별 연계·의뢰 계획',assessment:'사례사정지·판정 보고서',plan:'서비스계획서',record:'통합사례관리 진행·점검 기록',integrated:'통합사례보고서'};
-const tiers=[['안정관찰','관계 유지·예방과 학생의 불편·희망 확인'],['초기주의','특정 영역의 어려움에 대한 조기 면담·개별지원 검토'],['집중지원','반복·복합욕구의 공동사정과 목표·담당·점검 구체화'],['고위기개입','큰 생활 영향·필수생활 공백·보호 필요에 대한 다기관 우선협의'],['최우선 안전대응','현재 안전 직접확인과 사안별 응급·보호 절차 우선']];
+const tiers=[['안정관찰','관계 유지·예방과 학생의 불편·희망 확인'],['초기주의','특정 영역의 어려움에 대한 조기 면담·개별지원 검토'],['집중지원','반복·복합욕구의 공동사정과 목표·담당·점검 구체화'],['다기관 집중개입','큰 생활 영향·필수생활 공백·보호 필요에 대한 다기관 우선협의'],['최우선 안전대응','현재 안전 직접확인과 사안별 응급·보호 절차 우선']];
 function valid(p){return p&&Array.isArray(p.answers)&&p.answers.length===25&&p.answers.every(v=>v==='unknown'||Number.isInteger(v)&&v>=0&&v<=4)&&Array.isArray(p.domains)&&p.domains.length===10;}
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function prompt(p,task='integrated',role='social-worker',analysis={}){

@@ -31,12 +31,12 @@ const CUES=[
  {n:12,re:/벽을 (?:치|쳤)|물건을 (?:부수|부쉈)|파손|과속|위험한 (?:장난|행동)/},
  {n:13,re:/담배|흡연|음주|술을|전자담배|베이프|약물|본드/},
  {n:14,re:/지시를 (?:놓치|잘 못 알아)|청력|시력|보청기|난독|한국어가 (?:서툴|어려)|의사소통(?:이)? ?어려/},
- {n:15,re:/보조기기|휠체어|치료(?:가|를)? ?(?:중단|대기)|서비스 (?:신청 방법|대기)|바우처/},
+ {n:15,re:/보조기기|병원에 (?:간 적이 없|가지 못)|(?:병원|치과)에? ?데려가지 않|충치|휠체어|치료(?:가|를)? ?(?:중단|대기)|서비스 (?:신청 방법|대기)|바우처/},
  {n:16,re:/결식|끼니|아침(?:을|은)? ?(?:거르|굶|못 먹|안 먹)|야간 ?근무|밤늦게까지 (?:혼자|일)|(?:방과 ?후|저녁|밤)(?:에|에는)? ?혼자|돌봐 ?줄 (?:어른|사람)(?:이)? ?없|편의점(?:에서)? ?(?:끼니|식사|도시락)/},
  {n:17,re:/별거|이혼|가정 ?불화|부부 ?(?:싸움|갈등)|재혼|양육 스트레스|가출/},
  {n:17,re:new RegExp(CARER+'[^.,]{0,10}(?:갈등|다툼|다투|싸우|싸움|불화)')},
  {n:18,re:/(?:동생|조카)[^.,]{0,10}(?:등원|등하원|하원|돌보|돌봄|챙기|데려)|(?:할머니|할아버지|부모|어머니|아버지|엄마|아빠|가족)[^.,]{0,8}(?:약을 챙기|간병|병간호|돌보|돌봄|챙기)|집안일|가사(?:를)? ?(?:도맡|전담|맡)|간병/},
- {n:19,re:/준비물(?:을|이)? ?(?:없|못|안 가져)|같은 옷|생필품|생리대|위생용품|먹을 ?것이 없|식료품/},
+ {n:19,re:/준비물(?:을|이)? ?(?:없|못|안 가져)|같은 옷|얇은 옷|생필품|생리대|위생용품|먹을 ?것이 없|식료품/},
  {n:20,re:/이사(?:를)? ?(?:자주|잦)|잦은 이사|월세|퇴거|쫓겨|친척 집|쉼터|난방|곰팡이|공부할 (?:공간|곳)이 없|주거(?:가)? ?불안/},
  {n:21,re:/비용(?:이|을)? ?(?:부담|없|못)|돈이 없어|형편(?:이)? ?(?:어려|안 좋)|수학여행[^.,]{0,6}(?:못|불참)|체험학습[^.,]{0,6}(?:못|불참)|학원(?:을)? ?(?:못|그만)/},
  {n:22,re:/어울리지 (?:않|못)|친구가 (?:없|거의 없)|친구(?:와|들과)?[^.,]{0,6}거의 없|고립|(?:쉬는 시간|점심시간)(?:에|에는)? ?혼자|집에만 있|참여하지 (?:않|못)/,neg:true},
@@ -117,6 +117,13 @@ function read(p){
   if(SUPPORT.test(s)){out.supports.push({sentence:id,source:src,quote:short(s)});row.kind.push('기존 지원')}
   out.sentences.push(row);
  });
+ // Several physical-neglect signs together (clothing, meals, hygiene, untreated illness, carer away) are read
+ // as one neglect question, the same rule as the case-context parser. One sign alone stays a basic-needs cue.
+ try{const pat=C&&C.infer?C.infer(text).signals.find(x=>x.tag==='neglectPattern'):null;
+  if(pat&&!(out.items[2]||[]).some(f=>f.status!=='부인')){
+   const f={n:2,topic:K.item(2).topic,status:'추정',source:'여러 문장',sentence:'',quote:pat.clause,safety:true,pattern:true};
+   out.findings.push(f);(out.items[2]=out.items[2]||[]).push(f);out.safety.push(f);
+  }}catch(_){}
  out.compare=compare(values,out.items);
  return out;
 }
@@ -219,7 +226,11 @@ function integrate(p){
   return '안전 면담에서 현재 생각·계획·수단이 확인되면 위기개입으로 전환합니다.';};
  const route=!w.immediate&&nSafety.length&&D.safetyRoute?D.safetyRoute(n=>nSafety.some(x=>x.n===n),false):null;
  const lead=route&&route.lead?route.lead:w.lead,immediate=w.immediate||(route?route.immediate:'');
- if(nSafety.length&&LEVEL_ORDER.indexOf(level.id)<3){
+ const imm=(()=>{try{const t=String(p.caseContext||'');return t?(C.reconcile(p.answers,t).immediate||[]):((p.narrativeRedacted&&p.narrativeRedacted.immediate)||[])}catch(_){return []}})();
+ if(imm.length&&level.id!=='crisis'){
+  level={...{id:'crisis',name:'위기개입 후 집중 사례관리',contact:'당일 안전 확인, 이후 안정될 때까지 매일~주 2회 확인',meeting:'보호 조치 직후 긴급 사례회의',review:'안전 확보 후 2주 안에 전체 재사정'},reason:'서술에 '+imm.map(x=>x.reason).join(', ')+'이 있어 당일 보호를 우선합니다.'};
+  adjust='서술에 '+imm.map(x=>x.reason).join(', ')+'이 있어 위기개입 수준으로 운영합니다. '+(imm.some(x=>x.tag==='protection')?'오늘 안에 아동학대 신고와 보호 조치를 진행하고, 보호자에게는 먼저 연락하지 않습니다.':'오늘 안에 학생 곁에 어른이 함께 있도록 하고 수단을 치운 뒤 정신건강 위기대응과 연결합니다.');
+ }else if(nSafety.length&&LEVEL_ORDER.indexOf(level.id)<3){
   level={id:'intensive',name:'집중 사례관리 (다기관) · 안전 확인 우선',contact:'오늘 안에 안전 면담, 이후 주 1회 이상 학생 접촉',meeting:'2주 안에 다기관 사례회의, 안전 확인 결과에 따라 앞당김',review:'1개월마다 진행 점검, 3개월 재사정',reason:'척도 응답보다 서술에서 안전 관련 표현이 더 분명하게 나타나 집중 수준으로 운영합니다.'};
   adjust='서술에 '+nSafety.map(x=>cueName(x.topic)).join(', ')+'이 있어 척도 기준보다 한 단계 높은 수준으로 운영합니다. '+escalate(nSafety)+'';
  }else if(nv.present&&cmp.narrative.length>=2&&LEVEL_ORDER.indexOf(level.id)<2){
@@ -332,12 +343,14 @@ function ecoRows(I){
 // One entry per safety topic: several quotes about the same cue share one action line,
 // and a cue the scale already raised keeps the scale's action instead of repeating it.
 const byTopic=list=>{const m=new Map();list.forEach(f=>{if(!m.has(f.n))m.set(f.n,{n:f.n,topic:f.topic,quotes:[]});m.get(f.n).quotes.push(quoteLine(f));});return [...m.values()];};
+// Three ladders answer three questions; say so once where they meet, instead of renaming any of them.
+const LADDERS='CORE 공식 판정은 안전 절차를 바로 밟을지, 5단계 지원 우선순위는 얼마나 서둘러 어느 범위의 기관과 움직일지, 개입 수준은 얼마나 자주 만나고 언제 사례회의를 할지를 정합니다.';
 const ITITLES={critical:'우선 안전 확인',understanding:'통합 사례개념화',compare:'척도–서술 교차검토',patterns:'문제 유지 고리 (교차 패턴)',case:'개입 수준과 주관기관',ecology:'생태체계 사정',plan:'단계별 개입계획',agenda:'사례회의 안건',strengths:'강점·보호요인과 학생의 욕구',questions:'면담 확인 질문'};
 function hasCritical(I){return I.deep.critical.list.length||I.narrative.read.safety.length}
 function integratedHtml(I){
  const B=integratedBody(I),keys=(hasCritical(I)?['critical']:[]).concat(['understanding','compare','patterns','case','ecology','plan','agenda','strengths','questions']);
  let h='<article class="oy-deep-report onr-report onr-integrated" data-report-version="'+VERSION+'"><header class="odi-head"><span class="odi-kicker">OY-RALS 통합 사정의견서 · 척도'+(I.present?'와 서술기록':'')+' 통합</span><h2>'+esc(I.level.name)+'</h2><p>CORE 공식 판정: '+esc(I.deep.title)+'</p></header>';
- h+='<section class="odi-sec odi-glance"><h3>한눈에 보기</h3><dl><div><dt>개입 수준</dt><dd>'+esc(I.level.name)+'</dd></div><div class="'+(I.safety==='이번 응답의 안전 신호 없음'?'':'odi-alert')+'"><dt>현재 안전</dt><dd>'+esc(I.safety)+'</dd></div><div><dt>핵심 과제</dt><dd>'+(I.keys.length?I.keys.map(k=>'<span class="odi-chip">'+esc(k)+'</span>').join(''):'두드러진 어려움 없음')+'</dd></div><div><dt>첫 행동</dt><dd>'+esc(I.first)+'</dd></div><div><dt>종합 근거</dt><dd>'+esc('25문항 응답'+(I.present?' · 서술기록 '+I.narrative.glance.sentences+'문장 ('+I.narrative.glance.sources.join(', ')+')':' · 서술기록 없음'))+'</dd></div></dl></section>';
+ h+='<section class="odi-sec odi-glance"><h3>한눈에 보기</h3><dl><div><dt>개입 수준</dt><dd>'+esc(I.level.name)+'</dd></div><div class="'+(I.safety==='이번 응답의 안전 신호 없음'?'':'odi-alert')+'"><dt>현재 안전</dt><dd>'+esc(I.safety)+'</dd></div><div><dt>핵심 과제</dt><dd>'+(I.keys.length?I.keys.map(k=>'<span class="odi-chip">'+esc(k)+'</span>').join(''):'두드러진 어려움 없음')+'</dd></div><div><dt>첫 행동</dt><dd>'+esc(I.first)+'</dd></div><div class="odi-ladders"><dt>단계 이름이 셋인 이유</dt><dd>'+esc(LADDERS)+'</dd></div><div><dt>종합 근거</dt><dd>'+esc('25문항 응답'+(I.present?' · 서술기록 '+I.narrative.glance.sentences+'문장 ('+I.narrative.glance.sources.join(', ')+')':' · 서술기록 없음'))+'</dd></div></dl></section>';
  keys.forEach((k,i)=>{h+=sec(k,i+1,ITITLES[k],B[k]())});
  h+=(I.present?sentenceAppendix(I.narrative,'근거 자료 · 문항·점수와 서술 문장'):'<section class="odi-appendix"><h3>근거 자료 · 문항·점수와 서술 문장</h3><p>원점수 '+esc(I.deep.summary.total)+' · CORE 판단: '+esc(I.deep.title)+'</p><p class="odi-muted">문항별 점수는 ① 척도 해석의 근거 자료에서 확인합니다.</p></section>')+'<footer class="odi-notice"><h3>해석 안내</h3><p>'+esc(I.notice)+'</p></footer></article>';
  return h;
@@ -365,7 +378,7 @@ function narrativeText(nv){
  return L.join('\n');
 }
 function integratedText(I){
- const L=['■ OY-RALS 통합 사정의견서 · 척도'+(I.present||I.redacted?'와 서술기록':'')+' 통합','CORE 공식 판정: '+I.deep.title,'','[한눈에 보기]','개입 수준: '+I.level.name,'현재 안전: '+I.safety,'핵심 과제: '+(I.keys.join(', ')||'두드러진 어려움 없음'),'첫 행동: '+I.first];
+ const L=['■ OY-RALS 통합 사정의견서 · 척도'+(I.present||I.redacted?'와 서술기록':'')+' 통합','CORE 공식 판정: '+I.deep.title,'','[한눈에 보기]','개입 수준: '+I.level.name,'현재 안전: '+I.safety,'핵심 과제: '+(I.keys.join(', ')||'두드러진 어려움 없음'),'첫 행동: '+I.first,'단계 이름이 셋인 이유: '+LADDERS];
  if(hasCritical(I))L.push('','[우선 안전 확인]',...I.deep.critical.list.map(x=>'- (척도) '+x.topic+': '+x.action),...I.narrative.read.safety.map(f=>'- (서술) '+f.topic+': '+quoteLine(f)+'.'));
  L.push('','[통합 사례개념화]',I.understanding);
  if(I.present)L.push('','[척도–서술 교차검토]',...CMP.filter(([k])=>I.compare[k].length).flatMap(([k,t])=>['▸ '+t,...I.compare[k].map(x=>'  - '+x.topic)]));
@@ -389,8 +402,9 @@ function safetySummary(p){
  const n=read(p),items=[...new Set(n.safety.filter(f=>f.status==='보고'||f.status==='추정').map(f=>f.n))];
  let stage=items.length>0;
  const C=node?require('./case-context-core.js'):root.YouthCaseContextCore;
- try{if(C&&C.reconcile){const x=C.reconcile(p.answers,text);stage=stage||x.signals.some(s=>s&&s.safety&&['reported','unverified'].includes(s.polarity)&&s.timeHint!=='historical-mention'&&s.subject!=='third-party');}}catch(_){}
- return {sentences:n.sentences.length,safety:items.map(i=>({n:i,topic:K.item(i).topic})),stage};
+ let immediate=[];
+ try{if(C&&C.reconcile){const x=C.reconcile(p.answers,text);stage=stage||x.signals.some(s=>s&&s.safety&&['reported','unverified'].includes(s.polarity)&&s.timeHint!=='historical-mention'&&s.subject!=='third-party');immediate=(x.immediate||[]).map(i=>({tag:i.tag,reason:i.reason}));}}catch(_){}
+ return {sentences:n.sentences.length,safety:items.map(i=>({n:i,topic:K.item(i).topic})),stage,immediate};
 }
 function redact(p){return {...p,caseContext:'',narrativeRedacted:safetySummary(p)}}
 const api=Object.freeze({VERSION,NOTICE,read,narrative,integrate,narrativeHtml,narrativeText,integratedHtml,integratedText,caseHtml,caseText,safetySummary,redact});

@@ -52,7 +52,7 @@ function radarPng(btn){
 }
 document.addEventListener('click',e=>{const b=e.target.closest?.('[data-radar-png]');if(b)radarPng(b);});
 function grade(x){
- const active=x.tier,items=['안정관찰','초기주의','집중지원','고위기개입','최우선 안전대응'];
+ const active=x.tier,items=['안정관찰','초기주의','집중지원','다기관 집중개입','최우선 안전대응'];
  return '<section class="oy-viz-grade" aria-label="개발형 5단계 지원우선순위"><div class="oy-viz-grade-head"><span>OY-RALS · 통합지원 단계</span><strong>'+esc(x.tier===null?('단계 미확정 · 미상 '+x.unknown+'문항 확인 필요'):'제'+active+'단계 · '+x.label)+'</strong></div>'+
  '<div class="oy-viz-scale">'+items.map((n,i)=>'<div class="'+(active===i+1?'current':'')+'"><b>'+ (i+1)+'</b><span>'+n+'</span></div>').join('')+'</div>'+
  '<p class="oy-viz-grade-action"><b>시스템 적용 경로</b> '+esc(x.tier===null?'확인된 어려움부터 지원하면서 미상 문항을 확인합니다':x.action)+'</p>'+
