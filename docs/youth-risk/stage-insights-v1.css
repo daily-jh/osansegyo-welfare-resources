@@ -53,3 +53,13 @@
 @media(max-width:900px){.oy-viz-split{grid-template-columns:1fr}.oy-viz-heatmap{grid-template-columns:repeat(9,minmax(0,1fr))}.oy-viz-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:620px){.oy-viz-dashboard,.oy-viz-panel{padding:16px;border-radius:17px}.oy-viz-kpis{gap:8px}.oy-viz-kpis article{padding:13px}.oy-viz-scale{gap:3px}.oy-viz-scale>div{padding:10px 2px}.oy-viz-scale b{font-size:15px}.oy-viz-scale span{font-size:10px}.oy-viz-radar{grid-template-columns:1fr}.oy-viz-radar svg{max-height:260px}.oy-viz-radar-legend{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.oy-viz-matrix{grid-template-columns:repeat(2,minmax(0,1fr))}.oy-viz-path>span{display:none}.oy-viz-heatmap{grid-template-columns:repeat(5,minmax(0,1fr))}.oy-viz-scroll table{font-size:13px}}
 @media print{.oy-viz-dashboard,.oy-viz-panel,.oy-viz-grade{box-shadow:none!important;break-inside:avoid;page-break-inside:avoid}.oy-viz-kpis,.oy-viz-split,.oy-viz-scale,.oy-viz-path{break-inside:avoid}.oy-viz-scroll{overflow:visible}.oy-viz-scroll table{min-width:0;font-size:10pt}.oy-viz-heatmap{grid-template-columns:repeat(13,minmax(0,1fr))}#j88-print-root .oy-viz{display:block!important}}
+
+.j88-operational-summary{padding:clamp(20px,3vw,28px);background:#f4f8fe;border:1px solid #bfd5ec;border-radius:18px;margin:18px 0 28px}
+.j88-operational-summary>span{font-size:12px;font-weight:800;letter-spacing:.08em;color:#2d689a}
+.j88-operational-summary h3{margin:8px 0 20px;font-size:clamp(24px,3vw,32px);color:#174d7e;line-height:1.28}
+.j88-operational-summary dl{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 14px}
+.j88-operational-summary dl>div{background:#fff;border:1px solid #d7e4f1;border-radius:12px;padding:14px;min-width:0}
+.j88-operational-summary dt{font-size:12px;color:#587087;font-weight:750;margin-bottom:7px}
+.j88-operational-summary dd{margin:0;font-size:16px;line-height:1.58;font-weight:700;color:#213d56;overflow-wrap:anywhere}
+.j88-operational-summary>small{font-size:12px;line-height:1.6;color:#506d83}
+@media(max-width:620px){.j88-operational-summary dl{grid-template-columns:1fr}.j88-operational-summary dl>div{padding:12px}}
