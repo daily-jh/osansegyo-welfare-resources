@@ -4,9 +4,9 @@
  * A read-only ordinal SUPPORT PRIORITY output, never a CORE rescore.
  */
 (function(root,factory){
- const api=factory();
+ const api=factory(typeof module!=='undefined'&&module.exports?require('./weight-model.js'):root.YouthWeightModel);
  if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.OYSupportIndexV1=api;
-})(typeof window!=='undefined'?window:globalThis,function(){'use strict';
+})(typeof window!=='undefined'?window:globalThis,function(Weight){'use strict';
 const VERSION='1.0.0-priority-20261026';
 const SIZES=Object.freeze([2,3,3,3,2,2,3,3,2,2]);
 const NAMES=Object.freeze(['학대·보호','학교폭력·또래안전','정서·자해','학습·출결','행동·건강','장애·발달·접근성','가족·돌봄','경제·주거·기본생활','관계·지지','디지털·온라인']);
@@ -40,14 +40,18 @@ function score(raw,opts={}){
  if(official&&(official.knownTotal!==knownTotal||official.knownCount!==known))throw Error('SUPPORT_INDEX_CORE_MISMATCH');
  const complete=known===25;
  const domains=[];
- let k=0,weighted=0,weightedMax=0;
+ let k=0,weighted=0,weightedMax=0;const fullyReported=Array(25).fill(4);
  for(let i=0;i<10;i++){
   const values=answers.slice(k,k+SIZES[i]);k+=SIZES[i];
   const observed=values.reduce((s,v)=>s+(typeof v==='number'?v:0),0);
   const n=values.filter(v=>typeof v==='number').length;
   const weight=WEIGHTS[i];
-  weighted+=observed*weight;
-  weightedMax+=SIZES[i]*4*weight;
+  for(let j=k-SIZES[i];j<k;j++){
+   const native=Weight?.itemWeight?Weight.itemWeight(answers,j):1;
+   const maxNative=Weight?.itemWeight?Weight.itemWeight(fullyReported,j):1;
+   if(typeof answers[j]==='number')weighted+=answers[j]*weight*native;
+   weightedMax+=4*weight*maxNative;
+  }
   domains.push({index:i,name:NAMES[i],raw:observed,maximum:SIZES[i]*4,unknown:SIZES[i]-n,known:n,weight,weighted:r1(observed*weight),strength:r1(observed/(SIZES[i]*4)*100),items:values.slice()});
  }
  const crossPairs=PAIRS.map(pair=>{
@@ -67,11 +71,11 @@ function score(raw,opts={}){
   const signals=Array.isArray(ctx.signals)?ctx.signals:[];
   const active=signals.filter(x=>x&&['reported','unverified'].includes(x.polarity)&&x.timeHint!=='historical-mention'&&x.subject!=='third-party');
   narrativeTags=[...new Set(active.map(x=>x.tag).filter(Boolean))];
-  narrative=r1(Math.min(100,narrativeTags.length*18+Math.max(0,active.length-narrativeTags.length)*8));
+  if(narrativeTags.length)narrative=r1(Math.min(100,narrativeTags.length*18+Math.max(0,active.length-narrativeTags.length)*8));
  }
  const coeff={raw:.40,weighted:.25,cross:.20,critical:.10,narrative:narrative===null?0:.05};
- const used=Object.values(coeff).reduce((a,b)=>a+b,0);
- const overall=r1((coeff.raw*mainRaw+coeff.weighted*weightedNormalized+coeff.cross*cross+coeff.critical*critical+coeff.narrative*(narrative||0))/used);
+ const base=(coeff.raw*mainRaw+coeff.weighted*weightedNormalized+coeff.cross*cross+coeff.critical*critical)/.95;
+ const overall=r1(narrative===null?base:.95*base+.05*Math.max(base,narrative));
  let grade=Math.min(5,Math.floor(overall/20)+1);
  const safetyPositive=SAFETY.filter(i=>typeof answers[i-1]==='number'&&answers[i-1]>0);
  const maxSafety=safetyPositive.reduce((m,i)=>Math.max(m,answers[i-1]),0);
@@ -80,6 +84,7 @@ function score(raw,opts={}){
  const directUrgent=explicit||SAFETY.some(i=>answers[i-1]>=3)||official?.pendingChecks?.length===0&&official?.checkItems?.some(i=>raw?.followups?.[String(i)]==='yes');
  let floor=1;
  if(maxSafety>0||urgentBoolean)floor=maxSafety>=3||directUrgent?5:maxSafety>=2?4:3;
+ if(ctx?.needsSafetyAttention)floor=Math.max(floor,4);
  if(explicit)floor=5;
  grade=Math.max(grade,floor);
  const top=domains.filter(d=>d.raw>0).sort((a,b)=>b.strength-a.strength||b.raw-a.raw).slice(0,3);
@@ -92,7 +97,7 @@ function score(raw,opts={}){
   finalIndex:overall,grade,label:step.name,subtitle:step.subtitle,action:step.action,safetyFloor:floor,needsImmediateSafety:urgentBoolean||safetyPositive.length>0,
   explanation:reasons.length?reasons.join(' · '):'이번 응답에서 높게 보고된 영역 없음',
   evidenceNote,domains,crossPairs,criticalItems:crit.filter(x=>x.value>=2).sort((a,b)=>b.value-a.value),topDomains:top,
-  assumptions:'점수계수·구간은 운영 목적의 개발 분류규칙이며, 예측확률·임상 절단점 또는 실증 타당도가 확보된 판정이 아님.'
+  assumptions:'기존 문항별 가중모델(v2.2)과 독립 영역 가중치를 결합한 개발용 지원순위이며, 예측확률·임상 절단점 또는 실증 타당도가 확보된 판정이 아님.'
  });
 }
 return Object.freeze({VERSION,SIZES,NAMES,WEIGHTS,PAIRS,SAFETY,CRITICAL,STEPS,score});
