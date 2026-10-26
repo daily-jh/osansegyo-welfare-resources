@@ -1,0 +1,12 @@
+'use strict';
+const assert=require('node:assert/strict');
+const N=require('../docs/youth-risk/narrative-structure-v1.js'),R=require('../docs/youth-risk/relations-v88.js');
+const q=Array(25).fill(0);q[15]=3;
+const n=N.interpret({answers:q,caseContext:'학생이 동생을 돌보느라 결석했다.\n\n학생은 운동을 좋아한다.'});
+assert.equal(n.paragraphs.length,2);
+assert.ok(n.sentences.length>=2);
+const r=R.seed({ecosystem:{family:[{label:'가족A',evidence:'시험'}],institutions:[]}});
+r[0].cohabit=true;r[0].direction='학생이 지원받음';r[0].strength='강한 지지';
+assert.ok(R.editor(r).includes('data-relation="strength"'));
+assert.ok(R.svg(r).includes('marker-end'));
+console.log('PASS V3 narrative and relation model');
