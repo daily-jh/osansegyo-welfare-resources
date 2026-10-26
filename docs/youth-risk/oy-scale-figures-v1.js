@@ -74,17 +74,36 @@ function ecoDiagram(f){
 function safetyStrip(f){
  return '<ul class="osf-safety">'+f.safety.map(s=>{const st=s.value==='unknown'?'u':s.value>0?'on':'off';return '<li class="osf-sf-'+st+'"><strong>'+esc(s.topic)+'</strong><span>'+(st==='u'?'미상 · 확인 필요':st==='on'?'응답 있음 · 우선 확인':'보고 없음')+'</span></li>'}).join('')+'</ul>';
 }
+const SEC_TITLE={total:'전체 응답강도 위치',safety:'안전 문항 확인 현황',domains:'10개 영역 × 4구간 가로형 표',axes:'5개 상위 축',dist:'25문항 응답 분포',eco:'생태체계 링',map:'25문항 지도'};
+const SEC_DESC={total:'확인한 문항의 응답 합계가 척도 가능 범위에서 어디쯤인지 보여줍니다.',safety:'안전 문항은 구간과 관계없이 응답이 하나라도 있으면 먼저 확인합니다.',
+ domains:'각 영역이 어느 구간에 놓이는지 한 줄씩 비교합니다. 붉은색이 진할수록 응답강도가 높습니다.',axes:'영역을 안전·정서·학교·생활 기반·관계 축으로 묶어 큰 흐름을 봅니다.',
+ dist:'0점부터 4점, 미상까지 문항 수를 한 줄로 보여줍니다.',eco:'안쪽부터 개인·가족·학교·지역사회입니다. 링이 길수록 그 수준의 응답강도가 높습니다.',map:'영역별로 묶은 문항의 응답입니다. ‘안전’ 표시는 안전 문항입니다.'};
+// Body of one figure. opts.only limits the domain table to the named domains, so a page can show just its own rows.
+function body(f,key,opts){
+ const o=opts||{};
+ switch(key){
+  case 'total':return bandStrip(f.total,'전체')+'<p class="osf-band-note"><strong>'+esc(bandText(f.total))+'</strong> '+esc(f.total.band?BANDS[f.total.band-1].text:'확인된 응답이 없습니다.')+'</p>';
+  case 'safety':return safetyStrip(f);
+  case 'domains':{const rows=o.only?f.domains.filter(d=>o.only.indexOf(d.name)>=0):f.domains;return rows.length?bandTable(rows,'영역'):''}
+  case 'axes':return bandTable(f.axes,'상위 축');
+  case 'dist':return distBar(f.dist);
+  case 'eco':return ecoDiagram(f);
+  case 'map':return itemMap(f);
+  default:return '';
+ }
+}
+// One figure as a standalone section, for placing diagrams inside the paged report.
+function part(f,key,opts){
+ const o=opts||{},b=body(f,key,o);
+ if(!b)return '';
+ const title=o.title||SEC_TITLE[key],desc=o.desc===null?'':(o.desc||SEC_DESC[key]);
+ return '<section class="osf-sec osf-sec-'+key+(o.className?' '+o.className:'')+'">'+(title?'<h4>'+esc(title)+'</h4>':'')+(desc?'<p class="osf-desc">'+esc(desc)+'</p>':'')+b+'</section>';
+}
+function noticeHtml(f){return '<footer class="osf-notice"><strong>구간 기준</strong> '+esc(f.notice)+'</footer>'}
 function html(f){
- const sec=(k,t,d,b)=>'<section class="osf-sec osf-sec-'+k+'"><h4>'+esc(t)+'</h4>'+(d?'<p class="osf-desc">'+esc(d)+'</p>':'')+b+'</section>';
  return '<article class="oy-scale-figures" data-figures-version="'+VERSION+'"><header><span>OY-RALS 보조지표 해석도구</span><h3>척도 범위 4구간과 응답 구조</h3></header>'
-  +sec('total','전체 응답강도 위치','확인한 문항의 응답 합계가 척도 가능 범위에서 어디쯤인지 보여줍니다.',bandStrip(f.total,'전체')+'<p class="osf-band-note"><strong>'+esc(bandText(f.total))+'</strong> '+esc(f.total.band?BANDS[f.total.band-1].text:'확인된 응답이 없습니다.')+'</p>')
-  +sec('safety','안전 문항 확인 현황','안전 문항은 구간과 관계없이 응답이 하나라도 있으면 먼저 확인합니다.',safetyStrip(f))
-  +sec('domains','10개 영역 × 4구간 가로형 표','각 영역이 어느 구간에 놓이는지 한 줄씩 비교합니다. 붉은색이 진할수록 응답강도가 높습니다.',bandTable(f.domains,'영역'))
-  +sec('axes','5개 상위 축','영역을 안전·정서·학교·생활 기반·관계 축으로 묶어 큰 흐름을 봅니다.',bandTable(f.axes,'상위 축'))
-  +sec('dist','25문항 응답 분포','0점부터 4점, 미상까지 문항 수를 한 줄로 보여줍니다.',distBar(f.dist))
-  +sec('eco','생태체계 링','안쪽부터 개인·가족·학교·지역사회입니다. 링이 길수록 그 수준의 응답강도가 높습니다.',ecoDiagram(f))
-  +sec('map','25문항 지도','영역별로 묶은 문항의 응답입니다. ‘안전’ 표시는 안전 문항입니다.',itemMap(f))
-  +'<footer class="osf-notice"><strong>구간 기준</strong> '+esc(f.notice)+'</footer></article>';
+  +['total','safety','domains','axes','dist','eco','map'].map(k=>part(f,k)).join('')
+  +noticeHtml(f)+'</article>';
 }
 function text(f){
  const L=['[보조지표 · 척도 범위 4구간]','전체: '+pctText(f.total)+' · '+bandText(f.total)];
@@ -92,6 +111,6 @@ function text(f){
  L.push('상위 축: '+f.axes.map(a=>a.name+' '+pctText(a)).join(', '),'응답 분포: '+['0점','1점','2점','3점','4점','미상'].map((l,i)=>l+' '+f.dist[i]).join(', '),'구간 기준: '+f.notice);
  return L.join('\n');
 }
-const api=Object.freeze({VERSION,BANDS,NOTICE,bandOf,build,html,text});
+const api=Object.freeze({VERSION,BANDS,NOTICE,bandOf,build,html,text,part,noticeHtml});
 if(node)module.exports=api;else root.OYScaleFigures=api;
 })(typeof window!=='undefined'?window:globalThis);

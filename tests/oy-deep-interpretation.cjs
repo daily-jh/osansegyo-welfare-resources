@@ -17,11 +17,14 @@ const BODY_NUM=/\d+번|\d점/;
 const HEDGE=/가설|확인 바랍|확인바랍|단정하지|확정하지|추정하지|검증 전|미검증/;
 const FORBID=/우울증|ADHD|학대가 확인|학대로 확인|자살위험 (등급|높음)|안전합니다|문제가 없습니다|문제없음/;
 const split=(t,mark)=>t.split(mark)[0];
+// Evidence (item numbers, scores, figures) lives behind the reading body: the appendix, and in the paged
+// report the "전문가 노트" page that holds it. Everything a practitioner reads first stays in plain wording.
+const htmlBody=h=>split(split(h,'<section class="odi-page odi-page-expert"'),'<section class="odi-appendix"');
 function check(answers,label){
  const r=D.build({answers});
  assert.deepEqual(r.core,C.evaluate(answers,K.DOMAIN_SIZES,false,{}),label+' CORE changed');
  const text=D.text(r),html=D.html(r);
- for(const [body,name] of [[split(text,'[근거 자료'),'text'],[split(html,'<section class="odi-appendix"'),'html']]){
+ for(const [body,name] of [[split(text,'[근거 자료'),'text'],[htmlBody(html),'html']]){
   const b=name==='html'?body.replace(/<[^>]+>/g,' '):body;
   assert.ok(!BODY_NUM.test(b.replace(/1교시/g,'')),label+' '+name+' body has item number/score: '+(b.match(BODY_NUM)||[])[0]);
   assert.ok(!HEDGE.test(b),label+' '+name+' hedge: '+(b.match(HEDGE)||[])[0]);
