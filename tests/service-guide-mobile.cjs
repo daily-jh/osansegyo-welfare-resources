@@ -44,5 +44,5 @@ let browser,ws,temp;
   }
   console.log('PASS: mobile Chromium, JavaScript service search, details, selection, button sizes and overflow at 375/390/768/1280');
  }catch(e){console.error(e);process.exitCode=1}
- finally{if(ws)ws.close();if(browser)browser.kill('SIGKILL');srv.close();if(temp)fs.rmSync(temp,{recursive:true,force:true})}
+ finally{if(ws)ws.close();if(browser)browser.kill('SIGKILL');srv.close();if(temp)try{fs.rmSync(temp,{recursive:true,force:true,maxRetries:5,retryDelay:200})}catch(e){console.warn("temp profile cleanup skipped: "+e.code)}}
 })();
