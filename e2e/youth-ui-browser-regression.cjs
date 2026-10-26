@@ -26,6 +26,8 @@ async function scenario(browser,width){
  assert.equal(await page.locator('[data-j88-result-tab="score"]').getAttribute('aria-pressed'),'true','quantitative first');
   assert.equal(await page.locator('.j88-raw-accordion').first().getAttribute('open'),null,'raw scores closed initially');
  assert.equal(await page.locator('#oy-index-visual-slot .oy-viz-dashboard').count(),1,'five-level integrated dashboard visible');
+ assert.equal(await page.locator('#oy-index-visual-slot .oy-viz-more').getAttribute('open'),null,'detailed figures start folded under the stage card');
+ await page.locator('#oy-index-visual-slot .oy-viz-more > summary').click();
  assert.equal(await page.locator('.oy-viz-radar svg').count(),1,'ten-axis radar visible');
   assert.equal(await page.locator('.oy-viz-radar svg').getAttribute('viewBox'),'0 0 700 700','radar labeled enlarged');
   assert.equal(await page.locator('.oy-viz-radar svg text.oy-radar-axis').count(),10,'ten vertex labels rendered');
