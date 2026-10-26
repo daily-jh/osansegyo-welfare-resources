@@ -36,7 +36,7 @@ const cases=[],flags=[];
 for(let i=0;i<modes.length;i++){
  const mode=modes[i],def=definitions[mode],answers=Array(25).fill(0);
  for(const [k,v] of Object.entries(def.q))answers[Number(k)-1]=draw(v);
- for(let j=0;j<25;j++)if(answers[j]===0&&![0,1,6,24].includes(j)&&rng()<.10)answers[j]=rng()<.8?1:2;
+ for(let j=0;j<25;j++)if(mode!=='quiet'&&answers[j]===0&&![0,1,6,24].includes(j)&&rng()<.10)answers[j]=rng()<.8?1:2;
  for(const n of def.unknown||[])answers[n-1]='unknown';
  const followups={};
  if(answers[3]>=1)followups[4]=draw(['no','unknown']);
@@ -58,6 +58,7 @@ for(let i=0;i<modes.length;i++){
  if(idx.safetyFloor!==null&&idx.tier<idx.safetyFloor)issues.push('안전 우선단계 역전');
  if(mode==='quiet'&&a.plans.length>0)issues.push('전반적 0점·강점 서술에서 계획 생성');
  if(a.plans.length>8)issues.push('계획이 8개 초과');
+ if(idx.complete&&idx.tier!==null&&idx.tier<idx.patternFloor)issues.push('영역 집중도에 비해 지원단계 낮음');
  if(defensives>24)issues.push('방어 문구 과다');
  const result={case:i+1,mode,profile:def.label,dong:payload.student.dong,raw:idx.raw,weighted:idx.weighted,cross:idx.crossScore,narrative:idx.narrative,composite:idx.composite,tier:idx.tier,unknown:idx.unknown,safety:official.urgent,urgentQuestions:official.safetyItems,safetyPending:official.pendingChecks,
  answers:answers.map((v,j)=>({q:j+1,v})).filter(x=>x.v!==0),text:def.note,summary:a.sections[0].text.slice(0,650),opinion:a.sections.find(x=>x.title==='종합사정 및 우선순위').text.slice(0,800),
