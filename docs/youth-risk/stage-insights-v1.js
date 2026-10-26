@@ -30,6 +30,7 @@ function grade(x){
  return '<section class="oy-viz-grade" aria-label="개발형 5단계 지원우선순위"><div class="oy-viz-grade-head"><span>OY-RALS · 통합지원 단계</span><strong>'+esc(x.tier===null?'응답 미완료':'제'+active+'단계 · '+x.label)+'</strong></div>'+
  '<div class="oy-viz-scale">'+items.map((n,i)=>'<div class="'+(active===i+1?'current':'')+'"><b>'+ (i+1)+'</b><span>'+n+'</span></div>').join('')+'</div>'+
  '<p class="oy-viz-grade-action"><b>시스템 적용 경로</b> '+esc(x.action)+'</p>'+
+ (x.tier!==null&&x.baseTier!==null&&x.tier>x.baseTier?'<p class="oy-viz-pattern"><b>단계 상향 근거</b> '+esc(x.baseTier+'단계 → '+x.tier+'단계 · '+x.patternReason)+'</p>':'')+
  (x.safetyReason?'<p class="oy-viz-safety">안전 우선 상향: '+esc(x.safetyReason)+'</p>':'')+
  '<small>원점수와 분리된 개발형 지원우선순위 분류입니다. 진단, 신고 판단 또는 검증된 위험확률을 뜻하지 않습니다.</small></section>';
 }
