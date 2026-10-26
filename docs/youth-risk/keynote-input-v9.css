@@ -1,0 +1,203 @@
+/* OY-RALS keynote input v9 — 2026-10-27. 01 선별평가 입력 화면(평가 iframe) 정리 레이어.
+   Loaded last in assessment.html. Presentation only: CORE 25문항·0~4점·미상 처리, 안전확인,
+   점수 계산, 서술 분석, 저장·내보내기 동작은 그대로다. 중복 표시(진행 현황 3중, 문항마다
+   '미응답' 배지, 카드 안의 카드, 서술 입력의 굵은 테두리)를 줄이고 장(章) 단위로 읽히게 한다.
+   Scoped to the embedded flow's response mode, so the result view and the standalone assessment
+   page keep their previous look. */
+.flow-embedded:not([data-flow-mode=result]){
+  --k-ink:#16273a;--k-sec:#46586b;--k-ter:#5b6b7d;--k-hair:#e2e8ef;--k-fill:#f3f6f9;
+  --k-acc:#1765bd;--k-acc-soft:#e9f1fb;--k-rose:#a3214f;--k-rose-soft:#fbf0f4;--k-amber:#8a5300;--k-amber-soft:#fdf4e6;
+  background:#fff!important;color:var(--k-ink)
+}
+html:has(body.flow-embedded:not([data-flow-mode=result])){background:#fff!important}
+.flow-embedded:not([data-flow-mode=result]) main.wrap{max-width:1040px!important;margin:0 auto!important;padding:0 4px 24px!important;background:#fff!important}
+.flow-embedded:not([data-flow-mode=result]) .layout,.flow-embedded:not([data-flow-mode=result]) .left{display:block!important;gap:0!important;background:none!important}
+
+/* 1. Panels become chapters: no card, a hairline above, a numbered kicker */
+.flow-embedded:not([data-flow-mode=result]) .panel{background:none!important;border:0!important;box-shadow:none!important;border-radius:0!important;padding:0!important;margin:0!important;overflow:visible!important}
+.flow-embedded:not([data-flow-mode=result]) .panel>.panel-head{background:none!important;border:0!important;padding:0 0 18px!important;margin:0!important;box-shadow:none!important}
+.flow-embedded:not([data-flow-mode=result]) .panel-head h2{font-size:clamp(26px,3.2vw,34px)!important;line-height:1.2!important;letter-spacing:-.02em!important;font-weight:750!important;color:var(--k-ink)!important;margin:4px 0 8px!important}
+.flow-embedded:not([data-flow-mode=result]) .panel-head p{font-size:16px!important;line-height:1.65!important;color:var(--k-sec)!important;margin:0!important;max-width:62ch}
+.flow-embedded:not([data-flow-mode=result]) .panel-head .eyebrow{font-size:13px!important;letter-spacing:.06em!important;font-weight:700!important;color:var(--k-ter)!important;background:none!important;padding:0!important}
+.flow-embedded:not([data-flow-mode=result]) #safety,.flow-embedded:not([data-flow-mode=result]) #assessment{border-top:1px solid var(--k-hair)!important;padding-top:40px!important;margin-top:40px!important}
+.flow-embedded:not([data-flow-mode=result]) #safety .panel-head .eyebrow::before{content:"01 · ";color:var(--k-rose)}
+.flow-embedded:not([data-flow-mode=result]) #assessment .panel-head .eyebrow::before{content:"02 · "}
+.flow-embedded:not([data-flow-mode=result]) #safety .panel-head .eyebrow{color:var(--k-rose)!important}
+
+/* 2. TEST notice: one quiet line instead of a tinted box */
+.flow-embedded:not([data-flow-mode=result]) .notice{display:flex!important;align-items:center!important;gap:12px!important;flex-wrap:wrap;background:none!important;border:0!important;box-shadow:none!important;padding:8px 0 0!important;margin:0!important}
+.flow-embedded:not([data-flow-mode=result]) .notice .test-badge{font-size:13px!important;padding:4px 10px!important;min-height:0!important;border-radius:999px!important;background:var(--k-fill)!important;color:var(--k-sec)!important;border:1px solid var(--k-hair)!important;box-shadow:none!important}
+.flow-embedded:not([data-flow-mode=result]) .notice strong{font-size:15px!important;font-weight:600!important;color:var(--k-sec)!important}
+.flow-embedded:not([data-flow-mode=result]) .notice>div{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px}
+.flow-embedded:not([data-flow-mode=result]) .notice .intro-help summary{font-size:14px!important;color:var(--k-acc)!important;min-height:0!important;padding:0!important}
+
+/* 3. Safety: keeps rose (rose = safety) but as a list, not a pink banner over a card */
+.flow-embedded:not([data-flow-mode=result]) #safety .warning-tag{background:var(--k-rose-soft)!important;color:var(--k-rose)!important;border:0!important;font-size:13px!important;vertical-align:middle}
+.flow-embedded:not([data-flow-mode=result]) .safety-checks{border:1px solid #f0d5df!important;border-radius:18px!important;background:var(--k-rose-soft)!important;padding:6px 20px!important;margin:0!important}
+.flow-embedded:not([data-flow-mode=result]) .safety-checks label{border:0!important;border-bottom:1px solid #f0d5df!important;background:none!important;padding:14px 0!important;margin:0!important;border-radius:0!important;font-size:16px!important;min-height:44px}
+.flow-embedded:not([data-flow-mode=result]) .safety-checks label:last-child{border-bottom:0!important}
+.flow-embedded:not([data-flow-mode=result]) .safety-checks input{accent-color:var(--k-rose)}
+
+/* 4. Progress: one slim strip. The sticky-less iframe keeps one count here; the toolbar count is hidden */
+.flow-embedded:not([data-flow-mode=result]) .monitor{margin-top:32px!important;padding:18px 22px!important;background:var(--k-fill)!important;border-radius:18px!important}
+.flow-embedded:not([data-flow-mode=result]) .monitor>.panel-head{display:none!important}
+.flow-embedded:not([data-flow-mode=result]) .monitor .progress-numbers{display:flex!important;align-items:baseline!important;gap:8px!important;margin:0 0 10px!important;padding:0!important;background:none!important;border:0!important}
+.flow-embedded:not([data-flow-mode=result]) .monitor #filled{font-size:30px!important;line-height:1!important;font-weight:750!important;color:var(--k-ink)!important}
+.flow-embedded:not([data-flow-mode=result]) .monitor .progress-numbers>span{font-size:15px!important;color:var(--k-sec)!important}
+.flow-embedded:not([data-flow-mode=result]) .monitor #liveTotal{margin-left:auto!important;font-size:15px!important;font-weight:650!important;color:var(--k-sec)!important}
+.flow-embedded:not([data-flow-mode=result]) .monitor #liveTotal small{font-size:13px!important}
+.flow-embedded:not([data-flow-mode=result]) .monitor .progress-track{height:6px!important;border-radius:999px!important;background:#dfe6ee!important;border:0!important}
+.flow-embedded:not([data-flow-mode=result]) .monitor #progressBar{background:var(--k-acc)!important;border-radius:999px!important}
+.flow-embedded:not([data-flow-mode=result]) .monitor #progressHint{font-size:14px!important;color:var(--k-ter)!important;margin:10px 0 0!important}
+.flow-embedded:not([data-flow-mode=result]) #compactProgress{display:none!important}
+
+/* 5. Student details: three fields in one row, the privacy note as a single line */
+.flow-embedded:not([data-flow-mode=result]) .privacy{display:block!important;background:none!important;border:0!important;padding:0!important;margin:0 0 8px!important;box-shadow:none!important}
+.flow-embedded:not([data-flow-mode=result]) .privacy>div:first-child{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:auto auto auto;grid-auto-flow:column;column-gap:14px;row-gap:6px;background:none!important;border:0!important;padding:0!important;box-shadow:none!important}
+.flow-embedded:not([data-flow-mode=result]) .privacy>div:first-child>label{font-size:14px!important;font-weight:650!important;color:var(--k-sec)!important;margin:0!important}
+.flow-embedded:not([data-flow-mode=result]) .privacy>div:first-child>small{grid-row:3;grid-column:1/3;font-size:13px!important;color:var(--k-ter)!important;margin:4px 0 0!important}
+.flow-embedded:not([data-flow-mode=result]) .privacy>div:first-child>#welfareZoneHint{grid-row:3;grid-column:3;font-size:13px!important;color:var(--k-ter)!important;margin:4px 0 0!important}
+.flow-embedded:not([data-flow-mode=result]) .privacy input,.flow-embedded:not([data-flow-mode=result]) .privacy select{border-radius:12px!important;border:1px solid #cfd8e3!important;background:#fff!important;min-height:46px!important;font-size:16px!important;box-shadow:none!important;margin:0!important;width:100%!important}
+.flow-embedded:not([data-flow-mode=result]) .privacy-summary{display:flex!important;flex-wrap:wrap;align-items:baseline;gap:2px 12px;background:none!important;border:0!important;border-top:1px solid var(--k-hair)!important;border-radius:0!important;padding:14px 0 0!important;margin:18px 0 0!important;box-shadow:none!important}
+.flow-embedded:not([data-flow-mode=result]) .privacy-summary strong{font-size:14px!important;color:var(--k-ink)!important}
+.flow-embedded:not([data-flow-mode=result]) .privacy-summary>p{font-size:14px!important;color:var(--k-ter)!important;margin:0!important}
+.flow-embedded:not([data-flow-mode=result]) .privacy-summary details{flex-basis:100%}
+.flow-embedded:not([data-flow-mode=result]) .privacy-summary summary{font-size:14px!important;color:var(--k-acc)!important;min-height:32px!important;padding:0!important}
+
+/* 6. Narrative input: a calm sheet, no heavy blue frame */
+.flow-embedded:not([data-flow-mode=result]) #oyCaseContext{border:0!important;border-radius:20px!important;background:var(--k-fill)!important;box-shadow:none!important;padding:22px 24px!important;margin:28px 0!important;outline:0!important}
+.flow-embedded:not([data-flow-mode=result]) #oyCaseContext>summary{font-size:20px!important;font-weight:750!important;color:var(--k-ink)!important;letter-spacing:-.01em;padding:0!important;min-height:32px!important;background:none!important;border:0!important}
+.flow-embedded:not([data-flow-mode=result]) #oyCaseContext>summary::marker{color:var(--k-ter)}
+.flow-embedded:not([data-flow-mode=result]) #oyCaseContext .oy-context-description{font-size:14px!important;line-height:1.6!important;color:var(--k-ter)!important;margin:6px 0!important}
+.flow-embedded:not([data-flow-mode=result]) #oyCaseContext #oyContextHelp{font-size:15px!important;color:var(--k-sec)!important;margin:8px 0 14px!important}
+.flow-embedded:not([data-flow-mode=result]) #oyCaseContext label{font-size:14px!important;font-weight:650!important;color:var(--k-sec)!important}
+.flow-embedded:not([data-flow-mode=result]) #oyCaseContext textarea{border:1px solid #cfd8e3!important;border-radius:14px!important;background:#fff!important;font-size:16px!important;line-height:1.7!important;padding:14px 16px!important;box-shadow:none!important}
+.flow-embedded:not([data-flow-mode=result]) #oyCaseContext textarea:focus{border-color:var(--k-acc)!important;box-shadow:0 0 0 3px var(--k-acc-soft)!important;outline:0!important}
+.flow-embedded:not([data-flow-mode=result]) #oyCaseContext .oy-context-actions{border:0!important;padding:0!important;margin-top:8px!important}
+.flow-embedded:not([data-flow-mode=result]) #oyCaseContext .oy-context-actions button{background:#fff!important;border:1px solid var(--k-hair)!important;box-shadow:none!important;border-radius:999px!important;font-size:14px!important;color:var(--k-sec)!important}
+
+/* 7. Scale legend and rules: one compact key, not three boxes */
+.flow-embedded:not([data-flow-mode=result]) .scale:not(details){background:none!important;border:0!important;box-shadow:none!important;padding:0!important;margin:28px 0 6px!important}
+.flow-embedded:not([data-flow-mode=result]) .scale:not(details)>h3{font-size:14px!important;font-weight:700!important;color:var(--k-ter)!important;letter-spacing:.04em;margin:0 0 10px!important}
+.flow-embedded:not([data-flow-mode=result]) .scale-grid{display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr))!important;gap:0!important;border:1px solid var(--k-hair)!important;border-radius:14px!important;overflow:hidden;background:#fff!important}
+.flow-embedded:not([data-flow-mode=result]) .scale-grid>div{background:none!important;border:0!important;border-right:1px solid var(--k-hair)!important;border-radius:0!important;padding:10px 8px!important;box-shadow:none!important;text-align:center}
+.flow-embedded:not([data-flow-mode=result]) .scale-grid>div:last-child{border-right:0!important;background:var(--k-amber-soft)!important}
+.flow-embedded:not([data-flow-mode=result]) .scale-grid b{font-size:16px!important;color:var(--k-ink)!important;display:block}
+.flow-embedded:not([data-flow-mode=result]) .scale-grid>div:last-child b{color:var(--k-amber)!important}
+.flow-embedded:not([data-flow-mode=result]) .scale-grid small{font-size:13px!important;color:var(--k-ter)!important;line-height:1.35!important}
+.flow-embedded:not([data-flow-mode=result]) .scale:not(details)>p{font-size:14px!important;color:var(--k-sec)!important;margin:10px 0 0!important}
+.flow-embedded:not([data-flow-mode=result]) details.assessment-help{background:none!important;border:0!important;box-shadow:none!important;padding:0!important;margin:6px 0 0!important}
+.flow-embedded:not([data-flow-mode=result]) details.assessment-help>summary{font-size:14px!important;font-weight:600!important;color:var(--k-acc)!important;min-height:36px!important;padding:0!important;background:none!important}
+.flow-embedded:not([data-flow-mode=result]) details.assessment-help[open]{background:var(--k-fill)!important;border-radius:16px!important;padding:6px 18px 16px!important}
+.flow-embedded:not([data-flow-mode=result]) .question-sections>.scale-scoring-note{font-size:13px!important;line-height:1.6!important;color:var(--k-ter)!important;background:none!important;border:0!important;padding:0!important;margin:0 0 4px!important}
+
+/* 8. Toolbar */
+.flow-embedded:not([data-flow-mode=result]) .assessment-tools{display:flex!important;align-items:center!important;gap:10px!important;background:none!important;border:0!important;border-top:1px solid var(--k-hair)!important;border-bottom:1px solid var(--k-hair)!important;border-radius:0!important;box-shadow:none!important;padding:12px 0!important;margin:22px 0 18px!important;position:static!important}
+.flow-embedded:not([data-flow-mode=result]) .assessment-tools label{font-size:14px!important;color:var(--k-sec)!important;font-weight:650!important}
+.flow-embedded:not([data-flow-mode=result]) .assessment-tools select{border-radius:12px!important;min-height:44px!important;border:1px solid #cfd8e3!important}
+.flow-embedded:not([data-flow-mode=result]) #findPending{background:var(--k-fill)!important;border:0!important;box-shadow:none!important;border-radius:999px!important;min-height:44px!important;color:var(--k-ink)!important;font-size:15px!important}
+
+/* 9. Domains: chapter headings; questions as rows separated by hairlines */
+.flow-embedded:not([data-flow-mode=result]) .question-sections{display:block!important;background:none!important;border:0!important;padding:0!important}
+.flow-embedded:not([data-flow-mode=result]) .domain-card{background:none!important;border:0!important;box-shadow:none!important;border-radius:0!important;padding:0!important;margin:0 0 36px!important;overflow:visible!important}
+.flow-embedded:not([data-flow-mode=result]) .domain-header{display:grid!important;grid-template-columns:auto 1fr auto;align-items:baseline;gap:12px!important;background:none!important;border:0!important;border-bottom:2px solid var(--k-ink)!important;border-radius:0!important;padding:0 0 10px!important;margin:0!important;box-shadow:none!important;position:static!important}
+.flow-embedded:not([data-flow-mode=result]) .domain-index{background:none!important;color:var(--k-acc)!important;font-size:15px!important;font-weight:750!important;white-space:nowrap;width:auto!important;height:auto!important;min-width:0!important;border:0!important;box-shadow:none!important;font-variant-numeric:tabular-nums}
+.flow-embedded:not([data-flow-mode=result]) .domain-index::before{content:"0"}
+.flow-embedded:not([data-flow-mode=result]) #domain9 .domain-index::before{content:none}
+.flow-embedded:not([data-flow-mode=result]) .domain-title{font-size:22px!important;font-weight:750!important;letter-spacing:-.015em!important;color:var(--k-ink)!important}
+.flow-embedded:not([data-flow-mode=result]) .domain-count{font-size:13px!important;color:var(--k-ter)!important;background:none!important;border:0!important;padding:0!important;white-space:nowrap}
+.flow-embedded:not([data-flow-mode=result]) .domain-card .question{background:none!important;border:0!important;border-bottom:1px solid var(--k-hair)!important;border-radius:0!important;box-shadow:none!important;padding:18px 0 16px!important;margin:0!important}
+.flow-embedded:not([data-flow-mode=result]) .domain-card .question::before,.flow-embedded:not([data-flow-mode=result]) .domain-card .question::after{display:none!important}
+.flow-embedded:not([data-flow-mode=result]) .question-heading{display:flex!important;align-items:flex-start;gap:12px;margin:0 0 4px!important}
+.flow-embedded:not([data-flow-mode=result]) .question-text{font-size:17px!important;line-height:1.55!important;font-weight:600!important;color:var(--k-ink)!important}
+.flow-embedded:not([data-flow-mode=result]) .question-number{color:var(--k-ter)!important;font-weight:700!important;font-variant-numeric:tabular-nums;margin-right:8px!important;background:none!important}
+/* pending is already visible from the empty choices; the badge only speaks when there is something to say */
+.flow-embedded:not([data-flow-mode=result]) .answer-state{background:none!important;border:0!important;padding:2px 0 0!important;font-size:13px!important;font-weight:650!important;color:var(--k-ter)!important;white-space:nowrap;margin-left:auto}
+.flow-embedded:not([data-flow-mode=result]) .question[data-answer-state=pending] .answer-state{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip:rect(0 0 0 0)!important;white-space:nowrap!important}
+.flow-embedded:not([data-flow-mode=result]) .question[data-answer-state=unknown] .answer-state{color:var(--k-amber)!important}
+.flow-embedded:not([data-flow-mode=result]) .question[data-answer-state=answered] .answer-state{color:var(--k-acc)!important}
+.flow-embedded:not([data-flow-mode=result]) .question-help{margin:0 0 10px!important;background:none!important;border:0!important;padding:0!important}
+.flow-embedded:not([data-flow-mode=result]) .question-help>summary{font-size:13px!important;font-weight:600!important;color:var(--k-ter)!important;min-height:28px!important;padding:0!important;background:none!important;display:inline-flex;align-items:center}
+.flow-embedded:not([data-flow-mode=result]) .question-help>summary:hover{color:var(--k-acc)!important}
+.flow-embedded:not([data-flow-mode=result]) .question-help[open]{background:var(--k-fill)!important;border-radius:14px!important;padding:6px 16px 12px!important}
+.flow-embedded:not([data-flow-mode=result]) .question-help .item-hint{font-size:14px!important;line-height:1.6!important;color:var(--k-sec)!important}
+
+/* 10. Choices: one segmented control */
+.flow-embedded:not([data-flow-mode=result]) .options{display:inline-flex!important;width:auto!important;max-width:100%;flex-wrap:nowrap!important;gap:2px!important;background:var(--k-fill)!important;border:0!important;border-radius:14px!important;padding:3px!important;margin:0!important;box-shadow:none!important}
+.flow-embedded:not([data-flow-mode=result]) .options .score-choice{min-width:52px!important;min-height:44px!important;margin:0!important;padding:0 10px!important;border:0!important;border-radius:11px!important;background:transparent!important;box-shadow:none!important;display:inline-flex!important;align-items:center;justify-content:center;font-size:16px!important;font-weight:650!important;color:var(--k-sec)!important;cursor:pointer}
+.flow-embedded:not([data-flow-mode=result]) .options .score-choice span{background:none!important;border:0!important;box-shadow:none!important;padding:0!important;color:inherit!important;min-width:0!important;min-height:0!important}
+.flow-embedded:not([data-flow-mode=result]) .options .score-choice input{position:absolute;opacity:0;pointer-events:none}
+.flow-embedded:not([data-flow-mode=result]) .options .score-choice:hover{background:#e6ecf3!important;color:var(--k-ink)!important}
+.flow-embedded:not([data-flow-mode=result]) .options .score-choice:has(input:checked){background:#fff!important;color:var(--k-acc)!important;box-shadow:0 1px 3px rgba(18,38,63,.16),0 0 0 1px rgba(23,101,189,.25)!important}
+.flow-embedded:not([data-flow-mode=result]) .options .unknown-choice{margin-left:6px!important;color:var(--k-amber)!important}
+.flow-embedded:not([data-flow-mode=result]) .options .unknown-choice:has(input:checked){color:var(--k-amber)!important;box-shadow:0 1px 3px rgba(18,38,63,.16),0 0 0 1px rgba(138,83,0,.3)!important}
+.flow-embedded:not([data-flow-mode=result]) .options .score-choice:has(input:focus-visible){outline:3px solid var(--k-acc)!important;outline-offset:1px}
+
+/* 11. End of the questions: the one in-frame completion action */
+.flow-embedded:not([data-flow-mode=result]) .eval-actions{display:flex!important;justify-content:space-between!important;align-items:center;gap:12px;background:none!important;border:0!important;box-shadow:none!important;padding:8px 0 0!important;margin:8px 0 0!important}
+.flow-embedded:not([data-flow-mode=result]) #complete{min-height:52px!important;border-radius:999px!important;padding:0 26px!important;font-size:17px!important;font-weight:700!important;background:var(--k-acc)!important;border:0!important;box-shadow:none!important}
+.flow-embedded:not([data-flow-mode=result]) #reset{background:none!important;border:0!important;box-shadow:none!important;color:var(--k-ter)!important;font-size:15px!important;text-decoration:underline;text-underline-offset:3px}
+
+/* 12. After the questions: a quiet colophon (guide, hotline, references, usage) */
+.flow-embedded:not([data-flow-mode=result]) .evidence-link{background:none!important;border:0!important;box-shadow:none!important;padding:0!important;margin:48px 0 0!important;font-size:14px!important}
+.flow-embedded:not([data-flow-mode=result]) #guide{background:none!important;border:0!important;border-top:1px solid var(--k-hair)!important;border-radius:0!important;box-shadow:none!important;padding:28px 0 0!important;margin:16px 0 0!important}
+.flow-embedded:not([data-flow-mode=result]) #guide>h2{font-size:20px!important;font-weight:750!important;margin:0 0 14px!important}
+.flow-embedded:not([data-flow-mode=result]) #guide .guide-grid{gap:24px!important}
+.flow-embedded:not([data-flow-mode=result]) #guide .guide-grid article{background:none!important;border:0!important;box-shadow:none!important;padding:0!important;border-radius:0!important}
+.flow-embedded:not([data-flow-mode=result]) #guide .guide-grid b{font-size:15px!important;color:var(--k-ink)!important}
+.flow-embedded:not([data-flow-mode=result]) #guide .guide-grid p{font-size:14px!important;line-height:1.65!important;color:var(--k-sec)!important}
+.flow-embedded:not([data-flow-mode=result]) #guide .hotline{background:none!important;border:0!important;border-top:1px solid var(--k-hair)!important;border-radius:0!important;padding:18px 0 0!important;margin-top:20px!important;gap:8px!important;flex-wrap:wrap}
+.flow-embedded:not([data-flow-mode=result]) #guide .hotline strong{color:var(--k-rose)!important;font-size:15px!important;min-height:0!important;background:none!important}
+.flow-embedded:not([data-flow-mode=result]) #guide .hotline a{background:var(--k-rose-soft)!important;border:0!important;border-radius:14px!important;box-shadow:none!important;color:var(--k-rose)!important}
+.flow-embedded:not([data-flow-mode=result]) #references,.flow-embedded:not([data-flow-mode=result]) .usage-stats{background:none!important;border:0!important;border-top:1px solid var(--k-hair)!important;border-radius:0!important;box-shadow:none!important;padding:18px 0 0!important;margin:24px 0 0!important}
+.flow-embedded:not([data-flow-mode=result]) #references strong,.flow-embedded:not([data-flow-mode=result]) .usage-stats h2{font-size:14px!important;color:var(--k-ter)!important;letter-spacing:.03em}
+.flow-embedded:not([data-flow-mode=result]) #references p{font-size:14px!important;color:var(--k-sec)!important;margin:4px 0!important}
+.flow-embedded:not([data-flow-mode=result]) .usage-stats dl{gap:0!important;margin:8px 0!important}
+.flow-embedded:not([data-flow-mode=result]) .usage-stats dl>div{background:none!important;border:0!important;border-left:1px solid var(--k-hair)!important;border-radius:0!important;padding:0 14px!important;box-shadow:none!important}
+.flow-embedded:not([data-flow-mode=result]) .usage-stats dl>div:first-child{border-left:0!important;padding-left:0!important}
+.flow-embedded:not([data-flow-mode=result]) .usage-stats dt{font-size:13px!important;color:var(--k-ter)!important}
+.flow-embedded:not([data-flow-mode=result]) .usage-stats dd{font-size:18px!important;font-weight:700!important}
+.flow-embedded:not([data-flow-mode=result]) .usage-stats p,.flow-embedded:not([data-flow-mode=result]) .usage-stats summary{font-size:13px!important;color:var(--k-ter)!important}
+
+@media(max-width:720px){
+  .flow-embedded:not([data-flow-mode=result]) main.wrap{padding:0 0 20px!important}
+  .flow-embedded:not([data-flow-mode=result]) #safety,.flow-embedded:not([data-flow-mode=result]) #assessment{padding-top:28px!important;margin-top:28px!important}
+  .flow-embedded:not([data-flow-mode=result]) .panel-head h2{font-size:25px!important}
+  .flow-embedded:not([data-flow-mode=result]) .notice strong{font-size:14px!important}
+  .flow-embedded:not([data-flow-mode=result]) .privacy>div:first-child{grid-template-columns:1fr;grid-template-rows:none;grid-auto-flow:row}
+  .flow-embedded:not([data-flow-mode=result]) .privacy>div:first-child>small,.flow-embedded:not([data-flow-mode=result]) .privacy>div:first-child>#welfareZoneHint{grid-row:auto;grid-column:auto}
+  .flow-embedded:not([data-flow-mode=result]) .privacy>div:first-child>label:not(:first-child){margin-top:8px!important}
+  .flow-embedded:not([data-flow-mode=result]) .scale-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+  .flow-embedded:not([data-flow-mode=result]) .scale-grid>div:nth-child(3){border-right:0!important}
+  .flow-embedded:not([data-flow-mode=result]) .scale-grid>div:nth-child(-n+3){border-bottom:1px solid var(--k-hair)!important}
+  .flow-embedded:not([data-flow-mode=result]) #oyCaseContext{padding:18px 16px!important;border-radius:16px!important}
+  .flow-embedded:not([data-flow-mode=result]) .domain-header{grid-template-columns:auto 1fr}
+  .flow-embedded:not([data-flow-mode=result]) .domain-count{grid-column:2}
+  .flow-embedded:not([data-flow-mode=result]) .domain-title{font-size:20px!important}
+  .flow-embedded:not([data-flow-mode=result]) .question-text{font-size:16px!important}
+  .flow-embedded:not([data-flow-mode=result]) .options{display:flex!important;width:100%!important}
+  .flow-embedded:not([data-flow-mode=result]) .options .score-choice{flex:1 1 0;min-width:0!important;padding:0 4px!important}
+  .flow-embedded:not([data-flow-mode=result]) .options .unknown-choice{flex:1.4 1 0;margin-left:4px!important}
+  .flow-embedded:not([data-flow-mode=result]) .assessment-tools{flex-wrap:wrap}
+  .flow-embedded:not([data-flow-mode=result]) .eval-actions{flex-direction:column-reverse;align-items:stretch}
+  .flow-embedded:not([data-flow-mode=result]) #complete{width:100%}
+  .flow-embedded:not([data-flow-mode=result]) .usage-stats dl{display:grid!important;grid-template-columns:1fr 1fr;row-gap:10px!important}
+  .flow-embedded:not([data-flow-mode=result]) .usage-stats dl>div:nth-child(3){border-left:0!important;padding-left:0!important}
+}
+
+/* 13. Magazine spread: on wide screens the domain number and name sit in a left margin column;
+   the narrative sheet follows the 25 questions, right before the completion action. */
+.flow-embedded:not([data-flow-mode=result]) #assessment{display:flex!important;flex-direction:column}
+.flow-embedded:not([data-flow-mode=result]) #assessment>*{order:0}
+.flow-embedded:not([data-flow-mode=result]) #assessment>#oyCaseContext{order:1}
+.flow-embedded:not([data-flow-mode=result]) #assessment>.eval-actions{order:2}
+@media(min-width:900px){
+  .flow-embedded:not([data-flow-mode=result]) .domain-card{display:grid!important;grid-template-columns:200px minmax(0,1fr);column-gap:36px;border-top:2px solid var(--k-ink)!important;padding-top:16px!important}
+  .flow-embedded:not([data-flow-mode=result]) .domain-header{display:block!important;border:0!important;padding:0!important;align-self:start;grid-column:1;grid-row:1/span 6}
+  .flow-embedded:not([data-flow-mode=result]) .domain-index{display:block!important;font-size:44px!important;line-height:1!important;font-weight:300!important;color:var(--k-acc)!important;margin-bottom:8px}
+  .flow-embedded:not([data-flow-mode=result]) .domain-title{display:block;font-size:21px!important;line-height:1.3!important}
+  .flow-embedded:not([data-flow-mode=result]) .domain-count{display:block;margin-top:8px;text-align:left!important}
+  .flow-embedded:not([data-flow-mode=result]) .domain-card .question{grid-column:2}
+  .flow-embedded:not([data-flow-mode=result]) .domain-card .question:first-of-type{padding-top:2px!important}
+  .flow-embedded:not([data-flow-mode=result]) .panel-head h2{font-size:40px!important}
+}
