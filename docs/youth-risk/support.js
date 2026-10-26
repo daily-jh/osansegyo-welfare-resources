@@ -6,82 +6,89 @@ function priority(d){return d.safety?'안전 우선':d.unknown?'추가 확인 �
 function color(v){var a=[248,250,253],b=[182,206,233];return 'rgb('+a.map((n,i)=>Math.round(n+(b[i]-n)*v/4)).join(',')+')'}
 function wrap(t,n,max){var chars=Array.from(String(t||'')),lines=[];while(chars.length&&lines.length<max)lines.push(chars.splice(0,n).join(''));if(chars.length)lines[lines.length-1]=lines[lines.length-1].slice(0,-1)+'…';return lines.length?lines:['기관 확인 필요']}
 function svgText(x,y,t,size,fill,anchor){return '<text x="'+x+'" y="'+y+'" font-size="'+size+'" fill="'+(fill||'#30445c')+'" text-anchor="'+(anchor||'start')+'" font-weight="600">'+esc(t)+'</text>'}
-// Line icons on a 24px grid, one per domain (YouthMap order).
+// Apple-style palette: one meaning per color (blue = selection/action, pink = safety, orange = 미상).
+var AP={bg:'#f5f5f7',card:'#ffffff',text:'#1d1d1f',sub:'#6e6e73',ter:'#86868b',sep:'#e5e5ea',line:'#d2d2d7',blue:'#0071e3',blueSoft:'#e8f1fc',pink:'#d92d50',pinkSoft:'#fdecef',orange:'#c26a00',orangeSoft:'#fff4e5',gray:'#aeaeb2',graySoft:'#f2f2f7',gold:'#e0a100'};
+// SF Symbols-like glyphs on a 24px grid, one per domain (YouthMap order).
 var ICONS=['M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6zM9 12l2 2 4-4','M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M16 5.5a3 3 0 0 1 0 5.6M21 20c0-2.6-1.6-4.8-4-5.6','M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z','M5 4.5A1.5 1.5 0 0 1 6.5 3H19v14H6.5A1.5 1.5 0 0 0 5 18.5zM5 18.5A1.5 1.5 0 0 0 6.5 20H19M9 7h6','M3 12h4l2-5 4 10 2-5h6','M2 9l10-5 10 5-10 5zM6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5M22 9v6','M3 11l9-7 9 7M5 10v10h14V10M12 17s-3-1.8-3-4a1.6 1.6 0 0 1 3-.8 1.6 1.6 0 0 1 3 .8c0 2.2-3 4-3 4z','M3 7h15a3 3 0 0 1 3 3v7a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3zM3 7l12-4 2 4M16 13.5h.01','M4 5h11a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H9l-4 3v-3H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2zM19 9h1a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-1v3l-3-3h-3','M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM11 18h2'];
-function icon(i,cx,cy,size,stroke){var s=size/24;return '<path d="'+ICONS[i]+'" transform="translate('+(cx-12*s)+' '+(cy-12*s)+') scale('+s+')" fill="none" stroke="'+stroke+'" stroke-width="'+(1.6/s)+'" stroke-linecap="round" stroke-linejoin="round"/>'}
+function icon(i,cx,cy,size,stroke){var s=size/24;return '<path d="'+ICONS[i]+'" transform="translate('+(cx-12*s)+' '+(cy-12*s)+') scale('+s+')" fill="none" stroke="'+stroke+'" stroke-width="'+(2/s)+'" stroke-linecap="round" stroke-linejoin="round"/>'}
+function T(x,y,t,size,fill,weight,anchor,spacing){return '<text x="'+x+'" y="'+y+'" font-size="'+size+'" fill="'+fill+'" font-weight="'+(weight||500)+'" text-anchor="'+(anchor||'start')+'"'+(spacing?' letter-spacing="'+spacing+'"':'')+'>'+esc(t)+'</text>'}
 function textW(t,size){return Array.from(String(t)).reduce((w,c)=>w+(/[ㄱ-힝]/.test(c)?size*.98:/[A-Z0-9]/.test(c)?size*.62:size*.5),0)}
-function svgOpen(W,H,d,compact){return '<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'"'+(compact?' class="map-compact"':'')+' role="img" aria-labelledby="mapTitle mapDescription" font-family="SUIT Variable, Apple SD Gothic Neo, Malgun Gothic, sans-serif"><title id="mapTitle">청소년 중심 '+esc(d.name)+' 기관·사업 연결지도</title><desc id="mapDescription">가운데 청소년과 이번 응답에서 어려움이 보고되었거나 미상인 영역을 연결합니다. 선의 굵기는 영역 평균(0~4점)이며 위험확률이 아닙니다. 선택한 영역에서 기관·사업 문의 후보로 이어집니다.</desc>'+
- '<defs><linearGradient id="mapBg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7f9fc"/><stop offset="1" stop-color="#eef3f9"/></linearGradient><pattern id="mapDots" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r="1.1" fill="#dbe4ef"/></pattern>'+
- '<radialGradient id="hubFill" cx=".35" cy=".3" r=".9"><stop offset="0" stop-color="#7fa6dc"/><stop offset=".6" stop-color="#4675b6"/><stop offset="1" stop-color="#2f5b98"/></radialGradient>'+
- '<linearGradient id="flowLine" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6f9bd6"/><stop offset="1" stop-color="#2a64ab"/></linearGradient>'+
- '<filter id="softShadow" x="-20%" y="-30%" width="140%" height="170%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#1f3f66" flood-opacity="0.10"/></filter>'+
- '<filter id="hubShadow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#244c84" flood-opacity="0.28"/></filter>'+
- '<marker id="mapArrow" viewBox="0 0 10 10" markerWidth="9" markerHeight="9" refX="8" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M1.5 1.5 8.5 5 1.5 8.5" fill="none" stroke="#2a64ab" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>'+
- '<rect width="'+W+'" height="'+H+'" fill="url(#mapBg)"/><rect width="'+W+'" height="'+H+'" fill="url(#mapDots)" opacity=".55"/>'}
-function hubSVG(CX,CY,R){var k=R/80;return '<circle cx="'+CX+'" cy="'+CY+'" r="'+(R+18*k)+'" fill="#ffffff" opacity=".55"/><circle cx="'+CX+'" cy="'+CY+'" r="'+R+'" fill="url(#hubFill)" filter="url(#hubShadow)"/><circle cx="'+CX+'" cy="'+CY+'" r="'+R+'" fill="none" stroke="#fff" stroke-width="3" opacity=".9"/>'+
- '<path d="M'+(CX-46*k)+' '+(CY-40*k)+' A'+(62*k)+' '+(62*k)+' 0 0 1 '+(CX+40*k)+' '+(CY-46*k)+'" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity=".35"/>'+
- '<circle cx="'+CX+'" cy="'+(CY-26*k)+'" r="'+(14*k)+'" fill="none" stroke="#e3f0fb" stroke-width="2.6"/><path d="M'+(CX-24*k)+' '+(CY+8*k)+'c0-'+(13*k)+' '+(10.7*k)+'-'+(20*k)+' '+(24*k)+'-'+(20*k)+'s'+(24*k)+' '+(7*k)+' '+(24*k)+' '+(20*k)+'" fill="none" stroke="#e3f0fb" stroke-width="2.6" stroke-linecap="round"/>'+
- svgText(CX,CY+34*k,'대상 청소년',18*k,'#fff','middle')+svgText(CX,CY+54*k,'1차 응답 기반',Math.max(11,11.5*k),'#d8e8f7','middle')}
-function nodeSVG(a,x,y,NW,NH){var sel=a.i===selected,muted=!a.sum&&!a.unknown,tone=a.safety?'#b8334f':a.unknown?'#a87512':'#2f69ad',tint=a.safety?'#fbe8ec':a.unknown?'#fdf3e0':muted?'#eef2f7':'#e6eefa',stroke=sel?'#2a64ab':a.safety?'#cf6880':a.unknown?'#d9a849':'#d6e2ef',bw=NW-62;
- return '<g role="button" tabindex="0" data-domain="'+a.i+'" aria-label="'+esc(a.name+' 평균 '+meanText(a,1)+'점, 최고 '+a.peak+'점'+(a.safety?', 안전 우선':''))+'" aria-pressed="'+sel+'" opacity="'+(muted&&!sel?.62:1)+'"><title>'+esc(a.name+' '+a.sum+'/'+(a.values.length*4)+'점')+'</title>'+
- (sel?'<rect x="'+(x-6)+'" y="'+(y-6)+'" width="'+(NW+12)+'" height="'+(NH+12)+'" rx="26" fill="#3a72b8" opacity=".12"/>':'')+
- '<rect class="node-box" x="'+x+'" y="'+y+'" width="'+NW+'" height="'+NH+'" rx="20" fill="#fff" stroke="'+stroke+'" stroke-width="'+(sel||a.safety?2.4:1.2)+'"'+(a.unknown?' stroke-dasharray="5 4"':'')+' filter="url(#softShadow)"/>'+
- '<circle cx="'+(x+26)+'" cy="'+(y+27)+'" r="16" fill="'+tint+'"/>'+icon(a.i,x+26,y+27,19,tone)+
- svgText(x+50,y+29,a.label,14,'#17324f')+svgText(x+50,y+46,a.unknown?'미상 '+a.unknown+' · 확인 '+a.known+'/'+a.values.length:'평균 '+meanText(a,1)+' · 최고 '+a.peak,11,'#56708a')+
- '<rect x="'+(x+50)+'" y="'+(y+52)+'" width="'+bw+'" height="5" rx="2.5" fill="#e8eef5"/><rect x="'+(x+50)+'" y="'+(y+52)+'" width="'+(a.unknown?0:bw*a.mean/4)+'" height="5" rx="2.5" fill="'+(a.safety?'#c23d5a':'#3a7bbf')+'"/>'+
- (a.safety?'<circle cx="'+(x+NW-6)+'" cy="'+(y+6)+'" r="9" fill="#c23d5a" stroke="#fff" stroke-width="2"/><path d="M'+(x+NW-6)+' '+(y+2)+'v4.5M'+(x+NW-6)+' '+(y+9.6)+'v.1" stroke="#fff" stroke-width="2" stroke-linecap="round"/>':'')+
- (a.peak>=3?'<circle cx="'+(x+NW-(a.safety?26:6))+'" cy="'+(y+6)+'" r="5.5" fill="#d1a144" stroke="#fff" stroke-width="2"/>':'')+'</g>'}
-function cardSVG(d,group,j,X,y,CW,CH,nameChars,svcChars){var r=group.primary,meta=YouthMap.describe(p,d,r),info=YouthLinks.resolve(r),href=link(info.primary),v=SD.verification(r),chip=meta.label,cw=textW(chip,12)+24,tc=meta.safety?['#fbe8ec','#a82e4a']:['#e8f0fa','#2d5b8f'],vc=v.level==='verified'?'#2f8a5b':v.level==='partial'?'#3a72b8':'#c08a2a',names=wrap(r['기관명'],nameChars,2),svc=wrap(r['서비스명'],svcChars,names.length>1?1:2),body='';
- names.forEach((line,k)=>{body+=svgText(X+22,y+70+k*22,line,16.5,'#17324f')});svc.forEach((line,k)=>{body+=svgText(X+22,y+70+names.length*22+4+k*19,line,13.5,'#1f5f96')});
+function svgOpen(W,H,d,compact){return '<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'"'+(compact?' class="map-compact"':'')+' role="img" aria-labelledby="mapTitle mapDescription" font-family="SUIT Variable, -apple-system, BlinkMacSystemFont, Apple SD Gothic Neo, Malgun Gothic, sans-serif"><title id="mapTitle">청소년 중심 '+esc(d.name)+' 기관·사업 연결지도</title><desc id="mapDescription">가운데 청소년과 이번 응답에서 어려움이 보고되었거나 미상인 영역을 연결합니다. 선의 굵기는 영역 평균(0~4점)이며 위험확률이 아닙니다. 선택한 영역에서 기관·사업 문의 후보로 이어집니다.</desc>'+
+ '<defs><linearGradient id="avatarFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5aa2f5"/><stop offset="1" stop-color="#0a66d6"/></linearGradient>'+
+ '<filter id="softShadow" x="-20%" y="-30%" width="140%" height="170%"><feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#000" flood-opacity="0.04"/><feDropShadow dx="0" dy="6" stdDeviation="9" flood-color="#000" flood-opacity="0.06"/></filter>'+
+ '<filter id="hubShadow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#0a66d6" flood-opacity="0.22"/></filter>'+
+ '<marker id="mapArrow" viewBox="0 0 10 10" markerWidth="8" markerHeight="8" refX="8" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M2.5 1.5 8 5 2.5 8.5" fill="none" stroke="'+AP.blue+'" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>'+
+ '<rect width="'+W+'" height="'+H+'" fill="'+AP.bg+'"/>'}
+function heading(x,y,title,caption,anchor){return T(x,y,title,anchor==='middle'?17:21,AP.text,700,anchor,'-0.3')+(caption?T(x,y+20,caption,12.5,AP.sub,500,anchor):'')}
+// Contacts-style avatar with the label under it.
+function hubSVG(CX,CY,R){var k=R/80;return '<circle cx="'+CX+'" cy="'+CY+'" r="'+(R+10*k)+'" fill="#fff" filter="url(#softShadow)"/><circle cx="'+CX+'" cy="'+CY+'" r="'+R+'" fill="url(#avatarFill)" filter="url(#hubShadow)"/>'+
+ '<circle cx="'+CX+'" cy="'+(CY-14*k)+'" r="'+(17*k)+'" fill="#fff" opacity=".95"/><path d="M'+(CX-32*k)+' '+(CY+40*k)+'c'+(2*k)+'-'+(20*k)+' '+(14*k)+'-'+(30*k)+' '+(32*k)+'-'+(30*k)+'s'+(30*k)+' '+(10*k)+' '+(32*k)+' '+(30*k)+'" fill="#fff" opacity=".95"/>'}
+function hubLabel(CX,y,small){return T(CX,y,'대상 청소년',small?15:17,AP.text,700,'middle','-0.2')+T(CX,y+(small?18:20),'1차 응답 기반',small?11.5:12.5,AP.sub,500,'middle')}
+function tone(a){return a.safety?[AP.pink,AP.pinkSoft]:a.unknown?[AP.orange,AP.orangeSoft]:(!a.sum?[AP.gray,AP.graySoft]:[AP.blue,AP.blueSoft])}
+function nodeSVG(a,x,y,NW,NH){var sel=a.i===selected,muted=!a.sum&&!a.unknown,c=tone(a),bw=NW-66,metric=a.unknown?'미상 '+a.unknown+' · 확인 '+a.known+'/'+a.values.length:'평균 '+meanText(a,1)+' · 최고 '+a.peak,fill=a.unknown?0:bw*a.mean/4;
+ return '<g role="button" tabindex="0" data-domain="'+a.i+'" aria-label="'+esc(a.name+' 평균 '+meanText(a,1)+'점, 최고 '+a.peak+'점'+(a.safety?', 안전 우선':''))+'" aria-pressed="'+sel+'" opacity="'+(muted&&!sel?.55:1)+'"><title>'+esc(a.name+' '+a.sum+'/'+(a.values.length*4)+'점')+'</title>'+
+ '<rect class="node-box" x="'+x+'" y="'+y+'" width="'+NW+'" height="'+NH+'" rx="18" fill="'+(sel?'#fff':AP.card)+'" stroke="'+(sel?AP.blue:a.safety?'#f2b8c4':a.unknown?'#f0c98a':AP.sep)+'" stroke-width="'+(sel?2:1)+'"'+(a.unknown?' stroke-dasharray="4 3"':'')+' filter="url(#softShadow)"/>'+
+ // Settings-style icon tile: white glyph on a rounded colored square.
+ '<rect x="'+(x+12)+'" y="'+(y+NH/2-15)+'" width="30" height="30" rx="8" fill="'+c[0]+'"/>'+icon(a.i,x+27,y+NH/2,17,'#fff')+
+ T(x+54,y+NH/2-5,a.label,14.5,AP.text,650,'start','-0.2')+T(x+54,y+NH/2+12,metric,11.5,AP.sub,500)+
+ '<rect x="'+(x+54)+'" y="'+(y+NH/2+19)+'" width="'+bw+'" height="4" rx="2" fill="'+AP.graySoft+'"/>'+(fill?'<rect x="'+(x+54)+'" y="'+(y+NH/2+19)+'" width="'+Math.max(4,fill)+'" height="4" rx="2" fill="'+c[0]+'"/>':'')+
+ (a.peak>=3?'<circle cx="'+Math.min(x+54+textW(metric,11.5)+6,x+NW-12)+'" cy="'+(y+NH/2+8)+'" r="3.5" fill="'+AP.gold+'"/>':'')+
+ // iOS-style badge on the corner keeps the label clear.
+ (a.safety?'<circle cx="'+(x+NW-3)+'" cy="'+(y+3)+'" r="9" fill="'+AP.pink+'" stroke="'+AP.bg+'" stroke-width="2.5"/><path d="M'+(x+NW-3)+' '+(y-1)+'v4.2M'+(x+NW-3)+' '+(y+6.6)+'v.1" stroke="#fff" stroke-width="1.9" stroke-linecap="round"/>':'')+'</g>'}
+function cardSVG(d,group,j,X,y,CW,CH,nameChars,svcChars){var r=group.primary,meta=YouthMap.describe(p,d,r),info=YouthLinks.resolve(r),href=link(info.primary),v=SD.verification(r),chip=meta.label,cw=textW(chip,11.5)+20,tc=meta.safety?[AP.pinkSoft,AP.pink]:[AP.blueSoft,AP.blue],vc=v.level==='verified'?'#248a3d':v.level==='partial'?AP.blue:AP.orange,names=wrap(r['기관명'],nameChars,2),svc=wrap(r['서비스명'],svcChars,names.length>1?1:2),body='';
+ names.forEach((line,k)=>{body+=T(X+20,y+66+k*22,line,17,AP.text,700,'start','-0.3')});svc.forEach((line,k)=>{body+=T(X+20,y+66+names.length*22+2+k*19,line,13.5,AP.sub,500)});
  return '<a'+(href?' href="'+esc(href)+'" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer"':'')+' aria-label="'+esc(r['기관명']+' '+r['서비스명']+' · '+meta.label+' · 안내 열기')+'"><title>'+esc(meta.reason)+'</title>'+
- '<rect class="institution-box" x="'+X+'" y="'+y+'" width="'+CW+'" height="'+CH+'" rx="22" fill="#fff" stroke="'+(meta.safety?'#e2a5b3':'#d6e2ef')+'" stroke-width="1.4" filter="url(#softShadow)"/>'+
- '<rect x="'+(X+16)+'" y="'+(y+16)+'" width="'+cw+'" height="24" rx="12" fill="'+tc[0]+'"/>'+svgText(X+16+cw/2,y+32.5,chip,12,tc[1],'middle')+svgText(X+CW-20,y+32.5,'기관 '+(j+1),12,'#7a8ea4','end')+body+
- '<line x1="'+(X+20)+'" y1="'+(y+CH-36)+'" x2="'+(X+CW-20)+'" y2="'+(y+CH-36)+'" stroke="#edf1f6"/>'+
- '<circle cx="'+(X+26)+'" cy="'+(y+CH-17)+'" r="4" fill="'+vc+'"/>'+svgText(X+36,y+CH-13,(group.services.length>1?'사업 '+group.services.length+'개 · ':'')+(v.level==='verified'?'공식 안내 확인':v.level==='partial'?'기관 안내 확인':'미검증 · 접수 확인 필요'),12,'#4f6780')+(href?svgText(X+CW-20,y+CH-13,'안내 열기 ↗',12,'#2a64ab','end'):'')+'</a>'}
-function emptyCardSVG(d,X,y,CW){return '<rect x="'+X+'" y="'+y+'" width="'+CW+'" height="140" rx="22" fill="#fff" stroke="#d6e2ef" filter="url(#softShadow)"/>'+svgText(X+22,y+42,'함께 문의할 기관 확인 필요',17,'#17324f')+svgText(X+22,y+72,d.unknown?'아직 확인하지 못한 내용이 있습니다.':d.sum?'자원 DB·기관에 직접 확인하세요.':'이번 응답에서 이 영역은 0점입니다.',13.5,'#4b6480')+svgText(X+22,y+100,'다른 영역을 눌러 연결을 살펴보세요.',13.5,'#4b6480')}
-function legendSVG(x0,y0,maxW){var lx=x0,ly=y0,out='',leg=[['line','선 굵기: 영역 평균(0~4)'],['safety','안전 우선'],['peak','3~4점 응답'],['unknown','미상 포함'],['arrow','문의 후보 기관']];
- leg.forEach(x=>{var gw=x[0]==='line'?30:x[0]==='peak'?18:26,iw=gw+6+textW(x[1],12.5);if(lx>x0&&lx+iw>x0+maxW){lx=x0;ly+=26}var g='';if(x[0]==='line')g='<path d="M'+lx+' '+ly+'h12" stroke="#9fb8d6" stroke-width="2" stroke-linecap="round"/><path d="M'+(lx+14)+' '+ly+'h12" stroke="#9fb8d6" stroke-width="5" stroke-linecap="round"/>';else if(x[0]==='safety')g='<rect x="'+lx+'" y="'+(ly-8)+'" width="22" height="16" rx="6" fill="#fff" stroke="#cf6880" stroke-width="2"/>';else if(x[0]==='peak')g='<circle cx="'+(lx+8)+'" cy="'+ly+'" r="5.5" fill="#d1a144"/>';else if(x[0]==='unknown')g='<rect x="'+lx+'" y="'+(ly-8)+'" width="22" height="16" rx="6" fill="#fff" stroke="#d9a849" stroke-width="1.6" stroke-dasharray="4 3"/>';else g='<path d="M'+lx+' '+ly+'h18" stroke="#3a72b8" stroke-width="2.5" stroke-linecap="round" marker-end="url(#mapArrow)"/>';out+=g+svgText(lx+gw+6,ly+4.5,x[1],12.5,'#4c667c');lx+=iw+22});
+ '<rect class="institution-box" x="'+X+'" y="'+y+'" width="'+CW+'" height="'+CH+'" rx="20" fill="#fff" stroke="'+AP.sep+'" stroke-width="1" filter="url(#softShadow)"/>'+
+ '<rect x="'+(X+16)+'" y="'+(y+16)+'" width="'+cw+'" height="22" rx="11" fill="'+tc[0]+'"/>'+T(X+16+cw/2,y+31,chip,11.5,tc[1],650,'middle')+T(X+CW-18,y+31,String(j+1),12,AP.ter,600,'end')+body+
+ '<line x1="'+(X+20)+'" y1="'+(y+CH-38)+'" x2="'+(X+CW)+'" y2="'+(y+CH-38)+'" stroke="'+AP.sep+'"/>'+
+ '<circle cx="'+(X+24)+'" cy="'+(y+CH-18.5)+'" r="3.5" fill="'+vc+'"/>'+T(X+34,y+CH-14,(group.services.length>1?'사업 '+group.services.length+'개 · ':'')+(v.level==='verified'?'공식 안내 확인':v.level==='partial'?'기관 안내 확인':'미검증 · 접수 확인 필요'),12,AP.sub,500)+
+ (href?T(X+CW-30,y+CH-14,'안내',12.5,AP.blue,600,'end')+'<path d="M'+(X+CW-24)+' '+(y+CH-22.5)+'l4 4-4 4" fill="none" stroke="'+AP.blue+'" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>':'')+'</a>'}
+function emptyCardSVG(d,X,y,CW){return '<rect x="'+X+'" y="'+y+'" width="'+CW+'" height="140" rx="20" fill="#fff" stroke="'+AP.sep+'" filter="url(#softShadow)"/>'+T(X+20,y+42,'함께 문의할 기관 확인 필요',17,AP.text,700)+T(X+20,y+72,d.unknown?'아직 확인하지 못한 내용이 있습니다.':d.sum?'자원 DB·기관에 직접 확인하세요.':'이번 응답에서 이 영역은 0점입니다.',13.5,AP.sub,500)+T(X+20,y+98,'다른 영역을 눌러 연결을 살펴보세요.',13.5,AP.sub,500)}
+function legendSVG(x0,y0,maxW){var lx=x0,ly=y0,out='',leg=[['line','선 굵기 = 영역 평균(0~4)'],['safety','안전 우선'],['peak','3~4점 응답'],['unknown','미상 포함'],['arrow','문의 후보 기관']];
+ leg.forEach(x=>{var gw=x[0]==='line'?26:x[0]==='peak'?10:x[0]==='arrow'?20:16,iw=gw+6+textW(x[1],12);if(lx>x0&&lx+iw>x0+maxW){lx=x0;ly+=24}var g='';
+  if(x[0]==='line')g='<path d="M'+lx+' '+ly+'h10" stroke="'+AP.line+'" stroke-width="1.5" stroke-linecap="round"/><path d="M'+(lx+14)+' '+ly+'h12" stroke="'+AP.line+'" stroke-width="4.5" stroke-linecap="round"/>';
+  else if(x[0]==='safety')g='<circle cx="'+(lx+8)+'" cy="'+ly+'" r="7" fill="'+AP.pink+'"/><path d="M'+(lx+8)+' '+(ly-3.5)+'v3.6M'+(lx+8)+' '+(ly+3)+'v.1" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/>';
+  else if(x[0]==='peak')g='<circle cx="'+(lx+5)+'" cy="'+ly+'" r="4" fill="'+AP.gold+'"/>';
+  else if(x[0]==='unknown')g='<rect x="'+lx+'" y="'+(ly-7)+'" width="16" height="14" rx="4" fill="#fff" stroke="#f0c98a" stroke-dasharray="3 2"/>';
+  else g='<path d="M'+lx+' '+ly+'h16" stroke="'+AP.blue+'" stroke-width="2" stroke-linecap="round" marker-end="url(#mapArrow)"/>';
+  out+=g+T(lx+gw+6,ly+4,x[1],12,AP.sub,500);lx+=iw+22});
  return {svg:out,bottom:ly}}
 var COPY='© 2026 김지훈 · 공익·복리 목적 비영리 무료 이용 · 무단 변형 금지 · 외부 자료 권리 별도';
-function spokeStyle(a){var sel=a.i===selected,w=a.unknown?1.6:1.6+(a.mean||0)*1.25;return {sel,w:sel?Math.max(w,3.5):w,col:sel?'url(#flowLine)':a.safety?'#d07a8d':a.sum?'#9fb8d6':'#cfdae7',dash:a.unknown?' stroke-dasharray="2 6"':'',op:sel?1:a.sum||a.unknown?.85:.6}}
-function spokePath(dpath,a){var s=spokeStyle(a);return (s.sel?'<path d="'+dpath+'" fill="none" stroke="#5b8fd6" stroke-width="'+(s.w+9)+'" stroke-linecap="round" opacity=".14"/>':'')+'<path d="'+dpath+'" fill="none" stroke="'+s.col+'" stroke-width="'+s.w+'" stroke-linecap="round"'+s.dash+' opacity="'+s.op+'"/>'}
-function flowPath(path){return '<path d="'+path+'" fill="none" stroke="#5b8fd6" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" opacity=".12"/><path d="'+path+'" fill="none" stroke="#3a72b8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>'}
-function busSVG(x,y){return '<circle cx="'+x+'" cy="'+y+'" r="9" fill="#fff" stroke="#3a72b8" stroke-width="3"/><circle cx="'+x+'" cy="'+y+'" r="3.5" fill="#3a72b8"/>'}
+function spokePath(dpath,a){var sel=a.i===selected,w=a.unknown?1.5:1.5+(a.mean||0)*1.1;return '<path d="'+dpath+'" fill="none" stroke="'+(sel?AP.blue:a.safety?'#f0a9b8':a.sum?AP.line:AP.sep)+'" stroke-width="'+(sel?Math.max(w,3):w)+'" stroke-linecap="round"'+(a.unknown?' stroke-dasharray="1.5 5"':'')+'/>'}
+function flowPath(path){return '<path d="'+path+'" fill="none" stroke="'+AP.blue+'" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>'}
+function busSVG(x,y){return '<circle cx="'+x+'" cy="'+y+'" r="7" fill="'+AP.blue+'"/><circle cx="'+x+'" cy="'+y+'" r="2.5" fill="#fff"/>'}
 // Wide layout: domains on a ring around the student, candidates to the right.
-function wideDiagram(d,groups,cs,shown){var W=1160,H=700,CX=370,CY=350,RX=270,RY=240,NW=150,NH=66,BUS=762,CARD=812,CW=322,CH=160,parts=[svgOpen(W,H,d,false)];
+function wideDiagram(d,groups,cs,shown){var W=1160,H=700,CX=370,CY=356,RX=270,RY=236,NW=158,NH=64,BUS=770,CARD=812,CW=322,CH=156,parts=[svgOpen(W,H,d,false)];
  var n=shown.length,step=360/Math.max(n,1),start=-90+(n%2?0:step/2),pos={};
  shown.forEach((a,k)=>{var ang=(start+k*step)*Math.PI/180;pos[a.i]={x:CX+RX*Math.cos(ang),y:CY+RY*Math.sin(ang),ang}});
- parts.push('<rect x="'+(CARD-20)+'" y="62" width="'+(W-CARD+6)+'" height="'+(H-128)+'" rx="30" fill="#ffffff" opacity=".45"/>');
- parts.push(svgText(28,40,'대상 청소년 중심 · 영역별 지원 신호',19,'#1d3550'),svgText(CARD,40,'‘'+d.label+'’ 문의 후보 기관',17,'#1d3550'));
- if(p.explicit.length)parts.push(svgText(28,64,'별도 안전 체크 '+p.explicit.length+'개 · 현재 안전·보호 절차 우선',13,'#b12c47'));
+ parts.push(heading(32,42,'영역별 지원 신호',p.explicit.length?'별도 안전 체크 '+p.explicit.length+'개 · 현재 안전·보호 절차 우선':'대상 청소년 중심 · 영역을 누르면 연결이 바뀝니다'),heading(CARD,42,'문의 후보 기관','‘'+d.label+'’ 영역에서 연결'));
  var anchor=(i,toward)=>{var q=pos[i],dx=toward.x-q.x,dy=toward.y-q.y,t=Math.min(Math.abs(dx)>.01?(NW/2+2)/Math.abs(dx):1e9,Math.abs(dy)>.01?(NH/2+2)/Math.abs(dy):1e9);return {x:q.x+dx*t,y:q.y+dy*t}};
- shown.forEach(a=>{var q=pos[a.i],len=Math.hypot(q.x-CX,q.y-CY),ux=(q.x-CX)/len,uy=(q.y-CY)/len,s={x:CX+ux*86,y:CY+uy*86},e=anchor(a.i,{x:CX,y:CY});parts.push(spokePath('M'+s.x+' '+s.y+' Q'+((s.x+e.x)/2-uy*18)+' '+((s.y+e.y)/2+ux*18)+' '+e.x+' '+e.y,a))});
+ shown.forEach(a=>{var q=pos[a.i],len=Math.hypot(q.x-CX,q.y-CY),ux=(q.x-CX)/len,uy=(q.y-CY)/len,s={x:CX+ux*94,y:CY+uy*94},e=anchor(a.i,{x:CX,y:CY});parts.push(spokePath('M'+s.x+' '+s.y+' Q'+((s.x+e.x)/2-uy*16)+' '+((s.y+e.y)/2+ux*16)+' '+e.x+' '+e.y,a))});
  if(cs.length&&pos[selected]){var q=pos[selected],path;
-  if(Math.cos(q.ang)>0.3)path='M'+(q.x+NW/2)+' '+q.y+' C'+(q.x+NW/2+70)+' '+q.y+' '+(BUS-60)+' '+CY+' '+BUS+' '+CY;
-  else{var AR=368,AY=290,ox=CX+AR*Math.cos(q.ang),oy=CY+AY*Math.sin(q.ang),o=anchor(selected,{x:ox,y:oy}),up=(((q.ang*180/Math.PI+540)%360)-180)<0,e=(up?-16:16)*Math.PI/180,ex=CX+AR*Math.cos(e),ey=CY+AY*Math.sin(e),tx=(up?1:-1)*-AR*Math.sin(e),ty=(up?1:-1)*AY*Math.cos(e),tl=Math.hypot(tx,ty);path='M'+o.x+' '+o.y+' L'+ox+' '+oy+' A'+AR+' '+AY+' 0 0 '+(up?1:0)+' '+ex+' '+ey+' C'+(ex+tx/tl*45)+' '+(ey+ty/tl*45)+' '+(BUS-45)+' '+CY+' '+BUS+' '+CY}
+  if(Math.cos(q.ang)>0.3)path='M'+(q.x+NW/2)+' '+q.y+' C'+(q.x+NW/2+60)+' '+q.y+' '+(BUS-50)+' '+CY+' '+BUS+' '+CY;
+  else{var AR=372,AY=286,ACX=CX+20,ox=ACX+AR*Math.cos(q.ang),oy=CY+AY*Math.sin(q.ang),o=anchor(selected,{x:ox,y:oy}),up=(((q.ang*180/Math.PI+540)%360)-180)<0,e=(up?-16:16)*Math.PI/180,ex=ACX+AR*Math.cos(e),ey=CY+AY*Math.sin(e),tx=(up?1:-1)*-AR*Math.sin(e),ty=(up?1:-1)*AY*Math.cos(e),tl=Math.hypot(tx,ty);path='M'+o.x+' '+o.y+' L'+ox+' '+oy+' A'+AR+' '+AY+' 0 0 '+(up?1:0)+' '+ex+' '+ey+' C'+(ex+tx/tl*40)+' '+(ey+ty/tl*40)+' '+(BUS-40)+' '+CY+' '+BUS+' '+CY}
   parts.push(flowPath(path))}
- var tops=cs.map((r,j)=>CY-(cs.length*CH+(cs.length-1)*22)/2+j*(CH+22));
- if(cs.length){tops.forEach(t=>{var y=t+CH/2;parts.push('<path d="M'+BUS+' '+CY+' C'+(BUS+30)+' '+CY+' '+(BUS+20)+' '+y+' '+(CARD-4)+' '+y+'" fill="none" stroke="#3a72b8" stroke-width="2.5" stroke-linecap="round" marker-end="url(#mapArrow)"/>')});parts.push(busSVG(BUS,CY))}
+ var tops=cs.map((r,j)=>CY-(cs.length*CH+(cs.length-1)*20)/2+j*(CH+20));
+ if(cs.length){tops.forEach(t=>{var y=t+CH/2;parts.push('<path d="M'+BUS+' '+CY+' C'+(BUS+24)+' '+CY+' '+(BUS+14)+' '+y+' '+(CARD-4)+' '+y+'" fill="none" stroke="'+AP.blue+'" stroke-width="2" stroke-linecap="round" marker-end="url(#mapArrow)"/>')});parts.push(busSVG(BUS,CY))}
  shown.forEach(a=>parts.push(nodeSVG(a,pos[a.i].x-NW/2,pos[a.i].y-NH/2,NW,NH)));
- parts.push(hubSVG(CX,CY,80));
+ parts.push('<circle cx="'+CX+'" cy="'+CY+'" r="92" fill="#fff" stroke="'+AP.sep+'" filter="url(#softShadow)"/>',hubSVG(CX,CY-18,40),hubLabel(CX,CY+46));
  if(!cs.length)parts.push(emptyCardSVG(d,CARD,CY-70,CW));
  cs.forEach((r,j)=>parts.push(cardSVG(d,groups[j],j,CARD,tops[j],CW,CH,17,22)));
- parts.push(legendSVG(28,H-46,1100).svg,svgText(28,H-16,COPY,11.5,'#6b7f93'),'</svg>');return parts.join('')}
+ parts.push(legendSVG(32,H-44,1100).svg,T(32,H-16,COPY,11,AP.ter,500),'</svg>');return parts.join('')}
 // Narrow layout for phones: student on top, domains in two columns on a trunk, candidates stacked below.
-function compactDiagram(d,groups,cs,shown){var W=420,CX=210,HUB=124,NW=176,NH=66,GAP=16,COL=[18,W-18-NW],TRUNK=CX,top0=HUB+62+28,rows=Math.ceil(shown.length/2),gridEnd=top0+rows*(NH+GAP)-GAP,BUSY=gridEnd+40,CW=W-36,CH=160,cardTop=BUSY+56,parts=[];
- var cardsEnd=cs.length?cardTop+cs.length*(CH+18)-18:cardTop+140,leg=legendSVG(18,cardsEnd+40,W-36),H=leg.bottom+48;
- parts.push(svgOpen(W,H,d,true),svgText(18,34,'대상 청소년 중심 · 영역별 지원 신호',16,'#1d3550'));
- if(p.explicit.length)parts.push(svgText(18,56,'별도 안전 체크 '+p.explicit.length+'개 · 현재 안전·보호 절차 우선',12,'#b12c47'));
+function compactDiagram(d,groups,cs,shown){var W=420,CX=210,HUB=112,NW=184,NH=64,GAP=12,COL=[14,W-14-NW],TRUNK=CX,top0=HUB+96,rows=Math.ceil(shown.length/2),gridEnd=top0+rows*(NH+GAP)-GAP,BUSY=gridEnd+34,CW=W-28,CH=156,cardTop=BUSY+66,parts=[];
+ var cardsEnd=cs.length?cardTop+cs.length*(CH+14)-14:cardTop+140,leg=legendSVG(14,cardsEnd+36,W-28),H=leg.bottom+44;
+ parts.push(svgOpen(W,H,d,true),heading(16,36,'영역별 지원 신호',p.explicit.length?'별도 안전 체크 '+p.explicit.length+'개 · 안전·보호 절차 우선':'영역을 누르면 연결이 바뀝니다'));
  var pos={};shown.forEach((a,k)=>{pos[a.i]={x:COL[k%2],y:top0+Math.floor(k/2)*(NH+GAP)}});
- if(shown.length)parts.push('<path d="M'+TRUNK+' '+(HUB+62)+' V'+(pos[shown[shown.length-1].i].y+NH/2)+'" stroke="#c9d7e7" stroke-width="3" stroke-linecap="round"/>');
- shown.forEach(a=>{var q=pos[a.i],left=q.x<CX,ex=left?q.x+NW:q.x,ey=q.y+NH/2,sy=ey-22;parts.push(spokePath('M'+TRUNK+' '+sy+' C'+TRUNK+' '+ey+' '+TRUNK+' '+ey+' '+ex+' '+ey,a))});
- if(pos[selected]&&cs.length){var q=pos[selected],ix=q.x<CX?q.x+NW:q.x,iy=q.y+NH/2;parts.push(flowPath('M'+ix+' '+iy+' C'+TRUNK+' '+iy+' '+TRUNK+' '+iy+' '+TRUNK+' '+(iy+22)+' V'+BUSY)),parts.push(busSVG(CX,BUSY))}
+ if(shown.length)parts.push('<path d="M'+TRUNK+' '+(HUB+88)+' V'+(pos[shown[shown.length-1].i].y+NH/2)+'" stroke="'+AP.sep+'" stroke-width="2" stroke-linecap="round"/>');
+ shown.forEach(a=>{var q=pos[a.i],left=q.x<CX,ex=left?q.x+NW:q.x,ey=q.y+NH/2;parts.push(spokePath('M'+TRUNK+' '+(ey-16)+' Q'+TRUNK+' '+ey+' '+ex+' '+ey,a))});
+ if(pos[selected]&&cs.length){var q=pos[selected],ix=q.x<CX?q.x+NW:q.x,iy=q.y+NH/2;parts.push(flowPath('M'+ix+' '+iy+' Q'+TRUNK+' '+iy+' '+TRUNK+' '+(iy+12)+' V'+BUSY),busSVG(CX,BUSY))}
  shown.forEach(a=>parts.push(nodeSVG(a,pos[a.i].x,pos[a.i].y,NW,NH)));
- parts.push(hubSVG(CX,HUB,62));
- parts.push(svgText(CX,cardTop-16,'‘'+d.label+'’ 문의 후보 기관',15,'#1d3550','middle'));
- if(!cs.length)parts.push(emptyCardSVG(d,18,cardTop,CW));
- cs.forEach((r,j)=>parts.push(cardSVG(d,groups[j],j,18,cardTop+j*(CH+18),CW,CH,19,24)));
- parts.push(leg.svg,svgText(18,H-18,'© 2026 김지훈 · 비영리 무료 이용 · 무단 변형 금지',11,'#6b7f93'),'</svg>');return parts.join('')}
+ parts.push(hubSVG(CX,HUB,36),hubLabel(CX,HUB+60,true));
+ parts.push(heading(CX,cardTop-30,'문의 후보 기관','‘'+d.label+'’ 영역에서 연결','middle'));
+ if(!cs.length)parts.push(emptyCardSVG(d,14,cardTop,CW));
+ cs.forEach((r,j)=>parts.push(cardSVG(d,groups[j],j,14,cardTop+j*(CH+14),CW,CH,19,25)));
+ parts.push(leg.svg,T(14,H-16,'© 2026 김지훈 · 비영리 무료 이용 · 무단 변형 금지',11,AP.ter,500),'</svg>');return parts.join('')}
 function diagram(){var d=ds[selected],groups=YouthMap.groupedCandidates(p,d),cs=groups.slice(0,3).map(g=>g.primary),only=$('signalsOnly').checked,shown=ds.filter(a=>!only||a.sum||a.unknown||a.i===selected),compact=($('diagramView').clientWidth||window.innerWidth)<700;
  $('diagram').innerHTML=compact?compactDiagram(d,groups,cs,shown):wideDiagram(d,groups,cs,shown)}
 function external(href,label,cls){var u=link(href);return u?'<a'+(cls?' class="'+cls+'"':'')+' href="'+esc(u)+'" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">'+esc(label)+' ↗</a>':''}
