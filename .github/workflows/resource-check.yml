@@ -32,6 +32,7 @@ jobs:
           node tests/institution-programs.cjs
           node tests/resource-expansion.cjs
           node tests/resource-overview.cjs
+          node tests/home-tools-v8.cjs
           for test in tests/youth-*.cjs; do node "$test"; done
       - name: Universal service guide verification and mobile Chrome smoke test
         run: |
