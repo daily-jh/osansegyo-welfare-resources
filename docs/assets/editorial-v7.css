@@ -1,0 +1,164 @@
+/* Editorial v7 — 오산 복지자원 찾기, 2026-10-26.
+   Brings the home page in line with the OY-RALS reading layouts (해석지·지원 연결지도):
+   one accent blue for actions, red only for problems, orange for "확인 필요",
+   quiet fills instead of floating shadows, kicker + headline + hairline rhythm.
+   Loaded after apple-design-v6.css. Presentation only; search, filter, data and print logic are untouched. */
+:root{
+  --ed-accent:#1765bd;--ed-accent-hover:#0f58b5;--ed-accent-soft:#e8f1fc;--ed-accent-line:#b9d1f2;
+  --ed-check:#c26a00;--ed-check-text:#8f4e00;--ed-check-soft:#fff4e5;
+  --ed-closed-soft:#eef1f4;
+  --ed-rule:var(--ads-separator,#dfe5ec);
+}
+
+/* 1. Kickers: one style everywhere (해석지 .odi-kicker 기조) */
+.overline,.eyebrow,p.eyebrow,span.eyebrow,.about-lead .eyebrow.light{color:var(--ads-secondary)!important;font-size:13px;font-weight:700;letter-spacing:.06em}
+.eyebrow span,.about-lead .eyebrow span{background:var(--ed-rule)!important}
+.overline .tiny-dot,.results-dot{background:var(--ed-accent)!important}
+
+/* 2. Header — brand and report button share the first row on phones */
+@media(max-width:700px){
+  .nav-wrap{display:grid!important;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"brand report" "nav nav";align-items:center;gap:6px 12px!important;height:auto!important}
+  .nav-wrap>.brand{grid-area:brand;min-width:0}
+  .nav-wrap>[data-report-download],.nav-wrap>.report-dl{grid-area:report;justify-self:end}
+  .nav-wrap>.top-nav{grid-area:nav;margin:0!important}
+  .site-header{height:auto!important}
+}
+@media(max-width:420px){.brand-copy small{display:none}}
+
+/* 3. Hero — straight cards and no ornament glyphs, like the OY-RALS cover */
+.art-float,.art-float-top,.art-float-mid,.art-float-bottom{transform:none!important;border:1px solid var(--ed-rule)!important;box-shadow:var(--ads-shadow)!important;border-radius:var(--ads-radius-m,14px)!important}
+.art-spark{display:none!important}
+.art-circle-one{border-color:var(--ed-rule)!important}
+@media(max-width:700px){.overline{flex-wrap:wrap;row-gap:8px}.overline .edition{margin-left:0}}
+
+/* 4. Feature pair — two entry cards read as one spread on wide screens */
+.connected-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;padding-top:24px}
+.connected-pair .connected-tools{padding:0!important}
+.connected-pair .connected-card{height:100%;grid-template-columns:1fr!important;align-content:start;gap:14px!important;padding:28px!important;box-shadow:none!important;border:1px solid var(--ed-rule)!important;border-radius:var(--ads-radius-l,20px)!important;background:var(--ads-surface,#fff)!important}
+.connected-pair .connected-tools-youth .connected-card{background:var(--ads-fill,#f2f5f8)!important;border-color:transparent!important}
+.connected-pair .connected-card h2{font-size:22px;line-height:1.4;letter-spacing:-.01em;margin:6px 0 8px}
+.connected-pair .connected-card p{font-size:15px;line-height:1.75;color:var(--ads-secondary)}
+.connected-pair .connected-actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-start}
+.connected-pair .connected-actions a:not(.connected-primary){background:#fff;border:1px solid var(--ed-rule);color:var(--ads-text)}
+.connected-pair .connected-card small{padding-top:12px;border-top:1px solid var(--ed-rule)}
+@media(max-width:900px){.connected-pair{grid-template-columns:1fr}.connected-pair .connected-card{padding:22px!important}}
+
+/* 5. Search section — headline with a hairline, like a magazine section opener */
+#searchArea .section-head{border-top:1px solid var(--ads-text);padding-top:20px}
+#searchArea .section-head h2{letter-spacing:-.02em}
+.search-panel{box-shadow:none!important;border:1px solid var(--ed-rule)!important}
+.search-box{border-color:var(--ed-rule)!important;background:var(--ads-fill,#f2f5f8)!important}
+.search-box:focus-within{border-color:var(--ed-accent)!important;background:#fff!important;box-shadow:0 0 0 4px var(--ed-accent-soft)!important}
+.search-box input{background:transparent!important}
+.search-box button{background:var(--ed-accent)!important;background-image:none!important}
+
+/* 6. Filters — a real surface (it had a shadow but no background) */
+.filter-panel{background:var(--ads-surface,#fff)!important;border:1px solid var(--ed-rule)!important;box-shadow:none!important;border-radius:var(--ads-radius-l,20px)!important;padding:24px 28px 26px!important;margin-top:16px}
+.filter-title-line{margin-bottom:16px}
+.filter-controls{border-bottom:0!important;padding-bottom:0!important}
+.reset-link{display:inline-flex;align-items:center;gap:6px;padding:0 8px;border-radius:999px}
+.reset-link:hover{color:var(--ed-accent)!important;background:var(--ed-accent-soft)}
+/* region = segmented control */
+.region-tabs{display:inline-flex!important;flex-wrap:nowrap!important;gap:2px!important;padding:3px;background:var(--ads-fill,#f2f5f8);border-radius:12px;margin-bottom:22px!important;max-width:100%}
+.region-tabs button{flex:0 1 auto!important;min-width:0!important;min-height:40px!important;padding:0 18px!important;border:0!important;border-radius:9px!important;background:transparent!important;background-image:none!important;color:var(--ads-secondary)!important;font-size:14px!important;font-weight:600!important;box-shadow:none!important;display:inline-flex!important;flex-direction:row!important;align-items:center;gap:6px!important;white-space:nowrap}
+.region-tabs button b{margin:0!important;font-weight:700}
+.region-tabs button:hover:not(.selected){color:var(--ads-text)!important}
+.region-tabs button.selected{background:#fff!important;color:var(--ads-text)!important;box-shadow:0 1px 2px rgba(18,38,63,.1),0 2px 8px rgba(18,38,63,.06)!important}
+@media(max-width:700px){
+  .filter-panel{padding:20px 18px 22px!important}
+  .region-tabs{display:grid!important;grid-template-columns:1fr 1fr;width:100%}
+  .region-tabs button{justify-content:center;padding:0 8px!important}
+}
+/* need chips: one accent, no green or gradient */
+.category-chips button{background:#fff!important;background-image:none!important;border:1px solid var(--ed-rule)!important;color:var(--ads-secondary)!important;font-weight:600!important}
+.category-chips button:hover:not(.active){color:var(--ads-text)!important;border-color:#c6d3e0!important}
+.category-chips button.active{background:var(--ed-accent-soft)!important;border-color:var(--ed-accent-line)!important;color:var(--ed-accent-hover)!important}
+.quick-tag.active{background:var(--ed-accent-soft)!important;border-color:var(--ed-accent-line)!important;color:var(--ed-accent-hover)!important}
+.select-wrap select,.extra-filter-grid select,#sortSelect{border:1px solid var(--ed-rule)!important;background-color:#fff;padding-inline:12px 32px;border-color:var(--ed-rule)!important;border-radius:var(--ads-radius-s,10px)!important;min-height:44px}
+
+/* 7. Advanced filters — same surface, chevron instead of the ▶ marker */
+.advanced-filters{border:1px solid var(--ed-rule)!important;border-radius:var(--ads-radius-l,20px)!important;box-shadow:none!important;background:#fff!important;padding:0 28px!important;margin-top:12px!important}
+.advanced-filters summary{list-style:none;display:flex!important;align-items:center;justify-content:space-between;gap:12px;min-height:56px;font-weight:700}
+.advanced-filters summary::-webkit-details-marker{display:none}
+.advanced-filters summary::after{content:"";width:8px;height:8px;margin-right:4px;border-right:2px solid var(--ads-secondary);border-bottom:2px solid var(--ads-secondary);transform:rotate(45deg) translateY(-2px);transition:transform .2s}
+.advanced-filters[open] summary::after{transform:rotate(-135deg) translateY(-2px)}
+.advanced-filters[open]{padding-bottom:20px!important}
+.advanced-filters[open] summary{border-bottom:1px solid var(--ed-rule);margin-bottom:16px}
+@media(max-width:700px){.advanced-filters{padding:0 18px!important}}
+
+/* 8. Result toolbars — one quiet strip, capsule buttons */
+.search-guide{margin:16px 0 0}
+.print-toolbar{gap:8px!important;margin:16px 0 0!important;padding:10px 10px 10px 18px;background:var(--ads-fill,#f2f5f8);border-radius:var(--ads-radius-m,14px)}
+.print-toolbar span{margin-right:auto;color:var(--ads-secondary)}
+.print-toolbar span b{color:var(--ads-text)}
+.print-toolbar button{min-height:40px;padding:0 16px!important;border-radius:999px!important;border:1px solid var(--ed-rule)!important;background:#fff!important;color:var(--ads-text);font-weight:600;font-size:14px}
+.print-toolbar #printSheet:not(:disabled){background:var(--ed-accent)!important;border-color:var(--ed-accent)!important;color:#fff}
+.print-toolbar button:disabled{opacity:1!important;color:#8a97a5;background:transparent!important}
+.results-toolbar{padding-bottom:14px;border-bottom:1px solid var(--ed-rule);margin:28px 0 20px!important}
+.favorite-toggle input{accent-color:var(--ed-accent)!important}
+@media(max-width:700px){.print-toolbar{padding:12px}.print-toolbar span{flex-basis:100%}}
+
+/* 9. Institution cards */
+.results-grid{align-items:start}
+.org-card{box-shadow:none!important;border:1px solid var(--ed-rule)!important}
+.org-card:hover{border-color:#c6d3e0!important;box-shadow:var(--ads-shadow)!important}
+.region-label,.type-label{border-radius:6px!important;font-weight:600!important}
+.region-label{background:var(--ads-fill,#f2f5f8)!important;color:var(--ads-text)!important}
+.type-label{background:transparent!important;border:1px solid var(--ed-rule)!important;color:var(--ads-secondary)!important}
+.service-tag{background:var(--ads-fill,#f2f5f8)!important;border-color:transparent!important;color:var(--ads-secondary)!important;border-radius:6px!important}
+.star-button{display:inline-grid!important;place-items:center;border-radius:999px;color:#7d8a96}
+.star-button:hover{background:var(--ads-fill,#f2f5f8)}
+.star-button.active{color:var(--ed-check)!important}
+.expand-button{color:var(--ed-accent)!important}
+.print-choice input{accent-color:var(--ed-accent)}
+/* an opened card becomes a full-width spread: contact on the left, services on the right */
+.org-card.expanded{grid-column:1/-1;border-color:#c6d3e0!important}
+.org-card.expanded .org-name{font-size:clamp(22px,2.2vw,26px)}
+@media(min-width:900px){
+  .org-card.expanded .org-details{display:grid;grid-template-columns:minmax(260px,330px) minmax(0,1fr);column-gap:36px;row-gap:0;align-items:start}
+  .org-card.expanded .org-details>*{grid-column:2}
+  .org-card.expanded .org-details>.institution-contact{grid-column:1;grid-row:1/span 60;position:sticky;top:88px;margin:0!important}
+  .org-card.expanded .org-details>.detail-heading{margin-top:0!important}
+}
+.institution-contact{background:var(--ads-fill,#f2f5f8)!important;background-image:none!important;border:0!important;box-shadow:none!important;border-radius:var(--ads-radius-m,14px)!important}
+.official-homepage{background:var(--ed-accent)!important;background-image:none!important;border-radius:999px!important;min-height:44px;display:inline-flex!important;align-items:center;padding:0 18px!important;color:#fff!important}
+.official-homepage:hover{background:var(--ed-accent-hover)!important}
+.address-map-links a,.program-link,.share-link{border-radius:999px!important;border-color:var(--ed-rule)!important}
+.detail-heading{font-size:13px!important;font-weight:700;letter-spacing:.06em;color:var(--ads-secondary)!important;padding-bottom:8px;border-bottom:1px solid var(--ads-text)}
+.service-detail{border-top-color:var(--ed-rule)!important}
+.service-detail .detail-title{font-size:19px;letter-spacing:-.01em}
+.detail-cat{background:var(--ads-fill,#f2f5f8)!important;color:var(--ads-secondary)!important;border:0!important;border-radius:6px!important}
+/* status: blue = open, orange = 확인 필요, grey = closed (지도와 같은 색 의미) */
+.program-status{border-radius:999px!important;font-weight:700;background:var(--ed-check-soft)!important;border:1px solid #f2d3a6!important;color:var(--ed-check-text)!important}
+.program-status[data-tone=open]{background:var(--ed-accent)!important;border-color:var(--ed-accent)!important;color:#fff!important}
+.program-status[data-tone=steady],.program-status[data-tone=soon]{background:var(--ed-accent-soft)!important;border-color:var(--ed-accent-line)!important;color:var(--ed-accent-hover)!important}
+.program-status[data-tone=closed]{background:var(--ed-closed-soft)!important;border-color:var(--ed-rule)!important;color:#55626f!important}
+.load-more{border-radius:999px!important;border-color:var(--ed-rule)!important;box-shadow:none!important;min-height:48px}
+.empty-emoji{display:grid!important;place-items:center;color:var(--ads-tertiary)!important}
+.empty-emoji .ads-icon{width:32px;height:32px}
+
+/* 10. Field note — reading page, no arc crossing the text */
+.about-section{background:var(--ads-fill,#f2f5f8)!important}
+.about-section:before,.about-section:after{display:none!important}
+.about-lead h2{letter-spacing:-.02em}
+.about-lead h2 em{color:var(--ed-accent)!important}
+.about-notes .note{border-color:var(--ed-rule)!important}
+.about-notes .note>span{color:var(--ed-accent)!important;font-weight:700}
+.about-notes .note:last-child strong{color:#b02424}
+.outline-light{border-color:var(--ed-rule)!important;background:#fff!important;color:var(--ads-text)!important;border-radius:999px!important;min-height:44px;display:inline-flex!important;align-items:center}
+.maintenance{margin-top:32px}
+.maintenance h2{border-top:1px solid var(--ads-text);padding-top:20px}
+.maintenance-links{gap:4px 20px}
+.maintenance-links a{color:var(--ed-accent)}
+
+/* 11. Footer and rights notice share the content column */
+.rights-notice{padding-left:28px!important;padding-right:28px!important}
+.rights-notice h2{font-size:17px!important}
+.footer-flower{display:none!important}
+@media(max-width:700px){.rights-notice,.maintenance{padding-left:20px!important;padding-right:20px!important}}
+
+@media print{
+  .connected-pair{display:none}
+  .org-card.expanded .org-details{display:block}
+  .org-card.expanded .org-details>.institution-contact{position:static}
+}

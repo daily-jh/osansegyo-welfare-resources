@@ -30,9 +30,9 @@
   <script defer src="assets/data.js?v=20261023-cases1"></script>
   <script defer src="assets/search-model.js?v=20261023-cases1"></script>
   <script defer src="assets/program-feed.js?v=20261023-cases1"></script>
-  <script defer src="assets/app.js?v=20261025-svc2"></script>
+  <script defer src="assets/app.js?v=20261026-ed7"></script>
   <script defer src="assets/report-download.js?v=20261026-rev2"></script>
-<link rel="stylesheet" href="assets/apple-hig-refinement.css?v=20261025-hig3"><link rel="stylesheet" href="assets/apple-design-skill-v4.css?v=20261025-hig4"><link rel="stylesheet" href="assets/apple-design-v6.css?v=20261026-ads6"></head>
+<link rel="stylesheet" href="assets/apple-hig-refinement.css?v=20261025-hig3"><link rel="stylesheet" href="assets/apple-design-skill-v4.css?v=20261025-hig4"><link rel="stylesheet" href="assets/apple-design-v6.css?v=20261026-ads6"><link rel="stylesheet" href="assets/editorial-v7.css?v=20261026-ed7"></head>
 <body>
   <a href="#searchArea" class="skip-link">검색 영역으로 건너뛰기</a>
   <header class="site-header">
@@ -84,7 +84,7 @@
       </div>
     </section>
 
-    <section class="container connected-tools" aria-label="범용 지원과제 탐색"><div class="connected-card"><div><span class="eyebrow">ALL AGES · SERVICE FIRST</span><h2>복지자원, 필요한 도움부터 찾아보세요.</h2><p>생애주기·욕구영역·지원방식·지역을 교차 검색하고 실제 의뢰 전 확인사항을 함께 살펴볼 수 있습니다.</p></div><div class="connected-actions"><a class="connected-primary" href="service-guide.html">지원과제로 서비스 찾기 ↗</a><a href="resource-map.html">기관 연결도 보기 ↗</a></div><small>지원대상에 청소년만 제한하지 않으며, 사업 등록이 현재 이용 가능을 뜻하지 않습니다.</small></div></section><section class="container connected-tools" aria-labelledby="connectedTitle"><div class="connected-card"><div><span class="eyebrow">CONNECTED SUPPORT</span><h2 id="connectedTitle">전문 연계 시스템 · 청소년 위기평가</h2><p>학생의 이야기를 살피고, 독립적인 청소년 위기징후 평가 결과를 공통 복지자원 정보와 연결합니다. 복지자원 검색은 전체 생애주기 이용자에게 열려 있습니다.</p></div><div class="connected-actions"><a class="connected-primary" href="youth-risk/">위기평가 시작 ↗</a><a href="youth-risk/support.html">지원 연결지도 ↗</a></div><small>지원 연결지도는 평가 결과에서 열면 해당 결과에 맞는 기관을 보여줍니다.</small></div></section>
+    <div class="container connected-pair"><section class="connected-tools" aria-label="범용 지원과제 탐색"><div class="connected-card"><div><span class="eyebrow">ALL AGES · SERVICE FIRST</span><h2>복지자원, 필요한 도움부터 찾아보세요.</h2><p>생애주기·욕구영역·지원방식·지역을 교차 검색하고 실제 의뢰 전 확인사항을 함께 살펴볼 수 있습니다.</p></div><div class="connected-actions"><a class="connected-primary" href="service-guide.html">지원과제로 서비스 찾기 ↗</a><a href="resource-map.html">기관 연결도 보기 ↗</a></div><small>지원대상에 청소년만 제한하지 않으며, 사업 등록이 현재 이용 가능을 뜻하지 않습니다.</small></div></section><section class="connected-tools connected-tools-youth" aria-labelledby="connectedTitle"><div class="connected-card"><div><span class="eyebrow">CONNECTED SUPPORT</span><h2 id="connectedTitle">전문 연계 시스템 · 청소년 위기평가</h2><p>학생의 이야기를 살피고, 독립적인 청소년 위기징후 평가 결과를 공통 복지자원 정보와 연결합니다. 복지자원 검색은 전체 생애주기 이용자에게 열려 있습니다.</p></div><div class="connected-actions"><a class="connected-primary" href="youth-risk/">위기평가 시작 ↗</a><a href="youth-risk/support.html">지원 연결지도 ↗</a></div><small>지원 연결지도는 평가 결과에서 열면 해당 결과에 맞는 기관을 보여줍니다.</small></div></section></div>
     <section id="searchArea" class="directory container">
       <div class="section-head"><div><p class="eyebrow">RESOURCE FINDER <span></span> 복지자원 찾기</p><h2>어떤 지원이 필요하신가요?</h2><p>기관명, 지원대상 또는 필요한 서비스를 입력해 보세요.</p></div><div class="section-decoration">01 <span>/</span> SEARCH</div></div>
       <div class="search-panel">
@@ -98,7 +98,7 @@
       </div>
 
       <div class="filter-panel">
-        <div class="filter-title-line"><strong>조건별로 찾아보기</strong><button class="reset-link" id="resetFilters" type="button"><span aria-hidden="true">↻</span> 필터 초기화</button></div>
+        <div class="filter-title-line"><strong>조건별로 찾아보기</strong><button class="reset-link" id="resetFilters" type="button"><svg class="ads-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3"/><path d="M4.5 4.5v3.8h3.8"/></svg> 필터 초기화</button></div>
         <div class="region-tabs" id="regionTabs" role="group" aria-label="자원 범주"><button type="button" class="selected" data-level="전체">전체 보기</button><button type="button" data-level="오산시">01 <b>오산시</b></button><button type="button" data-level="경기도">02 <b>경기도</b></button><button type="button" data-level="민간">03 <b>전국 공공·민간</b></button></div>
         <div class="filter-controls"><div class="category-wrap"><div class="filter-hint">욕구 영역</div><div class="category-chips" id="categoryFilters" role="group" aria-label="욕구 영역 필터"></div></div>
           <div class="audience-wrap"><label class="filter-hint" for="audienceFilter">지원대상</label><div class="select-wrap"><select id="audienceFilter"><option value="">전체 대상</option><option value="아동">아동</option><option value="청소년">청소년·학생</option><option value="가족">가족·한부모</option><option value="장애">장애인</option><option value="어르신">노인·어르신</option><option value="위기">위기가구</option><option value="기관">복지기관·실무자</option></select></div></div></div>
@@ -117,9 +117,9 @@
       <p id="loadStatus" class="load-status" role="status">검색 화면을 불러오고 있습니다. 계속 표시되면 새로고침하거나 <a href="resources.csv" download>전체 자원 CSV를 내려받아</a> 확인해 주세요.</p>
       <noscript><p class="load-status">검색에는 JavaScript가 필요합니다. <a href="resources.csv" download>전체 자원 CSV 내려받기</a>로 자료를 확인할 수 있습니다.</p></noscript>
       <div class="results-toolbar"><div class="results-count"><span class="results-dot"></span><strong id="resultCount">0</strong>개 기관을 찾았습니다 <span id="serviceResultCount" class="result-subcount"></span></div>
-        <div class="toolbar-actions"><label class="favorite-toggle"><input id="favoritesOnly" type="checkbox"/><span>☆ 즐겨찾기만</span></label><select id="sortSelect" aria-label="정렬 기준"><option value="relevance">기본 정렬·검색 관련도</option><option value="name">기관명 가나다순</option><option value="services">조건 일치 서비스 많은 순</option></select></div></div>
+        <div class="toolbar-actions"><label class="favorite-toggle"><input id="favoritesOnly" type="checkbox"/><span>즐겨찾기만</span></label><select id="sortSelect" aria-label="정렬 기준"><option value="relevance">기본 정렬·검색 관련도</option><option value="name">기관명 가나다순</option><option value="services">조건 일치 서비스 많은 순</option></select></div></div>
       <div id="resultGrid" class="results-grid" aria-live="polite"></div>
-      <div id="emptyState" class="empty-state" hidden><span class="empty-emoji">⌕</span><strong>검색 결과가 없습니다.</strong><p>검색어를 줄이거나 지역·지원분야 필터를 변경해 주세요.</p><button id="emptyReset" type="button">전체 자원 다시 보기 →</button></div>
+      <div id="emptyState" class="empty-state" hidden><span class="empty-emoji" aria-hidden="true"><svg class="ads-icon" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg></span><strong>검색 결과가 없습니다.</strong><p>검색어를 줄이거나 지역·지원분야 필터를 변경해 주세요.</p><button id="emptyReset" type="button">전체 자원 다시 보기 →</button></div>
       <div class="more-wrap"><button id="loadMore" class="load-more" type="button" hidden>기관 더 보기 <span>↓</span></button></div>
     </section>
 
