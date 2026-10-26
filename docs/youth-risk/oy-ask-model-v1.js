@@ -60,7 +60,7 @@ const TASKS={
  result:{label:'평가결과 해석 요약',form:'① 핵심 어려움 3가지 ② 현재 안전 ③ 강점 ④ 면담 확인 질문 5개 (A4 한 장 분량)'}
 };
 
-function glance(r){const s=r.summary;return ['지원 수준: '+s.level,'현재 안전: '+s.safety,'핵심 어려움: '+(s.keys.join(', ')||'두드러진 어려움 없음'),'응답 유형: '+r.code.name,'CORE 판단: '+r.title].join('\n');}
+function glance(r){const s=r.summary;return ['사례관리 수준: '+s.level,'현재 안전: '+s.safety,'핵심 어려움: '+(s.keys.join(', ')||'두드러진 어려움 없음'),'응답 유형: '+r.code.name,'CORE 판단: '+r.title].join('\n');}
 function evidence(r){return r.items.map(x=>x.n+'번 '+x.topic+': '+(x.value==='unknown'?'미상':x.value+'점')).join('\n');}
 
 /* opts: {mode:'section'|'document', r, section, sectionTitle, sectionText, question, task, includeEvidence, redact}

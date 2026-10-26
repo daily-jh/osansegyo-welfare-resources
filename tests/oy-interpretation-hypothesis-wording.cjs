@@ -26,4 +26,18 @@ assert.ok(care.includes('차지하고 있을 수 있어'));
 const harm=text({1:3});
 assert.ok(!harm.includes('일상 전체가 귀가와 보호자 반응을 중심으로 긴장된'));
 for(const set of [{9:4,10:4,11:4},{6:3},{19:3}])assert.ok(!text(set).includes('변화가 빠르게 나타나는'),'no prognosis: '+JSON.stringify(set));
+// Three outputs, three names: the glance shows this reading's casework level, never a milder domain label
+// beside a safety-first CORE decision.
+const build=set=>D.build({answers:answers(set)});
+const severe=build({1:3});
+assert.equal(severe.summary.level,severe.casework.level.name);
+assert.equal(severe.summary.level,'위기개입 후 집중 사례관리');
+assert.equal(severe.summary.domainLevel,'개별영역 지원 수준','domain level keeps its own name');
+assert.ok(D.text(severe).includes('사례관리 수준: 위기개입 후 집중 사례관리'));
+assert.ok(!/지원 수준: /.test(D.text(severe)),'the ambiguous "지원 수준" label is gone');
+assert.ok(D.html(severe).includes('<dt>사례관리 수준</dt>'));
+const pending=build({7:'unknown'});
+assert.equal(pending.summary.level,pending.casework.level.name);
+assert.ok(!pending.understanding.includes('신호 신호'),'no doubled word');
+assert.ok(pending.understanding.includes('아직 확인되지 않아'),'an unknown item is not called a signal');
 console.log('interpretation hypothesis wording regression passed');
