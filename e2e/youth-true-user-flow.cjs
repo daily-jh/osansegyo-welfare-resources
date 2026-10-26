@@ -81,6 +81,13 @@ async function run(browserType,name,width,full){
    await page.screenshot({path:path.join(dir,name+'-'+width+'.png'),fullPage:true});
   }
   assert.deepEqual(exceptions,[],name+' JS exceptions');
+  await page.goto(base+'system-method.html',{waitUntil:'domcontentloaded',timeout:30000});
+  assert.equal(await page.locator('#architecture .arch-node').count(),5,'guide shows 5 connected stage nodes');
+  assert.equal(await page.locator('#architecture .arch-model').count()>=9,true,'all shared model roles visible on architecture map');
+  assert.equal(await page.locator('#how .step').count(),5,'guide matches five-stage UI');
+  assert.equal(await page.locator('#architecture').isVisible(),true,'architecture diagram rendered to page');
+  assert.match(await page.locator('#technology').innerText(),/CORE|OY-CIE/,'model guarantee explained');
+
   console.log('PASS '+name+' '+width+'px true clicks: score→narrative→integrated→map→case→AI→records'+(full?' plus AI answer, real A4 PDF and privacy backup':''));
  }finally{await page.close();await browser.close();}
 }
