@@ -94,9 +94,11 @@ const specific={19:['食','필수생활 공백 확인','오늘 식사·옷·위�
 }
 function text(p,page,includeContext=false){
  const full=analyze(p),a=includeContext?full:analyze({...p,caseContext:''});
- const lines=['OY-RALS V'+VERSION+' · '+page+' · 실무자 검토 전 초안',a.decision.title,a.decision.incomplete?'확인 합계 '+a.decision.knownTotal+'/'+a.decision.knownMaximum+' · 미상 '+a.decision.unknownItems.length+'개 · 전체 판단 보류':'원점수 '+a.decision.knownTotal+'/100','안전 관련 확인: '+a.decision.safetyReview,'정보 확인: '+a.decision.knownCount+'/25 · 미상 '+a.decision.unknownItems.length+'문항'];
+ const lines=['OY-RALS V'+VERSION+' · '+page+' · 실무자 검토 전 초안',a.decision.title,a.decision.incomplete?'확인된 '+a.decision.knownCount+'문항 합계 '+a.decision.knownTotal+'점(확인 문항 최대 '+a.decision.knownMaximum+'점) · 미상 '+a.decision.unknownItems.length+'개('+a.decision.unknownItems.join('·')+'번)는 0점으로 계산하지 않음 · 전체 판단 보류':'원점수 '+a.decision.knownTotal+'/100','안전 관련 확인: '+a.decision.safetyReview,
+  ...(a.decision.safetyUnknown.length?['안전문항 미상: '+a.decision.safetyUnknown.join('·')+'번 — 가장 먼저 확인할 문항입니다.']:[]),
+  ...(a.decision.pendingChecks.length?['현재 안전 추가확인 미완료: '+a.decision.pendingChecks.join('·')+'번 — 현재 위험 여부를 확인해 기록해야 판단 보류가 풀립니다.']:[]),'정보 확인: '+a.decision.knownCount+'/25 · 미상 '+a.decision.unknownItems.length+'문항'];
  lines.splice(1,0,'출력 범위: '+(includeContext?'척도와 선택 서술을 반영한 해석 포함':'척도 중심 결과 · 서술에 따른 심화 해석은 제외됨'));
- if(a.semantic)lines.push('문항별 의미·가중치 통합 해석: '+a.semantic.narratives.join(' '),'검토 우선순위(가설): '+a.semantic.top.map(x=>x.id+'번 '+x.value+'점 '+x.meaning+' / '+x.priority).join(' · '),'가중치는 연구 가정이며 검증된 위험확률이 아님.');
+ if(a.semantic)lines.push('문항별 의미·가중치 통합 해석: '+a.semantic.narratives.join(' ').replace(/([^.;:()]+?)에서 \1 영역에서/g,'$1 영역에서').replace(/\.\./g,'.'),'검토 우선순위(가설): '+a.semantic.top.map(x=>x.id+'번 '+x.value+'점 '+x.meaning+' / '+x.priority).join(' · '),'가중치는 연구 가정이며 검증된 위험확률이 아님.');
  const planLines=a.plans.map(x=>'['+x.id+'] '+x.title+' / 근거 '+[...x.sourceItemIds,...x.sourceTextIds].join(', ')+' / 실행 초안 '+x.action+' / 변화 지표 '+x.outcome+' / 연계 후보 '+(x.candidates.map(c=>c.name+'('+c.service+')').join(', ')||'추가 확인'));
  if(page==='사례사정')lines.push(...a.sections.map(x=>x.title+'\n'+x.text),'OY-CIE 잠정 해석은 사실 확인·학생 의견·정보원 대조 후 채택합니다.');
  else if(page==='사례협의')lines.push('협의 목적: 확인된 어려움의 우선순위, 현재 안전, 기존 지원과 신규 의뢰의 역할 조정','협의 전 검토 가설:',...(a.cieActions.map(x=>x.id+' / '+x.hypothesis+' / '+x.verification)),'협의 안건:',...a.plans.slice(0,5).map(x=>x.title+' / '+x.evidence.join('·')+' / 결정할 내용: 담당·지원 가능성·회신 기한'),'교사: 교내 안전·수업·출결 조정 / 교육복지사: 교내외 연계 조율 / 사회복지사: 가구 사정·자원 조정','주관기관·참석자·공유 근거·회의 결정: 미확정. 실제 회의 개최로 기록하지 않음.');

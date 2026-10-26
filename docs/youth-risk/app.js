@@ -162,9 +162,14 @@ section.addEventListener("change",function(e){
 if(!e.target.matches('input[type="radio"]'))return;
 var index=Number(e.target.name.slice(1));if(!Number.isInteger(index)||index<0||index>=25)return;
 var value=e.target.value; if(value!=='unknown'&&!/^[0-4]$/.test(value))return; answers[index]=value==='unknown'?'unknown':Number(value);
-document.querySelectorAll('#safetyFollowups input[data-item="'+(index+1)+'"]').forEach(n=>n.checked=false);$("qi"+index).classList.add("has-value");ready=false;updateProgress();updateFollowups();updateUrgent();clearResult();
+// Keep the answered question under the pointer while the safety panel above it grows or shrinks.
+var card=$("qi"+index),top0=card.getBoundingClientRect().top,followKey=$('safetyFollowups').dataset.key||'';
+document.querySelectorAll('#safetyFollowups input[data-item="'+(index+1)+'"]').forEach(n=>n.checked=false);card.classList.add("has-value");ready=false;updateProgress();updateFollowups();updateUrgent();clearResult();
+noteSafetyFollowup(card,followKey);keepQuestionInView(card.getBoundingClientRect().top-top0);
 });
 }
+function keepQuestionInView(dy){if(Math.abs(dy)<1)return;if(window.parent!==window&&window.YouthFlowChild)window.YouthFlowChild.keep(dy);else window.scrollBy(0,dy)}
+function noteSafetyFollowup(card,before){document.querySelectorAll('.safety-followup-note').forEach(n=>n.remove());var now=$('safetyFollowups').dataset.key||'',added=now.split(',').filter(n=>n&&before.split(',').indexOf(n)<0);if(!added.length)return;var note=document.createElement('p'),go=document.createElement('button');note.className='safety-followup-note';note.setAttribute('role','status');note.textContent='위쪽 긴급 안전확인에 '+added.join('·')+'번 문항의 현재 안전 확인 질문이 추가되었습니다. ';go.type='button';go.textContent='안전 확인으로 이동 ↑';go.onclick=function(){note.remove();$('safety').scrollIntoView({behavior:'smooth',block:'start'})};note.append(go);card.append(note)}
 function sumKnown(a){return a.reduce(function(n,v){return n+(typeof v==='number'?v:0)},0)}
 function updateQuestionStates(){answers.forEach(function(value,i){var card=$('qi'+i),unknown=value==='unknown',filled=value!==null;card.classList.toggle('has-value',filled);card.classList.toggle('is-unknown',unknown);card.dataset.answerState=unknown?'unknown':filled?'answered':'pending';$('qs'+i).textContent=unknown?'미상 · 확인 필요':filled?'응답 완료 · '+value+'점':'미응답';})}
 function followupState(){var out={};document.querySelectorAll('#safetyFollowups input:checked').forEach(n=>{out[n.dataset.item]=n.value});return out}

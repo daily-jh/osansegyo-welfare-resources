@@ -9,6 +9,7 @@ on:
       - 'tests/oy-model-contract.test.cjs'
       - 'tests/oy-architecture-wiring.cjs'
       - 'tests/youth-five-level-index.cjs'
+      - 'tests/youth-result-readout.cjs'
       - 'tests/youth-stage-navigation-regression.cjs'
       - '.github/workflows/oy-rals-model-contract.yml'
   pull_request:
@@ -17,6 +18,7 @@ on:
       - 'tests/oy-model-contract.test.cjs'
       - 'tests/oy-architecture-wiring.cjs'
       - 'tests/youth-five-level-index.cjs'
+      - 'tests/youth-result-readout.cjs'
       - '.github/workflows/oy-rals-model-contract.yml'
 permissions:
   contents: read
@@ -36,6 +38,7 @@ jobs:
           node --check docs/youth-risk/journey-v88.js
           node --check docs/youth-risk/integrated-index-v1.js
           node --check docs/youth-risk/stage-insights-v1.js
+          node --check docs/youth-risk/result-readout-v1.js
       - name: Verify 1200 synthetic cases and invariants
         run: node --test tests/oy-model-contract.test.cjs
       - name: Verify completed evaluation can open stages 3 and 4
@@ -44,5 +47,12 @@ jobs:
         run: node tests/youth-five-level-index.cjs
       - name: Verify V3 narrative and family diagram
         run: node tests/youth-third-revision-regression.cjs
+      - name: Verify practitioner result readout explains without changing results
+        run: node tests/youth-result-readout.cjs
       - name: Verify architecture wiring and guide documentation
         run: node tests/oy-architecture-wiring.cjs
+
+      - name: Verify narrative export privacy and common reports
+        run: |
+          node tests/youth-narrative-export-privacy.cjs
+          node tests/common-scale-report.cjs

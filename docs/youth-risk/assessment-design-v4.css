@@ -12,3 +12,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sa
 @media(max-width:700px){:where(.options label){min-height:48px;font-size:16px}:where(.question,.question-card){padding-inline:14px}}
 @media(prefers-reduced-motion:reduce){:where(button){transition:none!important;transform:none!important}}
 @media print{:where(button,.options){box-shadow:none!important}}
+.safety-followup-note{margin:12px 0 0;padding:10px 12px;border:1px solid #f0c3cf;border-radius:10px;background:#fff4f7;color:#7a2c43;font-size:14px;line-height:1.6}
+.safety-followup-note button{margin-left:6px;padding:4px 10px;border:1px solid #b9506d;border-radius:8px;background:#fff;color:#8f2d4a;font:inherit;font-weight:700;cursor:pointer}
+@media print{.safety-followup-note{display:none}}

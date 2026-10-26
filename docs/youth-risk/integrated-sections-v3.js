@@ -4,7 +4,7 @@ window.integratedSections=function(a){
  const plans=(a.plans||[]).slice(0,3),ctx=a.context||{},domains=(a.domains||[]).filter(x=>x.sum>0).sort((x,y)=>y.sum-x.sum).slice(0,3);
  const tasks=[
  ['01 핵심 상황','주요 영역: '+(domains.map(x=>x.name+' '+x.sum+'점').join(' · ')||'양성 응답 보고 없음')+'. 확인한 문항 합계 '+a.decision.knownTotal+'점.'],
- ['02 안전·보호',a.decision.safetyReview],
+ ['02 안전·보호',a.decision.safetyReview+(ctx.needsSafetyAttention?' 서술에 현재 안전 관련 표현이 있어, 점수와 별도로 학생의 현재 안전을 직접 확인합니다.':'')+((ctx.signals||[]).some(x=>x&&x.safety&&(x.polarity==='negated'||x.timeHint==='historical-mention'||x.subject==='third-party'))?' 일부 안전 관련 표현은 부정·과거·다른 사람 이야기로 분류되어 자동 판정에 반영하지 않았으니 원문을 직접 확인합니다.':'')],
  ['03 학교·일상 기능','학교 참여·가정 돌봄·기본생활의 영역별 어려움을 구분하고 학교와 복지관이 실행할 일을 연결합니다.'],
  ['04 강점과 학생 희망',ctx.fields?.strengths||ctx.fields?.studentWishes||'강점·희망 서술이 추가되지 않았습니다.'],
  ['05 첫 1~2주 실행',plans.map((x,i)=>(i+1)+'순위 '+x.title+' — '+x.action).join('\n')||'보편지원·학교생활 점검'],

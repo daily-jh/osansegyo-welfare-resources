@@ -32,23 +32,25 @@ function radar(scores,labels){
 }
 function grade(x){
  const active=x.tier,items=['안정관찰','초기주의','집중지원','고위기개입','최우선 안전대응'];
- return '<section class="oy-viz-grade" aria-label="개발형 5단계 지원우선순위"><div class="oy-viz-grade-head"><span>OY-RALS · 통합지원 단계</span><strong>'+esc(x.tier===null?'응답 미완료':'제'+active+'단계 · '+x.label)+'</strong></div>'+
+ return '<section class="oy-viz-grade" aria-label="개발형 5단계 지원우선순위"><div class="oy-viz-grade-head"><span>OY-RALS · 통합지원 단계</span><strong>'+esc(x.tier===null?('단계 미확정 · 미상 '+x.unknown+'문항 확인 필요'):'제'+active+'단계 · '+x.label)+'</strong></div>'+
  '<div class="oy-viz-scale">'+items.map((n,i)=>'<div class="'+(active===i+1?'current':'')+'"><b>'+ (i+1)+'</b><span>'+n+'</span></div>').join('')+'</div>'+
- '<p class="oy-viz-grade-action"><b>시스템 적용 경로</b> '+esc(x.action)+'</p>'+
- (x.tier!==null&&x.baseTier!==null&&x.tier>x.baseTier?'<p class="oy-viz-pattern"><b>단계 상향 근거</b> '+esc(x.baseTier+'단계 → '+x.tier+'단계 · '+x.patternReason)+'</p>':'')+
- (x.safetyReason?'<p class="oy-viz-safety">안전 우선 상향: '+esc(x.safetyReason)+'</p>':'')+
+ '<p class="oy-viz-grade-action"><b>시스템 적용 경로</b> '+esc(x.tier===null?'확인된 어려움부터 지원하면서 미상 문항을 확인합니다':x.action)+'</p>'+
+ (x.tier!==null&&x.baseTier!==null&&x.tier>x.baseTier?'<p class="oy-viz-pattern"><b>단계 상향</b> '+esc('점수 기준 '+x.baseTier+'단계 → '+x.tier+'단계 · 결정 요인: '+(window.OYResultReadout?.decisiveText?.(x)||x.patternReason))+'</p>':'')+
+ (x.safetyReason&&x.safetyFloor===x.tier&&!(x.baseTier!==null&&x.tier>x.baseTier)?'<p class="oy-viz-safety">안전 우선 상향: '+esc(x.safetyReason)+'</p>':'')+
  '<small>원점수와 분리된 개발형 지원우선순위 분류입니다. 진단, 신고 판단 또는 검증된 위험확률을 뜻하지 않습니다.</small></section>';
 }
-function topStats(x){
+function topStats(x,p,objective){
+ const R=window.OYResultReadout;
  const stats=[
- ['응답상태',x.known+' / 25문항'],
- ['통합지표',x.composite===null?'응답 미완료':x.composite+' / 100'],
- ['가중위험',x.weighted===null?'—':x.weighted+' / 100'],
- ['교차위험',x.crossScore+' / 100'],
- ['핵심문항 영향',x.criticalScore===null?'—':x.criticalScore+' / 100'],
- ['서술 맥락',x.narrative===null?'미입력':x.narrative+' / 100']
+ ['응답상태',x.known+' / 25문항',x.unknown?'미상 '+x.unknown+'문항 · 0점 아님':'모든 문항 확인'],
+ ['통합지표(참고)',x.composite===null?'미상 확인 후 계산':x.composite+' / 100','점수 기반 · 20점마다 1단계'],
+ ['가중 응답강도',x.weighted===null?'—':x.weighted+' / 100','문항 중요도를 반영한 응답 수준'],
+ ['영역 동시응답',x.crossScore+' / 100','두 영역이 함께 어려울 때 커짐'],
+ ['핵심 안전문항',x.criticalScore===null?'—':x.criticalScore+' / 100','1·2·7·25번 중 높은 2개 평균'],
+ ['서술 맥락',R&&p?R.narrativeLabel(x,p,objective):(x.narrative===null?'미입력':x.narrative+' / 100'),'점수는 바꾸지 않음']
  ];
- return '<div class="oy-viz-kpis">'+stats.map(([name,value])=>'<article><small>'+esc(name)+'</small><strong>'+esc(value)+'</strong></article>').join('')+'</div>';
+ return '<div class="oy-viz-kpis">'+stats.map(([name,value,hint])=>'<article><small>'+esc(name)+'</small><strong>'+esc(value)+'</strong><span class="oy-kpi-hint">'+esc(hint)+'</span></article>').join('')+'</div>'
+ +'<p class="oy-viz-explain">위 숫자는 위험확률이 아닙니다. 단계는 숫자 하나가 아니라 점수·응답 패턴·안전 기준 중 가장 높은 것으로 정해지며, 그 이유는 아래 ‘이 단계가 나온 이유’에 적었습니다.</p>';
 }
 function itemDomain(n){const ranges=[2,5,8,11,13,15,18,21,23,25];return ranges.findIndex(v=>n<=v);}
 function patternEvidence(pair,p){
@@ -68,12 +70,12 @@ function patternSummary(x,p){
  '<p><strong>3~4점 집중 문항:</strong> '+esc(high.slice(0,10).map(z=>z.n+'번 '+z.v+'점').join(' · ')||'고점 문항 없음')+'</p>'+
  '<p class="oy-viz-explain">동시응답은 복합지원의 우선순위를 조정하는 신호입니다. 인과관계가 증명된 것은 아니며 각 영역에 실제로 보고된 문항을 근거로 개입과제를 연결합니다.</p></section>';
 }
-function scoreDashboard(x,p){
+function scoreDashboard(x,p,full){
  const domains=x.domainRows, top=x.activePairs.slice(0,7);
  return '<div class="oy-viz-dashboard" aria-label="통합지원 단계·영역별 응답강도">'
- +'<h3>통합지원 5단계 · 응답 패턴</h3>'+grade(x)+topStats(x)
+ +'<h3>통합지원 5단계 · 응답 패턴</h3>'+grade(x)+topStats(x,p,true)+(window.OYResultReadout?window.OYResultReadout.html(x,p,{objective:true,fullTier:full?.tier}):'')
  +'<section class="oy-viz-main-radar"><h4>10개 영역의 응답강도 분포</h4><p class="oy-viz-explain"><strong>읽는 방법</strong> 중심은 0%, 바깥쪽은 100%입니다. 다각형이 특정 방향으로 커질수록 <strong>해당 영역의 평균 응답수준이 높습니다.</strong> 면적은 전체 위기점수나 발생확률이 아니며, 영역별 문항 수 차이를 보정한 형태입니다.</p>'+radar(x.domainStrengths,domains.map(z=>z.name))+'</section>'
- +'<section><h4>영역별 응답강도 · 100% 환산</h4><p class="oy-viz-explain">영역 내 응답합계 ÷ 응답한 문항의 최대 가능점수 × 100입니다. 실무에서는 <b>높은 영역부터 지원과제를 정하는 상대적 우선순위</b>로 읽습니다.</p><div class="oy-viz-bar-grid">'+domains.map(d=>bar(d.name,d.normalized,'응답 '+d.raw+'/'+d.max+'점 · 미상 '+d.unknown+'개')).join('')+'</div></section>'
+ +'<section><h4>영역별 응답강도 · 100% 환산</h4><p class="oy-viz-explain">영역 내 응답합계 ÷ 응답한 문항의 최대 가능점수 × 100입니다. 실무에서는 <b>높은 영역부터 지원과제를 정하는 상대적 우선순위</b>로 읽습니다.</p><div class="oy-viz-bar-grid">'+domains.map((d,i)=>bar(d.name,d.normalized,window.OYResultReadout?window.OYResultReadout.domainNote(d,i):'응답 '+d.raw+'/'+d.max+'점 · 미상 '+d.unknown+'개')).join('')+'</div></section>'
  +patternSummary(x,p)+'<section><h4>영역 간 동시응답 · '+top.length+'개 교차</h4><p class="oy-viz-explain">두 영역이 함께 보고됐다는 뜻입니다. 강도는 두 영역 중 낮은 정규화 값으로 계산한 <b>내부 비교지표</b>이며, 통계적 상관관계나 한 영역이 다른 영역을 유발했다는 뜻이 아닙니다.</p>'
  +(top.length?cells(['동시보고·핵심패턴','강도·문항근거','CIE 문항해석','학교 우선 행동','복지관·지역기관 연계'],top.map(t=>{const e=patternEvidence(t,p);return [t.label+' · '+(CROSS_GUIDE[t.id]?.[0]||'동시응답형'),t.strength+'/100 · '+e.questions,e.cie||'해당 문항들의 생활영향을 함께 보는 내부 교차 가설',CROSS_GUIDE[t.id]?.[1]||'학교 내 영향 장면 정리',CROSS_GUIDE[t.id]?.[2]||'지원담당자 간 의뢰 조정'];})):'<p>설정된 교차조합에서 둘 다 양성인 영역은 없습니다.</p>')
  +'<details class="oy-viz-cross-details"><summary>전체 교차영역 패턴 보기</summary><div class="oy-viz-matrix">'+x.cross.map(t=>'<div class="'+(t.active?'on':'')+'"><strong>'+esc(t.label)+'</strong><span>'+esc(t.active?t.strength+'점':'해당 없음')+'</span></div>').join('')+'</div></details></section>'
@@ -121,8 +123,8 @@ function render(s){
   const x=a?.supportPriority||window.OYFiveLevelIndex.analyze(s.payload);
   if(s.stage===2&&s.view==='result'){
    const objective=window.OYFiveLevelIndex.analyze({...s.payload,caseContext:''});
-   if(slot){slot.innerHTML=scoreDashboard(objective,s.payload);}
-   if(all){all.innerHTML=grade(x)+topStats(x);}
+   if(slot){slot.innerHTML=scoreDashboard(objective,s.payload,x);}
+   if(all){all.innerHTML=grade(x)+topStats(x,s.payload,false)+(window.OYResultReadout?window.OYResultReadout.html(x,s.payload,{objective:false,scoreTier:objective.tier}):'');}
    return;
   }
   let html='';
@@ -141,7 +143,8 @@ function copyAssessment(){
  const p=current.payload,x=window.OYFiveLevelIndex.analyze({...p,caseContext:''});
  const lines=['오산 청소년 위기징후 평가연계 시스템 · 비식별 AI 분석 요청','CORE 25문항은 변경하지 말고, 보고된 응답에 따라 교사·교육복지사·사회복지사 역할별 지원 방향을 작성해 주세요.','미상은 0점이 아니며 교차영역은 인과관계가 아닙니다. 실제 신고·서비스 제공 여부는 만들지 마세요.',
  '원점수: '+x.raw+'/100 · 미상 '+x.unknown+' · 안전판정: '+x.official.safetyReview,
- '시스템 지원단계: '+(x.tier?'제'+x.tier+'단계 '+x.label:'전체 미상 포함')+' · 개발형 복합지표 '+(x.composite??'미산출'),
+ '시스템 지원단계: '+(window.OYResultReadout?window.OYResultReadout.tierLine(x):(x.tier?'제'+x.tier+'단계 '+x.label:'단계 미확정'))+' · 개발형 복합지표 '+(x.composite??'미상 확인 후 계산')+(x.tier!==null&&window.OYResultReadout?' · 결정 요인: '+(window.OYResultReadout.decisiveText(x)||'점수 기준'):''),
+ 'CORE 공식 판정: '+x.official.title,
  '25문항: '+p.answers.map((v,i)=>(i+1)+'번 '+(v==='unknown'?'미상':v+'점')).join(' / '),
  '영역별: '+x.domainRows.map(d=>d.name+' '+d.raw+'/'+d.max+'점').join(' / '),
  '동시응답: '+x.activePairs.slice(0,7).map(t=>t.label+' '+t.strength+'/100').join(' / '),
