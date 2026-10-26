@@ -1,0 +1,15 @@
+/* OY-RALS keynote shell v9 — 2026-10-27. 01 선별평가 화면을 감싸는 바깥 페이지 정리.
+   Presentation only. Pairs with keynote-input-v9.css inside the assessment frame. */
+#assessmentFlow{--k-ink:#16273a;--k-sec:#46586b;--k-ter:#5b6b7d;--k-hair:#e2e8ef;--k-fill:#f3f6f9;--k-acc:#1765bd}
+#assessmentFlow #stepTitle{font-size:clamp(30px,4vw,44px)!important;line-height:1.15!important;letter-spacing:-.025em!important;font-weight:780!important;color:var(--k-ink)!important;margin:30px 0 6px!important}
+#assessmentFlow #flowStatus{order:0;font-size:15px!important;color:var(--k-ter)!important}
+#assessmentFlow #assessmentArea{background:#fff!important;border:0!important;box-shadow:none!important;padding:0!important;border-radius:0!important}
+#assessmentFlow .flow-frame{background:#fff!important}
+/* Before the first result the frame has its own completion button right under question 25;
+   the outer one repeated it below the file tools. It returns once results exist. */
+#assessmentFlow:has(#resultTools[hidden]):has(#assessmentArea:not([hidden])) .flow-bottom #nextStep{display:none!important}
+#assessmentFlow:has(#resultTools[hidden]):has(#assessmentArea:not([hidden])) .flow-bottom:not(:has(#previousStep:not([hidden]))){display:none!important}
+#assessmentFlow .flow-data-tools{background:none!important;border:0!important;border-top:1px solid var(--k-hair)!important;border-radius:0!important;box-shadow:none!important;padding:18px 0 0!important;margin:28px auto 0!important;max-width:1040px}
+#assessmentFlow .flow-data-tools>p:first-child{font-size:13px!important;line-height:1.6!important;color:var(--k-ter)!important;margin:0 0 10px!important}
+#assessmentFlow .flow-data-tools .flow-btn{background:var(--k-fill)!important;border:0!important;box-shadow:none!important;border-radius:999px!important;font-size:14px!important;color:var(--k-ink)!important;min-height:44px}
+#assessmentFlow .flow-data-tools .flow-btn[disabled]{color:#8a97a6!important}
