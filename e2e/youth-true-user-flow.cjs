@@ -18,6 +18,10 @@ async function run(browserType,name,width,full){
   const frame=page.frameLocator('#assessmentFrame');
   await frame.locator('#qi0 input[type=radio]').first().waitFor({timeout:18000});
   assert.equal(await frame.locator('.question').count(),25,name+' form must have 25 questions');
+  // Wait until both documents finished loading and the page stopped auto-scrolling, so the first click is not lost mid-layout.
+  await page.waitForFunction(()=>document.readyState==='complete',null,{timeout:20000});
+  await page.frame({url:/assessment\.html/})?.waitForFunction(()=>document.readyState==='complete',null,{timeout:20000});
+  await page.waitForFunction(()=>new Promise(r=>{const y=scrollY;setTimeout(()=>r(scrollY===y),250)}),null,{timeout:10000});
   for(let i=0;i<25;i++){
    await frame.locator('#qi'+i+' input[type="radio"][value="0"]').check({force:true,timeout:12000});
    if(i===0)assert.match(await page.locator('#flowStatus').innerText(),/응답|완료|변경/);
