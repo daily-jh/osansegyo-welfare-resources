@@ -147,7 +147,7 @@ function resultExport(){
   a.domains.forEach(d=>base.push(d.name+': '+(d.known?d.sum+'/'+(d.known*4):'모두 미상')+' · 미상 '+d.unknown+'개'));
   base.push('25문항: '+p.answers.map((v,i)=>(i+1)+'번 '+(v==='unknown'?'미상':v+'점')).join(' / '));
   base.push('CORE와 독립된 개발형 통합지원 5단계 지표');
-  const ix=window.OYFiveLevelIndex?.analyze(p);if(ix)base.push('통합지원 단계: '+(ix.tier?'제'+ix.tier+'단계 '+ix.label:'응답자료 미완료')+' / 지표 '+(ix.composite===null?'보류':ix.composite+'/100')+' / 실행: '+ix.action,
+  const ix=window.OYFiveLevelIndex?.analyze({...p,caseContext:''});if(ix)base.push('통합지원 단계: '+(ix.tier?'제'+ix.tier+'단계 '+ix.label:'응답자료 미완료')+' / 지표 '+(ix.composite===null?'보류':ix.composite+'/100')+' / 실행: '+ix.action,
    '가중 '+ix.weighted+' · 교차 '+ix.crossScore+' · 핵심문항 '+ix.criticalScore+' · 서술 '+(ix.narrative===null?'미입력':ix.narrative),
    '안전 우선 상향: '+(ix.safetyReason||'해당 없음'),'개발형 분류 · 실증 타당도 미검증');
  }else if(resultTab==='narrative'){
