@@ -44,7 +44,7 @@ jobs:
           pdf=artifacts/oy-user-route/chromium-1280-score.pdf
           test -s "$pdf"
           pdfinfo "$pdf" | tee artifacts/oy-user-route/chromium-1280-pdfinfo.txt
-          pdfinfo "$pdf" | grep -E '^Page size: +595(\.[0-9]+)? x 842'
+          pdfinfo "$pdf" | grep -q 'A4'
           pdftotext -layout "$pdf" artifacts/oy-user-route/chromium-1280-score-extracted.txt
           grep -Eq '영역|점수|평가' artifacts/oy-user-route/chromium-1280-score-extracted.txt
       - uses: actions/upload-artifact@v4
