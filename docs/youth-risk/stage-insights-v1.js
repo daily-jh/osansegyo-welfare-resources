@@ -132,5 +132,16 @@ function copyAssessment(){
  if(navigator.clipboard?.writeText)navigator.clipboard.writeText(text).then(()=>{if(status)status.textContent='척도와 분석 요청문을 복사했습니다. 개인 AI에 붙여넣으세요.';}).catch(fail);else fail();
 }
 document.addEventListener('click',e=>{if(e.target.closest('#oy-viz-copy-assessment'))copyAssessment();});
+function radarInfo(node){
+ const i=Number(node.dataset.radarIndex);
+ if(!current?.payload||!Number.isInteger(i))return;
+ const x=window.OYFiveLevelIndex.analyze({...current.payload,caseContext:''}).domainRows[i];
+ const t=node.closest('.oy-viz-radar')?.querySelector('[data-radar-tooltip]');
+ if(t&&x)t.textContent=x.name+' · '+(x.normalized===null?'미상':round(x.normalized)+'%')+' · 응답 '+x.raw+'/'+x.max+'점 · 미상 '+x.unknown+'개';
+}
+document.addEventListener('pointerover',e=>{const n=e.target.closest?.('[data-radar-index]');if(n)radarInfo(n);});
+document.addEventListener('focusin',e=>{const n=e.target.closest?.('[data-radar-index]');if(n)radarInfo(n);});
+document.addEventListener('click',e=>{const n=e.target.closest?.('[data-radar-index]');if(n)radarInfo(n);});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){const n=e.target.closest?.('[data-radar-index]');if(n){e.preventDefault();radarInfo(n);}}});
 window.addEventListener('oy-journey-view',event=>render(event.detail));
 })();
