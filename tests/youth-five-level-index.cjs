@@ -30,6 +30,12 @@ const crossIndex=Index.analyze(payload(cross));
 assert.ok(crossIndex.activePairs.some(x=>x.id==='emotion-care'));
 const isolated=original.slice();isolated[5]=3;
 assert.ok(crossIndex.crossScore>Index.analyze(payload(isolated)).crossScore);
+
+const careAttend=Array(25).fill(0);careAttend[15]=3;careAttend[17]=3;careAttend[8]=2;
+assert.ok(Index.analyze(payload(careAttend)).tier>=3,'care + attendance with 3-point concentration must trigger coordinated support');
+const schoolEmotion=Array(25).fill(0);schoolEmotion[8]=3;schoolEmotion[5]=2;
+assert.ok(Index.analyze(payload(schoolEmotion)).tier>=3,'school 3 and emotional 2 must avoid dilution by 25-question total');
+
 assert.equal(Index.analyze(payload(original,'그 학생이 자해했다는 가정 예시입니다')).raw,0);
 const textSafety=Index.analyze(payload(original,'학생 본인이 지금 자해를 시도했다고 말했다.'));
 assert.ok(textSafety.tier>=4,'current student safety cue triggers support priority without CORE mutation');
