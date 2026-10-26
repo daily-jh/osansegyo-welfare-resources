@@ -74,7 +74,7 @@ class Resources(unittest.TestCase):
     def test_user_provided_google_addresses(self):
         orgs, *_ = b.load()
         by_id = {o['org_id']:o for o in orgs}
-        legacy_orgs = [o for o in orgs if not o['org_id'].startswith('ORG-Y22-')]
+        legacy_orgs = [o for o in orgs if not o['org_id'].startswith(('ORG-Y22-','ORG-Z26-'))]
         self.assertEqual(sum(bool(o['address']) for o in legacy_orgs),101)
         self.assertEqual(by_id['ORG-Y22-SPEC']['address_status'],'공식')
         self.assertIn('성호대로 43',by_id['ORG-Y22-SPEC']['address'])

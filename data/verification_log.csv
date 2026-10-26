@@ -85,3 +85,14 @@ service,SVC-Y22-011,2026-10-24,기관·정부 공식 홈페이지의 사업내�
 service,SVC-Y22-012,2026-10-24,기관·정부 공식 홈페이지의 사업내용 확인·접수·선정은 별도,자료 관리자,확인완료,https://www.gg.go.kr/contents/contents.do?ciIdx=1472&menuId=3302,2026-11-01
 service,SVC-Y22-013,2026-10-24,기관·정부 공식 홈페이지의 사업내용 확인·접수·선정은 별도,자료 관리자,확인완료,https://www.gg.go.kr/bbs/boardView.do?bIdx=71116882&bcIdx=0&bsIdx=497&menuId=1860,2026-11-01
 service,SVC-Y22-014,2026-10-24,기관·정부 공식 홈페이지의 사업내용 확인·접수·선정은 별도,자료 관리자,확인완료,https://gg24.gg.go.kr/svcreqst/selectSvcReqst.do?svc_seq=939,2026-11-01
+service,SVC-Z26-001,2026-10-26,공식 공개 안내 웹 열람; 실제 접수·운영시간·대상 선정 미확인,자료 관리자,사업별 확인 필요,https://www.bokjiro.go.kr/ssis-tbu/cms/pc/news/promotion/1307645_1118.html,2027-01-26
+service,SVC-Z26-002,2026-10-26,공식 공개 안내 웹 열람; 실제 접수·운영시간·대상 선정 미확인,자료 관리자,사업별 확인 필요,https://www.kfsp.or.kr/,2027-01-26
+service,SVC-Z26-003,2026-10-26,공식 공개 안내 웹 열람; 실제 접수·운영시간·대상 선정 미확인,자료 관리자,사업별 확인 필요,https://www.129.go.kr/,2027-01-26
+service,SVC-Z26-004,2026-10-26,공식 공개 안내 웹 열람; 실제 접수·운영시간·대상 선정 미확인,자료 관리자,사업별 확인 필요,https://d4u.stop.or.kr/,2027-01-26
+service,SVC-Z26-007,2026-10-26,공식 공개 안내 웹 열람; 실제 접수·운영시간·대상 선정 미확인,자료 관리자,사업별 확인 필요,https://www.dhlottery.co.kr/hpns/ovmPrvnDscsnInfoView,2027-01-26
+service,SVC-Z26-008,2026-10-26,공식 공개 안내 웹 열람; 실제 접수·운영시간·대상 선정 미확인,자료 관리자,사업별 확인 필요,https://www.mogef.go.kr/cc/dcc/cc_dcc_f001.do,2027-01-26
+service,SVC-Z26-010,2026-10-26,공식 공개 안내 웹 열람; 실제 접수·운영시간·대상 선정 미확인,자료 관리자,사업별 확인 필요,https://www.koddi.or.kr/webzine/didimdol/vol297/subpage_004.html,2027-01-26
+service,SVC-Z26-014,2026-10-26,공식 공개 안내 웹 열람; 실제 접수·운영시간·대상 선정 미확인,자료 관리자,사업별 확인 필요,https://www.gg.go.kr/myggd/vol179/sub2_4.html,2027-01-26
+service,SVC-Z26-021,2026-10-26,공식 공개 안내 웹 열람; 실제 접수·운영시간·대상 선정 미확인,자료 관리자,사업별 확인 필요,https://www.osanchild.or.kr/,2027-01-26
+service,SVC-Z26-022,2026-10-26,공식 공개 안내 웹 열람; 실제 접수·운영시간·대상 선정 미확인,자료 관리자,사업별 확인 필요,https://www.osanchild.or.kr/,2027-01-26
+service,SVC-Z26-023,2026-10-26,공식 공개 안내 웹 열람; 실제 접수·운영시간·대상 선정 미확인,자료 관리자,사업별 확인 필요,https://www.osanchild.or.kr/,2027-01-26
