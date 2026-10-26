@@ -65,7 +65,7 @@ const cw=k=>seen[k].casework;
 assert.equal(cw('돌봄-학교이탈').level.id,'intensive');
 assert.equal(cw('돌봄-학교이탈').lead,'복지관 통합사례관리');
 assert.equal(cw('온라인 성착취').level.id,'crisis');
-assert.ok(/아동보호·수사기관/.test(cw('방임 대조').leadText));
+assert.ok(/아동학대전담공무원/.test(cw('방임 대조').leadText)&&/아동학대 신고/.test(cw('방임 대조').immediate),'abuse: immediate report and statutory lead are named separately');
 assert.ok(/먼저 연락하지 않고/.test(cw('방임 대조').family)&&/먼저 연락하지 않고/.test(cw('안전 미상').family));
 assert.ok(cw('안전 미상').agenda.some(a=>a.includes('확인되지 않은 내용')));
 assert.equal(cw('전부 0').level.id,'monitor');
@@ -73,3 +73,22 @@ for(const k of Object.keys(V)){const w=cw(k);assert.equal(w.plan.length,3);asser
 let seed=7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
 for(let i=0;i<3000;i++)check(Array.from({length:25},()=>{const r=rnd();return r<0.06?'unknown':r<0.5?0:Math.floor(rnd()*5)}),'random#'+i);
 console.log('oy-deep-interpretation: ok',Object.keys(V).length,'virtual cases + 3000 random');
+
+// Safety timing and level follow the safety answers (2026-10-26 random-10 review).
+{
+ const one=set=>{const a=Array(25).fill(0);Object.entries(set).forEach(([k,v])=>a[k-1]=v);return a;};
+ const s1=D.build({answers:one({7:1}),explicit:[],followups:{}});
+ assert.equal(s1.core.urgent,true);
+ assert.equal(s1.casework.level.id,'brief','a 1-point safety item never stays at monitor while CORE is urgent');
+ assert.ok(/^오늘 안에/.test(s1.summary.first),'positive safety item: today');
+ const ex=D.build({answers:one({6:4,7:1}),explicit:['현재 자해·자살 시도 또는 구체적인 실행 계획·수단이 확인됨'],followups:{}});
+ assert.ok(/^지금 바로/.test(ex.summary.first),'explicit urgent check: right now');
+ assert.equal(ex.critical.list[0].kind,'긴급');assert.ok(ex.critical.list[0].reading.includes('구체적인 실행 계획'));
+ assert.equal(ex.casework.plan[0].phase,'즉시 (지금 바로)');
+ const pend=D.build({answers:one({5:3,12:3,13:4}),explicit:[],followups:{5:'no',12:'unknown',13:'unknown'}});
+ assert.equal(pend.casework.level.id,'intensive','unconfirmed current-risk follow-up runs provisionally intensive');
+ assert.ok(/^오늘 안에/.test(pend.summary.first));
+ const sh=D.build({answers:one({6:3,7:2}),explicit:[],followups:{}});
+ assert.ok(sh.casework.goals.every(g=>!/수준으로 낮아지는 것/.test(g.goal)||g.topic!=='자해·죽음 관련 안전 신호'),'safety items get a safety-plan goal');
+}
+console.log('safety timing/level: ok');
