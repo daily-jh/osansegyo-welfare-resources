@@ -74,19 +74,6 @@ function alternatives(p,d,group,groups,now){
 }
 function bundle(p,d,group,now){return group.services.map(r=>({key:key(r),name:r['서비스명'],category:r['지원분야']||'',evidence:Map_.describe(p,d,r).evidence,availability:availability(r,now),verification:verification(r,now)}))}
 
-// Link status: a recommendation is not a completed referral.
-var STAGES=[['candidate','추천 후보 · 연락 전'],['contacted','기관에 문의함'],['applied','신청·의뢰 보냄'],['accepted','기관 접수 확인'],['linked','연계 완료 · 서비스 시작'],['unavailable','이용 불가 · 대체 검토'],['declined','학생·가정이 원하지 않음'],['hold','보류']];
-var ROLES=['','담임교사','교육복지사','상담교사','사례관리자','학교 학생맞춤통합지원 담당','기관 담당자','기타'];
-function stageLabel(code){var s=STAGES.find(x=>x[0]===code);return s?s[1]:STAGES[0][1]}
-var IDENT=[/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi,/0(?:1[016789]|2|[3-6]\d)[-.\s]?\d{3,4}[-.\s]?\d{4}/g,/\b\d{6}\s*[- ]?\s*[1-8]\d{6}\b/g];
-// Memo is a short working note; direct identifiers are masked before display or copy.
-function cleanMemo(t){var m=String(t||'').replace(/[\u0000-\u001f\u007f]/g,' ').slice(0,120);IDENT.forEach(rx=>{m=m.replace(rx,'[식별정보 제외]')});return m}
-function cleanRecord(r){r=r||{};var memo=cleanMemo(r.memo);return {stage:STAGES.some(x=>x[0]===r.stage)?r.stage:'candidate',role:ROLES.includes(r.role)?r.role:'',contacted:isDate(r.contacted)?r.contacted:'',next:isDate(r.next)?r.next:'',memo}}
-function summarize(records){var c={candidate:0,progress:0,linked:0,closed:0};Object.values(records||{}).forEach(r=>{r=cleanRecord(r);if(r.stage==='linked')c.linked++;else if(['contacted','applied','accepted','hold'].includes(r.stage))c.progress++;else if(['unavailable','declined'].includes(r.stage))c.closed++;else c.candidate++});return c}
-function recordText(entries){
- var rows=entries.map(e=>{var r=cleanRecord(e.record);return [e.institution,e.service,stageLabel(r.stage),r.role||'-',r.contacted||'-',r.next||'-',r.memo||'-'].join(' | ')});
- return ['[연계 진행 기록] '+today(),'기관 | 사업 | 상태 | 담당 역할 | 연락일 | 다음 확인일 | 메모'].concat(rows).join('\n');
-}
-var api={today,availability,verification,intake,basis,alternatives,bundle,key,STAGES,ROLES,stageLabel,cleanMemo,cleanRecord,summarize,recordText};
+var api={today,availability,verification,intake,basis,alternatives,bundle,key};
 if(typeof module!=='undefined')module.exports=api;else root.YouthSupportDetail=api;
 })(typeof window!=='undefined'?window:globalThis);
