@@ -7,6 +7,7 @@ on:
     paths:
       - 'docs/youth-risk/**'
       - 'tests/oy-model-contract.test.cjs'
+      - 'tests/oy-architecture-wiring.cjs'
       - 'tests/youth-five-level-index.cjs'
       - 'tests/youth-stage-navigation-regression.cjs'
       - '.github/workflows/oy-rals-model-contract.yml'
@@ -14,6 +15,7 @@ on:
     paths:
       - 'docs/youth-risk/**'
       - 'tests/oy-model-contract.test.cjs'
+      - 'tests/oy-architecture-wiring.cjs'
       - 'tests/youth-five-level-index.cjs'
       - '.github/workflows/oy-rals-model-contract.yml'
 permissions:
@@ -42,3 +44,5 @@ jobs:
         run: node tests/youth-five-level-index.cjs
       - name: Verify V3 narrative and family diagram
         run: node tests/youth-third-revision-regression.cjs
+      - name: Verify architecture wiring and guide documentation
+        run: node tests/oy-architecture-wiring.cjs
