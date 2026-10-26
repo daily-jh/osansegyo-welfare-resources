@@ -45,7 +45,7 @@ assert.throws(()=>Index.analyze(payload([0])),/PAYLOAD_INVALID/);
 let seed=20261026;
 function rnd(){seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;}
 let completed=0,partialCases=0;
-for(let i=0;i<4000;i++){
+for(let i=0;i<20000;i++){
  const ans=Array.from({length:25},()=>rnd()<.13?'unknown':Math.floor(rnd()*5));
  const p=payload(ans);
  const pre=JSON.stringify(p.answers);
@@ -64,4 +64,4 @@ for(let i=0;i<4000;i++){
  else {partialCases++;assert.equal(x.composite,null);if(x.safetyFloor!==null){assert.ok(x.tier>=x.safetyFloor&&x.tier<=5,'observed safety path remains actionable')}else assert.equal(x.tier,null);}
 }
 assert.ok(partialCases>0&&completed>=0);
-console.log('PASS OY-RALS 5-level index: 4,000 synthetic cases; CORE invariant, red-flag gates, unknown treatment, normalized axes and domain crosses.');
+console.log('PASS OY-RALS 5-level index: 20,000 synthetic cases; CORE invariant, red-flag gates, unknown treatment, normalized axes and domain crosses.');
