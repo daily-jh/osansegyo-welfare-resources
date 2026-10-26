@@ -88,6 +88,9 @@ console.log('oy-deep-interpretation: ok',Object.keys(V).length,'virtual cases + 
  const pend=D.build({answers:one({5:3,12:3,13:4}),explicit:[],followups:{5:'no',12:'unknown',13:'unknown'}});
  assert.equal(pend.casework.level.id,'intensive','unconfirmed current-risk follow-up runs provisionally intensive');
  assert.ok(/^오늘 안에/.test(pend.summary.first));
+ const su=D.build({answers:one({7:'unknown'}),explicit:[],followups:{}});
+ assert.equal(su.casework.level.id,'brief','an unknown safety item never stays at monitor');
+ assert.ok(/^오늘 안에/.test(su.summary.first),'unknown safety item: check today');
  const sh=D.build({answers:one({6:3,7:2}),explicit:[],followups:{}});
  assert.ok(sh.casework.goals.every(g=>!/수준으로 낮아지는 것/.test(g.goal)||g.topic!=='자해·죽음 관련 안전 신호'),'safety items get a safety-plan goal');
 }

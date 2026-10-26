@@ -171,10 +171,10 @@ function casework(values,c,prof,patterns,crit,str,p){
   {id:'intensive',name:'집중 사례관리 (다기관)',contact:'주 담당자가 주 1회 이상 학생 접촉, 가족 접촉 병행',meeting:'2주 안에 다기관 사례회의',review:'1개월마다 진행 점검, 3개월 재사정'},
   {id:'crisis',name:'위기개입 후 집중 사례관리',contact:'당일 안전 확인, 이후 안정될 때까지 매일~주 2회 확인',meeting:'보호 조치 직후 긴급 사례회의',review:'안전 확보 후 2주 안에 전체 재사정'}];
  // Never below what the safety answers require: a current-risk follow-up left unconfirmed runs at the intensive level (provisional level 4),
- // and any positive safety item (CORE urgent) starts at least at direct individual support.
- const pending=c.pendingChecks.length>0,safetyPos=crit.list.some(x=>x.kind==='안전');
- const level=safetyHigh?L[4]:(safetyAny&&lv>=2)||pending?L[3]:safetyPos&&lv<1?L[1]:L[[0,1,2,3][lv]];
- const reason=safetyHigh?'안전 신호가 뚜렷해 보호 조치가 다른 지원보다 앞서야 하는 사례입니다.':safetyAny&&lv>=2?'안전 신호와 여러 영역의 어려움이 함께 있어 한 담당자가 감당하기 어려운 사례입니다.':pending?'현재 안전 추가확인이 아직 확인되지 않아, 확인을 마칠 때까지 집중 수준으로 운영합니다(잠정).':safetyPos&&lv<1?'안전 관련 응답이 있어 오늘 안에 현재 안전을 확인하고, 담당자가 직접 만나는 개별지원으로 시작합니다.':['어려움이 가볍게 보고되어 관계를 유지하며 지켜보는 단계입니다.','어려움이 한두 영역에 모여 있어 해당 영역 담당이 직접 지원하는 것이 효율적입니다.','두 개 이상의 생활영역이 함께 흔들려 학교와 지역 복지가 역할을 나눠야 하는 사례입니다.','여러 영역의 어려움이 동시에 크게 나타나 다기관이 한 계획으로 움직여야 하는 사례입니다.'][lv];
+ // and any positive or still-unknown safety item starts at least at direct individual support.
+ const pending=c.pendingChecks.length>0,safetyPos=crit.list.some(x=>x.kind==='안전'),safetyOpen=crit.list.some(x=>x.kind==='안전 미상');
+ const level=safetyHigh?L[4]:(safetyAny&&lv>=2)||pending?L[3]:(safetyPos||safetyOpen)&&lv<1?L[1]:L[[0,1,2,3][lv]];
+ const reason=safetyHigh?'안전 신호가 뚜렷해 보호 조치가 다른 지원보다 앞서야 하는 사례입니다.':safetyAny&&lv>=2?'안전 신호와 여러 영역의 어려움이 함께 있어 한 담당자가 감당하기 어려운 사례입니다.':pending?'현재 안전 추가확인이 아직 확인되지 않아, 확인을 마칠 때까지 집중 수준으로 운영합니다(잠정).':safetyPos&&lv<1?'안전 관련 응답이 있어 오늘 안에 현재 안전을 확인하고, 담당자가 직접 만나는 개별지원으로 시작합니다.':safetyOpen&&lv<1?'안전 문항이 아직 확인되지 않아(미상) 오늘 안에 직접 확인하고, 담당자가 직접 만나는 개별지원으로 시작합니다.':['어려움이 가볍게 보고되어 관계를 유지하며 지켜보는 단계입니다.','어려움이 한두 영역에 모여 있어 해당 영역 담당이 직접 지원하는 것이 효율적입니다.','두 개 이상의 생활영역이 함께 흔들려 학교와 지역 복지가 역할을 나눠야 하는 사례입니다.','여러 영역의 어려움이 동시에 크게 나타나 다기관이 한 계획으로 움직여야 하는 사례입니다.'][lv];
  // lead agency from where the active difficulties sit
  const own={};act.forEach(n=>{const o=K.item(n).owner;own[o]=(own[o]||0)+(val(n)||1)});
  const order=Object.keys(own).sort((a,b)=>own[b]-own[a]);
@@ -238,7 +238,7 @@ function casework(values,c,prof,patterns,crit,str,p){
  if(act.some(n=>[15,16,19,20,21].includes(n))&&main==='school')notes.push({about:'학교 밖 자원',text:'생활 기반 문제는 학교 안 대책만으로 풀리지 않습니다. 지역 복지 담당을 처음부터 회의에 참여시켜 역할을 나눕니다.'});
  notes.push({about:'학생의 자기결정',text:'계획은 학생이 동의한 목표에서 출발할 때 지속됩니다. 학생이 원하지 않는 지원은 이유를 듣고 대안을 함께 찾으며, 안전 조치만은 학생 동의와 관계없이 진행됨을 미리 설명합니다.'});
  const voice=['지금 가장 바뀌었으면 하는 일 한 가지는 무엇인가요?','도움을 받는다면 누구에게, 어떤 방식으로 받고 싶나요?','받고 싶지 않은 도움이나 알리고 싶지 않은 사람이 있나요?'];
- const nowPhase=urgentLevel(values,c,p)?'즉시 (지금 바로)':crit.list.some(x=>x.kind==='안전')||c.pendingChecks.length?'즉시 (오늘~이번 주)':'즉시 (이번 주)';
+ const nowPhase=urgentLevel(values,c,p)?'즉시 (지금 바로)':crit.list.some(x=>x.kind==='안전'||x.kind==='안전 미상')||c.pendingChecks.length?'즉시 (오늘~이번 주)':'즉시 (이번 주)';
  return {level:{...level,reason},lead,immediate,partners,leadText,ecology,family,plan:[{phase:nowPhase,rows:now},{phase:'단기 (2~4주)',rows:short},{phase:'중기 (1~3개월)',rows:mid}],goals,agenda,notes,voice};
 }
 function build(p){
@@ -249,7 +249,7 @@ function build(p){
  const detail=prof.filter(d=>d.positive.length||d.unknown.length).map(d=>domainDetail(values,d)).sort((a,b)=>(b.peak??-1)-(a.peak??-1)||(b.mean??0)-(a.mean??0)||a.id-b.id);
  const keys=rankItems(values).filter(x=>x.v>=2||SAFETY.includes(x.n)).slice(0,3).map(x=>topic(x.n));
  const urgentNow=urgentLevel(values,c,p),safetyCrit=crit.list.filter(x=>x.kind.startsWith('안전')),safetyTopics=safetyCrit.map(x=>x.topic).join(', ');
- const when=urgentNow?'지금 바로':crit.list.some(x=>x.kind==='안전')?'오늘 안에':'이번 주 안에';
+ const when=urgentNow?'지금 바로':crit.list.some(x=>x.kind==='안전'||x.kind==='안전 미상')?'오늘 안에':'이번 주 안에';
  const first=(p.explicit||[]).length?'지금 바로 체크된 긴급 상황의 보호 조치를 시작하고'+(safetyTopics?', '+josa(safetyTopics,'을','를')+' 직접 확인합니다.':' 담당 기관에 알립니다.'):safetyCrit.length?when+' '+safetyTopics+'의 현재 상황을 직접 안전 면담으로 확인합니다.':c.pendingChecks.length?'오늘 안에 '+crit.pending.join(', ')+'의 현재 위험 여부를 확인해 추가확인을 마칩니다.':patterns[0]?patterns[0].first:keys.length?K.item(rankItems(values)[0].n).e:'학생이 편하게 도움을 청할 사람과 다음 만남 날짜를 정합니다.';
  const level=c.provisional?(c.incomplete?'확인된 응답 기준 '+['관찰·예방','개별영역 지원','복합욕구 조정','다기관 집중검토'][c.observedLevel]+' 수준 · 전체 판정 보류':'안전 추가확인 대기 · '+['관찰·예방','개별영역 지원','복합욕구 조정','다기관 집중검토'][c.observedLevel]+' 수준'):['관찰·예방','개별영역 지원','복합욕구 조정','다기관 집중검토'][c.level]+' 수준';
  return {version:VERSION,core:c,title:c.title,summary:{level,safety:c.urgent?'안전 확인 우선':c.safetyUnknown.length||c.pendingChecks.length?'안전 확인 미완료':'이번 응답의 안전 신호 없음',keys,first,total:c.incomplete?'확인 '+c.knownCount+'문항 합계 '+c.knownTotal+'점 (미상 '+c.unknownItems.length+'문항)':c.knownTotal+' / 100점'},

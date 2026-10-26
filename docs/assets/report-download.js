@@ -1,7 +1,7 @@
 /* Research report download menu (top right of the header).
    Fills every [data-report-download] element. data-base is the path to docs/reports/ from the page. */
 (function(){'use strict';
-const VERSION='20261026-rev2';
+const VERSION='20261026-rev3';
 const EDITION='개정판 · 2026.10.26';
 const FILES=[
  {title:'연구·기술검토 보고서',note:'척도·모델·자원연계·타당화 계획',stem:'oy-rals-research-report-rev-20261026',name:'OY-RALS_연구기술검토보고서_개정판_20261026'},
