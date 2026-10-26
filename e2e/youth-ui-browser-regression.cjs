@@ -41,6 +41,8 @@ async function scenario(browser,width){
  await page.locator('[data-j88-result-tab="integrated"]').click();
  assert.ok((await page.locator('#journey88').innerText()).includes('종합사정 및 지원 방향'));
  assert.equal(await page.locator('#oy-integrated-visual-slot .oy-viz-grade').count(),1,'integrated opinion receives five-level badge');
+ assert.equal(await page.locator('.j88-operational-summary').count(),1,'system integrated judgment summary exists');
+ assert.match(await page.locator('.j88-operational-summary').innerText(),/우선 실행|권장 진행체계/,'direct actionable guidance');
  const originalCore=await page.evaluate(a=>window.YouthCriteria.evaluate(a,[2,3,3,3,2,2,3,3,2,2],false,{}).knownTotal,answers);
  await page.locator('#cie-flow-question').fill('서비스계획에서 확인해야 할 근거는?');
  assert.match(await page.locator('#cie-flow-status').innerText(),/다시 분석/,'changing question invalidates old result');
