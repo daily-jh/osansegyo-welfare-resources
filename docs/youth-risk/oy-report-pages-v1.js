@@ -51,9 +51,10 @@ function setup(article){
   b.addEventListener('click',()=>go(i+1));p.append(b);
  });
 
+ // One page is shown at a time (no horizontal scroller), so a flip can never stop half-way between pages
+ // and the track needs no measured height. Swiping is read from the touch gesture itself.
  let cur=0;
- const fit=()=>{const p=pages[cur];if(p)track.style.height=p.scrollHeight+'px';};
- function show(i){
+ function show(i,dir){
   cur=i;
   where.textContent=(i+1)+' / '+total+' · '+pageTitle(pages[i]);
   prev.disabled=i===0;next.disabled=i===total-1;
@@ -61,39 +62,46 @@ function setup(article){
    d.classList.toggle('is-on',j===i);d.classList.toggle('is-done',j<i);
    d.setAttribute('aria-selected',j===i?'true':'false');
   });
-  pages.forEach((p,j)=>p.setAttribute('aria-hidden',j===i?'false':'true'));
-  fit();
+  pages.forEach((p,j)=>{
+   p.classList.toggle('is-current',j===i);
+   p.classList.remove('odi-in-next','odi-in-prev');
+  });
+  if(dir&&!reduce){void pages[i].offsetWidth;pages[i].classList.add(dir>0?'odi-in-next':'odi-in-prev');}
+ }
+ // After a flip the reader starts at the top of the new page, wherever they pressed from.
+ function toTop(){
+  const r=track.getBoundingClientRect();
+  const room=bar.offsetHeight+8;
+  if(r.top>=room-2&&r.top<window.innerHeight*0.5)return;
+  track.style.scrollMarginTop=room+'px';
+  track.scrollIntoView({block:'start',behavior:'auto'});
  }
  function go(i){
   i=Math.max(0,Math.min(total-1,i));
-  track.scrollTo({left:pages[i].offsetLeft-track.offsetLeft,behavior:reduce?'auto':'smooth'});
-  show(i);
-  const top=bar.getBoundingClientRect().top+window.scrollY-12;
-  if(window.scrollY>top)window.scrollTo({top,behavior:reduce?'auto':'smooth'});
+  if(i===cur)return;
+  const dir=i>cur?1:-1;
+  show(i,dir);toTop();
  }
  prev.addEventListener('click',()=>go(cur-1));
  next.addEventListener('click',()=>go(cur+1));
- let t=null;
- track.addEventListener('scroll',()=>{
-  if(t)clearTimeout(t);
-  t=setTimeout(()=>{
-   const x=track.scrollLeft;let best=0,bd=Infinity;
-   pages.forEach((p,j)=>{const d=Math.abs(p.offsetLeft-track.offsetLeft-x);if(d<bd){bd=d;best=j}});
-   if(best!==cur)show(best);
-  },90);
+ let sx=null,sy=0,st=0;
+ track.addEventListener('touchstart',e=>{
+  const t=e.touches[0];
+  // tables and figures that scroll sideways keep their own swipe
+  if(e.touches.length!==1||e.target.closest('input,textarea,select,.table-scroll,.odi-table,.osf-table,[data-odi-noswipe]')){sx=null;return}
+  sx=t.clientX;sy=t.clientY;st=Date.now();
+ },{passive:true});
+ track.addEventListener('touchend',e=>{
+  if(sx===null)return;
+  const t=e.changedTouches[0],dx=t.clientX-sx,dy=t.clientY-sy;sx=null;
+  if(Date.now()-st>800||Math.abs(dx)<60||Math.abs(dx)<Math.abs(dy)*1.6)return;
+  go(dx<0?cur+1:cur-1);
  },{passive:true});
  article.addEventListener('keydown',e=>{
   if(e.target.closest('input,textarea,select,details'))return;
   if(e.key==='ArrowRight'){go(cur+1);e.preventDefault();}
   if(e.key==='ArrowLeft'){go(cur-1);e.preventDefault();}
  });
- if(window.ResizeObserver)new ResizeObserver(fit).observe(track);
- window.addEventListener('resize',fit);
- // Opening a details block (the appendix) or asking the AI changes the page height.
- article.addEventListener('toggle',fit,true);
- article.addEventListener('click',()=>setTimeout(fit,120));
- window.addEventListener('beforeprint',()=>{track.style.height='auto'});
- window.addEventListener('afterprint',fit);
  show(0);
 }
 

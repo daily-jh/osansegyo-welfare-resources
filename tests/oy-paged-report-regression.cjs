@@ -87,4 +87,17 @@ check('scores, level and safety wording never change with the layout',()=>{
  assert.ok(h.indexOf(r.title)>0,'CORE judgement is not shown on the page');
 });
 
+check('the pager flips whole pages and returns the reader to the top of the new page (mobile)',()=>{
+ const fs=require('fs'),path=require('path');
+ const js=fs.readFileSync(path.join(__dirname,'../docs/youth-risk/oy-report-pages-v1.js'),'utf8');
+ const css=fs.readFileSync(path.join(__dirname,'../docs/youth-risk/oy-report-pages-v1.css'),'utf8');
+ // a horizontal scroll-snap track could stop half-way between two pages on iOS
+ assert.ok(!/scroll-snap-type/.test(css),'pages must not sit in a horizontal snap scroller');
+ assert.ok(/\.odi-swipe \.odi-page\.is-current\{display:block\}/.test(css),'only the current page is shown');
+ assert.ok(/touchend/.test(js),'swiping is not read from the touch gesture');
+ // measuring the sticky bar gave its stuck position, so a flip from the bottom stayed at the bottom
+ assert.ok(/track\.scrollIntoView/.test(js)&&!/bar\.getBoundingClientRect/.test(js),'a flip does not return to the top of the page');
+ assert.ok(/\.odi-paged \.odi-s-critical\{padding:/.test(css),'the safety box loses its inner margin on pages');
+});
+
 console.log('oy-paged-report-regression: '+run+' checks passed');
