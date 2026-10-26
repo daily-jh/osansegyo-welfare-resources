@@ -3,10 +3,10 @@
 (function(root,factory){'use strict';const api=factory();if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.YouthCaseContextCore=api;})(typeof window!=='undefined'?window:globalThis,function(){'use strict';
 const VERSION='1.3.0-others-20261026',LIMITS=Object.freeze({text:5000}),MAX_CLAUSES=65;
 const TYPES=Object.freeze([
- {id:'protection',items:[1,2],label:'학대·보호 관련 언급',re:/학대|방임|체벌|맞았|폭행|가정폭력|보호자.{0,12}(?:위협|폭력)|보호.{0,4}부재/,safety:true,ask:'현재 안전·발생시기·당사자 진술과 법정 신고·보호절차를 담당자가 확인합니다.'},
+ {id:'protection',items:[1,2],label:'학대·보호 관련 언급',re:/학대|방임|체벌|맞았|폭행|가정폭력|보호자.{0,12}(?:위협|폭력)|보호.{0,4}부재|(?:아버지|아빠|어머니|엄마|보호자|부모|계부|계모|새아빠|새엄마|양부|양모|할아버지|할머니|삼촌|이모|고모)(?:가|께서|이|는|은|한테|에게)?[^.,]{0,14}(?:때리|때렸|때린|때려|목을\s?졸|졸랐|발로\s?차|걷어차|던졌|던지|가둬|가뒀)/,safety:true,ask:'현재 안전·발생시기·당사자 진술과 법정 신고·보호절차를 담당자가 확인합니다.'},
  {id:'peer',items:[3,4,5],label:'또래관계·학교폭력',re:/따돌림|왕따|학교폭력|괴롭힘|놀림|또래.{0,6}(?:위협|폭행)|금품.{0,6}요구|협박/,ask:'피해인지 행동인지와 학교의 안전조치, 동일 사건 여부를 구분합니다.'},
- {id:'selfharm',items:[7],label:'자해·죽음 관련 언급',re:/자해|자살|죽고\s?싶|살기\s?싫|극단적\s?선택|(?:손목|팔목|팔뚝|허벅지).{0,6}(?:상처|흉터|베인|베었|베어|그은|그었|그어|긋)/,safety:true,ask:'현재 생각·행동·계획·수단 및 안전한 보호체계를 직접 확인합니다.'},
- {id:'emotion',items:[6,8],label:'정서적 어려움',re:/우울|불안|무기력|불면|수면장애|공황|정서.{0,5}곤란|심리적.{0,5}고통/,ask:'지속기간·생활영향·학생이 원하는 도움을 확인합니다.'},
+ {id:'selfharm',items:[7],label:'자해·죽음 관련 언급',re:/자해|자살|죽고\s?싶|살기\s?싫|살고\s?싶지(?:는)?\s?않|사라지고\s?싶|없어지고\s?싶|이제\s?그만\s?하고\s?싶|유서|(?:약|수면제|진통제)(?:을|를)?\s?[^.,]{0,6}(?:모아|모았|모으)|약\s?봉투|극단적\s?선택|(?:손목|팔목|팔뚝|허벅지).{0,6}(?:상처|흉터|베인|베었|베어|그은|그었|그어|긋)/,safety:true,ask:'현재 생각·행동·계획·수단 및 안전한 보호체계를 직접 확인합니다.'},
+ {id:'emotion',items:[6,8],label:'정서적 어려움',re:/우울|불안|무기력|불면|수면장애|잠을\s?(?:거의\s?|잘\s?)?못\s?자|잠들기.{0,3}(?:어렵|힘들)|공황|정서.{0,5}곤란|심리적.{0,5}고통/,ask:'지속기간·생활영향·학생이 원하는 도움을 확인합니다.'},
  {id:'attendance',items:[9,11],label:'출결·소속감',re:/결석|지각|등교.{0,9}(?:거부|어려|회피)|학교.{0,5}가기\s?싫|수업.{0,6}불참|학업중단|학교 소속감/,ask:'출결 변화의 시점과 학교 참여를 어렵게 하는 여건을 확인합니다.'},
  {id:'learning',items:[10,14,15],label:'학습·접근성',re:/기초학습|학습곤란|학습부진|과제.{0,7}(?:어려|미제출)|수업.{0,6}이해|접근성|보조공학|교육환경.{0,7}조정/,ask:'학습지원 필요와 교육환경·서비스 접근 장벽을 구분합니다.'},
  {id:'behavior',items:[5,12,13],label:'행동·건강',re:/충동.{0,3}행동|물건.{0,4}파손|위험.{0,4}행동|음주|흡연|약물.{0,5}(?:오용|과량)|폭력.{0,3}행동/,ask:'행동의 발생상황, 타인 안전 및 현재 건강·의료 상황을 확인합니다.'},
@@ -22,9 +22,10 @@ const TYPES=Object.freeze([
  // A hidden wound or bruise is a reason to ask about its context, not evidence of abuse or self-harm.
  {id:'woundContext',items:[1,7],label:'상처·멍의 맥락 확인',re:/(?:상처|멍(?!하)|흉터|화상).{0,12}(?:숨기|숨겨|감추|감춰|가리|가린|말하지\s?않|말을\s?안|설명하지\s?않|보여주지\s?않)|(?:숨기|숨겨|감추|감춰|가리|가린).{0,8}(?:상처|멍(?!하)|흉터)/,ask:'자해나 학대로 단정하지 않고 상처의 원인·위치·시점과 학생이 편하게 말할 수 있는 상황인지 확인합니다.'}
 ]);
-const NEG=/(?:없다|없음|없어|없었|없고|없으며|아니다|아님|아니며|하지\s?않|싶지\s?않|않았|않음|부인|해당\s?없|안\s?한다|안\s?함|아니라고)/;
+const NEG=/(?:없다|없음|없어|없었|없고|없으며|아니다|아님|아니며|하지\s?않|하지는\s?않|싶지\s?않|싶지는\s?않|않았|않음|부인|해당\s?없|안\s?한다|안\s?함|아니라고)/;
 // "Not wanting to stop" is the opposite of a denial.
-const CONTINUE=/(?:멈추|멈출|그만두|그만하|그만\s?하|끊)\S{0,4}\s?(?:싶지\s?않|않)/;
+// "Not wanting to live" is itself the cue, never a denial of one.
+const CONTINUE=/(?:멈추|멈출|그만두|그만하|그만\s?하|끊)\S{0,4}\s?(?:싶지\s?않|않)|살고\s?싶지(?:는)?\s?않|살\s?이유가?\s?없/;
 // Someone else is the one who self-harms, or a peer is the one hurt ("친구가 아버지에게 맞았다").
 // "친구가 때렸다" stays with the student. Harm to a sibling or parent at home also stays with the student:
 // it is the student's household, and a missed cue costs more than a check.

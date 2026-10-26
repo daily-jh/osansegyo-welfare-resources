@@ -21,7 +21,7 @@ function enrich(p,a){
  paragraphs.push('【지원과 변화 확인】'+(plans.length?plans.map(g=>g.action+' 변화 확인은 '+g.outcome+'을 중심으로 검토합니다.').join(' '):'원하는 도움과 현재 이용 중인 지원을 확인한 뒤 추가 계획의 필요성을 협의합니다.')+' 실제 기준선·목표·담당·기간은 아직 합의된 것으로 기록하지 않습니다.');
  }else if(unknown.length){
  paragraphs.push('【해석을 유보할 부분】이 영역은 확인된 양성 응답 없이 미상 문항이 남아 있습니다. 낮은 위험으로 분류하거나 자동 의뢰의 근거로 삼지 않습니다. 학생이 질문을 이해하기 어려웠는지, 답변하기 부담스러웠는지, 평가자가 아직 정보를 얻지 못했는지 안전한 방식으로 확인합니다. 확인된 다른 영역의 지원은 그동안 지연하지 않습니다.');
- }else paragraphs.push('【현재 응답의 범위】어려움이 보고되지 않았지만 이는 모든 상황에서 문제가 없거나 지원이 불필요하다는 결론은 아닙니다. 학생이 유지하고 싶은 일상·이미 도움이 되는 환경을 확인하고, 점수 밖의 불편이나 이후 변화가 있으면 재사정합니다. 구체적 강점·지원관계가 확인되기 전에는 이를 임의로 만들어 기록하지 않습니다.');
+ }else return {domain:d.i,name:d.name,evidenceIds,positive,unknown,quiet:true,paragraphs:['【'+d.name+'】이번 응답에서 어려움이 보고되지 않았습니다.']};
  return {domain:d.i,name:d.name,evidenceIds,positive,unknown,paragraphs};
  });
  const patterns=(a.cieActions||[]).filter(x=>!['unknown','mismatch','narrative-safety'].includes(x.kind)).map(x=>({id:x.id,items:x.items,paragraphs:[
@@ -30,15 +30,18 @@ function enrich(p,a){
  '【확인과 개입의 연결】'+x.verification+'을 검토합니다. 각 어려움이 시작된 시점과 영향을 받는 일상 장면을 나란히 기록하고, 학생이 먼저 바꾸고 싶은 장면을 선택하도록 돕습니다. 안전 문제가 있으면 원인 규명이나 일반 상담보다 현재 보호를 우선합니다.',
  '【다음 점검】처음 보고된 어려움과 실제 제공한 지원, 학생이 체감한 변화를 구분해 기록합니다. 개선되지 않으면 학생의 노력 부족으로 해석하기 전에 접근 장벽·지원 적합성·환경 변화를 재검토합니다.'
  ]}));
+ // Domains with nothing reported share one line, so the report does not repeat the same caveat per domain.
+ const group=ids=>{const rs=rows.filter(r=>ids.includes(r.domain)),quiet=rs.filter(r=>r.quiet);
+  return [...rs.filter(r=>!r.quiet).flatMap(r=>r.paragraphs),...(quiet.length?['【어려움이 보고되지 않은 영역】'+quiet.map(r=>r.name).join(' · ')+'. 보고되지 않았다는 것이 지원이 필요 없다는 결론은 아니므로, 학생이 유지하고 싶은 일상과 이미 도움이 되는 환경을 확인하고 이후 변화가 있으면 재사정합니다.']:[])];};
  const blocks={
  '현재 안전과 즉시 필요한 확인':[rows[0].paragraphs.join('\n\n'),'【점수와 안전의 구분】안전문항·추가 안전확인·명시적 위해 표시와 서술 단서는 별도로 확인합니다. 낮은 합계나 보호요인으로 안전 신호를 상쇄하지 않습니다. 현재 위치·위해·안전한 연락 경로·보호조치의 실제 이행을 확인하며, 보호자 연락의 안전성도 사안에 따라 검토합니다.'],
- '가족·돌봄·생활환경':rows.filter(r=>[6,7].includes(r.domain)).flatMap(r=>r.paragraphs),
- '학습·출결·교우·정서·건강':rows.filter(r=>[1,2,3,4,5,8,9].includes(r.domain)).flatMap(r=>r.paragraphs),
+ '가족·돌봄·생활환경':group([6,7]),
+ '학습·출결·교우·정서·건강':group([1,2,3,4,5,8,9]),
  '상황을 함께 이해하기 · 잠정 해석과 지도 방향':patterns.length?patterns.flatMap(x=>x.paragraphs):['【통합 해석의 범위】현재 정의된 교차 가설에 해당하는 근거가 충분하지 않습니다. 해석 분량을 채우기 위해 복합문제나 인과관계를 만들지 않습니다. 학생의 실제 생활 영향과 희망을 확인해 필요할 때 가설을 보완합니다.'],
  '학생의 말·희망·동기':['【학생 관점의 해석】지원자의 우선순위와 학생이 가장 부담스러워하는 일은 다를 수 있습니다. 먼저 바꾸고 싶은 하루의 장면, 받기 편한 도움, 원하지 않는 접촉·지원 방식을 직접 확인합니다. 표현을 망설이거나 지원을 거절하는 경우도 동기 부족으로 단정하지 않고 이전 경험·정보공유 부담·실행 여건을 살펴봅니다.'],
  '강점·보호요인·기존 지원':['【보호요인의 작동 확인】관심 활동이나 지지자가 언급되었다면 그것이 언제 실제 도움이 되었는지, 필요할 때 연락하거나 이용할 수 있는지 확인합니다. 단순한 관계의 존재와 실제 도움의 접근성은 다릅니다. 이용기관 언급도 문의·접수·실제 이용·성과로 구분하며, 확인되지 않은 강점은 질문으로 남깁니다.'],
  '종합사정 및 우선순위':['【우선순위의 논리】현재 안전 확인, 당장 충족되지 않은 필수생활, 학생이 바라는 변화와 실행 가능한 환경 조정을 함께 고려합니다. 여러 과제를 동시에 나열하기보다 학생과 합의할 초기 과제와 협력 담당을 구체화합니다. 점수에 따른 지원 방향은 실제 사례회의 결정·기관 수락·서비스 시작을 뜻하지 않습니다.'],
- '근거·미확인·확인 계획':['【근거 추적과 재검토】문항 근거 Q01–Q25, 서술 단서, 잠정 가설, 합의 전 제안을 구분합니다. 같은 입력을 해석하는 여러 모듈의 일치는 독립된 사실 확인이 아닙니다. 추가 정보로 해석이 바뀌어도 원응답을 자동 수정하지 않으며, 새 평가일의 근거와 수정 사유를 별도로 남깁니다.']};
+ '근거·미확인·확인 계획':['【근거 추적과 재검토】25문항 응답, 서술 단서, 잠정 가설, 합의 전 제안을 구분합니다. 같은 입력을 해석하는 여러 모듈의 일치는 독립된 사실 확인이 아닙니다. 추가 정보로 해석이 바뀌어도 원응답을 자동 수정하지 않으며, 새 평가일의 근거와 수정 사유를 별도로 남깁니다.']};
  return {...a,sections:a.sections.map(section=>({...section,text:[section.text,...(blocks[section.title]||[])].join('\n\n')})),interpretationArchitecture:{version:VERSION,source:'CORE→ICSI→NCB/OY-CIE→기존 사례사정·계획·출력',domains:rows,patterns,limits:'규칙 기반 사정 가설 · 실증 타당도 미검증'}};
 }
 const api=Object.freeze({VERSION,enrich});if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.OYCaseInterpretation=api;

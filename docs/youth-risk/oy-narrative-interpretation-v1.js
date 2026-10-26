@@ -23,8 +23,8 @@ const CUES=[
  {n:4,re:/돈을 (?:뺏|빼앗|요구)|갈취|셔틀|협박|강요(?:를|당)/},
  {n:5,re:/(?:친구|또래|교사|선생님)(?:를|을|에게)[^.,]{0,8}(?:때리|때렸|밀치|밀쳤|위협)|물건을 던|싸움을|폭언/},
  {n:6,re:/우울|무기력|의욕이 없|의욕(?:이)? ?(?:떨어|없)|엎드려|눈물|울었|울먹|표정이 (?:없|어둡)|웃지 않|외롭|슬퍼|슬프다|짜증이 늘|힘들다고/},
- {n:7,re:/(?:손목|팔목|팔뚝|허벅지)[^.,]{0,6}(?:상처|흉터|베인|그은|긋)|죽고 ?싶|사라지고 ?싶|없어지고 ?싶|살기 싫|자해|손목을|자살|극단적 (?:선택|생각)|태어나지 말|유서/},
- {n:8,re:/잠을 (?:못|잘 못)|잠이 안|불면|악몽|불안해|불안이|겁이 많|공황|멍하게|혼란스러|졸고|졸음|조는/},
+ {n:7,re:/(?:손목|팔목|팔뚝|허벅지)[^.,]{0,6}(?:상처|흉터|베인|그은|긋)|죽고 ?싶|사라지고 ?싶|없어지고 ?싶|살기 싫|자해|손목을|자살|극단적 (?:선택|생각)|태어나지 말|유서|살고 ?싶지 ?(?:는 ?)?않|이제 ?그만 ?하고 ?싶|(?:약|수면제|진통제)(?:을|를)? ?[^.,]{0,6}(?:모아|모았|모으)|약 ?봉투/},
+ {n:8,re:/잠을 (?:거의 |잘 )?못|잠들기 (?:어렵|힘들)|잠이 안|불면|악몽|불안해|불안이|겁이 많|공황|멍하게|혼란스러|졸고|졸음|조는/},
  {n:9,re:/지각|결석|조퇴|등교(?:를)? ?(?:거부|하지 않|못)|학교에 (?:오지|가지|나오지) (?:않|못)/},
  {n:10,re:/성적(?:이)? ?(?:떨어|낮)|학습(?:이)? ?(?:부진|어려|뒤처)|과제(?:를)? ?(?:내지|미제출|못 해|안 해)|수업을 (?:따라가지|못 따라)|기초학력|백지/},
  {n:11,re:/자퇴|학교를 그만|학교 다녀서|학교가 싫|학교에 가기 싫|진로(?:에)? ?관심(?:이)? ?없/},
@@ -63,7 +63,10 @@ function sourceOf(s){
  if(/(?:담임|교사|선생님|상담교사|교육복지사)(?:에 따르면|의 관찰|이 관찰|은 |는 |이 |가 |께서 )/.test(s))return '교사 관찰';
  if(new RegExp('(?:'+CARER.slice(3,-1)+'|할머니|할아버지)(?:에 따르면|의 말|가 말|이 말|는 말|은 말|께서 말|와의 통화|와 통화)').test(s))return '보호자 진술';
  if(/관찰(?:했|됨|되었|함)|보였다|확인(?:했|됨|되었)/.test(s))return '기록자 관찰';
- if(/다고 한다|다고 함|다고 들|라고 한다/.test(s))return '전해 들은 내용';
+ if(new RegExp('^(?:'+CARER.slice(3,-1)+'|할머니|할아버지)(?:는|은|가|이|께서) ').test(s))return '보호자 진술';
+ if(/다고 들|들었다|알려 ?(?:옴|왔)/.test(s))return '전해 들은 내용';
+ // In a case record "…다고 함" is how the writer notes what the student said, unless someone else is named as the one who said it.
+ if(/다고 한다|다고 함|라고 한다|라고 함|다고 말함|다고 이야기함/.test(s))return /(?:친구|선배|후배|동생|이웃|다른 학생)(?:가|이|들이|는) [^.]{0,24}(?:말했|전했|알려|이야기했)/.test(s)?'전해 들은 내용':'학생 진술';
  return '기록 내용';
 }
 function sentences(text){
@@ -210,11 +213,15 @@ function integrate(p){
  const newPatterns=nv.present?X.match(aug).active.filter(x=>!before.has(x.id)):[];
  const nSafety=cmp.rows.filter(x=>x.safety&&(x.kind==='narrative'||x.kind==='fill'));
  let level=w.level,adjust='';
+ const escalate=list=>{const ns=list.map(x=>x.n);
+  if(ns.some(n=>n===1||n===2))return '안전 면담에서 현재 위해나 귀가 후의 위험이 확인되면 신고와 보호 조치를 바로 진행하는 위기개입으로 전환합니다.';
+  if(ns.includes(25))return '협박이나 접촉이 지금도 이어지고 있으면 수사기관 신고와 피해 보호를 바로 진행하는 위기개입으로 전환합니다.';
+  return '안전 면담에서 현재 생각·계획·수단이 확인되면 위기개입으로 전환합니다.';};
  const route=!w.immediate&&nSafety.length&&D.safetyRoute?D.safetyRoute(n=>nSafety.some(x=>x.n===n),false):null;
  const lead=route&&route.lead?route.lead:w.lead,immediate=w.immediate||(route?route.immediate:'');
  if(nSafety.length&&LEVEL_ORDER.indexOf(level.id)<3){
   level={id:'intensive',name:'집중 사례관리 (다기관) · 안전 확인 우선',contact:'오늘 안에 안전 면담, 이후 주 1회 이상 학생 접촉',meeting:'2주 안에 다기관 사례회의, 안전 확인 결과에 따라 앞당김',review:'1개월마다 진행 점검, 3개월 재사정',reason:'척도 응답보다 서술에서 안전 관련 표현이 더 분명하게 나타나 집중 수준으로 운영합니다.'};
-  adjust='서술에 '+nSafety.map(x=>cueName(x.topic)).join(', ')+'이 있어 척도 기준보다 한 단계 높은 수준으로 운영합니다. 안전 면담에서 현재 생각·계획·수단이 확인되면 위기개입으로 전환합니다.';
+  adjust='서술에 '+nSafety.map(x=>cueName(x.topic)).join(', ')+'이 있어 척도 기준보다 한 단계 높은 수준으로 운영합니다. '+escalate(nSafety)+'';
  }else if(nv.present&&cmp.narrative.length>=2&&LEVEL_ORDER.indexOf(level.id)<2){
   level={...level,id:'general',name:'일반 사례관리 (학교·복지 협력)',contact:'주 담당자가 1~2주에 1회 학생 접촉',meeting:'4주 안에 학교·복지 담당 협의(학맞통 협의 검토)',review:'3개월마다 재사정',reason:'척도 응답은 낮지만 서술에서 여러 생활영역의 어려움이 구체적으로 드러나 학교와 복지가 함께 확인합니다.'};
   adjust='척도보다 서술에서 '+cmp.narrative.map(x=>x.topic).join(', ')+'의 어려움이 더 크게 드러나 협력 수준을 한 단계 올렸습니다.';
@@ -254,7 +261,7 @@ function integrate(p){
  const strengths=[...r.strengths.slice(0,4).map(s=>({label:s.label,text:s.text})),...nv.read.strengths.slice(0,3).map(s=>({label:'서술에 기록된 강점',text:'“'+s.quote+'”'}))];
  const wishes=nv.read.wishes.map(s=>s.quote);
  const partners=[...w.partners];[...cmp.narrative,...cmp.fill].forEach(x=>{const o=OWNER[K.item(x.n).owner];if(o!==w.lead&&!partners.includes(o))partners.push(o)});
- return {version:VERSION,deep:r,narrative:nv,present:nv.present,redacted:!!nv.read.redacted,level,adjust,lead,immediate,partners,leadText:route&&route.lead?'서술의 안전 신호 때문에 오늘의 즉시 대응과 이후 사례관리 주관을 나눕니다. 즉시 대응은 '+route.immediate+'이 맡고, 이후 사례관리는 '+route.lead.replace(/ \(.*\)$/,'')+'이 주관합니다.':w.leadText,family,keys:keyList,
+ return {version:VERSION,deep:r,narrative:nv,present:nv.present,redacted:!!nv.read.redacted,level,adjust,lead,immediate,partners,leadText:route&&route.lead?'서술의 안전 신호 때문에 오늘의 즉시 대응과 이후 사례관리 주관을 나눕니다. 오늘의 즉시 대응: '+route.immediate+'. 이후 사례관리: '+josa(route.lead.replace(/ \(.*\)$/,''),'이','가')+' 주관합니다.':w.leadText,family,keys:keyList,
   first:nSafety.length&&!/^지금 바로/.test(r.summary.first)?'오늘 안에 서술에 나온 '+nSafety.map(x=>cueName(x.topic)).join(', ')+'을 학생과 직접 안전 면담으로 확인합니다.':r.summary.first,
   safety:r.summary.safety==='이번 응답의 안전 신호 없음'&&nSafety.length?'서술에 안전 관련 표현 · 확인 우선':r.summary.safety,
   understanding:u.join(' '),compare:cmp,newPatterns,plan,goals,agenda,strengths,wishes,questions:[...nv.questions,...r.questions.filter(q=>!nv.questions.some(x=>x.about===q.about))].slice(0,7),notice:NOTICE};

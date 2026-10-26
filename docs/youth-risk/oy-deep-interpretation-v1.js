@@ -186,7 +186,7 @@ function casework(values,c,prof,patterns,crit,str,p){
  const route=route0&&{...route0,lead:leadRoute&&leadRoute.lead||null};
  const lead=route&&route.lead?route.lead:main&&!(route&&['protect','crisis'].includes(main))?OWNER[main]:route?OWNER.school:'학교 담임',immediate=route?route.immediate:'';
  const partners=order.filter(o=>o!==main&&!(route&&route.lead&&['protect','crisis'].includes(o))).map(o=>OWNER[o]).concat(route&&route.lead&&main?[OWNER[main]]:[]);
- const leadText=route&&route.lead?'안전 신호가 있어 오늘의 즉시 대응과 이후 사례관리 주관을 나눕니다. 즉시 대응은 '+route.immediate+'이 맡고, 이후 사례관리는 '+route.lead.replace(/ \(.*\)$/,'')+'이 주관합니다.':(first==='protect'?'아동보호·수사기관의 판단과 보호 조치가 가장 먼저입니다. 그 뒤 ':first==='crisis'?'정신건강 위기대응 기관과 함께 하는 안전 확인이 가장 먼저입니다. 그 뒤 ':'')+(main==='welfare'?'생활 기반·가족 영역의 비중이 커서 복지관 통합사례관리가 주관하고 학교가 협력하는 구조가 맞습니다.':main==='school'?'어려움이 학교생활 안에 주로 드러나 학교(담임·교육복지사)가 주관하고 지역 기관이 협력하는 구조가 맞습니다.':'지원 영역에 맞는 기관이 주관합니다.');
+ const leadText=route&&route.lead?'안전 신호가 있어 오늘의 즉시 대응과 이후 사례관리 주관을 나눕니다. 오늘의 즉시 대응: '+route.immediate+'. 이후 사례관리: '+josa(route.lead.replace(/ \(.*\)$/,''),'이','가')+' 주관합니다.':(first==='protect'?'아동보호·수사기관의 판단과 보호 조치가 가장 먼저입니다. 그 뒤 ':first==='crisis'?'정신건강 위기대응 기관과 함께 하는 안전 확인이 가장 먼저입니다. 그 뒤 ':'')+(main==='welfare'?'생활 기반·가족 영역의 비중이 커서 복지관 통합사례관리가 주관하고 학교가 협력하는 구조가 맞습니다.':main==='school'?'어려움이 학교생활 안에 주로 드러나 학교(담임·교육복지사)가 주관하고 지역 기관이 협력하는 구조가 맞습니다.':'지원 영역에 맞는 기관이 주관합니다.');
  // ecology
  const ecology=ECO.map(([id,name])=>{
   const items=K.ITEMS.filter(k=>k.eco===id);
