@@ -115,11 +115,11 @@ function mapViz(a,x){
 }
 function caseViz(a,x){
  const top=x.domainRows.filter(d=>d.raw>0).sort((b,c)=>b.normalized-c.normalized).slice(0,4);
- const rows=a.plans.slice(0,5).map((p,i)=>[String(i+1),p.title,(p.evidence||[]).slice(0,3).join(' · ')||'기록 문맥',p.when||'초기 개입',p.outcome||'생활 변화 추적']);
+ const rows=a.plans.slice(0,3).map((p,i)=>[String(i+1),p.title,(p.evidence||[]).slice(0,3).join(' · ')||'기록 문맥',p.when||'초기 개입',p.outcome||'생활 변화 추적']);
  return '<div class="oy-viz-panel"><h2>사례개념화·개입계획 · 실행 구조</h2><div class="oy-viz-path"><div>01 안전·사정</div><span>→</span><div>02 학교·학맞통 협의</div><span>→</span><div>03 복지관·전문기관 개입</div><span>→</span><div>04 재사정·종결</div></div>'+
  '<div class="oy-viz-split"><article><h3>사정 우선영역</h3>'+top.map(d=>bar(d.name,d.normalized)).join('')+'</article><article><h3>담당 체계 · 역할 분담</h3>'+
  cells(['실행주체','핵심 업무'],[['담임·학교','안전·출결·학습·교내 조정'],['교육복지','학생맞춤통합지원 및 교내외 의뢰 조정'],['사회복지관','가구·돌봄·생활환경 사정, 서비스 계획·점검'],['전문기관','해당 영역 전문지원 및 후속 개입']])+'</article></div>'+
- '<h3>추천 실행계획 · 근거 연동</h3>'+(rows.length?cells(['우선순위','개입 과제','근거','시점','성과지표'],rows):'<p>현재 점수에서 자동으로 생성된 실행과제는 없습니다.</p>')+'</div>';
+ '<h3>추천 실행계획 · 근거 연동</h3>'+(rows.length?cells(['우선순위','개입 과제','근거','시점','성과지표'],rows)+(a.plans.length>3?'<p class="oy-viz-note">먼저 시작할 3건만 보입니다. 나머지 '+(a.plans.length-3)+'건은 서비스계획에서 펼쳐 볼 수 있습니다.</p>':''):'<p>현재 점수에서 자동으로 생성된 실행과제는 없습니다.</p>')+'</div>';
 }
 function researchViz(){
  // 04 is the ask-panel collection: quick answers from the report first, then the practitioner's own AI by copy and paste.
@@ -127,8 +127,8 @@ function researchViz(){
  '<p class="oy-viz-note">해석지 제목 옆 「AI에 묻기」나 보고서 버튼에서 시작합니다. 이 사이트는 자료를 외부 AI로 자동 전송하지 않으며, 서술기록은 실무자가 포함을 선택할 때만 요청문에 들어갑니다.</p></div>';
 }
 function recordsViz(a,x){
- const plans=a.plans.slice(0,5);
- return '<div class="oy-viz-panel"><h2>기록·점검 · 회차별 실행흐름</h2><div class="oy-viz-path"><div>초기 평가<br><strong>'+esc(x.label)+'</strong></div><span>→</span><div>서비스 실행<br><strong>'+plans.length+'개 추천 과제</strong></div><span>→</span><div>점검·재사정<br><strong>변화 기록</strong></div><span>→</span><div>종결·사후관리<br><strong>목표와 경과 비교</strong></div></div>'+
+ const plans=a.plans.slice(0,3);
+ return '<div class="oy-viz-panel"><h2>기록·점검 · 회차별 실행흐름</h2><div class="oy-viz-path"><div>초기 평가<br><strong>'+esc(x.label)+'</strong></div><span>→</span><div>서비스 실행<br><strong>'+a.plans.length+'개 중 먼저 '+plans.length+'개</strong></div><span>→</span><div>점검·재사정<br><strong>변화 기록</strong></div><span>→</span><div>종결·사후관리<br><strong>목표와 경과 비교</strong></div></div>'+
  cells(['우선 과제','기준선','목표','이행','재사정'],plans.map(p=>[p.title,'현재 척도 기반','학생·실무자 목표 입력','진행기록 입력','전후 비교 입력']))+
  '<p class="oy-viz-note">입력되지 않은 제공 횟수·목표 달성률·종결 상태를 임의 생성하지 않습니다. 아래 기록 양식에서 입력한 실제 이행 자료를 사용합니다.</p></div>';
 }
