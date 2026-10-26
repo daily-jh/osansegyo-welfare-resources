@@ -5,7 +5,7 @@ const anchor=document.getElementById('journey88');if(!anchor||document.getElemen
 const p=document.createElement('section');p.id='cie-flow-v32';p.className='cie-flow-v32';p.hidden=true;
 p.setAttribute('aria-label','OY-CIE V3.3.1 연구형 심층해석');
 p.innerHTML=[
-'<header><div><small>OY-CIE V3.3.1 · 기존 평가 흐름 속 보조 해석</small><h3>근거 기반 추가 질문·확인과제</h3><p>V8.9.3 기존 해석을 보완하는 선택 기능 · 공식 CORE 결과는 그대로 유지합니다.</p></div><a href="cie-lab-v32/" target="_blank" rel="noopener noreferrer">연구작업실 ↗</a></header>',
+'<header><div><small>OY-CIE V3.3.1 · 선택된 사례의 근거 연결</small><h3>AI 연구 분석 결과 · 근거 추적</h3><p>연구 작업실에서 질문하면 이 패널에도 같은 분석 근거가 기록됩니다.</p></div></header>',
 '<div class="cie-settings"><label>실무 관점 <select id="cie-flow-role"><option value="teacher">교사</option><option value="education-welfare">교육복지사</option><option value="social-worker" selected>사회복지사</option></select></label><label><input type="checkbox" id="cie-flow-narrative"> 서술형 함께 분석 <small>(선택 · 기기 안에서 처리)</small></label></div>',
 '<label for="cie-flow-question">이 단계에서 확인할 질문</label><div class="cie-query"><input id="cie-flow-question" maxlength="500"><button id="cie-flow-run" type="button">다시 분석</button></div>',
 '<p class="cie-flow-status" id="cie-flow-status" role="status">평가 완료 후 분석합니다.</p><div class="cie-flow-result" id="cie-flow-result">분석 대기</div>',
@@ -45,19 +45,28 @@ async function evaluate(){
   if(token!==count)return;
   thread=result.dialogueState;answer.textContent=result.answer;
   audit.textContent=JSON.stringify({flowRevision:v.flowRevision,official:result.official,issues:result.issues,gates:result.gates,review:result.review,knowledge:result.baseKnowledgeIds,playbook:result.usedPlaybookIds,corpus:kb?'600개 개발원고 검수 전':'미연결',role:result.role},null,2);
-  status.textContent='해석 완료 · 연구형 지식 '+(kb?'600건 구조확인':'미연결')+' · 80개 템플릿 '+(playbook?'로드':'미연결')+' · 실무자 검토 필요';
- }catch(e){if(token!==count)return;answer.textContent='OY-CIE 심층해석을 표시하지 못했습니다. 기존 결과 해석·지원연계는 계속 이용할 수 있습니다.';audit.textContent=String(e?.message||'분석 오류');status.textContent='심층해석 보류 · 자료·개인정보 형식 확인 필요';thread=null;}
+  status.textContent='해석 완료 · 연구형 지식 '+(kb?'600건 구조확인':'미연결')+' · 80개 템플릿 '+(playbook?'로드':'미연결')+' · 실무자 검토 필요';return result;
+ }catch(e){if(token!==count)return;answer.textContent='분석 오류: '+String(e?.message||'모델 연결 오류');audit.textContent=String(e?.stack||e);status.textContent='분석 실패 · 원인 표시';thread=null;throw e;}
  finally{if(token===count)run.disabled=false;}
 }
 window.addEventListener('oy-journey-view',e=>{
- const s=e.detail;if(!s?.ready||!s.payload||s.stage===1){current=null;contextKey='';clear();p.hidden=true;return;}
+ const s=e.detail;if(!s?.ready||!s.payload||s.stage!==5){current=null;contextKey='';clear();p.hidden=true;return;}
  const prev=current?.payload,changed=!prev||prev.flowRevision!==s.payload.flowRevision||prev.caseContext!==s.payload.caseContext||JSON.stringify(prev.answers)!==JSON.stringify(s.payload.answers)||JSON.stringify(prev.followups)!==JSON.stringify(s.payload.followups)||JSON.stringify(prev.explicit)!==JSON.stringify(s.payload.explicit);
  current=s;p.hidden=false;p.classList.toggle('cie-research-stage',s.stage===5);const next=mode(s);
  if(changed){clear();note.checked=false;}
- if(changed||next!==contextKey){contextKey=next;question.value=prompts[next];thread=null;evaluate();}
+ if(changed||next!==contextKey){contextKey=next;question.value=prompts[next];thread=null;evaluate().catch(()=>{});}
 });
-role.addEventListener('change',()=>{thread=null;evaluate();});
-note.addEventListener('change',()=>{thread=null;evaluate();});
-run.addEventListener('click',evaluate);
+role.addEventListener('change',()=>{thread=null;evaluate().catch(()=>{});});
+note.addEventListener('change',()=>{thread=null;evaluate().catch(()=>{});});
+run.addEventListener('click',()=>evaluate().catch(()=>{}));
 question.addEventListener('input',()=>{count++;thread=null;answer.textContent='이전 질문의 결과는 폐기했습니다.';status.textContent='다시 분석을 눌러주세요.';run.disabled=false;});
+window.OYCIEFlowV32=Object.freeze({ask:async(text,options={})=>{
+ if(!current?.ready||current.stage!==5)throw Error('연구 작업실에서 평가자료를 먼저 열어주세요.');
+ if(options.role)role.value=options.role;
+ note.checked=Boolean(options.includeNarrative);
+ question.value=String(text||'').slice(0,500);
+ thread=null;
+ return await evaluate();
+},getState:()=>({status:status.textContent,answer:answer.textContent})});
+
 })();
