@@ -29,17 +29,19 @@ function resultScorePage(a){
  +'<p>CORE 응답은 5단계 보조지표와 별도로 보존합니다.</p></details></section>';
 }
 function resultNarrativePage(a){
- const c=a.context;
- if(!c.hasContext) return '<section class="j88-result-pane"><h3>서술기록 기반 해석</h3><p>추가 서술기록이 입력되지 않아 맥락 추론을 수행할 근거가 없습니다. 평가 입력에서 사례 서술을 추가한 뒤 완료해 주세요.</p><p>척도 결과와 안전판정은 별도로 유지됩니다.</p></section>';
- const fields=Object.entries(c.fields||{}).filter(([_,v])=>typeof v==='string'&&v.trim()).slice(0,12).map(([k,v])=>[({situation:'학생 상황',observations:'관찰·상담기록',studentWishes:'학생 희망',strengths:'강점·보호요인',existingSupport:'기존 지원',urgentNeeds:'긴급 필요'})[k]||k,v]);
- const k=a.kCarr&&!a.kCarr.abstain?a.kCarr:null;
- return '<section class="j88-result-pane"><p class="j88-view-note">서술기록에서 추출한 단서만 살펴봅니다. 이 페이지에서 척도 점수를 재산정하거나 사건을 확정하지 않습니다.</p>'
- +'<h3>서술에서 확인·보고된 정보</h3>'
- +(fields.length?table(['기록 구분','입력에서 추출한 내용'],fields.map(([k,v])=>[k,v])):'<p>추출된 구조화 항목이 없습니다. 원문과 첫 면담을 대조해 주세요.</p>')
- +'<h3>맥락적 단서 및 확인 사항</h3>'
- +(c.signals?.length?table(['서술 단서','보고 상태','추가 확인'],c.signals.map(x=>[x.clause,x.polarity==='negated'?'부정 표현':x.polarity==='hypothetical'?'가정·예시':x.timeHint==='historical-mention'?'과거 상황':'보고·미확인',x.action])):'<p>자동 분류 가능한 단서가 부족합니다. 학생의 실제 경험과 정보원을 면담으로 확인해 주세요.</p>')
- +(k?'<h3>K-CARR 서술형 사례 분석</h3><p>'+esc(k.situationOverview||'')+'</p><p>'+esc(k.integratedJudgment||'')+'</p>':'')
- +'<p>서술형 분석은 문맥을 잘못 해석할 수 있습니다. 부정·과거·타인 관련 진술과 사실·추정의 구별을 실무자가 확인해 주세요.</p></section>';
+ const v=window.OYNarrativeStructure?.interpret(state.payload);
+ if(!v?.present)return '<section class="j88-result-pane"><h3>서술기록 기반 해석</h3><p>서술기록이 입력되지 않았습니다. 정량 응답만으로 위기단계와 학교·복지 개입 방향을 확인할 수 있습니다.</p></section>';
+ const sections=v.paragraphs.map(p=>'<section class="j88-narrative-section"><h4>단락 '+p.number+' · '+esc(p.topic)+'</h4><p>'+esc(p.source)+'</p><div class="j88-narrative-tags"><span>연관 영역 · '+esc(p.areas.join('·')||'별도 영역 없음')+'</span><span>문항 · '+esc(p.items.map(n=>n+'번').join('·')||'별도 대응문항 없음')+'</span></div></section>').join('');
+ return '<section class="j88-result-pane"><p class="j88-view-note">서술기록을 단락·문장·문항·영역으로 해체한 <strong>근거 기반 서술 해석</strong>입니다. 서술은 척도 원점수를 수정하지 않습니다.</p>'
+ +'<h3>① 단락별 생활상황과 의미</h3>'+sections
+ +'<h3>② 문장별 근거 · 문항·영역 대응</h3>'
+ +table(['문장','실제 서술','문항별 점수','해석 영역·상태'],v.sentences.slice(0,35).map(x=>[x.id,x.text,x.scores.join(' · ')||'직접 연결 문항 없음',x.areas.join(' · ')+' / '+x.status]))
+ +'<h3>③ 영역별 서술 보강</h3>'
+ +(v.themes.length?table(['해석 주제','연결 문장','문항 점수'],v.themes.map(x=>[x.name,x.sentences.join('·'),x.scores.join(' · ')])):'<p>현재 서술에서 문항과 직접 연결되는 핵심 표현은 추출되지 않았습니다. 서술 원문은 위에 보존됩니다.</p>')
+ +'<h3>④ 근거 대조·심화 해석</h3>'
+ +(a.context.mismatches?.length?table(['관련 문항','원점수·서술 대조'],a.context.mismatches.map(x=>[x.items.join('·')+'번',x.issue])):'<p>자동 대조에서 점수와 서술의 직접적인 상충 단서는 추출되지 않았습니다.</p>')
+ +(a.kCarr&&!a.kCarr.abstain?'<details><summary>K-CARR 서술형 통합 사정 더 보기</summary><p>'+esc(a.kCarr.situationOverview||'')+'</p><p>'+esc(a.kCarr.integratedJudgment||'')+'</p></details>':'')
+ +'<p class="j88-view-note">문장별 상태는 텍스트 규칙으로 분류한 결과입니다. 인용·부정·과거·제3자 언급을 자동으로 확정 사실로 바꾸지 않습니다.</p></section>';
 }
 function systemOutcome(a){
  const x=window.OYFiveLevelIndex?.analyze(state.payload);
