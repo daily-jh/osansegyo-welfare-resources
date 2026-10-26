@@ -7,7 +7,12 @@ function rows(data){if(!data||!Array.isArray(data.organizations))return [];
  '신청·연계방법':s.method,'운영확인':s.operation,'최종검토일':s.editedOn||o.reviewed,
  contactDept:o.contact?.dept||'',orgId:o.id,serviceId:s.id,address:o.address||'',addressStatus:o.addressStatus||'미확인',addressSource:o.addressSource||'',
  addressCheckedOn:o.addressCheckedOn||'',addressNote:o.addressNote||'',contacts:(s.contacts||[]).map(c=>({...c})),
- directoryDate:data.date||'',directorySource:true
+ directoryDate:data.date||'',directorySource:true,
+ // Detail fields for the support map: verification, operation type and application rounds.
+ orgStatus:o.status||'',jurisdiction:o.jurisdiction||'',operationType:s.operationType||'',localAvailable:s.localAvailable||'',
+ verification:s.verification?{...s.verification}:null,rounds:(s.rounds||[]).map(r=>({...r})),
+ orgContact:o.contact?{dept:o.contact.dept||'',phone:o.contact.phone||'',hours:o.contact.hours||'',verifiedOn:o.contact.verified_on||''}:null,
+ needTags:(s.tags&&s.tags.need||[]).slice(),intakeTags:(s.tags&&s.tags.intake||[]).slice()
  })));}
 const api={rows};if(typeof module!=='undefined')module.exports=api;else root.YouthResourceAdapter=api;
 })(typeof window!=='undefined'?window:globalThis);
