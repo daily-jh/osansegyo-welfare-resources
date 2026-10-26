@@ -41,7 +41,7 @@ async function scenario(browser,width){
  await page.evaluate(()=>window.dispatchEvent(new Event('afterprint')));
 
  await page.locator('[data-j88-result-tab="narrative"]').click();
- assert.match(await page.locator('#journey88').innerText(),/추가 서술기록이 입력되지 않아/,'empty narrative is explicit');
+ assert.match(await page.locator('#journey88').innerText(),/서술기록이 입력되지 않았습니다/,'empty narrative is explicit');
  await page.locator('[data-j88-result-tab="integrated"]').click();
  assert.ok((await page.locator('#journey88').innerText()).includes('종합사정 및 지원 방향'));
  assert.equal(await page.locator('#oy-integrated-visual-slot .oy-viz-grade').count(),1,'integrated opinion receives five-level badge');
