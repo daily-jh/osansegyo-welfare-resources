@@ -121,12 +121,10 @@ function caseViz(a,x){
  cells(['실행주체','핵심 업무'],[['담임·학교','안전·출결·학습·교내 조정'],['교육복지','학생맞춤통합지원 및 교내외 의뢰 조정'],['사회복지관','가구·돌봄·생활환경 사정, 서비스 계획·점검'],['전문기관','해당 영역 전문지원 및 후속 개입']])+'</article></div>'+
  '<h3>추천 실행계획 · 근거 연동</h3>'+(rows.length?cells(['우선순위','개입 과제','근거','시점','성과지표'],rows):'<p>현재 점수에서 자동으로 생성된 실행과제는 없습니다.</p>')+'</div>';
 }
-function researchViz(x){
- const contracts=window.OYModelGateway?.status?.()||[];
- const stages=[['CORE','원점수·안전'],['ICSI','문항 의미'],['NCB','서술 대조'],['OY-CIE','복합 해석'],['K-CARR','사례 추론'],['ICMS','서비스 계획']];
- return '<div class="oy-viz-panel"><h2>AI 사례자문 작업실 · 모델 연결도</h2><div class="oy-viz-path"><div>척도·서술 원자료</div><span>→</span><div>검증 게이트</div><span>→</span><div>OY-CIE 응답 엔진</div><span>→</span><div>개입 근거·요청문</div></div>'+
- '<div class="oy-viz-matrix">'+stages.map(([id,role])=>{const item=contracts.find(c=>c.id===id);return '<div class="'+(item?.loaded?'on':'')+'"><strong>'+id+'</strong><span>'+role+' · '+(item?.loaded?'연결':'별도·미연결')+'</span></div>';}).join('')+'</div>'+
- '<p class="oy-viz-note">현재 학생·사례 정보는 연구 작업실의 선택자료 범위에 따라 연결되며, 선택된 서술과 기록은 기본적으로 외부 AI로 전송되지 않습니다.</p></div>';
+function researchViz(){
+ // 04 is the ask-panel collection: quick answers from the report first, then the practitioner's own AI by copy and paste.
+ return '<div class="oy-viz-panel"><h2>AI 사례자문 작업실 · 이용 흐름</h2><div class="oy-viz-path"><div>해석지 읽기</div><span>→</span><div>해석지에서 바로 찾기</div><span>→</span><div>외부 AI에 묻기<br><strong>복사 후 직접 붙여넣기</strong></div><span>→</span><div>답변 검토·저장</div></div>'+
+ '<p class="oy-viz-note">해석지 제목 옆 「AI에 묻기」나 보고서 버튼에서 시작합니다. 이 사이트는 자료를 외부 AI로 자동 전송하지 않으며, 서술기록은 실무자가 포함을 선택할 때만 요청문에 들어갑니다.</p></div>';
 }
 function recordsViz(a,x){
  const plans=a.plans.slice(0,5);
@@ -151,7 +149,7 @@ function render(s){
   let html='';
   if(s.stage===2&&s.view==='map')html=''; // existing support iframe is the sole map and resource presentation
   else if(s.stage===3)html=caseViz(a,x);
-  else if(s.stage===5)html=researchViz(x);
+  else if(s.stage===5)html=researchViz();
   else if(s.stage===4)html=recordsViz(a,x);
   host.hidden=!html;host.innerHTML=html;
   last=x;

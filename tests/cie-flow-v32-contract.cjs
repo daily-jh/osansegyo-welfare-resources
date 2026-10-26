@@ -3,10 +3,11 @@ const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('n
 const root=path.join(__dirname,'../docs/youth-risk'),f=n=>fs.readFileSync(path.join(root,n),'utf8');
 const html=f('index.html'),ui=f('cie-flow-v32.js');
 const tags=[...html.matchAll(/<script\b[^>]*src="([^"]+)"/g)].map(m=>m[1].split('?')[0]);
-for(const t of ['journey-v88.js','cie-lab-v32/engine.js','cie-lab-v32/dialogue-v32.js','cie-flow-v32.js'])assert.ok(tags.includes(t),'missing '+t);
-assert.ok(tags.indexOf('journey-v88.js')<tags.indexOf('cie-flow-v32.js'),'V3.2 must subscribe after journey panel initialization');
+// 2026-10-26: the in-flow OY-CIE dialogue is retired from the main page (replaced by the ask panel).
+// The engine and this UI file stay in the repository for the standalone research page and regression tests.
+for(const t of ['cie-lab-v32/engine.js','cie-lab-v32/dialogue-v32.js','cie-flow-v32.js'])assert.ok(!tags.includes(t),'retired from main page: '+t);
 for(const s of tags)assert.ok(fs.existsSync(path.join(root,s)),'missing JS '+s);
-assert.ok(html.includes('cie-flow-v32.css?'));
+assert.ok(!html.includes('cie-flow-v32.css?'));
 assert.ok(ui.includes("window.addEventListener('oy-journey-view'"));
 assert.ok(ui.includes('note.checked?String(v.caseContext||\'\'):\'\''));
 assert.ok(ui.includes('caseContext!==s.payload.caseContext'));
@@ -26,4 +27,4 @@ assert.ok(result.gates.some(g=>g.id==='CORE-SAFETY'));assert.equal(result.offici
 assert.ok(gateway.status().find(x=>x.id==='CORE')?.loaded);
 assert.ok(gateway.status().find(x=>x.id==='K-CARR')?.loaded);
 new vm.Script(ui,{filename:'cie-flow-v32.js'});
-console.log('PASS: OY-CIE V3.2 read-only in-flow contract, official CORE safety, no remote case leak, no stale response and gateway intact');
+console.log('PASS: OY-CIE V3.2 retired from main flow, UI file still read-only, official CORE safety, no remote case leak, no stale response and gateway intact');

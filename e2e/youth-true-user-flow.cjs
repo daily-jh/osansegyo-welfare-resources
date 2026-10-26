@@ -44,15 +44,18 @@ async function run(browserType,name,width,full){
   await page.locator('#confirmLinkageReview').click();
   assert.match(await page.locator('#journey88').innerText(),/사례개념화·개입계획/);
   await page.locator('[data-oy-step="4"]').click();
-  await page.waitForFunction(()=>document.querySelector('#oy-ai-workbench-stage')?.hidden===false,{timeout:15000});
-  assert.equal(await page.locator('#oy-ai-ask').count(),1);
+  await page.waitForFunction(()=>document.querySelector('#oy-ask-collection')?.hidden===false,{timeout:15000});
+  assert.equal(await page.locator('#oy-ai-ask').count(),0,'retired in-flow OY-CIE dialogue');
   if(full){
-   await page.locator('#oy-handoff-legacy').evaluate(n=>n.open=true);
-   await page.locator('#oy-ai-question').fill('학생 지원 순서와 근거 세 가지를 정리해줘');
-   await page.locator('#oy-ai-ask').click();
-   await page.waitForFunction(()=>{let s=document.querySelector('#oy-ai-workbench-status')?.textContent||'';return /분석 완료|분석 오류|연결 오류|분석 실패/.test(s);},{timeout:20000});
-   assert.match(await page.locator('#oy-ai-workbench-status').innerText(),/분석 완료/,'actual CIE answered');
-   assert.ok((await page.locator('#oy-ai-answer').innerText()).length>60,'CIE content');
+   await page.locator('#oy-ask-collection .oy-ask-doc').first().click();
+   assert.equal(await page.locator('#oy-ask-panel').isVisible(),true,'ask panel opens from 04');
+   await page.locator('#oy-ask-chips button').first().click();
+   assert.ok((await page.locator('#oy-ask-found').innerText()).length>60,'quick answer from the report');
+   assert.match(await page.locator('#oy-ask-prompt').inputValue(),/CORE 점수와 안전 판단은 바꾸지 마세요/,'external AI prompt prepared');
+   await page.locator('#oy-ask-answer').fill('가상 외부 AI 답변 · 실무자 검토 전');
+   await page.locator('#oy-ask-save').click();
+   assert.equal(await page.locator('#oy-ask-collection .oy-ask-item').count(),1,'answer saved to 04 collection');
+   await page.locator('.oy-ask-close').click();
    await page.locator('[data-oy-step="5"]').click();
    await page.waitForFunction(()=>document.querySelector('#recordsArea')?.hidden===false,{timeout:15000});
    await page.locator('[data-oy-step="1"]').click();
