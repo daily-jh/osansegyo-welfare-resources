@@ -63,3 +63,32 @@
 .j88-operational-summary dd{margin:0;font-size:16px;line-height:1.58;font-weight:700;color:#213d56;overflow-wrap:anywhere}
 .j88-operational-summary>small{font-size:12px;line-height:1.6;color:#506d83}
 @media(max-width:620px){.j88-operational-summary dl{grid-template-columns:1fr}.j88-operational-summary dl>div{padding:12px}}
+
+/* OY-RALS 2nd pass: chart takes visual priority; reduce dead whitespace */
+.oy-viz-main-radar{border:1px solid #dae7f0;border-radius:20px;padding:clamp(20px,3vw,30px);background:#fff;margin:20px 0 30px}
+.oy-viz-main-radar .oy-viz-radar{display:grid;grid-template-columns:minmax(360px,1.35fr) minmax(230px,1fr);gap:16px;align-items:center;max-width:1060px;margin:auto}
+.oy-viz-main-radar .oy-viz-radar svg{display:block;width:100%;max-width:600px;max-height:none;height:auto;margin:auto}
+.oy-viz-main-radar .oy-viz-radar-legend{display:grid;grid-template-columns:1fr;gap:9px}
+.oy-viz-main-radar .oy-viz-radar-legend span{font-size:14px;line-height:1.4}
+.oy-viz-explain{line-height:1.75;color:#435d74;font-size:15px;max-width:900px;margin:8px 0 18px}
+.oy-viz-bar-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 26px;margin:14px 0 30px}
+.oy-viz-bar-grid>.oy-viz-bar{padding:0 0 7px;min-width:0}
+.oy-viz-bar-grid .oy-viz-track{height:12px}
+.oy-viz-cross-details,.oy-viz-raw-details,.oy-viz-method{margin:16px 0;border:1px solid #d9e5ee;border-radius:14px;padding:15px}
+.oy-viz-cross-details summary,.oy-viz-raw-details summary,.oy-viz-method summary{font-weight:700;cursor:pointer;min-height:44px;display:flex;align-items:center}
+.oy-viz-copy{margin:26px 0;background:#eff7ff;border:1px solid #c9def2;border-radius:18px;padding:18px}
+.oy-viz-copy button{min-height:50px;font-weight:750}
+.oy-viz-copy p{color:#42637f;line-height:1.65;font-size:14px;margin:12px 0 0}
+.oy-viz-copy textarea{width:100%;box-sizing:border-box;margin-top:10px;padding:12px;border-radius:10px;border:1px solid #b9d1e5}
+.oy-viz-grade-action{margin:16px 0}
+.j88-intervention-table{margin:18px 0 26px}
+.j88-intervention-table th:first-child{min-width:130px}
+.j88-intervention-table td{line-height:1.7}
+.j88-case-next{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:22px 0}
+.j88-case-next button{min-height:50px}
+#linkageReviewPanel{margin:24px auto 12px;scroll-margin-top:20px}
+.linkage-review-buttons{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
+.linkage-review-buttons button{min-height:54px}
+@media(max-width:850px){.oy-viz-main-radar .oy-viz-radar{grid-template-columns:1fr}.oy-viz-main-radar .oy-viz-radar-legend{grid-template-columns:1fr 1fr}}
+@media(max-width:650px){.oy-viz-bar-grid{grid-template-columns:1fr}.oy-viz-main-radar{padding:12px}.oy-viz-main-radar .oy-viz-radar-legend span{font-size:12px}.oy-viz-main-radar .oy-viz-radar-legend{gap:6px}}
+@media print{.oy-viz-main-radar{break-inside:avoid}.oy-viz-cross-details,.oy-viz-raw-details{display:none}}
