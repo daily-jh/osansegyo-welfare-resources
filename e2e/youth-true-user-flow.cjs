@@ -43,6 +43,7 @@ async function run(browserType,name,width,full){
   await page.waitForFunction(()=>document.querySelector('#oy-ai-workbench-stage')?.hidden===false,{timeout:15000});
   assert.equal(await page.locator('#oy-ai-ask').count(),1);
   if(full){
+   await page.locator('#oy-handoff-legacy').evaluate(n=>n.open=true);
    await page.locator('#oy-ai-question').fill('학생 지원 순서와 근거 세 가지를 정리해줘');
    await page.locator('#oy-ai-ask').click();
    await page.waitForFunction(()=>{let s=document.querySelector('#oy-ai-workbench-status')?.textContent||'';return /분석 완료|분석 오류|연결 오류|분석 실패/.test(s);},{timeout:20000});

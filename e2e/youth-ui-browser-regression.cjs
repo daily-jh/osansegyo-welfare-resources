@@ -78,6 +78,7 @@ async function scenario(browser,width){
  assert.equal(await page.locator('#journey88').isVisible(),false,'case panel hidden in AI workspace');
  assert.equal(await page.locator('#cie-flow-v32').isVisible(),true,'CIE dialogue remains in integrated AI stage');
  assert.match(await page.locator('#oy-viz-stage-v1').innerText(),/모델 연결도/,'AI model connectivity diagram');
+ await page.locator('#oy-handoff-legacy').evaluate(n=>n.open=true);
  await page.locator('#oy-ai-question').fill('서비스계획의 근거와 추가 확인은?');
  await page.locator('#oy-ai-ask').click();
  await page.waitForFunction(()=>document.querySelector('#cie-flow-status')?.textContent?.includes('해석 완료'),{timeout:15000});
