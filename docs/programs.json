@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "sourceUrl": "https://osan.welinfo.kr/?board=programList",
-  "lastAttemptAt": "2026-10-22T22:28:56+09:00",
+  "lastAttemptAt": "2026-10-26T09:56:57+09:00",
   "lastSuccessAt": "2026-10-22T22:28:56+09:00",
-  "lastError": null,
+  "lastError": "원문 목록 접근 실패: osan.welinfo.kr 프로그램 목록·개별 공고를 열람할 수 없음(웹 접근 오류, 별도 직접 요청 시 DNS 해석 실패). 실제 사업명·기관명·기간·원문 URL 재확인 불가. 기존 programs 및 lastSuccessAt 보존.",
   "evidenceNote": "이용자 제공 목록 캡처에서 10개 항목 확인. 사이트 직접 수집 성공을 의미하지 않음.",
   "programs": [
     {
