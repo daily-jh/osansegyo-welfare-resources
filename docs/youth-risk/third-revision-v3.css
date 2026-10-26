@@ -10,3 +10,8 @@
 .j88-narrative-tags span,.oy-rel-legend span{background:#edf4fc;border:1px solid #c7dbe9;border-radius:10px;padding:7px 10px}
 @media(max-width:730px){.j88-assessment-grid{grid-template-columns:1fr}.oy-viz-main-radar .oy-viz-radar-legend{grid-template-columns:1fr}}
 @media print{.j88-assessment-card,.j88-narrative-section{break-inside:avoid}.oy-viz-main-radar .oy-viz-radar svg{max-height:175mm}}
+
+/* Explicit sensitive-data review before external AI handoff or print. */
+.oy-ai-privacy-gate{display:flex;align-items:flex-start;gap:12px;line-height:1.7;font-size:14px;color:#24465f;background:#f3f8fc;border:1px solid #c7d9e7;border-radius:12px;padding:13px 16px;margin:16px 0}
+.oy-ai-privacy-gate input[type="checkbox"]{accent-color:#266b9a;width:21px;height:21px;min-width:21px;margin:2px 0 0}
+.oy-ai-privacy-gate:focus-within{outline:2px solid #438abd;outline-offset:2px}
