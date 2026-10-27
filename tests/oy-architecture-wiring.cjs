@@ -37,7 +37,8 @@ for(const i of [4,5])assert.ok(!stages.includes('data-oy-step="'+i+'"'),'retired
 assert.ok(page.includes('assessmentFrame'),'assessment iframe required');
 assert.ok(page.includes('mapArea'),'original regional resource map required');
 assert.ok(page.includes('bundleIncludeContext'),'explicit contextual export selection');
-for(const key of ['id="architecture"','STEP 01','STEP 02','STEP 03','STEP 04','STEP 05','OYModelGateway','CORE','SUPPORT-5','ICSI','NCB','OY-CIE','K-CARR','ICMS','Relations','자원연계'])assert.ok(guide.includes(key),'guide missing '+key);
+assert.ok(!guide.includes('STEP 05'),'guide still lists a retired fifth step');
+for(const key of ['id="architecture"','STEP 01','STEP 02','STEP 03','STEP 04','OYModelGateway','CORE','SUPPORT-5','ICSI','NCB','OY-CIE','K-CARR','ICMS','Relations','자원연계'])assert.ok(guide.includes(key),'guide missing '+key);
 const gateway=require(path.join(dir,'model-gateway-v90.js'));
 const states=gateway.status();assert.equal(states.length,9);
 states.forEach(s=>assert.equal(s.loaded,true,s.id+' disconnected'));

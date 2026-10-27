@@ -7,6 +7,6 @@ document.querySelectorAll('.youth-header-links>a').forEach(link=>{const svg=docu
 // Research report downloads sit at the far right of the header, outside the scrolling link row.
 if(nav&&!document.querySelector('[data-report-download]')){
  const host=document.createElement('div');host.dataset.reportDownload='';host.dataset.base='../reports/';host.dataset.label='연구보고서';nav.after(host);
- const s=document.createElement('script');s.src='../assets/report-download.js?v=20261026-rev3';s.defer=true;document.head.append(s);
+ const s=document.createElement('script');s.src='../assets/report-download.js?v=20261027-rev4';s.defer=true;document.head.append(s);
 }
 })();
