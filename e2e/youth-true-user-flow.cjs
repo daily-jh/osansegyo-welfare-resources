@@ -39,10 +39,12 @@ async function run(browserType,name,width,full){
   await page.locator('[data-j88-result-tab="integrated"]').click();
   assert.match(await page.locator('#journey88').innerText(),/종합사정/);
   await page.locator('[data-oy-step="2"]').click();
-  await page.waitForFunction(()=>document.querySelector('#mapArea')?.hidden===false,{timeout:20000});
+  await page.waitForFunction(()=>document.querySelector('#mapArea')?.hidden===false,null,{timeout:20000});
   assert.equal(await page.locator('#linkageReviewPanel').isVisible(),true,name+' map CTA');
+  // The map iframe resizes itself once it loads; click the CTA only after that, or the button moves under the pointer.
+  await page.waitForFunction(()=>{const f=document.querySelector('#mapArea iframe');const h=f?Math.round(f.getBoundingClientRect().height):0;const same=h>200&&window.__oyMapH===h;window.__oyMapH=h;return same;},null,{polling:400,timeout:20000});
   await page.locator('#confirmLinkageReview').click();
-  await page.waitForFunction(()=>document.querySelector('#journey88 .j88-heading h2')?.textContent?.includes('사례개념화·개입계획'),{timeout:15000});
+  await page.waitForFunction(()=>document.querySelector('#journey88 .j88-heading h2')?.textContent?.includes('사례개념화·개입계획'),null,{timeout:15000});
   assert.match(await page.locator('#journey88').innerText(),/사례개념화·개입계획/);
   await page.locator('[data-oy-step="4"]').click();
   await page.waitForFunction(()=>document.querySelector('#oy-ask-collection')?.hidden===false,{timeout:15000});

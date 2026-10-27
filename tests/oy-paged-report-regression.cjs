@@ -27,8 +27,12 @@ check('every case renders as a paged report with a cover and an expert page',()=
   const p=pages(h);
   assert.strictEqual(p[0],'cover',id+': first page is not the cover');
   assert.strictEqual(p[p.length-1],'expert',id+': last page is not the expert note');
-  ['strengths','plan'].forEach(k=>assert.ok(p.indexOf(k)>=0,id+': missing '+k+' page'));
-  assert.ok(p.length>=4,id+': too few pages');
+  assert.ok(p.indexOf('strengths')>=0,id+': missing strengths page');
+  // Casework level and plan are judged with the narrative in ③; the scale pages only point there.
+  assert.strictEqual(p.indexOf('plan'),-1,id+': plan page belongs to ③');
+  assert.ok(!h.includes('<dt>사례관리 수준</dt>'),id+': casework level shown on the scale pages');
+  assert.ok(h.includes('odi-next'),id+': no pointer to ③');
+  assert.ok(p.length>=3,id+': too few pages');
  });
 });
 
