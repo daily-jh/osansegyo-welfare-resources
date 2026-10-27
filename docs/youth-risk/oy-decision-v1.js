@@ -186,7 +186,7 @@ function whatIfHtml(p){
 
 /* 화면 연결 */
 let cache={key:'',R:null};
-function forPayload(p){const key=(p.flowRevision||'')+'|'+JSON.stringify(p.answers)+'|'+JSON.stringify(p.followups||{})+'|'+String(p.caseContext||'').length+'|'+(p.explicit||[]).length;if(cache.key!==key){cache={key,R:resolve(p),p}}return cache.R;}
+function forPayload(p){const key=(p.flowRevision||'')+'|'+JSON.stringify(p.answers)+'|'+JSON.stringify(p.followups||{})+'|'+String(p.caseContext||'').length+'|'+(p.explicit||[]).length+'|'+((p.student&&p.student.grade)||'');if(cache.key!==key){cache={key,R:resolve(p),p}}return cache.R;}
 function mount(container,payload,opt){
   if(!container||!payload)return null;
   const old=container.querySelector(':scope > [data-oyd], [data-oyd-host] > [data-oyd]');

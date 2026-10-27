@@ -61,3 +61,10 @@
 @media(max-width:720px){.odi-eco table,.odi-eco tbody,.odi-eco tr,.odi-eco th,.odi-eco td{display:block}.odi-eco thead{display:none}.odi-eco tr{padding:10px 0;border-bottom:1px solid var(--odi-line)}.odi-eco th,.odi-eco td{border:0;padding:2px 0}}
 
 .odi-next{margin:6px 0 0;padding:12px 16px;border-radius:14px;background:var(--odi-fill);color:var(--odi-sub);font-size:15px}.odi-next strong{color:var(--odi-text,#16273a);margin-right:6px}
+
+/* 학년(발달단계)으로 읽기 · oy-grade-lens-v1 */
+.ogl-band{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin:0 0 8px}.ogl-band strong{font-size:16px;color:var(--odi-text,#16273a)}
+.ogl-tasks{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:4px 18px;padding-left:18px}
+.ogl-cite{font-size:.72em;color:var(--odi-sub);margin-left:1px}
+.ogl-note{margin-top:10px}.ogl-src summary{cursor:pointer;color:var(--odi-sub);font-size:14px}.ogl-src ol{font-size:13px;line-height:1.55;padding-left:18px;color:var(--odi-sub)}
+@media print{.ogl-src{display:block}.ogl-src summary{display:none}}

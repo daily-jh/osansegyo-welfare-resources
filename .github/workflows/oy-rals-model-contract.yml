@@ -55,6 +55,7 @@ jobs:
           node --check docs/youth-risk/result-readout-v1.js
           node --check docs/youth-risk/oy-item-knowledge-v1.js
           node --check docs/youth-risk/oy-cross-patterns-v1.js
+          node --check docs/youth-risk/oy-grade-lens-v1.js
           node --check docs/youth-risk/oy-deep-interpretation-v1.js
           node --check docs/youth-risk/oy-narrative-interpretation-v1.js
           node --check docs/youth-risk/oy-scale-figures-v1.js
@@ -79,6 +80,7 @@ jobs:
           node tests/youth-narrative-export-privacy.cjs
           node tests/common-scale-report.cjs
           node tests/oy-deep-interpretation.cjs
+          node tests/oy-grade-lens.cjs
           node tests/oy-interpretation-hypothesis-wording.cjs
           node tests/oy-ask-model.cjs
           node tests/oy-narrative-interpretation.cjs

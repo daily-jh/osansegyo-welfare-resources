@@ -7,6 +7,8 @@ const node=typeof module!=='undefined'&&module.exports;
 const C=node?require('./criteria.js'):root.YouthCriteria;
 const K=node?require('./oy-item-knowledge-v1.js'):root.OYItemKnowledge;
 const X=node?require('./oy-cross-patterns-v1.js'):root.OYCrossPatterns;
+// Grade lens is optional: without it (or without a grade) the report is unchanged.
+const GL=(()=>{try{return node?require('./oy-grade-lens-v1.js'):root.OYGradeLens}catch(_){return null}})();
 const VERSION='1.0.0-20261026';
 const LEVELS=['보고 없음','경미','주의','상승','현저'];
 const SAFETY=[1,2,7,25],PRIORITY=[4,5,8,12,13,16,19,20];
@@ -254,19 +256,22 @@ function build(p){
  const level=c.provisional?(c.incomplete?'확인된 응답 기준 '+['관찰·예방','개별영역 지원','복합욕구 조정','다기관 집중검토'][c.observedLevel]+' 수준 · 전체 판정 보류':'안전 추가확인 대기 · '+['관찰·예방','개별영역 지원','복합욕구 조정','다기관 집중검토'][c.observedLevel]+' 수준'):['관찰·예방','개별영역 지원','복합욕구 조정','다기관 집중검토'][c.level]+' 수준';
  const cw=casework(values,c,prof,patterns,crit,str,p);
  // Three outputs, three names: CORE 공식 판정 (c.title), this reading's casework level, and SUPPORT-5 elsewhere.
- return {version:VERSION,core:c,title:c.title,summary:{level:cw.level.name,domainLevel:level,safety:c.urgent?'안전 확인 우선':c.safetyUnknown.length||c.pendingChecks.length?'안전 확인 미완료':'이번 응답의 안전 신호 없음',keys,first,total:c.incomplete?'확인 '+c.knownCount+'문항 합계 '+c.knownTotal+'점 (미상 '+c.unknownItems.length+'문항)':c.knownTotal+' / 100점'},
+ const out={version:VERSION,core:c,title:c.title,summary:{level:cw.level.name,domainLevel:level,safety:c.urgent?'안전 확인 우선':c.safetyUnknown.length||c.pendingChecks.length?'안전 확인 미완료':'이번 응답의 안전 신호 없음',keys,first,total:c.incomplete?'확인 '+c.knownCount+'문항 합계 '+c.knownTotal+'점 (미상 '+c.unknownItems.length+'문항)':c.knownTotal+' / 100점'},
   validity:valid,profile:prof,axes:ax,code:cd,detail,critical:crit,patterns:{active:patterns,pending:cross.pending},strengths:str,
   understanding:urgentNow?understanding(values,c,cd,patterns,str,crit).replace(/오늘 안에/g,'지금 바로'):understanding(values,c,cd,patterns,str,crit),casework:cw,items:values.map((v,i)=>({n:i+1,topic:topic(i+1),value:v,anchor:isNum(v)?K.anchor(i+1,v):null})),roles:roles(values,patterns),questions:questions(values,patterns),reassess:reassess(values),notice:NOTICE};
+ // The grade reads the same responses against developmental tasks; it never feeds back into scores or levels.
+ out.grade=GL&&GL.fromPayload?GL.fromPayload(p,out):null;
+ return out;
 }
 const esc=v=>String(v??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 // Body uses plain-language topics only; item numbers and scores live in the appendix.
 function sections(r){
  const out=[];
  if(r.critical.list.length||r.critical.pending.length)out.push('critical');
- out.push('understanding','case','code','profile','detail','patterns','ecology','strengths','plan','roles','agenda','questions','consult','reassess','validity');
+ out.push('understanding');if(r.grade)out.push('grade');out.push('case','code','profile','detail','patterns','ecology','strengths','plan','roles','agenda','questions','consult','reassess','validity');
  return out;
 }
-const TITLES={critical:'우선 안전 확인',understanding:'사례개념화',case:'개입 수준과 주관기관',ecology:'생태체계 사정',plan:'단계별 개입계획',agenda:'사례회의 안건',consult:'슈퍼비전·자문 의견',code:'응답 프로파일 유형',profile:'영역별 프로파일',detail:'영역별 심층 해석',patterns:'문제 유지 고리 (교차 패턴)',strengths:'강점·보호요인',roles:'직무별 실천 과제',questions:'면담 확인 질문',reassess:'재사정 지표',validity:'응답 타당도 점검'};
+const TITLES={critical:'우선 안전 확인',understanding:'사례개념화',grade:'학년(발달단계)으로 읽기',case:'개입 수준과 주관기관',ecology:'생태체계 사정',plan:'단계별 개입계획',agenda:'사례회의 안건',consult:'슈퍼비전·자문 의견',code:'응답 프로파일 유형',profile:'영역별 프로파일',detail:'영역별 심층 해석',patterns:'문제 유지 고리 (교차 패턴)',strengths:'강점·보호요인',roles:'직무별 실천 과제',questions:'면담 확인 질문',reassess:'재사정 지표',validity:'응답 타당도 점검'};
 // Paged report. The same sections, regrouped into life themes a practitioner can page through,
 // each theme climbing from plain wording to the professional concept. Text, scores and judgements are unchanged.
 let ladderMod;
@@ -360,6 +365,7 @@ function pagedHtml(r,body,head,glance,L){
  let cover=head+glance;
  if(r.critical.list.length||r.critical.pending.length)cover+=sec('critical','먼저 안전부터',body.critical());
  cover+=sec('understanding','이 아이 이야기 <span class="odi-pill-term">사례개념화</span>'.replace(/<[^>]+>/g,''),'<p class="odi-lead">'+esc(rest||r.understanding)+'</p>');
+ if(r.grade)cover+=sec('grade','학년으로 읽기 · '+r.grade.label,body.grade());
  if(fig)cover+='<div class="odi-sec odi-figsec">'+fig.api.part(fig.f,'total')+'</div>';
  cover+='<section class="odi-sec odi-s-patterns"><h3>함께 움직이는 어려움</h3>'
   +'<p class="odi-muted">원은 생활 주제, 굵은 선은 두 주제의 어려움이 서로를 붙잡고 있다는 뜻입니다. 선이 많이 모이는 곳이 이 사례의 중심입니다.</p>'
@@ -402,6 +408,7 @@ function html(r){
  const body={
   critical:()=>(r.critical.list.length?'<ul class="odi-list">'+r.critical.list.map(x=>'<li><strong>'+esc(x.topic)+'</strong><p>'+esc(x.reading)+'</p><p class="odi-act">'+esc(x.action)+'</p></li>').join('')+'</ul>':'')+(r.critical.pending.length?'<p><strong>안전 추가확인 남음</strong> '+esc(r.critical.pending.join(', '))+'</p>':'')+(r.critical.procedure?'<p class="odi-procedure">'+esc(r.critical.procedure)+'</p>':''),
   understanding:()=>'<p class="odi-lead">'+esc(r.understanding)+'</p>',
+  grade:()=>GL&&r.grade?GL.html(r.grade):'',
   case:()=>{const w=r.casework,l=w.level;return '<p class="odi-pattern-name">'+esc(l.name)+'</p><p>'+esc(l.reason)+'</p><dl class="odi-axes"><div><dt>접촉 빈도</dt><dd>'+esc(l.contact)+'</dd></div><div><dt>사례회의</dt><dd>'+esc(l.meeting)+'</dd></div><div><dt>점검·재사정</dt><dd>'+esc(l.review)+'</dd></div>'+(w.immediate?'<div><dt>즉시 대응</dt><dd>'+esc(w.immediate)+'</dd></div>':'')+'<div><dt>주관</dt><dd>'+esc(w.lead)+'</dd></div>'+(w.partners.length?'<div><dt>협력</dt><dd>'+esc(w.partners.join(', '))+'</dd></div>':'')+'</dl><p>'+esc(w.leadText)+'</p><p><strong>보호자 참여</strong> '+esc(w.family)+'</p>'},
   ecology:()=>'<div class="odi-table odi-eco"><table><thead><tr><th scope="col">수준</th><th scope="col">어려움</th><th scope="col">보고 없는 항목</th><th scope="col">연계 자원 유형</th></tr></thead><tbody>'+r.casework.ecology.map(e=>'<tr><th scope="row">'+esc(e.name)+'</th><td>'+esc(e.hard.join(', ')||'두드러진 어려움 없음')+(e.unk.length?'<br><span class="odi-muted">미상: '+esc(e.unk.join(', '))+'</span>':'')+'</td><td>'+esc(e.ok.join(', ')||'—')+'</td><td>'+esc(e.res.join(', ')||'—')+'</td></tr>').join('')+'</tbody></table></div><p class="odi-muted">구체적인 기관은 02 지역자원 연계 지도에서 대상·운영을 확인해 고릅니다.</p>',
   plan:()=>r.casework.plan.map(ph=>'<div class="odi-card"><h4>'+esc(ph.phase)+'</h4><ul>'+ph.rows.map(x=>'<li>'+esc(x.what)+' <span class="odi-who">'+esc(x.who)+'</span></li>').join('')+'</ul></div>').join('')+(r.casework.goals.length?'<h4 class="odi-sub">목표 예시</h4>'+ul(r.casework.goals.map(g=>'<strong>'+esc(g.topic)+'</strong> '+esc(g.goal)+'<br><span class="odi-muted">확인 방법: '+esc(g.measure)+'</span>')):''),
@@ -417,7 +424,7 @@ function html(r){
   reassess:()=>r.reassess.length?ul(r.reassess.map(x=>'<strong>'+esc(x.topic)+'</strong> 지금: '+esc(x.nowText)+'<br>다음 목표: '+esc(x.target))):'<p>다음 평가에서 지금의 응답이 유지되는지와 새로운 어려움이 생겼는지 봅니다.</p>',
   validity:()=>'<p><strong>'+esc(r.validity.level)+'</strong> · '+esc(r.validity.summary)+'</p>'+ul(r.validity.rows.map(x=>'<strong>'+esc(x.label)+'</strong> '+esc(x.text)))
  };
- const glance='<section class="odi-sec odi-glance"><h3>한눈에 보기</h3><dl><div class="'+(s.safety==='이번 응답의 안전 신호 없음'?'':'odi-alert')+'"><dt>현재 안전</dt><dd>'+esc(s.safety)+'</dd></div><div><dt>핵심 어려움</dt><dd>'+(s.keys.length?s.keys.map(k=>'<span class="odi-chip">'+esc(k)+'</span>').join(''):'두드러진 어려움 없음')+'</dd></div><div><dt>첫 행동</dt><dd>'+esc(s.first)+'</dd></div><div><dt>해석 신뢰도</dt><dd>'+esc(r.validity.level)+' · '+esc(r.validity.summary)+'</dd></div></dl></section>';
+ const glance='<section class="odi-sec odi-glance"><h3>한눈에 보기</h3><dl><div class="'+(s.safety==='이번 응답의 안전 신호 없음'?'':'odi-alert')+'"><dt>현재 안전</dt><dd>'+esc(s.safety)+'</dd></div><div><dt>핵심 어려움</dt><dd>'+(s.keys.length?s.keys.map(k=>'<span class="odi-chip">'+esc(k)+'</span>').join(''):'두드러진 어려움 없음')+'</dd></div><div><dt>첫 행동</dt><dd>'+esc(s.first)+'</dd></div><div><dt>해석 신뢰도</dt><dd>'+esc(r.validity.level)+' · '+esc(r.validity.summary)+'</dd></div>'+(r.grade?'<div><dt>학년</dt><dd>'+esc(r.grade.label+' · '+r.grade.band)+'</dd></div>':'')+'</dl></section>';
  const head='<header class="odi-head"><span class="odi-kicker">OY-RALS 척도 심층해석</span><h2>'+esc(r.code.name)+'</h2><p>CORE 공식 판정: '+esc(r.title)+'</p></header>';
  const L=ladder();
  if(L){try{return pagedHtml(r,body,head,glance,L)}catch(_){/* fall through to the linear report */}}
@@ -451,6 +458,7 @@ function blocks(r){
  return {
   critical:()=>[...r.critical.list.map(x=>'- '+x.topic+': '+x.reading+'\n  → '+x.action),...(r.critical.pending.length?['- 안전 추가확인 남음: '+r.critical.pending.join(', ')]:[]),...(r.critical.procedure?[r.critical.procedure]:[])],
   understanding:()=>[r.understanding],
+  grade:()=>GL&&r.grade?GL.text(r.grade):[],
   case:()=>{const w=r.casework,l=w.level;return [l.name,l.reason,'- 접촉 빈도: '+l.contact,'- 사례회의: '+l.meeting,'- 점검·재사정: '+l.review,...(w.immediate?['- 즉시 대응: '+w.immediate]:[]),'- 주관: '+w.lead,...(w.partners.length?['- 협력: '+w.partners.join(', ')]:[]),w.leadText,'보호자 참여: '+w.family]},
   ecology:()=>[...r.casework.ecology.map(e=>'▸ '+e.name+'\n  어려움: '+(e.hard.join(', ')||'두드러진 어려움 없음')+(e.unk.length?' (미상: '+e.unk.join(', ')+')':'')+'\n  보고 없는 항목: '+(e.ok.join(', ')||'—')+'\n  연계 자원 유형: '+(e.res.join(', ')||'—')),'구체적인 기관은 02 지역자원 연계 지도에서 대상·운영을 확인해 고릅니다.'],
   plan:()=>[...r.casework.plan.flatMap(ph=>['▸ '+ph.phase,...ph.rows.map(x=>'  - '+x.what+' ['+x.who+']')]),...(r.casework.goals.length?['목표 예시',...r.casework.goals.map(g=>'  - '+g.topic+': '+g.goal+'\n    확인 방법: '+g.measure)]:[])],
@@ -486,7 +494,7 @@ function sectionText(r,key){
 }
 function text(r){
  const s=r.summary,L=[],B=blocks(r);
- L.push('■ OY-RALS 척도 심층해석 · '+r.code.name,'CORE 공식 판정: '+r.title,'','[한눈에 보기]','사례관리 수준: '+s.level,'현재 안전: '+s.safety,'핵심 어려움: '+(s.keys.join(', ')||'두드러진 어려움 없음'),'첫 행동: '+s.first,'해석 신뢰도: '+r.validity.level);
+ L.push('■ OY-RALS 척도 심층해석 · '+r.code.name,'CORE 공식 판정: '+r.title,'','[한눈에 보기]',...(r.grade?['학년: '+r.grade.label+' · '+r.grade.band]:[]),'사례관리 수준: '+s.level,'현재 안전: '+s.safety,'핵심 어려움: '+(s.keys.join(', ')||'두드러진 어려움 없음'),'첫 행동: '+s.first,'해석 신뢰도: '+r.validity.level);
  sections(r).forEach((k,i)=>L.push('','['+(i+1)+'. '+TITLES[k]+']',...B[k]()));
  const a=appendixRows(r);
  L.push('','[근거 자료 · 문항과 점수]','원점수: '+s.total,'CORE 판단: '+r.title,r.core.reason,'영역별 점수',...a.domains.map(x=>'- '+x[0]+': '+x[1]+' · 평균 '+x[2]+' · '+x[3]+(x[4]!=='없음'?' · 미상 '+x[4]:'')),'25문항 응답',...a.items.map(x=>'- '+x[0]+' '+x[1]+': '+x[2]),...(a.critical.length?['결정적 문항: '+a.critical.map(x=>x[0]+' '+x[2]).join(', ')]:[]),...(a.patterns.length?['패턴별 근거: '+a.patterns.map(x=>x[0]+' '+x[1]).join(' / ')]:[]),...(a.reassess.length?['재평가 기준: '+a.reassess.map(x=>x[0]+' '+x[2]+'→'+x[3]).join(', ')]:[]));
