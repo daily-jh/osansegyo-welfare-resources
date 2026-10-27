@@ -42,6 +42,7 @@ async function run(browserType,name,width,full){
   await page.waitForFunction(()=>document.querySelector('#mapArea')?.hidden===false,{timeout:20000});
   assert.equal(await page.locator('#linkageReviewPanel').isVisible(),true,name+' map CTA');
   await page.locator('#confirmLinkageReview').click();
+  await page.waitForFunction(()=>document.querySelector('#journey88 .j88-heading h2')?.textContent?.includes('사례개념화·개입계획'),{timeout:15000});
   assert.match(await page.locator('#journey88').innerText(),/사례개념화·개입계획/);
   await page.locator('[data-oy-step="4"]').click();
   await page.waitForFunction(()=>document.querySelector('#oy-ask-collection')?.hidden===false,{timeout:15000});
