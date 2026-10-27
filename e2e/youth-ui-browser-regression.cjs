@@ -22,7 +22,7 @@ async function scenario(browser,width){
   assert.ok(await page.locator('#journey88 .oy-ask-btn').count()>=5,'AI ask buttons on interpretation sections');
   assert.equal(await page.locator('#journey88 .oy-ask-doc').count(),1,'one report-level AI button');
   assert.equal(await page.locator('#oy-external-handoff').count(),0,'bottom handoff panel replaced by ask panel');
- assert.equal(await page.locator('.flow-nav [data-oy-step]').count(),5,'five main steps exposed');
+ assert.equal(await page.locator('.flow-nav [data-oy-step]').count(),6,'six main steps exposed');
  assert.equal(await page.locator('[data-j88-result-tab="score"]').getAttribute('aria-pressed'),'true','quantitative first');
   assert.equal(await page.locator('.j88-raw-accordion').first().getAttribute('open'),null,'raw scores closed initially');
  assert.equal(await page.locator('#oy-index-visual-slot .oy-viz-dashboard').count(),1,'five-level integrated dashboard visible');
@@ -55,6 +55,20 @@ async function scenario(browser,width){
  const originalCore=await page.evaluate(a=>window.YouthCriteria.evaluate(a,[2,3,3,3,2,2,3,3,2,2],false,{}).knownTotal,answers);
  assert.equal(await page.evaluate(a=>window.YouthCriteria.evaluate(a,[2,3,3,3,2,2,3,3,2,2],false,{}).knownTotal,answers),originalCore,'V3.2 never changes CORE');
 
+ await page.locator('.flow-nav [data-oy-step="6"]').click();
+ await page.waitForSelector('#schoolArea .oyp-sheet',{timeout:15000});
+ assert.equal(await page.locator('#journey88').isHidden(),true,'school stage hides the agency workspace');
+ assert.equal(await page.locator('#schoolArea .oyp-pack:not([hidden]) .oyp-sheet').count(),3,'homeroom pack shows three sheets');
+ const ob=page.locator('#schoolArea .oyp-pack:not([hidden]) .oyp-ob').first();
+ for(const v of ['○','−','결',''])assert.equal((await ob.click(),await ob.innerText()).trim(),v,'observation cell cycles to '+(v||'blank'));
+ await page.locator('#schoolArea .oyp-pack:not([hidden]) textarea.oyp-wr').first().fill('가상 관찰 메모');
+ await page.locator('#schoolArea .oyp-pack:not([hidden]) [data-oyp-print]').click();
+ assert.equal(await page.locator('#oyp-print-root .oyp-sheet').count(),3,'print clones only the chosen pack');
+ assert.match(await page.locator('#oyp-print-root .oyp-wrp').first().innerText(),/가상 관찰 메모/,'written text survives into print');
+ await page.evaluate(()=>window.dispatchEvent(new Event('afterprint')));
+ assert.equal(await page.locator('#oyp-print-root').count(),0,'print root removed after printing');
+ await page.locator('#schoolArea button[data-oyp-s="edu"]').click();
+ assert.equal(await page.locator('#schoolArea .oyp-pack:not([hidden]) .oyp-sheet').count(),3,'education welfare pack');
  await page.locator('.flow-nav [data-oy-step="3"]').click();
  await page.waitForFunction(()=>document.querySelector('#journey88')?.textContent?.includes('사례개념화·개입계획'),{timeout:15000});
  const text=await page.locator('#journey88').innerText();
@@ -65,6 +79,12 @@ async function scenario(browser,width){
  assert.ok((await page.locator('#journey88').innerText()).includes('통합사례관리 진행안'));
  await page.locator('#journey88 [data-j88-tab="서비스계획"]').click();
  assert.ok((await page.locator('#journey88').innerText()).includes('단기 첫 1~2주'));
+ await page.locator('#journey88 [data-j88-tab="기관별 실무자료"]').click();
+ assert.equal(await page.locator('#journey88 .oyp-sheet').count(),11,'agency packs: welfare centre, child·family, administrative');
+ await page.locator('#journey88 .oyp-pack:not([hidden]) textarea.oyp-wr').first().fill('가상 기관 메모');
+ await page.locator('#journey88 [data-j88-tab="사례사정"]').click();
+ await page.locator('#journey88 [data-j88-tab="기관별 실무자료"]').click();
+ assert.equal(await page.locator('#journey88 .oyp-pack:not([hidden]) textarea.oyp-wr').first().inputValue(),'가상 기관 메모','agency notes survive tab switches');
  await page.locator('#journey88 [data-j88-tab="사례사정"]').click();
  assert.ok(await page.locator('#j88-relations').count(),'relation editor is present');
  await page.locator('#j88-relations details > summary').click();
