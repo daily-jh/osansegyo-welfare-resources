@@ -1,0 +1,84 @@
+/* OY-RALS result flow v11 — the result tabs read as one document.
+   Loaded after oy-unify-v10.css. Screen only where noted; print keeps its own rules.
+   1. One column: every block in a result tab starts on the same left edge and ends on the same right edge.
+      The deep report and the scale figures carried a 860px reading width of their own (a screen rule, not a
+      print rule: print already sets max-width:none), so they sat indented between full-width cards.
+   2. One route: the tab opens with its reading order, and each part has the same heading.
+   3. One level of boxes: the stage dashboard is no longer a card around cards. */
+
+/* ── 1. one column ── */
+#journey88 .j88-flow .oy-deep-report,
+#journey88 .j88-flow .oy-scale-figures{max-width:none;margin-left:0;margin-right:0}
+#journey88 .j88-flow .oy-deep-report{margin-top:0;margin-bottom:0}
+/* open sections sat 4px in from the boxes above and below them; boxed sections keep their inner margin */
+#journey88 .j88-flow .oy-deep-report .odi-sec:not(.odi-s-critical),
+#journey88 .j88-flow .odi-notice{padding-left:0;padding-right:0}
+#journey88 .j88-flow .odi-paged .odi-s-critical{padding:22px 20px 14px}
+#journey88 .j88-flow .odi-notice{margin-top:18px;padding-bottom:0}
+/* the glance tiles: two short facts side by side, every longer line below at full width (no half-empty rows) */
+.oy-deep-report .odi-glance dl>div:nth-child(n+3){grid-column:1/-1}
+
+/* ── 2. route and part headings ── */
+#journey88 .j88-route{list-style:none;margin:14px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;counter-reset:none}
+#journey88 .j88-route li{margin:0;position:relative}
+#journey88 .j88-route li+li::before{content:"";position:absolute;left:-6px;top:50%;width:12px;height:2px;background:var(--u-line,#d5dfea)}
+#journey88 .j88-route button{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:10px;width:calc(100% - 12px);margin:0 6px;min-height:44px;padding:8px 12px;border:1px solid var(--u-line,#d5dfea);border-radius:var(--u-r-ctl,12px);background:#fff;font-size:15px;font-weight:700;color:var(--u-ink,#16273a)}
+#journey88 .j88-route li:first-child button{margin-left:0;width:calc(100% - 6px)}
+#journey88 .j88-route li:last-child button{margin-right:0;width:calc(100% - 6px)}
+#journey88 .j88-route button:hover{border-color:var(--u-blue,#1765bd)}
+#journey88 .j88-route button:focus-visible{outline:3px solid #8db8ea;outline-offset:2px}
+#journey88 .j88-route b{flex:none;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--u-blue-soft,#eaf2fc);color:var(--u-blue,#1765bd);font-size:13px}
+#journey88 .j88-route span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+#journey88 .j88-part{margin:44px 0 6px;padding-top:24px;border-top:1px solid var(--u-line,#d5dfea);scroll-margin-top:16px}
+#journey88 .j88-route+.j88-part{margin-top:22px;padding-top:0;border-top:0}
+#journey88 .j88-part-no{margin:0 0 2px;font-size:13px;font-weight:700;letter-spacing:.06em;color:var(--u-blue,#1765bd)}
+#journey88 .j88-part h3{margin:0;font-size:1.45rem;line-height:1.35;letter-spacing:-.02em;color:var(--u-ink,#16273a)}
+#journey88 .j88-part h3 small{margin-left:6px;font-size:13px;font-weight:600;color:var(--u-sub,#506074);letter-spacing:0}
+#journey88 .j88-part>p:not(.j88-part-no){margin:4px 0 0;color:var(--u-sub,#506074);font-size:15px;line-height:1.6}
+/* the last chapter's "이어서" button points down the page, not to another chapter */
+#journey88 .odi-next-part{border-color:var(--u-blue,#1765bd);background:var(--u-blue-soft,#eaf2fc)}
+
+/* ── 3. one level of boxes ── */
+#journey88 .j88-flow #oy-index-visual-slot>.oy-viz-dashboard{background:none;border:0;box-shadow:none;padding:0;margin:14px 0 0;border-radius:0}
+/* the part heading already names this block */
+#journey88 .j88-flow #oy-index-visual-slot>.oy-viz-dashboard>h3{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+#journey88 .j88-flow .oy-viz-main-radar{margin:16px 0}
+/* folded blocks keep a real inner margin once opened */
+#journey88 .j88-flow details.oy-viz-more,
+#journey88 .j88-flow details.oy-viz-raw-details,
+#journey88 .j88-flow details.oy-viz-method{padding:4px 16px}
+#journey88 .j88-flow details.oy-viz-more[open],
+#journey88 .j88-flow details.oy-viz-raw-details[open],
+#journey88 .j88-flow details.oy-viz-method[open]{padding-bottom:16px}
+#journey88 .j88-flow details.oy-viz-more>summary,
+#journey88 .j88-flow details.oy-viz-raw-details>summary,
+#journey88 .j88-flow details.oy-viz-method>summary{padding-left:0!important;padding-right:0!important}
+#journey88 .j88-flow .oy-viz-more>section{margin-left:0;margin-right:0}
+#journey88 .j88-flow .j88-operational-summary{margin-top:14px}
+/* a role tag may be longer than the phone line; let it wrap instead of running past the card */
+#journey88 .odi-who{white-space:normal;max-width:100%}
+
+/* the ecology table stacks into blocks on a phone; the site-wide table min-width pushed it past the edge */
+@media(max-width:720px){#journey88 .odi-eco table{min-width:0;width:100%}}
+@media (max-width:760px){
+ #journey88 .j88-route button{flex-direction:column;align-items:flex-start;gap:4px;padding:8px 10px;font-size:13px}
+ #journey88 .j88-route span{white-space:normal}
+ #journey88 .j88-part{margin-top:34px;padding-top:20px}
+ #journey88 .j88-part h3{font-size:1.25rem}
+ #journey88 .j88-part h3 small{display:block;margin:2px 0 0}
+ #journey88 .j88-flow .odi-paged .odi-s-critical{padding:18px 16px 10px}
+ /* the radar needs the width more than the card needs its margin */
+ #journey88 .j88-flow .oy-viz-main-radar{padding:16px 6px}
+ #journey88 .j88-flow .oy-viz-main-radar>h4,#journey88 .j88-flow .oy-viz-main-radar>.oy-viz-explain{padding:0 8px}
+ #journey88 .j88-flow details.oy-viz-more,
+ #journey88 .j88-flow details.oy-viz-raw-details,
+ #journey88 .j88-flow details.oy-viz-method{padding:2px 12px}
+ #journey88 .j88-flow details.oy-viz-more[open],
+ #journey88 .j88-flow details.oy-viz-raw-details[open],
+ #journey88 .j88-flow details.oy-viz-method[open]{padding-bottom:12px}
+}
+@media print{
+ #journey88 .j88-route,#journey88 .odi-next-part{display:none!important}
+ #journey88 .j88-part{margin:14pt 0 4pt;padding-top:8pt;break-after:avoid}
+}
