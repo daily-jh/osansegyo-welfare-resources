@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
 <title>시스템 작동방법 · 오산 청소년 위기징후 평가연계 시스템</title>
 <meta name="description" content="OY-RALS의 다섯 단계 화면, 결과 탭 읽는 법, AI에 묻기, 지역자원 확인 배지, 모델 구조, 개인정보와 검증 범위를 2026.10.26 화면 기준으로 안내합니다.">
-<script defer src="../assets/report-download.js?v=20261027-rev4"></script>
+<script defer src="../assets/report-download.js?v=20261027-rev5"></script>
 <style>
 @font-face{font-family:SUIT;src:url(fonts/SUIT-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}
 :root{--accent:#1769d2;--accent-hover:#0f58b5;--accent-soft:#e8f1fc;--text:#16273a;--secondary:#46586b;--tertiary:#5b6b7c;--separator:#dfe5ec;--fill:#f2f5f8;--bg:#f6f8fb;--surface:#fff;--red:#c42b2b;--red-soft:#fdeceb;--red-text:#b02424;--amber:#c26a00;--radius-l:20px;--radius-m:14px;--shadow:0 1px 2px rgba(18,38,63,.04),0 6px 20px rgba(18,38,63,.05)}
@@ -30,7 +30,7 @@ main{padding-bottom:72px}
 .section-count{font-size:13px;font-weight:700;color:var(--tertiary);letter-spacing:.04em}
 .lead{color:var(--secondary);margin:0 0 24px;max-width:820px}
 .card{background:var(--surface);border-radius:var(--radius-l);box-shadow:var(--shadow);padding:24px}
-.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
 .step{background:var(--surface);border-radius:var(--radius-l);box-shadow:var(--shadow);padding:20px 18px}
 .step-index{font-size:13px;font-weight:800;color:var(--accent)}.step h3{margin:6px 0 8px;font-size:18px;letter-spacing:-.02em;line-height:1.35}
 .step p{margin:0;font-size:15px;color:var(--secondary)}.step .out{display:block;margin-top:12px;padding-top:10px;border-top:1px solid var(--separator);font-size:13px;color:var(--tertiary)}
@@ -48,7 +48,7 @@ th{font-size:13px;color:var(--tertiary);font-weight:700;background:var(--fill)}t
 .rules{list-style:none;margin:0;padding:0;display:grid;gap:10px}.rules li{background:var(--surface);border-radius:var(--radius-m);box-shadow:var(--shadow);padding:16px 18px}.rules b{display:block;margin-bottom:2px}.rules span{color:var(--secondary);font-size:15px}
 .badges{display:grid;gap:8px}.badges div{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}.badges p{margin:0;font-size:15px;color:var(--secondary)}
 /* connection diagram */
-.arch-stage{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0 0 6px}
+.arch-stage{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin:0 0 6px}
 .arch-node{background:var(--surface);border-radius:var(--radius-m);box-shadow:var(--shadow);padding:16px 14px;position:relative}
 .arch-node:after{content:'›';position:absolute;right:-11px;top:34px;font-weight:700;color:var(--tertiary);font-size:20px}.arch-node:last-child:after{display:none}
 .arch-number{display:block;font-size:12px;font-weight:800;color:var(--accent);letter-spacing:.04em;margin-bottom:6px}.arch-node b{display:block;font-size:16px;line-height:1.35}.arch-node small{display:block;font-size:13px;color:var(--secondary);margin-top:6px;line-height:1.5}
@@ -83,20 +83,21 @@ details.fold .body{color:var(--secondary);font-size:15px;padding:0 0 16px}detail
 <section class="hero"><div class="container">
 <span class="eyebrow">OY-RALS · 이용 안내 · 2026.10.27 화면 기준</span>
 <h1>시스템은 이렇게 작동합니다</h1>
-<p>25문항 응답을 점수로만 끝내지 않습니다. 안전을 먼저 확인하고, 해석지로 학생을 이해하고, 지역자원 연계와 학교·기관의 실무자료로 이어지도록 네 단계 화면이 연결되어 있습니다.</p>
+<p>25문항 응답을 점수로만 끝내지 않습니다. 안전을 먼저 확인하고, 해석지로 학생을 이해하고, 지역자원 연계와 학교·기관의 실무자료, A4 2쪽 최종 보고서로 이어지도록 다섯 단계 화면이 연결되어 있습니다.</p>
 <div class="actions"><a class="btn" href="./">25문항 평가 시작하기</a><a class="btn secondary" href="#documents">연구보고서 받기</a></div>
-<nav class="anchor-nav" aria-label="이 페이지의 내용"><a href="#how">네 단계</a><a href="#walkthrough">처음부터 끝까지</a><a href="#interpret">결과 읽기</a><a href="#ai">AI에 묻기</a><a href="#keep">자료 보관</a><a href="#resources">자원 확인 배지</a><a href="#architecture">연결 구조</a><a href="#technology">모델 역할</a><a href="#privacy">개인정보·검증</a><a href="#documents">연구자료</a></nav>
+<nav class="anchor-nav" aria-label="이 페이지의 내용"><a href="#how">다섯 단계</a><a href="#walkthrough">처음부터 끝까지</a><a href="#interpret">결과 읽기</a><a href="#ai">AI에 묻기</a><a href="#keep">자료 보관</a><a href="#resources">자원 확인 배지</a><a href="#architecture">연결 구조</a><a href="#technology">모델 역할</a><a href="#privacy">개인정보·검증</a><a href="#documents">연구자료</a></nav>
 <div class="alert" role="note"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2.5 20h19z"/><path d="M12 10v4.5M12 17.5v.1"/></svg><div><b>안전 문제가 의심되면 평가 완료를 기다리지 않습니다.</b><p>학대·자해·성착취·현재 위해 신호가 있으면 소속기관의 보호·신고·긴급 대응 절차를 먼저 따릅니다. 화면의 결과는 이 절차를 대신하지 않습니다.</p></div></div>
 </div></section>
 
 <div class="container">
-<section class="section" id="how" aria-labelledby="howTitle"><span class="section-count">01 · HOW TO USE</span><h2 id="howTitle">학생 지원을 잇는 네 단계</h2>
-<p class="lead">화면 위쪽의 네 단계 버튼으로 이동합니다. 모든 단계는 같은 회차의 25문항 응답과 안전판정을 함께 씁니다. 앞 단계에서 응답을 고치면 다시 완료해야 뒤 단계에 반영됩니다.</p>
+<section class="section" id="how" aria-labelledby="howTitle"><span class="section-count">01 · HOW TO USE</span><h2 id="howTitle">학생 지원을 잇는 다섯 단계</h2>
+<p class="lead">화면 위쪽의 다섯 단계 버튼으로 이동합니다. 모든 단계는 같은 회차의 25문항 응답과 안전판정을 함께 씁니다. 앞 단계에서 응답을 고치면 다시 완료해야 뒤 단계에 반영됩니다.</p>
 <div class="steps">
 <article class="step"><span class="step-index">STEP 01</span><h3>선별평가·결과해석</h3><p>25문항을 0~4점 또는 미상으로 입력하고, 결과 탭 「척도 해석」「서술기록 분석」「통합 사정의견」을 읽습니다.</p><span class="out">해석지 · 보조지표 도식 · 결과 PDF</span></article>
 <article class="step"><span class="step-index">STEP 02</span><h3>지역자원 연계</h3><p>지원영역별 기관·사업 후보를 지도와 연결 그림으로 봅니다. 추천 근거·이용조건·확인 배지를 함께 확인합니다.</p><span class="out">자원연계 후보 · 연결 그림</span></article>
 <article class="step"><span class="step-index">STEP 03</span><h3>학교 지원</h3><p>담임교사는 학생 이해·2주 관찰·지원 요청 의견서를, 교육복지사는 선정 검토·협의회 안건·교육지원청 의뢰 요지를 학생맞춤통합지원 절차 순서로 작성합니다.</p><span class="out">T-1~3 · E-1~3 · 출력</span></article>
 <article class="step"><span class="step-index">STEP 04</span><h3>기관 사례관리</h3><p>사례사정·판정, 개입계획, 사례회의와 함께 복지관·아동가족기관·행정복지센터별 실무자료를 작성합니다. 통합사례관리 선정 준거를 첫 장에서 확인합니다.</p><span class="out">사정지 · 계획 초안 · A·C·G 시트</span></article>
+<article class="step"><span class="step-index">STEP 05</span><h3>최종 보고서</h3><p>판정·해석·연계·계획을 앞 화면과 같은 값으로 A4 2쪽에 모읍니다. PC는 인쇄 미리보기, 휴대폰은 읽기 화면으로 보이고, 실무자 의견을 적으면 바로 들어갑니다.</p><span class="out">A4 2쪽 · 인쇄·PDF · TXT</span></article>
 </div>
 <p class="note">이전 화면에 있던 「AI 사례자문 작업실」과 「사례기록·모니터링」 단계는 2026년 10월 27일에 내렸습니다. 「AI에 묻기」는 해석지 곳곳에 그대로 있고, 실제 상담·점검 기록은 각 기관의 기록체계에 남깁니다.</p></section>
 
@@ -110,6 +111,7 @@ details.fold .body{color:var(--secondary);font-size:15px;padding:0 0 16px}detail
 <li><b>면담 질문으로 학생의 이야기를 듣습니다</b><span>해석지의 첫 질문은 학생에게 바로 쓸 수 있는 문장입니다. 학생이 바라는 도움과 이미 받고 있는 지원을 함께 확인합니다.</span></li>
 <li><b>02 지역자원 연계에서 후보를 고릅니다</b><span>행정동을 선택하면 관할이 맞는 후보가 정리됩니다. 카드의 확인 배지를 보고, 미검증 자원은 기관에 직접 문의한 뒤 연계합니다.</span></li>
 <li><b>학교는 03, 기관은 04에서 실무자료를 씁니다</b><span>담임교사·교육복지사는 03 학교 지원에서 관찰지와 의견서를, 복지관·아동가족기관·행정복지센터는 04 기관 사례관리에서 판정 근거·사례보고서·서비스제공계획을 화면에서 적고 필요한 묶음만 출력합니다. 적은 내용은 저장되지 않습니다.</span></li>
+<li><b>05 최종 보고서로 한 사례를 A4 2쪽에 정리합니다</b><span>판정 6칸·핵심 어려움·진행체계·통합사례관리 선정·계획·목표가 앞 화면과 같은 값으로 들어갑니다. 서술기록은 기본으로 빼고 출력하며, 빼도 판정은 같습니다. 「실무자 의견」에 적은 내용은 보고서에 바로 들어가고, 「인쇄 · PDF 저장」을 누르면 A4 두 장으로 나옵니다.</span></li>
 <li><b>자료를 보관하고, 정한 날짜에 다시 평가합니다</b><span>화면 맨 아래 「자료 한 번에 보관」에서 ZIP을, 「응답 파일」에서 식별정보를 뺀 JSON을 내려받습니다. 재평가 때는 JSON을 불러와 해석지의 재평가 기준과 비교합니다.</span></li>
 </ol></section>
 
@@ -154,7 +156,7 @@ details.fold .body{color:var(--secondary);font-size:15px;padding:0 0 16px}detail
 <div class="card tab-card"><h3>자료 한 번에 보관 (ZIP)</h3><p>평가를 완료하면 열립니다. 척도 해석·통합 사정의견 TXT, 사례사정·서비스계획·사례협의 문서(HTML), 25문항 응답 CSV, 기관 후보 CSV, 영역 그래프가 들어갑니다. 「서술기록도 포함」을 고를 때만 서술 원문과 서술 반영 문서가 들어가며, 고르기 전에 한 번 더 확인합니다.</p></div>
 <div class="card tab-card"><h3>응답 파일 (JSON)</h3><p>이름·서술을 뺀 25문항 응답과 안전 추가확인만 저장합니다. 다른 기기나 재평가 때 「JSON 불러오기」로 열면 같은 결과가 다시 계산됩니다.</p></div>
 </div>
-<p class="note">03·04 실무자료에 적은 내용은 ZIP에 들어가지 않습니다. 필요한 시트는 화면에서 출력하거나 기관 기록으로 옮기세요.</p></section>
+<p class="note">03·04 실무자료에 적은 내용은 ZIP에 들어가지 않습니다. 필요한 시트는 화면에서 출력하거나 기관 기록으로 옮기세요. 05 최종 보고서는 ZIP에 13-final-report.txt로 들어가며, 실무자 의견은 「서술기록도 포함」을 고를 때만 함께 들어갑니다.</p></section>
 
 <section class="section" id="resources" aria-labelledby="resTitle"><span class="section-count">06 · RESOURCES</span><h2 id="resTitle">자원 카드의 확인 배지 읽기</h2>
 <p class="lead">사업이 있다는 것과 지금 신청할 수 있다는 것은 다릅니다. 카드에는 확인 배지, 추천 근거, 대상, 신청방법, 접수창구, 신청상태가 먼저 보이고 나머지는 접혀 있습니다.</p>
@@ -168,12 +170,13 @@ details.fold .body{color:var(--secondary);font-size:15px;padding:0 0 16px}detail
 <p class="note">2026년 10월 기준 등록 서비스 220개 가운데 확인완료 15개, 사업별 확인 필요 78개, 미확인 127개입니다. 실제 의뢰 전에는 기관 공식 안내나 담당자 회신을 확인하세요. 연계 진행 기록(상태·담당·메모)은 이 화면에 저장하지 않습니다.</p></section>
 
 <section class="section" id="architecture" aria-labelledby="archTitle"><span class="section-count">07 · CONNECTED ARCHITECTURE</span><h2 id="archTitle">화면과 모델의 연결 구조</h2>
-<p class="lead">화면은 네 단계로 나뉘지만 CORE 25문항과 안전판정은 모든 단계에서 같은 원자료를 씁니다. 브라우저 안의 사례자료를 모델 게이트웨이(OYModelGateway)가 각 모델에 전달하고 결과 화면·보고서로 돌려줍니다.</p>
+<p class="lead">화면은 다섯 단계로 나뉘지만 CORE 25문항과 안전판정은 모든 단계에서 같은 원자료를 씁니다. 브라우저 안의 사례자료를 모델 게이트웨이(OYModelGateway)가 각 모델에 전달하고 결과 화면·보고서로 돌려줍니다.</p>
 <div class="arch-stage">
 <div class="arch-node"><span class="arch-number">01 · INPUT</span><b>선별평가·결과해석</b><small>평가 화면 → 결과 메시지 → CORE·해석지·서술 분석</small></div>
 <div class="arch-node"><span class="arch-number">02 · MATCH</span><b>지역자원 연계</b><small>지원영역·행정동 → 기관·사업·확인 상태</small></div>
 <div class="arch-node"><span class="arch-number">03 · SCHOOL</span><b>학교 지원</b><small>담임교사·교육복지사 시트 → 학맞통 절차 순 출력</small></div>
 <div class="arch-node"><span class="arch-number">04 · AGENCY</span><b>기관 사례관리</b><small>사정·판정·계획·관계도 + 기관별 실무자료</small></div>
+<div class="arch-node"><span class="arch-number">05 · REPORT</span><b>최종 보고서</b><small>판정 사슬·해석·연계·계획 → A4 2쪽 인쇄·PDF·TXT</small></div>
 </div>
 <p class="arch-flowline">↕ 같은 회차·응답·안전판정으로 연결 ↕</p>
 <div class="arch-layer"><h3>공통 계층 · OYModelGateway와 안전 불변 규칙</h3><div class="arch-models">
@@ -214,9 +217,9 @@ details.fold .body{color:var(--secondary);font-size:15px;padding:0 0 16px}detail
 <section class="section" id="documents" aria-labelledby="docsTitle"><span class="section-count">10 · DOCUMENTS</span><h2 id="docsTitle">연구자료 내려받기</h2>
 <p class="lead">2026년 10월 27일 개정판입니다(연구보고서·해설지침·구조도. 운영설계와 현장평가 양식은 10월 26일판 그대로). PDF가 기준본이며 Word는 기관 양식에 맞춰 고쳐 쓸 수 있습니다. 수록 사례는 모두 가상 응답이며 실제 학생 정보는 없습니다. 같은 자료는 화면 오른쪽 위 「연구보고서 다운로드」에서도 받을 수 있습니다.</p>
 <ul class="docs">
-<li><b>연구·기술검토 보고서</b><span>척도 구조, 네 단계 화면과 학교·기관 실무자료, 세 가지 단계 표시, 자원연계, 타당화 연구계획 · 32쪽</span><div class="dl"><a href="../reports/oy-rals-research-report-rev-20261027.pdf?v=20261027-rev4" download="OY-RALS_연구기술검토보고서_개정판_20261027.pdf">PDF</a><a href="../reports/oy-rals-research-report-rev-20261027.docx?v=20261027-rev4" download="OY-RALS_연구기술검토보고서_개정판_20261027.docx">Word</a></div></li>
-<li><b>해설 및 실무판정지침</b><span>문항별 해석카드와 앵커, 결과 화면과 03·04 실무자료 쓰는 법, 교차 패턴 첫 질문 · 17쪽</span><div class="dl"><a href="../reports/oy-rals-practice-guide-rev-20261027.pdf?v=20261027-rev4" download="OY-RALS_해설및실무판정지침_개정판_20261027.pdf">PDF</a><a href="../reports/oy-rals-practice-guide-rev-20261027.docx?v=20261027-rev4" download="OY-RALS_해설및실무판정지침_개정판_20261027.docx">Word</a></div></li>
-<li><b>모델·자원·AI 구조도</b><span>A4 가로 · 화면 단계와 모듈 대응 · 6쪽</span><div class="dl"><a href="../reports/oy-rals-architecture-diagram-rev-20261027.pdf?v=20261027-rev4" download="OY-RALS_모델자원AI구조도_개정판_20261027.pdf">PDF</a><a href="../reports/oy-rals-architecture-diagram-rev-20261027.docx?v=20261027-rev4" download="OY-RALS_모델자원AI구조도_개정판_20261027.docx">Word</a></div></li>
+<li><b>연구·기술검토 보고서</b><span>척도 구조, 화면 단계와 학교·기관 실무자료, 세 가지 단계 표시, 자원연계, 타당화 연구계획 · 32쪽</span><div class="dl"><a href="../reports/oy-rals-research-report-rev-20261027.pdf?v=20261027-rev5" download="OY-RALS_연구기술검토보고서_개정판_20261027.pdf">PDF</a><a href="../reports/oy-rals-research-report-rev-20261027.docx?v=20261027-rev5" download="OY-RALS_연구기술검토보고서_개정판_20261027.docx">Word</a></div></li>
+<li><b>해설 및 실무판정지침</b><span>문항별 해석카드와 앵커, 결과 화면과 03·04 실무자료 쓰는 법, 교차 패턴 첫 질문 · 17쪽</span><div class="dl"><a href="../reports/oy-rals-practice-guide-rev-20261027.pdf?v=20261027-rev5" download="OY-RALS_해설및실무판정지침_개정판_20261027.pdf">PDF</a><a href="../reports/oy-rals-practice-guide-rev-20261027.docx?v=20261027-rev5" download="OY-RALS_해설및실무판정지침_개정판_20261027.docx">Word</a></div></li>
+<li><b>모델·자원·AI 구조도</b><span>A4 가로 · 화면 단계와 모듈 대응 · 6쪽</span><div class="dl"><a href="../reports/oy-rals-architecture-diagram-rev-20261027.pdf?v=20261027-rev5" download="OY-RALS_모델자원AI구조도_개정판_20261027.pdf">PDF</a><a href="../reports/oy-rals-architecture-diagram-rev-20261027.docx?v=20261027-rev5" download="OY-RALS_모델자원AI구조도_개정판_20261027.docx">Word</a></div></li>
 <li><b>후속 시스템화 운영설계</b><span>데이터 표준·연계 상태·검증 로드맵 · 3쪽</span><div class="dl"><a href="../reports/oy-rals-operations-design-rev-20261026.pdf?v=20261027-rev4" download="OY-RALS_후속시스템화운영설계_개정판_20261026.pdf">PDF</a><a href="../reports/oy-rals-operations-design-rev-20261026.docx?v=20261027-rev4" download="OY-RALS_후속시스템화운영설계_개정판_20261026.docx">Word</a></div></li>
 <li><b>현장평가 양식</b><span>종이 25문항·수기 판정·의뢰·재사정 서식, 인쇄용 · 13쪽</span><div class="dl"><a href="../reports/oy-rals-field-form-rev-20261026.pdf?v=20261027-rev4" download="OY-RALS_현장평가양식_개정판_20261026.pdf">PDF</a></div></li>
 </ul></section>

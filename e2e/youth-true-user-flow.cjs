@@ -90,9 +90,9 @@ async function run(browserType,name,width,full){
   const guide=await browser.newPage({viewport:{width,height:900}}); // independent tab, preserve unsaved assessment
   try{
    await guide.goto(base+'system-method.html',{waitUntil:'domcontentloaded',timeout:30000});
-   assert.equal(await guide.locator('#architecture .arch-node').count(),4,'guide shows 4 connected stage nodes');
+   assert.equal(await guide.locator('#architecture .arch-node').count(),5,'guide shows 5 connected stage nodes');
    assert.equal(await guide.locator('#architecture .arch-model').count()>=9,true,'all shared model roles visible on architecture map');
-   assert.equal(await guide.locator('#how .step').count(),4,'guide matches four-step UI');
+   assert.equal(await guide.locator('#how .step').count(),5,'guide matches five-step UI');
    assert.equal(await guide.locator('#architecture').isVisible(),true,'architecture diagram rendered to page');
    assert.match(await guide.locator('#technology').innerText(),/CORE|OY-CIE/,'model guarantee explained');
   }finally{await guide.close();}

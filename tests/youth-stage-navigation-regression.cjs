@@ -56,6 +56,8 @@ assert.match(result.textContent,/지원연계 지도 검토는 미완료/);
 assert.equal(events.at(-1).detail.payload.linkageReviewStatus,'연계 후보 검토 전');
 steps.get(6).onclick();
 assert.equal(events.at(-1).detail.stage,6,'School support opens without navigation lock');
+assert.equal(nodes.get('nextStep').hidden,false,'04 offers the way on to 05');
+assert.equal(nodes.get('nextStep').textContent,'05 최종 보고서로 →');
 steps.get(7).onclick();
 assert.equal(events.at(-1).detail.stage,7,'Final report opens as its own step');
 assert.equal(nodes.get('stepTitle').textContent,'최종 보고서 · A4 2쪽');
