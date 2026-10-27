@@ -61,5 +61,5 @@ const at=n=>scripts.indexOf(n);
 for(const n of ['oy-ask-model-v1.js','oy-ask-panel-v1.js'])assert.ok(at(n)>=0,n+' not loaded');
 assert.ok(at('oy-deep-interpretation-v1.js')<at('oy-ask-model-v1.js')&&at('oy-ask-model-v1.js')<at('oy-ask-panel-v1.js')&&at('journey-v88.js')<at('oy-ask-panel-v1.js'));
 for(const n of ['cie-flow-v32.js','ai-workbench-stage-v1.js','practice-handoff-ui-v1.js','cie-lab-v32/dialogue-v32.js'])assert.ok(at(n)<0,n+' should no longer load on the main page');
-assert.ok(page.includes('oy-ask-panel-v1.css?'));
+assert.ok(page.includes('oy-bundle-v13.css?')&&require('../docs/youth-risk/oy-css-manifest.json').sources.includes('oy-ask-panel-v1.css'),'panel CSS ships in the youth CSS bundle');
 console.log('oy-ask-model: ok '+M.FAQ.length+' quick answers, section/document prompts, 500 random cases, panel privacy contract');

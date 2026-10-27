@@ -10,6 +10,10 @@ on:
       - 'tests/oy-architecture-wiring.cjs'
       - 'tests/oy-decision-chain.cjs'
       - 'tests/oy-constants-drift.cjs'
+      - 'tests/oy-css-bundle.cjs'
+      - 'scripts/build-youth-css.cjs'
+      - 'docs/youth-risk/*.css'
+      - 'docs/youth-risk/oy-css-manifest.json'
       - 'tests/fixtures/**'
       - 'tests/youth-five-level-index.cjs'
       - 'tests/youth-result-readout.cjs'
@@ -22,6 +26,10 @@ on:
       - 'tests/oy-architecture-wiring.cjs'
       - 'tests/oy-decision-chain.cjs'
       - 'tests/oy-constants-drift.cjs'
+      - 'tests/oy-css-bundle.cjs'
+      - 'scripts/build-youth-css.cjs'
+      - 'docs/youth-risk/*.css'
+      - 'docs/youth-risk/oy-css-manifest.json'
       - 'tests/fixtures/**'
       - 'tests/youth-five-level-index.cjs'
       - 'tests/youth-result-readout.cjs'
@@ -82,3 +90,4 @@ jobs:
           node tests/youth-eval100-regression.cjs
           node tests/oy-decision-chain.cjs
           node tests/oy-constants-drift.cjs
+          node tests/oy-css-bundle.cjs
