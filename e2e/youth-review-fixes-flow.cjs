@@ -19,7 +19,7 @@ async function open(browser,width){
  return {page,frame,errors};
 }
 async function answer(frame,set){for(let i=0;i<25;i++)await frame.locator('#qi'+i+' input[type="radio"][value="'+(set[i+1]??0)+'"]').check({force:true,timeout:12000});}
-async function complete(page,frame){await frame.locator('#complete').click();await page.waitForFunction(()=>document.querySelector('#resultTools')?.hidden===false,{timeout:25000});}
+async function complete(page,frame){await frame.locator('#complete').click();await page.waitForFunction(()=>(document.querySelector('[data-oy-step="2"]')?.disabled===false&&document.getElementById('journey88')?.hidden===false&&Boolean(document.querySelector('#journey88 [data-j88-result-tab]'))),{timeout:25000});}
 async function servicePlan(page){
  await page.locator('[data-oy-step="2"]').click();
  await page.waitForFunction(()=>document.querySelector('#mapArea')?.hidden===false,{timeout:20000});
@@ -38,7 +38,7 @@ async function heavy(browser,width){
  // ① scale reading leaves the casework level to ③ and says so.
  const score=await page.locator('#journey88').innerText();
  assert.doesNotMatch(score,/사례관리 수준\n/,'no casework glance on the scale tab');
- assert.match(score,/③ 통합 사정의견에서 정합니다/,'scale tab points to ③');
+ assert.match(score,/통합 사정의견에서 정합니다/,'scale tab points to ③');
  assert.doesNotMatch(score,/신호 신호/);
  // ② narrative: the threat is a safety cue.
  await page.locator('[data-j88-result-tab="narrative"]').click();

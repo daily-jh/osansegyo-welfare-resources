@@ -1,4 +1,4 @@
-/* OY-RALS ask panel v1: "AI에 묻기" buttons on interpretation sections and reports, one side panel, and the 04 collection.
+/* OY-RALS ask panel v1: "AI에 묻기" buttons on interpretation sections and reports, and one side panel.
    Quick answers come from the deep interpretation already on screen. Anything beyond that is copied as a short prompt
    and opened in the practitioner's own AI service; nothing is sent automatically and answers stay in this tab only. */
 (function(){'use strict';
@@ -9,7 +9,7 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const redact=s=>{try{return window.OYPrivacyGuardV87?.inspect(String(s)).redacted||String(s)}catch(_){return String(s)}};
 const AI={chatgpt:['ChatGPT','https://chatgpt.com/'],claude:['Claude','https://claude.ai/new'],gemini:['Gemini','https://gemini.google.com/app']};
 const SKIP=new Set(['glance','profile','code','validity']);
-let current=null,revision=null,ctx=null,saved=[],lastFocus=null;
+let current=null,revision=null,ctx=null,lastFocus=null;
 
 const panel=document.createElement('aside');panel.id='oy-ask-panel';panel.className='oy-ask';panel.hidden=true;
 panel.setAttribute('role','dialog');panel.setAttribute('aria-labelledby','oy-ask-title');
@@ -25,16 +25,9 @@ panel.innerHTML='<header class="oy-ask-head"><div><small id="oy-ask-where"></sma
 '<div class="oy-ask-open">'+Object.entries(AI).map(([k,v])=>'<button type="button" data-ask-open="'+k+'">'+v[0]+' ↗</button>').join('')+'<button type="button" data-ask-open="copy">복사만</button></div>'+
 '<p class="oy-ask-hint">누르면 요청문이 복사되고 새 탭이 열립니다. 입력창에 붙여 넣어 질문하세요. 이 사이트는 자료를 자동으로 보내지 않습니다.</p></section>'+
 '<section class="oy-ask-step"><h3>받은 답변 정리</h3><textarea id="oy-ask-answer" rows="6" maxlength="60000" aria-label="외부 AI 답변" placeholder="외부 AI 답변을 붙여 넣고, 사실과 다르거나 확인되지 않은 부분을 고치세요."></textarea>'+
-'<div class="oy-ask-row"><button type="button" class="flow-btn flow-primary" id="oy-ask-save">04 자문 모음에 저장</button><button type="button" class="flow-btn" id="oy-ask-copy-answer">답변 복사</button></div></section>'+
+'<div class="oy-ask-row"><button type="button" class="flow-btn" id="oy-ask-copy-answer">답변 복사</button></div><p class="oy-ask-hint">답변은 이 창을 닫으면 사라집니다. 필요하면 복사해 기관 기록에 옮기세요.</p></section>'+
 '<p class="oy-ask-status" id="oy-ask-status" role="status"></p></div>';
 document.body.append(panel);
-
-const box=document.createElement('section');box.id='oy-ask-collection';box.className='oy-ask-collection';box.hidden=true;
-box.setAttribute('aria-label','AI 사례자문 작업실');
-box.innerHTML='<header><h3>외부 AI 자문 모음</h3><p>해석지 각 부분의 「AI에 묻기」로 받은 외부 AI 답변을 여기에 모아 검토합니다. 답변은 이 탭에만 있고, 탭을 닫으면 사라집니다.</p></header>'+
-'<div class="oy-ask-row"><button type="button" class="flow-btn flow-primary oy-ask-doc" data-ask-task="integrated">통합사례보고서 AI로 작성 ↗</button><button type="button" class="flow-btn oy-ask-doc" data-ask-task="meeting">사례회의 안건지 AI로 작성 ↗</button></div>'+
-'<div id="oy-ask-list"></div><div class="oy-ask-row" id="oy-ask-list-actions" hidden><button type="button" class="flow-btn" id="oy-ask-copy-all">모두 복사</button><button type="button" class="flow-btn" id="oy-ask-print-all">PDF·인쇄</button></div>';
-host.after(box);
 
 const $=id=>document.getElementById(id);
 const status=t=>{$('oy-ask-status').textContent=t;};
@@ -44,10 +37,10 @@ const narrativePresent=()=>Boolean(String(payload()?.caseContext||'').trim());
 const scaleReport=()=>D.build({...payload(),caseContext:''});
 
 function reportKind(article){
- if(article.classList.contains('onr-integrated'))return '③ 통합 사정의견';
+ if(article.classList.contains('onr-integrated'))return '통합 사정의견';
  if(article.classList.contains('onr-case'))return '03 통합사정 요약';
- if(article.classList.contains('onr-report'))return '② 서술기록 분석';
- return '① 척도 해석';
+ if(article.classList.contains('onr-report'))return '서술기록 분석';
+ return '척도 해석';
 }
 function sectionKey(sec){const m=[...sec.classList].find(c=>c.startsWith('odi-s-'));return m?m.slice(6):'';}
 function sectionTitle(sec){const h=sec.querySelector('h3');if(!h)return '';const c=h.cloneNode(true);c.querySelectorAll('.odi-num,.oy-ask-btn').forEach(n=>n.remove());return c.textContent.trim();}
@@ -123,7 +116,7 @@ document.addEventListener('click',e=>{
  if(sb){const sec=sb.closest('.odi-sec'),art=sb.closest('.oy-deep-report');
   open({mode:'section',key:sb.dataset.askSection,title:sectionTitle(sec),where:reportKind(art),onr:art.classList.contains('onr-report'),sec});return;}
  const db=e.target.closest?.('.oy-ask-doc');
- if(db){open({mode:'document',key:'report',title:'보고서',where:db.closest('#oy-ask-collection')?'04 AI 사례자문 작업실':'보고서 출력물',task:db.dataset.askTask});}
+ if(db){open({mode:'document',key:'report',title:'보고서',where:'보고서 출력물',task:db.dataset.askTask});}
 });
 panel.querySelector('.oy-ask-close').addEventListener('click',close);
 panel.addEventListener('keydown',e=>{if(e.key==='Escape')close();});
@@ -149,38 +142,13 @@ panel.querySelector('.oy-ask-open').addEventListener('click',e=>{
  copied.then(ok=>status(ok?(target?target[0]+' 탭을 열었습니다. 입력창에 붙여 넣으세요(Ctrl+V).':'요청문을 복사했습니다.'):'자동 복사가 막혀 요청문을 선택해 두었습니다. 직접 복사해 주세요.'));
 });
 $('oy-ask-copy-answer').addEventListener('click',async()=>{const t=$('oy-ask-answer').value.trim();if(!t)return status('붙여 넣은 답변이 없습니다.');status(await copyText(t,$('oy-ask-answer'))?'답변을 복사했습니다.':'답변을 선택해 두었습니다. 직접 복사해 주세요.');});
-$('oy-ask-save').addEventListener('click',()=>{
- const t=$('oy-ask-answer').value.trim();if(!t)return status('저장할 답변을 먼저 붙여 넣어 주세요.');
- saved.push({where:ctx.where,title:ctx.mode==='document'?M.TASKS[$('oy-ask-task').value].label:ctx.title,question:$('oy-ask-q').value.trim(),answer:t,at:new Date()});
- renderList();status('04 AI 사례자문 작업실에 저장했습니다 ('+saved.length+'건).');
-});
-
-function renderList(){
- $('oy-ask-list').innerHTML=saved.length?saved.map((s,i)=>'<article class="oy-ask-item"><header><small>'+esc(s.where)+' · '+s.at.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'})+'</small><h3>'+esc(s.title)+'</h3><button type="button" class="oy-ask-remove" data-ask-remove="'+i+'" aria-label="'+esc(s.title)+' 삭제">삭제</button></header>'+(s.question?'<p class="oy-ask-q-line">질문: '+esc(s.question)+'</p>':'')+'<div class="oy-ask-text">'+esc(s.answer)+'</div></article>').join('')
-  :'<p class="oy-ask-empty">아직 저장한 답변이 없습니다. 01·03 해석지 제목 옆의 「AI에 묻기」나 위 버튼으로 시작하세요.</p>';
- $('oy-ask-list-actions').hidden=!saved.length;
-}
-const collected=()=>saved.map(s=>'■ '+s.title+' ('+s.where+')'+(s.question?'\n질문: '+s.question:'')+'\n\n'+s.answer).join('\n\n');
-$('oy-ask-list').addEventListener('click',e=>{const b=e.target.closest('[data-ask-remove]');if(!b)return;saved.splice(Number(b.dataset.askRemove),1);renderList();});
-$('oy-ask-copy-all').addEventListener('click',async()=>{await copyText('외부 AI 자문 · 실무자 검토본\n\n'+collected());});
-$('oy-ask-print-all').addEventListener('click',()=>{
- document.getElementById('oy-ask-print-root')?.remove();
- const root=document.createElement('article');root.id='oy-ask-print-root';
- const h=document.createElement('h1');h.textContent='외부 AI 자문 · 실무자 검토본';
- const m=document.createElement('p');m.textContent=new Date().toLocaleDateString('ko-KR')+' · 외부 AI 답변을 실무자가 검토한 참고자료이며 CORE 판정을 바꾸지 않습니다.';
- const pre=document.createElement('div');pre.className='oy-ask-text';pre.textContent=collected();
- root.append(h,m,pre);document.body.append(root);document.body.classList.add('oy-ask-printing');window.print();
-});
-window.addEventListener('afterprint',()=>{document.body.classList.remove('oy-ask-printing');document.getElementById('oy-ask-print-root')?.remove();});
 
 window.addEventListener('oy-journey-view',e=>{
  current=e.detail;
  const rev=current?.payload?.flowRevision;
- if(rev!==revision){revision=rev;saved=[];renderList();if(!panel.hidden)close();}
- box.hidden=!current?.ready||current.stage!==5;
+ if(rev!==revision){revision=rev;if(!panel.hidden)close();}
  if(!current?.ready&&!panel.hidden)close();
  requestAnimationFrame(decorate);
 });
-renderList();
-window.OYAskPanel=Object.freeze({open,close,count:()=>saved.length});
+window.OYAskPanel=Object.freeze({open,close});
 })();

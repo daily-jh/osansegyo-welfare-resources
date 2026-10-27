@@ -7,8 +7,8 @@
 #assessmentFlow .flow-frame{background:#fff!important}
 /* Before the first result the frame has its own completion button right under question 25;
    the outer one repeated it below the file tools. It returns once results exist. */
-#assessmentFlow:has(#resultTools[hidden]):has(#assessmentArea:not([hidden])) .flow-bottom #nextStep{display:none!important}
-#assessmentFlow:has(#resultTools[hidden]):has(#assessmentArea:not([hidden])) .flow-bottom:not(:has(#previousStep:not([hidden]))){display:none!important}
+#assessmentFlow:has(#assessmentArea:not([hidden])) .flow-bottom #nextStep{display:none!important}
+#assessmentFlow:has(#assessmentArea:not([hidden])) .flow-bottom:not(:has(#previousStep:not([hidden]))){display:none!important}
 #assessmentFlow .flow-data-tools{background:none!important;border:0!important;border-top:1px solid var(--k-hair)!important;border-radius:0!important;box-shadow:none!important;padding:18px 0 0!important;margin:28px auto 0!important;max-width:1040px}
 #assessmentFlow .flow-data-tools>p:first-child{font-size:13px!important;line-height:1.6!important;color:var(--k-ter)!important;margin:0 0 10px!important}
 #assessmentFlow .flow-data-tools .flow-btn{background:var(--k-fill)!important;border:0!important;box-shadow:none!important;border-radius:999px!important;font-size:14px!important;color:var(--k-ink)!important;min-height:44px}

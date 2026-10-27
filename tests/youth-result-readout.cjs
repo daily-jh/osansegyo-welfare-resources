@@ -50,8 +50,8 @@ assert.ok(/다른 사람/.test(R.mismatchText({tag:'selfharm',items:[7],issue:'�
 const cur=payload({6:1},'어제 상담에서 학생이 요즘 죽고 싶다는 생각이 자주 든다고 말했다.');
 const full=Index.analyze(cur),objective=Index.analyze({...cur,caseContext:''});
 assert.ok(full.tier>objective.tier);
-assert.ok(/③ 통합 사정의견/.test(R.html(objective,cur,{objective:true,fullTier:full.tier})));
-assert.equal(R.narrativeLabel(objective,cur,true),'①에서 제외 · ③에서 확인');
+assert.ok(/통합 사정의견/.test(R.html(objective,cur,{objective:true,fullTier:full.tier})));
+assert.equal(R.narrativeLabel(objective,cur,true),'척도 해석에서 제외 · 통합 사정의견에서 확인');
 assert.equal(R.narrativeLabel(Index.analyze(payload()),payload(),true),'미입력');
 
 // Escaping: narrative-derived text never injects markup.

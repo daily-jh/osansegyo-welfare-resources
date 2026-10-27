@@ -28,7 +28,7 @@ async function run(browserType,name,width,full){
   }
   assert.equal(await frame.locator('input[type="radio"]:checked').count(),25,name+' all score choices checked');
   await frame.locator('#complete').click();
-  await page.waitForFunction(()=>document.querySelector('#resultTools')?.hidden===false,{timeout:25000});
+  await page.waitForFunction(()=>(document.querySelector('[data-oy-step="2"]')?.disabled===false&&document.getElementById('journey88')?.hidden===false&&Boolean(document.querySelector('#journey88 [data-j88-result-tab]'))),{timeout:25000});
   assert.equal(await page.locator('[data-j88-result-tab="score"]').getAttribute('aria-pressed'),'true',name+' real click navigated to score');
   assert.equal(await page.locator('.oy-viz-radar svg').count(),1,name+' radar visible');
   assert.equal(await page.locator('.oy-viz-radar [data-radar-index]').count(),10);
@@ -46,21 +46,16 @@ async function run(browserType,name,width,full){
   await page.locator('#confirmLinkageReview').click();
   await page.waitForFunction(()=>document.querySelector('#journey88 .j88-heading h2')?.textContent?.includes('사례개념화·개입계획'),null,{timeout:15000});
   assert.match(await page.locator('#journey88').innerText(),/사례개념화·개입계획/);
-  await page.locator('[data-oy-step="4"]').click();
-  await page.waitForFunction(()=>document.querySelector('#oy-ask-collection')?.hidden===false,{timeout:15000});
   assert.equal(await page.locator('#oy-ai-ask').count(),0,'retired in-flow OY-CIE dialogue');
+  assert.equal(await page.locator('[data-oy-step="4"], [data-oy-step="5"], #oy-ask-collection').count(),0,'AI workshop and records steps retired');
   if(full){
-   await page.locator('#oy-ask-collection .oy-ask-doc').first().click();
-   assert.equal(await page.locator('#oy-ask-panel').isVisible(),true,'ask panel opens from 04');
+   await page.locator('#journey88 .oy-ask-doc').first().click();
+   assert.equal(await page.locator('#oy-ask-panel').isVisible(),true,'ask panel opens from the report button');
    await page.locator('#oy-ask-chips button').first().click();
    assert.ok((await page.locator('#oy-ask-found').innerText()).length>60,'quick answer from the report');
    assert.match(await page.locator('#oy-ask-prompt').inputValue(),/CORE 점수와 안전 판단은 바꾸지 마세요/,'external AI prompt prepared');
    await page.locator('#oy-ask-answer').fill('가상 외부 AI 답변 · 실무자 검토 전');
-   await page.locator('#oy-ask-save').click();
-   assert.equal(await page.locator('#oy-ask-collection .oy-ask-item').count(),1,'answer saved to 04 collection');
    await page.locator('.oy-ask-close').click();
-   await page.locator('[data-oy-step="5"]').click();
-   await page.waitForFunction(()=>document.querySelector('#recordsArea')?.hidden===false,{timeout:15000});
    await page.locator('[data-oy-step="1"]').click();
    await page.locator('[data-j88-result-tab="score"]').click();
    await page.evaluate(()=>{window.print=()=>{};});
@@ -83,9 +78,9 @@ async function run(browserType,name,width,full){
    assert.equal(parsed.caseContext,undefined,'backup must omit freeform notes');
    await page.reload({waitUntil:'domcontentloaded',timeout:30000});
    await page.frameLocator('#assessmentFrame').locator('#qi0').waitFor({timeout:15000});
-   assert.equal(await page.locator('#resultTools').isVisible(),false,'new page cannot retain old case in browser storage');
+   assert.equal(await page.locator('[data-j88-result-tab]').count(),0,'new page cannot retain old case in browser storage');
    await page.locator('#importAssessment').setInputFiles({name:'synthetic-anonymous.json',mimeType:'application/json',buffer:Buffer.from(raw)});
-   await page.waitForFunction(()=>document.querySelector('#resultTools')?.hidden===false,{timeout:20000});
+   await page.waitForFunction(()=>(document.querySelector('[data-oy-step="2"]')?.disabled===false&&document.getElementById('journey88')?.hidden===false&&Boolean(document.querySelector('#journey88 [data-j88-result-tab]'))),{timeout:20000});
    assert.equal(await page.locator('.oy-viz-radar svg').count(),1,'imported anonymous scores recompute the case');
    assert.equal(await page.frameLocator('#assessmentFrame').locator('input[type="radio"]:checked').count(),25,'all 25 answers restored');
 
@@ -102,7 +97,7 @@ async function run(browserType,name,width,full){
    assert.match(await guide.locator('#technology').innerText(),/CORE|OY-CIE/,'model guarantee explained');
   }finally{await guide.close();}
 
-  console.log('PASS '+name+' '+width+'px true clicks: score→narrative→integrated→map→case→AI→records'+(full?' plus AI answer, real A4 PDF and privacy backup':''));
+  console.log('PASS '+name+' '+width+'px true clicks: score→narrative→integrated→map→case→AI report'+(full?' plus AI quick answer, real A4 PDF and privacy backup':''));
  }finally{await page.close();await browser.close();}
 }
 (async()=>{

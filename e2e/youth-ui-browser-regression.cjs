@@ -15,14 +15,17 @@ async function scenario(browser,width){
  await page.frameLocator('#assessmentFrame').locator('body').waitFor({timeout:15000});
  const frame=page.frame({url:/assessment.html/});assert.ok(frame,'assessment iframe should exist');
  await frame.evaluate(p=>window.parent.postMessage({type:'youth-flow-complete-v1',payload:p},location.origin),payload);
- await page.waitForFunction(()=>document.querySelector('#resultTools')?.hidden===false,{timeout:15000});
- assert.equal(await page.locator('#resultTools .result-optional-feature').count(),2);
+ await page.waitForFunction(()=>(document.querySelector('[data-oy-step="2"]')?.disabled===false&&document.getElementById('journey88')?.hidden===false&&Boolean(document.querySelector('#journey88 [data-j88-result-tab]'))),{timeout:15000});
+ assert.equal(await page.locator('#resultTools').count(),0,'post-score feature box removed');
+ assert.equal(await page.locator('.j88-result-tabs > button').count(),3,'three large result tabs');
+ assert.doesNotMatch(await page.locator('.j88-result-tabs').innerText(),/[①②③]/,'result tabs carry no circled numbers');
  assert.equal(await page.locator('#journey88').isVisible(),true,'stage 2 interpretation visible');
   assert.equal(await page.locator('#cie-flow-v32').count(),0,'retired CIE question panel absent');
   assert.ok(await page.locator('#journey88 .oy-ask-btn').count()>=5,'AI ask buttons on interpretation sections');
   assert.equal(await page.locator('#journey88 .oy-ask-doc').count(),1,'one report-level AI button');
   assert.equal(await page.locator('#oy-external-handoff').count(),0,'bottom handoff panel replaced by ask panel');
- assert.equal(await page.locator('.flow-nav [data-oy-step]').count(),6,'six main steps exposed');
+ assert.equal(await page.locator('.flow-nav [data-oy-step]').count(),4,'four main steps exposed');
+ assert.equal(await page.locator('.flow-nav [data-oy-step="4"], .flow-nav [data-oy-step="5"]').count(),0,'AI workshop and records steps retired');
  assert.equal(await page.locator('[data-j88-result-tab="score"]').getAttribute('aria-pressed'),'true','quantitative first');
   assert.equal(await page.locator('.j88-raw-accordion').first().getAttribute('open'),null,'raw scores closed initially');
  assert.equal(await page.locator('#oy-index-visual-slot .oy-viz-dashboard').count(),1,'five-level integrated dashboard visible');
@@ -97,12 +100,9 @@ async function scenario(browser,width){
  await page.locator('#j88-integrated').click();
  const print=await page.locator('#j88-print-root').innerText();
  assert.ok(print.includes('사례사정')&&print.includes('서비스계획')&&print.includes('사례협의'),'integrated print sections preserved');
- await page.locator('.flow-nav [data-oy-step="4"]').click();
- await page.waitForFunction(()=>document.querySelector('#oy-ask-collection')?.hidden===false,{timeout:10000});
- assert.equal(await page.locator('#journey88').isVisible(),false,'case panel hidden in AI workspace');
- assert.match(await page.locator('#oy-viz-stage-v1').innerText(),/이용 흐름/,'AI workspace usage flow');
- await page.locator('#oy-ask-collection .oy-ask-doc[data-ask-task="integrated"]').click();
- assert.equal(await page.locator('#oy-ask-task').inputValue(),'integrated');
+ assert.equal(await page.locator('#oy-ask-collection').count(),0,'AI workshop collection retired');
+ await page.locator('#journey88 .oy-ask-doc').first().click();
+ await page.locator('#oy-ask-task').selectOption('integrated');
  const prompt=await page.locator('#oy-ask-prompt').inputValue();
  assert.match(prompt,/통합사례보고서를 작성해 주세요/,'document prompt for the integrated report');
  await page.evaluate(()=>{window.__opened=[];window.open=u=>{window.__opened.push(u);return null;};});
@@ -111,17 +111,11 @@ async function scenario(browser,width){
  await page.locator('#oy-ask-ok').check();
  await page.locator('[data-ask-open="chatgpt"]').click();
  assert.deepEqual(await page.evaluate(()=>window.__opened),['https://chatgpt.com/'],'AI home opens without case data');
- await page.locator('#oy-ask-answer').fill('가상 외부 AI 보고서 초안');
- await page.locator('#oy-ask-save').click();
+ assert.equal(await page.locator('#oy-ask-save').count(),0,'answers are not collected into a retired workshop');
  await page.locator('.oy-ask-close').click();
- await page.locator('#oy-ask-print-all').click();
- assert.match(await page.locator('#oy-ask-print-root').innerText(),/외부 AI 자문 · 실무자 검토본/,'collected answers are printable');
- await page.evaluate(()=>window.dispatchEvent(new Event('afterprint')));
+ assert.equal(await page.locator('#bundlePanel').isVisible(),true,'storage strip reachable after evaluation');
+ assert.ok((await page.locator('#bundlePanel').boundingBox()).y>(await page.locator('#journey88').boundingBox()).y,'storage strip sits below the step content');
 
- await page.locator('.flow-nav [data-oy-step="5"]').click();
- await page.waitForFunction(()=>document.querySelector('#recordsArea')?.hidden===false,{timeout:10000});
- assert.equal(await page.locator('#journey88').isVisible(),true,'stage4 workbench section opens');
- assert.match(await page.locator('#oy-viz-stage-v1').innerText(),/회차별 실행흐름/,'records monitoring timeline');
  await page.locator('.flow-nav [data-oy-step="2"]').click();
  assert.equal(await page.locator('#linkageReviewPanel').isVisible(),true,'map review remains reachable');
   assert.equal(await page.locator('#oy-viz-stage-v1').isVisible(),false,'duplicate map card removed');
@@ -131,7 +125,7 @@ async function scenario(browser,width){
  assert.ok((await page.locator('#journey88').innerText()).includes('사례사정'),'stage3 remains directly reachable after map visit');
  assert.deepEqual(errors,[], 'Browser JS exceptions: '+errors.join(' | '));
  await page.close();
- console.log('PASS real Chromium '+width+'px: assessment, map, case assessment, conference, plan, family map, report print, optional follow-up');
+ console.log('PASS real Chromium '+width+'px: assessment, map, case assessment, conference, plan, family map, report print, AI report prompt, storage strip');
 }
 (async()=>{
  const browser=await chromium.launch({headless:true,args:['--no-sandbox']});

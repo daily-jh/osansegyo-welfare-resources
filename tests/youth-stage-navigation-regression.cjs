@@ -19,8 +19,8 @@ class Element{
  querySelectorAll(){return []}
 }
 const nodes=new Map(props.map(id=>[id,new Element(id)]));nodes.get('recordVersion').value='';
-const navs=Array.from({length:4},(_,i)=>{let a=new Element('stage'+(i+1));a.dataset={stage:String(i+1)};return a;});
-const viewButtons=['result','map'].map(view=>{const a=new Element('view'+view);a.dataset={resultView:view};return a});
+// The four visible steps (01 result, 02 map, 03 school, 04 agency) carry data-oy-step 1·2·6·3.
+const steps=new Map([1,2,6,3].map(v=>{const a=new Element('step'+v);a.dataset={oyStep:String(v)};return [v,a];}));
 const extra=new Element('flow-data-tools');
 const document={
  baseURI:'https://example.test/youth-risk/',
@@ -28,7 +28,7 @@ const document={
  createTextNode:value=>({textContent:value}),
  getElementById:id=>nodes.get(id)||null,
  querySelector:query=>query==='.flow-data-tools'?extra:null,
- querySelectorAll:query=>query==='[data-stage]'?navs:query==='[data-result-view]'?viewButtons:[]
+ querySelectorAll:query=>query==='[data-oy-step]'?[...steps.values()]:[]
 };
 const callbacks={};const events=[];
 const window={addEventListener:(type,fn)=>{callbacks[type]=fn},dispatchEvent:e=>{events.push(e);return true},confirm:()=>true};
@@ -42,26 +42,28 @@ const analysis={defaultDomains:[],plans:[]};
 const ctx={window,document,CustomEvent:class{constructor(type,detail){this.type=type;this.detail=detail.detail}},URL,location:{origin:'https://example.test'},YouthMap:{validate:()=>true},YouthPlanning:{analyze:()=>analysis},requestAnimationFrame:fn=>fn(),console};
 vm.runInNewContext(source,ctx,{filename:'flow.js'});
 const assessment=nodes.get('assessmentFrame');
-assert.equal(nodes.get('resultTools').hidden,true,'No post-score buttons before completing assessment');
+assert.ok(!html.includes('id="resultTools"'),'post-score feature box removed: the result tabs carry the result page');
+assert.ok(!/data-oy-step="[45]"/.test(html),'AI workshop and records steps removed from navigation');
+assert.equal(nodes.get('bundlePanel').hidden,true,'Storage strip waits for a completed assessment');
 callbacks.message({origin:'https://example.test',source:assessment.contentWindow,data:{type:'youth-flow-complete-v1',payload}});
-assert.equal(nodes.get('resultTools').hidden,false,'Result action cards must appear after evaluation');
 assert.equal(events.at(-1).detail.stage,2);
 assert.equal(events.at(-1).detail.view,'result');
+assert.equal(nodes.get('bundlePanel').hidden,false,'ZIP storage available after evaluation');
 const result=nodes.get('flowStatus');
-navs[2].onclick();
-assert.equal(events.at(-1).detail.stage,3,'Case assessment must open directly without mandatory map-confirmation click');
-assert.equal(nodes.get('resultTools').hidden,true,'Result cards hidden outside stage 2');
+steps.get(3).onclick();
+assert.equal(events.at(-1).detail.stage,3,'Agency case management must open directly without mandatory map-confirmation click');
 assert.match(result.textContent,/지원연계 지도 검토는 미완료/);
 assert.equal(events.at(-1).detail.payload.linkageReviewStatus,'연계 후보 검토 전');
-navs[3].onclick();
-assert.equal(events.at(-1).detail.stage,4,'Optional notes/followup stage must open without navigation lock');
-assert.equal(nodes.get('recordsArea').hidden,false);
-navs[1].onclick();
-assert.equal(nodes.get('resultTools').hidden,false);
-viewButtons[1].onclick();
+steps.get(6).onclick();
+assert.equal(events.at(-1).detail.stage,6,'School support opens without navigation lock');
+steps.get(1).onclick();
+assert.equal(events.at(-1).detail.stage,2);
+assert.equal(events.at(-1).detail.view,'result','step 01 returns to the result tabs');
+steps.get(2).onclick();
+assert.equal(events.at(-1).detail.view,'map');
 assert.equal(nodes.get('linkageReviewPanel').hidden,false,'Map review buttons shown when explicitly opening linkage map');
 nodes.get('confirmLinkageReview').onclick();
 assert.equal(events.at(-1).detail.stage,3);
 assert.match(events.at(-1).detail.payload.linkageReviewStatus,/검토/);
 assert.equal(payload.answers.every(v=>v===0),true,'Navigation never modifies source CORE answers');
-console.log('PASS direct stage 3/4 navigation; result action buttons visible; map review optional; CORE immutable');
+console.log('PASS four-step navigation; storage after evaluation; map review optional; CORE immutable');

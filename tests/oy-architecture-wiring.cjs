@@ -31,8 +31,9 @@ const dependencies=[
  ['oy-scale-figures-v1.js','journey-v88.js']
 ];
 dependencies.forEach(([a,b])=>has(a,b));
-const stages=page.match(/data-oy-step="[1-5]"/g)||[];
-for(let i=1;i<=5;i++)assert.ok(stages.includes('data-oy-step="'+i+'"'),'UI stage '+i+' unavailable');
+const stages=page.match(/data-oy-step="\d"/g)||[];
+for(const i of [1,2,6,3])assert.ok(stages.includes('data-oy-step="'+i+'"'),'UI stage '+i+' unavailable');
+for(const i of [4,5])assert.ok(!stages.includes('data-oy-step="'+i+'"'),'retired UI stage '+i+' still linked');
 assert.ok(page.includes('assessmentFrame'),'assessment iframe required');
 assert.ok(page.includes('mapArea'),'original regional resource map required');
 assert.ok(page.includes('bundleIncludeContext'),'explicit contextual export selection');
@@ -44,4 +45,4 @@ const main=read('flow.js'),ai=read('oy-ask-panel-v1.js'),vis=read('stage-insight
 for(const part of ['youth-flow-complete-v1','youth-flow-invalid-v1','OYUnsavedGuard','beforeunload','exportBackup'])assert.ok(main.includes(part),'flow missing '+part);
 assert.ok(ai.includes('oy-ask-ok')&&vis.includes('oy-viz-copy-reviewed'),'PII review required for AI copy');
 assert.ok(map.includes('alternativesFor')&&map.includes('최종검토일')&&map.includes('확인 출처'),'resource fallback and provenance');
-console.log('PASS production architecture: '+states.length+' linked gateway contracts, '+dependencies.length+' script dependencies, five stages, safety, backup, privacy and referral fallback.');
+console.log('PASS production architecture: '+states.length+' linked gateway contracts, '+dependencies.length+' script dependencies, four steps, safety, backup, privacy and referral fallback.');

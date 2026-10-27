@@ -384,8 +384,8 @@ function pagedHtml(r,body,head,glance,L){
  if(quiet.length)str+='<p class="odi-muted">어려움이 두드러지지 않은 생활 주제: '+esc(quiet.map(t=>t.title).join(', '))+'</p>';
  str+=sec('questions','면담에서 묻기',body.questions());
  if(fig)str+='<div class="odi-sec odi-figsec">'+fig.api.part(fig.f,'safety')+'</div>';
- // The casework level, plan, ecology and agenda are judged with the narrative in ③ 통합 사정의견, not on the scale pages.
- str+='<p class="odi-next"><strong>다음 읽을 곳</strong> 사례관리 수준, 단계별 개입계획, 생태체계, 사례회의 안건은 서술기록까지 합쳐 ③ 통합 사정의견에서 정합니다.</p>';
+ // The casework level, plan, ecology and agenda are judged with the narrative in 통합 사정의견, not on the scale pages.
+ str+='<p class="odi-next"><strong>다음 읽을 곳</strong> 사례관리 수준, 단계별 개입계획, 생태체계, 사례회의 안건은 서술기록까지 합쳐 통합 사정의견에서 정합니다.</p>';
  pages.push(page('strengths','잘 버티고 있는 부분','지원을 시작할 발판입니다. 어려움보다 먼저 이 부분을 학생에게 말해 주면 대화가 쉬워집니다.',str));
  let pro='<section class="odi-sec odi-s-gloss"><h3>쉬운 말 ↔ 전문 용어</h3><p class="odi-muted">이 해석지에서 같은 내용을 부르는 두 가지 이름입니다.</p><div class="odi-table"><table><thead><tr><th scope="col">쉬운 말</th><th scope="col">전문 용어</th><th scope="col">뜻</th></tr></thead><tbody>'
   +L.GLOSSARY.map(g=>'<tr><th scope="row">'+esc(g.plain)+'</th><td class="odi-termcell">'+esc(g.term)+'</td><td>'+esc(g.text)+'</td></tr>').join('')+'</tbody></table></div></section>';

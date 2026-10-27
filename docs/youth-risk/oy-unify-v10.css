@@ -1,0 +1,103 @@
+/* OY-RALS unify v10 — one control system for every step after the scale.
+   Loaded last on index.html. Sizes, colours and radii only; no layout logic in JS depends on it.
+   Primary = blue action, secondary = white with hairline, sub-tabs = one segmented control,
+   result tabs = three large cards, storage = small strip at the bottom. */
+:root{
+ --u-blue:#1765bd;--u-blue-hover:#0f559f;--u-blue-soft:#eaf2fc;
+ --u-ink:#16273a;--u-sub:#506074;--u-line:#d5dfea;--u-track:#eef2f7;
+ --u-r-ctl:12px;--u-r-card:18px;--u-h:44px;
+}
+
+/* ── 1. Step navigation: four equal steps, never scrolls sideways ── */
+#assessmentFlow .flow-nav{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;overflow:visible!important;padding:0;margin-bottom:14px}
+#assessmentFlow .flow-nav>button{min-height:48px;height:auto;padding:8px 12px;border-radius:var(--u-r-ctl)!important;font-size:15px;font-weight:650;line-height:1.3;white-space:normal;
+ background:#fff;color:var(--u-ink);border:1px solid var(--u-line);box-shadow:none;min-width:0;width:auto}
+#assessmentFlow .flow-nav>button[aria-current="step"]{background:var(--u-blue);border-color:var(--u-blue);color:#fff}
+#assessmentFlow .flow-nav>button:disabled{opacity:.55}
+
+/* ── 2. Buttons: one height, one radius, two looks ── */
+#assessmentFlow .flow-btn,.oy-ask .flow-btn{min-height:var(--u-h);height:auto;padding:10px 18px;border-radius:var(--u-r-ctl)!important;font-size:15px;font-weight:650;line-height:1.3;
+ background:#fff;color:var(--u-ink);border:1px solid var(--u-line);box-shadow:none!important}
+#assessmentFlow .flow-btn:hover{border-color:#aebfd2;background:#f7fafd}
+#assessmentFlow .flow-btn.flow-primary,.oy-ask .flow-btn.flow-primary{background:var(--u-blue);border-color:var(--u-blue);color:#fff}
+#assessmentFlow .flow-btn.flow-primary:hover{background:var(--u-blue-hover);border-color:var(--u-blue-hover)}
+#assessmentFlow .flow-btn:disabled{opacity:.5;cursor:not-allowed}
+#assessmentFlow .flow-btn:focus-visible,#assessmentFlow .flow-nav>button:focus-visible,.j88-tabs>button:focus-visible{outline:3px solid #8db8ea;outline-offset:2px}
+/* the welcome hero keeps its own large call to action */
+.hero-actions .flow-primary{border-radius:999px!important}
+
+/* ── 3. Panels: the same card for 01·02·03·04 ── */
+#assessmentFlow .journey88,#assessmentFlow #schoolArea:not([hidden]),#assessmentFlow #linkageReviewPanel,#assessmentFlow #focusPanel{
+ background:#fff;border:1px solid var(--u-line);border-radius:var(--u-r-card);box-shadow:none}
+#assessmentFlow .journey88{padding:28px 32px}
+#assessmentFlow #schoolArea:not([hidden]){padding:28px 32px 36px;margin-top:0}
+#assessmentFlow #linkageReviewPanel,#assessmentFlow #focusPanel{padding:24px 28px}
+#assessmentFlow #flowStatus{font-size:14px;color:var(--u-sub);margin:0 0 6px}
+#assessmentFlow #stepTitle{margin-bottom:18px}
+
+/* ── 4. Result tabs: three large cards in place of the old "평가 후 주요 기능" box ── */
+.j88-result-tabs{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 0 22px!important;padding:0 0 20px!important;border-bottom:1px solid #e3eaf2}
+.j88-result-tabs>button{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;min-height:84px!important;padding:16px 20px!important;border-radius:14px!important;
+ background:#f6f9fc!important;border:1px solid var(--u-line)!important;color:var(--u-ink)!important;box-shadow:none!important}
+.j88-result-tabs>button strong{font-size:20px;font-weight:750;letter-spacing:-.01em;line-height:1.25}
+.j88-result-tabs>button small{font-size:14px;font-weight:500;color:var(--u-sub);line-height:1.4}
+.j88-result-tabs>button:hover{border-color:#a9c3e3!important;background:#f0f6fd!important}
+.j88-result-tabs>button[aria-pressed="true"]{background:var(--u-blue-soft)!important;border:2px solid var(--u-blue)!important;padding:15px 19px!important}
+.j88-result-tabs>button[aria-pressed="true"] strong{color:var(--u-blue)}
+
+/* ── 5. Sub-tabs (04 기관 사례관리, 03 role switch): one segmented control ── */
+.journey88 .j88-tabs:not(.j88-result-tabs){display:flex!important;flex-wrap:wrap;gap:4px;padding:4px;background:var(--u-track);border-radius:14px;border:0!important;width:max-content;max-width:100%;margin-bottom:20px}
+.journey88 .j88-tabs:not(.j88-result-tabs)>button{min-height:40px!important;padding:8px 16px!important;border-radius:10px!important;border:0!important;background:transparent!important;color:var(--u-sub)!important;font-size:15px!important;font-weight:650!important;box-shadow:none!important}
+.journey88 .j88-tabs:not(.j88-result-tabs)>button[aria-pressed="true"],.journey88 .j88-tabs:not(.j88-result-tabs)>button.active{background:#fff!important;color:var(--u-ink)!important;box-shadow:0 1px 3px rgba(16,40,70,.14)!important}
+
+/* ── 6. Storage: a small strip at the very bottom ── */
+#assessmentFlow .flow-keep{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px;margin:28px 0 8px;padding-top:16px;border-top:1px solid #e3eaf2}
+#assessmentFlow .flow-keep>section{margin:0!important;padding:14px 16px!important;border:1px solid #e3eaf2!important;border-radius:14px!important;background:#fafcfe!important;box-shadow:none!important;max-width:none!important}
+#assessmentFlow .flow-keep>section[hidden]{display:none!important}
+#assessmentFlow .flow-keep h3{margin:0 0 4px!important;font-size:15px!important;font-weight:700;color:var(--u-ink)}
+#assessmentFlow .flow-keep .flow-keep-note{margin:0 0 10px!important;font-size:13px!important;line-height:1.5;color:var(--u-sub)}
+#assessmentFlow .flow-keep-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
+#assessmentFlow .flow-keep .flow-btn{min-height:40px!important;padding:8px 14px!important;font-size:14px!important;border-radius:var(--u-r-ctl)!important;background:#fff!important;border:1px solid var(--u-line)!important;color:var(--u-ink)!important}
+#assessmentFlow .flow-keep .flow-btn.flow-primary{background:var(--u-blue)!important;border-color:var(--u-blue)!important;color:#fff!important}
+#assessmentFlow .flow-keep-check{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--u-sub);margin:0!important}
+#assessmentFlow .flow-keep-check input{width:18px;height:18px;min-height:0;margin:0}
+#assessmentFlow .flow-keep [role="status"]{margin:8px 0 0!important;font-size:13px!important;color:var(--u-sub)}
+#assessmentFlow .flow-keep [role="status"]:empty{display:none}
+
+/* 04 repeats the step title inside the card; the page title above already says it */
+.journey88 .j88-heading{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* 03·04 practice sheets: the same segmented control and buttons, aligned left with the sheets */
+.oyp .oyp-sub{justify-self:start;justify-content:flex-start;background:var(--u-track);border-radius:14px;gap:4px;padding:4px}
+.oyp .oyp-sub button{min-height:40px;border-radius:10px;padding:8px 16px;font-size:15px;font-weight:650}
+.oyp .oyp-tools .oyp-print,.oyp .oyp-tools .oyp-clear{min-height:40px;border-radius:var(--u-r-ctl);padding:8px 16px;font-size:14px;font-weight:650}
+.oyp .oyp-tools .oyp-print{background:var(--u-blue);color:#fff;border:1px solid var(--u-blue)}
+.oyp .oyp-tools .oyp-clear{background:#fff;color:var(--u-ink);border:1px solid var(--u-line)}
+
+/* back button sits on its own line, quietly */
+#assessmentFlow .flow-bottom{margin-top:20px}
+
+/* ── 7. Phone ── */
+@media (max-width:760px){
+ #assessmentFlow .flow-nav{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #assessmentFlow .flow-nav>button{font-size:14px;padding:8px 10px}
+ #assessmentFlow .journey88,#assessmentFlow #schoolArea:not([hidden]){padding:20px 16px;border-radius:16px}
+ #assessmentFlow #linkageReviewPanel,#assessmentFlow #focusPanel{padding:18px 16px}
+ .j88-result-tabs{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+ .j88-result-tabs>button{min-height:56px!important;padding:10px 8px!important;align-items:center;text-align:center;justify-content:center}
+ .j88-result-tabs>button[aria-pressed="true"]{padding:9px 7px!important}
+ .j88-result-tabs>button strong{font-size:15px}
+ .j88-result-tabs>button small{display:none}
+ .journey88 .j88-tabs:not(.j88-result-tabs){display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));width:auto}
+ .journey88 .j88-tabs:not(.j88-result-tabs)>button{padding:8px 6px!important;font-size:14px!important}
+ #assessmentFlow .flow-keep{grid-template-columns:1fr}
+ .oy-viz-path{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px!important}
+ .oy-viz-path>div{min-width:0!important;padding:10px 8px!important;font-size:14px}
+ .oy-viz-path>span{display:none!important}
+}
+#assessmentFlow #stepTitle{word-break:keep-all;text-wrap:balance}
+@media print{#assessmentFlow .flow-keep{display:none!important}}
+
+/* Home: four steps, four columns */
+@media (min-width:761px){#howItWorks.welcome-steps{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important}}
+@media (max-width:760px){#howItWorks.welcome-steps{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}#howItWorks.welcome-steps p{font-size:13px}}

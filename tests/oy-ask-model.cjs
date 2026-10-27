@@ -17,7 +17,7 @@ assert.match(D.sectionText(r,'questions'),/학생의 목소리/);
 assert.equal(D.sectionText(r,'nope'),'');
 
 // Section prompt: short, rules present, no item scores unless evidence is chosen.
-const sec=M.prompt({mode:'section',r,section:'patterns',sectionTitle:'① 척도 해석 · 문제 유지 고리',sectionText:D.sectionText(r,'patterns'),question:'담임에게 어떻게 설명할까요?'});
+const sec=M.prompt({mode:'section',r,section:'patterns',sectionTitle:'척도 해석 · 문제 유지 고리',sectionText:D.sectionText(r,'patterns'),question:'담임에게 어떻게 설명할까요?'});
 assert.ok(sec.length<4000,'section prompt too long: '+sec.length);
 for(const must of ['CORE 점수와 안전 판단은 바꾸지 마세요','미상은 0점이 아닙니다','진단명','[질문]','담임에게 어떻게 설명할까요?'])assert.ok(sec.includes(must),must);
 assert.ok(!/\d+번 [^\n]*: \d점/.test(sec),'no 25-item scores by default');
@@ -51,7 +51,8 @@ for(let i=0;i<500;i++){
 assert.ok(!/\b(?:localStorage|sessionStorage|sendBeacon|XMLHttpRequest|WebSocket)\b|fetch\(/.test(panel),'panel must not send or store data');
 for(const u of panel.match(/https:\/\/[^'"]+/g))assert.ok(!/[?#]/.test(u),'AI link must not carry data: '+u);
 for(const part of ["caseContext:''",'oy-ask-ok','oy-ask-narr','narrativePresent()','redact'])assert.ok(panel.includes(part),'panel missing '+part);
-assert.ok(panel.includes('esc(s.answer)')&&panel.includes("querySelector('.oy-ask-text').textContent=a.text"),'pasted answers and quick answers are rendered as text');
+assert.ok(panel.includes("querySelector('.oy-ask-text').textContent=a.text")&&!panel.includes('innerHTML=saved'),'quick answers are rendered as text and pasted answers are never written back into the page');
+assert.ok(!panel.includes('oy-ask-collection'),'the 05 AI workshop collection is retired');
 new vm.Script(panel,{filename:'oy-ask-panel-v1.js'});
 
 // Page wiring: the panel replaces the in-flow OY-CIE dialogue and the bottom handoff panel.
