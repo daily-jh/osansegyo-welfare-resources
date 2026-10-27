@@ -7,6 +7,7 @@ const K=node?require('./oy-item-knowledge-v1.js'):root.OYItemKnowledge;
 const X=node?require('./oy-cross-patterns-v1.js'):root.OYCrossPatterns;
 const D=node?require('./oy-deep-interpretation-v1.js'):root.OYDeepInterpretation;
 const C=node?require('./case-context-core.js'):root.YouthCaseContextCore;
+const OD=()=>{try{return node?require('./oy-decision-v1.js'):root.OYDecision}catch(_){return null}};
 const VERSION='1.1.0-others-20261026';
 const SAFETY=[1,2,7,25];
 const NOTICE='이 해석은 25문항 응답과 선택 서술기록을 OY-RALS 규칙으로 함께 읽어 풀어 쓴 실무 참고자료입니다. 서술 문장은 표현 단서로 분류한 것이므로 인용·부정·추정·과거 언급은 면담에서 사실 여부를 확인하며, 진단·학대 판정·위험 예측이나 서비스 자격 결정이 아닙니다. 서술은 공식 점수와 CORE 안전판정을 바꾸지 않고, 서술에 안전 관련 표현이 있으면 이 해석과 관계없이 소속기관의 보호·신고 절차를 먼저 따릅니다. 단서 사전과 대조 규칙은 전문가 내용타당도 검토 전 개발판입니다.';
@@ -225,7 +226,7 @@ function integrate(p){
   if(ns.includes(25))return '협박이나 접촉이 지금도 이어지고 있으면 수사기관 신고와 피해 보호를 바로 진행하는 위기개입으로 전환합니다.';
   return '안전 면담에서 현재 생각·계획·수단이 확인되면 위기개입으로 전환합니다.';};
  const route=!w.immediate&&nSafety.length&&D.safetyRoute?D.safetyRoute(n=>nSafety.some(x=>x.n===n),false):null;
- const lead=route&&route.lead?route.lead:w.lead,immediate=w.immediate||(route?route.immediate:'');
+ let lead=route&&route.lead?route.lead:w.lead;const immediate=w.immediate||(route?route.immediate:'');
  const imm=(()=>{try{const t=String(p.caseContext||'');return t?(C.reconcile(p.answers,t).immediate||[]):((p.narrativeRedacted&&p.narrativeRedacted.immediate)||[])}catch(_){return []}})();
  if(imm.length&&level.id!=='crisis'){
   level={...{id:'crisis',name:'위기개입 후 집중 사례관리',contact:'당일 안전 확인, 이후 안정될 때까지 매일~주 2회 확인',meeting:'보호 조치 직후 긴급 사례회의',review:'안전 확보 후 2주 안에 전체 재사정'},reason:'서술에 '+imm.map(x=>x.reason).join(', ')+'이 있어 당일 보호를 우선합니다.'};
@@ -237,6 +238,8 @@ function integrate(p){
   level={...level,id:'general',name:'일반 사례관리 (학교·복지 협력)',contact:'주 담당자가 1~2주에 1회 학생 접촉',meeting:'4주 안에 학교·복지 담당 협의(학맞통 협의 검토)',review:'3개월마다 재사정',reason:'척도 응답은 낮지만 서술에서 여러 생활영역의 어려움이 구체적으로 드러나 학교와 복지가 함께 확인합니다.'};
   adjust='척도보다 서술에서 '+cmp.narrative.map(x=>x.topic).join(', ')+'의 어려움이 더 크게 드러나 협력 수준을 한 단계 올렸습니다.';
  }
+ // R-1: '복지관 통합사례관리' 주관은 통합사례관리 선정일 때만 쓴다(oy-decision-v1).
+ try{const od=OD();if(od&&od.selectionFor)lead=od.leadText(lead,od.selectionFor(p,level,nSafety.length));}catch(_){}
  const keys=[...cmp.agree.filter(x=>x.safety),...cmp.rows.filter(x=>x.safety&&(x.kind==='narrative'||x.kind==='fill')),...cmp.agree.filter(x=>!x.safety),...cmp.narrative.filter(x=>!x.safety)].map(x=>x.topic);
  const keyList=[...new Set([...keys,...r.summary.keys])].slice(0,4);
  // understanding paragraph

@@ -1,0 +1,49 @@
+/* OY-RALS 디자인 토큰 v12 — 새 화면 부품은 이 토큰만 쓴다. 이전 레이어(v4~v11)의 색은 단계적으로 이 토큰으로 옮긴다.
+   큰 글씨(oy-text-lg·oy-text-xl)와 고대비(oy-contrast)는 html 클래스로 켠다(oy-prefs-v1.js). 터치 목표 44px 보정 포함. */
+:root{
+  --oy-ink:#18202b;--oy-muted:#5a6575;--oy-line:#dfe3e9;--oy-surface:#ffffff;--oy-bg:#f6f7f9;
+  --oy-data:#1765bd;--oy-data-ink:#0f4f97;--oy-data-soft:#e7f0fb;
+  --oy-risk:#b4372f;--oy-risk-soft:#fbeceb;
+  --oy-check:#b8650a;--oy-check-ink:#8a4a06;--oy-check-soft:#fdf1e2;
+  --oy-ok:#2c7a4b;--oy-ok-soft:#e6f4ec;--oy-core-soft:#eef0f3;
+  --oy-radius:12px;--oy-tap:44px;
+}
+html.oy-contrast{
+  --oy-ink:#000;--oy-muted:#1f2733;--oy-line:#4b5563;--oy-surface:#fff;--oy-data:#0b3f80;--oy-data-ink:#082f60;
+  --oy-risk:#8c1d16;--oy-check:#7a3f00;--oy-check-ink:#5c2f00;--oy-ok:#14532d;
+}
+html.oy-contrast body{color:#000}
+html.oy-contrast #journey88,html.oy-contrast #schoolArea{--odi-line:#4b5563}
+html.oy-contrast #journey88 p,html.oy-contrast #journey88 li,html.oy-contrast #journey88 td,html.oy-contrast #journey88 small,
+html.oy-contrast #schoolArea p,html.oy-contrast #schoolArea td,html.oy-contrast .oyd-why,html.oy-contrast .oyd-k{color:#000!important}
+html.oy-contrast #journey88 a,html.oy-contrast #schoolArea a{text-decoration:underline}
+html.oy-text-lg{font-size:112.5%}
+html.oy-text-xl{font-size:125%}
+html.oy-text-lg #journey88,html.oy-text-lg #schoolArea{font-size:1.06em}
+html.oy-text-xl #journey88,html.oy-text-xl #schoolArea{font-size:1.12em}
+
+/* 보기 설정 띠 */
+.oy-prefs{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:.85rem;color:var(--oy-muted)}
+.oy-prefs [role=group]{display:inline-flex;border:1px solid var(--oy-line);border-radius:999px;overflow:hidden;background:var(--oy-surface)}
+.oy-prefs button{min-height:36px;min-width:44px;padding:4px 12px;border:0;background:transparent;color:var(--oy-ink);font:inherit;font-weight:600;cursor:pointer}
+.oy-prefs button[aria-pressed="true"]{background:var(--oy-data);color:#fff}
+.oy-prefs button:focus-visible{outline:3px solid var(--oy-data);outline-offset:-3px}
+
+/* 역할로 시작하기 */
+.oy-role{display:grid;gap:10px;padding:16px 18px;border:1px solid var(--oy-line);border-radius:16px;background:var(--oy-surface)}
+.oy-role h2{margin:0;font-size:1.05rem}
+.oy-role p{margin:0;color:var(--oy-muted);font-size:.9rem}
+.oy-role-list{display:flex;flex-wrap:wrap;gap:8px}
+.oy-role-list button{min-height:var(--oy-tap);padding:8px 16px;border-radius:999px;border:1px solid var(--oy-line);background:var(--oy-surface);color:var(--oy-ink);font:inherit;font-weight:600;cursor:pointer}
+.oy-role-list button[aria-pressed="true"]{background:var(--oy-data);border-color:var(--oy-data);color:#fff}
+.oy-role-list button:focus-visible{outline:3px solid var(--oy-data);outline-offset:2px}
+.oy-role-now{font-size:.85rem;color:var(--oy-data-ink);font-weight:600}
+
+/* B4 터치 목표: 해석지 장 이동 점의 누르는 범위를 44px로, 학교·기관 시트의 체크 캡슐을 휴대폰에서 40px 이상으로 */
+.odi-dots button::after{inset:-19px 0!important}
+@media (pointer:coarse),(max-width:560px){
+  .oyp .oyp-ck{min-height:40px;padding-top:8px;padding-bottom:8px}
+  .oyp .oyp-ob{min-width:40px;min-height:40px}
+}
+.flow-header .oy-prefs{justify-content:flex-end;padding-block:0 8px}
+@media print{.oy-prefs,.oy-role{display:none!important}}
