@@ -13,16 +13,19 @@ const D=()=>need('oy-deep-interpretation-v1.js','OYDeepInterpretation');
 const NI=()=>need('oy-narrative-interpretation-v1.js','OYNarrativeInterpretation');
 const FIVE=()=>need('integrated-index-v1.js','OYFiveLevelIndex');
 const M=()=>need('support-model.js','YouthMap');
+const OD=()=>need('oy-decision-v1.js','OYDecision');
+const OC=()=>need('oy-constants-v1.js','OYConstants');
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const num=v=>Number.isInteger(v)?v:null;
-const SAFETY=[1,2,7,25];
+const SAFETY=OC().SAFETY_ITEMS;
 
 /* 교실에서 보이는 모습(관찰 기록지용). 안전문항은 2주 관찰 대상이 아니라 바로 확인 대상이라 넣지 않는다. */
 const OBS={3:'괴롭힘·놀림을 당하는 장면',4:'금품·심부름 강요 정황',5:'친구에게 위협·폭력',6:'표정이 가라앉거나 말수가 줆',8:'수업 중 멍함·긴장·졸음',9:'지각 (교시를 적기)',10:'과제 미제출·수업 중 멈춤',11:'학교가 싫다·그만두고 싶다는 말',12:'물건 파손·충동 행동',13:'음주·흡연 등 위험 행동 이야기',14:'학습 편의가 없어 수업을 놓침',15:'필요한 지원을 못 받는 장면',16:'아침 결식·피로',17:'보호자 연락이 닿지 않음',18:'집안일·형제 돌봄으로 빠짐',19:'체육복·준비물 미지참',20:'잘 곳·씻을 곳 문제 이야기',21:'비용 때문에 신청을 미룸',22:'혼자 있는 시간·말할 사람 없음',23:'원하는 활동에서 빠짐',24:'1교시 졸음·늦은 시간 기기 이용 이야기'};
 const LAWCAT=[['기초학력',[10],'기초학력 진단 결과'],['경제적 어려움',[19,20,21],'교육급여·급식 지원 이력'],['심리·정서',[6,8,24],'담임 관찰, 상담 기록'],['학교폭력',[3,4,5],'학교폭력 사안 처리 여부'],['아동학대',[1,2],'교육복지사·상담교사 면담'],['경계선 지능',[],'필요 시 학습 관찰']];
 /* 통합사례관리 선정 기준(오산세교종합사회복지관, 2026-10-27): 2개 이상 기관의 전문적 개입이 필요한 경우.
-   2점 이상 생활영역을 맡을 전문 분야로 묶어 센다. 안전 문항(위기 영역)에 응답이 있으면 공동 개입으로 본다. 분야 묶음은 시스템 제안. */
-const FIELD=['아동보호','학교','정신건강','학교','보건·의료','학교','가족·돌봄','공공급여','상담','상담'];
+   2점 이상 생활영역을 맡을 전문 분야로 묶어 센다. 안전 문항(위기 영역)에 응답이 있으면 공동 개입으로 본다. 분야 묶음은 시스템 제안.
+   학교 안 지원(담임·교육복지사·Wee)은 하나의 기관이자 개입체계로 센다(지훈 결정 2026-10-27). 계산은 oy-decision-v1.js의 판정 사슬이 맡는다. */
+const FIELD=OC().SYSTEM_OF_DOMAIN;
 const LEVEL2PICK={crisis:'위기',intensive:'집중',general:'일반',brief:'단순 연계',monitor:'비해당'};
 
 function analyze(payload){
@@ -265,21 +268,24 @@ ${H('02 지도가 고른 지역 후보',K.src('지도'))}<ul class="oyp-res">${[
 // ---------- 04 기관 사례관리 ----------
 function agency(K){
   const d=K.d,cw=K.cw,core=K.core,five=K.five;const banner=safetyBanner(K);
-  const pick=LEVEL2PICK[cw.level&&cw.level.id]||'';
+  const ch=K.chain,lvl=(ch&&ch.level)||cw.level||{};
+  const pick=LEVEL2PICK[lvl.id]||'';
   const narrCue=K.narrSafety.map(r=>r.topic).join('·');
-  const fields=[...new Set(K.lvDomains.map(x=>FIELD[x.id]).filter(Boolean))],multi=K.urgent||fields.length>=2;
+  const sel=ch?ch.selection:null;
+  const fields=sel?sel.systems:[...new Set(K.lvDomains.map(x=>FIELD[x.id]).filter(Boolean))],multi=sel?sel.status==='met':K.urgent||fields.length>=2;
+  const selLabel=sel?sel.label:(multi?'선정 기준 충족':K.safetyOpen||narrCue?'확인 필요':'미충족');
   const A0=sheet('A-0','판정 근거와 판정 준거 점검','사회복지관 · 판정 사례회의 첫 장',`
 ${fig(forkSvg(K),(K.narrSafety.length&&five&&five.safetyFloor>=five.tier&&!K.urgent)?`응답만 보면 ${esc(cw.level&&cw.level.name||'')}(우선순위 ${tierWithout(K)}단계)이고, 담임 기록에서만 추정된 ${esc(narrCue)} 단서가 우선순위를 ${five.tier}단계로 올렸습니다. 이 단서를 면담으로 확인하기 전까지 판정은 잠정입니다.`:'세 지표(CORE 공식 판정, 해석지 개입 수준, 지원 우선순위)가 어디서 나왔는지 보여 줍니다. 판정 회의는 개입 수준을 기준으로 정하는 것을 제안합니다.','oyp-big')}
 ${H('통합사례관리 선정 준거','<span class="oyp-note">● 시스템 제안 · 선정 기준: 2개 이상 기관의 전문적 개입이 필요한 경우. 위기 영역이 있으면 해당</span>')}
 ${tbl(['준거','이 사례','근거','판단'],`
-<tr class="oyp-key"><th>2개 이상 기관 전문 개입</th><td>${fields.length?'전문 분야 '+fields.length+'곳 ('+esc(fields.join(', '))+')':'2점 이상 영역 없음'}${K.urgent?'. 위기 영역(안전 문항) 응답 있음':''}</td><td>${K.src('척도')}</td><td>${box(multi,multi?'선정 기준 충족':K.safetyOpen||narrCue?'확인 필요':'미충족')}</td></tr>
+<tr class="oyp-key"><th>2개 이상 기관 전문 개입</th><td>${fields.length?'개입체계 '+fields.length+'곳 ('+esc(fields.join(', '))+')':'2점 이상 영역 없음'}${K.urgent?'. 위기 영역(안전 문항) 응답 있음':''}${sel&&sel.status==='review'?'. '+esc(sel.why):''}</td><td>${K.src('척도')}</td><td>${box(multi,selLabel)}</td></tr>
 <tr><th>복합 욕구</th><td>2점 이상 영역 ${K.lvDomains.length}개${K.lvDomains.length?' ('+esc(K.lvDomains.map(x=>x.name).join(', '))+')':''}</td><td>${K.src('척도')}</td><td>${box(K.lvDomains.length>=2,K.lvDomains.length>=2?'충족':'미충족')}</td></tr>
 <tr><th>안전 위기</th><td>${K.urgent?'안전 문항 응답 있음':'안전 문항 1·2·7·25 응답 없음'}${K.safetyOpen?', 안전 문항 미상 있음':''}${narrCue?'. 기록에서 '+esc(narrCue)+' 추정':''}</td><td>${K.src('척도',...(narrCue?['서술']:[]))}</td><td>${box(K.urgent,K.urgent?'해당':narrCue||K.safetyOpen?'확인 필요':'해당 없음')}</td></tr>
 <tr><th>단순 연계로 해결</th><td>${K.pats.length?'어려움이 맞물린 흐름('+esc(K.pats[0].name)+')이 있어 한 기관 연결로 풀리기 어려움':'맞물린 흐름이 뚜렷하지 않음'}</td><td>${K.src('해석')}</td><td>${box(!!K.pats.length,K.pats.length?'불가':'가능')}</td></tr>
 <tr><th>가구 단위 개입</th><td>${esc((cw.ecology||[]).find(x=>x.id==='family')?.hard.join(', ')||'가족 영역 어려움 없음')}</td><td>${K.src('척도')}</td><td>${box(!!((cw.ecology||[]).find(x=>x.id==='family')?.hard.length),'필요')}</td></tr>
 <tr><th>동의</th><td>학생·보호자 동의. 만 14세 미만은 법정대리인 동의(개인정보 보호법 제22조의2)</td><td></td><td>${box(0,'확인')}</td></tr>
 <tr><th>중복 사례관리</th><td>드림스타트·희망복지지원단 등 이용 이력</td><td></td><td>${box(0,'확인')}</td></tr>`)}
-<div class="oyp-decide" data-radio><b>판정</b>${['위기','집중','일반','단순 연계','비해당'].map(x=>box(x===pick,x)).join(' ')}<span class="oyp-note">제안: ${esc(cw.level&&cw.level.name||'')}${multi?'':' · 선정 기준(2개 이상 기관) 미충족이면 단순 연계로 검토'}${narrCue?' · 조건: '+esc(narrCue)+' 단서가 확인되면 집중·보호경로로 재판정':''}</span></div>`,{tone:'agency',banner});
+<div class="oyp-decide" data-radio><b>판정</b>${['위기','집중','일반','단순 연계','비해당'].map(x=>box(x===pick,x)).join(' ')}<span class="oyp-note">제안: ${esc(lvl.name||'')}${multi?'':sel&&sel.status==='review'?' · 통합사례관리 선정 여부는 사례회의에서 결정':' · 선정 기준(2개 이상 기관) 미충족이면 단순 연계로 검토'}${narrCue?' · 조건: '+esc(narrCue)+' 단서가 확인되면 집중·보호경로로 재판정':''}</span></div>`,{tone:'agency',banner});
   const okText={self:'위험행동·물질 사용 없음',family:'보호자 위해 보고 없음',school:'또래 안전 유지',community:'강요·착취 없음'};
   const A1=sheet('A-1','욕구 사정 요약','사회복지관 · 생태체계로 본 위험과 보호',`
 ${fig(ecoSvg(K),'생태도: Ct를 가운데 두고 가족·학교·또래와의 관계, 02 지도가 고른 연결 후보를 그렸습니다. '+ecoLegend)}
@@ -377,9 +383,10 @@ ${H('사례회의에 가져갈 것')}<ul class="oyp-checks"><li>${box(0)}현재 
 function render(kind,payload){
   const A=analyze(payload);
   if(!A.d)return `<section class="oyp"><p class="oyp-hint">이 자료를 만들지 못했습니다. 평가를 다시 완료해 주세요.</p></section>`;
-  const K=kit(A);const R=kind==='school'?school(K):agency(K);const g='oyp-'+kind;
-  const nav=`<div class="oyp-sub" role="group" aria-label="${kind==='school'?'학교 역할 선택':'기관 선택'}">${R.packs.map((pk,i)=>`<button type="button" data-oyp-sub="${g}" data-oyp-s="${pk.id}" aria-pressed="${i===0}">${esc(pk.label)} ${pk.sheets.length}장</button>`).join('')}</div>`;
-  const packs=R.packs.map((pk,i)=>`<div class="oyp-pack" data-oyp-group="${g}" data-oyp-s="${pk.id}"${i?' hidden':''}><div class="oyp-packhead"><ol class="oyp-toc">${pk.sheets.map(s=>`<li><span class="oyp-code sm">${s[0]}</span>${esc(s[1])}</li>`).join('')}</ol><div class="oyp-tools"><button type="button" class="oyp-print" data-oyp-print>이 ${pk.sheets.length}장 출력</button><button type="button" class="oyp-clear" data-oyp-clear>적은 내용 지우기</button></div><p class="oyp-note">칸을 누르거나 바로 적을 수 있습니다. 적은 내용은 이 화면에만 있고 저장되지 않습니다. 출력하면 적은 내용은 그대로, 빈칸은 손으로 쓰는 줄로 나옵니다.</p></div>${pk.sheets.map(s=>s[2]).join('')}</div>`).join('');
+  const K=kit(A);try{K.chain=OD().forPayload(payload)}catch(_){K.chain=null}const R=kind==='school'?school(K):agency(K);const g='oyp-'+kind;
+  const want=root.OYRole&&root.OYRole.pack?root.OYRole.pack(kind):'';const on=Math.max(0,R.packs.findIndex(pk=>pk.id===want));
+  const nav=`<div class="oyp-sub" role="group" aria-label="${kind==='school'?'학교 역할 선택':'기관 선택'}">${R.packs.map((pk,i)=>`<button type="button" data-oyp-sub="${g}" data-oyp-s="${pk.id}" aria-pressed="${i===on}">${esc(pk.label)} ${pk.sheets.length}장</button>`).join('')}</div>`;
+  const packs=R.packs.map((pk,i)=>`<div class="oyp-pack" data-oyp-group="${g}" data-oyp-s="${pk.id}"${i!==on?' hidden':''}><div class="oyp-packhead"><ol class="oyp-toc">${pk.sheets.map(s=>`<li><span class="oyp-code sm">${s[0]}</span>${esc(s[1])}</li>`).join('')}</ol><div class="oyp-tools"><button type="button" class="oyp-print" data-oyp-print>이 ${pk.sheets.length}장 출력</button><button type="button" class="oyp-clear" data-oyp-clear>적은 내용 지우기</button></div><p class="oyp-note">칸을 누르거나 바로 적을 수 있습니다. 적은 내용은 이 화면에만 있고 저장되지 않습니다. 출력하면 적은 내용은 그대로, 빈칸은 손으로 쓰는 줄로 나옵니다.</p></div>${pk.sheets.map(s=>s[2]).join('')}</div>`).join('');
   return `<section class="oyp oyp-${kind}" data-oyp-version="${VERSION}">${nav}${packs}</section>`;
 }
 function sheetCodes(kind,payload){const A=analyze(payload);if(!A.d)return [];const K=kit(A);const R=kind==='school'?school(K):agency(K);return R.packs.flatMap(pk=>pk.sheets.map(s=>s[0]));}
@@ -414,7 +421,8 @@ function mountStage(e){
   const on=!!(st&&st.ready&&st.payload&&st.stage===6);area.hidden=!on;if(!on)return;
   const key=st.payload.flowRevision+'|'+(st.payload.caseContext||'').length;
   if(area.dataset.oypKey===key)return;area.dataset.oypKey=key;
-  area.innerHTML='<div class="oyp-stagehead"><span class="oyp-eyebrow">03 학교 지원</span><h2>담임교사와 교육복지사가 바로 쓰는 자료</h2><p>척도 판정·해석지·서술 분석·지역자원 지도를 학생맞춤통합지원 절차에 맞춰 정리했습니다.</p></div>'+render('school',st.payload);
+  area.innerHTML='<div class="oyp-stagehead"><span class="oyp-eyebrow">03 학교 지원</span><h2>담임교사와 교육복지사가 바로 쓰는 자료</h2><p>척도 판정·해석지·서술 분석·지역자원 지도를 학생맞춤통합지원 절차에 맞춰 정리했습니다.</p></div>'+(()=>{try{return OD().strip(OD().forPayload(st.payload),{audience:'school'})}catch(_){return ''}})()+render('school',st.payload);
+  area.querySelectorAll('[data-oyd]').forEach(el=>{el.__payload=st.payload});
 }
 const api=Object.freeze({VERSION,render,sheetCodes,analyze,bind,printPack});
 if(node)module.exports=api;else{root.OYPerspective=api;if(root.document){bind(root.document);root.addEventListener('oy-journey-view',mountStage);}}
