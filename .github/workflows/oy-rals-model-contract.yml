@@ -60,6 +60,7 @@ jobs:
           node --check docs/youth-risk/oy-scale-figures-v1.js
           node --check docs/youth-risk/oy-ask-model-v1.js
           node --check docs/youth-risk/oy-ask-panel-v1.js
+          node --check docs/youth-risk/oy-final-report-v1.js
       - name: Verify 1200 synthetic cases and invariants
         run: node --test tests/oy-model-contract.test.cjs
       - name: Verify completed evaluation can open stages 3 and 4
@@ -91,3 +92,4 @@ jobs:
           node tests/oy-decision-chain.cjs
           node tests/oy-constants-drift.cjs
           node tests/oy-css-bundle.cjs
+          node tests/oy-final-report.cjs
