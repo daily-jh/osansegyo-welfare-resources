@@ -58,6 +58,11 @@ const child=P.render('agency',cases.neglectCue).split('data-oyp-s="child"')[2]||
 for(const k of ['지역아동센터','드림스타트','아동보호전문기관','가족센터'])assert.ok(child.includes(k),'child pack covers '+k);
 assert.match(child,/112/,'reporting route named');
 
+// Law and eligibility wording checked against the act text and official notices (2026-10-27).
+const lawH=P.render('school',cases.neglectCue)+P.render('agency',cases.neglectCue);
+assert.ok(!/범주\(제2조\)|공개 요약 기준|일반적으로 만 12세/.test(lawH),'old draft wording removed');
+for(const k of ['제2조 제1호 예시','제10조⑥','제11조③','학교장 선정','0세(임산부)','만 14세 미만은 법정대리인'])assert.ok(lawH.includes(k),'law wording: '+k);
+
 // No real case material: rendered packs carry only the synthetic text we passed in.
 assert.ok(!/\d{6}-\d{7}|010-\d{4}-\d{4}/.test(P.render('agency',cases.neglectCue)),'no resident or phone numbers');
 console.log('oy-perspective: ok');

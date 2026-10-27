@@ -182,7 +182,7 @@ function loopSvg(K){
   return s+'</svg>';
 }
 function lawSvg(stepNow){
-  const st=[['발견·관찰','담임'],['지원 요청','제10조 · 학교장'],['학생·보호자 동의','제11조③'],['협의회 선정','학교 지원팀'],['계획·지원','제12조'],['점검·의뢰','교육지원청 센터']];
+  const st=[['발견·관찰','담임'],['지원 요청','제10조② · 학교장'],['학생·보호자 동의','제11조③'],['학교장 선정','제10조③ · 협의회 활용'],['계획·지원','제12조'],['점검·의뢰','교육지원청 센터']];
   const X=i=>70+i*152,y=52;let s=`<svg class="oyp-dg" viewBox="0 0 900 128" role="img" aria-label="학생맞춤통합지원 절차 6단계 중 지금은 ${stepNow+1}단계 ${st[stepNow][0]}">`;
   s+=`<line class="qtrk" x1="${X(0)}" y1="${y}" x2="${X(5)}" y2="${y}"/><line class="qtrk on" x1="${X(0)}" y1="${y}" x2="${X(stepNow)}" y2="${y}"/>`;
   st.forEach((x,i)=>{const c=X(i);
@@ -237,13 +237,13 @@ ${draft(fh('1. 관찰된 사실 (기간·빈도)')+facts+fh('2. 학습·학교�
     const ev=ks.filter(k=>(K.val(k)||0)>=1).map(k=>K.topic(k)+' '+K.val(k)+'점').join(', ')||(nar?'척도 0점, 기록에서 추정':unk.length?'미상 '+unk.length+'문항':'응답 없음');
     return [name,ks.join('·'),ev,doc,mx>=2?'yes':(mx===1||nar||unk.length)?'check':'no'];});
   const lawHit=lawRows.filter(r=>r[4]==='yes').map(r=>r[0]);
-  const E1=sheet('E-1','학생맞춤통합지원 선정 검토서','교육복지사용 · 협의회 전에 범주와 근거를 정리',`
-${fig(lawSvg(1),'담임 관찰과 선별평가가 끝났고, 지금은 학교장에게 지원을 요청하는 단계입니다. 조항 번호는 공개 요약 기준이라 국가법령정보센터 원문과 경기도교육청 지침으로 대조합니다.')}
-${H('법이 정한 범주와 이 학생의 근거',K.src('척도','서술'))}
-${tbl(['범주(제2조)','관련 문항','이 학생의 근거','확인할 자료','시스템 제안'],lawRows.map(r=>`<tr><th>${r[0]}</th><td>${r[1]}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td><td><span class="oyp-pill ${r[4]}">${st[r[4]]}</span></td></tr>`).join(''))}
+  const E1=sheet('E-1','학생맞춤통합지원 선정 검토서','교육복지사용 · 협의회 전에 어려움과 근거를 정리',`
+${fig(lawSvg(1),'담임 관찰과 선별평가가 끝났고, 지금은 학교장에게 지원을 요청하는 단계입니다. 선정은 학교장이 하고 기초학력진단 결과, 담임·교과교사 의견, 보호자 상담 결과를 씁니다(제10조⑥). 세부 기준은 시행령과 경기도교육청 지침을 따릅니다.')}
+${H('법이 예로 든 어려움과 이 학생의 근거',K.src('척도','서술'))}
+${tbl(['어려움(제2조 제1호 예시)','관련 문항','이 학생의 근거','확인할 자료','시스템 제안'],lawRows.map(r=>`<tr><th>${r[0]}</th><td>${r[1]}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td><td><span class="oyp-pill ${r[4]}">${st[r[4]]}</span></td></tr>`).join(''))}
 ${H('선정 준거 점검','<span class="oyp-note">● 표시는 시스템 제안, 빈칸은 협의회가 채움</span>')}
-<ul class="oyp-checks"><li>${box(lawHit.length>0)}범주 1개 이상 해당${lawHit.length?' — '+esc(lawHit.join(', ')):''}</li><li>${box(K.lvDomains.length>=2)}2개 이상 생활영역이 함께 흔들림 — ${K.lvDomains.length}개 영역 2점 이상</li><li>${box(['general','intensive','crisis'].includes(cw.level&&cw.level.id))}학교 안 지원만으로 어려움 — ${esc(cw.level&&cw.level.name||'')}</li><li>${box(K.urgent)}즉시 안전 조치 필요${K.urgent?' — 안전 문항 응답 있음':K.narrSafety.length?' — 척도 해당 없음, 기록의 추정은 면담으로 확인':''}</li><li>${box(0)}학생·보호자 동의 (제11조③)</li></ul>
-<div class="oyp-decide" data-radio><b>협의회 결정</b>${box(0,'선정')} ${box(0,'추가 확인 후 선정')} ${box(0,'비선정')}<span class="oyp-note">${lawHit.length&&K.lvDomains.length>=2?'제안: 선정 검토':'제안: 학교 안 지원으로 시작하고 2주 관찰 뒤 다시 검토'}${K.narrSafety.length?', 기록의 추정 확인을 첫 과제로':''}</span></div>`,{tone:'school',banner});
+<ul class="oyp-checks"><li>${box(lawHit.length>0)}법이 예로 든 어려움 1개 이상 해당${lawHit.length?' — '+esc(lawHit.join(', ')):''}</li><li>${box(K.lvDomains.length>=2)}2개 이상 생활영역이 함께 흔들림 — ${K.lvDomains.length}개 영역 2점 이상</li><li>${box(['general','intensive','crisis'].includes(cw.level&&cw.level.id))}학교 안 지원만으로 어려움 — ${esc(cw.level&&cw.level.name||'')}</li><li>${box(K.urgent)}즉시 안전 조치 필요${K.urgent?' — 안전 문항 응답 있음':K.narrSafety.length?' — 척도 해당 없음, 기록의 추정은 면담으로 확인':''}</li><li>${box(0)}학생·보호자 동의 (제11조③)</li></ul>
+<div class="oyp-decide" data-radio><b>협의회 의견 · 학교장 선정</b>${box(0,'선정')} ${box(0,'추가 확인 후 선정')} ${box(0,'비선정')}<span class="oyp-note">${lawHit.length&&K.lvDomains.length>=2?'제안: 선정 검토':'제안: 학교 안 지원으로 시작하고 2주 관찰 뒤 다시 검토'}${K.narrSafety.length?', 기록의 추정 확인을 첫 과제로':''}</span></div>`,{tone:'school',banner});
   const roleT=(d.roles||[]).find(r=>r.role==='교사')||{items:[]},roleE=(d.roles||[]).find(r=>r.role==='교육복지사')||{items:[]};
   const E2=sheet('E-2','학교 협의회 안건·회의록','교육복지사용 · 시스템 제안 옆에 결정만 적으면 회의록이 됨',`
 ${tbl(null,`<tr><th>일시</th><td>${line(8,'일시')}</td><th>장소</th><td>${line(6,'장소')}</td></tr><tr><th>참석</th><td colspan="3">${box(0,'담임')} ${box(0,'교육복지사')} ${box(0,'Wee 상담')} ${box(0,'보건')} ${box(0,'관리자')} ${line(6,'그 밖의 참석자')}</td></tr>`,'oyp-form')}
@@ -266,13 +266,13 @@ function agency(K){
   const narrCue=K.narrSafety.map(r=>r.topic).join('·');
   const A0=sheet('A-0','판정 근거와 판정 준거 점검','사회복지관 · 판정 사례회의 첫 장',`
 ${fig(forkSvg(K),(K.narrSafety.length&&five&&five.safetyFloor>=five.tier&&!K.urgent)?`응답만 보면 ${esc(cw.level&&cw.level.name||'')}(우선순위 ${tierWithout(K)}단계)이고, 담임 기록에서만 추정된 ${esc(narrCue)} 단서가 우선순위를 ${five.tier}단계로 올렸습니다. 이 단서를 면담으로 확인하기 전까지 판정은 잠정입니다.`:'세 지표(CORE 공식 판정, 해석지 개입 수준, 지원 우선순위)가 어디서 나왔는지 보여 줍니다. 판정 회의는 개입 수준을 기준으로 정하는 것을 제안합니다.','oyp-big')}
-${H('통합사례관리 선정 준거','<span class="oyp-note">● 시스템 제안 · 기준 문구는 초안이며 기관 기준으로 확인</span>')}
+${H('통합사례관리 선정 준거','<span class="oyp-note">● 시스템 제안 · 준거 문구는 보건복지부 통합사례관리 사업안내와 기관 기준으로 확인</span>')}
 ${tbl(['준거','이 사례','근거','판단'],`
 <tr><th>복합 욕구</th><td>2점 이상 영역 ${K.lvDomains.length}개${K.lvDomains.length?' ('+esc(K.lvDomains.map(x=>x.name).join(', '))+')':''}</td><td>${K.src('척도')}</td><td>${box(K.lvDomains.length>=2,K.lvDomains.length>=2?'충족':'미충족')}</td></tr>
 <tr><th>안전 위기</th><td>${K.urgent?'안전 문항 응답 있음':'안전 문항 1·2·7·25 응답 없음'}${K.safetyOpen?', 안전 문항 미상 있음':''}${narrCue?'. 기록에서 '+esc(narrCue)+' 추정':''}</td><td>${K.src('척도',...(narrCue?['서술']:[]))}</td><td>${box(K.urgent,K.urgent?'해당':narrCue||K.safetyOpen?'확인 필요':'해당 없음')}</td></tr>
 <tr><th>단순 연계로 해결</th><td>${K.pats.length?'어려움이 맞물린 흐름('+esc(K.pats[0].name)+')이 있어 한 기관 연결로 풀리기 어려움':'맞물린 흐름이 뚜렷하지 않음'}</td><td>${K.src('해석')}</td><td>${box(!!K.pats.length,K.pats.length?'불가':'가능')}</td></tr>
 <tr><th>가구 단위 개입</th><td>${esc((cw.ecology||[]).find(x=>x.id==='family')?.hard.join(', ')||'가족 영역 어려움 없음')}</td><td>${K.src('척도')}</td><td>${box(!!((cw.ecology||[]).find(x=>x.id==='family')?.hard.length),'필요')}</td></tr>
-<tr><th>동의</th><td>학생·보호자 동의, 만 14세 이상 본인 동의 포함</td><td></td><td>${box(0,'확인')}</td></tr>
+<tr><th>동의</th><td>학생·보호자 동의. 만 14세 미만은 법정대리인 동의(개인정보 보호법 제22조의2)</td><td></td><td>${box(0,'확인')}</td></tr>
 <tr><th>중복 사례관리</th><td>드림스타트·희망복지지원단 등 이용 이력</td><td></td><td>${box(0,'확인')}</td></tr>`)}
 <div class="oyp-decide" data-radio><b>판정</b>${['위기','집중','일반','단순 연계','비해당'].map(x=>box(x===pick,x)).join(' ')}<span class="oyp-note">제안: ${esc(cw.level&&cw.level.name||'')}${narrCue?' · 조건: '+esc(narrCue)+' 단서가 확인되면 집중·보호경로로 재판정':''}</span></div>`,{tone:'agency',banner});
   const okText={self:'위험행동·물질 사용 없음',family:'보호자 위해 보고 없음',school:'또래 안전 유지',community:'강요·착취 없음'};
@@ -319,7 +319,7 @@ ${H('변경 내역·사유')}${wr(1,'변경 내역·사유','')}
   const abuseNarr=K.narrOnly.filter(r=>[1,2].includes(r.n));
   const FIT=[
     ['지역아동센터','방과 후 보호·급식·학습',care>=2||(v(19)||0)>=2?'돌봄·식사 관련 응답이 높아 저녁 시간 보호와 급식이 맞음':'돌봄·식사 응답이 낮아 우선순위는 낮음',care>=2||(v(19)||0)>=2?'yes':'no',care>=2||(v(19)||0)>=2?'연계 권장':'필요 시','C-1'],
-    ['드림스타트','취약계층 아동 통합사례관리','일반적인 대상은 만 12세 이하(초등학생까지). 학생 나이와 형제·자매를 확인','check','연령 확인','C-2'],
+    ['드림스타트','취약계층 아동 통합사례관리','대상은 0세(임산부)~만 12세(초등학생 이하). 학생 나이와 형제·자매를 확인','check','연령 확인','C-2'],
     ['아동보호전문기관','학대피해아동·가족 사례관리',abuse>=1?'학대 관련 문항에 응답이 있어 신고 절차와 함께 협력':abuseNarr.length?'척도 0점, 기록에서만 추정. 면담으로 사실을 확인한 뒤 의심이 남으면 신고':'학대 관련 응답 없음',abuse>=1?'red':abuseNarr.length?'check':'no',abuse>=1?'신고 절차 우선':abuseNarr.length?'확인 결과에 따라':'해당 없음(현재)','C-3'],
     ['가족센터','가족상담, 한부모·다양한 가족 지원',fam.hard.length?'가족 영역 어려움('+fam.hard.slice(0,2).join(', ')+'). 보호자를 돕는 쪽으로 첫 연락':'가족 영역 응답이 낮음',fam.hard.length?'yes':'no',fam.hard.length?'보호자 지원':'필요 시','C-4']];
   const st={yes:'yes',check:'check',no:'no',red:'red'};
@@ -338,7 +338,7 @@ ${tbl(['볼 것','왜',...wk.map(w=>w+'주')],obsC.map(r=>`<tr><th>${esc(r[0])}<
 ${H('강점을 살린 활동',K.src('서술','해석'))}<ul>${([...K.strengthN,...(d.strengths||[]).slice(0,2).map(s=>s.text)].slice(0,2).map(t=>'<li>'+esc(t)+'</li>').join(''))||'<li>좋아하는 활동을 첫 참여 고리로 씁니다.</li>'}</ul>
 ${H('자원 DB의 창구',K.src('지도'))}${resLi(K.find(/지역아동센터/))}`,{tone:'agency'});
   const C2=sheet('C-2','드림스타트 의뢰 전 확인','드림스타트 · 대상이 맞는지 먼저 확인',`
-<div class="oyp-sum agency"><b>대상 연령부터 확인합니다</b><span>드림스타트는 일반적으로 만 12세 이하(초등학생까지) 취약계층 아동과 가족을 대상으로 합니다. 중·고등학생이면 본인은 대상 밖일 수 있고, 같은 가구의 동생이 있다면 가구 단위 지원 통로가 될 수 있습니다.</span></div>
+<div class="oyp-sum agency"><b>대상 연령부터 확인합니다</b><span>드림스타트는 0세(임산부)부터 만 12세(초등학생 이하)까지의 취약계층 아동과 가족을 대상으로 합니다. 중·고등학생이면 본인은 대상 밖일 수 있고, 같은 가구의 동생이 있다면 가구 단위 지원 통로가 될 수 있습니다.</span></div>
 ${H('의뢰 전 확인')}<ul class="oyp-checks"><li>${box(0)}학생 나이와 오산시 드림스타트 대상 기준 ${line(8,'학생 나이')}</li><li>${box(0)}같은 가구 형제·자매 유무와 나이 ${line(10,'형제·자매')}</li><li>${box(0)}이미 드림스타트를 이용 중인지 (중복 사례관리 확인, A-0)</li><li>${box(0)}보호자 동의</li></ul>
 ${H('의뢰할 때 보낼 요지')}${draft(bl((fam.hard.length?fam.hard.join(', ')+'이 확인되는 가구임.':'(가구 상황을 적습니다)'))+bl('학생은 '+(cw.lead||'담당 기관')+' 사례관리로 지원 예정이며, 대상 아동의 건강·학습·돌봄 지원과 역할 조정을 요청함.')+bl('척도 응답과 기록 원문은 보내지 않고, 사례회의에서 필요한 범위만 공유함.'))}
 ${H('자원 DB의 창구',K.src('지도'))}${resLi(K.find(/드림스타트/))}`,{tone:'agency'});
@@ -353,7 +353,7 @@ ${H('자원 DB의 창구',K.src('지도'))}${resLi(K.find(/아동보호전문/))
   const C4=sheet('C-4','보호자 지원 연결지','가족센터 · 보호자를 탓하지 않고 돕는 쪽으로',`
 <div class="oyp-sum agency"><b>보호자를 협력자로 초대합니다</b><span>${esc(cw.family||'보호자가 받을 수 있는 도움부터 이야기합니다.')} ${K.src('해석')}</span></div>
 ${H('이 가구에서 볼 것')}${tbl(['살필 것','왜','확인'],[['보호자 근로 시간과 쉬는 날','돌봄 여력과 연락 가능 시간'],['가족 구성','한부모·조손 등이면 맞는 지원 사업이 달라짐'],['보호자의 피로·건강','돌봄 여력과 직결'],['보호자가 원하는 도움','계획은 보호자가 동의한 것에서 출발']].map(r=>`<tr><th>${r[0]}</th><td>${r[1]}</td><td>${line(8,r[0])}</td></tr>`).join(''))}
-${H('연결할 수 있는 지원')}<ul class="oyp-checks"><li>${box(fam.hard.length>0)}가족상담·관계증진</li><li>${box(0)}한부모·다양한 가족 지원 (해당 시)</li><li>${box(0)}아이돌봄서비스: 일반적으로 만 12세 이하라 동생이 있을 때 검토</li></ul>
+${H('연결할 수 있는 지원')}<ul class="oyp-checks"><li>${box(fam.hard.length>0)}가족상담·관계증진</li><li>${box(0)}한부모·다양한 가족 지원 (해당 시)</li><li>${box(0)}아이돌봄서비스: 생후 3개월~만 12세 이하라 동생이 있을 때 검토</li></ul>
 ${H('보호자 첫 연락 예시')}${draft('<p>"안녕하세요, ○○ 학교와 함께 학생을 돕고 있는 △△입니다. 바쁘신 가운데 아이가 받을 수 있는 도움을 안내드리고 싶어 연락드렸어요. 편하신 시간에 10분 정도 통화 가능하실까요?"</p>')}
 <p class="oyp-hint">첫 연락에서는 학생의 어려움이나 추정 단서를 말하지 않고, 가족이 받을 수 있는 도움부터 이야기합니다.</p>
 ${H('자원 DB의 창구',K.src('지도'))}${resLi(K.find(/가족센터/))}`,{tone:'agency'});
