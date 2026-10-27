@@ -51,6 +51,20 @@ function setup(article){
   b.addEventListener('click',()=>go(i+1));p.append(b);
  });
 
+ // When a part heading follows the report (the score tab's numbers), the last page leads on to it,
+ // so the reading does not stop at the final chapter.
+ const after=article.nextElementSibling;
+ if(after&&after.classList.contains('j88-part')){
+  const b=document.createElement('button');b.type='button';b.className='odi-next odi-next-part';
+  const no=after.querySelector('.j88-part-no'),h=after.querySelector('h3');
+  b.innerHTML='<span>이어서 · '+(no?no.textContent:'')+'</span>';
+  const strong=document.createElement('b');strong.textContent=h?(h.firstChild?.textContent||h.textContent).trim():'';
+  b.firstChild.after(strong);
+  const arrow=document.createElement('i');arrow.setAttribute('aria-hidden','true');arrow.textContent='↓';b.append(arrow);
+  b.addEventListener('click',()=>after.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'}));
+  pages[total-1].append(b);
+ }
+
  // One page is shown at a time (no horizontal scroller), so a flip can never stop half-way between pages
  // and the track needs no measured height. Swiping is read from the touch gesture itself.
  let cur=0;

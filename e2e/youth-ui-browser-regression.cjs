@@ -29,9 +29,14 @@ async function scenario(browser,width){
  assert.equal(await page.locator('[data-j88-result-tab="score"]').getAttribute('aria-pressed'),'true','quantitative first');
   assert.equal(await page.locator('.j88-raw-accordion').first().getAttribute('open'),null,'raw scores closed initially');
  assert.equal(await page.locator('#oy-index-visual-slot .oy-viz-dashboard').count(),1,'five-level integrated dashboard visible');
- assert.equal(await page.locator('#oy-index-visual-slot .oy-viz-more').getAttribute('open'),null,'detailed figures start folded under the stage card');
+ assert.equal(await page.locator('#oy-index-visual-slot .oy-viz-more').getAttribute('open'),null,'bars and cross responses start folded under the stage card');
+ assert.equal(await page.locator('#oy-index-visual-slot .oy-viz-more .oy-viz-radar').count(),0,'radar is not folded away');
+ assert.equal(await page.locator('.oy-viz-radar svg').isVisible(),true,'ten-axis radar visible without opening anything');
+ assert.equal(await page.locator('#journey88 .j88-route button').count(),3,'score tab opens with its reading order');
+ assert.equal(await page.locator('#journey88 .j88-part').count(),3,'three parts share one heading style');
+ const edges=await page.evaluate(()=>['.j88-part','.oy-deep-report','#oy-index-visual-slot .oy-viz-grade'].map(s=>Math.round(document.querySelector('#journey88 '+s).getBoundingClientRect().left)));
+ assert.equal(new Set(edges).size,1,'report, part headings and stage card start on one left edge: '+edges.join(','));
  await page.locator('#oy-index-visual-slot .oy-viz-more > summary').click();
- assert.equal(await page.locator('.oy-viz-radar svg').count(),1,'ten-axis radar visible');
   assert.equal(await page.locator('.oy-viz-radar svg').getAttribute('viewBox'),'0 0 700 700','radar labeled enlarged');
   assert.equal(await page.locator('.oy-viz-radar svg text.oy-radar-axis').count(),10,'ten vertex labels rendered');
   assert.equal(await page.locator('.oy-viz-radar [data-radar-index]').count(),10,'ten interactive radar nodes');
@@ -51,7 +56,10 @@ async function scenario(browser,width){
  await page.locator('[data-j88-result-tab="narrative"]').click();
  assert.match(await page.locator('#journey88').innerText(),/서술기록이 입력되지 않았습니다/,'empty narrative is explicit');
  await page.locator('[data-j88-result-tab="integrated"]').click();
- assert.ok((await page.locator('#journey88').innerText()).includes('종합사정 및 지원 방향'));
+ // the older model's assessment stays inside its accordion (it used to spill out below it)
+ assert.ok(!(await page.locator('#journey88').innerText()).includes('종합사정 및 지원 방향'),'older assessment folded');
+ await page.locator('#journey88 .j88-raw-accordion > summary').click();
+ assert.ok((await page.locator('#journey88 .j88-raw-accordion').innerText()).includes('종합사정 및 지원 방향'));
  assert.equal(await page.locator('#oy-integrated-visual-slot .oy-viz-grade').count(),1,'integrated opinion receives five-level badge');
  assert.equal(await page.locator('.j88-operational-summary').count(),1,'system integrated judgment summary exists');
  assert.match(await page.locator('.j88-operational-summary').innerText(),/우선 실행|권장 진행체계/,'direct actionable guidance');

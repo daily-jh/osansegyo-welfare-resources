@@ -95,10 +95,10 @@ function scoreDashboard(x,p,full){
  const domains=x.domainRows, top=x.activePairs.slice(0,7);
  return '<div class="oy-viz-dashboard" aria-label="통합지원 단계·영역별 응답강도">'
  +'<h3>통합지원 5단계 · 응답 패턴</h3>'+grade(x)+topStats(x,p,true)+(window.OYResultReadout?window.OYResultReadout.html(x,p,{objective:true,fullTier:full?.tier}):'')
- // The deep interpretation below already places these figures in its pages, so here they stay folded:
- // on a phone the reading starts a screen sooner, and item numbers stay out of the first view.
- +'<details class="oy-viz-more"><summary>영역 그래프·교차 응답 자세히 보기 (문항 근거 포함)</summary>'
+ // The radar is the one picture of all ten areas, so it stays open under the stage card. The bars, cross
+ // responses and item evidence behind it stay folded: item numbers keep out of the first view.
  +'<section class="oy-viz-main-radar"><h4>10개 영역의 응답강도 분포</h4><p class="oy-viz-explain"><strong>읽는 방법</strong> 중심은 0%, 바깥쪽은 100%입니다. 다각형이 특정 방향으로 커질수록 <strong>해당 영역의 평균 응답수준이 높습니다.</strong> 면적은 전체 위기점수나 발생확률이 아니며, 영역별 문항 수 차이를 보정한 형태입니다.</p>'+radar(x.domainStrengths,domains.map(z=>z.name))+'</section>'
+ +'<details class="oy-viz-more"><summary>영역별 막대·교차 응답 자세히 보기 (문항 근거 포함)</summary>'
  +'<section><h4>영역별 응답강도 · 100% 환산</h4><p class="oy-viz-explain">영역 내 응답합계 ÷ 응답한 문항의 최대 가능점수 × 100입니다. 실무에서는 <b>높은 영역부터 지원과제를 정하는 상대적 우선순위</b>로 읽습니다.</p><div class="oy-viz-bar-grid">'+domains.map((d,i)=>bar(d.name,d.normalized,window.OYResultReadout?window.OYResultReadout.domainNote(d,i):'응답 '+d.raw+'/'+d.max+'점 · 미상 '+d.unknown+'개')).join('')+'</div></section>'
  +patternSummary(x,p)+'<section><h4>영역 간 동시응답 · '+top.length+'개 교차</h4><p class="oy-viz-explain">두 영역이 함께 보고됐다는 뜻입니다. 강도는 두 영역 중 낮은 정규화 값으로 계산한 <b>내부 비교지표</b>이며, 통계적 상관관계나 한 영역이 다른 영역을 유발했다는 뜻이 아닙니다.</p>'
  +(top.length?cells(['동시보고·핵심패턴','강도·문항근거','CIE 문항해석','학교 우선 행동','복지관·지역기관 연계'],top.map(t=>{const e=patternEvidence(t,p);return [t.label+' · '+(CROSS_GUIDE[t.id]?.[0]||'동시응답형'),t.strength+'/100 · '+e.questions,e.cie||'해당 문항들의 생활영향을 함께 보는 내부 교차 가설',CROSS_GUIDE[t.id]?.[1]||'학교 내 영향 장면 정리',CROSS_GUIDE[t.id]?.[2]||'지원담당자 간 의뢰 조정'];})):'<p>설정된 교차조합에서 둘 다 양성인 영역은 없습니다.</p>')
