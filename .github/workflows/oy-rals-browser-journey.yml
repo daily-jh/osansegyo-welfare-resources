@@ -42,6 +42,8 @@ jobs:
         run: node e2e/youth-review-fixes-flow.cjs
       - name: Validate real user clicks, live AI inference, PDF output and cross-browser interaction
         run: node e2e/youth-true-user-flow.cjs
+      - name: Open 05 final report, check decisions, A4 fit, opinion, two-page print and phone layout
+        run: node e2e/youth-final-report-flow.cjs
       - name: Inspect actual A4 PDF document and embedded Korean result text
         run: |
           sudo apt-get install -y poppler-utils
@@ -58,5 +60,6 @@ jobs:
           path: |
             artifacts/youth-stage-browser/
             artifacts/oy-user-route/
+            artifacts/oy-final-report/
           if-no-files-found: ignore
           retention-days: 7

@@ -19,8 +19,8 @@ class Element{
  querySelectorAll(){return []}
 }
 const nodes=new Map(props.map(id=>[id,new Element(id)]));nodes.get('recordVersion').value='';
-// The four visible steps (01 result, 02 map, 03 school, 04 agency) carry data-oy-step 1·2·6·3.
-const steps=new Map([1,2,6,3].map(v=>{const a=new Element('step'+v);a.dataset={oyStep:String(v)};return [v,a];}));
+// The five visible steps (01 result, 02 map, 03 school, 04 agency, 05 final report) carry data-oy-step 1·2·6·3·7.
+const steps=new Map([1,2,6,3,7].map(v=>{const a=new Element('step'+v);a.dataset={oyStep:String(v)};return [v,a];}));
 const extra=new Element('flow-data-tools');
 const document={
  baseURI:'https://example.test/youth-risk/',
@@ -56,6 +56,13 @@ assert.match(result.textContent,/지원연계 지도 검토는 미완료/);
 assert.equal(events.at(-1).detail.payload.linkageReviewStatus,'연계 후보 검토 전');
 steps.get(6).onclick();
 assert.equal(events.at(-1).detail.stage,6,'School support opens without navigation lock');
+steps.get(7).onclick();
+assert.equal(events.at(-1).detail.stage,7,'Final report opens as its own step');
+assert.equal(nodes.get('stepTitle').textContent,'최종 보고서 · A4 2쪽');
+assert.match(nodes.get('previousStep').textContent,/04 기관 사례관리/);
+nodes.get('previousStep').onclick();
+assert.equal(events.at(-1).detail.stage,3,'Back from 05 goes to 04 agency case management');
+assert.ok(/data-oy-step="7"[^>]*>05 · 최종 보고서/.test(html),'05 final report step in navigation');
 steps.get(1).onclick();
 assert.equal(events.at(-1).detail.stage,2);
 assert.equal(events.at(-1).detail.view,'result','step 01 returns to the result tabs');
@@ -66,4 +73,4 @@ nodes.get('confirmLinkageReview').onclick();
 assert.equal(events.at(-1).detail.stage,3);
 assert.match(events.at(-1).detail.payload.linkageReviewStatus,/검토/);
 assert.equal(payload.answers.every(v=>v===0),true,'Navigation never modifies source CORE answers');
-console.log('PASS four-step navigation; storage after evaluation; map review optional; CORE immutable');
+console.log('PASS five-step navigation; storage after evaluation; map review optional; CORE immutable');

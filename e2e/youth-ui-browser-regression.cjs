@@ -24,7 +24,7 @@ async function scenario(browser,width){
   assert.ok(await page.locator('#journey88 .oy-ask-btn').count()>=5,'AI ask buttons on interpretation sections');
   assert.equal(await page.locator('#journey88 .oy-ask-doc').count(),1,'one report-level AI button');
   assert.equal(await page.locator('#oy-external-handoff').count(),0,'bottom handoff panel replaced by ask panel');
- assert.equal(await page.locator('.flow-nav [data-oy-step]').count(),4,'four main steps exposed');
+ assert.equal(await page.locator('.flow-nav [data-oy-step]').count(),5,'five main steps exposed (05 final report)');
  assert.equal(await page.locator('.flow-nav [data-oy-step="4"], .flow-nav [data-oy-step="5"]').count(),0,'AI workshop and records steps retired');
  assert.equal(await page.locator('[data-j88-result-tab="score"]').getAttribute('aria-pressed'),'true','quantitative first');
   assert.equal(await page.locator('.j88-raw-accordion').first().getAttribute('open'),null,'raw scores closed initially');
