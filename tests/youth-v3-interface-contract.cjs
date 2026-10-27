@@ -12,7 +12,8 @@ for(const [file,html] of [['youth-risk/index.html',home],['youth-risk/assessment
 }
 assert.match(home,/id="assessmentFrame"/,'embedded assessment must exist');
 assert.match(home,/class="flow-skip-link"/,'keyboard skip navigation');
-assert.match(home,/apple-hig-refinement\.css/,'youth design loaded');
+assert.match(home,/oy-bundle-v13\.css/,'youth design loaded');
+assert.ok(JSON.parse(read('youth-risk/oy-css-manifest.json')).sources.includes('apple-hig-refinement.css'),'youth design ships in the CSS bundle');
 assert.match(directory,/apple-hig-refinement\.css/,'directory design loaded');
 assert.match(assessment,/assessment-design-v2\.css/,'iframe design loaded');
 const flow=read('youth-risk/flow.js'),child=read('youth-risk/flow-child.js');
