@@ -67,7 +67,7 @@ function decorate(){
   const b=document.createElement('button');b.type='button';b.className='flow-btn oy-ask-doc';b.textContent='AI로 보고서 작성·보완 ↗';row.append(b);
  }
  const tools=host.querySelector('.j88-tools > summary');
- if(tools&&!tools.dataset.oyAsk){tools.dataset.oyAsk='1';tools.textContent='결과 저장 · 내보내기';}
+ if(tools&&!tools.dataset.oyAsk){tools.dataset.oyAsk='1';tools.textContent='기관 서식 요청문 · TXT·PDF 출력';}
 }
 let queued=false;
 const observer=new MutationObserver(()=>{if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;observer.disconnect();try{decorate()}finally{observer.observe(host,{childList:true,subtree:true})}});});

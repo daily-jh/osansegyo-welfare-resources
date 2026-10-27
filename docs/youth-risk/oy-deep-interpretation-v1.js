@@ -368,7 +368,7 @@ function pagedHtml(r,body,head,glance,L){
    :'<p class="odi-muted">두 주제에 걸쳐 함께 움직이는 어려움은 나타나지 않았습니다. 주제별로 따로 읽어도 됩니다.</p>')+'</div>'
   +(r.patterns.pending.length?'<p class="odi-muted"><strong>미상 때문에 판단을 보류한 패턴</strong> '+esc(r.patterns.pending.map(p=>p.name).join(' · '))+'</p>':'')
   +'</section><nav class="odi-toc" aria-label="차례"></nav>';
- pages.push(page('cover','표지 · 한 장으로 이해하기','',cover,{cover:true}));
+ pages.push(page('cover','사례 개요와 안전 확인','지금 안전한지, 무엇이 가장 어려운지, 어떤 어려움이 함께 움직이는지를 한 장에 모았습니다.',cover));
  // 2. One page per life theme that this response actually raises.
  const act=S.T.filter(t=>t.active).sort((a,b)=>(b.safety.length?1:0)-(a.safety.length?1:0)||b.peak-a.peak||(b.own.length+b.linked.length)-(a.own.length+a.linked.length));
  act.forEach(t=>{

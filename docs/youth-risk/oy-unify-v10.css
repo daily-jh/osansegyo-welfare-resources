@@ -101,3 +101,24 @@
 /* Home: four steps, four columns */
 @media (min-width:761px){#howItWorks.welcome-steps{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important}}
 @media (max-width:760px){#howItWorks.welcome-steps{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}#howItWorks.welcome-steps p{font-size:13px}}
+
+/* ── 8. Second pass (2026-10-27): disclosures, small buttons, text tiles ── */
+/* every fold in 01·04 opens the same way: padded row, chevron on the right */
+#assessmentFlow details>summary{display:flex!important;align-items:center;gap:10px;list-style:none;min-height:48px;padding:12px 16px!important;cursor:pointer;font-size:16px;font-weight:700;color:var(--u-ink);border-radius:var(--u-r-ctl)}
+#assessmentFlow details>summary::-webkit-details-marker{display:none}
+#assessmentFlow details>summary::marker{content:''}
+#assessmentFlow details>summary::after{content:'';flex:none;margin-left:auto;width:9px;height:9px;border-right:2px solid #7d8da0;border-bottom:2px solid #7d8da0;transform:rotate(45deg) translate(-2px,-2px);transition:transform .15s}
+#assessmentFlow details[open]>summary::after{transform:rotate(-135deg) translate(-2px,-2px)}
+#assessmentFlow details>summary:hover{background:#f5f8fc}
+#assessmentFlow details>summary:focus-visible{outline:3px solid #8db8ea;outline-offset:2px}
+#assessmentFlow .oyp details>summary{min-height:0}
+/* "AI에 묻기" and other small actions: same radius as every other control */
+#assessmentFlow .oy-ask-btn{border-radius:10px!important;min-height:36px;padding:6px 12px;font-size:13px;font-weight:650}
+/* a tile whose value is words, not a number, reads as a sentence */
+.oy-viz-kpis strong.oy-kpi-text{font-size:17px!important;line-height:1.45;font-weight:700}
+/* 04 panels: no empty band above the first heading */
+.oy-viz-split>article>h3:first-child{margin-top:0!important}
+@media (max-width:760px){#assessmentFlow details>summary{font-size:15px;padding:12px 12px!important}}
+/* privacy check before copying: box on the left, sentence wraps beside it */
+#assessmentFlow .oy-ai-privacy-gate{display:flex!important;align-items:flex-start;gap:10px;line-height:1.55}
+#assessmentFlow .oy-ai-privacy-gate input{flex:none;width:20px;height:20px;min-height:0;margin:2px 0 0}
