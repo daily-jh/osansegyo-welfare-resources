@@ -55,7 +55,7 @@ function model(p,opt){
     agenda:R.agenda.filter(a=>!(urgent&&a.k==='safety')),meet:(I.agenda||[]).filter(a=>!/다음 점검일/.test(a)).slice(0,4),questions:(I.questions||[]).slice(0,3),
     ladder:OD().ladders(R,false).select,profile:d.profile||[],immediate:I.immediate||'',critical:((d.critical&&d.critical.list)||[]).filter(x=>x.kind==='안전'),
     leadText:I.leadText||d.casework.leadText||'',adjust:inc?(I.adjust||''):'',family:I.family||'',gaps:inc&&I.narrative&&I.narrative.gaps||[],
-    revision:p.flowRevision||'',date:opt.date||today(),opinion:String(opt.opinion||'').trim().slice(0,OP_MAX),
+    grade:d.grade||null,revision:p.flowRevision||'',date:opt.date||today(),opinion:String(opt.opinion||'').trim().slice(0,OP_MAX),
     ver:((R.versions||[]).find(v=>v[0]==='판정 사슬')||[])[1]||OD().VERSION};
 }
 
@@ -113,6 +113,10 @@ function laneDiagram(k){
   return svgWrap(W,H,g,'역할별 흐름도');
 }
 
+/* 학년은 판정을 바꾸지 않는 해석 보조: 1쪽에는 한 줄, 자세한 내용은 쪽 채움 블록. */
+const noCite=t=>String(t||'').replace(/\[S\d+\]/g,'');
+const firstSent=t=>noCite(t).split(/(?<=다\.)\s+/)[0];
+const gradeLine=k=>k.grade?'<p class="sm ofr-grade"><b>'+esc(k.grade.short+' · '+(k.grade.band.split(' · ').pop()))+'</b> '+esc(firstSent((k.grade.readings[0]||{}).text||k.grade.look))+'</p>':'';
 const keyLi=k=>'<li>'+dots(k.v)+'<span><b>'+esc(k.t)+'</b>'+(k.v?'':' <span class="xs mut">서술에서 확인</span>')+'</span></li>';
 const alertHtml=k=>k.urgent?'<p class="alert"><b>오늘 할 일</b>'+esc(k.immediate||'')+k.critical.map(x=>' · '+esc(x.n+'번 '+x.topic+': '+x.action)).join('')+'</p>':'';
 const agendaHtml=k=>k.agenda.length?'<p class="qnote">'+k.agenda.map(a=>esc(a.t)).join(' ')+'</p>':'';
@@ -121,7 +125,7 @@ const signHtml=k=>'<div class="sign"><div>작성자</div><div>검토자</div><di
 const goalTable=k=>k.goals.length?'<div class="tw"><table><thead><tr><th>주제</th><th>지금</th><th>다음 재평가까지</th><th>점검</th></tr></thead><tbody>'+k.goals.map(g=>'<tr><td><b>'+esc(g.topic)+'</b></td><td class="nw">'+(g.now?dots(g.now)+g.now+'점':'서술')+'</td><td>'+esc(g.target)+'</td><td>'+esc(g.measure)+'</td></tr>').join('')+'</tbody></table></div>':'<p class="sm mut">2점 이상 영역이 없어 목표는 첫 만남에서 학생과 정합니다.</p>';
 
 function page1(k){
-  const sub=['최종 보고서'+(k.revision?' · 평가 '+k.revision+'차':''),k.date+' · 서술 '+(k.inc?'포함':'미포함')+' · 실무자 확인 전 초안'];
+  const sub=['최종 보고서'+(k.grade?' · '+k.grade.label:'')+(k.revision?' · 평가 '+k.revision+'차':''),k.date+' · 서술 '+(k.inc?'포함':'미포함')+' · 실무자 확인 전 초안'];
   return '<header class="mast pad"><h1>OY-RALS <span>사례 저널</span></h1><p>'+esc(sub[0])+'<br>'+esc(sub[1])+'</p></header>'+
    '<div class="lead pad"><p class="t '+k.tone+'"><small>지원 우선순위</small>'+esc(k.tier?k.tier+'단계':'미확정')+'</p><div><h2>'+esc(k.path)+'</h2><p>'+esc(k.tierName)+' · '+esc(k.level.name||'')+' · 통합사례관리 '+esc(k.sel.value)+'</p></div></div>'+
    (k.urgent||k.agenda.length?'<div class="pad ofr-notes">'+alertHtml(k)+agendaHtml(k)+'</div>':'')+
@@ -129,7 +133,7 @@ function page1(k){
     '<section><h3><span>01 · URGENCY</span>얼마나 급한가</h3><div class="meter '+(k.tier===5?'r':'')+'">'+[1,2,3,4,5].map(i=>'<i class="'+(k.tier&&i<=k.tier?'on':'')+'"></i>').join('')+'</div><p class="big">'+esc(k.tierName)+'</p><p class="sm mut">'+esc(k.tierWhy)+'</p></section>'+
     '<section><h3><span>02 · NEEDS</span>무엇이 어려운가</h3><ul>'+(k.keys.length?k.keys.map(keyLi).join(''):'<li class="mut">두드러진 어려움 없음</li>')+'</ul></section>'+
     '<section><h3><span>03 · TEAM</span>누가 맡는가</h3><p class="big">'+esc(k.lead)+' 주관</p><ul>'+k.parts.map(x=>'<li>· '+esc(x)+' 협력</li>').join('')+k.cands.slice(0,2).map(x=>'<li class="mut">· '+esc(x.s)+' (후보)</li>').join('')+'</ul></section>'+
-    '<section><h3><span>04 · VOICE</span>이 학생은</h3><p class="sm">'+esc(String(k.und).split(/(?<=다\.)\s+/)[0])+'</p>'+(k.quote?'<p class="sm mut">“'+esc(k.quote.t)+'”</p>':'')+'<div class="chips">'+k.strengths.slice(0,2).map(s=>'<span class="chip">'+esc(s.label)+'</span>').join('')+k.wishes.map(w=>'<span class="chip w">바람 · '+esc(w)+'</span>').join('')+'</div></section></div>'+
+    '<section><h3><span>04 · VOICE</span>이 학생은</h3><p class="sm">'+esc(String(k.und).split(/(?<=다\.)\s+/)[0])+'</p>'+gradeLine(k)+(k.quote?'<p class="sm mut">“'+esc(k.quote.t)+'”</p>':'')+'<div class="chips">'+k.strengths.slice(0,2).map(s=>'<span class="chip">'+esc(s.label)+'</span>').join('')+k.wishes.map(w=>'<span class="chip w">바람 · '+esc(w)+'</span>').join('')+'</div></section></div>'+
    '<figure class="band pad"><h3>그림 1 · 근거에서 판정까지</h3>'+chainDiagram(k)+'<figcaption class="xs mut">왼쪽 근거가 오른쪽 여섯 판정으로 이어집니다. 판정은 01·03·04 화면과 같은 값이며, ⑤ 통합사례관리 결과가 ⑥ 진행체계를 정합니다.</figcaption></figure>'+
    '<figure class="band pad"><h3>그림 2 · 사례 개념도</h3>'+conceptDiagram(k)+'<figcaption class="xs mut">어려움이 어떤 고리로 맞물려 있고, 첫 개입이 어떤 변화를 노리는지 한 줄로 이었습니다.</figcaption></figure>';
 }
@@ -144,6 +148,8 @@ function page2(k){
 /* 쪽 채움 블록: 쪽 끝에 순서대로 넣어 보고 A4 한 장을 넘는 블록은 뺀다(fill). 1쪽에 들어간 블록은 2쪽에서 쓰지 않는다. */
 function extras(k){
   const X=[];
+  // 학년은 판정을 바꾸지 않는 해석 보조라 쪽 채움 블록 맨 앞에 둔다(자리가 없으면 다른 블록처럼 빠짐).
+  if(k.grade)X.push(['grade','<h3 class="xh">학년으로 읽기 <span>'+esc(k.grade.label+' · '+k.grade.band)+' · 판정 불변</span></h3><ul class="xcols"><li><b>발달과업</b> '+esc(k.grade.tasks.slice(0,3).join(', '))+'</li>'+k.grade.readings.slice(0,2).map(x=>'<li><b>'+esc(x.domain)+'</b> '+esc(firstSent(x.text))+'</li>').join('')+(k.grade.handoff?'<li><b>전환기</b> '+esc(k.grade.handoff)+'</li>':'')+'</ul><p class="mut">근거: '+esc(k.grade.sources.map(s=>s.short).join(' · '))+'</p>']);
   X.push(['profile','<h3 class="xh">영역 프로파일 <span>10개 영역 · 가장 높은 문항 점수</span></h3><ul class="xprof">'+k.profile.map(d=>'<li class="'+(/^아동학대/.test(d.name)&&d.peak>0?'r':'')+'"><span class="nm">'+esc(d.name)+'</span>'+dots(d.peak||0)+'<em>'+esc(d.label)+((d.unknown||[]).length?' · 미상 '+d.unknown.length:'')+'</em></li>').join('')+'</ul>']);
   if(k.leadText)X.push(['opinion','<h3 class="xh">통합 사정의견</h3><p>'+esc(k.leadText)+(k.adjust?' '+esc(k.adjust):'')+'</p>'+(k.level.reason?'<p class="mut">'+esc(k.level.reason)+'</p>':'')]);
   if(k.strengths.length)X.push(['strength','<h3 class="xh">강점 · 지원의 발판</h3><ul class="xcols">'+k.strengths.slice(0,4).map(s=>'<li><b>'+esc(s.label)+'</b> '+esc(s.text)+'</li>').join('')+'</ul>']);
@@ -193,7 +199,7 @@ function fitScale(scope){
 /* TXT: 화면과 같은 판정 + 핵심 내용. inc=false면 서술 분석 문장·원문을 넣지 않는다. */
 function text(p,opt){
   const k=model(p,opt||{}),L=[];
-  L.push('OY-RALS 최종 보고서'+(k.revision?' · 평가 '+k.revision+'차':'')+' · '+k.date+' · 서술 '+(k.inc?'포함':'미포함')+' · 실무자 확인 전 초안','');
+  L.push('OY-RALS 최종 보고서'+(k.grade?' · '+k.grade.label:'')+(k.revision?' · 평가 '+k.revision+'차':'')+' · '+k.date+' · 서술 '+(k.inc?'포함':'미포함')+' · 실무자 확인 전 초안','');
   L.push(OD().text(k.R),'');
   L.push('[한눈에]','지원 우선순위: '+(k.tier?k.tier+'단계 ':'')+k.tierName+' ('+k.tierWhy+')','진행체계: '+k.lead+' 주관 · '+k.path,'무엇이 어려운가: '+(k.keys.map(x=>x.t+(x.v?' '+x.v+'점':' (서술에서 확인)')).join(', ')||'두드러진 어려움 없음'),'함께할 곳: '+[...k.parts,...k.cands.map(x=>x.s+'(후보)')].join(', '),'이 학생은: '+k.und,'첫 개입: '+k.first);
   if(k.urgent)L.push('오늘 할 일: '+k.immediate+k.critical.map(x=>' · '+x.n+'번 '+x.topic+': '+x.action).join(''));
@@ -203,6 +209,7 @@ function text(p,opt){
   if(k.agenda.length||k.meet.length){L.push('','[사례회의에서 정할 것]');k.agenda.forEach(a=>L.push('- '+a.t));k.meet.forEach(a=>L.push('- '+a));}
   if(k.questions.length){L.push('','[다음 면담에서 물을 것]');k.questions.forEach(q=>L.push('- '+q.q));}
   if(k.leadText)L.push('','[통합 사정의견]',k.leadText+(k.adjust?' '+k.adjust:''));
+  if(k.grade){L.push('','[학년으로 읽기 · 판정 불변] '+k.grade.label+' · '+k.grade.band,k.grade.summary);if(k.grade.transition)L.push(k.grade.transition);k.grade.readings.forEach(x=>L.push('- '+x.domain+': '+x.text));L.push('근거: '+k.grade.sources.map(s=>'['+s.id+'] '+s.short).join(' · '));}
   if(k.resources.length){L.push('','[연계 자원 후보 · 접수 조건은 기관에 확인]');k.resources.forEach(r=>L.push('- '+r.domain+' · '+r.name+' · '+r.service+(r.cond?' · '+r.cond:'')));}
   if(k.opinion)L.push('','[실무자 의견]',k.opinion);
   L.push('','25문항 응답'+(k.inc?'과 서술기록':'')+'을 OY-RALS 규칙으로 정리한 실무 참고자료이며 진단·학대 판정·위험 예측·서비스 자격 결정이 아닙니다. 공식 판정은 CORE, 지원 우선순위 5단계는 검증 전 개발지표입니다.'+(k.hasNarr&&!k.inc?' 서술 원문은 넣지 않았고 판정은 화면과 같습니다.':''));

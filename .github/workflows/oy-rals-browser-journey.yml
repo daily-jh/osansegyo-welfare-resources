@@ -44,6 +44,8 @@ jobs:
         run: node e2e/youth-true-user-flow.cjs
       - name: Open 05 final report, check decisions, A4 fit, opinion, two-page print and phone layout
         run: node e2e/youth-final-report-flow.cjs
+      - name: Choose a grade beside the name and read it in the scale report and 05 without changing decisions
+        run: node e2e/youth-grade-lens-flow.cjs
       - name: Inspect actual A4 PDF document and embedded Korean result text
         run: |
           sudo apt-get install -y poppler-utils

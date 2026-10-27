@@ -6,6 +6,7 @@ const node=typeof module!=='undefined'&&module.exports;
 const K=node?require('./oy-item-knowledge-v1.js'):root.OYItemKnowledge;
 const X=node?require('./oy-cross-patterns-v1.js'):root.OYCrossPatterns;
 const D=node?require('./oy-deep-interpretation-v1.js'):root.OYDeepInterpretation;
+const GL=(()=>{try{return node?require('./oy-grade-lens-v1.js'):root.OYGradeLens}catch(_){return null}})();
 const C=node?require('./case-context-core.js'):root.YouthCaseContextCore;
 const OD=()=>{try{return node?require('./oy-decision-v1.js'):root.OYDecision}catch(_){return null}};
 const VERSION='1.1.0-others-20261026';
@@ -261,6 +262,8 @@ function integrate(p){
  newPatterns.filter(pt=>!pt.safety&&!pt.items.some(n=>SAFETY.includes(n))).slice(0,1).forEach(pt=>{if(!plan[1].rows.some(r=>r.what===pt.first))plan[1].rows.unshift({what:pt.first,who:'주관 담당자'})});
  plan[1].rows=plan[1].rows.slice(0,5);
  if(level!==w.level){const last=plan[2].rows[plan[2].rows.length-1];if(last&&/재평가|재사정|점검/.test(last.what))last.what='합의한 목표의 변화를 점검하고 지원을 조정합니다. '+level.review+'.'}
+ // School-level transition (초6·중3·고3): the hand-over joins the mid-term plan; levels are unchanged.
+ if(r.grade&&r.grade.handoff&&plan[2]&&!plan[2].rows.some(x=>x.what===r.grade.handoff))plan[2].rows.splice(Math.max(0,plan[2].rows.length-1),0,{what:r.grade.handoff,who:'주관 담당자'});
  // goals with narrative baseline
  const goals=w.goals.map(g=>({...g}));
  cmp.agree.forEach(x=>{const g=goals.find(y=>y.topic===x.topic);const q=x.quotes.find(q=>q.status==='보고');if(g&&q)g.baseline=q.quote});
@@ -268,6 +271,7 @@ function integrate(p){
  // agenda
  const agenda=w.agenda.slice();
  if(nSafety.length)agenda.unshift('서술에 나타난 안전 관련 표현의 확인 결과와 보호 절차');
+ if(r.grade&&r.grade.handoff)agenda.splice(Math.max(0,agenda.length-1),0,(r.grade.grade==='고3'?'졸업 뒤 지원을 이어 갈 기관과 인계 계획':r.grade.label+' 진학 전환에 맞춘 인계 계획'));
  if(cmp.conflict.length)agenda.splice(agenda.length-1,0,'척도와 서술이 엇갈리는 부분('+cmp.conflict.map(x=>x.topic).join(', ')+')의 관점 차이 정리');
  if(cmp.narrative.length||cmp.fill.length)agenda.splice(agenda.length-1,0,'서술로만 드러난 어려움('+[...cmp.narrative,...cmp.fill].map(x=>x.topic).slice(0,4).join(', ')+')을 계획에 넣을지 결정');
  // family engagement: narrative mention of carer harm overrides a mild scale picture
@@ -275,7 +279,7 @@ function integrate(p){
  const strengths=[...r.strengths.slice(0,4).map(s=>({label:s.label,text:s.text})),...nv.read.strengths.slice(0,3).map(s=>({label:'서술에 기록된 강점',text:'“'+s.quote+'”'}))];
  const wishes=nv.read.wishes.map(s=>s.quote);
  const partners=[...w.partners];[...cmp.narrative,...cmp.fill].forEach(x=>{const o=OWNER[K.item(x.n).owner];if(o!==w.lead&&!partners.includes(o))partners.push(o)});
- return {version:VERSION,deep:r,narrative:nv,present:nv.present,redacted:!!nv.read.redacted,level,adjust,lead,immediate,partners,leadText:route&&route.lead?'서술의 안전 신호 때문에 오늘의 즉시 대응과 이후 사례관리 주관을 나눕니다. 오늘의 즉시 대응: '+route.immediate+'. 이후 사례관리: '+josa(route.lead.replace(/ \(.*\)$/,''),'이','가')+' 주관합니다.':w.leadText,family,keys:keyList,
+ return {version:VERSION,deep:r,grade:r.grade||null,narrative:nv,present:nv.present,redacted:!!nv.read.redacted,level,adjust,lead,immediate,partners,leadText:route&&route.lead?'서술의 안전 신호 때문에 오늘의 즉시 대응과 이후 사례관리 주관을 나눕니다. 오늘의 즉시 대응: '+route.immediate+'. 이후 사례관리: '+josa(route.lead.replace(/ \(.*\)$/,''),'이','가')+' 주관합니다.':w.leadText,family,keys:keyList,
   first:nSafety.length&&!/^지금 바로/.test(r.summary.first)?'오늘 안에 서술에 나온 '+nSafety.map(x=>cueName(x.topic)).join(', ')+'을 학생과 직접 안전 면담으로 확인합니다.':r.summary.first,
   safety:r.summary.safety==='이번 응답의 안전 신호 없음'&&nSafety.length?'서술에 안전 관련 표현 · 확인 우선':r.summary.safety,
   understanding:u.join(' '),compare:cmp,newPatterns,plan,goals,agenda,strengths,wishes,questions:[...nv.questions,...r.questions.filter(q=>!nv.questions.some(x=>x.about===q.about))].slice(0,7),notice:NOTICE};
@@ -324,6 +328,7 @@ function integratedBody(I,keys){
  const r=I.deep,cmp=I.compare,B={
   critical:()=>{const n=I.narrative.read.safety;return (r.critical.list.length?'<ul class="odi-list">'+r.critical.list.map(x=>'<li><strong>'+esc(x.topic)+'</strong> <span class="odi-who">척도</span><p>'+esc(x.reading)+'</p><p class="odi-act">'+esc(x.action)+'</p></li>').join('')+'</ul>':'')+(n.length?'<ul class="odi-list">'+byTopic(n).map(g=>'<li><strong>'+esc(g.topic)+'</strong> <span class="odi-who">서술</span>'+g.quotes.map(q=>'<p>'+esc(q)+'.</p>').join('')+(r.critical.list.some(x=>x.n===g.n)?'':'<p class="odi-act">'+esc(K.item(g.n).e)+'</p>')+'</li>').join('')+'</ul>':'')+(r.critical.procedure?'<p class="odi-procedure">'+esc(r.critical.procedure)+'</p>':'<p class="odi-procedure">안전 관련 내용은 이 보고서와 관계없이 소속기관의 보호·신고 절차를 먼저 따릅니다.</p>')},
   understanding:()=>'<p class="odi-lead">'+esc(I.understanding)+'</p>',
+  grade:()=>GL&&I.grade?GL.html(I.grade,{compact:!!(keys&&keys.compact)}):'',
   compare:()=>I.present?cmpHtml(cmp):'<p>서술기록이 없어 대조를 생략했습니다. 면담·관찰 내용을 서술기록에 더하면 이 부분이 채워집니다.</p>',
   patterns:()=>{const a=r.patterns.active.slice(0,2),b=I.newPatterns.slice(0,2);return (a.length?a.map(p=>'<div class="odi-card"><h4>'+esc(p.name)+' <span class="odi-who">척도</span></h4><p>'+esc(p.loop)+'</p><p class="odi-advice"><strong>자문 포인트</strong> '+esc(p.advice)+'</p></div>').join(''):'')+(b.length?b.map(p=>'<div class="odi-card"><h4>'+esc(p.name)+' <span class="odi-who">서술을 더해 드러남</span></h4><p>'+esc(p.loop)+'</p><p class="odi-advice"><strong>자문 포인트</strong> '+esc(p.advice)+'</p></div>').join(''):'')||'<p>두 가지 이상의 어려움이 맞물린 고리는 나타나지 않았습니다.</p>'},
   case:()=>{const l=I.level;return '<p class="odi-pattern-name">'+esc(l.name)+'</p><p>'+esc(l.reason)+'</p>'+(I.adjust?'<p class="odi-advice"><strong>서술 반영</strong> '+esc(I.adjust)+'</p>':'')+'<dl class="odi-axes"><div><dt>접촉 빈도</dt><dd>'+esc(l.contact)+'</dd></div><div><dt>사례회의</dt><dd>'+esc(l.meeting)+'</dd></div><div><dt>점검·재사정</dt><dd>'+esc(l.review)+'</dd></div>'+(I.immediate?'<div><dt>즉시 대응</dt><dd>'+esc(I.immediate)+'</dd></div>':'')+'<div><dt>주관</dt><dd>'+esc(I.lead)+'</dd></div>'+(I.partners.length?'<div><dt>협력</dt><dd>'+esc(I.partners.join(', '))+'</dd></div>':'')+'</dl><p>'+esc(I.leadText)+'</p><p><strong>보호자 참여</strong> '+esc(I.family)+'</p>'},
@@ -348,10 +353,10 @@ function ecoRows(I){
 const byTopic=list=>{const m=new Map();list.forEach(f=>{if(!m.has(f.n))m.set(f.n,{n:f.n,topic:f.topic,quotes:[]});m.get(f.n).quotes.push(quoteLine(f));});return [...m.values()];};
 // Three ladders answer three questions; say so once where they meet, instead of renaming any of them.
 const LADDERS='CORE 공식 판정은 안전 절차를 바로 밟을지, 5단계 지원 우선순위는 얼마나 서둘러 어느 범위의 기관과 움직일지, 개입 수준은 얼마나 자주 만나고 언제 사례회의를 할지를 정합니다.';
-const ITITLES={critical:'우선 안전 확인',understanding:'통합 사례개념화',compare:'척도–서술 교차검토',patterns:'문제 유지 고리 (교차 패턴)',case:'개입 수준과 주관기관',ecology:'생태체계 사정',plan:'단계별 개입계획',agenda:'사례회의 안건',strengths:'강점·보호요인과 학생의 욕구',questions:'면담 확인 질문'};
+const ITITLES={critical:'우선 안전 확인',understanding:'통합 사례개념화',grade:'학년(발달단계)으로 읽기',compare:'척도–서술 교차검토',patterns:'문제 유지 고리 (교차 패턴)',case:'개입 수준과 주관기관',ecology:'생태체계 사정',plan:'단계별 개입계획',agenda:'사례회의 안건',strengths:'강점·보호요인과 학생의 욕구',questions:'면담 확인 질문'};
 function hasCritical(I){return I.deep.critical.list.length||I.narrative.read.safety.length}
 function integratedHtml(I){
- const B=integratedBody(I),keys=(hasCritical(I)?['critical']:[]).concat(['understanding','compare','patterns','case','ecology','plan','agenda','strengths','questions']);
+ const B=integratedBody(I),keys=(hasCritical(I)?['critical']:[]).concat(['understanding'],I.grade?['grade']:[],['compare','patterns','case','ecology','plan','agenda','strengths','questions']);
  let h='<article class="oy-deep-report onr-report onr-integrated" data-report-version="'+VERSION+'"><header class="odi-head"><span class="odi-kicker">OY-RALS 통합 사정의견서 · 척도'+(I.present?'와 서술기록':'')+' 통합</span><h2>'+esc(I.level.name)+'</h2><p>CORE 공식 판정: '+esc(I.deep.title)+'</p></header>';
  h+='<section class="odi-sec odi-glance"><h3>한눈에 보기</h3><dl><div><dt>개입 수준</dt><dd>'+esc(I.level.name)+'</dd></div><div class="'+(I.safety==='이번 응답의 안전 신호 없음'?'':'odi-alert')+'"><dt>현재 안전</dt><dd>'+esc(I.safety)+'</dd></div><div><dt>핵심 과제</dt><dd>'+(I.keys.length?I.keys.map(k=>'<span class="odi-chip">'+esc(k)+'</span>').join(''):'두드러진 어려움 없음')+'</dd></div><div><dt>첫 행동</dt><dd>'+esc(I.first)+'</dd></div><div class="odi-ladders"><dt>단계 이름이 셋인 이유</dt><dd>'+esc(LADDERS)+'</dd></div><div><dt>종합 근거</dt><dd>'+esc('25문항 응답'+(I.present?' · 서술기록 '+I.narrative.glance.sentences+'문장 ('+I.narrative.glance.sources.join(', ')+')':' · 서술기록 없음'))+'</dd></div></dl></section>';
  keys.forEach((k,i)=>{h+=sec(k,i+1,ITITLES[k],B[k]())});
@@ -360,8 +365,8 @@ function integratedHtml(I){
 }
 /* Compact blocks for the 03 case conceptualisation pages. */
 function caseHtml(I,page){
- const B=integratedBody(I);
- const pick=page==='서비스계획'?['plan','ecology']:page==='사례협의'?['agenda','compare','questions']:['understanding','compare','case','strengths'];
+ const B=integratedBody(I,{compact:true});
+ const pick=page==='서비스계획'?['plan','ecology']:page==='사례협의'?['agenda','compare','questions']:['understanding'].concat(I.grade?['grade']:[],['compare','case','strengths']);
  const head={사례사정:'통합사정 요약 · 척도와 서술기록',서비스계획:'통합 개입계획 · 척도와 서술기록',사례협의:'사례회의 준비 · 척도와 서술기록'}[page]||'통합 요약';
  if(page!=='서비스계획'&&hasCritical(I))pick.unshift('critical');
  return '<article class="oy-deep-report onr-report onr-case"><header class="odi-head"><span class="odi-kicker">OY-RALS 통합 해석 연계</span><h2>'+esc(head)+'</h2><p>'+esc(I.level.name+' · 주관 '+I.lead+(I.present?'':' · 서술기록 없음'))+'</p></header>'+pick.map((k,i)=>sec(k,i+1,ITITLES[k],B[k]())).join('')+'</article>';
@@ -384,6 +389,7 @@ function integratedText(I){
  const L=['■ OY-RALS 통합 사정의견서 · 척도'+(I.present||I.redacted?'와 서술기록':'')+' 통합','CORE 공식 판정: '+I.deep.title,'','[한눈에 보기]','개입 수준: '+I.level.name,'현재 안전: '+I.safety,'핵심 과제: '+(I.keys.join(', ')||'두드러진 어려움 없음'),'첫 행동: '+I.first,'단계 이름이 셋인 이유: '+LADDERS];
  if(hasCritical(I))L.push('','[우선 안전 확인]',...I.deep.critical.list.map(x=>'- (척도) '+x.topic+': '+x.action),...I.narrative.read.safety.map(f=>'- (서술) '+f.topic+': '+quoteLine(f)+'.'));
  L.push('','[통합 사례개념화]',I.understanding);
+ if(I.grade&&GL)L.push('','[학년(발달단계)으로 읽기]',...GL.text(I.grade));
  if(I.present)L.push('','[척도–서술 교차검토]',...CMP.filter(([k])=>I.compare[k].length).flatMap(([k,t])=>['▸ '+t,...I.compare[k].map(x=>'  - '+x.topic)]));
  if(I.newPatterns.length)L.push('','[서술을 더해 드러난 문제 유지 고리]',...I.newPatterns.slice(0,2).map(p=>'- '+p.name+': '+p.loop));
  L.push('','[개입 수준과 주관기관]',I.level.name,I.level.reason,...(I.adjust?['서술 반영: '+I.adjust]:[]),'- 접촉 빈도: '+I.level.contact,'- 사례회의: '+I.level.meeting,'- 점검·재사정: '+I.level.review,...(I.immediate?['- 즉시 대응: '+I.immediate]:[]),'- 주관: '+I.lead,'보호자 참여: '+I.family);
