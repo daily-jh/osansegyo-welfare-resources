@@ -16,6 +16,8 @@ async function run(browser,width){
  const frame=page.frameLocator('#assessmentFrame');
  await frame.locator('#qi0 input[type=radio]').first().waitFor({timeout:18000});
  await page.waitForFunction(()=>document.readyState==='complete',null,{timeout:20000});
+ // The assessment frame finishes its own scripts after the radios exist; answering earlier can be undone by its start-up.
+ await page.waitForFunction(()=>{const d=document.getElementById('assessmentFrame')?.contentDocument;return !!d&&d.readyState==='complete'},null,{timeout:20000});
  await frame.locator('#studentGrade').selectOption('고2');
  await frame.locator('#qi0 input[type="radio"][value="1"]').check({force:true});
  const lib=page.locator('[data-oy-lib]');

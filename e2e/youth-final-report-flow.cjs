@@ -18,10 +18,14 @@ async function open(browser,width){
  const frame=page.frameLocator('#assessmentFrame');
  await frame.locator('#qi0 input[type=radio]').first().waitFor({timeout:18000});
  await page.waitForFunction(()=>document.readyState==='complete',null,{timeout:20000});
+ // The assessment frame finishes its own scripts after the radios exist; answering earlier can be undone by its start-up.
+ await page.waitForFunction(()=>{const d=document.getElementById('assessmentFrame')?.contentDocument;return !!d&&d.readyState==='complete'},null,{timeout:20000});
  return {page,frame,errors};
 }
 async function evaluate(page,frame,c){
- for(let i=0;i<25;i++)await frame.locator('#qi'+i+' input[type="radio"][value="'+c.answers[i]+'"]').check({force:true,timeout:12000});
+ // A click that lands while the frame is still starting up can be undone; check again once before failing.
+ const pick=async loc=>{try{await loc.check({force:true,timeout:12000})}catch(e){if(!/did not change its state/.test(String(e)))throw e;await loc.page().waitForTimeout(400);await loc.check({force:true,timeout:12000})}};
+ for(let i=0;i<25;i++)await pick(frame.locator('#qi'+i+' input[type="radio"][value="'+c.answers[i]+'"]'));
  if(c.narrative)await frame.locator('#oyCaseContextText').fill(c.narrative);
  await frame.locator('#complete').click();
  await page.waitForFunction(()=>document.querySelector('[data-oy-step="7"]')?.disabled===false,{timeout:25000});
