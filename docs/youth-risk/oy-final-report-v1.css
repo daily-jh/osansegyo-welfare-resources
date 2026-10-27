@@ -5,6 +5,7 @@
 #finalReportArea>*,.ofr-pages>.ofr-rep{width:100%;max-width:794px}
 /* 상단 단계 메뉴: 05가 생겨 넓은 화면은 다섯 칸 한 줄 */
 @media (min-width:701px){#assessmentFlow .flow-nav{grid-template-columns:repeat(5,minmax(0,1fr))}}
+@media (min-width:761px){#howItWorks.welcome-steps{grid-template-columns:repeat(5,minmax(0,1fr))!important}}
 .ofr-head{width:100%;max-width:794px;display:grid;gap:6px;padding:4px 4px 0}
 .ofr-eyebrow{font-size:13px;font-weight:600;color:var(--oy-muted,#5a6575)}
 .ofr-head p{margin:0;color:var(--oy-muted,#5a6575);font-size:.95rem}
