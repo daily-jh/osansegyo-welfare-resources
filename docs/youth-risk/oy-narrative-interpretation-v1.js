@@ -298,7 +298,7 @@ function sentenceAppendix(n,head){
   +'<details><summary>척도·서술 대조표</summary>'+t(['문항','내용','척도 응답','서술','관계'],crs)+'</details></section>';
 }
 function narrativeHtml(nv){
- if(!nv.present)return '<article class="oy-deep-report onr-report"><header class="odi-head"><span class="odi-kicker">OY-RALS 서술기록 분석</span><h2>서술기록 미입력</h2><p>서술기록이 입력되지 않았습니다. 25문항 응답만으로 ① 척도 해석과 ③ 통합 사정의견을 확인할 수 있습니다.</p></header>'
+ if(!nv.present)return '<article class="oy-deep-report onr-report"><header class="odi-head"><span class="odi-kicker">OY-RALS 서술기록 분석</span><h2>서술기록 미입력</h2><p>서술기록이 입력되지 않았습니다. 25문항 응답만으로 척도 해석과 통합 사정의견을 확인할 수 있습니다.</p></header>'
   +sec('guide',1,'서술기록에 담으면 좋은 내용',ul(['학생이 직접 한 말 (따옴표로)','교사·보호자가 본 구체적인 장면과 빈도','학생이 바라는 변화와 받고 싶은 도움','학생의 강점, 좋아하는 사람과 활동','이미 받고 있는 지원과 담당 기관','안전과 관련해 들은 말이나 본 모습']))
   +(nv.gaps.length?sec('gaps',2,'척도 응답에 맞춰 기록할 내용',ul(nv.gaps.map(g=>'<strong>'+esc(g.topic)+'</strong> '+esc(g.text)))):'')+'</article>';
  const g=nv.glance;let i=0;
@@ -311,7 +311,7 @@ function narrativeHtml(nv){
  const persp=Object.keys(nv.read.sources);
  h+=sec('voices',++i,'정보 출처별 관점',ul(persp.map(src=>'<strong>'+esc(src)+'</strong> '+esc(nv.read.sentences.filter(s=>s.source===src).map(s=>s.links.map(l=>l.topic+(l.status==='부인'?'(부인)':'')).join(', ')).filter(Boolean).join(', ')||'맥락 정보'))) +(persp.length===1?'<p class="odi-muted">한 가지 관점의 기록입니다. 다른 관점(학생·교사·보호자)의 기록을 더하면 해석이 균형을 갖습니다.</p>':''));
  if(nv.read.strengths.length||nv.read.wishes.length||nv.read.supports.length)h+=sec('strengths',++i,'강점·욕구·기존 지원',(nv.read.strengths.length?'<h4 class="odi-sub">강점</h4>'+ul(nv.read.strengths.map(s=>esc('“'+s.quote+'”'))):'')+(nv.read.wishes.length?'<h4 class="odi-sub">학생의 바람</h4>'+ul(nv.read.wishes.map(s=>esc('“'+s.quote+'”'))):'')+(nv.read.supports.length?'<h4 class="odi-sub">기존 지원</h4>'+ul(nv.read.supports.map(s=>esc('“'+s.quote+'”'))):''));
- h+=sec('compare',++i,'척도–서술 교차검토',cmpHtml(nv.compare)+'<p class="odi-muted">두 자료를 합친 사례개념화와 개입계획은 ③ 통합 사정의견에서 이어집니다.</p>');
+ h+=sec('compare',++i,'척도–서술 교차검토',cmpHtml(nv.compare)+'<p class="odi-muted">두 자료를 합친 사례개념화와 개입계획은 통합 사정의견에서 이어집니다.</p>');
  if(nv.gaps.length)h+=sec('gaps',++i,'기록 보완 사항',ul(nv.gaps.map(g=>'<strong>'+esc(g.topic)+'</strong> '+esc(g.text))));
  if(nv.questions.length)h+=sec('questions',++i,'면담 확인 질문','<ol class="odi-q">'+nv.questions.map(x=>'<li><span>'+esc(x.about)+' · '+esc(x.why)+'</span>“'+esc(x.q)+'”</li>').join('')+'</ol>');
  h+=sentenceAppendix(nv)+'<footer class="odi-notice"><h3>해석 안내</h3><p>'+esc(nv.notice)+'</p></footer></article>';
@@ -352,7 +352,7 @@ function integratedHtml(I){
  let h='<article class="oy-deep-report onr-report onr-integrated" data-report-version="'+VERSION+'"><header class="odi-head"><span class="odi-kicker">OY-RALS 통합 사정의견서 · 척도'+(I.present?'와 서술기록':'')+' 통합</span><h2>'+esc(I.level.name)+'</h2><p>CORE 공식 판정: '+esc(I.deep.title)+'</p></header>';
  h+='<section class="odi-sec odi-glance"><h3>한눈에 보기</h3><dl><div><dt>개입 수준</dt><dd>'+esc(I.level.name)+'</dd></div><div class="'+(I.safety==='이번 응답의 안전 신호 없음'?'':'odi-alert')+'"><dt>현재 안전</dt><dd>'+esc(I.safety)+'</dd></div><div><dt>핵심 과제</dt><dd>'+(I.keys.length?I.keys.map(k=>'<span class="odi-chip">'+esc(k)+'</span>').join(''):'두드러진 어려움 없음')+'</dd></div><div><dt>첫 행동</dt><dd>'+esc(I.first)+'</dd></div><div class="odi-ladders"><dt>단계 이름이 셋인 이유</dt><dd>'+esc(LADDERS)+'</dd></div><div><dt>종합 근거</dt><dd>'+esc('25문항 응답'+(I.present?' · 서술기록 '+I.narrative.glance.sentences+'문장 ('+I.narrative.glance.sources.join(', ')+')':' · 서술기록 없음'))+'</dd></div></dl></section>';
  keys.forEach((k,i)=>{h+=sec(k,i+1,ITITLES[k],B[k]())});
- h+=(I.present?sentenceAppendix(I.narrative,'근거 자료 · 문항·점수와 서술 문장'):'<section class="odi-appendix"><h3>근거 자료 · 문항·점수와 서술 문장</h3><p>원점수 '+esc(I.deep.summary.total)+' · CORE 판단: '+esc(I.deep.title)+'</p><p class="odi-muted">문항별 점수는 ① 척도 해석의 근거 자료에서 확인합니다.</p></section>')+'<footer class="odi-notice"><h3>해석 안내</h3><p>'+esc(I.notice)+'</p></footer></article>';
+ h+=(I.present?sentenceAppendix(I.narrative,'근거 자료 · 문항·점수와 서술 문장'):'<section class="odi-appendix"><h3>근거 자료 · 문항·점수와 서술 문장</h3><p>원점수 '+esc(I.deep.summary.total)+' · CORE 판단: '+esc(I.deep.title)+'</p><p class="odi-muted">문항별 점수는 척도 해석의 근거 자료에서 확인합니다.</p></section>')+'<footer class="odi-notice"><h3>해석 안내</h3><p>'+esc(I.notice)+'</p></footer></article>';
  return h;
 }
 /* Compact blocks for the 03 case conceptualisation pages. */

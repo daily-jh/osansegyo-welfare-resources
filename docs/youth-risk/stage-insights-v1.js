@@ -70,7 +70,7 @@ function topStats(x,p,objective){
  ['핵심 안전문항',x.criticalScore===null?'—':x.criticalScore+' / 100','1·2·7·25번 중 높은 2개 평균'],
  ['서술 맥락',R&&p?R.narrativeLabel(x,p,objective):(x.narrative===null?'미입력':x.narrative+' / 100'),'점수는 바꾸지 않음']
  ];
- return '<div class="oy-viz-kpis">'+stats.map(([name,value,hint])=>'<article><small>'+esc(name)+'</small><strong>'+esc(value)+'</strong><span class="oy-kpi-hint">'+esc(hint)+'</span></article>').join('')+'</div>'
+ return '<div class="oy-viz-kpis">'+stats.map(([name,value,hint])=>'<article><small>'+esc(name)+'</small><strong'+(/\d/.test(value)?'':' class="oy-kpi-text"')+'>'+esc(value)+'</strong><span class="oy-kpi-hint">'+esc(hint)+'</span></article>').join('')+'</div>'
  +'<p class="oy-viz-explain">위 숫자는 위험확률이 아닙니다. 단계는 숫자 하나가 아니라 점수·응답 패턴·안전 기준 중 가장 높은 것으로 정해지며, 그 이유는 아래 ‘이 단계가 나온 이유’에 적었습니다.</p>';
 }
 function itemDomain(n){const ranges=[2,5,8,11,13,15,18,21,23,25];return ranges.findIndex(v=>n<=v);}

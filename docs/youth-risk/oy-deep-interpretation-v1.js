@@ -368,7 +368,7 @@ function pagedHtml(r,body,head,glance,L){
    :'<p class="odi-muted">두 주제에 걸쳐 함께 움직이는 어려움은 나타나지 않았습니다. 주제별로 따로 읽어도 됩니다.</p>')+'</div>'
   +(r.patterns.pending.length?'<p class="odi-muted"><strong>미상 때문에 판단을 보류한 패턴</strong> '+esc(r.patterns.pending.map(p=>p.name).join(' · '))+'</p>':'')
   +'</section><nav class="odi-toc" aria-label="차례"></nav>';
- pages.push(page('cover','표지 · 한 장으로 이해하기','',cover,{cover:true}));
+ pages.push(page('cover','사례 개요와 안전 확인','지금 안전한지, 무엇이 가장 어려운지, 어떤 어려움이 함께 움직이는지를 한 장에 모았습니다.',cover));
  // 2. One page per life theme that this response actually raises.
  const act=S.T.filter(t=>t.active).sort((a,b)=>(b.safety.length?1:0)-(a.safety.length?1:0)||b.peak-a.peak||(b.own.length+b.linked.length)-(a.own.length+a.linked.length));
  act.forEach(t=>{
@@ -384,8 +384,8 @@ function pagedHtml(r,body,head,glance,L){
  if(quiet.length)str+='<p class="odi-muted">어려움이 두드러지지 않은 생활 주제: '+esc(quiet.map(t=>t.title).join(', '))+'</p>';
  str+=sec('questions','면담에서 묻기',body.questions());
  if(fig)str+='<div class="odi-sec odi-figsec">'+fig.api.part(fig.f,'safety')+'</div>';
- // The casework level, plan, ecology and agenda are judged with the narrative in ③ 통합 사정의견, not on the scale pages.
- str+='<p class="odi-next"><strong>다음 읽을 곳</strong> 사례관리 수준, 단계별 개입계획, 생태체계, 사례회의 안건은 서술기록까지 합쳐 ③ 통합 사정의견에서 정합니다.</p>';
+ // The casework level, plan, ecology and agenda are judged with the narrative in 통합 사정의견, not on the scale pages.
+ str+='<p class="odi-next"><strong>다음 읽을 곳</strong> 사례관리 수준, 단계별 개입계획, 생태체계, 사례회의 안건은 서술기록까지 합쳐 통합 사정의견에서 정합니다.</p>';
  pages.push(page('strengths','잘 버티고 있는 부분','지원을 시작할 발판입니다. 어려움보다 먼저 이 부분을 학생에게 말해 주면 대화가 쉬워집니다.',str));
  let pro='<section class="odi-sec odi-s-gloss"><h3>쉬운 말 ↔ 전문 용어</h3><p class="odi-muted">이 해석지에서 같은 내용을 부르는 두 가지 이름입니다.</p><div class="odi-table"><table><thead><tr><th scope="col">쉬운 말</th><th scope="col">전문 용어</th><th scope="col">뜻</th></tr></thead><tbody>'
   +L.GLOSSARY.map(g=>'<tr><th scope="row">'+esc(g.plain)+'</th><td class="odi-termcell">'+esc(g.term)+'</td><td>'+esc(g.text)+'</td></tr>').join('')+'</tbody></table></div></section>';

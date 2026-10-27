@@ -1,7 +1,7 @@
 (function(){'use strict';
 const $=id=>document.getElementById(id),esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let state=null,tab='사례사정',resultTab='score',drafts={},draftLabels={},revision=null,preparedSource='',relations=null,persp=null;
-const box=document.createElement('section');box.id='journey88';box.className='journey88';box.hidden=true;$('resultTools').after(box);
+const box=document.createElement('section');box.id='journey88';box.className='journey88';box.hidden=true;$('stepTitle').after(box);
 const reportText=(p,page,include)=>window.OYModelGateway?.text?window.OYModelGateway.text(p,page,include):OYJourney.text(p,page,include);
 const stageName=()=>state.stage===1?'척도 입력':state.stage===2?(state.view==='map'?'지역자원 연계 지도':resultTab==='score'?'척도 해석':resultTab==='narrative'?'서술기록 분석':'통합 사정의견'):state.stage===3?tab:'사례기록·모니터링';
 // Three tasks to start with; the rest stay in the plan, folded. An agency named under an earlier task is
@@ -27,7 +27,7 @@ function reviewGuide(a,kind){const e=window.OYCIESemanticV2;let v;try{v=e.interp
 // Narrative and integrated reports (③, 03). Exports pass a narrative-free payload unless the practitioner opts in.
 // Exports without the narrative still carry its safety signal types (no wording).
 function privatePayload(p){return window.OYNarrativeInterpretation?.redact?window.OYNarrativeInterpretation.redact(p):{...p,caseContext:''}}
-function narrativeSafetyLine(){const s=window.OYNarrativeInterpretation?.safetySummary?.(state.payload);return s&&s.safety.length?'서술기록: 안전 관련 표현 있음('+s.safety.map(x=>x.topic).join(', ')+') — 이 결과지는 점수만 반영합니다. 원문은 화면에서, 서술을 함께 반영한 단계는 ③ 통합 사정의견에서 확인하고 오늘 안에 직접 안전 면담을 합니다.':''}
+function narrativeSafetyLine(){const s=window.OYNarrativeInterpretation?.safetySummary?.(state.payload);return s&&s.safety.length?'서술기록: 안전 관련 표현 있음('+s.safety.map(x=>x.topic).join(', ')+') — 이 결과지는 점수만 반영합니다. 원문은 화면에서, 서술을 함께 반영한 단계는 통합 사정의견에서 확인하고 오늘 안에 직접 안전 면담을 합니다.':''}
 function narrReport(kind,p,page){const N=window.OYNarrativeInterpretation;if(!N||!p)return '';try{if(kind==='narrativeHtml'||kind==='narrativeText')return N[kind](N.narrative(p));return N[kind](N.integrate(p),page);}catch(_){return '';}}
 // The paged report already places each figure next to the text it explains; print the separate set only without it.
 function scorePrint(p){const d=deepReport('html',p);return (/odi-paged/.test(d)?'':figures('html',p))+d;}
@@ -38,7 +38,7 @@ function scalePages(p){const deep=deepReport('html',p);return (deep.indexOf('odi
 function deepReport(kind,p){const M=window.OYDeepInterpretation||window.OYCommonScaleReport;if(!M||!p)return '';try{return M[kind](M.build(p));}catch(_){return '';}}
 function resultScorePage(a){
  const d=a.decision;
- return '<section class="j88-result-pane" aria-label="척도 해석"><p class="j88-view-note">25문항 응답만으로 읽은 해석입니다. 사례관리 수준과 개입계획은 서술기록까지 합쳐 ③ 통합 사정의견에서 정합니다. CORE 원점수와 공식 안전판정은 바뀌지 않습니다.</p>'
+ return '<section class="j88-result-pane" aria-label="척도 해석"><p class="j88-view-note">25문항 응답만으로 읽은 해석입니다. 사례관리 수준과 개입계획은 서술기록까지 합쳐 통합 사정의견에서 정합니다. CORE 원점수와 공식 안전판정은 바뀌지 않습니다.</p>'
  +scalePages(state.payload)
  +'<h3 class="j88-numbers-title">숫자로 보기 · 통합지원 5단계와 지표 <small>개발형 보조지표</small></h3><div id="oy-index-visual-slot"></div>'
  +'<details class="j88-raw-accordion"><summary>원점수 · 25문항 상세 결과 펼치기</summary><div class="j88-metrics"><article><small>CORE 원점수</small><strong>'+esc(d.incomplete?'판정 보류':d.knownTotal+' / 100')+'</strong><span>미상 '+d.unknownItems.length+'개는 0점 처리하지 않습니다.</span></article>'
@@ -92,8 +92,8 @@ function resultIntegratedPage(a){
  +'</details></section>';
 }
 function resultViews(a){
- const menu=[['score','① 척도 해석'],['narrative','② 서술기록 분석'],['integrated','③ 통합 사정의견']];
- return '<nav class="j88-tabs j88-result-tabs" aria-label="척도 평가 결과별 분석">'+menu.map(([id,label])=>'<button type="button" data-j88-result-tab="'+id+'" aria-pressed="'+(id===resultTab)+'">'+label+'</button>').join('')+'</nav>'
+ const menu=[['score','척도 해석','25문항 응답으로 읽은 해석'],['narrative','서술기록 분석','관찰·면담 기록을 문장별로'],['integrated','통합 사정의견','척도와 서술을 함께 본 종합']];
+ return '<nav class="j88-tabs j88-result-tabs" aria-label="척도 평가 결과별 분석">'+menu.map(([id,label,sub])=>'<button type="button" data-j88-result-tab="'+id+'" aria-pressed="'+(id===resultTab)+'"><strong>'+label+'</strong><small>'+sub+'</small></button>').join('')+'</nav>'
  +(resultTab==='score'?resultScorePage(a):resultTab==='narrative'?resultNarrativePage(a):resultIntegratedPage(a));
 }
 
@@ -110,7 +110,7 @@ function caseJudgment(a){
  ];
  return '<section class="j88-formulation j88-case-decision"><h3>사례판정 · 지원체계 검토</h3><p>아래는 학맞통과 복지관 사례관리 기준을 참고한 <strong>지원경로 검토안</strong>이며 공식 선정·사례관리 개시 판정이 아닙니다. 한 사례에 여러 경로가 병행될 수 있습니다.</p>'+
  table(['검토 경로','검토 이유','확인 및 결정 기준'],rows)+
- '<p>판정·담당자의 실제 기록은 06 사례기록·모니터링에서 작성합니다.</p>'+
+ '<p>판정·담당자의 실제 기록은 기관 사례관리 기록에 옮겨 적습니다.</p>'+
  
  '<p>긴급 보호는 학맞통·복지관 의뢰 회의나 서식 작성을 기다리지 않고 사안별 보호 절차를 따릅니다.</p></section>';
 }
@@ -124,7 +124,7 @@ function caseProcess(){
  ['5. 목표별 개입·점검','학생과 합의한 단기·중장기 변화 목표, 담당자, 시작일, 점검주기 관리','기준선·목표·진행실적·생활변화 기록'],
  ['6. 재사정·종결·사후관리','변화된 점수·생활상황·학생 의견을 비교하고 지원 조정 및 종결 여부 협의','재사정 날짜, 종결·사후 점검 계획 기록']
  ])+
- '<p>연계 결정·재사정 기록은 06 사례기록·모니터링에서 작성합니다.</p>'+
+ '<p>연계 결정·재사정 기록은 기관 사례관리 기록에 옮겨 적습니다.</p>'+
  '</section>';
 }
 function forms(a){const tabs='<div class="j88-tabs" role="group" aria-label="사정·협의·계획 화면">'+[['사례사정','통합사정·사례판정'],['서비스계획','개입계획 수립'],['사례협의','사례회의·진행관리'],['기관별 실무자료','기관별 실무자료 · 출력']].map(([t,label])=>'<button data-j88-tab="'+t+'" aria-pressed="'+(tab===t)+'">'+label+'</button>').join('')+'</div>';
@@ -134,7 +134,7 @@ function forms(a){const tabs='<div class="j88-tabs" role="group" aria-label="사
  x.safetyCheck?'확인 결과에 따라 보호절차·연계 여부 결정':x.domain===7?'식사·주거·비용지원 기관을 하나의 계획으로 연결':x.domain===6?'가족 돌봄 공백 시간에 맞는 서비스 조정':x.domain===2?'정서지원 전문기관과 역할 분담':'가정·복지관·지역기관 지원을 협의',
  x.outcome||'실행 상태·생활변화 점검']))+'<details><summary>근거 원장 · 문항·서술·출처·시점</summary>'+table(['ID','종류','입력 근거','출처·시점','상태'],a.ledger.map(e=>[e.id,e.kind,e.text??e.value,e.source+' / '+e.time,e.status]))+'</details><section id="j88-relations"><h3>가계도·생태도 통합 초안</h3><div id="j88-rel-svg">'+OYRelations.svg(relations)+'</div><details><summary>관계·동거·이용 상태 편집</summary><div id="j88-rel-editor">'+OYRelations.editor(relations)+'</div></details></section>';
  if(tab==='사례협의')body=caseProcess()+reviewGuide(a,'사례협의')+'<div class="j88-case-next"><button type="button" class="flow-btn flow-primary" data-case-to-record>사례협의 결정·점검 작성 →</button></div>';
- if(tab==='서비스계획')body='<section class="j88-cie-handoff"><h3>서비스계획 · 실행 추천</h3><p>문항·서술 근거에 따라 단기 실행과 중장기 변화를 제시했습니다. 실제 이행·목표 수정은 ⑤ 사례기록·모니터링에서 작성합니다.</p></section>'+
+ if(tab==='서비스계획')body='<section class="j88-cie-handoff"><h3>서비스계획 · 실행 추천</h3><p>문항·서술 근거에 따라 단기 실행과 중장기 변화를 제시했습니다. 실제 이행·목표 수정은 기관 사례관리 기록에 남깁니다.</p></section>'+
  planTables(a)+
  '<div class="j88-case-next"><button type="button" class="flow-btn flow-primary" data-case-to-record>개입 기록·점검 단계로 이동 →</button></div>';
  if(tab==='AI 연구·지원설계')body=caseBrief(a)+'<section class="j88-cie-handoff"><h3>OY-CIE · 지원계획 연구 작업실</h3><p>현재 평가의 근거를 OY-CIE 자체 엔진으로 질문하고 후속 분석하는 선택 기능입니다. 생성형 GPT가 아니라 자체 규칙·검색 기반 추론이며 결과는 담당자 확인 전 가설입니다.</p><h4>1. 현재 근거와 우선 검토</h4>'+core(a)+table(['해석 가설','문항 근거','확인 질문'],a.cieActions.slice(0,5).map(x=>[x.hypothesis,x.evidence.join(' · ')||'서술·미상 확인',x.verification]))+'<h4>2. 지원계획 설계 요청</h4><p>학생 희망·지원 장벽·질문을 정리한 뒤 OY-CIE 대화형 연구실에서 추가 질문을 이어가세요.</p>'+field('researchWish','학생이 원하는 변화 · 직접 확인된 내용','',true)+field('researchBarrier','지원이 어려운 실제 장벽 · 확인된 사실','',true)+field('researchQuestion','AI에 심화 검토를 요청할 핵심 질문','',true)+'<h4>3. 계획을 결정하기 전에</h4><p>학생 동의·현재 안전·기존 지원·기관 접수조건을 확인하고, 목표의 기준선·담당·점검일을 합의합니다. AI의 답변은 시스템에 자동 반영되지 않습니다.</p><div class="j88-buttons"><button type="button" class="flow-btn flow-primary" data-j88-lab>OY-CIE 연구 분석 실행 ↗</button></div><p>연구 분석 실행은 현재 25문항과 안전 확인 정보만 별도 작업실로 전달합니다. 서술·이름·작성 메모는 자동 전송하지 않습니다. 연구 작업실은 질문과 답변을 대화 형태로 표시합니다. 입력된 질문은 외부 GPT로 전송되지 않습니다.</p><p><a href="cie-lab-v32/" target="_blank" rel="noopener noreferrer">OY-CIE 연구 작업실 자세히 보기 ↗</a></p></section>';
@@ -150,7 +150,7 @@ function renderContent(){if(!state?.ready||!state.payload||state.stage===1||stat
  box.querySelectorAll('[data-j88-result-tab]').forEach(b=>b.onclick=()=>{resultTab=b.dataset.j88ResultTab;render();window.OYStageInsights?.render(state);box.querySelector('[data-j88-result-tab][aria-pressed="true"]')?.focus({preventScroll:true});});
  box.querySelector('[data-j88-lab]')?.addEventListener('click',()=>{const lab=window.open('cie-lab-v32/?from=assessment','_blank');if(!lab){alert('팝업이 차단되었습니다. 브라우저에서 새 창을 허용해 주세요.');return;}const answers=state.payload.answers.slice();const followups={...state.payload.followups};const explicit=Array.isArray(state.payload.explicit)?state.payload.explicit.slice():[];const handler=e=>{if(e.origin!==location.origin||e.source!==lab||e.data?.type!=='oy-cie-lab-ready')return;window.removeEventListener('message',handler);lab.postMessage({type:'oy-cie-assessment-handoff',answers,followups,explicit},location.origin);};window.addEventListener('message',handler);});
  box.querySelector('[data-j88-research]')?.addEventListener('click',()=>{const tools=box.querySelector('.j88-tools');tools.open=true;tools.scrollIntoView({behavior:'smooth',block:'nearest'});$('j88-format').value='서비스계획서';$('j88-instructions').value='OY-CIE 연구 작업실: 근거 문항별 가설과 반증 질문을 제시하고, 학생 희망·강점·기존 지원·접근 장벽을 대조한 뒤 우선순위 3개, 안전 조치, 단기 1~2주 및 중장기 1~3개월 목표, 담당·기준선·측정 지표·점검일을 제안하세요. 미확인 사실을 확정하지 말고 대안 가설과 추가 질문을 포함하세요.';invalidate();});
- box.querySelector('[data-j88-map]')?.addEventListener('click',()=>document.querySelector('[data-result-view="map"]').click());
+ box.querySelector('[data-j88-map]')?.addEventListener('click',()=>document.querySelector('[data-oy-step="2"]').click());
   box.querySelectorAll('[data-case-to-record]').forEach(b=>b.addEventListener('click',()=>document.querySelector('[data-oy-step="5"]')?.click()));
  for(const id of ['j88-format','j88-context','j88-instructions'])$(id).addEventListener('input',invalidate);
  $('j88-prepare').onclick=()=>{const extra=$('j88-instructions').value;const packet='가능하면 작성 결과를 다운로드 가능한 PDF로 제공하고, 사용자가 요구한 서식도 지원하는 파일 형식으로 제공하세요. 아래 자료를 바탕으로 '+$('j88-format').value+' 초안을 한국어로 작성하세요. 현재 단계: '+stageName()+'. 사실·해석·미확인을 구분하고 점수·안전판정을 변경하지 마세요. 가중치를 검증된 상관·위험확률로 표현하지 마세요. 미상은 0점이 아닙니다. 신규 의뢰보다 기존 지원과 역할을 조정하되 안전 대응을 지연하지 마세요. 담당·동의·회의결정·서비스 이용·성과를 만들어내지 마세요.\n서식 요구: '+extra+'\n\n'+exportText();$('j88-prompt').value=OYPrivacyGuardV87.inspect(packet).redacted;preparedSource=exportText();$('j88-permission').checked=false;enable();$('j88-status').textContent='자동 가림은 완전하지 않습니다. 실제 전달할 내용을 검토해 주세요.';};
@@ -193,7 +193,7 @@ function resultExport(){
   if(ix)base.push('CORE 공식 판정: '+ix.official.title,'통합지원 단계: '+(R?R.tierLine(ix):(ix.tier?'제'+ix.tier+'단계 '+ix.label:'단계 미확정'))+' / 지표 '+(ix.composite===null?'미상 확인 후 계산':ix.composite+'/100')+' / 실행: '+(ix.tier===null?'확인된 어려움부터 지원하면서 미상 문항 확인':ix.action),
    ...(rr?['이 단계가 나온 이유: '+rr.drivers.map(d=>d.title+(d.decisive?'(결정)':'')+' — '+d.text).join(' / ')]:[]),
    ...(rr&&rr.checks.length?['먼저 확인할 것: '+rr.checks.slice(0,8).map(c=>c.text).join(' / ')]:[]),
-   '가중 응답강도 '+ix.weighted+' · 영역 동시응답 '+ix.crossScore+' · 핵심 안전문항 '+ix.criticalScore+' · 서술 '+(p.caseContext?.trim()?'①에서 제외 · ③ 반영':state.payload.caseContext?.trim()?'출력에서 제외':'미입력'),
+   '가중 응답강도 '+ix.weighted+' · 영역 동시응답 '+ix.crossScore+' · 핵심 안전문항 '+ix.criticalScore+' · 서술 '+(p.caseContext?.trim()?'척도 해석에서 제외 · 통합 사정의견에 반영':state.payload.caseContext?.trim()?'출력에서 제외':'미입력'),
    '안전 우선 상향: '+(ix.safetyReason||'해당 없음'),'개발형 분류 · 실증 타당도 미검증');
  }else if(resultTab==='narrative'){
   base.push('서술형 분석은 점수 및 안전판정을 수정하지 않습니다.');

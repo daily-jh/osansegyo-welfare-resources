@@ -1,12 +1,12 @@
 /* Research report download menu (top right of the header).
    Fills every [data-report-download] element. data-base is the path to docs/reports/ from the page. */
 (function(){'use strict';
-const VERSION='20261026-rev3';
-const EDITION='개정판 · 2026.10.26';
+const VERSION='20261027-rev4';
+const EDITION='개정판 · 2026.10.27';
 const FILES=[
- {title:'연구·기술검토 보고서',note:'척도·모델·자원연계·타당화 계획',stem:'oy-rals-research-report-rev-20261026',name:'OY-RALS_연구기술검토보고서_개정판_20261026'},
- {title:'해설 및 실무판정지침',note:'문항별 해석카드·결과 화면 읽는 법',stem:'oy-rals-practice-guide-rev-20261026',name:'OY-RALS_해설및실무판정지침_개정판_20261026'},
- {title:'모델·자원·AI 구조도',note:'A4 가로 · 화면과 모듈 대응',stem:'oy-rals-architecture-diagram-rev-20261026',name:'OY-RALS_모델자원AI구조도_개정판_20261026'},
+ {title:'연구·기술검토 보고서',note:'척도·모델·자원연계·타당화 계획',stem:'oy-rals-research-report-rev-20261027',name:'OY-RALS_연구기술검토보고서_개정판_20261027'},
+ {title:'해설 및 실무판정지침',note:'문항별 해석카드·결과 화면 읽는 법',stem:'oy-rals-practice-guide-rev-20261027',name:'OY-RALS_해설및실무판정지침_개정판_20261027'},
+ {title:'모델·자원·AI 구조도',note:'A4 가로 · 화면과 모듈 대응',stem:'oy-rals-architecture-diagram-rev-20261027',name:'OY-RALS_모델자원AI구조도_개정판_20261027'},
  {title:'후속 시스템화 운영설계',note:'데이터 표준·연계 상태·검증 로드맵',stem:'oy-rals-operations-design-rev-20261026',name:'OY-RALS_후속시스템화운영설계_개정판_20261026'},
  {title:'현장평가 양식',note:'종이 25문항·수기 판정·자원연계 서식(인쇄용)',stem:'oy-rals-field-form-rev-20261026',name:'OY-RALS_현장평가양식_개정판_20261026',pdfOnly:true}
 ];

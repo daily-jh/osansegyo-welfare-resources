@@ -31,12 +31,14 @@ const dependencies=[
  ['oy-scale-figures-v1.js','journey-v88.js']
 ];
 dependencies.forEach(([a,b])=>has(a,b));
-const stages=page.match(/data-oy-step="[1-5]"/g)||[];
-for(let i=1;i<=5;i++)assert.ok(stages.includes('data-oy-step="'+i+'"'),'UI stage '+i+' unavailable');
+const stages=page.match(/data-oy-step="\d"/g)||[];
+for(const i of [1,2,6,3])assert.ok(stages.includes('data-oy-step="'+i+'"'),'UI stage '+i+' unavailable');
+for(const i of [4,5])assert.ok(!stages.includes('data-oy-step="'+i+'"'),'retired UI stage '+i+' still linked');
 assert.ok(page.includes('assessmentFrame'),'assessment iframe required');
 assert.ok(page.includes('mapArea'),'original regional resource map required');
 assert.ok(page.includes('bundleIncludeContext'),'explicit contextual export selection');
-for(const key of ['id="architecture"','STEP 01','STEP 02','STEP 03','STEP 04','STEP 05','OYModelGateway','CORE','SUPPORT-5','ICSI','NCB','OY-CIE','K-CARR','ICMS','Relations','자원연계'])assert.ok(guide.includes(key),'guide missing '+key);
+assert.ok(!guide.includes('STEP 05'),'guide still lists a retired fifth step');
+for(const key of ['id="architecture"','STEP 01','STEP 02','STEP 03','STEP 04','OYModelGateway','CORE','SUPPORT-5','ICSI','NCB','OY-CIE','K-CARR','ICMS','Relations','자원연계'])assert.ok(guide.includes(key),'guide missing '+key);
 const gateway=require(path.join(dir,'model-gateway-v90.js'));
 const states=gateway.status();assert.equal(states.length,9);
 states.forEach(s=>assert.equal(s.loaded,true,s.id+' disconnected'));
@@ -44,4 +46,4 @@ const main=read('flow.js'),ai=read('oy-ask-panel-v1.js'),vis=read('stage-insight
 for(const part of ['youth-flow-complete-v1','youth-flow-invalid-v1','OYUnsavedGuard','beforeunload','exportBackup'])assert.ok(main.includes(part),'flow missing '+part);
 assert.ok(ai.includes('oy-ask-ok')&&vis.includes('oy-viz-copy-reviewed'),'PII review required for AI copy');
 assert.ok(map.includes('alternativesFor')&&map.includes('최종검토일')&&map.includes('확인 출처'),'resource fallback and provenance');
-console.log('PASS production architecture: '+states.length+' linked gateway contracts, '+dependencies.length+' script dependencies, five stages, safety, backup, privacy and referral fallback.');
+console.log('PASS production architecture: '+states.length+' linked gateway contracts, '+dependencies.length+' script dependencies, four steps, safety, backup, privacy and referral fallback.');
