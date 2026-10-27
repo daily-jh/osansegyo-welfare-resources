@@ -2,3 +2,5 @@
 
 .j88-relation-row{padding:16px;border:1px solid #cbd9e5;border-radius:12px;margin:12px 0;display:grid;grid-template-columns:1fr 1fr;gap:10px}.j88-relation-row label{margin:0}#j88-rel-svg svg{width:100%;height:auto;max-height:none}@media(max-width:650px){.j88-relation-row{grid-template-columns:1fr}}@media print{@page{size:A4;margin:16mm}#j88-print-root{color:#142e40;font-family:SUIT,'Malgun Gothic',sans-serif}#j88-print-root pre{font-family:inherit;font-size:10.5pt}#j88-print-root svg{break-inside:avoid}#j88-print-root li{overflow-wrap:anywhere}#j88-print-root h2{break-after:avoid}}
 .j88-plan-lead{margin:18px 0 0;font-weight:700;color:#24596a}.journey88 details.j88-plan-rest{padding:8px 0}
+
+.j88-numbers-title{margin:28px 0 10px;font-size:1.1rem;font-weight:700;letter-spacing:-.015em}.j88-numbers-title small{margin-left:6px;font-size:13px;font-weight:600;color:#56677a}

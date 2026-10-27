@@ -35,7 +35,7 @@ assert.equal(severe.summary.level,'위기개입 후 집중 사례관리');
 assert.equal(severe.summary.domainLevel,'개별영역 지원 수준','domain level keeps its own name');
 assert.ok(D.text(severe).includes('사례관리 수준: 위기개입 후 집중 사례관리'));
 assert.ok(!/지원 수준: /.test(D.text(severe)),'the ambiguous "지원 수준" label is gone');
-assert.ok(D.html(severe).includes('<dt>사례관리 수준</dt>'));
+assert.ok(!D.html(severe).includes('<dt>사례관리 수준</dt>'),'the scale pages leave the casework level to ③');
 const pending=build({7:'unknown'});
 assert.equal(pending.summary.level,pending.casework.level.name);
 assert.ok(!pending.understanding.includes('신호 신호'),'no doubled word');

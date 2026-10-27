@@ -378,21 +378,19 @@ function pagedHtml(r,body,head,glance,L){
   inner+='<section class="odi-sec odi-s-theme-'+t.key+'"><h3>'+esc(t.title)+' 해석</h3>'+themeBody(r,t,L,fig)+'</section>';
   pages.push(page('theme-'+t.key,t.title,t.deck,inner,{tags}));
  });
- // 3. What is holding, 4. who does what, 5. the figures and terms behind it all.
+ // 3. What is holding, 4. the figures and terms behind it all.
  let str=sec('strengths','잘 버티고 있는 부분',body.strengths());
  const quiet=S.T.filter(t=>!t.active);
  if(quiet.length)str+='<p class="odi-muted">어려움이 두드러지지 않은 생활 주제: '+esc(quiet.map(t=>t.title).join(', '))+'</p>';
  str+=sec('questions','면담에서 묻기',body.questions());
  if(fig)str+='<div class="odi-sec odi-figsec">'+fig.api.part(fig.f,'safety')+'</div>';
+ // The casework level, plan, ecology and agenda are judged with the narrative in ③ 통합 사정의견, not on the scale pages.
+ str+='<p class="odi-next"><strong>다음 읽을 곳</strong> 사례관리 수준, 단계별 개입계획, 생태체계, 사례회의 안건은 서술기록까지 합쳐 ③ 통합 사정의견에서 정합니다.</p>';
  pages.push(page('strengths','잘 버티고 있는 부분','지원을 시작할 발판입니다. 어려움보다 먼저 이 부분을 학생에게 말해 주면 대화가 쉬워집니다.',str));
- let plan=sec('case','얼마나 자주, 누가 <span>개입 수준</span>'.replace(/<[^>]+>/g,''),body.case())+sec('plan','단계별 개입계획',body.plan())+sec('roles','직무별 실천 과제',body.roles())+sec('ecology','생태체계 사정',body.ecology());
- if(fig)plan+='<div class="odi-sec odi-figsec">'+fig.api.part(fig.f,'eco')+'</div>';
- plan+=sec('agenda','사례회의 안건',body.agenda());
- pages.push(page('plan','함께 돕는 계획','누가, 얼마나 자주, 어떤 순서로 돕는지입니다.',plan));
  let pro='<section class="odi-sec odi-s-gloss"><h3>쉬운 말 ↔ 전문 용어</h3><p class="odi-muted">이 해석지에서 같은 내용을 부르는 두 가지 이름입니다.</p><div class="odi-table"><table><thead><tr><th scope="col">쉬운 말</th><th scope="col">전문 용어</th><th scope="col">뜻</th></tr></thead><tbody>'
   +L.GLOSSARY.map(g=>'<tr><th scope="row">'+esc(g.plain)+'</th><td class="odi-termcell">'+esc(g.term)+'</td><td>'+esc(g.text)+'</td></tr>').join('')+'</tbody></table></div></section>';
  pro+=sec('code','응답 프로파일 유형',body.code())+sec('profile','영역별 프로파일',body.profile());
- if(fig)pro+='<div class="odi-sec odi-figsec">'+['domains','axes','dist','map'].map(k=>fig.api.part(fig.f,k)).join('')+fig.api.noticeHtml(fig.f)+'</div>';
+ if(fig)pro+='<div class="odi-sec odi-figsec">'+['domains','axes','dist','map','eco'].map(k=>fig.api.part(fig.f,k)).join('')+fig.api.noticeHtml(fig.f)+'</div>';
  pro+=sec('consult','슈퍼비전·자문 의견',body.consult())+sec('reassess','재사정 지표',body.reassess())+sec('validity','응답 타당도 점검',body.validity());
  pro+=appendixHtml(r);
  pages.push(page('expert','전문가 노트','슈퍼비전과 기록에 쓰는 도식, 용어, 원자료입니다.',pro));
@@ -419,7 +417,7 @@ function html(r){
   reassess:()=>r.reassess.length?ul(r.reassess.map(x=>'<strong>'+esc(x.topic)+'</strong> 지금: '+esc(x.nowText)+'<br>다음 목표: '+esc(x.target))):'<p>다음 평가에서 지금의 응답이 유지되는지와 새로운 어려움이 생겼는지 봅니다.</p>',
   validity:()=>'<p><strong>'+esc(r.validity.level)+'</strong> · '+esc(r.validity.summary)+'</p>'+ul(r.validity.rows.map(x=>'<strong>'+esc(x.label)+'</strong> '+esc(x.text)))
  };
- const glance='<section class="odi-sec odi-glance"><h3>한눈에 보기</h3><dl><div><dt>사례관리 수준</dt><dd>'+esc(s.level)+'</dd></div><div class="'+(s.safety==='이번 응답의 안전 신호 없음'?'':'odi-alert')+'"><dt>현재 안전</dt><dd>'+esc(s.safety)+'</dd></div><div><dt>핵심 어려움</dt><dd>'+(s.keys.length?s.keys.map(k=>'<span class="odi-chip">'+esc(k)+'</span>').join(''):'두드러진 어려움 없음')+'</dd></div><div><dt>첫 행동</dt><dd>'+esc(s.first)+'</dd></div><div><dt>해석 신뢰도</dt><dd>'+esc(r.validity.level)+' · '+esc(r.validity.summary)+'</dd></div></dl></section>';
+ const glance='<section class="odi-sec odi-glance"><h3>한눈에 보기</h3><dl><div class="'+(s.safety==='이번 응답의 안전 신호 없음'?'':'odi-alert')+'"><dt>현재 안전</dt><dd>'+esc(s.safety)+'</dd></div><div><dt>핵심 어려움</dt><dd>'+(s.keys.length?s.keys.map(k=>'<span class="odi-chip">'+esc(k)+'</span>').join(''):'두드러진 어려움 없음')+'</dd></div><div><dt>첫 행동</dt><dd>'+esc(s.first)+'</dd></div><div><dt>해석 신뢰도</dt><dd>'+esc(r.validity.level)+' · '+esc(r.validity.summary)+'</dd></div></dl></section>';
  const head='<header class="odi-head"><span class="odi-kicker">OY-RALS 척도 심층해석</span><h2>'+esc(r.code.name)+'</h2><p>CORE 공식 판정: '+esc(r.title)+'</p></header>';
  const L=ladder();
  if(L){try{return pagedHtml(r,body,head,glance,L)}catch(_){/* fall through to the linear report */}}

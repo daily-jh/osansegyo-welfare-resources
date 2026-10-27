@@ -35,9 +35,10 @@ async function heavy(browser,width){
  await answer(frame,set);
  await frame.locator('#oyCaseContextText').fill('학생이 오늘 촬영물을 퍼뜨리겠다는 협박을 받았다고 말했다.');
  await complete(page,frame);
- // ① scale reading: the glance names the casework level.
+ // ① scale reading leaves the casework level to ③ and says so.
  const score=await page.locator('#journey88').innerText();
- assert.match(score,/사례관리 수준/,'glance label');
+ assert.doesNotMatch(score,/사례관리 수준\n/,'no casework glance on the scale tab');
+ assert.match(score,/③ 통합 사정의견에서 정합니다/,'scale tab points to ③');
  assert.doesNotMatch(score,/신호 신호/);
  // ② narrative: the threat is a safety cue.
  await page.locator('[data-j88-result-tab="narrative"]').click();
