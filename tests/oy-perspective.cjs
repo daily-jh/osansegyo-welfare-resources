@@ -63,6 +63,13 @@ const lawH=P.render('school',cases.neglectCue)+P.render('agency',cases.neglectCu
 assert.ok(!/범주\(제2조\)|공개 요약 기준|일반적으로 만 12세/.test(lawH),'old draft wording removed');
 for(const k of ['제2조 제1호 예시','제10조⑥','제11조③','학교장 선정','0세(임산부)','만 14세 미만은 법정대리인'])assert.ok(lawH.includes(k),'law wording: '+k);
 
+// 통합사례관리 선정 기준: 2개 이상 기관의 전문적 개입, 위기 영역이 있으면 해당 (지훈 2026-10-27).
+const keyRow=p=>(P.render('agency',p).match(/<tr class="oyp-key">.*?<\/tr>/)||[''])[0];
+assert.match(keyRow(cases.urgent),/위기 영역.*선정 기준 충족/,'safety response meets the two-agency rule');
+assert.match(keyRow(cases.neglectCueNoText),/선정 기준 충족/,'several fields meet the rule');
+assert.match(keyRow(cases.zero),/미충족/,'all-zero case does not meet the rule');
+assert.match(P.render('agency',cases.zero),/선정 기준\(2개 이상 기관\) 미충족이면 단순 연계로 검토/,'unmet rule points to brief linkage');
+
 // No real case material: rendered packs carry only the synthetic text we passed in.
 assert.ok(!/\d{6}-\d{7}|010-\d{4}-\d{4}/.test(P.render('agency',cases.neglectCue)),'no resident or phone numbers');
 console.log('oy-perspective: ok');
