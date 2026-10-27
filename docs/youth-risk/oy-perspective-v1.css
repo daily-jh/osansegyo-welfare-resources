@@ -266,3 +266,6 @@ label.oyp-mf{display:inline-flex;margin:0;font-weight:500}
 #oyp-print-root .oyp-ob{border:.7px solid #9aa6b2!important}
 .oyp .oyp-sheet input.oyp-fld{background:transparent;border-radius:0;border-bottom:.8px solid #333;padding:0 2px}}
 @media print{#oyp-print-root{display:block}}
+
+/* 통합사례관리 선정 기준 행 */
+.oyp .oyp-t tr.oyp-key>*{background:var(--acc-soft);font-weight:600}
