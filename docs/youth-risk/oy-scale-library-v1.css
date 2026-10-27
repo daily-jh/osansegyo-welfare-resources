@@ -1,0 +1,59 @@
+/* 06 척도 자료실(oy-scale-library-v1). 토큰 v12만 쓴다. 자료실이 열리면 5단계 흐름의 다른 화면은 숨기기만 하고 상태는 그대로 둔다. */
+body.oy-lib-open #assessmentFlow>:not(.flow-nav):not(#scaleLibraryArea),body.oy-lib-open #welcome{display:none!important}
+#scaleLibraryArea[hidden]{display:none}
+@media(min-width:1000px){#assessmentFlow .flow-nav:has([data-oy-lib]){grid-template-columns:repeat(6,minmax(0,1fr))}}
+@media(min-width:701px) and (max-width:999px){#assessmentFlow .flow-nav:has([data-oy-lib]){grid-template-columns:repeat(3,minmax(0,1fr))}}
+.osl{max-width:900px;margin:8px auto 40px;color:var(--oy-ink)}
+.osl-head h2{font-size:30px;line-height:1.2;margin:2px 0 10px;letter-spacing:-.01em}
+.osl-kicker{margin:0;font-size:13px;font-weight:700;letter-spacing:.08em;color:var(--oy-data)}
+.osl-head p{font-size:16px;line-height:1.7;margin:0 0 8px}
+.osl-head .osl-note{font-size:14px;color:var(--oy-muted)}
+.osl-filter{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0 8px}
+#assessmentFlow .osl-filter button{min-height:var(--oy-tap);padding:0 16px;border-radius:999px;border:1px solid var(--oy-line);background:var(--oy-surface)!important;color:var(--oy-ink)!important;font-size:15px;box-shadow:none!important}
+#assessmentFlow .osl-filter button[aria-pressed=true]{background:var(--oy-ink)!important;border-color:var(--oy-ink)!important;color:#fff!important}
+.osl-legend{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 6px}
+.osl-group{margin:26px 0 0}
+.osl-group[hidden],.osl-card[hidden]{display:none}
+.osl-group h3{font-size:19px;margin:0 0 8px;padding-bottom:8px;border-bottom:2px solid var(--oy-ink)}
+.osl-group h3 span{font-size:14px;font-weight:400;color:var(--oy-muted);margin-left:6px}
+.osl-card{border-bottom:1px solid var(--oy-line)}
+#assessmentFlow .osl-card>summary{list-style:none;cursor:pointer;display:grid!important;align-items:start;font-weight:400;font-size:inherit;color:inherit;background:none;border:0;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;padding:14px 30px 14px 0;position:relative;min-height:var(--oy-tap)}
+.osl-card>summary::-webkit-details-marker{display:none}
+#assessmentFlow .osl-card>summary::after{content:'';position:absolute;right:8px;top:22px;width:8px;height:8px;border-right:2px solid var(--oy-muted);border-bottom:2px solid var(--oy-muted);transform:rotate(45deg)!important;transition:transform .15s;background:none!important;content:''!important}
+#assessmentFlow .osl-card[open]>summary::after{transform:rotate(-135deg)!important;top:26px}
+.osl-name{font-size:17px;font-weight:700;grid-column:1}
+.osl-short{font-size:14px;color:var(--oy-muted);grid-column:1}
+.osl-tags{grid-column:2;grid-row:1/3;display:flex;flex-direction:column;align-items:flex-end;gap:4px;justify-content:center}
+.osl-lv{font-size:13px;color:var(--oy-muted)}
+.osl-acc{display:inline-block;font-size:12px;font-weight:650;padding:3px 8px;border-radius:999px;white-space:nowrap}
+.osl-own{background:var(--oy-data);color:#fff}
+.osl-official{background:var(--oy-data-soft);color:var(--oy-data-ink)}
+.osl-request{background:var(--oy-check-soft);color:var(--oy-check-ink)}
+.osl-restricted{background:var(--oy-core-soft);color:var(--oy-muted)}
+.osl-body{padding:0 0 18px}
+.osl-purpose{font-size:16px;line-height:1.7;margin:0 0 10px}
+.osl-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 24px;margin:0}
+.osl-facts>div{padding:8px 0;border-top:1px solid var(--oy-line)}
+.osl-facts>div:nth-child(n+4){grid-column:1/-1}
+.osl-facts dt{font-size:13px;font-weight:700;color:var(--oy-muted);margin:0 0 2px}
+.osl-facts dd{margin:0;font-size:15px;line-height:1.6}
+.osl-files{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}
+.osl-dl{display:inline-flex;align-items:center;min-height:var(--oy-tap);padding:0 14px;border-radius:var(--oy-radius);border:1px solid var(--oy-data);color:var(--oy-data-ink);text-decoration:none;font-size:15px;font-weight:600}
+.osl-dl:hover{background:var(--oy-data-soft)}
+.osl-dl.osl-own{background:var(--oy-data);color:#fff}
+.osl-none{font-size:14px;color:var(--oy-muted);margin:10px 0 0}
+.osl-tools{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 0;padding-top:16px;border-top:1px solid var(--oy-line)}
+.osl-tools button{min-height:var(--oy-tap);padding:0 16px;border-radius:var(--oy-radius);border:1px solid var(--oy-line);background:var(--oy-surface);font-size:15px}
+@media(max-width:640px){
+ .osl-head h2{font-size:25px}
+ #assessmentFlow .osl-card>summary{grid-template-columns:minmax(0,1fr);padding-right:28px}
+ .osl-tags{grid-column:1;grid-row:auto;flex-direction:row;flex-wrap:wrap;min-width:0;align-items:center;justify-content:flex-start;gap:8px;margin-top:4px}
+ .osl-facts{grid-template-columns:1fr}
+ .osl-facts>div{grid-column:1/-1!important}
+ .osl-dl{width:100%}
+}
+@media print{
+ body.oy-lib-open .flow-nav,body.oy-lib-open header,body.oy-lib-open footer,.osl-filter,.osl-tools{display:none!important}
+ .osl{max-width:none}.osl-card{break-inside:avoid}#assessmentFlow .osl-card>summary::after{display:none}
+ .osl-dl{border:0;padding:0;min-height:0}.osl-dl::after{content:' ('attr(href)')';font-size:10px;color:#555}
+}
