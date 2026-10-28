@@ -156,7 +156,7 @@ function html(m){
   const roles=Object.keys(SCOPE);
   const today=(()=>{try{return new Date().toLocaleDateString('ko-KR',{timeZone:'Asia/Seoul'})}catch(_){return ''}})();
   return '<header class="oy1-mast"><span class="oy1-kicker">OY-RALS 핵심 결과 한 장'+(sc?' · '+esc(sc.name)+'판':'')+'</span><span class="oy1-meta">'+esc(today)+' · 실무자 확인 전 초안 · 학생 이름·서술기록 미포함</span></header>'+
-   '<div class="oy1-head"><h3 id="oy1Title">이것만 먼저 보세요</h3><p class="oy1-deck">'+esc(deck(m))+'</p>'+
+   '<div class="oy1-head"><h3 id="oy1Title">핵심 결과 요약</h3><p class="oy1-deck">'+esc(deck(m))+'</p>'+
    (sc?'':'<p class="oy1-role">역할을 고르면 다음 할 일이 맞춰집니다</p>')+'</div>'+
    (sc?'':'<div class="oy1-pick" role="group" aria-label="역할 고르기">'+roles.map(r=>'<button type="button" data-oy-role="'+r+'">'+esc(SCOPE[r].name)+'</button>').join('')+'</div>')+
    '<div class="oy1-grid">'+

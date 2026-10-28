@@ -1,4 +1,4 @@
-/* OY-RALS 메인 화면 CSS 묶음 v13 · 원본 32개 · sha 35de0fce98a3 · 직접 고치지 말고 원본을 고친 뒤 node scripts/build-youth-css.cjs */
+/* OY-RALS 메인 화면 CSS 묶음 v13 · 원본 32개 · sha ed3d78124c38 · 직접 고치지 말고 원본을 고친 뒤 node scripts/build-youth-css.cjs */
 /* ==== flow.css ==== */
 @font-face{font-family:SUIT;src:url(fonts/SUIT-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}*{box-sizing:border-box}body{margin:0;background:#f1f5fa;color:#263f57;font-family:SUIT,"Malgun Gothic",sans-serif}.flow-wrap{max-width:1240px;width:calc(100% - 32px);margin:auto}.flow-header{background:#fff;border-bottom:1px solid #dce5ef;padding:24px 0}.flow-header p{font-size:12px;letter-spacing:.12em;color:#5f7c99;margin:0 0 8px}.flow-header h1{font-size:28px;margin:0 0 8px}.flow-header small{font-size:15px;color:#56718b}.flow-nav{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 10px}.flow-nav button,.flow-btn{font:inherit;cursor:pointer;border:1px solid #cadbea;background:#fff;color:#315776;border-radius:22px;padding:12px 18px;font-weight:700}.flow-nav button[aria-current=step]{background:#305e89;color:white;border-color:#305e89}.flow-nav button:disabled{color:#8b9aaa;background:#eaf0f5;cursor:default}#flowStatus{font-size:14px;line-height:1.7;color:#57708a}#stepTitle{font-size:23px;margin:24px 0 16px}.flow-frame{display:block;width:100%;height:1000px;border:0;background:#f1f5fa;overflow:hidden}.flow-frame[hidden]{display:none}.flow-bottom{display:flex;justify-content:space-between;gap:12px;margin:24px 0 40px}.flow-primary{background:#305e89;color:white;border-color:#305e89}.flow-result-tabs{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}.flow-result-tabs [aria-pressed=true]{background:#dceafa}.flow-focus{border:1px solid #d6e2ef;background:#fff;border-radius:22px;padding:20px;margin:20px 0}.flow-focus h3{margin:0 0 8px;font-size:18px}.flow-focus p{font-size:14px;line-height:1.7;color:#587189}#focusChoices{display:flex;gap:12px;flex-wrap:wrap}#focusChoices label{padding:10px 13px;background:#f0f5fb;border-radius:16px;display:flex;gap:8px;align-items:center;font-size:14px}#recordVersion{font:inherit;padding:10px;border:1px solid #c2d5e7;border-radius:12px}footer.flow-footer{padding:25px 0;border-top:1px solid #d7e2ed;font-size:13px;line-height:1.8;color:#587087}footer.flow-footer a{color:inherit}button:focus-visible,a:focus-visible{outline:3px solid #94bce5;outline-offset:3px}@media(max-width:650px){.flow-wrap{width:calc(100% - 20px)}.flow-header h1{font-size:24px}.flow-nav{display:grid;grid-template-columns:1fr 1fr}.flow-nav button{padding:11px 8px;font-size:13px}.flow-bottom button{font-size:14px;padding:12px}.flow-focus{padding:16px}}@media print{.flow-header,.flow-nav,.flow-bottom,.flow-footer{display:none}}
 
@@ -1886,9 +1886,9 @@ html.oy-contrast .ofr-rep{--mut:#1f2733;--ln:#4b5563}
 
 /* ==== oy-onepage-v1.css ==== */
 /* OY-RALS 핵심 결과 1장 v1 (oy-onepage-v1.js) — 잡지 지면형(지훈 2026-10-28).
-   명조 제목·가는 선·큰 번호·두 단 구성. 웹폰트를 따로 받지 않고 기기에 있는 명조(나눔명조·바탕·애플명조)를 쓰며, 없으면 고딕으로 보인다.
+   가는 선·큰 번호·두 단 구성. 글꼴은 다른 화면과 같은 고딕(지훈 2026-10-28 11:51Z: 명조 대신 단정한 체). --oy1-serif는 이름만 남은 제목 글꼴 변수다.
    색은 oy-tokens-v12 토큰만 쓴다: 파랑=데이터, 빨강=안전, 주황=확인 필요. */
-.oy1{--oy1-serif:"Nanum Myeongjo","NanumMyeongjo","Noto Serif KR","AppleMyungjo","Batang","바탕",serif;--oy1-rule:#1d2530;
+.oy1{--oy1-serif:inherit;--oy1-rule:#1d2530;
   margin:0 0 22px;padding:26px 30px 22px;border:0;border-top:4px solid var(--oy1-rule);border-radius:0;background:var(--oy-surface);color:var(--oy-ink);box-shadow:0 1px 0 var(--oy-line)}
 /* 마스트헤드 */
 .oy1-mast{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 16px;padding-bottom:8px;border-bottom:1px solid var(--oy1-rule);font-size:.74rem;letter-spacing:.04em}
@@ -1953,6 +1953,10 @@ html.oy-contrast .ofr-rep{--mut:#1f2733;--ln:#4b5563}
 .oy1-end cite{display:block;margin-top:6px;font-style:normal;font-size:.78rem;font-weight:800;letter-spacing:.04em;color:var(--oy-data-ink)}
 .oy1-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
 .oy1-more{margin-left:auto}
+/* 「자세히 보기」는 붉은 계열로 강조(지훈 2026-10-28) */
+#assessmentFlow .oy1 .flow-btn.oy1-more{background:var(--oy-risk);border-color:var(--oy-risk);color:#fff;font-weight:700}
+#assessmentFlow .oy1 .flow-btn.oy1-more:hover{background:#962c25;border-color:#962c25}
+#assessmentFlow .oy1 .flow-btn.oy1-more[aria-expanded="true"]{background:var(--oy-risk-soft);color:var(--oy-risk);border-color:var(--oy-risk)}
 .oy1-pass{margin-top:10px;padding:12px 0;border-top:1px dotted #c9cfd8;font-size:.9rem}
 .oy1-pass p{margin:0 0 8px}.oy1-pass ol{margin:0;padding-left:1.2em;display:grid;gap:8px}
 .oy1-pass small{display:block;color:var(--oy-muted);margin-top:2px}
