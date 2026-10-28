@@ -21,4 +21,9 @@ assert.ok(html.includes('id="allDayOnly"')&&app.includes("state.allDay=e.target.
 // 8. 다국어·쉬운 말 안내
 for(const lang of ['en','zh','vi','ru'])assert.ok(html.includes(`lang="${lang}"`),lang);
 assert.ok(html.includes('쉬운 말로 찾는 방법')&&html.includes('assets/home-tools-v8.css'));
+// 2026-10-28 메인 정리: 연구보고서 메뉴는 메인에서 빼고(OY-RALS 화면 유지), 긴급전화 띠는 맨 아래, 범주 수는 실제 범주 탭과 같게.
+assert.ok(!html.includes('data-report-download')&&!html.includes('report-download.js'),'research report menu removed from main page');
+assert.ok(html.indexOf('class="help-now')>html.indexOf('id="maintenanceTitle"')&&html.indexOf('class="help-now')<html.indexOf('</main>'),'call strip sits at the bottom of main');
+assert.ok(html.includes('id="statLevels"')&&app.includes("$('#statLevels')"),'category count follows region tabs');
+assert.equal(new Set(D.organizations.map(o=>o.scope)).size,4);
 console.log(JSON.stringify({scopes:[...new Set(D.organizations.map(o=>o.scope))],strip:numbers,allDay:allDay.map(o=>o.name)}));
