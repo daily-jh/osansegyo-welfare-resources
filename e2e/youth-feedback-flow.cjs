@@ -31,10 +31,12 @@ const server=http.createServer((q,s)=>{let p=decodeURIComponent(new URL(q.url,'h
  await p.locator('#oyfbBody').fill('학생 이름 김가상, 연락처 010-0000-0000');await p.locator('#oyfbOk').check();await p.locator('#oyfbSend').click();
  assert.match(await p.locator('#oyfbStatus').innerText(),/휴대전화 번호|학생 이름/);
  // ④ 후기
- await p.locator('[data-oyfb-kind="review"]').click();assert.equal(await p.locator('#oyfbRating').isVisible(),true);
- await p.locator('input[name="oyfbRate"][value="5"]').check({force:true});await p.locator('#oyfbBody').fill('사례회의 전에 판정 근거를 한 장으로 볼 수 있어 좋았습니다.');await p.locator('#oyfbOk').check();await p.locator('#oyfbSend').click();
+ await p.locator('[data-oyfb-kind="review"]').click();assert.equal(await p.locator('#oyfbRating').isVisible(),true);assert.equal(await p.locator('#oyfbArea').isVisible(),false,'후기는 화면 구분 없이 전체 의견으로 받음');
+ await p.locator('input[name="oyfbRate"][value="5"]').check({force:true});await p.locator('#oyfbBody').fill('');await p.locator('#oyfbSend').click();assert.match(await p.locator('#oyfbStatus').innerText(),/하나 이상 누르거나/);
+ await p.locator('[data-oyfb-pick="학생을 이해하는 데 좋아요"]').click();await p.locator('[data-oyfb-pick="실무에 바로 쓸 수 있을 것 같아요"]').click();assert.equal(await p.locator('[data-oyfb-pick][aria-pressed="true"]').count(),2);
+ await p.locator('#oyfbBody').fill('사례회의 전에 판정 근거를 한 장으로 볼 수 있어 좋았습니다.');await p.locator('#oyfbOk').check();await p.locator('#oyfbSend').click();
  await p.waitForFunction(()=>/공개됩니다/.test(document.getElementById('oyfbStatus').textContent));
- const rows=db.prepare('SELECT kind,status,rating,area FROM feedback ORDER BY created').all();assert.deepEqual(rows.map(r=>r.kind+':'+r.status),['report:new','review:pending']);assert.equal(rows[1].rating,5);
+ const rows=db.prepare('SELECT kind,status,rating,area FROM feedback ORDER BY created').all();assert.deepEqual(rows.map(r=>r.kind+':'+r.status),['report:new','review:pending']);assert.equal(rows[1].rating,5);assert.equal(rows[1].area,'전체·기타');assert.equal(db.prepare('SELECT body FROM feedback WHERE kind=?').get('review').body,'학생을 이해하는 데 좋아요 · 실무에 바로 쓸 수 있을 것 같아요\n사례회의 전에 판정 근거를 한 장으로 볼 수 있어 좋았습니다.');
  await p.evaluate(()=>OYFeedback.reload());await p.waitForTimeout(300);assert.match(await p.locator('#oyfbList').innerText(),/아직 공개된 후기가 없습니다/,'pending review not public');
  const id=db.prepare("SELECT id FROM feedback WHERE kind='review'").get().id;db.prepare("UPDATE feedback SET status='approved' WHERE id=?").run(id);
  await p.evaluate(()=>OYFeedback.reload());await p.waitForTimeout(300);const pub=await p.locator('#oyfbList').innerText();assert.match(pub,/판정 근거를 한 장으로/);assert.doesNotMatch(pub,/점수 칸이 비어/,'private report never public');
