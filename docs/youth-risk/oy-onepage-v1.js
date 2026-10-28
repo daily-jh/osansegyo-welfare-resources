@@ -8,18 +8,19 @@ const node=typeof module!=='undefined'&&module.exports;
 const VERSION='1.0.0-20261028';
 const need=(n,g)=>node?require('./'+n):root[g];
 const FR=()=>need('oy-final-report-v1.js','OYFinalReport');
+const OBS=()=>{try{return need('oy-perspective-v1.js','OYPerspective').OBS||{}}catch(_){return {}}};
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const NAMES=['안정관찰','초기주의','집중지원','다기관 집중개입','최우선 안전대응'];
 const dots=v=>'<span class="oy1-dots" aria-label="가장 높은 문항 '+v+'점">'+[1,2,3,4].map(k=>'<i class="'+(k<=v?'f':'')+'"></i>').join('')+'</span>';
 
 /* 역할별 범위. steps는 상단 메뉴 data-oy-step 값(1=01, 2=02, 6=03, 3=04, 7=05). */
 const SCOPE={
-  teacher:{name:'담임교사',steps:['1','2'],end:'담임교사는 여기까지입니다. 이 한 장을 교육복지사(또는 Wee클래스)에게 전달하고, 필요하면 02 지역자원 지도에서 가까운 기관을 함께 봅니다. 03 학교 지원은 궁금할 때만 보세요.'},
-  edu:{name:'교육복지사',steps:['1','6','2'],end:'교육복지사는 01 결과와 03 학교 지원(교육복지사 절차)까지 봅니다. 학교 밖 자원이 필요하면 02 지역자원을 엽니다.'},
-  team:{name:'학맞통 지원팀',steps:['1','7'],end:'학맞통 지원팀은 이 한 장과 05 최종 보고서(사례회의 자료)를 봅니다. 근거가 더 필요하면 「자세히 보기」를 엽니다.'},
-  cwc:{name:'사회복지관',steps:['1','2','3','7'],end:'기관 실무자는 01부터 05까지 전체 흐름을 씁니다. 이 한 장은 사례회의 첫 장으로 쓰면 됩니다.'},
-  child:{name:'아동·가족기관',steps:['1','2','3','7'],end:'기관 실무자는 01부터 05까지 전체 흐름을 씁니다. 이 한 장은 사례회의 첫 장으로 쓰면 됩니다.'},
-  admin:{name:'행정복지센터',steps:['1','2','3','7'],end:'행정복지센터는 01 결과와 02 지역자원, 04 기관 사례관리(행정복지센터 역할)를 봅니다.'}
+  teacher:{name:'담임교사',steps:['1','2'],end:'담임교사는 학생의 변화를 가장 먼저 알아차리고 연결하는 역할입니다. 이 한 장을 교육복지사(또는 Wee클래스)에게 전해 주시면 이후 지원은 학교와 기관이 함께 이어 갑니다. 가까운 기관이 궁금하면 02 지역자원 지도를 보세요.'},
+  edu:{name:'교육복지사',steps:['1','6','2'],end:'교육복지사는 학교 안 지원을 정하고 학교 밖 기관과 잇는 역할입니다. 01 결과와 03 학교 지원(교육복지사 절차)을 중심으로 보고, 학교 밖 자원은 02 지역자원에서 찾습니다.'},
+  team:{name:'학맞통 지원팀',steps:['1','7'],end:'학맞통 지원팀은 사례회의에서 지원 계획과 맡을 기관을 정하는 역할입니다. 이 한 장과 05 최종 보고서를 회의 자료로 쓰고, 근거가 더 필요하면 「자세히 보기」를 엽니다.'},
+  cwc:{name:'사회복지관',steps:['1','2','3','7'],end:'사회복지관은 사정부터 계획·보고서까지 사례를 이끄는 역할입니다. 01부터 05까지 전체 흐름을 쓰고, 이 한 장은 사례회의 첫 장으로 씁니다.'},
+  child:{name:'아동·가족기관',steps:['1','2','3','7'],end:'아동·가족기관은 가족과 돌봄 영역의 전문 지원을 맡는 역할입니다. 01부터 05까지 전체 흐름을 쓰고, 이 한 장은 사례회의 첫 장으로 씁니다.'},
+  admin:{name:'행정복지센터',steps:['1','2','3','7'],end:'행정복지센터는 공공 급여·서비스를 확인하고 연결하는 역할입니다. 01 결과와 02 지역자원, 04 기관 사례관리(행정복지센터 역할)를 봅니다.'}
 };
 const roleNow=()=>{try{return (root.OYRole&&root.OYRole.current())||''}catch(_){return ''}};
 
@@ -33,7 +34,69 @@ function model(p,role){
   const safetyTone=k.urgent?'r':k.safety.tone==='check'?'c':'ok';
   const sel=k.R.selection||{};
   const steps=nextSteps(k,role,unknown,sel);
-  return {k,role,scope:SCOPE[role]||null,unknown,hard,safetyTone,steps,tier:k.tier,tierName:k.tierName,tierWhy:k.tierWhy,provisional:!!k.R.provisional};
+  const teach=extras(k,ans,role);
+  return {k,role,scope:SCOPE[role]||null,unknown,hard,safetyTone,steps,teach,tier:k.tier,tierName:k.tierName,tierWhy:k.tierWhy,provisional:!!k.R.provisional};
+}
+/* 역할별로 한 장을 채우는 추천 항목. 모두 척도 응답·판정 사슬·해석에서 나오며 서술 원문은 쓰지 않는다.
+   블록: {h 제목, li 목록 | p 문단, tip 작은 안내, cls}. 마지막은 그 역할이 손으로 적는 메모 칸. */
+const first=t=>String(t||'').split(/(?<=다\.)\s+/)[0];
+const roleItems=(d,name)=>(((d.roles||[]).find(r=>r.role===name)||{}).items||[]).slice(0,3);
+function extras(k,ans,role){
+  if(!SCOPE[role])return null;
+  const d=k.R.deep||{},I=k.R.integrated||{},O=OBS(),sel=k.R.selection||{};
+  const watch=ans.map((v,i)=>({n:i+1,v})).filter(x=>Number.isInteger(x.v)&&x.v>=2&&O[x.n]).sort((a,b)=>b.v-a.v).slice(0,5).map(x=>O[x.n]);
+  const strengths=(k.strengths||[]).slice(0,2).map(x=>x.label+' · '+first(x.text));
+  const near=(k.resources||[]).slice(0,3).map(r=>({b:r.name,t:r.service,s:r.domain}));
+  const qs=all=>(I.questions||[]).filter(q=>all||q.why!=='안전 확인').slice(0,all?3:2).map(q=>'“'+q.q+'”');
+  const meet=[...k.agenda.map(a=>a.t),...(k.meet||[])].slice(0,4);
+  const stops=(k.stops||[]).map(st=>st.h+' · '+(((st.rows||[])[0]||{}).what||'')).filter(t=>!/ · $/.test(t)).slice(0,4);
+  const goals=(k.goals||[]).slice(0,3).map(g=>g.topic+' → '+g.target);
+  const fam=first(k.family);
+  const B=[];const add=(h,o)=>{if((o.li&&o.li.length)||o.p||o.near&&o.near.length)B.push({h,...o})};
+  const nearTip='연결은 담당자와 함께 정합니다. 02 지역자원 지도에서 더 볼 수 있습니다.';
+  if(role==='teacher'){
+    const care=['어려움을 반 친구들 앞에서 지적하거나 묻지 않습니다.','원인(학대·방임 등)을 짐작해 학생이나 보호자에게 캐묻지 않습니다. 본 것만 적습니다.'];
+    if(k.urgent)care.unshift('비밀로 해 달라는 부탁에는 "너를 지키려면 도와줄 선생님께 알려야 해"라고 말하고 약속하지 않습니다.');
+    else if(k.safety.tone==='check')care.unshift('모르는 안전 문항은 교육복지사·상담교사가 직접 확인하도록 바로 넘깁니다.');
+    B.push({h:'교실에서 살펴볼 모습',li:watch,tip:watch.length?'언제·어떤 수업에서 봤는지 날짜와 함께 사실만 짧게 적어 두면 교육복지사에게 큰 도움이 됩니다.':'',p:watch.length?'':'2점 이상 응답이 없어 따로 살필 모습은 없습니다. 평소처럼 지켜봅니다.'});
+    add('수업·생활에서 도울 수 있는 것',{li:roleItems(d,'교사')});
+    add('학생에게 이렇게 물어보세요',{li:k.urgent?[]:qs(false),tip:'대답을 재촉하지 않고, 말해 준 것에 고맙다고 해 주세요.'});
+    B.push({h:'조심할 점',li:care.slice(0,3),cls:'oy1-care'});
+    add('보호자와 이야기할 때',{p:fam});
+    add('이 학생의 버팀목',{li:strengths});
+    add('가까운 지역 기관',{near,tip:nearTip});
+    return {title:'담임교사가 알아 두면 좋은 것',blocks:B,memo:['교육복지사에게 전할 메모','예: 3주째 월요일 1교시에 자주 졸고, 준비물을 자주 빠뜨림. 이름·서술기록은 쓰지 않습니다.']};
+  }
+  if(role==='edu'){
+    add('학교 안에서 할 지원',{li:roleItems(d,'교육복지사')});
+    add('담임교사에게 부탁할 관찰',{li:watch.slice(0,4),tip:'03 학교 지원의 「2주 관찰 기록지」로 함께 적습니다.'});
+    add('학생 면담에서 물을 것',{li:qs(true)});
+    B.push({h:'학맞통·통합사례관리 판단',li:[sel.label+' · '+(sel.why||''),sel.systems&&sel.systems.length?'함께 필요한 개입체계: '+sel.systems.join(', '):'학교 안 지원으로 시작합니다.','주관 제안: '+k.lead],cls:sel.status==='met'?'':'oy1-care'});
+    add('보호자 연락',{p:fam,tip:'학생맞춤통합지원은 학생·보호자 동의가 필요합니다.'});
+    add('이 학생의 버팀목',{li:strengths});
+    add('가까운 지역 기관',{near,tip:nearTip});
+    return {title:'교육복지사가 챙길 것',blocks:B,memo:['사례회의에 올릴 메모','예: 담임 2주 관찰 결과, 보호자 상담 일정, 학교 안에서 이미 한 지원.']};
+  }
+  if(role==='team'){
+    B.push({h:'판정 한눈에',li:k.cells.map(c=>c.name+': '+c.value)});
+    add('사례회의에서 정할 것',{li:meet,cls:'oy1-care'});
+    B.push({h:'누가 맡나',li:['주관 제안: '+k.lead,...(k.parts.length?['함께: '+k.parts.join(', ')]:[]),...(k.cands.length?['문의할 곳: '+k.cands.map(c=>c.s).join(', ')]:[])]});
+    add('시기별 계획',{li:stops});
+    add('지원 목표',{li:goals});
+    add('보호자 동의·연락',{p:fam,tip:'학생맞춤통합지원은 학생·보호자 동의가 필요합니다.'});
+    add('이 학생의 버팀목',{li:strengths});
+    return {title:'학맞통 지원팀 사례회의 준비',blocks:B,memo:['회의 메모','예: 선정 여부, 맡을 기관과 담당자, 다음 점검일.']};
+  }
+  /* 사회복지관·아동가족기관·행정복지센터 */
+  add('기관이 할 일',{li:roleItems(d,'사례관리자')});
+  B.push({h:'개입 수준',li:[k.level.name,...[k.level.contact,k.level.meeting].filter(Boolean)]});
+  B.push({h:'통합사례관리 선정',li:[sel.label,sel.why||''].filter(Boolean),cls:sel.status==='met'?'':'oy1-care'});
+  add('사례회의에서 정할 것',{li:meet,cls:'oy1-care'});
+  add('시기별 계획',{li:stops});
+  add('지원 목표',{li:goals});
+  add('가족과 함께하기',{p:fam});
+  add('연계 후보 기관',{near,tip:nearTip});
+  return {title:SCOPE[role].name+' 실무 정리',blocks:B,memo:['사례 메모','예: 초기상담 일정, 확인할 급여·서비스, 협력 기관 담당자.']};
 }
 const m_hard=k=>(k.profile||[]).some(d=>(d.peak||0)>=2);
 function nextSteps(k,role,unknown,sel){
@@ -44,7 +107,7 @@ function nextSteps(k,role,unknown,sel){
     S.push('이 한 장을 교육복지사(또는 Wee클래스)에게 전달합니다.');
     if(unknown)S.push('모르는 문항 '+unknown+'개는 미상으로 둔 채 넘겨도 됩니다. 교육복지사가 보완합니다.');
     if(!k.urgent&&m_hard(k))S.push('궁금하면 02 지역자원 지도에서 어려운 영역에 맞는 가까운 기관을 봅니다.');
-    if(S.length<3)S.push('평소처럼 지켜보고, 달라진 점이 있으면 날짜와 함께 짧게 적어 둡니다.');
+    if(S.length<3)S.push(k.urgent?'학생을 혼자 두지 않고, 들은 말과 시간을 그대로 적어 둡니다.':'평소처럼 지켜보고, 달라진 점이 있으면 날짜와 함께 짧게 적어 둡니다.');
   }else if(role==='edu'){
     if(safetyFirst)S.push(safetyFirst);
     if(unknown)S.push('미상 '+unknown+'개를 학생·담임과 확인해 01에서 고친 뒤 다시 봅니다.');
@@ -78,7 +141,8 @@ function html(m){
    '<section class="oy1-q"><h4><i>3</i>무엇이 어려운가요?</h4>'+hard+'</section>'+
    '<section class="oy1-q oy1-do"><h4><i>4</i>'+(sc?esc(sc.name)+'는 무엇을 하나요?':'누가 무엇을 하나요?')+'</h4><ol class="oy1-steps">'+m.steps.map(s=>'<li>'+esc(s)+'</li>').join('')+'</ol></section>'+
    '</div>'+
-   (sc?'<p class="oy1-end"><b>여기까지</b> '+esc(sc.end)+'</p>':'')+
+   (m.teach?teachHtml(m.teach):'')+
+   (sc?'<p class="oy1-end"><b>'+esc(sc.name)+'의 역할</b> '+esc(sc.end)+'</p>':'')+
    '<div class="oy1-actions">'+(m.role==='teacher'?'<button type="button" class="flow-btn flow-primary" data-oy1-pass aria-expanded="false" aria-controls="oy1Pass">교육복지사에게 전달하기</button>':'')+
    '<button type="button" class="flow-btn'+(m.role==='teacher'?'':' flow-primary')+'" data-oy1-print>이 한 장 인쇄 · PDF</button>'+
    (m.scope&&m.scope.steps.includes('2')?'<button type="button" class="flow-btn" data-oy1-map>02 지역자원 지도 보기</button>':'')+
@@ -86,12 +150,22 @@ function html(m){
    (m.role==='teacher'?'<div class="oy1-pass" id="oy1Pass" hidden><p><b>전달 방법 두 가지</b> 어느 쪽이든 학생 이름과 서술기록은 들어가지 않습니다.</p><ol><li><button type="button" class="flow-btn" data-oy1-print>한 장 인쇄해서 건네기</button></li><li><button type="button" class="flow-btn" data-oy1-json>응답 파일(JSON) 저장해서 보내기</button> <small>교육복지사가 「JSON 불러오기」로 열면 이어서 보완할 수 있습니다.</small></li></ol></div>':'')+
    '<p class="oy1-foot">판정은 05 최종 보고서·04 판정 띠와 같은 값입니다. 이 한 장은 시스템이 낸 초안이며 실무자 판단을 대신하지 않습니다.</p>';
 }
+function teachHtml(t){
+  const ul=a=>'<ul>'+a.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>';
+  const blk=b=>'<section class="oy1-t '+(b.cls||'')+'"><h4>'+esc(b.h)+'</h4>'+
+    (b.li&&b.li.length?ul(b.li):'')+(b.p?'<p>'+esc(b.p)+'</p>':'')+
+    (b.near&&b.near.length?'<ul>'+b.near.map(r=>'<li><b>'+esc(r.b)+'</b> '+esc(r.t)+' <small>'+esc(r.s)+'</small></li>').join('')+'</ul>':'')+
+    (b.tip?'<p class="oy1-tip">'+esc(b.tip)+'</p>':'')+'</section>';
+  const memo='<section class="oy1-t oy1-memo"><h4>'+esc(t.memo[0])+'</h4><label class="oy1-vh" for="oy1Memo">'+esc(t.memo[0])+'</label><textarea id="oy1Memo" rows="4" maxlength="300" placeholder="'+esc(t.memo[1])+'"></textarea><p class="oy1-tip">저장되지 않습니다. 인쇄하면 함께 나옵니다.</p></section>';
+  return '<h3 class="oy1-sub">'+esc(t.title)+'</h3><div class="oy1-tgrid">'+t.blocks.map(blk).join('')+memo+'</div>';
+}
 function text(m){
   const k=m.k,L=['OY-RALS 핵심 결과 한 장'+(m.scope?' · '+m.scope.name+' 기준':''),''];
   L.push('1. 지금 안전한가요? '+k.safety.value+' ('+k.safety.why+')');
   L.push('2. 얼마나 급한가요? '+(m.tier?m.tier+'단계 '+m.tierName:m.tierName));
   L.push('3. 무엇이 어려운가요? '+(m.hard.map(h=>h.t+' '+h.v+'점').join(', ')||'2점 이상 영역 없음'));
   L.push('4. 다음 할 일');m.steps.forEach((s,i)=>L.push('  '+(i+1)+') '+s));
+  if(m.teach){L.push('',m.teach.title);m.teach.blocks.forEach(b=>{const a=(b.li||[]).concat(b.p?[b.p]:[],(b.near||[]).map(r=>r.b+' '+r.t));if(a.length){L.push(b.h);a.forEach(x=>L.push('  - '+x))}});}
   return L.join('\n');
 }
 
@@ -113,13 +187,21 @@ function render(){
   box.hidden=false;box.innerHTML=html(m);box.__model=m;
   setFold(!open[cur.payload.flowRevision]);
 }
+/* A4 한 장(여백 14mm → 688×1017px)에 맞는 가장 큰 배율을 찾는다. 화면 규칙으로 재므로 인쇄 때는 조금 더 여유가 생긴다. */
+function fitA4(el){
+  const W=688,H=1017,st=el.style;st.cssText='display:block;position:absolute;left:-10000px;top:0;visibility:hidden';
+  let z=.86;for(;z>.5;z-=.02){st.width=(W/z)+'px';if(el.scrollHeight*z<=H)break;}
+  st.cssText='';st.zoom=String(Math.round(z*100)/100);el.dataset.zoom=st.zoom;
+}
 function printOne(doc){
   const box=doc.getElementById('oyOnePage');if(!box||!box.__model)return;
   const old=doc.getElementById('oy1-print-root');if(old)old.remove();
   const el=doc.createElement('section');el.id='oy1-print-root';el.className='oy1 oy1-print';
   el.innerHTML='<p class="oy1-date">'+esc(new Date().toLocaleDateString('ko-KR',{timeZone:'Asia/Seoul'}))+' · 실무자 확인 전 초안 · 학생 이름·서술기록 미포함</p>'+html(box.__model);
   el.querySelectorAll('.oy1-actions,.oy1-pass,.oy1-pick').forEach(x=>x.remove());
-  doc.body.append(el);doc.body.classList.add('oy1-printing');
+  /* 메모는 화면에서 쓴 글을 줄 친 칸으로 옮겨 인쇄한다(저장하지 않음). */
+  const memo=doc.getElementById('oy1Memo'),ta=el.querySelector('#oy1Memo');if(ta){const dv=doc.createElement('div');dv.className='oy1-lines';dv.textContent=memo?memo.value:'';ta.replaceWith(dv);el.querySelectorAll('.oy1-memo .oy1-tip,.oy1-memo .oy1-vh').forEach(x=>x.remove());}
+  doc.body.append(el);fitA4(el);doc.body.classList.add('oy1-printing');
   const w=doc.defaultView,done=()=>{el.remove();doc.body.classList.remove('oy1-printing');w&&w.removeEventListener('afterprint',done)};
   if(w){w.addEventListener('afterprint',done);try{w.print()}catch(_){done()}}
 }

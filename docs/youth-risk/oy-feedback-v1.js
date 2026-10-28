@@ -26,7 +26,7 @@ function expertHtml(){return '<div class="oyfb-expert" id="oyfbExpert" hidden>'+
  '<ol class="oyfb-qs">'+
  '<li><b>결과 타당성</b> 시스템 판단(급한 정도·통합사례관리·주관기관)이 내 실무 판단과 맞나요?'+choice('oyfbExFit',['맞다','조금 다르다','다르다'])+'</li>'+
  '<li><b>분량</b> 핵심 결과 한 장의 양은 어떤가요?'+choice('oyfbExSize',['많다','알맞다','부족하다'])+'</li>'+
- '<li><b>역할 범위</b> 내 역할의 「여기까지」 안내가 현장과 맞나요?'+choice('oyfbExScope',['맞다','조금 다르다','다르다'])+'</li>'+
+ '<li><b>역할 범위</b> 내 역할 안내(무엇을 하고 누구에게 넘기는지)가 현장과 맞나요?'+choice('oyfbExScope',['맞다','조금 다르다','다르다'])+'</li>'+
  '<li><b>쓰기 쉬움</b>'+scale('oyfbExEase','어렵다','쉽다')+'</li>'+
  '<li><b>정식 운영 때 쓸 생각</b>'+scale('oyfbExUse','없다','꼭 쓰겠다')+'</li>'+
  '</ol></div>';}

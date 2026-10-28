@@ -424,6 +424,6 @@ function mountStage(e){
   area.innerHTML='<div class="oyp-stagehead"><span class="oyp-eyebrow">03 학교 지원</span><h2>담임교사와 교육복지사가 바로 쓰는 자료</h2><p>척도 판정·해석지·서술 분석·지역자원 지도를 학생맞춤통합지원 절차에 맞춰 정리했습니다.</p></div>'+(()=>{try{return OD().strip(OD().forPayload(st.payload),{audience:'school'})}catch(_){return ''}})()+render('school',st.payload);
   area.querySelectorAll('[data-oyd]').forEach(el=>{el.__payload=st.payload});
 }
-const api=Object.freeze({VERSION,render,sheetCodes,analyze,bind,printPack});
+const api=Object.freeze({VERSION,OBS,render,sheetCodes,analyze,bind,printPack});
 if(node)module.exports=api;else{root.OYPerspective=api;if(root.document){bind(root.document);root.addEventListener('oy-journey-view',mountStage);}}
 })(typeof window!=='undefined'?window:globalThis);

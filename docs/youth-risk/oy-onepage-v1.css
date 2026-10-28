@@ -64,3 +64,20 @@
   @page{size:A4;margin:14mm}
 }
 .oy1-callc{margin:8px 0 0;font-size:.9rem;color:var(--oy-check-ink)}
+/* 담임교사용 추가 항목: 한 장을 채우는 6~7칸 */
+.oy1-sub{margin:18px 0 10px;font-size:1.05rem}
+.oy1-tgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.oy1-t{min-width:0;padding:12px 16px;border:1px solid var(--oy-line);border-radius:var(--oy-radius);background:var(--oy-surface)}
+.oy1-t h4{margin:0 0 6px;font-size:.92rem;color:var(--oy-data-ink)}
+.oy1-t ul{margin:0;padding-left:1.1em;display:grid;gap:4px;font-size:.92rem;line-height:1.5}
+.oy1-t p{margin:0;font-size:.92rem;line-height:1.5}
+.oy1-t small{color:var(--oy-muted)}
+.oy1-t .oy1-tip{margin-top:6px;font-size:.82rem;color:var(--oy-muted)}
+.oy1-care{background:var(--oy-check-soft);border-color:#ecd2ad}.oy1-care h4{color:var(--oy-check-ink)}
+@media (max-width:640px){.oy1-tgrid{grid-template-columns:minmax(0,1fr)}}
+@media print{body.oy1-printing .oy1-tgrid{grid-template-columns:repeat(2,minmax(0,1fr))}body.oy1-printing #oy1-print-root{font-size:9.5pt}body.oy1-printing .oy1-q,body.oy1-printing .oy1-t{padding:8px 10px;break-inside:avoid}body.oy1-printing .oy1-t,body.oy1-printing .oy1-care{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+.oy1-memo textarea{width:100%;box-sizing:border-box;min-height:96px;padding:8px 10px;border:1px solid var(--oy-line);border-radius:10px;font:inherit;font-size:.9rem;resize:vertical}
+.oy1-vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.oy1-lines{min-height:84px;white-space:pre-wrap;font-size:.9rem;line-height:28px;background:repeating-linear-gradient(transparent 0 27px,#c8ced8 27px 28px)}
+/* A4 한 장에 맞춤: 화면 크기(rem)를 그대로 줄인다. 담임교사용 9칸까지 들어가도록 0.74배(가상 100사례 중 항목이 가장 많은 사례 기준). */
+@media print{body.oy1-printing #oy1-print-root{zoom:.74}/* fitA4가 사례마다 덮어씀 */body.oy1-printing #oy1-print-root .oy1-end,body.oy1-printing #oy1-print-root .oy1-foot{break-inside:avoid}}
