@@ -126,23 +126,33 @@ function nextSteps(k,role,unknown,sel){
   return S.slice(0,3);
 }
 
+/* 제목 아래 한 줄 요약(잡지의 deck). 판정 값을 문장으로 옮길 뿐 새로 판단하지 않는다. */
+const josa=(w,a,b)=>{const c=String(w).slice(-1).charCodeAt(0)-0xAC00;return w+(c>=0&&c<11172&&c%28?a:b)};
+function deck(m){
+  const k=m.k,names=m.hard.map(h=>h.t);
+  if(k.urgent)return '안전 신호가 있어 오늘 바로 확인하고 연결해야 하는 학생입니다.';
+  if(!m.tier)return '모르는 응답이 남아 있어 확인이 먼저인 학생입니다'+(names.length?'. '+names.join('·')+'의 어려움이 보입니다.':'.');
+  return m.tier+'단계 '+m.tierName+(names.length?'. '+josa(names.join('·'),'을','를')+' 함께 살펴야 하는 학생입니다.':'. 두드러진 어려움 없이 지켜보는 학생입니다.');
+}
 function html(m){
   const k=m.k,sc=m.scope;
   const tierBar='<ol class="oy1-tier" aria-label="지원 우선순위 5단계">'+NAMES.map((n,i)=>'<li class="'+(m.tier===i+1?'on':'')+(i===4?' top':'')+'"><b>'+(i+1)+'</b><span>'+esc(n)+'</span></li>').join('')+'</ol>';
   const hard=m.hard.length?'<ul class="oy1-hard">'+m.hard.map(h=>'<li><span>'+esc(h.t)+'</span>'+dots(h.v)+'</li>').join('')+'</ul>':'<p class="oy1-muted">2점 이상인 영역이 없습니다. 평소처럼 지켜봅니다.</p>';
   const roles=Object.keys(SCOPE);
-  return '<div class="oy1-head"><div><span class="oy1-kicker">핵심 결과 한 장</span><h3 id="oy1Title">이것만 먼저 보세요</h3></div>'+
-   '<p class="oy1-role">'+(sc?'<b>'+esc(sc.name)+'</b> 기준':'역할을 고르면 다음 할 일이 맞춰집니다')+'</p></div>'+
+  const today=(()=>{try{return new Date().toLocaleDateString('ko-KR',{timeZone:'Asia/Seoul'})}catch(_){return ''}})();
+  return '<header class="oy1-mast"><span class="oy1-kicker">OY-RALS 핵심 결과 한 장'+(sc?' · '+esc(sc.name)+'판':'')+'</span><span class="oy1-meta">'+esc(today)+' · 실무자 확인 전 초안 · 학생 이름·서술기록 미포함</span></header>'+
+   '<div class="oy1-head"><h3 id="oy1Title">이것만 먼저 보세요</h3><p class="oy1-deck">'+esc(deck(m))+'</p>'+
+   (sc?'':'<p class="oy1-role">역할을 고르면 다음 할 일이 맞춰집니다</p>')+'</div>'+
    (sc?'':'<div class="oy1-pick" role="group" aria-label="역할 고르기">'+roles.map(r=>'<button type="button" data-oy-role="'+r+'">'+esc(SCOPE[r].name)+'</button>').join('')+'</div>')+
    '<div class="oy1-grid">'+
-   '<section class="oy1-q oy1-'+m.safetyTone+'"><h4><i>1</i>지금 안전한가요?</h4><p class="oy1-v">'+esc(k.safety.value)+'</p><p class="oy1-why">'+esc(k.safety.why)+'</p>'+
+   '<section class="oy1-q oy1-'+m.safetyTone+'"><h4><i>01</i>지금 안전한가요?</h4><p class="oy1-v">'+esc(k.safety.value)+'</p><p class="oy1-why">'+esc(k.safety.why)+'</p>'+
     (m.safetyTone==='c'?'<p class="oy1-callc">모르는 안전 문항은 안전하다고 보지 않습니다. 오늘 직접 확인해 주세요.</p>':'')+(k.urgent?'<p class="oy1-call">급하면 <b>112</b> · 청소년상담 <b>1388</b> · 자살예방 <b>109</b></p>':'')+'</section>'+
-   '<section class="oy1-q"><h4><i>2</i>얼마나 급한가요?</h4><p class="oy1-v">'+esc(m.tier?m.tier+'단계 '+m.tierName:m.tierName)+'</p>'+tierBar+'<p class="oy1-why">'+esc(m.tier?m.tierWhy:'모르는 문항을 확인하기 전에는 단계를 정하지 않습니다.')+'</p></section>'+
-   '<section class="oy1-q"><h4><i>3</i>무엇이 어려운가요?</h4>'+hard+'</section>'+
-   '<section class="oy1-q oy1-do"><h4><i>4</i>'+(sc?esc(sc.name)+'는 무엇을 하나요?':'누가 무엇을 하나요?')+'</h4><ol class="oy1-steps">'+m.steps.map(s=>'<li>'+esc(s)+'</li>').join('')+'</ol></section>'+
+   '<section class="oy1-q"><h4><i>02</i>얼마나 급한가요?</h4><p class="oy1-v">'+esc(m.tier?m.tier+'단계 '+m.tierName:m.tierName)+'</p>'+tierBar+'<p class="oy1-why">'+esc(m.tier?m.tierWhy:'모르는 문항을 확인하기 전에는 단계를 정하지 않습니다.')+'</p></section>'+
+   '<section class="oy1-q"><h4><i>03</i>무엇이 어려운가요?</h4>'+hard+'</section>'+
+   '<section class="oy1-q oy1-do"><h4><i>04</i>'+(sc?esc(sc.name)+'는 무엇을 하나요?':'누가 무엇을 하나요?')+'</h4><ol class="oy1-steps">'+m.steps.map(s=>'<li>'+esc(s)+'</li>').join('')+'</ol></section>'+
    '</div>'+
    (m.teach?teachHtml(m.teach):'')+
-   (sc?'<p class="oy1-end"><b>'+esc(sc.name)+'의 역할</b> '+esc(sc.end)+'</p>':'')+
+   (sc?'<blockquote class="oy1-end"><p>'+esc(sc.end)+'</p><cite>'+esc(sc.name)+'의 역할</cite></blockquote>':'')+
    '<div class="oy1-actions">'+(m.role==='teacher'?'<button type="button" class="flow-btn flow-primary" data-oy1-pass aria-expanded="false" aria-controls="oy1Pass">교육복지사에게 전달하기</button>':'')+
    '<button type="button" class="flow-btn'+(m.role==='teacher'?'':' flow-primary')+'" data-oy1-print>이 한 장 인쇄 · PDF</button>'+
    (m.scope&&m.scope.steps.includes('2')?'<button type="button" class="flow-btn" data-oy1-map>02 지역자원 지도 보기</button>':'')+
@@ -157,7 +167,7 @@ function teachHtml(t){
     (b.near&&b.near.length?'<ul>'+b.near.map(r=>'<li><b>'+esc(r.b)+'</b> '+esc(r.t)+' <small>'+esc(r.s)+'</small></li>').join('')+'</ul>':'')+
     (b.tip?'<p class="oy1-tip">'+esc(b.tip)+'</p>':'')+'</section>';
   const memo='<section class="oy1-t oy1-memo"><h4>'+esc(t.memo[0])+'</h4><label class="oy1-vh" for="oy1Memo">'+esc(t.memo[0])+'</label><textarea id="oy1Memo" rows="4" maxlength="300" placeholder="'+esc(t.memo[1])+'"></textarea><p class="oy1-tip">저장되지 않습니다. 인쇄하면 함께 나옵니다.</p></section>';
-  return '<h3 class="oy1-sub">'+esc(t.title)+'</h3><div class="oy1-tgrid">'+t.blocks.map(blk).join('')+memo+'</div>';
+  return '<h3 class="oy1-sub"><span>현장 노트</span>'+esc(t.title)+'</h3><div class="oy1-tgrid">'+t.blocks.map(blk).join('')+memo+'</div>';
 }
 function text(m){
   const k=m.k,L=['OY-RALS 핵심 결과 한 장'+(m.scope?' · '+m.scope.name+' 기준':''),''];
@@ -197,7 +207,7 @@ function printOne(doc){
   const box=doc.getElementById('oyOnePage');if(!box||!box.__model)return;
   const old=doc.getElementById('oy1-print-root');if(old)old.remove();
   const el=doc.createElement('section');el.id='oy1-print-root';el.className='oy1 oy1-print';
-  el.innerHTML='<p class="oy1-date">'+esc(new Date().toLocaleDateString('ko-KR',{timeZone:'Asia/Seoul'}))+' · 실무자 확인 전 초안 · 학생 이름·서술기록 미포함</p>'+html(box.__model);
+  el.innerHTML=html(box.__model);
   el.querySelectorAll('.oy1-actions,.oy1-pass,.oy1-pick').forEach(x=>x.remove());
   /* 메모는 화면에서 쓴 글을 줄 친 칸으로 옮겨 인쇄한다(저장하지 않음). */
   const memo=doc.getElementById('oy1Memo'),ta=el.querySelector('#oy1Memo');if(ta){const dv=doc.createElement('div');dv.className='oy1-lines';dv.textContent=memo?memo.value:'';ta.replaceWith(dv);el.querySelectorAll('.oy1-memo .oy1-tip,.oy1-memo .oy1-vh').forEach(x=>x.remove());}
