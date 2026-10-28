@@ -19,7 +19,7 @@ async function open(browser,width){
  return {page,frame,errors};
 }
 async function answer(frame,set){for(let i=0;i<25;i++)await frame.locator('#qi'+i+' input[type="radio"][value="'+(set[i+1]??0)+'"]').check({force:true,timeout:12000});}
-async function complete(page,frame){await frame.locator('#complete').click();await page.waitForFunction(()=>(document.querySelector('[data-oy-step="2"]')?.disabled===false&&document.getElementById('journey88')?.hidden===false&&Boolean(document.querySelector('#journey88 [data-j88-result-tab]'))),{timeout:25000});}
+async function complete(page,frame){await frame.locator('#complete').click();await page.waitForFunction(()=>(document.querySelector('[data-oy-step="2"]')?.disabled===false&&document.getElementById('journey88')?.hidden===false&&Boolean(document.querySelector('#journey88 [data-j88-result-tab]'))),{timeout:25000});await page.locator('#oyOnePage [data-oy1-more]').click();}
 async function servicePlan(page){
  await page.locator('[data-oy-step="2"]').click();
  await page.waitForFunction(()=>document.querySelector('#mapArea')?.hidden===false,{timeout:20000});

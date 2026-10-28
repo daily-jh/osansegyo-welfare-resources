@@ -28,7 +28,7 @@ async function run(browserType,name,width,full){
   }
   assert.equal(await frame.locator('input[type="radio"]:checked').count(),25,name+' all score choices checked');
   await frame.locator('#complete').click();
-  await page.waitForFunction(()=>(document.querySelector('[data-oy-step="2"]')?.disabled===false&&document.getElementById('journey88')?.hidden===false&&Boolean(document.querySelector('#journey88 [data-j88-result-tab]'))),{timeout:25000});
+  await page.waitForFunction(()=>(document.querySelector('[data-oy-step="2"]')?.disabled===false&&document.getElementById('journey88')?.hidden===false&&Boolean(document.querySelector('#journey88 [data-j88-result-tab]'))),{timeout:25000});await page.locator('#oyOnePage [data-oy1-more]').click();
   assert.equal(await page.locator('[data-j88-result-tab="score"]').getAttribute('aria-pressed'),'true',name+' real click navigated to score');
   assert.equal(await page.locator('.oy-viz-radar svg').count(),1,name+' radar visible');
   assert.equal(await page.locator('.oy-viz-radar [data-radar-index]').count(),10);
@@ -80,7 +80,7 @@ async function run(browserType,name,width,full){
    await page.frameLocator('#assessmentFrame').locator('#qi0').waitFor({timeout:15000});
    assert.equal(await page.locator('[data-j88-result-tab]').count(),0,'new page cannot retain old case in browser storage');
    await page.locator('#importAssessment').setInputFiles({name:'synthetic-anonymous.json',mimeType:'application/json',buffer:Buffer.from(raw)});
-   await page.waitForFunction(()=>(document.querySelector('[data-oy-step="2"]')?.disabled===false&&document.getElementById('journey88')?.hidden===false&&Boolean(document.querySelector('#journey88 [data-j88-result-tab]'))),{timeout:20000});
+   await page.waitForFunction(()=>(document.querySelector('[data-oy-step="2"]')?.disabled===false&&document.getElementById('journey88')?.hidden===false&&Boolean(document.querySelector('#journey88 [data-j88-result-tab]'))),{timeout:20000});await page.locator('#oyOnePage [data-oy1-more]').click();
    assert.equal(await page.locator('.oy-viz-radar svg').count(),1,'imported anonymous scores recompute the case');
    assert.equal(await page.frameLocator('#assessmentFrame').locator('input[type="radio"]:checked').count(),25,'all 25 answers restored');
 
