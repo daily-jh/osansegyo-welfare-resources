@@ -69,12 +69,16 @@
 /* 「자세히 보기」는 붉은 계열로 강조(지훈 2026-10-28) */
 #assessmentFlow .oy1 .flow-btn.oy1-more{position:relative;overflow:hidden;isolation:isolate;background:linear-gradient(180deg,#d4574d 0%,var(--oy-risk) 55%,#9c2f27 100%);border-color:#9c2f27;color:#fff;font-weight:700;text-shadow:0 1px 0 rgba(0,0,0,.18);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 2px 8px rgba(176,58,46,.28);animation:oy1-glow 2.6s ease-in-out infinite}
 #assessmentFlow .oy1 .flow-btn.oy1-more::after{content:"";position:absolute;top:-20%;bottom:-20%;left:-60%;width:40%;z-index:-1;background:linear-gradient(100deg,transparent 0%,rgba(255,255,255,.55) 50%,transparent 100%);transform:skewX(-20deg);animation:oy1-shine 2.6s ease-in-out infinite;pointer-events:none}
+#assessmentFlow .oy1 .flow-btn.oy1-map{position:relative;overflow:hidden;isolation:isolate;background:linear-gradient(180deg,#e0735a 0%,#c8553d 55%,#a8432f 100%);border-color:#a8432f;color:#fff;font-weight:700;text-shadow:0 1px 0 rgba(0,0,0,.18);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 2px 8px rgba(200,85,61,.28);animation:oy1-glow-map 2.6s ease-in-out .4s infinite}
+#assessmentFlow .oy1 .flow-btn.oy1-map::after{content:"";position:absolute;top:-20%;bottom:-20%;left:-60%;width:40%;z-index:-1;background:linear-gradient(100deg,transparent 0%,rgba(255,255,255,.55) 50%,transparent 100%);transform:skewX(-20deg);animation:oy1-shine 2.6s ease-in-out .4s infinite;pointer-events:none}
+#assessmentFlow .oy1 .flow-btn.oy1-map:hover{background:linear-gradient(180deg,#cc624b 0%,#a8432f 100%);border-color:#8d3727}
+@keyframes oy1-glow-map{0%,100%{box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 2px 8px rgba(200,85,61,.28)}50%{box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 0 0 4px rgba(200,85,61,.16),0 4px 14px rgba(200,85,61,.38)}}
 #assessmentFlow .oy1 .flow-btn.oy1-more:hover{background:linear-gradient(180deg,#c04a40 0%,#962c25 100%);border-color:#7f241e}
 #assessmentFlow .oy1 .flow-btn.oy1-more[aria-expanded="true"]::after{display:none}
 #assessmentFlow .oy1 .flow-btn.oy1-more[aria-expanded="true"]{animation:none;box-shadow:none;text-shadow:none}
 @keyframes oy1-shine{0%{left:-60%}55%,100%{left:130%}}
 @keyframes oy1-glow{0%,100%{box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 2px 8px rgba(176,58,46,.28)}50%{box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 0 0 4px rgba(176,58,46,.16),0 4px 14px rgba(176,58,46,.38)}}
-@media (prefers-reduced-motion:reduce){#assessmentFlow .oy1 .flow-btn.oy1-more,#assessmentFlow .oy1 .flow-btn.oy1-more::after{animation:none}#assessmentFlow .oy1 .flow-btn.oy1-more::after{display:none}}
+@media (prefers-reduced-motion:reduce){#assessmentFlow .oy1 .flow-btn.oy1-more,#assessmentFlow .oy1 .flow-btn.oy1-more::after,#assessmentFlow .oy1 .flow-btn.oy1-map,#assessmentFlow .oy1 .flow-btn.oy1-map::after{animation:none}#assessmentFlow .oy1 .flow-btn.oy1-more::after,#assessmentFlow .oy1 .flow-btn.oy1-map::after{display:none}}
 #assessmentFlow .oy1 .flow-btn.oy1-more[aria-expanded="true"]{background:var(--oy-risk-soft);color:var(--oy-risk);border-color:var(--oy-risk)}
 .oy1-pass{margin-top:10px;padding:12px 0;border-top:1px dotted #c9cfd8;font-size:.9rem}
 .oy1-pass p{margin:0 0 8px}.oy1-pass ol{margin:0;padding-left:1.2em;display:grid;gap:8px}

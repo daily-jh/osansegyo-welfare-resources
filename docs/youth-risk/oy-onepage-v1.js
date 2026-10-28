@@ -170,7 +170,7 @@ function html(m){
    (sc?'<blockquote class="oy1-end"><p>'+esc(sc.end)+'</p><cite>'+esc(sc.name)+'의 역할</cite></blockquote>':'')+
    '<div class="oy1-actions">'+(m.role==='teacher'?'<button type="button" class="flow-btn flow-primary" data-oy1-pass aria-expanded="false" aria-controls="oy1Pass">교육복지사에게 전달하기</button>':'')+
    '<button type="button" class="flow-btn'+(m.role==='teacher'?'':' flow-primary')+'" data-oy1-print>이 한 장 인쇄 · PDF</button>'+
-   (m.scope&&m.scope.steps.includes('2')?'<button type="button" class="flow-btn" data-oy1-map>02 지역자원 지도 보기</button>':'')+
+   (m.scope&&m.scope.steps.includes('2')?'<button type="button" class="flow-btn oy1-map" data-oy1-map>지역자원 지도 보기</button>':'')+
    '<button type="button" class="flow-btn oy1-more" data-oy1-more aria-expanded="false" aria-controls="journey88">자세히 보기 · 척도 해석·서술기록·통합 사정의견</button></div>'+
    (m.role==='teacher'?'<div class="oy1-pass" id="oy1Pass" hidden><p><b>전달 방법 두 가지</b> 어느 쪽이든 학생 이름과 서술기록은 들어가지 않습니다.</p><ol><li><button type="button" class="flow-btn" data-oy1-print>한 장 인쇄해서 건네기</button></li><li><button type="button" class="flow-btn" data-oy1-json>응답 파일(JSON) 저장해서 보내기</button> <small>교육복지사가 「JSON 불러오기」로 열면 이어서 보완할 수 있습니다.</small></li></ol></div>':'')+
    '<p class="oy1-foot">판정은 05 최종 보고서·04 판정 띠와 같은 값입니다. 이 한 장은 시스템이 낸 초안이며 실무자 판단을 대신하지 않습니다.</p>';
