@@ -47,6 +47,7 @@ jobs:
           node tests/site-integrity.cjs
           node --test server/youth-risk-ai/server.test.mjs
           node server/youth-risk-usage/worker.test.mjs
+          node server/youth-risk-usage/feedback.test.mjs
       - name: Scheduled official URL response checks
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         run: python scripts/audit_resources.py --links

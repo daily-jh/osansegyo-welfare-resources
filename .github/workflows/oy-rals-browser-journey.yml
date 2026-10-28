@@ -6,6 +6,8 @@ on:
       - 'e2e/youth-ui-browser-regression.cjs'
       - 'e2e/youth-true-user-flow.cjs'
       - 'e2e/youth-review-fixes-flow.cjs'
+      - 'e2e/youth-feedback-flow.cjs'
+      - 'server/youth-risk-usage/**'
       - '.github/workflows/oy-rals-browser-journey.yml'
   push:
     branches:
@@ -15,6 +17,8 @@ on:
       - 'e2e/youth-ui-browser-regression.cjs'
       - 'e2e/youth-true-user-flow.cjs'
       - 'e2e/youth-review-fixes-flow.cjs'
+      - 'e2e/youth-feedback-flow.cjs'
+      - 'server/youth-risk-usage/**'
       - '.github/workflows/oy-rals-browser-journey.yml'
 permissions:
   contents: read
@@ -48,6 +52,8 @@ jobs:
         run: node e2e/youth-grade-lens-flow.cjs
       - name: Open 06 scale library before evaluation, fold cards, filter by grade and return with answers kept
         run: node e2e/youth-scale-library-flow.cjs
+      - name: Send a private report and a review that shows only after approval, with personal information blocked
+        run: node e2e/youth-feedback-flow.cjs
       - name: Inspect actual A4 PDF document and embedded Korean result text
         run: |
           sudo apt-get install -y poppler-utils

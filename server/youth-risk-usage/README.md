@@ -21,3 +21,20 @@
 공식 문서: https://developers.cloudflare.com/d1/worker-api/d1-database/
 요금·한도 확인: https://developers.cloudflare.com/workers/platform/pricing/ 및 https://developers.cloudflare.com/d1/platform/pricing/
 
+
+## 이용자 의견(2026-10-28 추가)
+OY-RALS 화면 아래 '의견 보내기'에서 두 가지를 받습니다. 같은 Worker의 `/feedback` 경로를 씁니다.
+- 오류·수정 요청: 비공개. 관리 화면(`youth-risk/feedback-admin.html`)에서만 봅니다. 어떤 경우에도 공개로 바꿀 수 없습니다.
+- 사용 후기: 들어오면 '승인 대기'. 관리 화면에서 '공개'를 눌러야 OY-RALS 화면 아래 목록에 보입니다.
+- 받지 않는 것: 휴대전화 번호, 이메일, 주민등록번호, '학생 이름' 표현, 학교·학년·반(화면과 서버가 같은 규칙으로 막음). 이름·연락처·IP는 저장하지 않습니다. 남용 방지를 위해 하루 단위 익명 키(IP+날짜+비밀값의 해시)와 건수만 두고 다음 날 지웁니다. 같은 키 하루 5건, 전체 하루 300건.
+- Worker에 의견 기능이 배포되기 전에는 화면에 '준비 중'으로 보이고 보내기가 막힙니다.
+
+### 처음 한 번 배포(운영자)
+1. 이 폴더에서 `npx wrangler login`
+2. 표 만들기: `npx wrangler d1 execute osan-youth-usage --remote --file=feedback-schema.sql` (기존 집계 표는 건드리지 않음)
+3. 관리 비밀번호 설정: `npx wrangler secret put FEEDBACK_ADMIN_TOKEN` (20자 이상 무작위 문자열, 저장소·사이트에 적지 않음)
+4. 익명 키용 비밀값: `npx wrangler secret put FEEDBACK_SALT` (아무 무작위 문자열)
+5. `npx wrangler deploy`
+6. 확인: OY-RALS 화면 아래 '의견 보내기'에서 '준비 중'이 사라지는지, 관리 화면에서 비밀번호로 불러와지는지.
+
+시험: `node feedback.test.mjs`(API), `node ../../e2e/youth-feedback-flow.cjs`(화면).
