@@ -18,6 +18,7 @@
 .oyfb-rating label{display:inline-flex;align-items:center;gap:4px;min-height:var(--oy-tap);padding:0 8px;border:1px solid var(--oy-line);border-radius:10px}
 .oyfb-rating input{margin:0}
 .oyfb-face{font-size:20px;line-height:1}
+.oyfb-score{font-weight:700;color:var(--oy-data-ink)}
 .oyfb-picks{border:0;margin:14px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
 .oyfb-picks legend{font-size:14px;font-weight:600;padding:0;margin-bottom:6px;float:left;width:100%}
 .oyfb-picks legend small{font-weight:400;color:var(--oy-muted);margin-left:4px}

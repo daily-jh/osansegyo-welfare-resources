@@ -18,7 +18,7 @@ function html(){return '<div class="oyfb-head"><span class="oyfb-kicker">의견 
  '<form class="oyfb-form" novalidate><p class="oyfb-mode" id="oyfbMode"></p>'+
  '<div class="oyfb-row"><label id="oyfbAreaWrap">어느 화면인가요<select id="oyfbArea">'+AREAS.map(a=>'<option>'+esc(a)+'</option>').join('')+'</select></label>'+
  '<label>쓰는 분<select id="oyfbRole">'+ROLES.map(([v,l])=>'<option value="'+esc(v)+'">'+esc(l)+'</option>').join('')+'</select></label>'+
- '<fieldset class="oyfb-rating" id="oyfbRating" hidden><legend>써 보니 어땠나요</legend>'+FACES.map(([f,t],i)=>'<label><input type="radio" name="oyfbRate" value="'+(i+1)+'"'+(i===3?' checked':'')+'><span class="oyfb-face" aria-hidden="true">'+f+'</span>'+t+'</label>').join('')+'</fieldset></div>'+
+ '<fieldset class="oyfb-rating" id="oyfbRating" hidden><legend>써 보니 어땠나요</legend>'+FACES.map(([f,t],i)=>'<label><input type="radio" name="oyfbRate" value="'+(i+1)+'"'+(i===3?' checked':'')+'><span class="oyfb-face" aria-hidden="true">'+f+'</span><b class="oyfb-score">'+(i+1)+'점</b>'+t+'</label>').join('')+'</fieldset></div>'+
  '<fieldset class="oyfb-picks" id="oyfbPicks" hidden><legend>좋았던 점을 눌러 주세요 <small>여러 개 가능</small></legend>'+PICKS.map(t=>'<button type="button" aria-pressed="false" data-oyfb-pick="'+esc(t)+'">'+esc(t)+'</button>').join('')+'</fieldset>'+
  '<label class="oyfb-text"><span id="oyfbTextLabel">내용</span><textarea id="oyfbBody" rows="5" maxlength="1000"></textarea><small id="oyfbCount">0 / 1000자</small></label>'+
  '<label class="oyfb-check"><input type="checkbox" id="oyfbOk"> 학생·가족·학교 이름, 연락처, 사례 내용을 쓰지 않았습니다.</label>'+
@@ -59,7 +59,7 @@ async function load(){const list=document.getElementById('oyfbList');if(!list)re
  try{const r=await fetch(base()+'/feedback/reviews',{credentials:'omit',referrerPolicy:'no-referrer'});const j=r.ok?await r.json():null;
   // 의견 기능이 없는 옛 Worker는 다른 모양(집계)을 돌려준다 → 준비 중으로 둔다.
   if(!j||!Array.isArray(j.reviews))throw Error('not ready');ready=true;const st=document.getElementById('oyfbStatus');if(st&&/준비/.test(st.textContent))st.textContent='';
-  list.innerHTML=j.reviews.length?'<ul class="oyfb-reviews">'+j.reviews.map(v=>'<li><div class="oyfb-meta"><span class="oyfb-stars">'+esc((FACES[(+v.rating||4)-1]||FACES[3]).join(' '))+'</span>'+(v.role?'<span>'+esc(v.role)+'</span>':'')+'<time>'+esc(v.day)+'</time></div><p>'+esc(v.body)+'</p></li>').join('')+'</ul>':'<p class="oyfb-muted">아직 공개된 후기가 없습니다. 첫 후기를 남겨 주세요.</p>';
+  list.innerHTML=j.reviews.length?'<ul class="oyfb-reviews">'+j.reviews.map(v=>'<li><div class="oyfb-meta"><span class="oyfb-stars">'+esc((r=>FACES[r-1][0]+' '+r+'점 '+FACES[r-1][1])(Math.min(5,Math.max(1,+v.rating||4))))+'</span>'+(v.role?'<span>'+esc(v.role)+'</span>':'')+'<time>'+esc(v.day)+'</time></div><p>'+esc(v.body)+'</p></li>').join('')+'</ul>':'<p class="oyfb-muted">아직 공개된 후기가 없습니다. 첫 후기를 남겨 주세요.</p>';
  }catch(_){ready=false;list.innerHTML='<p class="oyfb-muted">의견 창구를 준비하고 있습니다. 곧 열립니다.</p>';const st=document.getElementById('oyfbStatus');if(st&&!st.textContent)st.textContent='의견 창구를 준비하고 있습니다. 곧 열립니다.'}}
 root.OYFeedback={piiFound,AREAS,reload:load};
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
