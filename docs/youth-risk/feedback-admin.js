@@ -6,8 +6,9 @@ const LABEL={new:'새 제보',done:'처리 완료',pending:'승인 대기',appro
 let items=[],filter='all';
 const token=()=>{try{return sessionStorage.getItem('oyfbAdmin')||''}catch(_){return $('faToken').value}};
 const api=(path,opt={})=>fetch(base()+path,{...opt,credentials:'omit',referrerPolicy:'no-referrer',headers:{'Content-Type':'application/json',Authorization:'Bearer '+token()}});
-function render(){const shown=items.filter(x=>filter==='all'||(filter==='report'?x.kind==='report':x.kind==='review'&&x.status===filter));
- $('faList').innerHTML=shown.length?shown.map(x=>'<article class="fa-item"><div class="oyfb-meta"><span class="fa-tag '+x.kind+'">'+(x.kind==='report'?'오류·수정 요청':'사용 후기 '+esc(x.rating)+'점')+'</span><span>'+esc(LABEL[x.status]||x.status)+'</span><span>'+esc(x.area)+'</span>'+(x.role?'<span>'+esc(x.role)+'</span>':'')+'<time>'+esc(x.day)+'</time></div><p>'+esc(x.body)+'</p><div class="fa-btns">'+
+function render(){const isEx=x=>x.kind==='report'&&/^\[전문가 검토\]/.test(x.body||'');/* 전문가 검토는 report로 저장되고 본문 머리로 구분한다(oy-feedback-v1.js). */
+ const shown=items.filter(x=>filter==='all'||(filter==='expert'?isEx(x):filter==='report'?x.kind==='report'&&!isEx(x):x.kind==='review'&&x.status===filter));
+ $('faList').innerHTML=shown.length?shown.map(x=>'<article class="fa-item"><div class="oyfb-meta"><span class="fa-tag '+x.kind+'">'+(isEx(x)?'전문가 검토':x.kind==='report'?'오류·수정 요청':'사용 후기 '+esc(x.rating)+'점')+'</span><span>'+esc(LABEL[x.status]||x.status)+'</span><span>'+esc(x.area)+'</span>'+(x.role?'<span>'+esc(x.role)+'</span>':'')+'<time>'+esc(x.day)+'</time></div><p>'+esc(x.body)+'</p><div class="fa-btns">'+
   (x.kind==='review'?(x.status!=='approved'?'<button data-a="approve" data-id="'+esc(x.id)+'">공개</button>':'')+(x.status!=='hidden'?'<button data-a="hide" data-id="'+esc(x.id)+'">숨김</button>':''):(x.status!=='done'?'<button data-a="done" data-id="'+esc(x.id)+'">처리 완료</button>':'<button data-a="reopen" data-id="'+esc(x.id)+'">다시 열기</button>'))+
   '<button data-a="delete" data-id="'+esc(x.id)+'">삭제</button></div></article>').join(''):'<p class="oyfb-muted">해당하는 의견이 없습니다.</p>';}
 async function load(){const st=$('faStatus');if(!base()){st.textContent='서버 주소가 없습니다.';return}st.textContent='불러오는 중입니다.';

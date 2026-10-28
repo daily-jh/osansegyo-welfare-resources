@@ -42,3 +42,15 @@
 .oyfb-stars{color:var(--oy-ink);font-weight:600}
 @media (max-width:600px){.oyfb{padding:16px}.oyfb h2{font-size:19px}.oyfb select{min-width:0;width:100%}.oyfb-row>label{flex:1 1 100%}}
 @media print{.oyfb{display:none!important}}
+/* ③ 전문가 검토(검토단 검토지) */
+.oyfb-expert{margin:4px 0 12px}
+.oyfb-guide{margin:0 0 10px;font-size:14px;color:var(--oy-muted)}
+.oyfb-min{display:flex;align-items:center;gap:6px}
+.oyfb-min input{width:84px;min-height:var(--oy-tap);padding:0 10px;border:1px solid var(--oy-line);border-radius:10px;font:inherit}
+.oyfb-qs{margin:14px 0 0;padding-left:1.3em;display:grid;gap:12px;font-size:14px}
+.oyfb-qs li>b{margin-right:6px}
+.oyfb-choice,.oyfb-scale{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.oyfb-choice label,.oyfb-scale label{display:inline-flex;align-items:center;gap:6px;min-height:var(--oy-tap);padding:0 12px;border:1px solid var(--oy-line);border-radius:10px;background:var(--oy-surface);cursor:pointer}
+.oyfb-scale label{min-width:52px;justify-content:center}
+.oyfb-choice label:has(input:checked),.oyfb-scale label:has(input:checked){background:var(--oy-data-soft);border-color:var(--oy-data);color:var(--oy-data-ink);font-weight:600}
+.oyfb-ends{display:block;margin-top:4px;color:var(--oy-muted);font-size:12px}

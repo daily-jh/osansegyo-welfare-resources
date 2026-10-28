@@ -15,7 +15,9 @@ async function scenario(browser,width){
  await page.frameLocator('#assessmentFrame').locator('body').waitFor({timeout:15000});
  const frame=page.frame({url:/assessment.html/});assert.ok(frame,'assessment iframe should exist');
  await frame.evaluate(p=>window.parent.postMessage({type:'youth-flow-complete-v1',payload:p},location.origin),payload);
- await page.waitForFunction(()=>(document.querySelector('[data-oy-step="2"]')?.disabled===false&&document.getElementById('journey88')?.hidden===false&&Boolean(document.querySelector('#journey88 [data-j88-result-tab]'))),{timeout:15000});
+ await page.waitForFunction(()=>(document.querySelector('[data-oy-step="2"]')?.disabled===false&&document.getElementById('journey88')?.hidden===false&&Boolean(document.querySelector('#journey88 [data-j88-result-tab]'))),{timeout:15000});await page.locator('#oyOnePage [data-oy1-more]').click();
+ /* 핵심 결과 한 장이 먼저, 자세한 결과는 「자세히 보기」로 펼친다(oy-onepage-v1, 2026-10-28). */
+ assert.equal(await page.locator('#oyOnePage .oy1-q').count(),4,'one-page result shows four questions first');
  assert.equal(await page.locator('#resultTools').count(),0,'post-score feature box removed');
  assert.equal(await page.locator('.j88-result-tabs > button').count(),3,'three large result tabs');
  assert.doesNotMatch(await page.locator('.j88-result-tabs').innerText(),/[①②③]/,'result tabs carry no circled numbers');
