@@ -19,7 +19,10 @@ async function run(browser,width){
  // The assessment frame finishes its own scripts after the radios exist; answering earlier can be undone by its start-up.
  await page.waitForFunction(()=>{const d=document.getElementById('assessmentFrame')?.contentDocument;return !!d&&d.readyState==='complete'},null,{timeout:20000});
  await frame.locator('#studentGrade').selectOption('고2');
- await frame.locator('#qi0 input[type="radio"][value="1"]').check({force:true});
+ // Start-up can still clear a very early answer on a slow runner: click until the answer stays.
+ const q0=frame.locator('#qi0 input[type="radio"][value="1"]');
+ for(let i=0;i<8&&!(await q0.isChecked());i++){await q0.click({force:true});await page.waitForTimeout(250);}
+ assert.ok(await q0.isChecked(),'first answer stays selected');
  const lib=page.locator('[data-oy-lib]');
  assert.equal(await lib.isEnabled(),true,'06 opens before evaluation');
  await lib.click();
