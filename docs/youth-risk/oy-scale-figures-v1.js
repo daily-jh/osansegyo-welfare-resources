@@ -74,7 +74,7 @@ function ecoDiagram(f){
 function safetyStrip(f){
  return '<ul class="osf-safety">'+f.safety.map(s=>{const st=s.value==='unknown'?'u':s.value>0?'on':'off';return '<li class="osf-sf-'+st+'"><strong>'+esc(s.topic)+'</strong><span>'+(st==='u'?'미상 · 확인 필요':st==='on'?'응답 있음 · 우선 확인':'보고 없음')+'</span></li>'}).join('')+'</ul>';
 }
-const SEC_TITLE={total:'전체 응답강도 위치',safety:'안전 문항 확인 현황',domains:'10개 영역 × 4구간 가로형 표',axes:'5개 상위 축',dist:'25문항 응답 분포',eco:'생태체계 링',map:'25문항 지도'};
+const SEC_TITLE={total:'전체 응답강도 위치 (총점 구간)',safety:'안전 문항 확인 현황',domains:'10개 영역 × 4구간 가로형 표',axes:'5개 상위 축',dist:'25문항 응답 분포',eco:'생태체계 링',map:'25문항 지도'};
 const SEC_DESC={total:'확인한 문항의 응답 합계가 척도 가능 범위에서 어디쯤인지 보여줍니다.',safety:'안전 문항은 구간과 관계없이 응답이 하나라도 있으면 먼저 확인합니다.',
  domains:'각 영역이 어느 구간에 놓이는지 한 줄씩 비교합니다. 붉은색이 진할수록 응답강도가 높습니다.',axes:'영역을 안전·정서·학교·생활 기반·관계 축으로 묶어 큰 흐름을 봅니다.',
  dist:'0점부터 4점, 미상까지 문항 수를 한 줄로 보여줍니다.',eco:'안쪽부터 개인·가족·학교·지역사회입니다. 링이 길수록 그 수준의 응답강도가 높습니다.',map:'영역별로 묶은 문항의 응답입니다. ‘안전’ 표시는 안전 문항입니다.'};

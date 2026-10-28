@@ -68,7 +68,17 @@ const CONCEPTS={
  'disconnection':{plain:'참여할 곳도 기댈 사람도 없는 상태',term:'사회적 고립 (관계망 단절)',
   why:'지지망이 비어 있어, 다른 지원이 학생에게 닿을 통로부터 만들어야 합니다.'},
  'protection-school':{plain:'집에서의 안전 문제가 학교생활을 흔드는 상태',term:'보호 위기의 학교 적응 파급',
-  why:'학교에서 보이는 변화가 가정 내 안전 문제의 신호일 수 있습니다.'}
+  why:'학교에서 보이는 변화가 가정 내 안전 문제의 신호일 수 있습니다.'},
+ 'protection-family':{plain:'집의 긴장이 학생을 다치게 하는 상태',term:'가정 내 위해와 가족 기능 저하',
+  why:'가족 갈등이 위해로 이어지고 있어, 가족 지원보다 학생 보호가 먼저입니다.'},
+ 'protection-distress':{plain:'다친 경험이 마음의 고통으로 이어진 상태',term:'위해 경험의 외상 반응',
+  why:'지금의 정서 문제가 위해 경험에 대한 반응일 수 있어, 보호 확인과 외상 기반 정서 지원을 함께 합니다.'},
+ 'neglect-care-gap':{plain:'돌봄을 받지 못해 생활이 비어 있는 상태',term:'방임에 의한 돌봄 결핍',
+  why:'생활의 빈자리가 지속된 돌봄 결핍의 신호일 수 있어, 생활 지원과 보호 판단을 함께 합니다.'},
+ 'selfharm-alone':{plain:'위험한 순간에 기댈 사람이 없는 상태',term:'자살·자해 위험과 지지체계 부재',
+  why:'위기 순간에 연락할 사람이 없으면 안전 계획이 작동하지 않아, 연락할 어른을 먼저 정합니다.'},
+ 'exploitation-distress':{plain:'온라인 피해가 마음의 고통이 된 상태',term:'디지털 성범죄 피해의 정서적 영향',
+  why:'피해 확산에 대한 두려움과 수치심이 고통을 키워, 확산 차단과 정서 지원을 함께 합니다.'}
 };
 // Same content, two names: what the report calls things in plain words and in professional terms.
 const GLOSSARY=[

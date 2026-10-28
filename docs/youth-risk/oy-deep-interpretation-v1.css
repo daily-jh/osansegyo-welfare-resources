@@ -68,3 +68,5 @@
 .ogl-cite{font-size:.72em;color:var(--odi-sub);margin-left:1px}
 .ogl-note{margin-top:10px}.ogl-src summary{cursor:pointer;color:var(--odi-sub);font-size:14px}.ogl-src ol{font-size:13px;line-height:1.55;padding-left:18px;color:var(--odi-sub)}
 @media print{.ogl-src{display:block}.ogl-src summary{display:none}}
+.odi-paren{font-weight:500;font-size:.82em;color:var(--oy-muted,#5b6878);white-space:nowrap}
+.odi-toc .odi-paren{display:block}

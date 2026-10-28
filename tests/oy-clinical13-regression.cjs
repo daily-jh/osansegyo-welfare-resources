@@ -87,4 +87,16 @@ check('elementary school refusal is not framed as 학업중단 숙려',()=>{
  assert.ok(!/학업중단/.test(JSON.stringify(r.patterns)),'학업중단 wording reached an elementary case');
 });
 
+check('a high carer-harm answer with family stress draws a line, and a same-theme pattern is named instead of "none"',()=>{
+ const X=require(path.join(dir,'oy-cross-patterns-v1.js'));
+ const a=[4,0,0,0,0,2,0,2,0,2,1,0,0,3,0,0,3,0,0,0,0,2,1,0,0];
+ const ids=X.match(a).active.map(p=>p.id);
+ assert.ok(ids.includes('protection-family')&&ids.includes('protection-distress'),'carer harm with family stress / distress: '+ids);
+ const h=D.html(D.build({answers:a,explicit:[],followups:{}}));
+ assert.ok(/class="odi-link"|<line[^>]+odi-edge|stroke-width="[3-9]/.test(h)||/odi-links"><li><strong>보호자에 의한 위해 ↔ 가족관계/.test(h),'cross-theme link listed');
+ const solo=D.html(D.build({answers:at({10:2,14:3}),explicit:[],followups:{}}));
+ assert.ok(/점선 원은 한 주제 안에서/.test(solo)&&!/나타나지 않았습니다/.test(solo),'same-theme pattern is not reported as none');
+ assert.ok(/이 아이 이야기 <span class="odi-paren">\(사례개념화\)<\/span>/.test(h),'plain word with the term in brackets');
+});
+
 console.log('PASS clinical 13 regression: '+run+' checks (narrative cues, ②/③ agreement, strengths, timing, grade wording)');
