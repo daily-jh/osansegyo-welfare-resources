@@ -9,7 +9,7 @@
    R-5 어느 고리도 CORE 원점수와 공식 안전판정을 바꾸지 않는다. */
 (function(root){'use strict';
 const node=typeof module!=='undefined'&&module.exports;
-const VERSION='1.0.0-20261027';
+const VERSION='1.1.0-20261028';
 const need=(n,g)=>node?require('./'+n):root[g];
 const K=()=>need('oy-constants-v1.js','OYConstants');
 const FIVE=()=>need('integrated-index-v1.js','OYFiveLevelIndex');
@@ -31,26 +31,31 @@ function selection(o){
   const levelId=o.levelId||'';
   let status,why;
   if(o.urgent){status='met';why=systems.length>=2?'개입체계 '+systems.length+'곳 · 위기 영역 응답 있음':'위기 영역(안전 문항) 응답이 있어 공동 개입 대상';}
+  else if(o.immediate){status='met';why='서술에 당일 안전 단서가 있어 공동 개입 대상 · 면담 확인 뒤 재판정';}
   else if(systems.length>=2&&LOW.includes(levelId)){status='review';why='개입체계 '+systems.length+'곳이지만 개입 수준은 '+(o.levelName||'단기 지원');}
   else if(systems.length>=2){status='met';why='개입체계 '+systems.length+'곳: '+systems.join(', ');}
   else if(o.provisional||o.safetyOpen||o.narrSafety){status='check';why=o.provisional?'추가확인이 남아 잠정':o.safetyOpen?'안전 문항 미상':'서술에서만 나온 안전 단서';}
   else if(HIGH.includes(levelId)){status='review';why='개입 수준은 다기관이지만 개입체계 '+(systems.length||0)+'곳';}
   else{status='not';why=systems.length?'개입체계 1곳: '+systems[0]:'2점 이상 영역 없음';}
-  return {status,label:SEL[status],why,systems,domains:lv.map(x=>x.name),provisional:!!o.provisional&&status!=='not'};
+  /* R-3: 미상 때문에 단계·개입 수준이 미확정이거나 서술 단서로만 선정되면 선정도 잠정이다. */
+  const prov=status!=='not'&&(!!o.provisional||!!o.open||(!!o.immediate&&!o.urgent));
+  if(status==='met'&&o.open&&!o.urgent)why+=' · 미상 확인 뒤 확정';
+  return {status,label:SEL[status],why,systems,domains:lv.map(x=>x.name),provisional:prov};
 }
 
 /* 서술 통합(oy-narrative-interpretation)이 주관기관 문장을 만들 때 같은 선정 결과를 쓰도록 한다. */
 function selectionFor(p,level,narrCount){
   const S=K().SAFETY_ITEMS,five=FIVE().analyze(p),deep=D().build(p),off=five.official||{},ans=p.answers||[];
   return selection({profile:deep.profile,urgent:!!off.urgent||S.some(n=>isNum(ans[n-1])&&ans[n-1]>=1),levelId:level&&level.id,levelName:level&&level.name,
-    provisional:!!five.provisional||(off.pendingChecks||[]).length>0,safetyOpen:S.some(n=>ans[n-1]==='unknown'||ans[n-1]==null),narrSafety:narrCount>0});
+    provisional:!!five.provisional||(off.pendingChecks||[]).length>0,safetyOpen:S.some(n=>ans[n-1]==='unknown'||ans[n-1]==null),narrSafety:narrCount>0,
+    immediate:(five.immediate||[]).length>0,open:five.tier==null&&!(off.urgent||(off.pendingChecks||[]).length||narrCount||(level&&level.id==='crisis'))});
 }
 /* ⑥ 진행체계 문장. R-1: 통합사례관리는 ⑤가 선정일 때만 말한다. */
 function pathway(o,sel){
   const SYS=K().SYSTEM_OF_DOMAIN,lv=(o.profile||[]).filter(x=>x.peak>=2);
   const school=lv.some(x=>SYS[x.id]==='학교'),welfare=lv.some(x=>WELFARE.includes(SYS[x.id]));
   if(o.urgent||o.safetyFloor>=4)return '현재 안전 확인 우선 → 학교·기관 보호체계 병행';
-  if(sel.status==='met')return school?'학교 내 학맞통 + 복지관 통합사례관리 병행':'복지관 통합사례관리 중심 · 학교 협력';
+  if(sel.status==='met')return (school?'학교 내 학맞통 + 복지관 통합사례관리 병행':'복지관 통합사례관리 중심 · 학교 협력')+(sel.provisional?' (잠정)':'');
   if(sel.status==='review')return school?'학교 내 학맞통 중심 · 통합사례관리는 사례회의에서 검토':'복지관 서비스 연계 · 통합사례관리는 사례회의에서 검토';
   if(sel.status==='check')return '추가 확인 뒤 결정 · 그동안 학교 내 지원으로 시작';
   return school?'학교 내 학생맞춤통합지원 중심':welfare?'복지관·공공지원 서비스 연계':lv.length?'해당 영역 전문기관 연계와 변화 점검':'응답 영역별 개별지원과 변화 점검';
@@ -84,17 +89,17 @@ function resolve(p){
   const profile=deep.profile||[];
   const lvCount=profile.filter(x=>x.peak>=2).length,highCount=ans.filter(v=>isNum(v)&&v>=3).length;
   const provisional=!!five.provisional||pending.length>0;
-  const sel=selection({profile,urgent,levelId:level.id,levelName:level.name,provisional,safetyOpen:safetyOpen.length>0,narrSafety:narrSafety.length>0});
+  const tier=five.tier,immediate=five.immediate||[];
+  const levelOpen=tier==null&&!(urgent||pending.length||narrSafety.length||level.id==='crisis');
+  const sel=selection({profile,urgent,levelId:level.id,levelName:level.name,provisional,safetyOpen:safetyOpen.length>0,narrSafety:narrSafety.length>0,immediate:immediate.length>0,open:levelOpen});
   const path=pathway({profile,urgent:!!off.urgent,safetyFloor:five.safetyFloor},sel);
   const lead=leadText((I&&I.lead)||deep.casework.lead,sel);
-  const tier=five.tier;
-  const levelOpen=tier==null&&!(urgent||pending.length||narrSafety.length||level.id==='crisis');
   const raisedBy=tier==null?'':tier>(five.baseTier||0)?(five.safetyFloor>=tier&&five.safetyFloor>(five.patternFloor||0)?'안전 기준':'응답 패턴'):'';
   const cells=[
     {k:'safety',n:'①',name:'안전',
-     tone:urgent?'risk':(pending.length||safetyOpen.length||narrSafety.length)?'check':'ok',
-     value:urgent?'안전 신호 있음 · '+(/^지금 바로/.test(String((I&&I.first)||(deep.summary&&deep.summary.first)||''))?'지금 바로 확인':'오늘 확인'):pending.length?'추가확인 남음':safetyOpen.length?'안전 문항 미상':narrSafety.length?'서술에 안전 단서':'이번 응답 안전 신호 없음',
-     why:urgent?(safetyPos.length?safetyPos.map(n=>n+'번').join('·')+' 응답':'명시 긴급·추가확인'):pending.length?pending.map(n=>n+'번').join('·')+' 추가확인':safetyOpen.length?safetyOpen.map(n=>n+'번').join('·')+' 미상':narrSafety.length?narrSafety.slice(0,2).join('·'):'1·2·7·25번 모두 0'},
+     tone:urgent||immediate.length?'risk':(pending.length||safetyOpen.length||narrSafety.length)?'check':'ok',
+     value:urgent?'안전 신호 있음 · '+(/^지금 바로/.test(String((I&&I.first)||(deep.summary&&deep.summary.first)||''))?'지금 바로 확인':'오늘 확인'):immediate.length?'서술에 당일 안전 단서 · 지금 바로 확인':narrSafety.length?'서술에 안전 단서 · 오늘 확인':pending.length?'추가확인 남음':safetyOpen.length?'안전 문항 미상':'이번 응답 안전 신호 없음',
+     why:urgent?(safetyPos.length?safetyPos.map(n=>n+'번').join('·')+' 응답':'명시 긴급·추가확인'):immediate.length?immediate.join('·')+(pending.length?' · '+pending.map(n=>n+'번').join('·')+' 추가확인도 남음':''):narrSafety.length?narrSafety.slice(0,2).join('·')+(pending.length?' · '+pending.map(n=>n+'번').join('·')+' 추가확인도 남음':''):pending.length?pending.map(n=>n+'번').join('·')+' 추가확인':safetyOpen.length?safetyOpen.map(n=>n+'번').join('·')+' 미상':'1·2·7·25번 모두 0'},
     {k:'core',n:'②',name:'CORE 공식 판정',tone:'core',value:off.title||'—',why:'3~4점 문항 '+highCount+'개 · 2점 이상 영역 '+lvCount+'개'},
     {k:'tier',n:'③',name:'지원 우선순위',tone:tier>=5?'risk':'data',
      value:tier==null?'단계 미확정':tier+'단계 '+NAMES[tier-1]+(five.provisional?' (잠정)':''),
@@ -102,7 +107,7 @@ function resolve(p){
      why:tier==null?'미상 확인 전 판단 보류':'점수 '+(five.baseTier||'—')+'단계'+(raisedBy?' → '+raisedBy+'으로 상향':''),
      plainWhy:tier==null?'미상 확인 전 판단 보류':'점수·응답 패턴·안전 기준 중 가장 높은 것'},
     /* 단계 미확정이고 위기 사유(안전 응답·추가확인·서술 안전 단서·위기 수준)가 없으면 개입 수준도 미확정으로 보인다. 위기 사유가 의심되면 집중 수준을 그대로 둔다. */
-    {k:'level',n:'④',name:'개입 수준',tone:level.id==='crisis'?'risk':levelOpen?'check':'data',value:levelOpen?'미확정 · 확인 후 결정':level.name,why:levelOpen?'잠정 '+level.name+' · 미상 확인 후 확정':level.meeting||level.contact||''},
+    {k:'level',n:'④',name:'개입 수준',tone:level.id==='crisis'?'risk':levelOpen?'check':'data',value:levelOpen?'미확정 · 확인 후 결정':level.name,why:levelOpen?'잠정 '+level.name+' · 미상 확인 후 확정':(level.id==='crisis'&&tier&&tier<5&&safetyPos.some(n=>ans[n-1]>=2)?'안전 문항 '+safetyPos.filter(n=>ans[n-1]>=2).map(n=>n+'번').join('·')+' 2점 이상이라 보호 조치를 먼저 함 · ':'')+(level.meeting||level.contact||'')},
     {k:'select',n:'⑤',name:'통합사례관리',tone:sel.status==='met'?'data':sel.status==='not'?'muted':'check',value:sel.label+(sel.provisional&&sel.status==='met'?' (잠정)':''),why:sel.why},
     {k:'path',n:'⑥',name:'진행체계·주관',tone:'data',value:path,why:'주관 '+lead}
   ];
@@ -130,7 +135,7 @@ function ladders(R,school){
        ['응답 패턴 기준',f.patternReason||'상향 없음',(f.patternFloor||'—')+'단계'],
        ['안전 기준',f.safetyReason||'상향 없음',(f.safetyFloor||'—')+'단계'],
        ['최종 · 세 기준 중 가장 높은 단계','',R.cells[2].value]],
-    level:[['CORE 수준 + 안전 응답 + 서술 단서',(R.level.reason||'—'),R.levelOpen?'미확정 · 잠정 '+R.level.name:R.level.name],['만남과 회의',R.level.contact||'—',R.level.meeting||'—']],
+    level:[['CORE 수준 + 안전 응답 + 서술 단서 · 지원 우선순위보다 낮게 두지 않음',(R.level.reason||'—'),R.levelOpen?'미확정 · 잠정 '+R.level.name:R.level.name],['만남과 회의',R.level.contact||'—',R.level.meeting||'—']],
     select:[['2개 이상 기관(개입체계)의 전문 개입 · 학교 안 지원(담임·교육복지사·Wee)은 한 체계',sel.systems.length?sel.systems.join(', '):'2점 이상 영역 없음',sel.label],
             ['위기 영역(안전 문항) 응답',R.urgent?'있음':(R.safetyOpen||[]).length?R.safetyOpen.map(n=>n+'번').join('·')+' 미상 · 확인 필요':'없음',R.urgent?'공동 개입 대상':(R.safetyOpen||[]).length?'확인 후 결정':'—'],
             ['개입 수준과의 관계 (R-2)',R.level.name,sel.status==='review'?'사례회의에서 결정':'일치']],

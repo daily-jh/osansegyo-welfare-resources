@@ -1,7 +1,7 @@
 /* OY-RALS v4.0/v4.2 single free-text case-context interpreter.
    All extracted cues are unverified review prompts; NEVER diagnosis, risk scoring, or auto-reporting. */
 (function(root,factory){'use strict';const api=factory();if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.YouthCaseContextCore=api;})(typeof window!=='undefined'?window:globalThis,function(){'use strict';
-const VERSION='1.5.0-clinical-20261028',LIMITS=Object.freeze({text:5000}),MAX_CLAUSES=65;
+const VERSION='1.5.1-logic400-20261028',LIMITS=Object.freeze({text:5000}),MAX_CLAUSES=65;
 const TYPES=Object.freeze([
  {id:'protection',items:[1,2],label:'학대·보호 관련 언급',re:/학대|방임|체벌|맞았|폭행|가정폭력|보호자.{0,12}(?:위협|폭력)|보호.{0,4}부재|(?:아버지|아빠|어머니|엄마|보호자|부모|계부|계모|새아빠|새엄마|양부|양모|할아버지|할머니|삼촌|이모|고모)(?:가|께서|이|는|은|한테|에게)?[^.,]{0,14}(?:때리|때렸|때린|때려|때림|목을\s?졸|졸랐|발로\s?차|걷어차|던졌|던지|가둬|가뒀)|(?:벨트|허리띠|몽둥이|효자손|옷걸이|회초리)(?:로|를)?[^.,]{0,6}(?:때|맞)/,safety:true,ask:'현재 안전·발생시기·당사자 진술과 법정 신고·보호절차를 담당자가 확인합니다.'},
  {id:'peer',items:[3,4,5],label:'또래관계·학교폭력',re:/따돌림|왕따|학교폭력|괴롭힘|놀림|또래.{0,6}(?:위협|폭행)|금품.{0,6}요구|협박/,ask:'피해인지 행동인지와 학교의 안전조치, 동일 사건 여부를 구분합니다.'},
@@ -29,8 +29,9 @@ const CONTINUE=/(?:멈추|멈출|그만두|그만하|그만\s?하|끊)\S{0,4}\s?
 // Someone else is the one who self-harms, or a peer is the one hurt ("친구가 아버지에게 맞았다").
 // "친구가 때렸다" stays with the student. Harm to a sibling or parent at home also stays with the student:
 // it is the student's household, and a missed cue costs more than a check.
-const OTHERS='(?:친구|동생|형|오빠|언니|누나|선배|후배|다른 학생|보호자|부모|어머니|아버지|엄마|아빠)',PEERS='(?:친구|선배|후배|다른 학생)';
-const THIRD_PARTY=new RegExp('(?:^|[\\s,])'+OTHERS+'(?:가|는|의|이)\\s?.{0,20}(?:자해|자살|죽고|손목|팔목|팔뚝|허벅지)|(?:^|[\\s,])'+PEERS+'(?:가|는|이)\\s?[^.,]{0,16}(?:맞았|학대(?:를)? ?(?:당|받)|폭행(?:을)? ?당)');
+const OTHERS='(?:친구|동생|형|오빠|언니|누나|선배|후배|다른 학생|옆 ?반 학생|사촌|친척|보호자|부모|어머니|아버지|엄마|아빠)',PEERS='(?:친구|선배|후배|다른 학생|옆 ?반 학생|사촌|친척)';
+// Another young person's story ("친구가 집에서 맞는다고 걱정함", "사촌이 가출했다") is that person's, not the student's (random 400-case check 2026-10-28).
+const THIRD_PARTY=new RegExp('(?:^|[\\s,])'+OTHERS+'(?:가|는|의|이)\\s?.{0,20}(?:자해|자살|죽고|손목|팔목|팔뚝|허벅지)|(?:^|[\\s,])'+PEERS+'(?:가|는|이)\\s?[^.,]{0,16}(?:맞았|맞는|맞고|맞아|학대(?:를)? ?(?:당|받)|폭행(?:을)? ?당|가출|따돌림(?:을)? ?당|괴롭힘(?:을)? ?당)');
 // The student named as the one who acts or is hurt keeps the cue with the student, even when someone else reported it.
 const STUDENT_SELF=new RegExp('(?:학생|본인)(?:이|은|도|의)?\\s?(?:(?!'+OTHERS+'(?:가|는|이|의)).){0,14}(?:자해|자살|죽고|손목|팔목|팔뚝|허벅지|맞았|학대(?:를)? ?(?:당|받)|폭행(?:을)? ?당)');
 const aboutOthers=clause=>THIRD_PARTY.test(clause)&&!STUDENT_SELF.test(clause);

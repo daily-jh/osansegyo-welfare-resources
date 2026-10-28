@@ -95,6 +95,7 @@ jobs:
           node tests/oy-perspective.cjs
           node tests/youth-eval100-regression.cjs
           node tests/oy-clinical13-regression.cjs
+          node tests/oy-random400-regression.cjs
           node tests/oy-decision-chain.cjs
           node tests/oy-constants-drift.cjs
           node tests/oy-css-bundle.cjs
