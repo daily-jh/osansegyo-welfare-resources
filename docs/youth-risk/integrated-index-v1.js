@@ -8,7 +8,7 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.OYFi
 const M=node?require('./support-model.js'):window.YouthMap;
 const W=node?require('./weight-model.js'):window.YouthWeightModel;
 const N=node?require('./case-context-core.js'):window.YouthCaseContextCore;
-const VERSION='1.0.0-operational-20261026';
+const VERSION='1.0.1-operational-20261028';
 const NAMES=Object.freeze(['안정관찰','초기주의','집중지원','다기관 집중개입','최우선 안전대응']);
 const ACTIONS=Object.freeze([
  '보편 예방·강점 확인 및 변화 관찰',
@@ -106,7 +106,8 @@ function analyze(p){
  if(safetyText)pendingOnly=false;
  if(immediate.length){pendingOnly=false;safetyFloor=5;safetyReason='서술에 '+immediate.map(x=>x.reason).join(', ')+'이 있어 당일 안전 확보 우선';}
  // Safety-based support paths stay available even when unrelated items are unknown.
- if(safetyFloor!==null)tier=tier===null?safetyFloor:Math.max(tier,safetyFloor);
+ // With unknowns left, a safety answer never lowers the level below what the answered pattern already shows.
+ if(safetyFloor!==null)tier=tier===null?Math.max(safetyFloor,patternFloor||0):Math.max(tier,safetyFloor);
  // The level stands only until the follow-up is answered; say so in the name itself, not only in the reason.
  const provisional=pendingOnly&&tier===4&&Math.max(base||0,patternFloor)<4;
  if(JSON.stringify(answers)!==before)throw Error('CORE_INPUT_MUTATED');

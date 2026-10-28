@@ -99,4 +99,13 @@ check('a high carer-harm answer with family stress draws a line, and a same-them
  assert.ok(/이 아이 이야기 <span class="odi-paren">\(사례개념화\)<\/span>/.test(h),'plain word with the term in brackets');
 });
 
+check('a safety 1-point answer with other items unknown never lowers the level below the answered pattern (2026-10-28 rule)',()=>{
+ const a=at({10:3,11:3,15:3,19:2,21:2,22:2});[1,3,16,17].forEach(n=>a[n-1]='unknown');
+ const open=FIVE.analyze(payload({answers:a}));assert.equal(open.tier,null,'unknowns without a safety answer stay undecided');
+ const b=a.slice();b[0]=1;const r=FIVE.analyze(payload({answers:b}));
+ assert.equal(r.safetyFloor,2);assert.ok(r.patternFloor>=4,'pattern floor from the answered items');
+ assert.equal(r.tier,Math.max(r.safetyFloor,r.patternFloor),'safety answer keeps the pattern floor');
+ const filled=b.map(v=>v==='unknown'?0:v);assert.ok(r.tier<=FIVE.analyze(payload({answers:filled})).tier,'not above the all-answered level');
+});
+
 console.log('PASS clinical 13 regression: '+run+' checks (narrative cues, ②/③ agreement, strengths, timing, grade wording)');
