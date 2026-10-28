@@ -14,7 +14,7 @@ function html(){return '<div class="oyfb-head"><span class="oyfb-kicker">의견 
  '<p>시험 운영 기간의 오류 제보와 사용 후기를 받아 정식 운영 전에 고칩니다. <strong>학생·가족·학교 이름, 연락처, 사례 내용은 쓰지 마세요.</strong></p></div>'+
  '<div class="oyfb-tabs" role="tablist" aria-label="의견 종류"><button type="button" role="tab" id="oyfbTabReport" aria-selected="true" data-oyfb-kind="report">오류·수정 요청 <small>비공개</small></button><button type="button" role="tab" id="oyfbTabReview" aria-selected="false" data-oyfb-kind="review">사용 후기 <small>승인 후 공개</small></button></div>'+
  '<form class="oyfb-form" novalidate><p class="oyfb-mode" id="oyfbMode"></p>'+
- '<div class="oyfb-row"><label>어느 화면인가요<select id="oyfbArea">'+AREAS.map(a=>'<option>'+esc(a)+'</option>').join('')+'</select></label>'+
+ '<div class="oyfb-row"><label id="oyfbAreaWrap">어느 화면인가요<select id="oyfbArea">'+AREAS.map(a=>'<option>'+esc(a)+'</option>').join('')+'</select></label>'+
  '<label>쓰는 분<select id="oyfbRole">'+ROLES.map(([v,l])=>'<option value="'+esc(v)+'">'+esc(l)+'</option>').join('')+'</select></label>'+
  '<fieldset class="oyfb-rating" id="oyfbRating" hidden><legend>도움 정도</legend>'+[1,2,3,4,5].map(n=>'<label><input type="radio" name="oyfbRate" value="'+n+'"'+(n===4?' checked':'')+'>'+n+'</label>').join('')+'<small>5가 가장 도움됨</small></fieldset></div>'+
  '<label class="oyfb-text"><span id="oyfbTextLabel">내용</span><textarea id="oyfbBody" rows="5" maxlength="1000"></textarea><small id="oyfbCount">0 / 1000자</small></label>'+
@@ -25,7 +25,7 @@ function mount(){
  const box=document.getElementById('oyFeedback');if(!box||box.dataset.ready)return;box.dataset.ready='1';box.innerHTML=html();
  const $=id=>document.getElementById(id);let kind='report';
  const setKind=k=>{kind=k;box.querySelectorAll('[data-oyfb-kind]').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.oyfbKind===k)));
-  $('oyfbRating').hidden=k!=='review';
+  $('oyfbRating').hidden=k!=='review';$('oyfbAreaWrap').hidden=k==='review';
   $('oyfbMode').textContent=k==='report'?'관리자만 읽습니다. 틀린 해석·문구, 고장 난 버튼, 기관 정보 오류를 알려 주세요.':'관리자가 확인한 뒤 아래 목록에 공개됩니다. 실제 사례가 짐작되는 내용은 공개하지 않습니다.';
   $('oyfbTextLabel').textContent=k==='report'?'무엇이 어떻게 잘못되었나요':'써 보니 어땠나요';
   $('oyfbBody').placeholder=k==='report'?'예: 05 최종 보고서 2쪽 목표 표의 점수 칸이 비어 보입니다.':'예: 사례회의 전에 판정 근거를 한 장으로 볼 수 있어 좋았습니다.';$('oyfbStatus').textContent=ready?'':notReady;};
@@ -38,7 +38,7 @@ function mount(){
   if(body.length<5){st.textContent='내용을 5자 이상 써 주세요.';$('oyfbBody').focus();return}
   const found=piiFound(body);if(found.length){st.textContent=found.join('·')+'로 보이는 내용이 있습니다. 지우고 다시 보내 주세요.';$('oyfbBody').focus();return}
   if(!$('oyfbOk').checked){st.textContent='개인정보 확인 항목을 선택해 주세요.';$('oyfbOk').focus();return}
-  const msg={kind,area:$('oyfbArea').value,role:$('oyfbRole').value,body};if(kind==='review')msg.rating=+(box.querySelector('input[name="oyfbRate"]:checked')?.value||4);
+  const msg={kind,area:kind==='review'?'전체·기타':$('oyfbArea').value,role:$('oyfbRole').value,body};if(kind==='review')msg.rating=+(box.querySelector('input[name="oyfbRate"]:checked')?.value||4);
   $('oyfbSend').disabled=true;st.textContent='보내는 중입니다.';
   try{const r=await fetch(base()+'/feedback',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(msg),credentials:'omit',referrerPolicy:'no-referrer'});
    if(r.status===201){$('oyfbBody').value='';$('oyfbOk').checked=false;$('oyfbCount').textContent='0 / 1000자';st.textContent=kind==='report'?'보냈습니다. 확인 후 고치겠습니다.':'보냈습니다. 확인 후 공개됩니다.'}
@@ -53,7 +53,7 @@ async function load(){const list=document.getElementById('oyfbList');if(!list)re
  try{const r=await fetch(base()+'/feedback/reviews',{credentials:'omit',referrerPolicy:'no-referrer'});const j=r.ok?await r.json():null;
   // 의견 기능이 없는 옛 Worker는 다른 모양(집계)을 돌려준다 → 준비 중으로 둔다.
   if(!j||!Array.isArray(j.reviews))throw Error('not ready');ready=true;const st=document.getElementById('oyfbStatus');if(st&&/준비/.test(st.textContent))st.textContent='';
-  list.innerHTML=j.reviews.length?'<ul class="oyfb-reviews">'+j.reviews.map(v=>'<li><div class="oyfb-meta"><span class="oyfb-stars" aria-label="도움 정도 '+esc(v.rating)+'점 / 5점">'+'●'.repeat(+v.rating||0)+'<span aria-hidden="true">'+'○'.repeat(5-(+v.rating||0))+'</span></span><span>'+esc(v.area)+'</span>'+(v.role?'<span>'+esc(v.role)+'</span>':'')+'<time>'+esc(v.day)+'</time></div><p>'+esc(v.body)+'</p></li>').join('')+'</ul>':'<p class="oyfb-muted">아직 공개된 후기가 없습니다. 첫 후기를 남겨 주세요.</p>';
+  list.innerHTML=j.reviews.length?'<ul class="oyfb-reviews">'+j.reviews.map(v=>'<li><div class="oyfb-meta"><span class="oyfb-stars" aria-label="도움 정도 '+esc(v.rating)+'점 / 5점">'+'●'.repeat(+v.rating||0)+'<span aria-hidden="true">'+'○'.repeat(5-(+v.rating||0))+'</span></span>'+(v.role?'<span>'+esc(v.role)+'</span>':'')+'<time>'+esc(v.day)+'</time></div><p>'+esc(v.body)+'</p></li>').join('')+'</ul>':'<p class="oyfb-muted">아직 공개된 후기가 없습니다. 첫 후기를 남겨 주세요.</p>';
  }catch(_){ready=false;list.innerHTML='<p class="oyfb-muted">의견 창구를 준비하고 있습니다. 곧 열립니다.</p>';const st=document.getElementById('oyfbStatus');if(st&&!st.textContent)st.textContent='의견 창구를 준비하고 있습니다. 곧 열립니다.'}}
 root.OYFeedback={piiFound,AREAS,reload:load};
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
