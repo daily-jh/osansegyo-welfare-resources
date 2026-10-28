@@ -16,7 +16,14 @@
 .oyfb-rating{border:0;margin:0;padding:0;display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:14px}
 .oyfb-rating legend{font-weight:600;padding:0;margin-bottom:4px;float:left;width:100%}
 .oyfb-rating label{display:inline-flex;align-items:center;gap:4px;min-height:var(--oy-tap);padding:0 8px;border:1px solid var(--oy-line);border-radius:10px}
-.oyfb-rating small{color:var(--oy-muted)}
+.oyfb-rating input{margin:0}
+.oyfb-face{font-size:20px;line-height:1}
+.oyfb-picks{border:0;margin:14px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.oyfb-picks legend{font-size:14px;font-weight:600;padding:0;margin-bottom:6px;float:left;width:100%}
+.oyfb-picks legend small{font-weight:400;color:var(--oy-muted);margin-left:4px}
+.oyfb-picks button{min-height:var(--oy-tap);padding:0 14px;border:1px solid var(--oy-line);border-radius:999px;background:var(--oy-bg);color:var(--oy-ink);font:inherit;font-size:14px;cursor:pointer}
+.oyfb-picks button[aria-pressed="true"]{background:var(--oy-data-soft);border-color:var(--oy-data);color:var(--oy-data-ink);font-weight:600}
+.oyfb-picks button[aria-pressed="true"]::before{content:'✓ '}
 .oyfb-text{display:flex;flex-direction:column;gap:4px;margin-top:12px;font-size:14px;font-weight:600}
 .oyfb textarea{width:100%;min-height:120px;resize:vertical;line-height:1.6;font-weight:400}
 .oyfb-text small{align-self:flex-end;color:var(--oy-muted);font-weight:400}
@@ -31,7 +38,6 @@
 .oyfb-reviews li{padding:12px 14px;border:1px solid var(--oy-line);border-radius:var(--oy-radius);background:var(--oy-bg)}
 .oyfb-reviews p{margin:6px 0 0;line-height:1.6;white-space:pre-wrap}
 .oyfb-meta{display:flex;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--oy-muted)}
-.oyfb-stars{color:var(--oy-data);letter-spacing:1px}
-.oyfb-stars span{color:var(--oy-line)}
+.oyfb-stars{color:var(--oy-ink);font-weight:600}
 @media (max-width:600px){.oyfb{padding:16px}.oyfb h2{font-size:19px}.oyfb select{min-width:0;width:100%}.oyfb-row>label{flex:1 1 100%}}
 @media print{.oyfb{display:none!important}}
