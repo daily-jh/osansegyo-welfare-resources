@@ -46,7 +46,7 @@ function model(p,opt){
   const strengths=(I.strengths||d.strengths||[]).filter(s=>!/서술/.test(s.label));
   const tier=R.tier;
   return {R,inc,hasNarr,urgent,tone:urgent?'r':R.agenda.length?'q':'',tier,tierName:tier?NAMES[tier-1]+(R.five&&R.five.provisional?' (잠정)':''):'단계 미확정',tierWhy:cell('tier').why,
-    path:R.pathway,safety:cell('safety'),sel:cell('select'),cells:R.cells,level:R.level||{},lead,parts,cands,resources:res,
+    path:R.pathway,safety:cell('safety'),sel:cell('select'),cells:R.cells,level:R.levelOpen?{...R.level,name:'개입 수준 미확정 · 잠정 '+R.level.name}:(R.level||{}),lead,parts,cands,resources:res,
     keys:(I.keys||d.summary.keys||[]).slice(0,3).map(t=>({t,v:scoreOf(t)})),
     und,quote:qm?{t:qm[1],src:qm[2]}:null,strengths,wishes:inc?(I.wishes||[]):[],
     pat:pats[0]||null,code:d.code,first:I.first||d.summary.first||'',total:d.summary.total,
