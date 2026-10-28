@@ -5,7 +5,7 @@
 (function(root){
 'use strict';
 const node=typeof module!=='undefined'&&module.exports;
-const VERSION='1.0.0-20261028';
+const VERSION='1.1.0-20261028';
 const need=(n,g)=>node?require('./'+n):root[g];
 const FR=()=>need('oy-final-report-v1.js','OYFinalReport');
 const OBS=()=>{try{return need('oy-perspective-v1.js','OYPerspective').OBS||{}}catch(_){return {}}};
@@ -57,7 +57,7 @@ function extras(k,ans,role){
   if(role==='teacher'){
     const care=['어려움을 반 친구들 앞에서 지적하거나 묻지 않습니다.','원인(학대·방임 등)을 짐작해 학생이나 보호자에게 캐묻지 않습니다. 본 것만 적습니다.'];
     if(k.urgent)care.unshift('비밀로 해 달라는 부탁에는 "너를 지키려면 도와줄 선생님께 알려야 해"라고 말하고 약속하지 않습니다.');
-    else if(k.safety.tone==='check')care.unshift('모르는 안전 문항은 교육복지사·상담교사가 직접 확인하도록 바로 넘깁니다.');
+    else if(needToday(k))care.unshift((checkWhat(k)||'현재 안전')+'은 담임이 캐묻지 말고 교육복지사·상담교사가 직접 확인하도록 오늘 넘깁니다.');
     B.push({h:'교실에서 살펴볼 모습',li:watch,tip:watch.length?'언제·어떤 수업에서 봤는지 날짜와 함께 사실만 짧게 적어 두면 교육복지사에게 큰 도움이 됩니다.':'',p:watch.length?'':'2점 이상 응답이 없어 따로 살필 모습은 없습니다. 평소처럼 지켜봅니다.'});
     add('수업·생활에서 도울 수 있는 것',{li:roleItems(d,'교사')});
     add('학생에게 이렇게 물어보세요',{li:k.urgent?[]:qs(false),tip:'대답을 재촉하지 않고, 말해 준 것에 고맙다고 해 주세요.'});
@@ -71,7 +71,7 @@ function extras(k,ans,role){
     add('학교 안에서 할 지원',{li:roleItems(d,'교육복지사')});
     add('담임교사에게 부탁할 관찰',{li:watch.slice(0,4),tip:'03 학교 지원의 「2주 관찰 기록지」로 함께 적습니다.'});
     add('학생 면담에서 물을 것',{li:qs(true)});
-    B.push({h:'학맞통·통합사례관리 판단',li:[sel.label+' · '+(sel.why||''),sel.systems&&sel.systems.length?'함께 필요한 개입체계: '+sel.systems.join(', '):'학교 안 지원으로 시작합니다.','주관 제안: '+k.lead],cls:sel.status==='met'?'':'oy1-care'});
+    B.push({h:'학맞통·통합사례관리 판단',li:[selName(sel)+' · '+(sel.why||''),sel.systems&&sel.systems.length?'함께 필요한 개입체계: '+sel.systems.join(', '):'학교 안 지원으로 시작합니다.','주관 제안: '+k.lead],cls:sel.status==='met'?'':'oy1-care'});
     add('보호자 연락',{p:fam,tip:'학생맞춤통합지원은 학생·보호자 동의가 필요합니다.'});
     add('이 학생의 버팀목',{li:strengths});
     add('가까운 지역 기관',{near,tip:nearTip});
@@ -90,7 +90,7 @@ function extras(k,ans,role){
   /* 사회복지관·아동가족기관·행정복지센터 */
   add('기관이 할 일',{li:roleItems(d,'사례관리자')});
   B.push({h:'개입 수준',li:[k.level.name,...[k.level.contact,k.level.meeting].filter(Boolean)]});
-  B.push({h:'통합사례관리 선정',li:[sel.label,sel.why||''].filter(Boolean),cls:sel.status==='met'?'':'oy1-care'});
+  B.push({h:'통합사례관리 선정',li:[selName(sel),sel.why||''].filter(Boolean),cls:sel.status==='met'?'':'oy1-care'});
   add('사례회의에서 정할 것',{li:meet,cls:'oy1-care'});
   add('시기별 계획',{li:stops});
   add('지원 목표',{li:goals});
@@ -98,28 +98,42 @@ function extras(k,ans,role){
   add('연계 후보 기관',{near,tip:nearTip});
   return {title:SCOPE[role].name+' 실무 정리',blocks:B,memo:['사례 메모','예: 초기상담 일정, 확인할 급여·서비스, 협력 기관 담당자.']};
 }
+/* 받침(ㄹ 제외)이 있으면 '으로'. 판정 문구를 문장 안에 넣을 때 쓴다. */
+const ro=w=>{w=String(w);const c=w.slice(-1).charCodeAt(0)-0xAC00,f=c>=0&&c<11172?c%28:0;return w+(f&&f!==8?'으로':'로')};
+const selName=sel=>(sel.label||'')+(sel.provisional&&sel.status==='met'?' (잠정)':'');
 const m_hard=k=>(k.profile||[]).some(d=>(d.peak||0)>=2);
+/* 척도 안전 응답은 없지만 오늘 확인할 것(서술 안전 단서·추가확인·안전 문항 미상). 4단계 이상이면 이유가 없어도 오늘 알린다. */
+function checkWhat(k){
+  const R=k.R||{},w=[];
+  if((R.narrSafety||[]).length)w.push('서술에 나온 '+R.narrSafety.slice(0,2).join('·')+' 단서');
+  if((R.pending||[]).length)w.push(R.pending.map(n=>n+'번').join('·')+' 추가확인');
+  if((R.safetyOpen||[]).length)w.push('미상인 안전 문항('+R.safetyOpen.map(n=>n+'번').join('·')+')');
+  return w.join(', ');
+}
+const needToday=k=>!k.urgent&&(k.safety.tone==='check'||(k.tier||0)>=4);
 function nextSteps(k,role,unknown,sel){
   const S=[],multi=sel.status==='met'||sel.status==='review';
-  const safetyFirst=k.urgent?'오늘 안에 '+(k.immediate||'학교 안전 절차')+'로 확인합니다. 기다리거나 혼자 판단하지 않습니다.':'';
+  const what=checkWhat(k),today=needToday(k);
+  const safetyFirst=k.urgent?(/지금 바로/.test(k.safety.value)?'지금 바로 ':'오늘 안에 ')+ro(k.immediate||'학교 안전 절차')+' 확인합니다. 기다리거나 혼자 판단하지 않습니다.':today?'오늘 안에 '+(what||'현재 안전')+'을 학생과 직접 확인합니다. 확인 전에는 안전하다고 보지 않습니다.':'';
   if(role==='teacher'){
     if(k.urgent)S.push('지금 교육복지사·상담교사·관리자에게 바로 알립니다. 학교 위기대응 절차를 따릅니다.');
+    else if(today)S.push('오늘 안에 교육복지사·상담교사에게 직접 알립니다'+(what?'('+what+')':'')+'. 확인할 때까지 기다리지 않습니다.');
     S.push('이 한 장을 교육복지사(또는 Wee클래스)에게 전달합니다.');
     if(unknown)S.push('모르는 문항 '+unknown+'개는 미상으로 둔 채 넘겨도 됩니다. 교육복지사가 보완합니다.');
-    if(!k.urgent&&m_hard(k))S.push('궁금하면 02 지역자원 지도에서 어려운 영역에 맞는 가까운 기관을 봅니다.');
-    if(S.length<3)S.push(k.urgent?'학생을 혼자 두지 않고, 들은 말과 시간을 그대로 적어 둡니다.':'평소처럼 지켜보고, 달라진 점이 있으면 날짜와 함께 짧게 적어 둡니다.');
+    if(!k.urgent&&!today&&m_hard(k))S.push('궁금하면 02 지역자원 지도에서 어려운 영역에 맞는 가까운 기관을 봅니다.');
+    if(S.length<3)S.push(k.urgent||today?'학생을 혼자 두지 않고, 들은 말과 시간을 그대로 적어 둡니다.':'평소처럼 지켜보고, 달라진 점이 있으면 날짜와 함께 짧게 적어 둡니다.');
   }else if(role==='edu'){
     if(safetyFirst)S.push(safetyFirst);
     if(unknown)S.push('미상 '+unknown+'개를 학생·담임과 확인해 01에서 고친 뒤 다시 봅니다.');
     S.push('03 학교 지원의 교육복지사 절차로 학교 안 지원을 정합니다.');
-    if(multi)S.push('학교 밖 기관이 함께 필요합니다('+sel.label+'). 학맞통 지원팀·'+k.lead+'과 사례회의 안건으로 올립니다.');
+    if(multi)S.push('학교 밖 기관이 함께 필요합니다('+selName(sel)+'). 학맞통 지원팀·'+josa(k.lead,'과','와')+' 함께 사례회의 안건으로 올립니다.');
   }else if(role==='team'){
     if(safetyFirst)S.push(safetyFirst);
     S.push('05 최종 보고서를 사례회의 자료로 씁니다.');
-    S.push('통합사례관리: '+sel.label+'. 주관은 '+k.lead+'으로 잠정 제안합니다.');
+    S.push('통합사례관리: '+selName(sel)+'. 주관은 '+ro(k.lead)+' 잠정 제안합니다.');
   }else{
     if(safetyFirst)S.push(safetyFirst);
-    if(k.first&&!k.urgent)S.push(k.first);
+    if(k.first&&!k.urgent&&!today)S.push(k.first);
     S.push('진행: '+k.path+' (주관 '+k.lead+')');
     if(k.agenda.length)S.push('사례회의에서 정할 것 '+k.agenda.length+'가지가 있습니다.');
   }
@@ -131,6 +145,7 @@ const josa=(w,a,b)=>{const c=String(w).slice(-1).charCodeAt(0)-0xAC00;return w+(
 function deck(m){
   const k=m.k,names=m.hard.map(h=>h.t);
   if(k.urgent)return '안전 신호가 있어 오늘 바로 확인하고 연결해야 하는 학생입니다.';
+  if(needToday(k)&&checkWhat(k))return '오늘 안전을 먼저 확인해야 하는 학생입니다('+checkWhat(k)+')'+(m.tier?'. '+m.tier+'단계 '+m.tierName+'.':'.');
   if(!m.tier)return '모르는 응답이 남아 있어 확인이 먼저인 학생입니다'+(names.length?'. '+names.join('·')+'의 어려움이 보입니다.':'.');
   return m.tier+'단계 '+m.tierName+(names.length?'. '+josa(names.join('·'),'을','를')+' 함께 살펴야 하는 학생입니다.':'. 두드러진 어려움 없이 지켜보는 학생입니다.');
 }
@@ -146,7 +161,7 @@ function html(m){
    (sc?'':'<div class="oy1-pick" role="group" aria-label="역할 고르기">'+roles.map(r=>'<button type="button" data-oy-role="'+r+'">'+esc(SCOPE[r].name)+'</button>').join('')+'</div>')+
    '<div class="oy1-grid">'+
    '<section class="oy1-q oy1-'+m.safetyTone+'"><h4><i>01</i>지금 안전한가요?</h4><p class="oy1-v">'+esc(k.safety.value)+'</p><p class="oy1-why">'+esc(k.safety.why)+'</p>'+
-    (m.safetyTone==='c'?'<p class="oy1-callc">모르는 안전 문항은 안전하다고 보지 않습니다. 오늘 직접 확인해 주세요.</p>':'')+(k.urgent?'<p class="oy1-call">급하면 <b>112</b> · 청소년상담 <b>1388</b> · 자살예방 <b>109</b></p>':'')+'</section>'+
+    (m.safetyTone==='c'?'<p class="oy1-callc">'+esc(((k.R.safetyOpen||[]).length&&!(k.R.narrSafety||[]).length&&!(k.R.pending||[]).length?'모르는 안전 문항은 안전하다고 보지 않습니다.':'확인하기 전에는 안전하다고 보지 않습니다.')+' 오늘 직접 확인해 주세요.')+'</p>':'')+(k.urgent||(m.tier||0)>=5?'<p class="oy1-call">급하면 <b>112</b> · 청소년상담 <b>1388</b> · 자살예방 <b>109</b></p>':'')+'</section>'+
    '<section class="oy1-q"><h4><i>02</i>얼마나 급한가요?</h4><p class="oy1-v">'+esc(m.tier?m.tier+'단계 '+m.tierName:m.tierName)+'</p>'+tierBar+'<p class="oy1-why">'+esc(m.tier?m.tierWhy:'모르는 문항을 확인하기 전에는 단계를 정하지 않습니다.')+'</p></section>'+
    '<section class="oy1-q"><h4><i>03</i>무엇이 어려운가요?</h4>'+hard+'</section>'+
    '<section class="oy1-q oy1-do"><h4><i>04</i>'+(sc?esc(sc.name)+'는 무엇을 하나요?':'누가 무엇을 하나요?')+'</h4><ol class="oy1-steps">'+m.steps.map(s=>'<li>'+esc(s)+'</li>').join('')+'</ol></section>'+

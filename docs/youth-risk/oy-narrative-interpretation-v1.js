@@ -9,7 +9,8 @@ const D=node?require('./oy-deep-interpretation-v1.js'):root.OYDeepInterpretation
 const GL=(()=>{try{return node?require('./oy-grade-lens-v1.js'):root.OYGradeLens}catch(_){return null}})();
 const C=node?require('./case-context-core.js'):root.YouthCaseContextCore;
 const OD=()=>{try{return node?require('./oy-decision-v1.js'):root.OYDecision}catch(_){return null}};
-const VERSION='1.2.0-clinical-20261028';
+const FV=()=>{try{return node?require('./integrated-index-v1.js'):root.OYFiveLevelIndex}catch(_){return null}};
+const VERSION='1.3.0-logic400-20261028';
 const SAFETY=[1,2,7,25];
 const NOTICE='이 해석은 25문항 응답과 선택 서술기록을 OY-RALS 규칙으로 함께 읽어 풀어 쓴 실무 참고자료입니다. 서술 문장은 표현 단서로 분류한 것이므로 인용·부정·추정·과거 언급은 면담에서 사실 여부를 확인하며, 진단·학대 판정·위험 예측이나 서비스 자격 결정이 아닙니다. 서술은 공식 점수와 CORE 안전판정을 바꾸지 않고, 서술에 안전 관련 표현이 있으면 이 해석과 관계없이 소속기관의 보호·신고 절차를 먼저 따릅니다. 단서 사전과 대조 규칙은 전문가 내용타당도 검토 전 개발판입니다.';
 
@@ -242,6 +243,18 @@ function narrative(p){
 /* Integrated view: deep scale report + narrative, used by ③ and the 03 case conceptualisation pages. */
 const OWNER={protect:'아동보호·수사기관',crisis:'정신건강 위기대응',school:'학교(담임·교육복지사·Wee)',welfare:'복지관 통합사례관리',specialist:'전문 상담·치료기관'};
 const LEVEL_ORDER=['monitor','brief','general','intensive','crisis'];
+const LEVELS={
+ general:{id:'general',name:'일반 사례관리 (학교·복지 협력)',contact:'주 담당자가 1~2주에 1회 학생 접촉',meeting:'4주 안에 학교·복지 담당 협의(학맞통 협의 검토)',review:'3개월마다 재사정'},
+ intensive:{id:'intensive',name:'집중 사례관리 (다기관)',contact:'주 담당자가 주 1회 이상 학생 접촉, 가족 접촉 병행',meeting:'2주 안에 다기관 사례회의',review:'1개월마다 진행 점검, 3개월 재사정'},
+ crisis:{id:'crisis',name:'위기개입 후 집중 사례관리',contact:'당일 안전 확인, 이후 안정될 때까지 매일~주 2회 확인',meeting:'보호 조치 직후 긴급 사례회의',review:'안전 확보 후 2주 안에 전체 재사정'}};
+/* A safety answer on the scale (1·2·7·25, explicit urgent, follow-up 'yes') puts the time first, the same word as the chain's safety cell. */
+function timed(p,first){
+ const a=p.answers||[],now=(p.explicit||[]).length>0||Object.values(p.followups||{}).includes('yes');
+ const urgent=now||SAFETY.some(n=>isNum(a[n-1])&&a[n-1]>=1);
+ first=String(first||'');
+ if(!urgent||/^(?:지금 바로|오늘)/.test(first))return first;
+ return (now?'지금 바로':'오늘 안에')+' 현재 안전을 직접 확인하고 소속기관 보호 절차를 따릅니다.'+(first?' 그다음 '+first:'');
+}
 function integrate(p){
  const r=D.build(p),nv=narrative(p),cmp=nv.compare,w=r.casework;
  // Patterns that appear only when narrative evidence is added (scores themselves are unchanged).
@@ -266,6 +279,14 @@ function integrate(p){
  }else if(nv.present&&cmp.narrative.length>=2&&LEVEL_ORDER.indexOf(level.id)<2){
   level={...level,id:'general',name:'일반 사례관리 (학교·복지 협력)',contact:'주 담당자가 1~2주에 1회 학생 접촉',meeting:'4주 안에 학교·복지 담당 협의(학맞통 협의 검토)',review:'3개월마다 재사정',reason:'척도 응답은 낮지만 서술에서 여러 생활영역의 어려움이 구체적으로 드러나 학교와 복지가 함께 확인합니다.'};
   adjust='척도보다 서술에서 '+cmp.narrative.map(x=>x.topic).join(', ')+'의 어려움이 더 크게 드러나 협력 수준을 한 단계 올렸습니다.';
+ }
+ // The intervention level never sits below the five-level support priority (3 → general, 4 → intensive, 5 → crisis).
+ // Without this a score that confirms a narrative cue could lower the level the narrative alone had raised (random 400-case check 2026-10-28).
+ let five=null;try{const fv=FV();five=fv&&fv.analyze?fv.analyze(p):null}catch(_){five=null}
+ const FLOOR={3:'general',4:'intensive',5:'crisis'},want=five&&five.tier?FLOOR[five.tier]:null;
+ if(want&&LEVEL_ORDER.indexOf(level.id)<LEVEL_ORDER.indexOf(want)){
+  const L=LEVELS[want];
+  level={...L,id:want,reason:'지원 우선순위 '+five.tier+'단계('+five.label.replace(/ \(잠정\)$/,'')+')에 맞춰 '+L.name+' 수준으로 운영합니다. 개입 수준은 지원 우선순위보다 낮게 두지 않습니다.'};
  }
  // R-1: '복지관 통합사례관리' 주관은 통합사례관리 선정일 때만 쓴다(oy-decision-v1).
  try{const od=OD();if(od&&od.selectionFor)lead=od.leadText(lead,od.selectionFor(p,level,nSafety.length));}catch(_){}
@@ -309,7 +330,7 @@ function integrate(p){
  const wishes=nv.read.wishes.map(s=>s.quote);
  const partners=[...w.partners];[...cmp.narrative,...cmp.fill].forEach(x=>{const o=OWNER[K.item(x.n).owner];if(o!==w.lead&&!partners.includes(o))partners.push(o)});
  return {version:VERSION,deep:r,grade:r.grade||null,narrative:nv,present:nv.present,redacted:!!nv.read.redacted,level,adjust,lead,immediate,partners,leadText:route&&route.lead?'서술의 안전 신호 때문에 오늘의 즉시 대응과 이후 사례관리 주관을 나눕니다. 오늘의 즉시 대응: '+route.immediate+'. 이후 사례관리: '+josa(route.lead.replace(/ \(.*\)$/,''),'이','가')+' 주관합니다.':w.leadText,family,keys:keyList,
-  first:nSafety.length&&!/^지금 바로/.test(r.summary.first)?(imm.length?'지금 바로':'오늘 안에')+' 서술에 나온 '+nSafety.map(x=>cueName(x.topic)).join(', ')+'을 학생과 직접 안전 면담으로 확인합니다.':r.summary.first,
+  first:nSafety.length&&!/^지금 바로/.test(r.summary.first)?(imm.length?'지금 바로':'오늘 안에')+' 서술에 나온 '+nSafety.map(x=>cueName(x.topic)).join(', ')+'을 학생과 직접 안전 면담으로 확인합니다.':timed(p,r.summary.first),
   safety:r.summary.safety==='이번 응답의 안전 신호 없음'&&nSafety.length?'서술에 안전 관련 표현 · 확인 우선':r.summary.safety,
   understanding:u.join(' '),compare:cmp,newPatterns,plan,goals,agenda,strengths,wishes,questions:[...nv.questions,...r.questions.filter(q=>!nv.questions.some(x=>x.about===q.about))].slice(0,7),notice:NOTICE};
 }
