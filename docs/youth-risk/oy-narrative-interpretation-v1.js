@@ -321,7 +321,7 @@ const sec=(k,i,title,body)=>'<section class="odi-sec odi-s-'+k+'"><h3><span clas
 const STATUS_TEXT={'보고':'기록됨','부인':'부인','추정':'추정 표현','과거':'과거 일'};
 const CMP=[['agree','척도와 서술이 함께 가리키는 어려움','두 자료가 같은 방향을 보여 계획의 중심에 둡니다.'],['narrative','서술에서 더 크게 드러난 어려움','척도 응답보다 실제 기록이 더 무거운 부분입니다. 응답 시점과 장면을 확인합니다.'],['fill','척도에서 확인되지 않았던 내용을 서술이 보완한 부분','미상으로 남은 문항의 실제 모습을 서술이 보여줍니다.'],['conflict','척도와 서술이 엇갈리는 부분','응답자와 기록자의 관점 차이일 수 있어 사례회의에서 맞춰 봅니다.'],['scale','척도에만 나타난 어려움','서술에 구체적인 모습을 더하면 계획과 점검이 쉬워집니다.'],['past','과거 일로 기록된 내용','현재도 이어지는지 확인합니다.']];
 function cmpHtml(cmp){
- const blocks=CMP.filter(([k])=>cmp[k==='past'?'past':k].length).map(([k,t,d])=>'<div class="odi-card onr-cmp-'+k+'"><h4>'+esc(t)+'</h4><p class="odi-muted">'+esc(d)+'</p>'+ul(cmp[k].map(x=>'<strong>'+esc(x.topic)+'</strong>'+(x.quotes.length?' '+esc(uniq(x.quotes).slice(0,2).map(q=>'“'+q.quote+'” ('+q.source+')').join(' · ')):'')))+'</div>');
+ const blocks=CMP.filter(([k])=>cmp[k==='past'?'past':k].length).map(([k,t,d])=>'<div class="odi-card onr-cmp-'+k+'"><h4>'+esc(t)+'</h4><p class="odi-muted">'+esc(d)+'</p>'+ul(cmp[k].map(x=>{const qs=['conflict','low'].includes(k)?x.quotes:x.quotes.filter(q=>q.status!=='부인');return '<strong>'+esc(x.topic)+'</strong>'+(qs.length?' '+esc(uniq(qs).slice(0,2).map(q=>'“'+q.quote+'” ('+q.source+')').join(' · ')):'')}))+'</div>');
  return blocks.length?blocks.join(''):'<p>척도와 서술 사이에서 비교할 만한 어려움이 추출되지 않았습니다.</p>';
 }
 function sentenceAppendix(n,head){

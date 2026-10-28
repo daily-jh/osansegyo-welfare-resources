@@ -160,9 +160,9 @@ function reassess(values){
 function urgentLevel(values,c,p){return !!((p&&p.explicit)||[]).length||c.checkItems.some(n=>((p&&p.followups)||{})[n]==='yes')||SAFETY.some(n=>isNum(values[n-1])&&values[n-1]>=3)}
 // Who acts today versus who carries the case afterwards, for the safety signals (Claude draft; confirm against local agreements).
 function safetyRoute(has,explicit){
- if(has(1)||has(2))return {immediate:'발견한 교직원의 아동학대 신고(112) → 시·군·구 아동학대전담공무원·아동보호전문기관',lead:'시·군·구 아동학대전담공무원·아동보호전문기관 (학교·복지관 협력)'};
- if(has(25)||has(4))return {immediate:'경찰 신고(112·117)와 증거 보전 안내 → 해바라기센터·디지털성범죄 피해 지원기관(마주봄센터)',lead:'해바라기센터·마주봄센터 (학교는 보호 조치와 학교폭력 절차)'};
- if(has(7))return {immediate:'학교 상담교사(Wee)·위기관리위원회의 당일 안전 면담, 급박하면 119·112',lead:'정신건강복지센터 (학교 Wee·복지관 협력)'};
+ if(has(1)||has(2))return {immediate:'발견한 교직원의 아동학대 신고(112) → 시·군·구 아동학대전담공무원·아동보호전문기관',lead:'시·군·구 아동학대전담공무원·아동보호전문기관, 학교·복지관 협력'};
+ if(has(25)||has(4))return {immediate:'경찰 신고(112·117)와 증거 보전 안내 → 해바라기센터·디지털성범죄 피해 지원기관(마주봄센터)',lead:'해바라기센터·마주봄센터, 학교는 보호 조치와 학교폭력 절차'};
+ if(has(7))return {immediate:'학교 상담교사(Wee)·위기관리위원회의 당일 안전 면담, 급박하면 119·112',lead:'정신건강복지센터, 학교 Wee·복지관 협력'};
  if(explicit)return {immediate:'112·119 즉시 연락과 학교 위기관리위원회 소집',lead:null};
  return null;
 }
@@ -234,7 +234,7 @@ function casework(values,c,prof,patterns,crit,str,p){
  // meeting agenda
  const agenda=[];
  if(safetyAny)agenda.push('현재 안전 판단과 보호·신고 절차 진행 상황 공유');
- agenda.push('주관 기관과 사례관리 담당자 지정 ('+lead+' 주관 제안)');
+ agenda.push('주관 기관과 사례관리 담당자 지정 (제안: '+lead+')');
  agenda.push('우선 목표 2~3개 합의'+(top.length?' · '+top.slice(0,2).map(p=>p.name).join(', ')+' 중심':''));
  agenda.push('학생·보호자 동의와 기관 간 정보 공유 범위');
  if(abuse||famHigh)agenda.push('보호자 참여 방식과 첫 연락 담당');
