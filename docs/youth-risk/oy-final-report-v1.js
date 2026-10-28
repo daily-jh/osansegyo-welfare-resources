@@ -116,7 +116,7 @@ function laneDiagram(k){
 /* 학년은 판정을 바꾸지 않는 해석 보조: 1쪽에는 한 줄, 자세한 내용은 쪽 채움 블록. */
 const noCite=t=>String(t||'').replace(/\[S\d+\]/g,'');
 const firstSent=t=>noCite(t).split(/(?<=다\.)\s+/)[0];
-const gradeLine=k=>k.grade?'<p class="sm ofr-grade"><b>'+esc(k.grade.short+' · '+(k.grade.band.split(' · ').pop()))+'</b> '+esc(firstSent((k.grade.readings[0]||{}).text||k.grade.look))+'</p>':'';
+const gradeLine=k=>k.grade?'<p class="sm ofr-grade"><b>'+esc(k.grade.short+' · '+(k.grade.band.split(' · ').pop()))+'</b> '+esc(firstSent((k.grade.readings[0]||{}).text||('이 시기의 핵심 과업은 '+k.grade.tasks.slice(0,2).join(', ')+'입니다.')))+'</p>':'';
 const keyLi=k=>'<li>'+dots(k.v)+'<span><b>'+esc(k.t)+'</b>'+(k.v?'':' <span class="xs mut">서술에서 확인</span>')+'</span></li>';
 const alertHtml=k=>k.urgent?'<p class="alert"><b>오늘 할 일</b>'+esc(k.immediate||'')+k.critical.map(x=>' · '+esc(x.n+'번 '+x.topic+': '+x.action)).join('')+'</p>':'';
 const agendaHtml=k=>k.agenda.length?'<p class="qnote">'+k.agenda.map(a=>esc(a.t)).join(' ')+'</p>':'';
@@ -189,6 +189,10 @@ function fill(scope){
     const memo=rep.querySelector('.xmemo');
     rep.querySelectorAll('.xtra').forEach(x=>{if(used.has(x.dataset.x)){x.remove();return;}x.hidden=false;if(over(rep)>1)x.remove();else used.add(x.dataset.x);});
     if(memo&&over(rep)>1){memo.remove();rep.classList.add('ofr-spread');}
+    // The page's own content can still be a little over one A4 (long names, a narrative quote): shrink the type
+    // a little rather than cut the last lines off the printed page.
+    const base=parseFloat(getComputedStyle(rep).fontSize)||14;
+    for(let f=.98;over(rep)>1&&f>=.84;f-=.02)rep.style.fontSize=(base*f).toFixed(2)+'px';
   });
   return {over:reps.some(r=>over(r)>1)};
 }

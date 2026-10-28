@@ -9,57 +9,64 @@ const D=node?require('./oy-deep-interpretation-v1.js'):root.OYDeepInterpretation
 const GL=(()=>{try{return node?require('./oy-grade-lens-v1.js'):root.OYGradeLens}catch(_){return null}})();
 const C=node?require('./case-context-core.js'):root.YouthCaseContextCore;
 const OD=()=>{try{return node?require('./oy-decision-v1.js'):root.OYDecision}catch(_){return null}};
-const VERSION='1.1.0-others-20261026';
+const VERSION='1.2.0-clinical-20261028';
 const SAFETY=[1,2,7,25];
 const NOTICE='이 해석은 25문항 응답과 선택 서술기록을 OY-RALS 규칙으로 함께 읽어 풀어 쓴 실무 참고자료입니다. 서술 문장은 표현 단서로 분류한 것이므로 인용·부정·추정·과거 언급은 면담에서 사실 여부를 확인하며, 진단·학대 판정·위험 예측이나 서비스 자격 결정이 아닙니다. 서술은 공식 점수와 CORE 안전판정을 바꾸지 않고, 서술에 안전 관련 표현이 있으면 이 해석과 관계없이 소속기관의 보호·신고 절차를 먼저 따릅니다. 단서 사전과 대조 규칙은 전문가 내용타당도 검토 전 개발판입니다.';
 
 /* Cue lexicon: n = linked item, neg = wording is already negative (no negation check). */
 const CARER='(?:부모|아버지|어머니|아빠|엄마|보호자|계부|계모|양부|양모|삼촌|이모|고모)';
 const CUES=[
- {n:1,re:new RegExp(CARER+'[^.,]{0,14}(?:때리|때렸|때린|폭행|폭력|맞|위협|던지|던졌|목을|체벌|욕설)')},
+ {n:1,re:new RegExp(CARER+'[^.,]{0,14}(?:때리|때렸|때린|때려|때림|폭행|폭력|맞|위협|던지|던졌|목을|체벌|욕설)')},
+ {n:1,re:/(?:얼굴|팔|팔뚝|다리|등|목|눈)[^.,]{0,6}멍|멍을 (?:발견|확인)|(?:벨트|허리띠|몽둥이|효자손|옷걸이|회초리)(?:로|를)?[^.,]{0,6}(?:때|맞)/},
  {n:1,re:/(?:집에서|가정에서)[^.,]{0,10}(?:맞|폭력|폭행)|멍(?:이|자국)|설명(?:이|과) (?:다른|엇갈리는) 상처/},
- {n:2,re:/방임|방치|씻지 (?:못|않)|며칠(?:째)? ?(?:굶|못 먹)|계절에 맞지 않는 옷|치료를? (?:받지 못|못 받)|위생 상태가 (?:나쁘|좋지)/},
+ {n:2,re:/방임|방치|씻지 (?:못|않)|며칠(?:째)? ?(?:굶|못 먹)|계절에 맞지 않는 옷|겨울(?:인데|에)?[^.,]{0,8}얇은 (?:옷|점퍼|외투|겉옷)|치료를? (?:받지 못|못 받)|위생 상태가 (?:나쁘|좋지)/},
  {n:3,re:/괴롭힘|괴롭히|따돌림|따돌리|왕따|놀림|놀리|학교폭력|단톡|단체 ?채팅방?[^.,]{0,8}(?:욕|퇴장|저격)|(?:친구|또래|반 아이)[^.,]{0,10}(?:맞았|맞는|무시|갈등|다툼)/},
  // A threat to spread images is a safety cue whatever the images are; kept under coercion, never assumed sexual.
  {n:4,safety:true,re:/(?:촬영물|사진|영상|동영상|몸캠|나체|알몸)[^.]{0,15}(?:유포|퍼뜨|퍼트|뿌리|뿌린|올리겠|올린다고|게시|공개하)|(?:유포|퍼뜨리|퍼트리|뿌리|게시|공개)\S{0,4} ?(?:하겠|겠다|한다고)[^.]{0,10}(?:촬영물|사진|영상)/},
  {n:4,re:/돈을 (?:뺏|빼앗|요구)|갈취|셔틀|협박|강요(?:를|당)/},
- {n:5,re:/(?:친구|또래|교사|선생님)(?:를|을|에게)[^.,]{0,8}(?:때리|때렸|밀치|밀쳤|위협)|물건을 던|싸움을|폭언/},
- {n:6,re:/우울|무기력|의욕이 없|의욕(?:이)? ?(?:떨어|없)|엎드려|눈물|울었|울먹|표정이 (?:없|어둡)|웃지 않|외롭|슬퍼|슬프다|짜증이 늘|힘들다고/},
- {n:7,re:/(?:손목|팔목|팔뚝|허벅지)[^.,]{0,6}(?:상처|흉터|베인|그은|긋)|죽고 ?싶|사라지고 ?싶|없어지고 ?싶|살기 싫|자해|손목을|자살|극단적 (?:선택|생각)|태어나지 말|유서|살고 ?싶지 ?(?:는 ?)?않|이제 ?그만 ?하고 ?싶|(?:약|수면제|진통제)(?:을|를)? ?[^.,]{0,6}(?:모아|모았|모으)|약 ?봉투/},
+ {n:5,re:/(?:친구|또래|교사|선생님|후배)(?:를|을|에게)[^.,]{0,8}(?:때리|때렸|때려|밀치|밀쳤|밀쳐|밀었|위협|협박)|물건을 던|싸움을|폭언/},
+ {n:6,re:/우울|무기력|의욕이 없|의욕(?:이)? ?(?:떨어|없)|엎드려|눈물|울었|울먹|울기도|울면서|표정이 (?:없|어둡)|웃지 않|외롭|슬퍼|슬프다|짜증이 늘|힘들다고/},
+ {n:7,re:/(?:손목|팔목|팔뚝|허벅지)[^.,]{0,6}(?:상처|흉터|베인|그은|긋)|죽고 ?싶|사라지고 ?싶|없어지고 ?싶|살기 싫|자해|손목을|자살|극단적 (?:선택|생각)|태어나지 말|유서|살고 ?싶지 ?(?:는 ?)?않|이제 ?그만 ?하고 ?싶|(?:약|수면제|진통제)(?:을|를)? ?[^.,]{0,6}(?:모아|모았|모으)|약 ?봉투|(?:손목|팔목|팔뚝|허벅지)[^.]{0,14}칼자국|칼자국|(?:칼|커터|면도날?)(?:로|을|를)?[^.,]{0,10}(?:그어|그었|긋|베었|베어)|(?:그어야|그으면)[^.,]{0,8}(?:진정|풀리|편해)|(?:어젯밤|어제|그저께|또|다시|자주|계속|매일)[^.,]{0,20}(?:그었|그어|긋는)|(?:사라지|없어지|죽으)면 ?(?:편할|좋겠|나을)|살 ?이유(?:가)? ?없|죽는 ?게 ?(?:낫|편)|죽어 ?버리|뛰어내리/},
  {n:8,re:/잠을 (?:거의 |잘 )?못|잠들기 (?:어렵|힘들)|잠이 안|불면|악몽|불안해|불안이|겁이 많|공황|멍하게|혼란스러|졸고|졸음|조는/},
  {n:9,re:/지각|결석|조퇴|등교(?:를)? ?(?:거부|하지 않|못)|학교에 (?:오지|가지|나오지) (?:않|못)/},
  {n:10,re:/성적(?:이)? ?(?:떨어|낮)|학습(?:이)? ?(?:부진|어려|뒤처)|과제(?:를)? ?(?:내지|미제출|못 해|안 해)|수업을 (?:따라가지|못 따라)|기초학력|백지/},
  {n:11,re:/자퇴|학교를 그만|학교 다녀서|학교가 싫|학교에 가기 싫|진로(?:에)? ?관심(?:이)? ?없/},
- {n:12,re:/벽을 (?:치|쳤)|물건을 (?:부수|부쉈)|파손|과속|위험한 (?:장난|행동)/},
- {n:13,re:/담배|흡연|음주|술을|전자담배|베이프|약물|본드/},
+ {n:12,re:/벽을 (?:치|쳤)|물건을 (?:부수|부쉈)|파손|과속|위험한 (?:장난|행동)|무면허|오토바이|절도|훔치|훔쳤|도둑|보호관찰|소년 ?(?:재판|보호|부)|경찰에 (?:단속|입건|적발)/},
+ {n:13,re:/담배|흡연|음주|술을|전자담배|베이프|약물|본드|(?:먹은|먹고)[^.,]{0,6}토하|토한다|구토|폭식|식사를 거르|굶어|체중(?:이)?[^.,]{0,10}(?:줄|빠|감소)|살을 빼려/},
  {n:14,re:/지시를 (?:놓치|잘 못 알아)|청력|시력|보청기|난독|한국어가 (?:서툴|어려)|의사소통(?:이)? ?어려/},
  {n:15,re:/보조기기|병원에 (?:간 적이 없|가지 못)|(?:병원|치과)에? ?데려가지 않|충치|휠체어|치료(?:가|를)? ?(?:중단|대기)|서비스 (?:신청 방법|대기)|바우처/},
  {n:16,re:/결식|끼니|아침(?:을|은)? ?(?:거르|굶|못 먹|안 먹)|야간 ?근무|밤늦게까지 (?:혼자|일)|(?:방과 ?후|저녁|밤)(?:에|에는)? ?혼자|돌봐 ?줄 (?:어른|사람)(?:이)? ?없|편의점(?:에서)? ?(?:끼니|식사|도시락)/},
  {n:17,re:/별거|이혼|가정 ?불화|부부 ?(?:싸움|갈등)|재혼|양육 스트레스|가출/},
  {n:17,re:new RegExp(CARER+'[^.,]{0,10}(?:갈등|다툼|다투|싸우|싸움|불화)')},
- {n:18,re:/(?:동생|조카)[^.,]{0,10}(?:등원|등하원|하원|돌보|돌봄|챙기|데려)|(?:할머니|할아버지|부모|어머니|아버지|엄마|아빠|가족)[^.,]{0,8}(?:약을 챙기|간병|병간호|돌보|돌봄|챙기)|집안일|가사(?:를)? ?(?:도맡|전담|맡)|간병/},
- {n:19,re:/준비물(?:을|이)? ?(?:없|못|안 가져)|같은 옷|얇은 옷|생필품|생리대|위생용품|먹을 ?것이 없|식료품/},
- {n:20,re:/이사(?:를)? ?(?:자주|잦)|잦은 이사|월세|퇴거|쫓겨|친척 집|쉼터|난방|곰팡이|공부할 (?:공간|곳)이 없|주거(?:가)? ?불안/},
+ {n:18,re:/(?:동생|조카)[^.,]{0,10}(?:등원|등하원|하원|등하교|등교|식사|돌보|돌봄|챙기|데려|맡)|(?:할머니|할아버지|부모|어머니|아버지|엄마|아빠|가족)[^.,]{0,8}(?:약을 챙기|간병|병간호|돌보|돌봄|챙기)|집안일|가사(?:를)? ?(?:도맡|전담|맡)|간병/},
+ {n:19,re:/생활비(?:를)? ?(?:보태|보탬|벌)|준비물(?:을|이)? ?(?:없|못|안 가져)|같은 옷|얇은 옷|생필품|생리대|위생용품|먹을 ?것이 없|식료품/},
+ // A parent who left home is the carer's absence, not the student running away.
+ {n:20,not:new RegExp(CARER+'(?:는|은|가|이|께서)[^.,]{0,6}(?:집을 나|가출)'),re:/집을 나(?:가|갔|와|왔)|가출|외박|(?:남성|남자|어른|성인|아저씨)의 집에서|이사(?:를)? ?(?:자주|잦)|잦은 이사|월세|퇴거|쫓겨|친척 집|쉼터|난방|곰팡이|공부할 (?:공간|곳)이 없|주거(?:가)? ?불안/},
  {n:21,re:/비용(?:이|을)? ?(?:부담|없|못)|돈이 없어|형편(?:이)? ?(?:어려|안 좋)|수학여행[^.,]{0,6}(?:못|불참)|체험학습[^.,]{0,6}(?:못|불참)|학원(?:을)? ?(?:못|그만)/},
- {n:22,re:/어울리지 (?:않|못)|친구가 (?:없|거의 없)|친구(?:와|들과)?[^.,]{0,6}거의 없|고립|(?:쉬는 시간|점심시간)(?:에|에는)? ?혼자|집에만 있|참여하지 (?:않|못)/,neg:true},
+ {n:22,re:/혼자 (?:지내|있)는 (?:시간|때)(?:이|가)? 많|어울리지 (?:않|못)|친구가 (?:없|거의 없)|친구(?:와|들과)?[^.,]{0,6}거의 없|고립|(?:쉬는 시간|점심시간)(?:에|에는)? ?혼자|집에만 있|참여하지 (?:않|못)/,neg:true},
  {n:23,re:/믿을 (?:만한 )?(?:어른|사람)이 없|말할 (?:사람|곳)이 없|도움을 (?:거절|원하지 않)|괜찮다고만|혼자 해결/,neg:true},
- {n:24,re:/게임|스마트폰|휴대폰|핸드폰|유튜브|SNS|새벽까지[^.,]{0,8}(?:폰|온라인|영상)/i},
- {n:25,re:/(?:사진|영상)(?:을)? ?(?:요구|보내 달|유포)|성적인? (?:요구|대화|사진)|몸캠|그루밍|랜덤 ?채팅|조건 ?만남|모르는 (?:사람|어른)[^.,]{0,8}(?:연락|만나)/}
+ // A phone named as where a note was written, or SNS as where a person was met, is not a usage problem.
+ {n:24,re:/게임|스마트폰|휴대폰|핸드폰|유튜브|SNS|새벽까지[^.,]{0,8}(?:폰|온라인|영상)/i,not:/메모장|메시지|문자|연락처|만난|알게 된/},
+ {n:25,re:/(?:사진|영상)(?:을)? ?(?:요구|보내 달|보내라|유포)|(?:SNS|온라인|채팅|게임)(?:에서|으로)? ?(?:만난|알게 된)[^.,]{0,12}(?:남성|남자|어른|성인|아저씨)|성적인? (?:요구|대화|사진)|몸캠|그루밍|랜덤 ?채팅|조건 ?만남|모르는 (?:사람|어른)[^.,]{0,8}(?:연락|만나)/}
 ];
 const STRENGTH=/좋아한다|좋아하고|좋아함|좋아하는|좋아해|잘한다|잘하고|잘하는|잘 지낸|잘 챙기|잘 챙긴|아끼고|편해진|먼저 말을 거|즐겁게|표정이 밝|성실|열심히|꾸준히|신뢰한다|믿고 따르|친한 친구|도와준다|도와주는|책임감|밝은 편|웃으며/;
 const WISH=/원한다|원함|원하고|희망한다|희망함|싶다고|바란다|받고 싶|되고 싶/;
 const SUPPORT=/이용 ?중|지원을 받|상담을 받|연계되어|연계됨|드림스타트|지역아동센터|위클래스|Wee|사례관리(?:를)? ?(?:받|중)|방과후(?:에)? ?참여/;
 const NEGATION=/^[^.,]{0,16}?(?:없다|없음|없었|없고|없는|없으|아니|않았|않는다|않고|않음|하지 ?않|싶지 ?않|부인)|^지 ?않/;
 // "Not wanting to stop" is the opposite of a denial.
-const CONTINUE=/(?:멈추|멈출|그만두|그만하|그만 ?하|끊)\S{0,4} ?(?:싶지 ?않|않)/;
+const CONTINUE=/(?:멈추|멈출|그만두|그만하|그만 ?하|끊)\S{0,4} ?(?:싶지 ?않|않)|살 ?이유(?:가)? ?없/;
 // Hiding or refusing to talk about a sign is a reason to check, never a denial.
 const CONCEAL=/숨기|숨겨|감추|감춰|가리고|가린다|말하지 ?않|말을 ?안|이야기하지 ?않|밝히지 ?않|보여주지 ?않/;
 const HYPO=/것 같|듯하|듯 하|가능성|우려|추정|의심/;
 // Teaching material and examples describe no event about this student.
 const EXAMPLE=/예방 ?교육|사례 ?교육|교육 ?자료|사례를? ?소개|예시로|매뉴얼|척도 ?문항|실습 ?문제/;
 const PAST=/작년|예전|과거|어릴 때|어렸을 때|초등학교 때|전에는|이전에는/;
+// "예전 사진을 퍼뜨리겠다" is a threat made now about an old photo.
+const NOW=/겠다|하겠|협박|최근|요즘|어제|어젯밤|오늘|이번 ?주|지난주|지금/;
 
-function sourceOf(s){
+function sourceOf(raw){
+ // Who spoke is read outside the quotation, so a full stop inside the quote does not hide "…라고 말함".
+ const s=String(raw).replace(/["“][^"”]*["”]/g,'"…"');
  if(/전해 ?(?:들|받|왔)|전달받/.test(s))return '전해 들은 내용';
  if(/(?:학생|본인|아동|청소년)(?:은|이|는)?[^.]*(?:말했|말함|말한|이야기했|이야기함|진술|호소|라고 했|고 했|고 함|다고 말)/.test(s)||/^["“]/.test(s))return '학생 진술';
  if(/(?:담임|교사|선생님|상담교사|교육복지사)(?:에 따르면|의 관찰|이 관찰|은 |는 |이 |가 |께서 )/.test(s))return '교사 관찰';
@@ -71,8 +78,15 @@ function sourceOf(s){
  if(/다고 한다|다고 함|라고 한다|라고 함|다고 말함|다고 이야기함/.test(s))return /(?:친구|선배|후배|동생|이웃|다른 학생)(?:가|이|들이|는) [^.]{0,24}(?:말했|전했|알려|이야기했)/.test(s)?'전해 들은 내용':'학생 진술';
  return '기록 내용';
 }
+// A quoted remark with its own full stop ("화나면 그어야 진정돼요. 죽으려는 건 아니에요"라고 말함) stays one sentence.
 function sentences(text){
- return String(text||'').replace(/\r/g,'').split(/\n+/).flatMap(par=>par.split(/(?<=[.!?。])\s+(?=[^"”'’])/)).map(s=>s.trim()).filter(s=>s.length>1);
+ return String(text||'').replace(/\r/g,'').split(/\n+/).flatMap(par=>{
+  const out=[];let cur='',open=false;
+  for(let i=0;i<par.length;i++){const ch=par[i];cur+=ch;
+   if(ch==='“')open=true;else if(ch==='”')open=false;else if(ch==='"')open=!open;
+   if(!open&&/[.!?。]/.test(ch)&&/\s/.test(par[i+1]||' ')&&!/["”'’]/.test(par[i+1]||'')){out.push(cur);cur='';}}
+  if(cur.trim())out.push(cur);return out;
+ }).map(s=>s.trim()).filter(s=>s.length>1);
 }
 const clauses=s=>s.split(/,\s*|지만\s|는데\s|으나\s|;\s*/).map(c=>c.trim()).filter(Boolean);
 const LEAD=new RegExp('^(?:(?:학생|본인|아동|청소년|담임|교사|선생님|상담교사|교육복지사|할머니|할아버지|'+CARER.slice(3,-1)+')(?:에 따르면|의 말로는|의 말에 따르면|은|는|이|가|께서)|기록에 따르면)\\s*');
@@ -103,10 +117,15 @@ function read(p){
    // cue or score. Same rule as the case-context parser.
    const other=!!C?.aboutOthers?.(cl);
    CUES.forEach(cue=>{
-    const m=cl.match(cue.re);if(!m||EXAMPLE.test(cl))return;
+    const m=cl.match(cue.re);if(!m||EXAMPLE.test(cl)||(cue.not&&cue.not.test(cl)))return;
     if(row.links.some(l=>l.n===cue.n))return;
-    const after=cl.slice(m.index+m[0].length);
-    const status=CONCEAL.test(cl)?'보고':!cue.neg&&NEGATION.test(after)&&!CONTINUE.test(cl)?'부인':HYPO.test(cl)?'추정':PAST.test(cl)?'과거':'보고';
+    // "학교폭력" alone in a clause where the student is the one pushing or hitting is item 5, not item 3.
+    if(cue.n===3&&/^(?:학교폭력|사안)$/.test(m[0])&&CUES.some(c=>c.n===5&&c.re.test(cl)))return;
+    // Negation is read in the cue's own predicate: "잠을 잘 못 자고 급식을 거의 먹지 않음" does not deny the sleep cue.
+    const rest=cl.slice(m.index+m[0].length),cm=[...rest.matchAll(/(?<=(?:고|며|면서|서))\s(?=(\S+))/g)].find(x=>!/^(?:싶|있|않|말|나|보|해|한|했|하)/.test(x[1])),after=cm?rest.slice(0,cm.index):rest;
+    // The student's own words in quotes ("사라지면 편할 것 같다") are a report, not the writer's guess.
+    const unq=cl.replace(/["“][^"”]*["”]/g,'');
+    const status=CONCEAL.test(cl)?'보고':!cue.neg&&NEGATION.test(after)&&!CONTINUE.test(cl)?'부인':HYPO.test(unq)?'추정':PAST.test(cl)&&!NOW.test(cl)?'과거':'보고';
     const f={n:cue.n,topic:K.item(cue.n).topic,status,source:src,sentence:id,quote:short(cl),safety:SAFETY.includes(cue.n)||!!cue.safety};
     if(other){if(f.safety&&status!=='부인'&&!out.others.some(o=>o.sentence===id))out.others.push(f);return;}
     row.links.push(f);out.findings.push(f);
@@ -126,6 +145,15 @@ function read(p){
    const f={n:2,topic:K.item(2).topic,status:'추정',source:'여러 문장',sentence:'',quote:pat.clause,safety:true,pattern:true};
    out.findings.push(f);(out.items[2]=out.items[2]||[]).push(f);out.safety.push(f);
   }}catch(_){}
+ try{const inf=C&&C.infer?C.infer(text):null,ITEM={protection:1,selfharm:7,onlineSexual:25,imageThreat:4};
+  (inf?inf.signals:[]).forEach(sg=>{const n=ITEM[sg.tag];
+   if(!n||!sg.safety||sg.subject==='third-party'||sg.timeHint==='historical-mention'||!['reported','unverified'].includes(sg.polarity))return;
+   if((out.items[n]||[]).some(f=>f.status!=='부인'))return;
+   const row=out.sentences.find(r=>r.text.includes(sg.clause.slice(0,20)))||null;
+   const f={n,topic:K.item(n).topic,status:sg.polarity==='reported'?'보고':'추정',source:row?row.source:'서술기록',sentence:row?row.id:'',quote:short(sg.clause),safety:true};
+   if(row&&!row.links.some(l=>l.n===n))row.links.push(f);
+   out.findings.push(f);(out.items[n]=out.items[n]||[]).push(f);out.safety.push(f);
+  });}catch(_){}
  out.compare=compare(values,out.items);
  return out;
 }
@@ -275,12 +303,13 @@ function integrate(p){
  if(cmp.conflict.length)agenda.splice(agenda.length-1,0,'척도와 서술이 엇갈리는 부분('+cmp.conflict.map(x=>x.topic).join(', ')+')의 관점 차이 정리');
  if(cmp.narrative.length||cmp.fill.length)agenda.splice(agenda.length-1,0,'서술로만 드러난 어려움('+[...cmp.narrative,...cmp.fill].map(x=>x.topic).slice(0,4).join(', ')+')을 계획에 넣을지 결정');
  // family engagement: narrative mention of carer harm overrides a mild scale picture
- const family=cmp.rows.some(x=>[1,2].includes(x.n)&&(x.kind==='narrative'||x.kind==='fill'||x.kind==='agree'))?'서술에 보호자 관련 안전 표현이 있습니다. 보호자에게 먼저 연락하지 않고, 연락이 학생에게 안전한지 보호 담당과 판단한 뒤 접촉 방식을 정합니다.':w.family;
- const strengths=[...r.strengths.slice(0,4).map(s=>({label:s.label,text:s.text})),...nv.read.strengths.slice(0,3).map(s=>({label:'서술에 기록된 강점',text:'“'+s.quote+'”'}))];
+ const family=cmp.rows.some(x=>[1,2].includes(x.n)&&(x.kind==='narrative'||x.kind==='fill'||x.kind==='agree'))?'서술에 보호자 관련 안전 표현이 있습니다. 보호자에게 먼저 연락하지 않고, 연락이 학생에게 안전한지 보호 담당과 판단한 뒤 접촉 방식을 정합니다.':w.family&&(r.critical.list.some(x=>x.kind==='안전'||x.kind==='긴급')||nSafety.length)&&/(?:연락(?:이)? ?(?:닿지|되지) ?않|연락이 끊|다툰 ?뒤|다툼 ?뒤)/.test(String(p.caseContext||''))?w.family+' 다만 서술에 보호자 연락이 어렵거나 보호자와의 다툼이 계기로 적혀 있어, 연락이 학생에게 안전한지 먼저 판단한 뒤 접촉 방식을 정합니다.':w.family;
+ // Strengths written in the record come first; score-based lines only say a difficulty was not reported.
+ const strengths=[...nv.read.strengths.slice(0,3).map(s=>({label:'서술에 기록된 강점',text:'“'+s.quote+'”'})),...r.strengths.slice(0,4).map(s=>({label:s.label,text:s.text}))];
  const wishes=nv.read.wishes.map(s=>s.quote);
  const partners=[...w.partners];[...cmp.narrative,...cmp.fill].forEach(x=>{const o=OWNER[K.item(x.n).owner];if(o!==w.lead&&!partners.includes(o))partners.push(o)});
  return {version:VERSION,deep:r,grade:r.grade||null,narrative:nv,present:nv.present,redacted:!!nv.read.redacted,level,adjust,lead,immediate,partners,leadText:route&&route.lead?'서술의 안전 신호 때문에 오늘의 즉시 대응과 이후 사례관리 주관을 나눕니다. 오늘의 즉시 대응: '+route.immediate+'. 이후 사례관리: '+josa(route.lead.replace(/ \(.*\)$/,''),'이','가')+' 주관합니다.':w.leadText,family,keys:keyList,
-  first:nSafety.length&&!/^지금 바로/.test(r.summary.first)?'오늘 안에 서술에 나온 '+nSafety.map(x=>cueName(x.topic)).join(', ')+'을 학생과 직접 안전 면담으로 확인합니다.':r.summary.first,
+  first:nSafety.length&&!/^지금 바로/.test(r.summary.first)?(imm.length?'지금 바로':'오늘 안에')+' 서술에 나온 '+nSafety.map(x=>cueName(x.topic)).join(', ')+'을 학생과 직접 안전 면담으로 확인합니다.':r.summary.first,
   safety:r.summary.safety==='이번 응답의 안전 신호 없음'&&nSafety.length?'서술에 안전 관련 표현 · 확인 우선':r.summary.safety,
   understanding:u.join(' '),compare:cmp,newPatterns,plan,goals,agenda,strengths,wishes,questions:[...nv.questions,...r.questions.filter(q=>!nv.questions.some(x=>x.about===q.about))].slice(0,7),notice:NOTICE};
 }

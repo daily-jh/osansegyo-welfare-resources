@@ -82,7 +82,9 @@ const SEC_DESC={total:'확인한 문항의 응답 합계가 척도 가능 범위
 function body(f,key,opts){
  const o=opts||{};
  switch(key){
-  case 'total':return bandStrip(f.total,'전체')+'<p class="osf-band-note"><strong>'+esc(bandText(f.total))+'</strong> '+esc(f.total.band?BANDS[f.total.band-1].text:'확인된 응답이 없습니다.')+'</p>';
+  // A low total next to a safety answer must not read as "few difficulties": the safety answer leads.
+  case 'total':{const sp=f.safety.some(x=>typeof x.value==='number'&&x.value>0);
+   return bandStrip(f.total,'전체')+'<p class="osf-band-note"><strong>'+esc(bandText(f.total))+'</strong> '+esc(f.total.band?(sp&&f.total.band<=2?'총점 위치는 '+BANDS[f.total.band-1].label+'이지만 안전 문항에 응답이 있어, 총점과 관계없이 안전 확인이 먼저입니다.':BANDS[f.total.band-1].text):'확인된 응답이 없습니다.')+'</p>';}
   case 'safety':return safetyStrip(f);
   case 'domains':{const rows=o.only?f.domains.filter(d=>o.only.indexOf(d.name)>=0):f.domains;return rows.length?bandTable(rows,'영역'):''}
   case 'axes':return bandTable(f.axes,'상위 축');

@@ -216,7 +216,7 @@ function school(K){
 ${fig(profileSvg(K),'영역마다 가장 높은 문항 점수를 캡슐 네 칸으로 보여 줍니다.'+(K.narrOnly.length?' 척도에는 없고 담임 기록에서만 추정된 영역은 주황 점선으로 표시했습니다.':''))}
 ${H('척도와 담임 기록 대조',K.src('척도','서술'))}${recTable}
 <div class="oyp-cols"><div>${H('지원의 발판',K.src('서술','해석'))}<ul>${strengths.length?strengths.map(t=>'<li>'+esc(t)+'</li>').join(''):'<li>면담에서 학생이 잘하는 것과 좋아하는 것을 먼저 묻습니다.</li>'}</ul></div>
-<div class="oyp-caution">${H('하지 않을 것')}<ul>${notes.map(t=>'<li>'+esc(t)+'</li>').join('')}<li>어려움을 반 친구들 앞에서 지적하기</li>${K.narrSafety.length?'<li>보호자에게 먼저 \''+esc(K.narrSafety.map(r=>r.topic).join('·'))+'\'을 묻는 연락 (교육복지사와 먼저 확인)</li>':''}</ul></div></div>`,{tone:'school',banner});
+<div class="oyp-caution">${H('주의할 점')}<ul><li>어려움을 반 친구들 앞에서 지적하지 않습니다.</li>${K.narrSafety.length?'<li>보호자에게 먼저 \''+esc(K.narrSafety.map(r=>r.topic).join('·'))+'\'을 묻는 연락은 하지 않고, 교육복지사와 먼저 확인합니다.</li>':''}${notes.map(t=>'<li>'+esc(t)+'</li>').join('')}</ul></div></div>`,{tone:'school',banner});
   const obsItems=K.high.filter(x=>OBS[x.n]).slice(0,6);const days=['월','화','수','목','금'];
   const cells=lab=>[1,2].map(w=>days.map(dd=>`<td><button type="button" class="oyp-ob" aria-label="${esc(lab)} ${w}주 ${dd}"></button></td>`).join('')).join('');
   const T2=sheet('T-2','2주 관찰 기록지','담임교사용 · 칸을 누를 때마다 ○ 있음 → − 없음 → 결 결석 → 빈칸',`

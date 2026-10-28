@@ -45,7 +45,11 @@ cases.forEach((c,i)=>{
   const g=GL.GRADES[i%12],p0=payload(c,i,''),p1=payload(c,i,g);
   const d0=D.build(p0),d1=D.build(p1);
   assert.deepEqual(d1.core,d0.core,c.id+' core');
-  assert.deepEqual(d1.summary,d0.summary,c.id+' summary');
+  // Grade may only reword an elementary pupil's school-dropout first step (no 학업중단 숙려 at 초); every judgement stays the same.
+  const {first:fa,...s1}=d1.summary,{first:fb,...s0}=d0.summary;
+  assert.deepEqual(s1,s0,c.id+' summary');
+  if(/^초/.test(g)&&fa!==fb)assert.ok(/학업중단/.test(fb)&&!/학업중단/.test(fa),c.id+' only the dropout wording changes at elementary grades');
+  else assert.equal(fa,fb,c.id+' first action');
   assert.equal(d1.casework.level.name,d0.casework.level.name,c.id+' casework level');
   assert.equal(d0.grade,null);assert.equal(d1.grade.grade,g);
   const t0=D.text(d0),t1=D.text(d1);

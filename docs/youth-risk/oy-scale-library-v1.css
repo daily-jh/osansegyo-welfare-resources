@@ -30,6 +30,10 @@ body.oy-lib-open #assessmentFlow>:not(.flow-nav):not(#scaleLibraryArea),body.oy-
 .osl-official{background:var(--oy-data-soft);color:var(--oy-data-ink)}
 .osl-request{background:var(--oy-check-soft);color:var(--oy-check-ink)}
 .osl-restricted{background:var(--oy-core-soft);color:var(--oy-muted)}
+.osl-org{display:inline-block;font-size:12px;font-weight:650;padding:2px 8px;border-radius:999px;white-space:nowrap;border:1px solid var(--oy-line);color:var(--oy-muted)}
+.osl-org.osl-foreign{border-color:var(--oy-check-ink);color:var(--oy-check-ink);background:var(--oy-check-soft)}
+.osl-facts>div.osl-origin.osl-foreign{border-top-color:var(--oy-check-ink)}
+.osl-foreign-note{font-size:14px;line-height:1.7;color:var(--oy-muted);margin:6px 0 0;padding:10px 12px;border-left:3px solid var(--oy-check-ink);background:var(--oy-check-soft)}
 .osl-body{padding:0 0 18px}
 .osl-purpose{font-size:16px;line-height:1.7;margin:0 0 10px}
 .osl-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 24px;margin:0}

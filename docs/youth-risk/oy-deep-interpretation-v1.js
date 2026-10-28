@@ -5,6 +5,7 @@
 (function(root){'use strict';
 const node=typeof module!=='undefined'&&module.exports;
 const C=node?require('./criteria.js'):root.YouthCriteria;
+const CC=(()=>{try{return node?require('./case-context-core.js'):null}catch(_){return null}})()||{reconcile:(a,t)=>root.YouthCaseContextCore?root.YouthCaseContextCore.reconcile(a,t):null};
 const K=node?require('./oy-item-knowledge-v1.js'):root.OYItemKnowledge;
 const X=node?require('./oy-cross-patterns-v1.js'):root.OYCrossPatterns;
 // Grade lens is optional: without it (or without a grade) the report is unchanged.
@@ -14,16 +15,16 @@ const LEVELS=['보고 없음','경미','주의','상승','현저'];
 const SAFETY=[1,2,7,25],PRIORITY=[4,5,8,12,13,16,19,20];
 const NOTICE='이 해석지는 25문항 응답을 OY-RALS 규칙에 따라 풀어 쓴 실무 참고자료입니다. 문장은 응답이 가리키는 상태를 읽기 쉽게 서술한 것이며, 진단·학대 판정·위험 예측이나 서비스 자격 결정이 아닙니다. 면담과 관찰로 확인한 사실이 응답보다 우선하고, 안전 신호가 있으면 이 해석지와 관계없이 소속기관의 보호·신고 절차를 먼저 따릅니다. 0~4점 기준과 교차 패턴은 전문가 내용타당도 검토 전 개발판입니다. 공식 점수와 안전판정은 CORE(criteria.js)가 정합니다.';
 const DOMAIN_TEXT=[
- ['보호자와의 관계에서 학생이 안전하게 지내는지가 이 영역의 핵심입니다.','보호자와의 관계에서 위해·방임이 보고되지 않아, 보호자를 지원의 협력자로 함께할 가능성이 열려 있습니다.'],
- ['또래 관계 안에서의 피해·강요·가해가 이 영역의 핵심입니다.','또래 괴롭힘·강요·가해 행동이 보고되지 않아 학교 안 또래 관계는 지원의 발판이 됩니다.'],
- ['마음의 고통과 안전 신호, 생활 리듬의 변화가 이 영역의 핵심입니다.','정서 상태가 비교적 안정적으로 응답되어, 다른 영역의 지원을 받아들일 마음의 여력이 있습니다.'],
- ['학교에 오고, 배우고, 학교에 마음을 두는 세 가지가 이 영역의 핵심입니다.','출결·학습·학교 소속감이 유지되고 있어 학교는 지원을 시작하기 좋은 장소입니다.'],
- ['자신과 타인을 다치게 할 수 있는 행동이 이 영역의 핵심입니다.','위험행동이나 물질 사용 없이 생활하고 있어, 어려움을 행동보다 대화로 다룰 여지가 큽니다.'],
- ['학생 특성에 맞는 환경과 서비스가 제공되는지가 이 영역의 핵심입니다.','학습 편의와 서비스 접근이 갖춰져 있어 필요한 학습 지원을 바로 더할 수 있습니다.'],
- ['돌봄을 받는 일, 가족 관계, 학생이 맡은 돌봄 책임이 이 영역의 핵심입니다.','일상 돌봄과 가족 관계가 학생 생활을 받쳐 주고 있는 것으로 응답되었습니다.'],
- ['먹고, 입고, 머물고, 필요한 지원을 이용하는 생활 기반이 이 영역의 핵심입니다.','기본생활과 주거가 유지되고 있어, 지원을 생계보다 관계와 학교생활에 집중할 수 있습니다.'],
- ['원하는 활동에 참여하고 믿을 어른에게 도움을 받는 연결이 이 영역의 핵심입니다.','원하는 활동 참여와 믿을 어른의 도움이 유지되고 있어 지지망을 넓히는 발판이 됩니다.'],
- ['디지털 이용 조절과 온라인 안전이 이 영역의 핵심입니다.','디지털 생활이 일상을 해치지 않고 있어 온라인 소통을 연결 수단으로 활용할 수 있습니다.']
+ ['보호자와의 관계에서 학생이 안전하게 지내는지가 이 영역의 핵심입니다.','이번 응답에서 보호자에 의한 위해·방임은 보고되지 않았습니다. 면담에서 확인되면 보호자를 지원의 협력자로 함께할 수 있습니다.'],
+ ['또래 관계 안에서의 피해·강요·가해가 이 영역의 핵심입니다.','이번 응답에서 또래 괴롭힘·강요·가해 행동은 보고되지 않았습니다. 면담에서 확인되면 학교 안 또래 관계를 지원의 발판으로 쓸 수 있습니다.'],
+ ['마음의 고통과 안전 신호, 생활 리듬의 변화가 이 영역의 핵심입니다.','이번 응답에서 정서적 어려움은 보고되지 않았습니다. 면담에서 확인되면 다른 영역의 지원을 받아들일 여력이 있는지 함께 살핍니다.'],
+ ['학교에 오고, 배우고, 학교에 마음을 두는 세 가지가 이 영역의 핵심입니다.','이번 응답에서 출결·학습·학교 소속감의 어려움은 보고되지 않았습니다. 면담에서 확인되면 학교를 지원을 시작할 장소로 쓸 수 있습니다.'],
+ ['자신과 타인을 다치게 할 수 있는 행동이 이 영역의 핵심입니다.','이번 응답에서 위험행동·물질 사용은 보고되지 않았습니다. 면담에서 확인되면 어려움을 대화로 다룰 여지가 큽니다.'],
+ ['학생 특성에 맞는 환경과 서비스가 제공되는지가 이 영역의 핵심입니다.','이번 응답에서 학습 편의·서비스 접근의 어려움은 보고되지 않았습니다. 필요한 학습 지원을 더할 때 걸림돌이 있는지 면담에서 확인합니다.'],
+ ['돌봄을 받는 일, 가족 관계, 학생이 맡은 돌봄 책임이 이 영역의 핵심입니다.','이번 응답에서 돌봄·가족 관계의 어려움은 보고되지 않았습니다. 면담에서 확인되면 가정을 지원의 협력 자리로 삼을 수 있습니다.'],
+ ['먹고, 입고, 머물고, 필요한 지원을 이용하는 생활 기반이 이 영역의 핵심입니다.','이번 응답에서 기본생활·주거의 어려움은 보고되지 않았습니다. 면담에서 확인되면 지원을 관계와 학교생활에 집중할 수 있습니다.'],
+ ['원하는 활동에 참여하고 믿을 어른에게 도움을 받는 연결이 이 영역의 핵심입니다.','이번 응답에서 활동 참여·믿을 어른의 어려움은 보고되지 않았습니다. 학생이 꼽는 어른과 활동을 면담에서 확인해 지지망의 발판으로 씁니다.'],
+ ['디지털 이용 조절과 온라인 안전이 이 영역의 핵심입니다.','이번 응답에서 디지털 이용·온라인 안전의 어려움은 보고되지 않았습니다. 면담에서 확인되면 온라인 소통을 연결 수단으로 쓸 수 있습니다.']
 ];
 const isNum=v=>typeof v==='number';
 // Korean particle by final consonant of the last Hangul syllable: josa('정서','은','는').
@@ -112,9 +113,17 @@ function critical(values,c,p){
  const pending=c.pendingChecks.map(topic);
  return {list,pending,procedure:c.urgent||c.safetyUnknown.length||c.pendingChecks.length?'안전 신호가 있는 문항은 총점이나 다른 지원보다 먼저 다룹니다. 학대·위해가 의심되면 사실 확정을 기다리지 않고 신고의무와 소속기관 보호 절차를 따르며, 즉각적인 위험은 112·119로 연락합니다.':''};
 }
-function strengths(values,prof){
- const out=STRENGTH_ORDER.filter(id=>prof[id].clear).map(id=>({domain:prof[id].name,label:STRENGTH_LABEL[id],text:DOMAIN_TEXT[id][1]}));
- [[23,'믿고 도움을 청할 어른이 있다고 응답되어, 그 어른을 지원 계획의 첫 연결 고리로 세울 수 있습니다.'],[11,'학교에 소속감을 유지하고 있어 학교 안 지원이 잘 받아들여질 조건입니다.'],[22,'원하는 활동에 참여하고 있어 그 활동 자리를 회복과 지지의 장으로 활용할 수 있습니다.']].forEach(([n,t])=>{if(values[n-1]===0&&!prof[K.DOMAIN_OF[n-1]].clear)out.push({domain:topic(n),label:{23:'믿을 어른',11:'학교 소속감',22:'활동 참여'}[n],text:t})});
+// A score of 0 means "not reported", never a confirmed protective factor (project rule). When any safety signal
+// is present, from the scale, an urgent check or the narrative, these reassuring lines are left out altogether:
+// "정서가 안정적" next to an exploitation threat misleads. Domains the narrative names as a difficulty are left out too.
+function strengths(values,prof,crit,p){
+ if(crit&&crit.list.some(x=>x.kind==='안전'||x.kind==='긴급'))return [];
+ let named=new Set();
+ try{const r=CC&&p&&p.caseContext?CC.reconcile(values,p.caseContext):null;
+  if(r&&r.needsSafetyAttention)return [];
+  (r?r.signals:[]).filter(s=>['reported','unverified'].includes(s.polarity)&&s.subject!=='third-party').forEach(s=>s.items.forEach(n=>named.add(K.DOMAIN_OF[n-1])));}catch(_){}
+ const out=STRENGTH_ORDER.filter(id=>prof[id].clear&&!named.has(id)).map(id=>({domain:prof[id].name,label:STRENGTH_LABEL[id],text:DOMAIN_TEXT[id][1]}));
+ [[23,'믿을 어른이 없다는 어려움은 보고되지 않았습니다. 학생이 꼽는 어른을 면담에서 확인해 첫 연결 고리로 세웁니다.'],[11,'학교 소속감의 어려움은 보고되지 않았습니다. 면담에서 확인되면 학교 안 지원이 잘 받아들여질 조건입니다.'],[22,'활동 참여의 어려움은 보고되지 않았습니다. 학생이 이어 가는 활동을 면담에서 확인해 회복과 지지의 자리로 씁니다.']].forEach(([n,t])=>{if(values[n-1]===0&&!prof[K.DOMAIN_OF[n-1]].clear&&!named.has(K.DOMAIN_OF[n-1]))out.push({domain:topic(n),label:{23:'믿을 어른',11:'학교 소속감',22:'활동 참여'}[n],text:t})});
  return out;
 }
 function rankItems(values){return values.map((v,i)=>({n:i+1,v})).filter(x=>isNum(x.v)&&x.v>0).sort((a,b)=>Number(SAFETY.includes(b.n))-Number(SAFETY.includes(a.n))||b.v-a.v||a.n-b.n)}
@@ -127,7 +136,7 @@ function understanding(values,c,cd,patterns,str,crit){
  if(patterns[1])s.push('동시에 '+patterns[1].name.replace(/ 패턴$/,'')+' 흐름도 함께 나타납니다. '+patterns[1].loop.split(/(?<=다\.)\s/)[0]);
  const safety=crit.list.filter(x=>x.kind==='안전');
  if(safety.length)s.push(josa(safety.map(x=>x.topic).join(', '),'이','가')+' 응답되어 모든 지원에 앞서 현재 안전을 먼저 확인합니다.');
- if(str.length)s.push(josa(str.length>1?josa(str[0].label,'과','와')+' '+str[1].label:str[0].label,'은','는')+' 유지되고 있어 지원을 시작할 발판이 됩니다.');
+ if(str.length)s.push(josa(str.length>1?josa(str[0].label,'과','와')+' '+str[1].label:str[0].label,'은','는')+' 이번 응답에서 어려움이 보고되지 않아, 면담에서 확인되면 지원을 시작할 발판이 됩니다.');
  const firsts=[...new Set(patterns.slice(0,2).map(p=>p.first))];
  s.push(firsts.length>1?'먼저, '+firsts[0]+' 이어서, '+firsts[1]:'가장 먼저 할 일: '+(firsts[0]||K.item(top[0].n).e));
  return s.join(' ');
@@ -221,7 +230,7 @@ function casework(values,c,prof,patterns,crit,str,p){
  mid.push({what:'합의한 목표의 변화를 점검하고 지원을 조정합니다. '+level.review+'.',who:lead});
  // goals from reassessment targets
  // Safety items get a safety-plan goal, never a target of 'one level lower'.
- const goals=ranked.filter(x=>x.v>=2).slice(0,3).map(x=>SAFETY.includes(x.n)?{topic:topic(x.n),goal:'학생과 함께 만든 안전 계획(연락할 사람·피할 수단·머물 곳)이 지켜지고, 위험이 생기면 학생이 먼저 알릴 수 있는 것',measure:'안전 계획 이행 여부와 학생이 말하는 현재 안전 정도를 주 1회 이상 확인'}:{topic:topic(x.n),goal:'다음 재평가까지 "'+K.item(x.n).a[x.v-1]+'" 수준으로 낮아지는 것',measure:K.item(x.n).d.split(', ')[0]+' 등 일상 지표를 학생과 함께 정해 2주마다 기록'});
+ const goals=ranked.filter(x=>x.v>=2).slice(0,3).map(x=>SAFETY.includes(x.n)?{topic:topic(x.n),goal:'학생과 함께 만든 안전 계획(연락할 사람·피할 수단·머물 곳)이 지켜지고, 위험이 생기면 학생이 먼저 알릴 수 있는 것',measure:'안전 계획 이행 여부와 학생이 말하는 현재 안전 정도를 주 1회 이상 확인'}:{topic:topic(x.n),goal:'다음 재평가까지 이 어려움이 지금보다 한 단계 가벼운 수준으로 줄어드는 것',measure:K.item(x.n).d.split(', ')[0]+' 등 일상 지표를 학생과 함께 정해 2주마다 기록'});
  // meeting agenda
  const agenda=[];
  if(safetyAny)agenda.push('현재 안전 판단과 보호·신고 절차 진행 상황 공유');
@@ -246,8 +255,11 @@ function casework(values,c,prof,patterns,crit,str,p){
 function build(p){
  if(!p||!Array.isArray(p.answers)||p.answers.length!==25)throw Error('DEEP_INPUT_INVALID');
  const values=p.answers.slice(),c=C.evaluate(values,K.DOMAIN_SIZES,!!(p.explicit||[]).length,p.followups||{});
- const prof=profile(values),ax=axes(values),cross=X.match(values),patterns=cross.active;
- const valid=validity(values,c),cd=code(values,prof,patterns,valid),crit=critical(values,c,p),str=strengths(values,prof);
+ const prof=profile(values),ax=axes(values),cross=X.match(values);
+ // School-dropout steps (학업중단 숙려·진로) do not fit an elementary pupil; the pattern keeps its reading, the steps change.
+ const elem=/^초/.test(String(p.student&&p.student.grade||''));
+ const patterns=elem?cross.active.map(pt=>pt.id==='disengagement'?Object.assign({},pt,{first:'등교 압박보다 연결 유지를 목표로 정기 연락 담당을 정하고, 보호자와 함께 아침 등교 계획을 세워 불안·신체 증상을 다루는 상담을 연결합니다.',advice:'초등학생의 결석은 학생 혼자 정한 일이 아닐 수 있습니다. 보호자와 함께 아침 등교 과정과 불안을 살피고, 결석을 벌로 다루지 않습니다.'}):pt):cross.active;
+ const valid=validity(values,c),cd=code(values,prof,patterns,valid),crit=critical(values,c,p),str=strengths(values,prof,crit,p);
  const detail=prof.filter(d=>d.positive.length||d.unknown.length).map(d=>domainDetail(values,d)).sort((a,b)=>(b.peak??-1)-(a.peak??-1)||(b.mean??0)-(a.mean??0)||a.id-b.id);
  const keys=rankItems(values).filter(x=>x.v>=2||SAFETY.includes(x.n)).slice(0,3).map(x=>topic(x.n));
  const urgentNow=urgentLevel(values,c,p),safetyCrit=crit.list.filter(x=>x.kind.startsWith('안전')),safetyTopics=safetyCrit.map(x=>x.topic).join(', ');
@@ -418,7 +430,7 @@ function html(r){
   profile:()=>'<ul class="odi-bars">'+r.profile.map(d=>'<li class="odi-l'+(d.peak??'u')+'"><span class="odi-bar-name">'+esc(d.name)+'</span><span class="odi-track" aria-hidden="true"><i style="width:'+(d.mean===null?0:Math.max(4,d.mean/4*100))+'%"></i></span><span class="odi-bar-val">'+esc(d.label)+'</span></li>').join('')+'</ul><dl class="odi-axes">'+r.axes.map(a=>'<div><dt>'+esc(a.name)+'</dt><dd>'+esc(a.text)+'</dd></div>').join('')+'</dl>',
   detail:()=>r.detail.length?r.detail.map(d=>'<div class="odi-domain odi-l'+(d.peak??'u')+'"><h4>'+esc(d.name)+'<span class="odi-tag">'+esc(d.label)+'</span></h4><p>'+esc(d.lead)+'</p>'+(d.readings.length?ul(d.readings.map(x=>'<strong>'+esc(x.topic)+'</strong> '+esc(x.text))):'')+d.notes.map(t=>'<p class="odi-muted">'+esc(t)+'</p>').join('')+(d.signs.length?'<p class="odi-signs"><strong>일상에서 보이는 모습</strong> '+esc(d.signs.join(' · '))+'</p>':'')+'</div>').join(''):'<p>어려움이 보고된 영역이 없습니다.</p>',
   patterns:()=>{const a=r.patterns.active;return (a.length?a.slice(0,3).map(p=>'<div class="odi-card"><h4>'+esc(p.name)+'</h4><p>'+esc(p.loop)+'</p><p><strong>일상에서</strong> '+esc(p.sign)+'</p><p class="odi-act"><strong>첫 개입</strong> '+esc(p.first)+'</p><p class="odi-advice"><strong>자문 포인트</strong> '+esc(p.advice)+'</p></div>').join('')+(a.length>3?'<p><strong>함께 나타난 다른 패턴</strong> '+esc(a.slice(3).map(p=>p.name).join(' · '))+'</p>':''):'<p>두 가지 이상의 어려움이 맞물린 패턴은 나타나지 않았습니다.</p>')+(r.patterns.pending.length?'<p class="odi-muted"><strong>미상 때문에 판단을 보류한 패턴</strong> '+esc(r.patterns.pending.map(p=>p.name).join(' · '))+'</p>':'')},
-  strengths:()=>r.strengths.length?ul(r.strengths.map(x=>'<strong>'+esc(x.label)+'</strong> '+esc(x.text))):'<p>모든 영역에서 일부 어려움이 보고되어, 강점은 면담에서 학생이 잘하는 것과 좋아하는 것을 직접 물어 찾습니다.</p>',
+  strengths:()=>r.strengths.length?ul(r.strengths.map(x=>'<strong>'+esc(x.label)+'</strong> '+esc(x.text))):'<p>'+(r.critical.list.some(x=>x.kind==='안전'||x.kind==='긴급')?'안전 신호가 있어 응답 점수만으로 강점을 짐작하지 않습니다. 강점은 안전을 확인한 뒤 면담에서 학생이 잘하는 것과 좋아하는 것을 직접 물어 찾습니다.':'모든 영역에서 일부 어려움이 보고되어, 강점은 면담에서 학생이 잘하는 것과 좋아하는 것을 직접 물어 찾습니다.')+'</p>',
   roles:()=>r.roles.length?'<div class="odi-roles">'+r.roles.map(x=>'<div><h4>'+esc(x.role)+'</h4>'+ul(x.items.map(esc))+'</div>').join('')+'</div>':'<p>학생과 정기적으로 안부를 나누고 다음 확인 시점을 정합니다.</p>',
   questions:()=>'<h4 class="odi-sub">학생의 목소리</h4><ol class="odi-q">'+r.casework.voice.map(q=>'<li>“'+esc(q)+'”</li>').join('')+'</ol>'+(r.questions.length?'<h4 class="odi-sub">어려움을 구체화하는 질문</h4><ol class="odi-q">'+r.questions.map(x=>'<li><span>'+esc(x.about)+'</span>“'+esc(x.q)+'”</li>').join('')+'</ol>':''),
   reassess:()=>r.reassess.length?ul(r.reassess.map(x=>'<strong>'+esc(x.topic)+'</strong> 지금: '+esc(x.nowText)+'<br>다음 목표: '+esc(x.target))):'<p>다음 평가에서 지금의 응답이 유지되는지와 새로운 어려움이 생겼는지 봅니다.</p>',

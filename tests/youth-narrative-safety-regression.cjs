@@ -20,8 +20,13 @@ const tags=text=>Core.infer(text).signals.map(s=>s.tag+':'+s.polarity+(s.subject
 const readSafety=text=>Narrative.read({caseContext:text,answers:zero}).safety.map(f=>'Q'+f.n+':'+f.status);
 
 // Current self-harm, including the plain past-tense cutting verbs.
-for(const text of ['오늘 자해하려 한다.','오늘 손목을 그었다.','학생이 어제 손목을 그었다고 말했다.','팔목을 베었다고 말했다.','손목에 그은 상처가 있다.']){
+for(const text of ['오늘 자해하려 한다.','팔목을 베었다고 말했다.','손목에 그은 상처가 있다.']){
  assert.equal(tier(text),4,'current self-harm cue must keep the safety floor: '+text);
+ assert.ok(Core.reconcile(zero,text).needsSafetyAttention,text);
+}
+// A cut made today or yesterday, or a wound not yet healed, is a current injury: same-day protection (2026-10-28 clinical review).
+for(const text of ['오늘 손목을 그었다.','학생이 어제 손목을 그었다고 말했다.','손목에 아물지 않은 칼자국이 여러 개 있다.','어젯밤 아버지와 다툰 뒤에도 그었다고 함.']){
+ assert.equal(tier(text),5,'recent cut is a current injury: '+text);
  assert.ok(Core.reconcile(zero,text).needsSafetyAttention,text);
 }
 assert.ok(readSafety('오늘 손목을 그었다.').includes('Q7:보고'));
