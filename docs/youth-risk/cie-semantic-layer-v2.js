@@ -127,7 +127,7 @@ function formulate(answers){
  }).sort((a,b)=>b.combined-a.combined||a.a-b.a);
  const unknown=base.unknown.map(x=>({id:x.id,topic:x.topic,meaning:'미상은 0점이 아니므로 해당 영역 판단을 보류합니다.'}));
  const top=scored.slice(0,4);
- const headline=top.length?top.slice(0,3).map(x=>x.topic+'에서 '+x.meaning).join('; '):'현재 응답에서 뚜렷하게 보고된 어려움은 없지만 실제 생활의 불편과 미확인 사항을 살펴봐야 합니다.';
+ const headline=top.length?top.slice(0,3).map(x=>x.meaning.startsWith(x.topic)?x.meaning:x.topic+'에서 '+x.meaning).join('; '):'현재 응답에서 뚜렷하게 보고된 어려움은 없지만 실제 생활의 불편과 미확인 사항을 살펴봐야 합니다.';
  const narratives=[headline+(top.length?'.':''),
    intersections.length?'함께 보고된 어려움: '+intersections.slice(0,2).map(x=>x.reason+' '+x.next).join(' '):'현재 정의된 교차 가설에 해당하는 동시 보고는 확인되지 않았습니다.',
    unknown.length?'정보가 확인되지 않은 문항 '+unknown.map(x=>x.id+'번').join('·')+'은 낮은 위험으로 간주하지 않습니다.':'',
