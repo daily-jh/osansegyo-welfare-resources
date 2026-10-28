@@ -50,3 +50,6 @@
   .help-now-guides{grid-template-columns:1fr}
   .toolbar-actions{flex-wrap:wrap}
 }
+/* 2026-10-28 메인 정리: 범주 이름 한 줄, 긴급전화 띠는 화면 맨 아래(자료 갱신 다음) */
+.stat-sub{display:block;margin-top:2px;color:var(--ads-secondary,#46586b);font-size:11px;line-height:1.4;word-break:keep-all}
+main>.help-now:last-child{margin-top:8px;margin-bottom:48px}
