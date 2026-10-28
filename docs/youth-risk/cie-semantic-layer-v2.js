@@ -54,7 +54,7 @@ function scoreCombination(answers){
   const safety=[1,2,7,25].includes(a+1)||[1,2,7,25].includes(b+1);
   const strength=Math.min(va,vb);
   const mode=known?'사전 정의된 공동 보고 가설':safety?'안전 문항을 포함한 공동 보고':'두 영역의 동시 응답';
-  pairs.push({a:a+1,b:b+1,scores:[va,vb],mode,priority:safety?'안전 우선 확인':strength>=3?'생활 영향 우선 확인':'맥락 확인',meaning:known?known[2]:TOPICS[a]+' 및 '+TOPICS[b]+' 어려움이 함께 보고됨',verify:known?known[3]:'두 응답의 시점·실제 생활 영향·학생이 원하는 지원을 각각 확인',causal:false,validated:false,strength});
+  pairs.push({a:a+1,b:b+1,scores:[va,vb],mode,priority:safety?'안전 우선 확인':strength>=3?'생활 영향 우선 확인':'맥락 확인',meaning:known?known[2]:(j=>/어려움$/.test(j)?j+'이 함께 보고됨':j+' 어려움이 함께 보고됨')(TOPICS[a]+' 및 '+TOPICS[b]),verify:known?known[3]:'두 응답의 시점·실제 생활 영향·학생이 원하는 지원을 각각 확인',causal:false,validated:false,strength});
  }
  pairs.sort((x,y)=>Number(y.priority==='안전 우선 확인')-Number(x.priority==='안전 우선 확인')||y.strength-x.strength||x.a-y.a||x.b-y.b);
  return {version:'OY-CIE-combinatorial-v3.3',items,pairs,pairCount:pairs.length,triples:crossDomainAssessment(answers),safety:items.filter(x=>[1,2,7,25].includes(x.item)&&typeof x.score==='number'&&x.score>0),unknown:items.filter(x=>x.score==='unknown'),knownTotal:answers.reduce((t,v)=>t+(typeof v==='number'?v:0),0),complete:answers.every(v=>v!=='unknown'),combinationSpace:COMBINATION_SPACE,interpretationStatus:'규칙 기반 가설·실증 검증 전'};

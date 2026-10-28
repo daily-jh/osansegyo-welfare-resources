@@ -69,7 +69,7 @@ const svgWrap=(w,h,inner,label,top)=>'<div class="dgw"><svg class="dg" viewBox="
 /* 그림 1 근거 → 판정: 어떤 입력이 어느 판정에 쓰였는지(판정 사슬 규칙의 고정 연결). */
 function chainDiagram(k){
   const W=700,bh=40,gap=8,inW=170,jX=300,jW=400;
-  const ins=[['25문항 점수','CORE 총점 '+k.total],['안전 문항 1·2·7·25',k.safety.why],[k.hasNarr?(k.inc?'서술기록 (출력에 포함)':'서술기록 (판정에만 반영)'):'서술기록 (입력 없음)',k.hasNarr?(k.inc?'인용 포함':'원문 제외'):'척도만으로 판정'],['2점 이상 영역의 개입체계',String(k.sel.why||'').replace(/\s*\(.*\)/,'')]];
+  const ins=[['25문항 점수',/^확인 /.test(k.total)?String(k.total).replace(/^확인 (\d+)문항 합계 (\d+)점 \(미상 (\d+)문항\)$/,'확인 $1문항 $2점 · 미상 $3개'):'CORE 총점 '+k.total],['안전 문항 1·2·7·25',k.safety.why],[k.hasNarr?(k.inc?'서술기록 (출력에 포함)':'서술기록 (판정에만 반영)'):'서술기록 (입력 없음)',k.hasNarr?(k.inc?'인용 포함':'원문 제외'):'척도만으로 판정'],['2점 이상 영역의 개입체계',String(k.sel.why||'').replace(/\s*\(.*\)|:.*$/,'')]];
   const map={0:[1,2,3],1:[0,1,2,3],2:[0,3,4],3:[4,5]};
   const n=k.cells.length,H=n*(bh+gap)-gap,inGap=(H-ins.length*bh)/(ins.length-1),yIn=i=>i*(bh+inGap),yJ=j=>j*(bh+gap);
   let g='';
@@ -121,7 +121,7 @@ const keyLi=k=>'<li>'+dots(k.v)+'<span><b>'+esc(k.t)+'</b>'+(k.v?'':' <span clas
 const alertHtml=k=>k.urgent?'<p class="alert"><b>오늘 할 일</b>'+esc(k.immediate||'')+k.critical.map(x=>' · '+esc(x.n+'번 '+x.topic+': '+x.action)).join('')+'</p>':'';
 const agendaHtml=k=>k.agenda.length?'<p class="qnote">'+k.agenda.map(a=>esc(a.t)).join(' ')+'</p>':'';
 const selMarks=k=>k.ladder.map(r=>{const m=/미충족/.test(r[2])?'–':/충족|공동|일치/.test(r[2])?'✓':/검토|확인|결정/.test(r[2])?'?':'–';return '<li><b>'+m+'</b>&nbsp;'+esc(String(r[0]).split(' · ')[0].replace(/\s*\(.*\)/,''))+': '+esc(r[1])+'</li>'}).join('');
-const signHtml=k=>'<div class="sign"><div>작성자</div><div>검토자</div><div>사례회의일</div><div>다음 점검일</div></div><p class="fine">25문항 응답'+(k.inc?'과 서술기록':'')+'을 OY-RALS 규칙으로 정리한 실무 참고자료이며 진단·학대 판정·위험 예측·서비스 자격 결정이 아닙니다. 공식 판정은 CORE, 지원 우선순위 5단계는 검증 전 개발지표입니다.'+(k.hasNarr&&!k.inc?' 서술 원문은 넣지 않았고 판정은 화면과 같습니다.':'')+' 판정 사슬 '+esc(k.ver)+'.</p>';
+const signHtml=k=>'<div class="sign"><div>작성자</div><div>검토자</div><div>사례회의일</div><div>다음 점검일</div></div><p class="fine">25문항 응답'+(k.inc?'과 서술기록':'')+'을 OY-RALS 규칙으로 정리한 실무 참고자료이며 진단·학대 판정·위험 예측·서비스 자격 결정이 아닙니다. 공식 판정은 CORE, 지원 우선순위 5단계는 검증 전 개발지표입니다.'+(k.hasNarr&&!k.inc?' 서술 원문은 넣지 않았고 판정은 화면과 같습니다.':'')+' 판정 사슬 '+esc(k.ver)+'. 시험 운영판(2026년 12월 중순 정식 운영 예정)으로 결과값·항목이 바뀔 수 있습니다.</p>';
 const goalTable=k=>k.goals.length?'<div class="tw"><table><thead><tr><th>주제</th><th>지금</th><th>다음 재평가까지</th><th>점검</th></tr></thead><tbody>'+k.goals.map(g=>'<tr><td><b>'+esc(g.topic)+'</b></td><td class="nw">'+(g.now?dots(g.now)+g.now+'점':'서술')+'</td><td>'+esc(g.target)+'</td><td>'+esc(g.measure)+'</td></tr>').join('')+'</tbody></table></div>':'<p class="sm mut">2점 이상 영역이 없어 목표는 첫 만남에서 학생과 정합니다.</p>';
 
 function page1(k){
@@ -216,7 +216,7 @@ function text(p,opt){
   if(k.grade){L.push('','[학년으로 읽기 · 판정 불변] '+k.grade.label+' · '+k.grade.band,k.grade.summary);if(k.grade.transition)L.push(k.grade.transition);k.grade.readings.forEach(x=>L.push('- '+x.domain+': '+x.text));L.push('근거: '+k.grade.sources.map(s=>'['+s.id+'] '+s.short).join(' · '));}
   if(k.resources.length){L.push('','[연계 자원 후보 · 접수 조건은 기관에 확인]');k.resources.forEach(r=>L.push('- '+r.domain+' · '+r.name+' · '+r.service+(r.cond?' · '+r.cond:'')));}
   if(k.opinion)L.push('','[실무자 의견]',k.opinion);
-  L.push('','25문항 응답'+(k.inc?'과 서술기록':'')+'을 OY-RALS 규칙으로 정리한 실무 참고자료이며 진단·학대 판정·위험 예측·서비스 자격 결정이 아닙니다. 공식 판정은 CORE, 지원 우선순위 5단계는 검증 전 개발지표입니다.'+(k.hasNarr&&!k.inc?' 서술 원문은 넣지 않았고 판정은 화면과 같습니다.':''));
+  L.push('','25문항 응답'+(k.inc?'과 서술기록':'')+'을 OY-RALS 규칙으로 정리한 실무 참고자료이며 진단·학대 판정·위험 예측·서비스 자격 결정이 아닙니다. 공식 판정은 CORE, 지원 우선순위 5단계는 검증 전 개발지표입니다.'+(k.hasNarr&&!k.inc?' 서술 원문은 넣지 않았고 판정은 화면과 같습니다.':'')+' 시험 운영판(2026년 12월 중순 정식 운영 예정)으로 결과값·항목이 바뀔 수 있습니다.');
   return L.join('\n');
 }
 

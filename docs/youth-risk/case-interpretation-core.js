@@ -19,7 +19,7 @@ function enrich(p,a){
  const plans=a.plans.filter(g=>g.domain===d.i);
  paragraphs.push('【지원과 변화 확인】'+(plans.length?plans.map(g=>g.action+' 변화 확인은 '+g.outcome+'을 중심으로 검토합니다.').join(' '):'원하는 도움과 현재 이용 중인 지원을 확인한 뒤 추가 계획의 필요성을 협의합니다.')+'');
  }else if(unknown.length){
- paragraphs.push('【해석을 유보할 부분】이 영역은 확인된 양성 응답 없이 미상 문항이 남아 있습니다. 낮은 위험으로 분류하거나 자동 의뢰의 근거로 삼지 않습니다. 학생이 질문을 이해하기 어려웠는지, 답변하기 부담스러웠는지, 평가자가 아직 정보를 얻지 못했는지 안전한 방식으로 확인합니다. 확인된 다른 영역의 지원은 그동안 지연하지 않습니다.');
+ paragraphs.push('【해석을 유보할 부분】이 영역은 1점 이상으로 확인된 응답 없이 미상 문항이 남아 있습니다. 낮은 위험으로 분류하거나 자동 의뢰의 근거로 삼지 않습니다. 학생이 질문을 이해하기 어려웠는지, 답변하기 부담스러웠는지, 평가자가 아직 정보를 얻지 못했는지 안전한 방식으로 확인합니다. 확인된 다른 영역의 지원은 그동안 지연하지 않습니다.');
  }else return {domain:d.i,name:d.name,evidenceIds,positive,unknown,quiet:true,paragraphs:['【'+d.name+'】이번 응답에서 어려움이 보고되지 않았습니다.']};
  return {domain:d.i,name:d.name,evidenceIds,positive,unknown,paragraphs};
  });

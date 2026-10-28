@@ -112,7 +112,7 @@ function reconcile(answers,input){
    const missing=candidates.filter(z=>z.score==='unknown');if(missing.length&&!positive.length)out.unknownCandidates.push({tag:signal.tag,items:missing.map(z=>z.item)});
   }else if(signal.polarity==='negated'){
    const positive=candidates.filter(z=>typeof z.score==='number'&&z.score>0);
-   if(positive.length)out.mismatches.push({tag:signal.tag,items:positive.map(z=>z.item),issue:'부정 표현과 양성 점수가 공존합니다. 시점·사건·출처 차이를 확인하십시오.'});
+   if(positive.length)out.mismatches.push({tag:signal.tag,items:positive.map(z=>z.item),issue:'서술에는 부정 표현이 있지만 점수는 1점 이상입니다. 시점·사건·출처 차이를 확인하십시오.'});
   }
  }
  out.immediate=x.signals.map(immediateOf).filter(Boolean);

@@ -94,7 +94,7 @@ function analyze(p){
   if((p.explicit||[]).length>0||[4,5,12,13].some(id=>p.followups?.[id]==='yes')||highCritical.length){
    safetyFloor=5;safetyReason='명시된 긴급 신호·고강도 보호문항에 따라 안전 최우선';
   }else if(official.lowSafetyOnly){safetyFloor=2;safetyReason='안전 관련 1점 응답에 따른 초기 보호 우선';}
-  else {safetyFloor=4;safetyReason='핵심 안전문항 양성에 따른 우선 보호경로';}
+  else {safetyFloor=4;safetyReason='안전문항(1·2·7·25번) 응답이 있어 보호 절차를 먼저 적용';}
  }
  // Current-risk follow-up left as "not yet confirmed": run as provisional level 4 until it is answered.
  const pendingChecks=official.pendingChecks||[];

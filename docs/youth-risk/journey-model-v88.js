@@ -101,7 +101,7 @@ const specific={19:['食','필수생활 공백 확인','오늘 식사·옷·위�
  if(decision.unknownItems.length)cie.push({kind:'unknown',items:decision.unknownItems.slice(),hypothesis:'미상 문항은 0점이 아니며 확인되지 않은 상태입니다.',verification:'문항별 정보원·확인일 지정, 확인된 지원은 지연하지 않음',priority:'확인 필요'});
  if(context.mismatches.length)cie.push({kind:'mismatch',items:[...new Set(context.mismatches.flatMap(x=>x.items||[]))],hypothesis:'척도와 서술 사이에 '+context.mismatches.length+'건의 대조사항이 있습니다.',verification:'학생·보호자·학교의 정보원과 시점을 분리해 확인',priority:'근거 대조'});
  if(observed.length>1&&!cie.length)add('general',observed.slice(0,3).map(d=>d.i),'여러 영역의 어려움이 동시에 보고되었습니다. 영역 간 인과관계는 확인되지 않았습니다.','생활 영향·발생 시점·학생 희망을 대조');
- const cieActions=cie.map((x,i)=>({id:'CIE-'+(i+1),...x,evidence:x.items.map(n=>n+'번 '+p.answers[n-1]+'점'),status:'미확인 가설'}));
+ const cieActions=cie.map((x,i)=>({id:'CIE-'+(i+1),...x,evidence:x.items.map(n=>n+'번 '+(p.answers[n-1]==='unknown'?'미상':p.answers[n-1]+'점')),status:'미확인 가설'}));
  if(cieActions.length)formulation.push('OY-CIE 맥락 통합검토(가설·확인과제): '+cieActions.slice(0,4).map(x=>x.hypothesis+' [근거 '+(x.evidence.join('·')||'서술 확인')+'] '+x.verification).join(' '));
  const cieSummary=cieActions.length?'OY-CIE 검토가설 '+cieActions.length+'건: '+cieActions.slice(0,3).map(x=>x.hypothesis+' (근거 '+(x.evidence.join('·')||'서술·미상 확인')+')').join(' '):'확인된 척도와 서술을 토대로 생활 장면과 학생 희망을 확인합니다.';
  const integrated=[...(semantic?semantic.narratives.slice(0,2):[]),...formulation.filter(x=>!x.startsWith('OY-CIE 맥락 통합검토')).slice(0,5)].filter(Boolean).join(' ')||'현재 보고된 어려움을 학생이 가장 불편한 생활 장면부터 구체화하세요. 빈도·지속기간·학교와 가정에서의 차이를 확인한 뒤, 우선 과제 한 가지를 학생과 합의하고 변화 여부를 점검합니다.';

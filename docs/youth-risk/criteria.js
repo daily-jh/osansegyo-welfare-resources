@@ -26,7 +26,7 @@ function evaluate(values,groups,explicit,followups){
  return {level:incomplete?null:level,observedLevel:level,urgent:urgent,lowSafetyOnly:lowSafetyOnly,supportTitle:provisional?'확인된 어려움의 지원 병행 · 전체 수준 판단 보류':names[level],safetyReview:urgent?'안전 관련 응답의 구체상황·현재 위해를 확인하며, 학대·위해 의심 시 점수와 무관하게 보호절차를 진행합니다.':'별도 현재 안전정보와 실제 면담을 함께 확인합니다.',safetyItems:safetyItems,critical:critical,severe:severe,substantial:substantial,integrated:level>=2,title:title,description:description,
  incomplete:incomplete,provisional:provisional,unknownItems:unknownItems,safetyUnknown:safetyUnknown,pendingChecks:pendingChecks,checkItems:checkItems,knownCount:known.length,knownTotal:known.reduce((a,b)=>a+b,0),knownMaximum:known.length*4,
  confirmedSupport:level>0?names[level]:'확인된 응답만으로 지원이 불필요하다고 판단하지 않습니다',
- reason:(incomplete?'점수 확인 '+known.length+'/25문항 · 미상 '+unknownItems.length+'문항 / ':'')+'안전을 먼저 살펴볼 문항 '+safetyItems.length+'개 / 생활의 어려움이 큰 문항(3~4점) '+severe.length+'개 / 도움을 함께 살펴볼 영역 '+substantial.length+'개 / 보호·건강·기본생활을 먼저 살펴볼 문항 '+critical.length+'개'+(pendingChecks.length?' / 현재 안전 추가확인 '+pendingChecks.length+'개 남음':'')};
+ reason:(incomplete?'점수 확인 '+known.length+'/25문항 · 미상 '+unknownItems.length+'문항 / ':'')+'안전을 먼저 살펴볼 문항 '+safetyItems.length+'개 / 생활의 어려움이 큰 문항(3~4점) '+severe.length+'개 / 어려움이 모인 영역(3~4점 문항 또는 2점 이상 2문항) '+substantial.length+'개 / 보호·건강·기본생활을 먼저 살펴볼 문항 '+critical.length+'개'+(pendingChecks.length?' / 현재 안전 추가확인 '+pendingChecks.length+'개 남음':'')};
 }
 var api={items:items,evaluate:evaluate};if(typeof module!=='undefined')module.exports=api;else root.YouthCriteria=api;
 })(typeof window!=='undefined'?window:globalThis);

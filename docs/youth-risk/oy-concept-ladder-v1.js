@@ -9,7 +9,7 @@ const VERSION='1.0.0-20261026';
 const THEMES=[
  {key:'safe',title:'다치지 않고 지내기',term:'보호·안전',domains:[0,1,9],
   deck:'집, 학교, 온라인에서 누군가에게 다치거나 위협받지 않는지 보는 주제입니다.'},
- {key:'mind',title:'마음과 행동',term:'정서·행동 (내재화·외현화)',domains:[2,4],
+ {key:'mind',title:'마음과 행동',term:'정서·행동: 내재화·외현화',domains:[2,4],
   deck:'마음이 얼마나 힘든지, 그 힘듦이 어떤 행동으로 나타나는지 보는 주제입니다.'},
  {key:'school',title:'학교와 배움',term:'학교 적응·학습 접근성',domains:[3,5],
   deck:'학교에 오고, 배우고, 학교에 마음을 두고 있는지 보는 주제입니다.'},

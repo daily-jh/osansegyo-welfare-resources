@@ -32,10 +32,10 @@ function selection(o){
   let status,why;
   if(o.urgent){status='met';why=systems.length>=2?'개입체계 '+systems.length+'곳 · 위기 영역 응답 있음':'위기 영역(안전 문항) 응답이 있어 공동 개입 대상';}
   else if(systems.length>=2&&LOW.includes(levelId)){status='review';why='개입체계 '+systems.length+'곳이지만 개입 수준은 '+(o.levelName||'단기 지원');}
-  else if(systems.length>=2){status='met';why='개입체계 '+systems.length+'곳 ('+systems.join(', ')+')';}
+  else if(systems.length>=2){status='met';why='개입체계 '+systems.length+'곳: '+systems.join(', ');}
   else if(o.provisional||o.safetyOpen||o.narrSafety){status='check';why=o.provisional?'추가확인이 남아 잠정':o.safetyOpen?'안전 문항 미상':'서술에서만 나온 안전 단서';}
   else if(HIGH.includes(levelId)){status='review';why='개입 수준은 다기관이지만 개입체계 '+(systems.length||0)+'곳';}
-  else{status='not';why=systems.length?'개입체계 1곳 ('+systems[0]+')':'2점 이상 영역 없음';}
+  else{status='not';why=systems.length?'개입체계 1곳: '+systems[0]:'2점 이상 영역 없음';}
   return {status,label:SEL[status],why,systems,domains:lv.map(x=>x.name),provisional:!!o.provisional&&status!=='not'};
 }
 
@@ -130,7 +130,7 @@ function ladders(R,school){
        ['최종 · 세 기준 중 가장 높은 단계','',R.cells[2].value]],
     level:[['CORE 수준 + 안전 응답 + 서술 단서',(R.level.reason||'—'),R.level.name],['만남과 회의',R.level.contact||'—',R.level.meeting||'—']],
     select:[['2개 이상 기관(개입체계)의 전문 개입 · 학교 안 지원(담임·교육복지사·Wee)은 한 체계',sel.systems.length?sel.systems.join(', '):'2점 이상 영역 없음',sel.label],
-            ['위기 영역(안전 문항) 응답',R.urgent?'있음':'없음',R.urgent?'공동 개입 대상':'—'],
+            ['위기 영역(안전 문항) 응답',R.urgent?'있음':(R.safetyOpen||[]).length?R.safetyOpen.map(n=>n+'번').join('·')+' 미상 · 확인 필요':'없음',R.urgent?'공동 개입 대상':(R.safetyOpen||[]).length?'확인 후 결정':'—'],
             ['개입 수준과의 관계 (R-2)',R.level.name,sel.status==='review'?'사례회의에서 결정':'일치']],
     path:[['⑤ 결과와 맡을 개입체계 (R-1)',sel.label,R.pathway],['주관',R.lead,'회의에서 확정']]
   };

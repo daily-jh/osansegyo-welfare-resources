@@ -76,7 +76,7 @@ function firstChecks(x,payload,cues){
  const other=(o.unknownItems||[]).filter(n=>!SAFETY_ITEMS.includes(n));
  if(other.length)out.push({text:'미상 '+list(other)+' — 확인 전까지 전체 단계를 확정하지 않습니다. 미상은 0점(어려움 없음)이 아닙니다.'});
  (cues?.reflected||[]).filter(c=>c.safety).forEach(c=>out.push({urgent:true,text:'서술에 ‘'+c.label+'’ 내용이 학생의 현재 일로 적혀 있습니다'+(c.items.every(n=>payload.answers[n-1]===0)?'('+list(c.items)+' 점수는 0점)':'')+' — '+c.ask+' 서술만으로 점수를 바꾸지 않습니다.'}));
- (cues?.held||[]).filter(c=>c.safety).forEach(c=>out.push({urgent:true,text:'서술의 ‘'+c.label+'’ 내용은 '+c.why+' 분류되어 자동 판정에는 반영하지 않았습니다. 원문을 직접 읽고 '+list(c.items)+' 응답과 현재 안전을 확인하세요.'}));
+ (cues?.held||[]).filter(c=>c.safety&&!(cues.reflected||[]).some(r=>r.tag===c.tag)).forEach(c=>out.push({urgent:true,text:'서술의 ‘'+c.label+'’ 내용은 '+c.why+' 분류되어 자동 판정에는 반영하지 않았습니다. 원문을 직접 읽고 '+list(c.items)+' 응답과 현재 안전을 확인하세요.'}));
  (o.critical||[]).filter(n=>!SAFETY_ITEMS.includes(n)).slice(0,3).forEach(n=>out.push({text:n+'번 '+payload.answers[n-1]+'점 — '+itemReason(n)}));
  return out;
 }
