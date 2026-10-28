@@ -23,7 +23,10 @@ function analyze(p){
  const pendingDomains=domains.filter(d=>!d.sum&&d.unknown&&!extra.has(d.i)).map(d=>({domain:d.i,name:d.name,unknownItems:d.numbers.filter(n=>p.answers[n-1]==='unknown')}));
   // Unknown-only domains are verification tasks, never automatic service plans.
   const ordered=M.rank(domains).filter(d=>d.sum>0||extra.has(d.i));
- let plans=ordered.map(d=>({domain:d.i,title:tasks[d.i][0],evidence:d.numbers.filter(n=>p.answers[n-1]>0).map(n=>n+'번 '+p.answers[n-1]+'점'),narrativeOnly:!d.sum&&extra.has(d.i),action:tasks[d.i][1],outcome:tasks[d.i][2],when:d.safety||d.critical?'현재 안전·필수생활부터 확인':'첫 면담에서 확인 · 실행일 협의',candidates:M.groupedCandidates(p,d).slice(0,3).map(g=>({name:g.name,service:g.primary['서비스명'],condition:M.describe(p,d,g.primary).condition,url:g.primary['홈페이지']||''}))}));
+ // Peer domain with only item 5 (the student harming others) is about the student's behaviour, not a victim's safety.
+ const peerActOnly=d=>d.i===1&&!(p.answers[2]>0)&&!(p.answers[3]>0)&&p.answers[4]>0;
+ const task=d=>peerActOnly(d)?['타인을 다치게 하는 행동 지원','행동이 일어난 장면·상대·피해를 확인하고 학교 담당과 관계 회복·재발 방지 조치를 정합니다.','다른 학생의 안전과 같은 행동의 반복 여부']:tasks[d.i];
+ let plans=ordered.map(d=>({domain:d.i,title:task(d)[0],evidence:d.numbers.filter(n=>p.answers[n-1]>0).map(n=>n+'번 '+p.answers[n-1]+'점'),narrativeOnly:!d.sum&&extra.has(d.i),action:task(d)[1],outcome:task(d)[2],when:d.safety||d.critical?'현재 안전·필수생활부터 확인':'첫 면담에서 확인 · 실행일 협의',candidates:M.groupedCandidates(p,d).slice(0,3).map(g=>({name:g.name,service:g.primary['서비스명'],condition:M.describe(p,d,g.primary).condition,url:g.primary['홈페이지']||''}))}));
  plans=plans.map(plan=>{
  const selected=domains[plan.domain].numbers.filter(n=>typeof p.answers[n-1]==='number'&&p.answers[n-1]>0).sort((a,b)=>p.answers[b-1]-p.answers[a-1]||a-b);
  const strongest=selected[0];

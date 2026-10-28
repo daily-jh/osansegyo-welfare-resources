@@ -92,7 +92,7 @@ function resolve(p){
   const cells=[
     {k:'safety',n:'①',name:'안전',
      tone:urgent?'risk':(pending.length||safetyOpen.length||narrSafety.length)?'check':'ok',
-     value:urgent?'안전 신호 있음 · 오늘 확인':pending.length?'추가확인 남음':safetyOpen.length?'안전 문항 미상':narrSafety.length?'서술에 안전 단서':'이번 응답 안전 신호 없음',
+     value:urgent?'안전 신호 있음 · '+(/^지금 바로/.test(String((I&&I.first)||(deep.summary&&deep.summary.first)||''))?'지금 바로 확인':'오늘 확인'):pending.length?'추가확인 남음':safetyOpen.length?'안전 문항 미상':narrSafety.length?'서술에 안전 단서':'이번 응답 안전 신호 없음',
      why:urgent?(safetyPos.length?safetyPos.map(n=>n+'번').join('·')+' 응답':'명시 긴급·추가확인'):pending.length?pending.map(n=>n+'번').join('·')+' 추가확인':safetyOpen.length?safetyOpen.map(n=>n+'번').join('·')+' 미상':narrSafety.length?narrSafety.slice(0,2).join('·'):'1·2·7·25번 모두 0'},
     {k:'core',n:'②',name:'CORE 공식 판정',tone:'core',value:off.title||'—',why:'3~4점 문항 '+highCount+'개 · 2점 이상 영역 '+lvCount+'개'},
     {k:'tier',n:'③',name:'지원 우선순위',tone:tier>=5?'risk':'data',
