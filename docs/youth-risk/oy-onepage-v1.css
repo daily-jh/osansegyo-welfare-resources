@@ -11,9 +11,13 @@
 .oy1-head h3{margin:0;font-family:var(--oy1-serif);font-weight:800;font-size:2.4rem;line-height:1.15;letter-spacing:-.02em}
 .oy1-deck{margin:10px 0 0;max-width:46em;font-family:var(--oy1-serif);font-size:1.12rem;line-height:1.6;color:#3a4350}
 .oy1-role{margin:8px 0 0;font-size:.85rem;color:var(--oy-muted)}
-.oy1-pick{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 0}
+.oy1-pick{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 0;padding-bottom:14px;border-bottom:1px solid var(--oy-line)}
 .oy1-pick button{min-height:40px;padding:6px 14px;border-radius:999px;border:1px solid var(--oy-line);background:var(--oy-surface);color:var(--oy-ink);font:inherit;font-size:.9rem;font-weight:600;cursor:pointer}
 .oy1-pick button:focus-visible,.oy1 .flow-btn:focus-visible{outline:3px solid var(--oy-data);outline-offset:2px}
+.oy1-pick button[aria-pressed="true"]{background:var(--oy-data);border-color:var(--oy-data);color:#fff}
+.oy1-pick.oy1-pick-open button{border-color:color-mix(in srgb,var(--oy-data) 45%,var(--oy-line));animation:oy-role-glow 2.6s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.oy1-pick.oy1-pick-open button{animation:none}}
+@media print{.oy1-pick,.oy1-role{display:none!important}}
 /* 네 질문: 가는 세로선으로 나눈 네 단, 큰 명조 번호 */
 .oy1-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-bottom:1px solid var(--oy1-rule)}
 .oy1-q{min-width:0;padding:16px 18px 18px;border:0;border-left:1px solid var(--oy-line);border-top:3px solid transparent;border-radius:0;background:transparent}

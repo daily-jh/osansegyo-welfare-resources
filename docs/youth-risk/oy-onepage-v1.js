@@ -5,7 +5,7 @@
 (function(root){
 'use strict';
 const node=typeof module!=='undefined'&&module.exports;
-const VERSION='1.6.0-xmod1200-20261029';
+const VERSION='1.7.0-role-switch-20261029';
 const need=(n,g)=>node?require('./'+n):root[g];
 const FR=()=>need('oy-final-report-v1.js','OYFinalReport');
 const LIB=()=>{try{return need('oy-scale-library-v1.js','OYScaleLibrary')}catch(_){return null}};
@@ -20,9 +20,9 @@ const SCOPE={
   teacher:{name:'담임교사',steps:['1','2'],end:'담임교사는 학생의 변화를 가장 먼저 알아차리고 연결하는 역할입니다. 이 한 장을 교육복지사(또는 Wee클래스)에게 전해 주시면 이후 지원은 학교와 기관이 함께 이어 갑니다. 가까운 기관이 궁금하면 02 지역자원 지도를 보세요.'},
   edu:{name:'교육복지사',steps:['1','6','2'],end:'교육복지사는 학교 안 지원을 정하고 학교 밖 기관과 잇는 역할입니다. 01 결과와 03 학교 지원(교육복지사 절차)을 중심으로 보고, 학교 밖 자원은 02 지역자원에서 찾습니다.'},
   team:{name:'학맞통 지원팀',steps:['1','7'],end:'학맞통 지원팀은 사례회의에서 지원 계획과 맡을 기관을 정하는 역할입니다. 이 한 장과 05 최종 보고서를 회의 자료로 쓰고, 근거가 더 필요하면 「자세히 보기」를 엽니다.'},
-  cwc:{name:'사회복지관',steps:['1','2','3','7'],end:'사회복지관은 사정부터 계획·보고서까지 사례를 이끄는 역할입니다. 01부터 05까지 전체 흐름을 쓰고, 이 한 장은 사례회의 첫 장으로 씁니다.'},
-  child:{name:'아동·가족기관',steps:['1','2','3','7'],end:'아동·가족기관은 가족과 돌봄 영역의 전문 지원을 맡는 역할입니다. 01부터 05까지 전체 흐름을 쓰고, 이 한 장은 사례회의 첫 장으로 씁니다.'},
-  admin:{name:'행정복지센터',steps:['1','2','3','7'],end:'행정복지센터는 공공 급여·서비스를 확인하고 연결하는 역할입니다. 01 결과와 02 지역자원, 04 기관 사례관리(행정복지센터 역할)를 봅니다.'}
+  cwc:{name:'사회복지관 실무자',steps:['1','2','3','7'],end:'사회복지관은 사정부터 계획·보고서까지 사례를 이끄는 역할입니다. 01부터 05까지 전체 흐름을 쓰고, 이 한 장은 사례회의 첫 장으로 씁니다.'},
+  child:{name:'아동·가족기관 실무자',steps:['1','2','3','7'],end:'아동·가족기관은 가족과 돌봄 영역의 전문 지원을 맡는 역할입니다. 01부터 05까지 전체 흐름을 쓰고, 이 한 장은 사례회의 첫 장으로 씁니다.'},
+  admin:{name:'행정복지센터 실무자',steps:['1','2','3','7'],end:'행정복지센터는 공공 급여·서비스를 확인하고 연결하는 역할입니다. 01 결과와 02 지역자원, 04 기관 사례관리(행정복지센터 역할)를 봅니다.'}
 };
 const roleNow=()=>{try{return (root.OYRole&&root.OYRole.current())||''}catch(_){return ''}};
 
@@ -231,8 +231,8 @@ function html(m){
   const today=(()=>{try{return new Date().toLocaleDateString('ko-KR',{timeZone:'Asia/Seoul'})}catch(_){return ''}})();
   return '<header class="oy1-mast"><span class="oy1-kicker">OY-RALS 핵심 결과 한 장'+(sc?' · '+esc(sc.name)+'판':'')+'</span><span class="oy1-meta">'+esc(today)+' · 실무자 확인 전 초안 · 학생 이름·서술기록 미포함</span></header>'+
    '<div class="oy1-head"><h3 id="oy1Title">핵심 결과 요약</h3><p class="oy1-deck">'+esc(deck(m))+'</p>'+
-   (sc?'':'<p class="oy1-role">역할을 고르면 다음 할 일이 맞춰집니다</p>')+'</div>'+
-   (sc?'':'<div class="oy1-pick" role="group" aria-label="역할 고르기">'+roles.map(r=>'<button type="button" data-oy-role="'+r+'">'+esc(SCOPE[r].name)+'</button>').join('')+'</div>')+
+   '<p class="oy1-role">'+(sc?'다른 실무자 관점으로 바꿔 볼 수 있습니다. 판정은 그대로이고 다음 할 일만 바뀝니다.':'역할을 누르면 그 실무자 관점으로 다음 할 일이 맞춰집니다')+'</p></div>'+
+   '<div class="oy1-pick'+(sc?'':' oy1-pick-open')+'" role="group" aria-label="실무자 관점 바꾸기">'+roles.map(r=>'<button type="button" data-oy-role="'+r+'" aria-pressed="'+(m.role===r)+'">'+esc(SCOPE[r].name)+'</button>').join('')+'</div>'+
    '<div class="oy1-grid">'+
    '<section class="oy1-q oy1-'+m.safetyTone+'"><h4><i>01</i>안전 확인 결과</h4><p class="oy1-v">'+esc(k.safety.value)+'</p><p class="oy1-why">'+esc(k.safety.why)+'</p>'+(m.narrNote?'<p class="oy1-narr">'+esc(m.narrNote)+'</p>':'')+
     (m.safetyTone==='c'?'<p class="oy1-callc">'+esc(((k.R.safetyOpen||[]).length&&!(k.R.narrSafety||[]).length&&!(k.R.pending||[]).length?'모르는 안전 문항은 안전하다고 보지 않습니다.':'확인하기 전에는 안전하다고 보지 않습니다.')+' 오늘 직접 확인해 주세요.')+'</p>':'')+(k.urgent||(m.tier||0)>=5?'<p class="oy1-call">급하면 <b>112</b> · 청소년상담 <b>1388</b> · 자살예방 <b>109</b></p>':'')+(m.contacts&&m.contacts.length?contactsHtml(m.contacts):'')+'</section>'+
