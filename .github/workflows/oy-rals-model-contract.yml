@@ -98,6 +98,7 @@ jobs:
           node tests/oy-random400-regression.cjs
           node tests/oy-random500-regression.cjs
           node tests/oy-xmod1200-regression.cjs
+          node tests/oy-evidence.cjs
           node tests/oy-decision-chain.cjs
           node tests/oy-constants-drift.cjs
           node tests/oy-css-bundle.cjs
