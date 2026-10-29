@@ -24,7 +24,8 @@ permissions:
   contents: read
 jobs:
   browser-journey:
-    runs-on: ubuntu-latest
+    # Playwright 1.56.1 cannot install browsers on ubuntu-latest once it moved to 26.04; pin the last supported image.
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
