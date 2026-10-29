@@ -79,4 +79,23 @@ for(const c of cases){const p=payload(c),R=run(c);
 // 3) 해가 없는 문장만 덧붙여도 단계·안전 단서가 생기지 않는다.
 for(const c of cases.slice(0,150)){const b=run({...c,narrative:''});for(const h of HARMLESS){const R=run({...c,narrative:'담임 관찰 기록. '+h});
  assert.ok((R.tier||0)<=(b.tier||0)&&!(R.narrSafety.length&&!b.narrSafety.length),c.id+' "'+h+'" 로 단계/안전 단서가 생김 '+b.tier+'→'+R.tier+' '+R.narrSafety.join('·'));}}
-console.log('oy-random500-regression ok',cases.length,'· 서술',narr,'· 단서 0개 안내',note,'· 보호자 문장',fam);
+// 4) 2차(2026-10-29): 기관 세 역할의 첫 블록이 다르고, 1단계·어려움 없음이면 기관 목록이 없고, 강점 칸에 '보고되지 않았습니다' 문장이 없다.
+let calm=0;
+for(const c of cases.slice(0,200)){const p=payload(c);const ms=['cwc','child','admin'].map(r=>quiet(()=>ONE.model(p,r)));
+ const h=ms.map(m=>m.teach.blocks[0].h);assert.strictEqual(new Set(h).size,3,c.id+' 기관 세 역할 첫 블록이 같음 '+h.join('/'));
+ const t=quiet(()=>ONE.model(p,'teacher'));
+ if(t.tier===1&&!t.hard.some(x=>x.v>=2)&&!t.k.urgent&&t.k.safety.tone!=='check'){calm++;assert.ok(!t.teach.blocks.some(b=>b.h==='가까운 지역 기관'),c.id+' 1단계인데 기관 목록');}
+ for(const b of t.teach.blocks)if(/버팀목|어려움이 없던/.test(b.h))assert.ok(!(b.li||[]).some(x=>/보고되지 않았/.test(x)),c.id+' 버팀목에 부재 문장');
+ assert.ok(/<details class="oy1-notes"/.test(ONE.html(t)),c.id+' 현장 노트가 접혀 있지 않음');}
+// 5) 단조성 P1-7: 서술 영역이 척도에 잡혀도(13번 1→2점) 개입 수준이 내려가지 않는다(S160 모양, 가상).
+{const base={answers:[0,0,1,0,0,0,0,1,1,0,0,0,1,0,1,0,0,0,1,2,1,1,0,0,0],narrative:'담임 관찰 기록. 담배 냄새가 나고 쉬는 시간마다 사라짐. 동생을 돌보느라 학원과 숙제를 못 한다고 함.'};
+ const ORD=['monitor','brief','general','intensive','crisis'];const lv=a=>ORD.indexOf(run({...base,answers:a}).level.id);
+ const up=base.answers.slice();up[12]=2;assert.ok(lv(up)>=lv(base.answers),'13번 1→2점에 개입 수준이 내려감');}
+// 6) 3차: 척도 자료실 연결은 학교급에 맞는 척도만, 학년 한 줄, 검토 의견 줄에는 판정 값만(서술 원문 없음).
+const LIB=require(path.join(SRC,'oy-scale-library-v1.js'));let linked=0;
+for(const c of cases.slice(0,200)){const p=payload(c),m=quiet(()=>ONE.model(p,'edu')),b=m.teach.blocks.find(x=>x.h==='더 확인해 볼 척도');
+ if(b){linked++;const lv=LIB.levelOf(c.grade);b.scales.forEach(x=>{const sc=LIB.SCALES.find(y=>y.id===x.id);assert.ok(sc&&(!lv||sc.levels.includes(lv)),c.id+' 학교급에 맞지 않는 척도 '+x.id);});}
+ const t=quiet(()=>ONE.model(p,'teacher'));if(c.grade)assert.ok(t.teach.blocks[0].lead&&t.teach.blocks[0].lead.startsWith(c.grade),c.id+' 학년 한 줄 없음');
+ const line=ONE.reviewLine(m);assert.ok(/^\[검토할 판정\] 지원 우선순위/.test(line)&&!(c.narrative&&c.narrative.split('.').some(x=>x.trim().length>6&&line.includes(x.trim()))),c.id+' 검토 줄');}
+assert.ok(linked>150,'척도 연결이 너무 적음 '+linked);
+console.log('oy-random500-regression ok',cases.length,'· 서술',narr,'· 단서 0개 안내',note,'· 보호자 문장',fam,'· 1단계 조용한 사례',calm);

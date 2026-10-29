@@ -43,6 +43,25 @@
 /* 현장 노트: 두 단, 단 사이 가는 선 */
 .oy1-sub{display:flex;align-items:baseline;gap:12px;margin:22px 0 4px;padding-bottom:8px;border-bottom:1px solid var(--oy1-rule);font-family:var(--oy1-serif);font-weight:800;font-size:1.35rem}
 .oy1-sub span{white-space:nowrap;flex:none;font-family:system-ui,sans-serif;font-size:.72rem;font-weight:800;letter-spacing:.06em;color:var(--oy-data-ink)}
+/* 학년 한 줄(G6)·척도 자료실 연결(G5)·검토 의견 버튼(G7) */
+.oy1-grade{margin:0 0 6px;padding:4px 8px;border-left:3px solid var(--oy-data);background:var(--oy-data-soft,#eef4fb);font-size:.82rem;line-height:1.55}
+.oy1-scales{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.oy1-scales button{border:0;border-bottom:1px solid #2a8a7e;background:none;padding:2px 0;color:#0f5f56;font:inherit;font-weight:700;cursor:pointer;text-align:left}
+.oy1-scales button:focus-visible{outline:3px solid #2a8a7e;outline-offset:2px}
+.oy1-scales small{display:block;color:var(--oy-muted);font-size:.78rem}
+#assessmentFlow .oy1 .flow-btn.oy1-check{background:var(--oy-surface);border:1px dashed var(--oy-line);color:var(--oy-ink);font-weight:600}
+/* 현장 노트는 화면에서 접어 둔다(G3). 인쇄는 printOne이 펼친다. */
+.oy1-notes{margin:22px 0 4px}
+.oy1-notes>summary{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 12px;padding:10px 0;border-bottom:1px solid var(--oy1-rule);cursor:pointer;list-style:none;font-weight:800;font-size:1.15rem}
+.oy1-notes>summary::-webkit-details-marker{display:none}
+#assessmentFlow .oy1-notes>summary{border-radius:0;background:none;box-shadow:none}
+.oy1-notes>summary::after{content:"▼";margin-left:auto;align-self:center;font-size:.75rem;color:var(--oy-data)}
+.oy1-notes[open]>summary::after{content:"▲"}
+.oy1-notes>summary small{font-size:.8rem;font-weight:700;color:var(--oy-data)}
+.oy1-notes[open]>summary small{display:none}
+.oy1-sub-k{white-space:nowrap;font-size:.72rem;font-weight:800;letter-spacing:.06em;color:var(--oy-data-ink)}
+.oy1-notes>summary:focus-visible{outline:3px solid var(--oy-data);outline-offset:2px}
+@media print{.oy1-notes>summary::after,.oy1-notes>summary small{display:none}}
 .oy1-tgrid{column-count:2;column-gap:36px;column-rule:1px solid var(--oy-line);padding-top:6px;counter-reset:oy1n}
 .oy1-t{break-inside:avoid;margin:0;padding:12px 0 14px;border:0;border-bottom:1px dotted #c9cfd8;border-radius:0;background:transparent}
 .oy1-t h4{margin:0 0 6px;font-family:var(--oy1-serif);font-size:1.02rem;font-weight:800;color:var(--oy-ink)}
@@ -86,6 +105,23 @@
 .oy1-pass small{display:block;color:var(--oy-muted);margin-top:2px}
 .oy1-muted,.oy1-foot{color:var(--oy-muted);font-size:.8rem}
 .oy1-foot{margin:12px 0 0}
+/* 03·04 칸 끝 「자세히 알아보기 ↓」: 색 띠가 없어도 해석이 아래에 있음을 알린다(지훈 2026-10-29). */
+.oy1-go{display:inline-flex;align-items:center;gap:4px;margin:12px 0 0;padding:6px 0 2px;border:0;border-bottom:1px solid currentColor;background:none;color:var(--oy-data);font:inherit;font-size:.82rem;font-weight:700;cursor:pointer}
+.oy1-go span{display:inline-block;transition:transform .15s ease}
+.oy1-go:hover span{transform:translateY(2px)}
+.oy1-go:focus-visible{outline:3px solid var(--oy-data);outline-offset:2px}
+/* 「자세히 보기」 띠: 한 장 아래 끝 좌우에 걸치고 아래 화살표로 펼침을 알린다(지훈 2026-10-29). */
+#assessmentFlow .oy1 .flow-btn.oy1-band{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px 12px;width:calc(100% + 60px);margin:18px -30px -22px;min-height:56px;padding:12px 20px;border-radius:0;border-width:1px 0 0;font-size:1.02rem}
+.oy1-band small{font-size:.82rem;font-weight:600;opacity:.92}
+.oy1-band-a{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.22);font-size:.8rem;animation:oy1-down 1.6s ease-in-out infinite}
+@keyframes oy1-down{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
+#assessmentFlow .oy1 .flow-btn.oy1-band[aria-expanded="true"] .oy1-band-a{background:transparent;animation:none}
+/* 넓은 띠에서도 이전 버튼처럼 반짝이도록 빛줄기를 좁고 밝게, 두 줄기로(지훈 2026-10-29). */
+#assessmentFlow .oy1 .flow-btn.oy1-band::after{width:16%;background:linear-gradient(100deg,transparent 0%,rgba(255,255,255,.75) 50%,transparent 100%);animation:oy1-shine 2.6s ease-in-out infinite}
+#assessmentFlow .oy1 .flow-btn.oy1-band::before{content:"";position:absolute;top:-20%;bottom:-20%;left:-60%;width:8%;z-index:-1;background:linear-gradient(100deg,transparent 0%,rgba(255,255,255,.5) 50%,transparent 100%);transform:skewX(-20deg);animation:oy1-shine 2.6s ease-in-out .25s infinite;pointer-events:none}
+#assessmentFlow .oy1 .flow-btn.oy1-band[aria-expanded="true"]::before{display:none}
+@media (prefers-reduced-motion:reduce){#assessmentFlow .oy1 .flow-btn.oy1-band::before{display:none}}
+@media (prefers-reduced-motion:reduce){.oy1-band-a{animation:none}}
 /* 접힌 동안 자세한 결과(척도 해석·서술·통합 사정의견)는 숨긴다. 「자세히 보기」로 펼친다. */
 #assessmentFlow.oy1-fold #journey88{display:none!important}
 /* 내 역할이 아닌 메뉴는 숨기지 않고 연하게 */
@@ -111,6 +147,8 @@
   .oy1-end p{font-size:1.02rem}
   .oy1-actions .flow-btn{flex:1 1 100%}
   .oy1-more{margin-left:0}
+  #assessmentFlow .oy1 .flow-btn.oy1-band{width:calc(100% + 32px);margin:16px -16px -18px}
+  .oy1-band small{flex-basis:100%;order:3}
 }
 .oy1-print{display:none}
 @media print{
