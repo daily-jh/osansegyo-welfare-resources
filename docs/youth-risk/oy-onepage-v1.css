@@ -124,9 +124,10 @@
 @media (prefers-reduced-motion:reduce){.oy1-band-a{animation:none}}
 /* 접힌 동안 자세한 결과(척도 해석·서술·통합 사정의견)는 숨긴다. 「자세히 보기」로 펼친다. */
 #assessmentFlow.oy1-fold #journey88{display:none!important}
-/* 내 역할이 아닌 메뉴는 숨기지 않고 연하게 */
-.flow-nav [data-oy-step].oy1-other{opacity:.5}
-.flow-nav [data-oy-step].oy1-other:hover,.flow-nav [data-oy-step].oy1-other:focus-visible,.flow-nav [data-oy-step].oy1-other[aria-current="step"]{opacity:1}
+/* 내 역할이 아닌 메뉴는 흐리게 두면 '해석이 안 된 것'처럼 보였다(지훈 2026-10-29). 그대로 진하게 두고 위에 '심화·선택' 표시를 붙인다. */
+.flow-nav [data-oy-step].oy1-other{opacity:1;position:relative;overflow:visible}
+.flow-nav [data-oy-step].oy1-other::before{content:"심화 · 선택";position:absolute;top:-10px;left:50%;transform:translateX(-50%);padding:1px 9px;border-radius:999px;border:1px solid #c7cfe0;background:#f4f6fb;color:#4a5a70;font-size:11px;font-weight:700;line-height:16px;letter-spacing:.02em;white-space:nowrap;pointer-events:none}
+.flow-nav:has(.oy1-other){margin-top:12px;row-gap:16px}
 @media (max-width:900px){
   .oy1-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .oy1-q:nth-child(3){border-left:0;padding-left:0}
