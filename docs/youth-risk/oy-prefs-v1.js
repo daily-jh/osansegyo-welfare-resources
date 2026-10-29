@@ -1,19 +1,21 @@
 /* OY-RALS 보기 설정 v1 — F5 역할로 시작하기, F8 큰 글씨·고대비.
-   역할과 보기 설정만 이 브라우저에 기억한다(localStorage). 학생 응답·서술은 저장하지 않는다. */
+   보기 설정만 이 브라우저에 기억한다(localStorage). 역할은 기억하지 않아 열 때마다 선택 없음으로 시작한다(지훈 2026-10-29: 담임교사 기본값 해제).
+   학생 응답·서술은 저장하지 않는다. */
 (function(root){'use strict';
 const doc=root.document;if(!doc)return;
 const KEY='oy-rals-prefs-v1';
-const ROLES=[['teacher','담임교사','school'],['edu','교육복지사','school'],['team','학맞통 지원팀','school'],['cwc','사회복지관','agency'],['child','아동·가족기관','agency'],['admin','행정복지센터','agency']];
+const ROLES=[['teacher','담임교사','school'],['edu','교육복지사','school'],['team','학맞통 지원팀','school'],['cwc','사회복지관 실무자','agency'],['child','아동·가족기관 실무자','agency'],['admin','행정복지센터 실무자','agency']];
 const read=()=>{try{return JSON.parse(root.localStorage.getItem(KEY)||'{}')||{}}catch(_){return {}}};
-const write=v=>{try{root.localStorage.setItem(KEY,JSON.stringify(v))}catch(_){}};
-let prefs=read();
+const write=v=>{try{const o=Object.assign({},v);delete o.role;root.localStorage.setItem(KEY,JSON.stringify(o))}catch(_){}};
+let prefs=read();if(prefs.role){prefs.role='';write(prefs);}
 const role=()=>ROLES.find(r=>r[0]===prefs.role)||null;
 function applyView(){
   const h=doc.documentElement;h.classList.toggle('oy-text-lg',prefs.text==='lg');h.classList.toggle('oy-text-xl',prefs.text==='xl');h.classList.toggle('oy-contrast',!!prefs.contrast);
   doc.querySelectorAll('[data-oy-text]').forEach(b=>b.setAttribute('aria-pressed',String((prefs.text||'base')===b.dataset.oyText)));
   doc.querySelectorAll('[data-oy-contrast]').forEach(b=>b.setAttribute('aria-pressed',String(!!prefs.contrast)));
   doc.querySelectorAll('[data-oy-role]').forEach(b=>b.setAttribute('aria-pressed',String(prefs.role===b.dataset.oyRole)));
-  const now=doc.getElementById('oyRoleNow');if(now){const r=role();const sc=root.OYOnePage&&root.OYOnePage.SCOPE[r&&r[0]];now.textContent=r?(sc?sc.end:r[1]+' 기준으로 03·04 자료와 다음 단계 버튼을 맞춥니다.'):'선택하지 않으면 모든 역할 자료를 같은 순서로 보여 줍니다.';}
+  const now=doc.getElementById('oyRoleNow');if(now){const r=role();const sc=root.OYOnePage&&root.OYOnePage.SCOPE[r&&r[0]];now.textContent=r?(sc?sc.end:r[1]+' 기준으로 03·04 자료와 다음 단계 버튼을 맞춥니다.'):'아직 고르지 않았습니다. 고르지 않으면 모든 역할 자료를 같은 순서로 보여 주고, 결과 화면에서도 언제든 고를 수 있습니다.';}
+  const box=doc.getElementById('oyRoleStart');if(box)box.classList.toggle('oy-role-picked',!!role());
   emphasise();
 }
 /* 02 지도 아래 두 갈래 버튼 중 역할에 맞는 쪽을 주 버튼으로 */
@@ -26,7 +28,7 @@ function mount(){
   const welcome=doc.getElementById('welcome'),grid=welcome&&welcome.querySelector('.home-role-grid');
   if(grid&&!doc.getElementById('oyRoleStart')){
     const sec=doc.createElement('section');sec.id='oyRoleStart';sec.className='flow-wrap oy-role';sec.setAttribute('aria-labelledby','oyRoleTitle');
-    sec.innerHTML='<h2 id="oyRoleTitle">어떤 역할로 쓰시나요?</h2><p>모든 학생에게 쓰는 도구가 아닙니다. 걱정되는 학생이 있을 때 씁니다. 역할을 고르면 평가 뒤 <b>핵심 결과 한 장</b>에 그 역할의 다음 할 일과 <b>어디까지 하면 되는지</b>가 나옵니다. 고르지 않아도 됩니다.</p><div class="oy-role-list" role="group" aria-label="역할 선택">'+ROLES.map(r=>'<button type="button" data-oy-role="'+r[0]+'" aria-pressed="false">'+r[1]+'</button>').join('')+'</div><span class="oy-role-now" id="oyRoleNow" role="status"></span>';
+    sec.innerHTML='<h2 id="oyRoleTitle">어떤 역할로 쓰시나요? <span class="oy-role-tap">눌러서 각 실무자 관점의 해석을 확인하세요</span></h2><p>역할을 누르면 평가 뒤 <b>핵심 결과 한 장</b>이 그 실무자 관점으로 바뀌어 다음 할 일과 <b>어디까지 하면 되는지</b>가 나옵니다. 결과가 나온 뒤에도 다른 역할로 바꿔 볼 수 있습니다. 모든 학생에게 쓰는 도구가 아니라 걱정되는 학생이 있을 때 씁니다.</p><div class="oy-role-list" role="group" aria-label="역할 선택">'+ROLES.map(r=>'<button type="button" data-oy-role="'+r[0]+'" aria-pressed="false">'+r[1]+'</button>').join('')+'</div><span class="oy-role-now" id="oyRoleNow" role="status"></span>';
     grid.after(sec);
   }
   const head=doc.querySelector('.flow-header');

@@ -38,6 +38,16 @@ html.oy-text-xl #journey88,html.oy-text-xl #schoolArea{font-size:1.12em}
 .oy-role-list button[aria-pressed="true"]{background:var(--oy-data);border-color:var(--oy-data);color:#fff}
 .oy-role-list button:focus-visible{outline:3px solid var(--oy-data);outline-offset:2px}
 .oy-role-now{font-size:.85rem;color:var(--oy-data-ink);font-weight:600}
+/* 역할 칸 반짝임(지훈 2026-10-29): 역할을 고르기 전에는 칸 전체가 파랗게 숨 쉬고 빛줄기가 지나간다. 고르면 멈춘다. */
+.oy-role{position:relative;overflow:hidden;isolation:isolate;border-color:color-mix(in srgb,var(--oy-data) 45%,var(--oy-line));animation:oy-role-glow 2.6s ease-in-out infinite}
+.oy-role::after{content:"";position:absolute;top:-20%;bottom:-20%;left:-60%;width:30%;z-index:-1;background:linear-gradient(100deg,transparent 0%,color-mix(in srgb,var(--oy-data) 16%,transparent) 50%,transparent 100%);transform:skewX(-20deg);animation:oy-role-shine 3.2s ease-in-out infinite;pointer-events:none}
+.oy-role-tap{display:inline-block;margin:2px 0;padding:2px 10px;border-radius:999px;background:var(--oy-data);color:#fff;font-size:.8rem;font-weight:700;vertical-align:2px}
+.oy-role.oy-role-picked{animation:none;border-color:var(--oy-line)}
+.oy-role.oy-role-picked::after{display:none}
+.oy-role.oy-role-picked .oy-role-tap{background:color-mix(in srgb,var(--oy-data) 14%,var(--oy-surface));color:var(--oy-data-ink)}
+@keyframes oy-role-glow{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--oy-data) 0%,transparent)}50%{box-shadow:0 0 0 4px color-mix(in srgb,var(--oy-data) 18%,transparent),0 6px 18px color-mix(in srgb,var(--oy-data) 22%,transparent)}}
+@keyframes oy-role-shine{0%{left:-60%}55%,100%{left:130%}}
+@media (prefers-reduced-motion:reduce){.oy-role{animation:none}.oy-role::after{display:none}}
 
 /* B4 터치 목표: 해석지 장 이동 점의 누르는 범위를 44px로, 학교·기관 시트의 체크 캡슐을 휴대폰에서 40px 이상으로 */
 .odi-dots button::after{inset:-19px 0!important}
