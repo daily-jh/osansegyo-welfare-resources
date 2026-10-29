@@ -57,7 +57,7 @@ function pathway(o,sel){
   if(o.urgent||o.safetyFloor>=4)return '현재 안전 확인 우선 → 학교·기관 보호체계 병행';
   if(sel.status==='met')return (school?'학교 내 학맞통 + 복지관 통합사례관리 병행':'복지관 통합사례관리 중심 · 학교 협력')+(sel.provisional?' (잠정)':'');
   if(sel.status==='review')return school?'학교 내 학맞통 중심 · 통합사례관리는 사례회의에서 검토':'복지관 서비스 연계 · 통합사례관리는 사례회의에서 검토';
-  if(sel.status==='check')return '추가 확인 뒤 결정 · 그동안 학교 내 지원으로 시작';
+  if(sel.status==='check')return HIGH.includes(o.levelId)?'추가 확인 뒤 결정 · 그동안 학교·관련 기관이 함께 확인':'추가 확인 뒤 결정 · 그동안 학교 내 지원으로 시작';
   return school?'학교 내 학생맞춤통합지원 중심':welfare?'복지관·공공지원 서비스 연계':lv.length?'해당 영역 전문기관 연계와 변화 점검':'응답 영역별 개별지원과 변화 점검';
 }
 function leadText(base,sel){
@@ -75,6 +75,14 @@ function versions(){
   return [['CORE 공식 판정',v('YouthCriteria',()=>need('criteria.js','YouthCriteria'),'criteria.js')],['지원 우선순위 5단계',v('',FIVE,'integrated-index-v1.js')],['개입 수준',v('',D,'oy-deep-interpretation-v1.js')],['서술 통합',v('',NI,'oy-narrative-interpretation-v1.js')],['판정 사슬',VERSION],['공통 정의',K().VERSION]];
 }
 
+/* ③ 이유: 점수·응답 패턴·안전 기준 가운데 단계를 올린 것을 모두 적는다. 미상으로 점수를 못 낸 때는 '—단계' 대신 그렇다고 쓴다(xmod 1,200사례 2026-10-29). */
+function tierWhy(five,tier){
+  const base=five.baseTier,lift=[];
+  if((five.patternFloor||0)>(base||0)&&five.patternFloor>1)lift.push('응답 패턴 '+five.patternFloor+'단계');
+  if((five.safetyFloor||0)>(base||0))lift.push('안전 기준 '+five.safetyFloor+'단계');
+  const head=base?'점수 '+base+'단계':'점수 계산 보류(미상 '+(five.unknown||0)+'문항)';
+  return lift.length?head+' → '+lift.join(' · ')+' 중 높은 '+tier+'단계':head;
+}
 function resolve(p){
   const S=K().SAFETY_ITEMS;
   const five=FIVE().analyze(p),deep=D().build(p);let I=null;try{const ni=NI();I=ni&&ni.integrate?ni.integrate(p):null}catch(_){I=null}
@@ -92,9 +100,8 @@ function resolve(p){
   const tier=five.tier,immediate=five.immediate||[];
   const levelOpen=tier==null&&!(urgent||pending.length||narrSafety.length||level.id==='crisis');
   const sel=selection({profile,urgent,levelId:level.id,levelName:level.name,provisional,safetyOpen:safetyOpen.length>0,narrSafety:narrSafety.length>0,immediate:immediate.length>0,open:levelOpen});
-  const path=pathway({profile,urgent:!!off.urgent,safetyFloor:five.safetyFloor},sel);
+  const path=pathway({profile,urgent:!!off.urgent,safetyFloor:five.safetyFloor,levelId:level.id},sel);
   const lead=leadText((I&&I.lead)||deep.casework.lead,sel);
-  const raisedBy=tier==null?'':tier>(five.baseTier||0)?(five.safetyFloor>=tier&&five.safetyFloor>(five.patternFloor||0)?'안전 기준':'응답 패턴'):'';
   const cells=[
     {k:'safety',n:'①',name:'안전',
      tone:urgent||immediate.length?'risk':(pending.length||safetyOpen.length||narrSafety.length)?'check':'ok',
@@ -104,7 +111,7 @@ function resolve(p){
     {k:'tier',n:'③',name:'지원 우선순위',tone:tier>=5?'risk':'data',
      value:tier==null?'단계 미확정':tier+'단계 '+NAMES[tier-1]+(five.provisional?' (잠정)':''),
      plain:tier==null?'단계 미확정':NAMES[tier-1]+(five.provisional?' (잠정)':''),
-     why:tier==null?'미상 확인 전 판단 보류':'점수 '+(five.baseTier||'—')+'단계'+(raisedBy?' → '+raisedBy+'으로 상향':''),
+     why:tier==null?'미상 확인 전 판단 보류':tierWhy(five,tier),
      plainWhy:tier==null?'미상 확인 전 판단 보류':'점수·응답 패턴·안전 기준 중 가장 높은 것'},
     /* 단계 미확정이고 위기 사유(안전 응답·추가확인·서술 안전 단서·위기 수준)가 없으면 개입 수준도 미확정으로 보인다. 위기 사유가 의심되면 집중 수준을 그대로 둔다. */
     {k:'level',n:'④',name:'개입 수준',tone:level.id==='crisis'?'risk':levelOpen?'check':'data',value:levelOpen?'미확정 · 확인 후 결정':level.name,why:levelOpen?'잠정 '+level.name+' · 미상 확인 후 확정':(level.id==='crisis'&&tier&&tier<5&&safetyPos.some(n=>ans[n-1]>=2)?'안전 문항 '+safetyPos.filter(n=>ans[n-1]>=2).map(n=>n+'번').join('·')+' 2점 이상이라 보호 조치를 먼저 함 · ':'')+(level.meeting||level.contact||'')},

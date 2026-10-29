@@ -31,7 +31,8 @@ const LEVEL2PICK={crisis:'위기',intensive:'집중',general:'일반',brief:'단
 function analyze(payload){
   const p=payload;const out={p,errors:[]};
   const t=(k,f)=>{try{out[k]=f()}catch(e){out[k]=null;out.errors.push(k+': '+(e&&e.message||e))}};
-  t('core',()=>C().evaluate(p.answers,(p.domains||[]).map(x=>x.items.length),false,p.followups||{}));
+  // 명시 긴급 체크도 CORE에 넘긴다. 빠지면 03 선정 검토서가 '즉시 안전 조치 — 척도 해당 없음'으로 나온다(xmod 1,200사례 2026-10-29).
+  t('core',()=>C().evaluate(p.answers,(p.domains||[]).map(x=>x.items.length),(p.explicit||[]).length>0,p.followups||{}));
   t('d',()=>D().build(p));
   t('n',()=>NI().narrative(p));
   t('five',()=>FIVE().analyze(p));
@@ -64,7 +65,7 @@ function kit(A){
   const mapRes=A.map||[];
   const src=(...k)=>k.map(x=>'<span class="oyp-src oyp-src-'+({척도:'s',서술:'n',해석:'i',지도:'m'}[x])+'">'+x+'</span>').join('');
   const verTag=v=>'<span class="oyp-ver oyp-ver-'+(v==='확인완료'?'ok':v==='미확인'?'no':'part')+'">'+esc(v)+'</span>';
-  return {d,n,core,five,items,val,topic,unknown,high,rowsN,narrOnly,narrSafety,agreeN,sentences,strengthN,factN,cw,pats,lvDomains,urgent,safetyOpen,mapRes,src,verTag,find:A.find};
+  return {p:A.p,d,n,core,five,items,val,topic,unknown,high,rowsN,narrOnly,narrSafety,agreeN,sentences,strengthN,factN,cw,pats,lvDomains,urgent,safetyOpen,mapRes,src,verTag,find:A.find};
 }
 const box=(on,label)=>`<button type="button" class="oyp-ck${on?' oyp-sug':''}" aria-pressed="false"${label?'':' aria-label="'+(on?'시스템 제안 항목 선택':'선택')+'"'}><span class="oyp-cb" aria-hidden="true"></span>${label||''}</button>`;
 const line=(w,lab)=>`<input class="oyp-fld" type="text" style="width:${w||8}em" aria-label="${esc(lab||'입력')}">`;
@@ -212,7 +213,7 @@ function school(K){
   const strengths=[...K.strengthN,...(d.strengths||[]).slice(0,2).map(s=>s.text)];
   const notes=(cw.notes||[]).slice(0,1).map(x=>x.text.split('. ')[0]+'.');
   const T1=sheet('T-1','학생 이해 한 장','담임교사용 · 교실에서 무엇을 보고 무엇을 하지 않을지',`
-<div class="oyp-sum school"><b>${esc(d.title||'')}</b><span>${esc(d.summary&&d.summary.safety||'')} · 두드러진 어려움 ${esc((d.summary&&d.summary.keys||[]).join(', ')||'없음')}${K.narrSafety.length?' · 판정 상태 <b class="oyp-warn">잠정</b>(기록에서만 추정된 '+esc(K.narrSafety.map(r=>r.topic).join('·'))+' 확인 전)':''} ${K.src('척도','해석')}</span></div>
+<div class="oyp-sum school"><b>${esc(K.chain?K.chain.cells[2].value+' · '+K.chain.cells[0].value:(d.title||''))}</b><span>${K.chain?'':esc(d.summary&&d.summary.safety||'')+' · '}척도에서 두드러진 어려움 ${esc((d.summary&&d.summary.keys||[]).join(', ')||'없음')}${K.narrSafety.length?' · 판정 상태 <b class="oyp-warn">잠정</b>(기록에서만 추정된 '+esc(K.narrSafety.map(r=>r.topic).join('·'))+' 확인 전)':''} ${K.src('척도','해석')}</span></div>
 ${fig(profileSvg(K),'영역마다 가장 높은 문항 점수를 캡슐 네 칸으로 보여 줍니다.'+(K.narrOnly.length?' 척도에는 없고 담임 기록에서만 추정된 영역은 주황 점선으로 표시했습니다.':''))}
 ${H('척도와 담임 기록 대조',K.src('척도','서술'))}${recTable}
 <div class="oyp-cols"><div>${H('지원의 발판',K.src('서술','해석'))}<ul>${strengths.length?strengths.map(t=>'<li>'+esc(t)+'</li>').join(''):'<li>면담에서 학생이 잘하는 것과 좋아하는 것을 먼저 묻습니다.</li>'}</ul></div>
@@ -248,7 +249,7 @@ ${fig(lawSvg(1),'담임 관찰과 선별평가가 끝났고, 지금은 학교장
 ${H('법이 예로 든 어려움과 이 학생의 근거',K.src('척도','서술'))}
 ${tbl(['어려움(제2조 제1호 예시)','관련 문항','이 학생의 근거','확인할 자료','시스템 제안'],lawRows.map(r=>`<tr><th>${r[0]}</th><td>${r[1]}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td><td><span class="oyp-pill ${r[4]}">${st[r[4]]}</span></td></tr>`).join(''))}
 ${H('선정 준거 점검','<span class="oyp-note">● 표시는 시스템 제안, 빈칸은 협의회가 채움</span>')}
-<ul class="oyp-checks"><li>${box(lawHit.length>0)}법이 예로 든 어려움 1개 이상 해당${lawHit.length?' — '+esc(lawHit.join(', ')):''}</li><li>${box(K.lvDomains.length>=2)}2개 이상 생활영역이 함께 흔들림 — ${K.lvDomains.length}개 영역 2점 이상</li><li>${box(['general','intensive','crisis'].includes(cw.level&&cw.level.id))}학교 안 지원만으로 어려움 — ${esc(cw.level&&cw.level.name||'')}</li><li>${box(K.urgent)}즉시 안전 조치 필요${K.urgent?' — 안전 문항 응답 있음':K.narrSafety.length?' — 척도 해당 없음, 기록의 추정은 면담으로 확인':''}</li><li>${box(0)}학생·보호자 동의 (제11조③)</li></ul>
+<ul class="oyp-checks"><li>${box(lawHit.length>0)}법이 예로 든 어려움 1개 이상 해당${lawHit.length?' — '+esc(lawHit.join(', ')):''}</li><li>${box(K.lvDomains.length>=2)}2개 이상 생활영역이 함께 흔들림 — ${K.lvDomains.length}개 영역 2점 이상</li><li>${box(['general','intensive','crisis'].includes(((K.chain&&K.chain.level)||cw.level||{}).id))}학교 안 지원만으로 어려움 — ${esc(((K.chain&&K.chain.level)||cw.level||{}).name||'')}</li><li>${box(K.urgent)}즉시 안전 조치 필요${K.urgent?((K.p&&(K.p.explicit||[]).length)?' — 명시 긴급 체크':' — 안전 문항 응답 있음'):K.narrSafety.length?' — 서술에 안전 단서('+esc(K.narrSafety.map(r=>r.topic).join('·'))+'), 오늘 면담으로 확인':''}</li><li>${box(0)}학생·보호자 동의 (제11조③)</li></ul>
 <div class="oyp-decide" data-radio><b>협의회 의견 · 학교장 선정</b>${box(0,'선정')} ${box(0,'추가 확인 후 선정')} ${box(0,'비선정')}<span class="oyp-note">${lawHit.length&&K.lvDomains.length>=2?'제안: 선정 검토':'제안: 학교 안 지원으로 시작하고 2주 관찰 뒤 다시 검토'}${K.narrSafety.length?', 기록의 추정 확인을 첫 과제로':''}</span></div>`,{tone:'school',banner});
   const roleT=(d.roles||[]).find(r=>r.role==='교사')||{items:[]},roleE=(d.roles||[]).find(r=>r.role==='교육복지사')||{items:[]};
   const E2=sheet('E-2','학교 협의회 안건·회의록','교육복지사용 · 시스템 제안 옆에 결정만 적으면 회의록이 됨',`

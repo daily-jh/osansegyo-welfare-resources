@@ -11,7 +11,7 @@ const GL=(()=>{try{return node?require('./oy-grade-lens-v1.js'):root.OYGradeLens
 const C=node?require('./case-context-core.js'):root.YouthCaseContextCore;
 const OD=()=>{try{return node?require('./oy-decision-v1.js'):root.OYDecision}catch(_){return null}};
 const FV=()=>{try{return node?require('./integrated-index-v1.js'):root.OYFiveLevelIndex}catch(_){return null}};
-const VERSION='1.5.0-mono-20261029';
+const VERSION='1.6.0-onecore-20261029';
 const SAFETY=OC.SAFETY_ITEMS;
 const NOTICE='이 해석은 25문항 응답과 선택 서술기록을 OY-RALS 규칙으로 함께 읽어 풀어 쓴 실무 참고자료입니다. 서술 문장은 표현 단서로 분류한 것이므로 인용·부정·추정·과거 언급은 면담에서 사실 여부를 확인하며, 진단·학대 판정·위험 예측이나 서비스 자격 결정이 아닙니다. 서술은 공식 점수와 CORE 안전판정을 바꾸지 않고, 서술에 안전 관련 표현이 있으면 이 해석과 관계없이 소속기관의 보호·신고 절차를 먼저 따릅니다. 단서 사전과 대조 규칙은 전문가 내용타당도 검토 전 개발판입니다.';
 
@@ -82,8 +82,10 @@ function sourceOf(raw){
  return '기록 내용';
 }
 // A quoted remark with its own full stop ("화나면 그어야 진정돼요. 죽으려는 건 아니에요"라고 말함) stays one sentence.
+// Run-on records without a full stop are split the same way as the case-context parser (…했다고 함 자해…).
+const RUN_ON=/((?:[가-힣]함|\s함|\s줌|됨|[했였있없었았않겠]음|[가-힣]임)(?:ㅠ+|ㅜ+|ㅋ+|~+)?)[ \t]+(?!때문|이후|뒤\b|후\b|등\b|으로|에서|이라|정도|상태|중\b)(?=[가-힣"“'‘A-Za-z0-9])/g;
 function sentences(text){
- return String(text||'').replace(/\r/g,'').split(/\n+/).flatMap(par=>{
+ return String(text||'').replace(/\r/g,'').replace(RUN_ON,'$1\n').split(/\n+/).flatMap(par=>{
   const out=[];let cur='',open=false;
   for(let i=0;i<par.length;i++){const ch=par[i];cur+=ch;
    if(ch==='“')open=true;else if(ch==='”')open=false;else if(ch==='"')open=!open;
@@ -101,6 +103,7 @@ function clean(s){
 }
 const short=s=>{const t=clean(s);return t.length>90?t.slice(0,88)+'…':t};
 
+const CONFIRM={protection:[1,2],householdHarm:[1],sexualHarm:[1],neglectPattern:[2],selfharm:[7],selfharmCover:[7],fallRisk:[7],onlineSexual:[25],imageThreat:[4,25],runaway:[20],harmThreat:[5],datingViolence:[4]};
 function read(p){
  const text=String(p&&p.caseContext||'').trim();
  const values=Array.isArray(p&&p.answers)?p.answers.slice():Array(25).fill('unknown');
@@ -141,6 +144,16 @@ function read(p){
   if(SUPPORT.test(s)){out.supports.push({sentence:id,source:src,quote:short(s)});row.kind.push('기존 지원')}
   out.sentences.push(row);
  });
+ // One safety reader (xmod 1,200-case check 2026-10-29): a cue in this lexicon is a safety cue only when the
+ // case-context parser that sets the support priority also reads a current safety cue for the student on that item.
+ // Otherwise ① and ③ could disagree ("동생이 맞는다", "만약 집에서 맞으면"). The sentence still stays a finding.
+ try{const inf=C&&C.infer?C.infer(text):null,ok=new Set(),by={};
+  (inf?inf.signals:[]).forEach(sg=>{if(!sg.safety||sg.subject==='third-party'||sg.timeHint==='historical-mention'||!['reported','unverified'].includes(sg.polarity))return;(CONFIRM[sg.tag]||[]).forEach(n=>{ok.add(n);(by[n]=by[n]||new Set()).add(sg.tag);});});
+  out.findings.forEach(f=>{if(f.safety&&!ok.has(f.n))f.safety=false;
+   // Item 1 confirmed only as harm to another family member in the same home: name it that way, not as harm to the student.
+   if(f.safety&&f.n===1&&by[1]&&by[1].size===1&&by[1].has('householdHarm'))f.label='같은 집 가족 피해(학생 안전 확인)';});
+  out.safety=out.safety.filter(f=>f.safety);
+ }catch(_){}
  // Several physical-neglect signs together (clothing, meals, hygiene, untreated illness, carer away) are read
  // as one neglect question, the same rule as the case-context parser. One sign alone stays a basic-needs cue.
  try{const pat=C&&C.infer?C.infer(text).signals.find(x=>x.tag==='neglectPattern'):null;
@@ -148,7 +161,7 @@ function read(p){
    const f={n:2,topic:K.item(2).topic,status:'추정',source:'여러 문장',sentence:'',quote:pat.clause,safety:true,pattern:true};
    out.findings.push(f);(out.items[2]=out.items[2]||[]).push(f);out.safety.push(f);
   }}catch(_){}
- try{const inf=C&&C.infer?C.infer(text):null,ITEM={protection:1,selfharm:7,onlineSexual:25,imageThreat:4,sexualHarm:1,selfharmCover:7,fallRisk:7,runaway:20};
+ try{const inf=C&&C.infer?C.infer(text):null,ITEM={protection:1,selfharm:7,onlineSexual:25,imageThreat:4,sexualHarm:1,selfharmCover:7,fallRisk:7,runaway:20,householdHarm:1,harmThreat:5,datingViolence:4};
   (inf?inf.signals:[]).forEach(sg=>{const n=ITEM[sg.tag];
    if(!n||!sg.safety||sg.subject==='third-party'||sg.timeHint==='historical-mention'||!['reported','unverified'].includes(sg.polarity))return;
    const had=(out.items[n]||[]).filter(f=>f.status==='보고'||f.status==='추정');
@@ -181,7 +194,7 @@ function compare(values,items){
   const lab=(list.find(f=>f.safety&&f.label&&f.status!=='부인')||{}).label;
   // A high housing score does not already say the student ran away: the narrative cue stays its own safety row.
   if(lab&&kind==='agree'&&!SAFETY.includes(n))kind='narrative';
-  if(kind)rows.push({n,topic:lab||K.item(n).topic,value:v,kind,status:st,quotes:list.map(f=>({quote:f.quote,source:f.source,status:f.status})),safety:SAFETY.includes(n)||list.some(f=>f.safety)});
+  if(kind)rows.push({n,topic:lab||K.item(n).topic,value:v,kind,status:st,quotes:list.map(f=>({quote:f.quote,source:f.source,status:f.status})),safety:(kind==='narrative'||kind==='fill'||kind==='past')?list.some(f=>f.safety):SAFETY.includes(n)||list.some(f=>f.safety)});
  }
  const by=k=>rows.filter(r=>r.kind===k);
  return {rows,agree:by('agree'),narrative:by('narrative'),fill:by('fill'),conflict:by('conflict'),scale:by('scale'),low:by('agreeLow'),past:by('past')};
@@ -298,6 +311,10 @@ function integrate(p){
   const L=LEVELS[want];
   level={...L,id:want,reason:'지원 우선순위 '+five.tier+'단계('+five.label.replace(/ \(잠정\)$/,'')+')에 맞춰 '+L.name+' 수준으로 운영합니다. 개입 수준은 지원 우선순위보다 낮게 두지 않습니다.'};
  }
+ // A safety answer on the scale makes the case a joint-intervention case under the selection rule (⑤ met, 지훈 기준 2026-10-27),
+ // so the level never stays at a single-person short support (xmod 1,200-case check: ⑤ met with ④ brief, 23 cases).
+ {const a=p.answers||[],scaleSafety=(p.explicit||[]).length>0||Object.values(p.followups||{}).includes('yes')||SAFETY.some(n=>isNum(a[n-1])&&a[n-1]>=1);
+  if(scaleSafety&&LEVEL_ORDER.indexOf(level.id)<2){const L=LEVELS.general;level={...L,reason:'안전 문항 응답이 있어 통합사례관리 선정 기준(위기 영역은 2개 이상 기관 공동 개입)에 맞춰 학교·복지가 함께 확인합니다.'};}}
  // R-1: '복지관 통합사례관리' 주관은 통합사례관리 선정일 때만 쓴다(oy-decision-v1).
  try{const od=OD();if(od&&od.selectionFor)lead=od.leadText(lead,od.selectionFor(p,level,nSafety.length));}catch(_){}
  const keys=[...cmp.agree.filter(x=>x.safety),...cmp.rows.filter(x=>x.safety&&(x.kind==='narrative'||x.kind==='fill')),...cmp.agree.filter(x=>!x.safety),...cmp.narrative.filter(x=>!x.safety)].map(x=>x.topic);
@@ -473,7 +490,7 @@ function safetySummary(p){
  const C=node?require('./case-context-core.js'):root.YouthCaseContextCore;
  let immediate=[];
  try{if(C&&C.reconcile){const x=C.reconcile(p.answers,text);stage=stage||x.signals.some(s=>s&&s.safety&&['reported','unverified'].includes(s.polarity)&&s.timeHint!=='historical-mention'&&s.subject!=='third-party');immediate=(x.immediate||[]).map(i=>({tag:i.tag,reason:i.reason}));}}catch(_){}
- return {sentences:n.sentences.length,safety:items.map(i=>({n:i,topic:K.item(i).topic})),stage,immediate};
+ return {sentences:n.sentences.length,safety:items.map(i=>({n:i,topic:(n.safety.find(f=>f.n===i&&f.label)||{}).label||K.item(i).topic})),stage,immediate};
 }
 function redact(p){return {...p,caseContext:'',narrativeRedacted:safetySummary(p)}}
 const api=Object.freeze({VERSION,NOTICE,read,narrative,integrate,narrativeHtml,narrativeText,integratedHtml,integratedText,caseHtml,caseText,safetySummary,redact});

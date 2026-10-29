@@ -36,7 +36,12 @@ function model(p,opt){
   const topics=(d.items||[]).map(x=>x.topic),ans=p.answers||[];
   const scoreOf=t=>{const v=ans[topics.indexOf(t)];return Number.isInteger(v)?v:0};
   const urgent=cell('safety').tone==='risk';
-  const und=(inc?(I.understanding||d.understanding):d.understanding||'').split(/(?<=다\.)\s+/).filter(s=>!/[“”]/.test(s)).slice(0,2).join(' ');
+  let und=(inc?(I.understanding||d.understanding):d.understanding||'').split(/(?<=다\.)\s+/).filter(s=>!/[“”]/.test(s)).slice(0,2).join(' ');
+  /* 점수상 어려움이 없다는 문장이 서술·안전 기준으로 높아진 단계와 어긋나지 않게 고친다(가상 1,200사례 P1-4: 89건). 서술 원문은 쓰지 않고 안전 유형 이름만 쓴다. */
+  if(/^이번 응답에서 이 학생의 어려움은 가볍거나/.test(und)&&((R.tier||0)>=2||cell('safety').tone!=='ok')){
+    const why=(R.narrSafety||[]).length?'서술에 나온 안전 단서('+R.narrSafety.slice(0,2).join(', ')+')':R.safetyPos.length?'안전 문항 '+R.safetyPos.map(n=>n+'번').join('·')+' 응답':(p.explicit||[]).length?'체크된 긴급 상황':'안전 확인이 남은 항목';
+    und='척도 응답에서는 두드러진 어려움이 적지만, '+why+' 때문에 지원 우선순위가 '+(R.tier?R.tier+'단계':'아직 미확정')+'입니다. 점수가 낮다고 안전하다고 보지 않고, 학생의 현재 상황부터 직접 확인합니다.';
+  }
   const story=inc&&I.narrative&&I.narrative.story||'';const qm=story?story.match(/“([^”]+)”\s*\(([^)]+)\)/):null;
   const lead=orgShort(R.lead),seen=new Set([lead]),parts=[],cands=[],res=resources(p);
   (I.partners||d.casework.partners||[]).forEach(x=>{const s=orgShort(x);if(!seen.has(s)){seen.add(s);parts.push(s)}});
