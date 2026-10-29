@@ -43,6 +43,18 @@
 /* 현장 노트: 두 단, 단 사이 가는 선 */
 .oy1-sub{display:flex;align-items:baseline;gap:12px;margin:22px 0 4px;padding-bottom:8px;border-bottom:1px solid var(--oy1-rule);font-family:var(--oy1-serif);font-weight:800;font-size:1.35rem}
 .oy1-sub span{white-space:nowrap;flex:none;font-family:system-ui,sans-serif;font-size:.72rem;font-weight:800;letter-spacing:.06em;color:var(--oy-data-ink)}
+/* 현장 노트는 화면에서 접어 둔다(G3). 인쇄는 printOne이 펼친다. */
+.oy1-notes{margin:22px 0 4px}
+.oy1-notes>summary{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 12px;padding:10px 0;border-bottom:1px solid var(--oy1-rule);cursor:pointer;list-style:none;font-weight:800;font-size:1.15rem}
+.oy1-notes>summary::-webkit-details-marker{display:none}
+#assessmentFlow .oy1-notes>summary{border-radius:0;background:none;box-shadow:none}
+.oy1-notes>summary::after{content:"▼";margin-left:auto;align-self:center;font-size:.75rem;color:var(--oy-data)}
+.oy1-notes[open]>summary::after{content:"▲"}
+.oy1-notes>summary small{font-size:.8rem;font-weight:700;color:var(--oy-data)}
+.oy1-notes[open]>summary small{display:none}
+.oy1-sub-k{white-space:nowrap;font-size:.72rem;font-weight:800;letter-spacing:.06em;color:var(--oy-data-ink)}
+.oy1-notes>summary:focus-visible{outline:3px solid var(--oy-data);outline-offset:2px}
+@media print{.oy1-notes>summary::after,.oy1-notes>summary small{display:none}}
 .oy1-tgrid{column-count:2;column-gap:36px;column-rule:1px solid var(--oy-line);padding-top:6px;counter-reset:oy1n}
 .oy1-t{break-inside:avoid;margin:0;padding:12px 0 14px;border:0;border-bottom:1px dotted #c9cfd8;border-radius:0;background:transparent}
 .oy1-t h4{margin:0 0 6px;font-family:var(--oy1-serif);font-size:1.02rem;font-weight:800;color:var(--oy-ink)}

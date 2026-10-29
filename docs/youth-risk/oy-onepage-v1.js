@@ -5,7 +5,7 @@
 (function(root){
 'use strict';
 const node=typeof module!=='undefined'&&module.exports;
-const VERSION='1.3.0-20261029';
+const VERSION='1.4.0-20261029';
 const need=(n,g)=>node?require('./'+n):root[g];
 const FR=()=>need('oy-final-report-v1.js','OYFinalReport');
 const OBS=()=>{try{return need('oy-perspective-v1.js','OYPerspective').OBS||{}}catch(_){return {}}};
@@ -46,8 +46,17 @@ function extras(k,ans,role){
   if(!SCOPE[role])return null;
   const d=k.R.deep||{},I=k.R.integrated||{},O=OBS(),sel=k.R.selection||{};
   const watch=ans.map((v,i)=>({n:i+1,v})).filter(x=>Number.isInteger(x.v)&&x.v>=2&&O[x.n]).sort((a,b)=>b.v-a.v).slice(0,5).map(x=>O[x.n]);
-  const strengths=(k.strengths||[]).slice(0,2).map(x=>x.label+' · '+first(x.text));
-  const near=(k.resources||[]).slice(0,3).map(r=>({b:r.name,t:r.service,s:r.domain}));
+  /* 척도에서 나오는 '강점'은 모두 '어려움이 보고되지 않았습니다' 문장이라 버팀목이 아니다(무작위 500사례 P1-5).
+     미상이 없을 때만 '응답상 어려움이 없던 영역'으로 이름만 한 줄 보이고, 미상이 있으면 뺀다. */
+  const unknownN=ans.filter(v=>v==='unknown'||v==null).length;
+  const quiet=(k.strengths||[]).filter(x=>/보고되지 않았/.test(x.text||'')).map(x=>x.label);
+  const real=(k.strengths||[]).filter(x=>!/보고되지 않았/.test(x.text||'')).slice(0,2).map(x=>x.label+' · '+first(x.text));
+  const strengths=real.length?real:(!unknownN&&quiet.length?[quiet.slice(0,4).join('·')+' (응답상 어려움 없음. 지원이 필요 없다는 뜻은 아닙니다)']:[]);
+  const strengthH=real.length?'이 학생의 버팀목':'응답상 어려움이 없던 영역';
+  /* 1단계이고 2점 이상 영역도 오늘 확인할 것도 없으면 기관 목록은 싣지 않는다(P1-6). */
+  const calm=(k.tier===1)&&!m_hard(k)&&!k.urgent&&!needToday(k);
+  const near=calm?[]:(k.resources||[]).slice(0,3).map(r=>({b:r.name,t:r.service,s:r.domain}));
+  const hardNames=(k.profile||[]).filter(x=>(x.peak||0)>=2).map(x=>x.name);
   const qs=all=>(I.questions||[]).filter(q=>all||q.why!=='안전 확인').slice(0,all?3:2).map(q=>'“'+q.q+'”');
   const meet=[...k.agenda.map(a=>a.t),...(k.meet||[])].slice(0,4);
   const stops=(k.stops||[]).map(st=>st.h+' · '+(((st.rows||[])[0]||{}).what||'')).filter(t=>!/ · $/.test(t)).slice(0,4);
@@ -65,7 +74,7 @@ function extras(k,ans,role){
     add('학생에게 이렇게 물어보세요',{li:k.urgent?[]:qs(false),tip:'대답을 재촉하지 않고, 말해 준 것에 고맙다고 해 주세요.'});
     B.push({h:'조심할 점',li:care.slice(0,3),cls:'oy1-care'});
     add('보호자와 이야기할 때',{p:fam});
-    add('이 학생의 버팀목',{li:strengths});
+    add(strengthH,{li:strengths});
     add('가까운 지역 기관',{near,tip:nearTip});
     return {title:'담임교사가 알아 두면 좋은 것',blocks:B,memo:['교육복지사에게 전할 메모','예: 3주째 월요일 1교시에 자주 졸고, 준비물을 자주 빠뜨림. 이름·서술기록은 쓰지 않습니다.']};
   }
@@ -75,7 +84,7 @@ function extras(k,ans,role){
     add('학생 면담에서 물을 것',{li:qs(true)});
     B.push({h:'학맞통·통합사례관리 판단',li:[selName(sel)+' · '+(sel.why||''),sel.systems&&sel.systems.length?'함께 필요한 개입체계: '+sel.systems.join(', '):'학교 안 지원으로 시작합니다.','주관 제안: '+k.lead],cls:sel.status==='met'?'':'oy1-care'});
     add('보호자 연락',{p:fam,tip:'학생맞춤통합지원은 학생·보호자 동의가 필요합니다.'});
-    add('이 학생의 버팀목',{li:strengths});
+    add(strengthH,{li:strengths});
     add('가까운 지역 기관',{near,tip:nearTip});
     return {title:'교육복지사가 챙길 것',blocks:B,memo:['사례회의에 올릴 메모','예: 담임 2주 관찰 결과, 보호자 상담 일정, 학교 안에서 이미 한 지원.']};
   }
@@ -86,10 +95,11 @@ function extras(k,ans,role){
     add('시기별 계획',{li:stops});
     add('지원 목표',{li:goals});
     add('보호자 동의·연락',{p:fam,tip:'학생맞춤통합지원은 학생·보호자 동의가 필요합니다.'});
-    add('이 학생의 버팀목',{li:strengths});
+    add(strengthH,{li:strengths});
     return {title:'학맞통 지원팀 사례회의 준비',blocks:B,memo:['회의 메모','예: 선정 여부, 맡을 기관과 담당자, 다음 점검일.']};
   }
-  /* 사회복지관·아동가족기관·행정복지센터 */
+  /* 사회복지관·아동가족기관·행정복지센터: 같은 사례관리 항목 위에 역할마다 다른 첫 블록을 둔다(무작위 500사례 P1-4·G4). */
+  const own=agencyOwn(role,k,sel,hardNames);if(own)B.push(own);
   add('기관이 할 일',{li:roleItems(d,'사례관리자')});
   B.push({h:'개입 수준',li:[k.level.name,...[k.level.contact,k.level.meeting].filter(Boolean)]});
   B.push({h:'통합사례관리 선정',li:[selName(sel),sel.why||''].filter(Boolean),cls:sel.status==='met'?'':'oy1-care'});
@@ -99,6 +109,37 @@ function extras(k,ans,role){
   add('가족과 함께하기',{p:fam});
   add('연계 후보 기관',{near,tip:nearTip});
   return {title:SCOPE[role].name+' 실무 정리',blocks:B,memo:['사례 메모','예: 초기상담 일정, 확인할 급여·서비스, 협력 기관 담당자.']};
+}
+/* 역할별 첫 블록. 어려움 영역 이름(2점 이상)에 따라 확인할 제도·지원을 고른다. 대상 여부는 담당자가 확인한다. */
+function agencyOwn(role,k,sel,hard){
+  const has=n=>hard.indexOf(n)>=0,L=[];
+  const abuse=has('아동학대·보호')||(k.R.narrSafety||[]).length>0;
+  if(role==='admin'){
+    if(abuse)L.push('학대·안전 문제는 행정복지센터가 혼자 판단하지 않고 아동보호 담당(시군구 아동학대전담공무원)과 함께합니다.');
+    if(has('경제·주거'))L.push('국민기초생활보장(생계·주거·교육급여) 수급 여부와 신청 가능성','긴급복지지원: 갑작스러운 위기 사유가 있으면 생계·주거 지원');
+    if(has('가족·돌봄'))L.push('한부모가족 지원·아이돌봄서비스 등 돌봄 지원 대상 여부');
+    if(has('장애·발달 및 접근성'))L.push('장애인 등록·발달재활서비스 등 장애 관련 지원');
+    if(has('학습·출결')&&!has('경제·주거'))L.push('교육급여·교육비 지원 대상 여부');
+    L.push('위기가구 맞춤형 복지 상담(찾아가는 보건복지 상담)으로 가구 전체 욕구 확인');
+    return {h:'확인할 공공급여·서비스',li:L.slice(0,4),tip:'대상 여부와 신청 조건은 담당 공무원이 확인합니다.'};
+  }
+  if(role==='child'){
+    if(abuse)L.push('학대가 의심되면 아동보호전문기관·아동학대전담공무원과 역할을 나눕니다. 신고의무를 먼저 확인합니다.');
+    if(has('가족·돌봄'))L.push('방과 후 돌봄 공백(지역아동센터·다함께돌봄 등)이 있는지 확인','보호자 양육 부담과 가족 관계를 가족상담·부모교육으로 지원');
+    if(has('경제·주거'))L.push('가구의 경제·주거 어려움은 행정복지센터와 함께 확인');
+    if(has('관계·지지체계'))L.push('학생 곁에 있을 믿을 어른(멘토·돌봄 교사) 연결');
+    L.push('보호자와 처음 만날 때 가족이 원하는 도움부터 묻습니다.');
+    return {h:'돌봄·가족 지원에서 볼 것',li:L.slice(0,4)};
+  }
+  if(role==='cwc'){
+    const multi=sel.status==='met'||sel.status==='review';
+    const mine=/복지관/.test(String(k.lead||''));
+    L.push(!multi?'지금은 한 기관 지원으로 시작하고, 어려움이 늘면 통합사례관리를 다시 판단합니다.':mine?'2개 이상 기관의 개입이 필요하고 복지관 주관이 제안됩니다. 주관 여부를 사례회의에서 확정합니다.':'2개 이상 기관의 개입이 필요하지만 주관 제안은 다른 기관입니다. 복지관은 함께하는 기관으로 맡을 일을 정합니다.');
+    L.push('주관 제안: '+k.lead+((k.parts||[]).length?' · 함께: '+k.parts.join(', '):''));
+    if(multi&&mine)L.push('주관을 맡으면 초기상담 → 사례회의 소집 → 기관별 역할 나누기 순서로 갑니다.');
+    return {h:'통합사례관리 주관 판단',li:L};
+  }
+  return null;
 }
 /* 서술기록이 있는데 시스템이 읽은 안전 단서가 없으면 그렇다고 적는다. 사전이 모르는 말투의 위험은 작성자만 안다. */
 function narrNoteOf(k){
@@ -166,7 +207,7 @@ const dutyTitle=m=>m.scope?(m.role==='teacher'?'교사':m.scope.name)+' 역할 �
 function html(m){
   const k=m.k,sc=m.scope;
   const tierBar='<ol class="oy1-tier" aria-label="지원 우선순위 5단계">'+NAMES.map((n,i)=>'<li class="'+(m.tier===i+1?'on':'')+(i===4?' top':'')+'"><b>'+(i+1)+'</b><span>'+esc(n)+'</span></li>').join('')+'</ol>';
-  const hard=m.hard.length?'<ul class="oy1-hard">'+m.hard.map(h=>'<li><span>'+esc(h.t)+'</span>'+dots(h.v)+'</li>').join('')+'</ul>':'<p class="oy1-muted">2점 이상인 영역이 없습니다. 평소처럼 지켜봅니다.</p>';
+  const hard=m.hard.length?'<ul class="oy1-hard">'+m.hard.map(h=>'<li><span>'+esc(h.t)+'</span>'+dots(h.v)+'</li>').join('')+'</ul>':'<p class="oy1-muted">'+(m.k.urgent||needToday(m.k)?'2점 이상인 척도 영역은 없습니다. 단계는 01 안전 확인 결과 때문에 정해졌습니다.':'2점 이상인 영역이 없습니다. 평소처럼 지켜봅니다.')+'</p>';
   const roles=Object.keys(SCOPE);
   const today=(()=>{try{return new Date().toLocaleDateString('ko-KR',{timeZone:'Asia/Seoul'})}catch(_){return ''}})();
   return '<header class="oy1-mast"><span class="oy1-kicker">OY-RALS 핵심 결과 한 장'+(sc?' · '+esc(sc.name)+'판':'')+'</span><span class="oy1-meta">'+esc(today)+' · 실무자 확인 전 초안 · 학생 이름·서술기록 미포함</span></header>'+
@@ -197,7 +238,8 @@ function teachHtml(t){
     (b.near&&b.near.length?'<ul>'+b.near.map(r=>'<li><b>'+esc(r.b)+'</b> '+esc(r.t)+' <small>'+esc(r.s)+'</small></li>').join('')+'</ul>':'')+
     (b.tip?'<p class="oy1-tip">'+esc(b.tip)+'</p>':'')+'</section>';
   const memo='<section class="oy1-t oy1-memo"><h4>'+esc(t.memo[0])+'</h4><label class="oy1-vh" for="oy1Memo">'+esc(t.memo[0])+'</label><textarea id="oy1Memo" rows="4" maxlength="300" placeholder="'+esc(t.memo[1])+'"></textarea><p class="oy1-tip">저장되지 않습니다. 인쇄하면 함께 나옵니다.</p></section>';
-  return '<h3 class="oy1-sub"><span>현장 노트</span>'+esc(t.title)+'</h3><div class="oy1-tgrid">'+t.blocks.map(blk).join('')+memo+'</div>';
+  /* 화면에서는 접어 둔다(무작위 500사례 G3: 첫 화면은 네 칸과 할 일만). 인쇄는 펼쳐서 지금처럼 꽉 채운다. */
+  return '<details class="oy1-notes"'+(notesOpen?' open':'')+'><summary><span class="oy1-sub-k">현장 노트</span><b>'+esc(t.title)+'</b><small>'+(t.blocks.length+1)+'가지 · 펼치기</small></summary><div class="oy1-tgrid">'+t.blocks.map(blk).join('')+memo+'</div></details>';
 }
 function text(m){
   const k=m.k,L=['OY-RALS 핵심 결과 한 장'+(m.scope?' · '+m.scope.name+' 기준':''),''];
@@ -211,7 +253,7 @@ function text(m){
 }
 
 /* ── 화면 연결 ── */
-let cur=null,open={};
+let cur=null,open={},notesOpen=false;
 function flow(){return root.document&&root.document.getElementById('assessmentFlow');}
 function navMine(role){
   const doc=root.document,sc=SCOPE[role];
@@ -240,6 +282,7 @@ function printOne(doc){
   const el=doc.createElement('section');el.id='oy1-print-root';el.className='oy1 oy1-print';
   el.innerHTML=html(box.__model);
   el.querySelectorAll('.oy1-actions,.oy1-pass,.oy1-pick,.oy1-band,.oy1-go').forEach(x=>x.remove());
+  el.querySelectorAll('details.oy1-notes').forEach(x=>{x.open=true;});
   /* 메모는 화면에서 쓴 글을 줄 친 칸으로 옮겨 인쇄한다(저장하지 않음). */
   const memo=doc.getElementById('oy1Memo'),ta=el.querySelector('#oy1Memo');if(ta){const dv=doc.createElement('div');dv.className='oy1-lines';dv.textContent=memo?memo.value:'';ta.replaceWith(dv);el.querySelectorAll('.oy1-memo .oy1-tip,.oy1-memo .oy1-vh').forEach(x=>x.remove());}
   doc.body.append(el);fitA4(el);doc.body.classList.add('oy1-printing');
@@ -258,6 +301,7 @@ function bind(doc){
     const pass=t.closest('[data-oy1-pass]');if(pass){const p=doc.getElementById('oy1Pass');if(p){p.hidden=!p.hidden;pass.setAttribute('aria-expanded',String(!p.hidden));}return;}
     if(t.closest('[data-oy1-json]')){const b=doc.getElementById('exportAssessment');if(b&&!b.disabled)b.click();return;}
   });
+  doc.addEventListener('toggle',e=>{const d=e.target;if(d&&d.classList&&d.classList.contains('oy1-notes')&&d.closest('#oyOnePage'))notesOpen=d.open;},true);
   root.addEventListener('oy-journey-view',e=>{cur=e.detail;setTimeout(render,0);});
 }
 const api=Object.freeze({VERSION,SCOPE,model,html,text});
