@@ -18,7 +18,8 @@ async function open(browser,width){
  await page.waitForFunction(()=>new Promise(r=>{const y=scrollY;setTimeout(()=>r(scrollY===y),250)}),null,{timeout:10000});
  return {page,frame,errors};
 }
-async function answer(frame,set){for(let i=0;i<25;i++)await frame.locator('#qi'+i+' input[type="radio"][value="'+(set[i+1]??0)+'"]').check({force:true,timeout:12000});}
+// The assessment frame can still be laying out or scrolling when the first radios are checked; try a missed click once more.
+async function answer(frame,set){for(let i=0;i<25;i++){const loc=frame.locator('#qi'+i+' input[type="radio"][value="'+(set[i+1]??0)+'"]');try{await loc.check({force:true,timeout:12000})}catch(e){if(!/outside of the viewport|did not change its state/.test(String(e)))throw e;await loc.page().waitForTimeout(400);await loc.check({force:true,timeout:12000})}}}
 async function complete(page,frame){await frame.locator('#complete').click();await page.waitForFunction(()=>(document.querySelector('[data-oy-step="2"]')?.disabled===false&&document.getElementById('journey88')?.hidden===false&&Boolean(document.querySelector('#journey88 [data-j88-result-tab]'))),{timeout:25000});await page.locator('#oyOnePage [data-oy1-more]').click();}
 async function servicePlan(page){
  await page.locator('[data-oy-step="2"]').click();
