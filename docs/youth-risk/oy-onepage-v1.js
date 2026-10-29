@@ -1,11 +1,11 @@
-/* OY-RALS 핵심 결과 1장 v1 — 평가를 마치면 질문 4개(지금 안전한가·얼마나 급한가·무엇이 어려운가·누가 무엇을 하나)로 한 장만 먼저 보여 주고,
+/* OY-RALS 핵심 결과 1장 v1 — 평가를 마치면 네 칸(안전 확인 결과·지원 우선순위·주요 어려움 영역·역할 및 지원사항)로 한 장만 먼저 보여 주고,
    척도 해석·서술기록 분석·통합 사정의견은 「자세히 보기」 아래로 접는다(문시중 교사 의견 2026-10-28: 결과가 너무 많다, 이걸 다 해야 하나).
    판정은 05 최종 보고서와 같은 값(OYFinalReport.model → OYDecision.forPayload)만 읽고 다시 계산하지 않는다. 서술 원문은 쓰지 않는다.
    역할(oy-prefs OYRole)에 따라 '다음 할 일'과 '이 역할은 여기까지'만 바뀐다. 다른 역할 메뉴는 숨기지 않고 연하게 보인다. */
 (function(root){
 'use strict';
 const node=typeof module!=='undefined'&&module.exports;
-const VERSION='1.1.0-20261028';
+const VERSION='1.2.0-20261029';
 const need=(n,g)=>node?require('./'+n):root[g];
 const FR=()=>need('oy-final-report-v1.js','OYFinalReport');
 const OBS=()=>{try{return need('oy-perspective-v1.js','OYPerspective').OBS||{}}catch(_){return {}}};
@@ -35,7 +35,8 @@ function model(p,role){
   const sel=k.R.selection||{};
   const steps=nextSteps(k,role,unknown,sel);
   const teach=extras(k,ans,role);
-  return {k,role,scope:SCOPE[role]||null,unknown,hard,safetyTone,steps,teach,tier:k.tier,tierName:k.tierName,tierWhy:k.tierWhy,provisional:!!k.R.provisional};
+  const narrNote=narrNoteOf(k);
+  return {k,role,scope:SCOPE[role]||null,unknown,hard,safetyTone,steps,teach,narrNote,tier:k.tier,tierName:k.tierName,tierWhy:k.tierWhy,provisional:!!k.R.provisional};
 }
 /* 역할별로 한 장을 채우는 추천 항목. 모두 척도 응답·판정 사슬·해석에서 나오며 서술 원문은 쓰지 않는다.
    블록: {h 제목, li 목록 | p 문단, tip 작은 안내, cls}. 마지막은 그 역할이 손으로 적는 메모 칸. */
@@ -51,7 +52,8 @@ function extras(k,ans,role){
   const meet=[...k.agenda.map(a=>a.t),...(k.meet||[])].slice(0,4);
   const stops=(k.stops||[]).map(st=>st.h+' · '+(((st.rows||[])[0]||{}).what||'')).filter(t=>!/ · $/.test(t)).slice(0,4);
   const goals=(k.goals||[]).slice(0,3).map(g=>g.topic+' → '+g.target);
-  const fam=first(k.family);
+  /* 보호자 문장은 자르지 않는다. 둘째 문장이 '보호자에게 먼저 연락하지 않고…' 같은 핵심 지시일 때가 많다(무작위 500사례 2026-10-29). */
+  const fam=String(k.family||'').trim();
   const B=[];const add=(h,o)=>{if((o.li&&o.li.length)||o.p||o.near&&o.near.length)B.push({h,...o})};
   const nearTip='연결은 담당자와 함께 정합니다. 02 지역자원 지도에서 더 볼 수 있습니다.';
   if(role==='teacher'){
@@ -97,6 +99,12 @@ function extras(k,ans,role){
   add('가족과 함께하기',{p:fam});
   add('연계 후보 기관',{near,tip:nearTip});
   return {title:SCOPE[role].name+' 실무 정리',blocks:B,memo:['사례 메모','예: 초기상담 일정, 확인할 급여·서비스, 협력 기관 담당자.']};
+}
+/* 서술기록이 있는데 시스템이 읽은 안전 단서가 없으면 그렇다고 적는다. 사전이 모르는 말투의 위험은 작성자만 안다. */
+function narrNoteOf(k){
+  const R=k.R||{};
+  if(!k.hasNarr||k.urgent||(R.narrSafety||[]).length||((R.five||{}).immediate||[]).length)return '';
+  return '서술기록이 있습니다. 시스템이 서술에서 읽은 안전 단서는 0개입니다. 서술에 적은 위험(성적 위해·자해 흔적·가출 등)은 작성자가 직접 판단해 교육복지사에게 오늘 알려 주세요.';
 }
 /* 받침(ㄹ 제외)이 있으면 '으로'. 판정 문구를 문장 안에 넣을 때 쓴다. */
 const ro=w=>{w=String(w);const c=w.slice(-1).charCodeAt(0)-0xAC00,f=c>=0&&c<11172?c%28:0;return w+(f&&f!==8?'으로':'로')};
@@ -149,6 +157,8 @@ function deck(m){
   if(!m.tier)return '모르는 응답이 남아 있어 확인이 먼저인 학생입니다'+(names.length?'. '+names.join('·')+'의 어려움이 보입니다.':'.');
   return m.tier+'단계 '+m.tierName+(names.length?'. '+josa(names.join('·'),'을','를')+' 함께 살펴야 하는 학생입니다.':'. 두드러진 어려움 없이 지켜보는 학생입니다.');
 }
+/* 네 칸 제목은 질문형 대신 이름으로 붙인다: 안전 확인 결과·지원 우선순위·주요 어려움 영역·교사 역할 및 지원사항(지훈 2026-10-29). */
+const dutyTitle=m=>m.scope?(m.role==='teacher'?'교사':m.scope.name)+' 역할 및 지원사항':'역할 및 지원사항';
 function html(m){
   const k=m.k,sc=m.scope;
   const tierBar='<ol class="oy1-tier" aria-label="지원 우선순위 5단계">'+NAMES.map((n,i)=>'<li class="'+(m.tier===i+1?'on':'')+(i===4?' top':'')+'"><b>'+(i+1)+'</b><span>'+esc(n)+'</span></li>').join('')+'</ol>';
@@ -160,11 +170,11 @@ function html(m){
    (sc?'':'<p class="oy1-role">역할을 고르면 다음 할 일이 맞춰집니다</p>')+'</div>'+
    (sc?'':'<div class="oy1-pick" role="group" aria-label="역할 고르기">'+roles.map(r=>'<button type="button" data-oy-role="'+r+'">'+esc(SCOPE[r].name)+'</button>').join('')+'</div>')+
    '<div class="oy1-grid">'+
-   '<section class="oy1-q oy1-'+m.safetyTone+'"><h4><i>01</i>지금 안전한가요?</h4><p class="oy1-v">'+esc(k.safety.value)+'</p><p class="oy1-why">'+esc(k.safety.why)+'</p>'+
+   '<section class="oy1-q oy1-'+m.safetyTone+'"><h4><i>01</i>안전 확인 결과</h4><p class="oy1-v">'+esc(k.safety.value)+'</p><p class="oy1-why">'+esc(k.safety.why)+'</p>'+(m.narrNote?'<p class="oy1-narr">'+esc(m.narrNote)+'</p>':'')+
     (m.safetyTone==='c'?'<p class="oy1-callc">'+esc(((k.R.safetyOpen||[]).length&&!(k.R.narrSafety||[]).length&&!(k.R.pending||[]).length?'모르는 안전 문항은 안전하다고 보지 않습니다.':'확인하기 전에는 안전하다고 보지 않습니다.')+' 오늘 직접 확인해 주세요.')+'</p>':'')+(k.urgent||(m.tier||0)>=5?'<p class="oy1-call">급하면 <b>112</b> · 청소년상담 <b>1388</b> · 자살예방 <b>109</b></p>':'')+'</section>'+
-   '<section class="oy1-q"><h4><i>02</i>얼마나 급한가요?</h4><p class="oy1-v">'+esc(m.tier?m.tier+'단계 '+m.tierName:m.tierName)+'</p>'+tierBar+'<p class="oy1-why">'+esc(m.tier?m.tierWhy:'모르는 문항을 확인하기 전에는 단계를 정하지 않습니다.')+'</p></section>'+
-   '<section class="oy1-q"><h4><i>03</i>무엇이 어려운가요?</h4>'+hard+'</section>'+
-   '<section class="oy1-q oy1-do"><h4><i>04</i>'+(sc?esc(sc.name)+'는 무엇을 하나요?':'누가 무엇을 하나요?')+'</h4><ol class="oy1-steps">'+m.steps.map(s=>'<li>'+esc(s)+'</li>').join('')+'</ol></section>'+
+   '<section class="oy1-q"><h4><i>02</i>지원 우선순위</h4><p class="oy1-v">'+esc(m.tier?m.tier+'단계 '+m.tierName:m.tierName)+'</p>'+tierBar+'<p class="oy1-why">'+esc(m.tier?m.tierWhy:'모르는 문항을 확인하기 전에는 단계를 정하지 않습니다.')+'</p></section>'+
+   '<section class="oy1-q"><h4><i>03</i>주요 어려움 영역</h4>'+hard+'</section>'+
+   '<section class="oy1-q oy1-do"><h4><i>04</i>'+esc(dutyTitle(m))+'</h4><ol class="oy1-steps">'+m.steps.map(s=>'<li>'+esc(s)+'</li>').join('')+'</ol></section>'+
    '</div>'+
    (m.teach?teachHtml(m.teach):'')+
    (sc?'<blockquote class="oy1-end"><p>'+esc(sc.end)+'</p><cite>'+esc(sc.name)+'의 역할</cite></blockquote>':'')+
@@ -186,10 +196,11 @@ function teachHtml(t){
 }
 function text(m){
   const k=m.k,L=['OY-RALS 핵심 결과 한 장'+(m.scope?' · '+m.scope.name+' 기준':''),''];
-  L.push('1. 지금 안전한가요? '+k.safety.value+' ('+k.safety.why+')');
-  L.push('2. 얼마나 급한가요? '+(m.tier?m.tier+'단계 '+m.tierName:m.tierName));
-  L.push('3. 무엇이 어려운가요? '+(m.hard.map(h=>h.t+' '+h.v+'점').join(', ')||'2점 이상 영역 없음'));
-  L.push('4. 다음 할 일');m.steps.forEach((s,i)=>L.push('  '+(i+1)+') '+s));
+  L.push('1. 안전 확인 결과: '+k.safety.value+' ('+k.safety.why+')');
+  if(m.narrNote)L.push('   '+m.narrNote);
+  L.push('2. 지원 우선순위: '+(m.tier?m.tier+'단계 '+m.tierName:m.tierName));
+  L.push('3. 주요 어려움 영역: '+(m.hard.map(h=>h.t+' '+h.v+'점').join(', ')||'2점 이상 영역 없음'));
+  L.push('4. '+dutyTitle(m)+':');m.steps.forEach((s,i)=>L.push('  '+(i+1)+') '+s));
   if(m.teach){L.push('',m.teach.title);m.teach.blocks.forEach(b=>{const a=(b.li||[]).concat(b.p?[b.p]:[],(b.near||[]).map(r=>r.b+' '+r.t));if(a.length){L.push(b.h);a.forEach(x=>L.push('  - '+x))}});}
   return L.join('\n');
 }

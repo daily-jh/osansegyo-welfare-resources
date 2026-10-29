@@ -10,7 +10,7 @@ const GL=(()=>{try{return node?require('./oy-grade-lens-v1.js'):root.OYGradeLens
 const C=node?require('./case-context-core.js'):root.YouthCaseContextCore;
 const OD=()=>{try{return node?require('./oy-decision-v1.js'):root.OYDecision}catch(_){return null}};
 const FV=()=>{try{return node?require('./integrated-index-v1.js'):root.OYFiveLevelIndex}catch(_){return null}};
-const VERSION='1.3.0-logic400-20261028';
+const VERSION='1.4.0-random500-20261029';
 const SAFETY=[1,2,7,25];
 const NOTICE='이 해석은 25문항 응답과 선택 서술기록을 OY-RALS 규칙으로 함께 읽어 풀어 쓴 실무 참고자료입니다. 서술 문장은 표현 단서로 분류한 것이므로 인용·부정·추정·과거 언급은 면담에서 사실 여부를 확인하며, 진단·학대 판정·위험 예측이나 서비스 자격 결정이 아닙니다. 서술은 공식 점수와 CORE 안전판정을 바꾸지 않고, 서술에 안전 관련 표현이 있으면 이 해석과 관계없이 소속기관의 보호·신고 절차를 먼저 따릅니다. 단서 사전과 대조 규칙은 전문가 내용타당도 검토 전 개발판입니다.';
 
@@ -61,9 +61,10 @@ const CONCEAL=/숨기|숨겨|감추|감춰|가리고|가린다|말하지 ?않|�
 const HYPO=/것 같|듯하|듯 하|가능성|우려|추정|의심/;
 // Teaching material and examples describe no event about this student.
 const EXAMPLE=/예방 ?교육|사례 ?교육|교육 ?자료|사례를? ?소개|예시로|매뉴얼|척도 ?문항|실습 ?문제/;
-const PAST=/작년|예전|과거|어릴 때|어렸을 때|초등학교 때|전에는|이전에는/;
+const PAST=/작년|예전|과거|어릴 때|어렸을 때|초등학교 때|전에는|이전에는|(?:초|중|고) ?[1-6] ?(?:학년 ?)?때|[1-6]학년 ?때|(?:지금|현재)은 ?(?:안정|괜찮|없|잘 지내)/;
 // "예전 사진을 퍼뜨리겠다" is a threat made now about an old photo.
-const NOW=/겠다|하겠|협박|최근|요즘|어제|어젯밤|오늘|이번 ?주|지난주|지금/;
+// "지금은 안정적" closes a past event; it is not a current cue.
+const NOW=/겠다|하겠|협박|최근|요즘|어제|어젯밤|오늘|이번 ?주|지난주|지금(?!은 ?(?:안정|괜찮|없|잘 지내))/;
 
 function sourceOf(raw){
  // Who spoke is read outside the quotation, so a full stop inside the quote does not hide "…라고 말함".
@@ -146,12 +147,15 @@ function read(p){
    const f={n:2,topic:K.item(2).topic,status:'추정',source:'여러 문장',sentence:'',quote:pat.clause,safety:true,pattern:true};
    out.findings.push(f);(out.items[2]=out.items[2]||[]).push(f);out.safety.push(f);
   }}catch(_){}
- try{const inf=C&&C.infer?C.infer(text):null,ITEM={protection:1,selfharm:7,onlineSexual:25,imageThreat:4};
+ try{const inf=C&&C.infer?C.infer(text):null,ITEM={protection:1,selfharm:7,onlineSexual:25,imageThreat:4,sexualHarm:1,selfharmCover:7,fallRisk:7,runaway:20};
   (inf?inf.signals:[]).forEach(sg=>{const n=ITEM[sg.tag];
    if(!n||!sg.safety||sg.subject==='third-party'||sg.timeHint==='historical-mention'||!['reported','unverified'].includes(sg.polarity))return;
-   if((out.items[n]||[]).some(f=>f.status!=='부인'))return;
+   const had=(out.items[n]||[]).filter(f=>f.status==='보고'||f.status==='추정');
+   if(had.some(f=>f.safety))return;
+   // The same sentence already read as an ordinary cue (가출 → 주거) becomes the safety cue it also is.
+   if(had.length){const f=had[0];f.safety=true;f.label=sg.label;out.safety.push(f);return;}
    const row=out.sentences.find(r=>r.text.includes(sg.clause.slice(0,20)))||null;
-   const f={n,topic:K.item(n).topic,status:sg.polarity==='reported'?'보고':'추정',source:row?row.source:'서술기록',sentence:row?row.id:'',quote:short(sg.clause),safety:true};
+   const f={n,topic:K.item(n).topic,label:SAFETY.includes(n)&&n!==1?'':sg.label,status:sg.polarity==='reported'?'보고':'추정',source:row?row.source:'서술기록',sentence:row?row.id:'',quote:short(sg.clause),safety:true};
    if(row&&!row.links.some(l=>l.n===n))row.links.push(f);
    out.findings.push(f);(out.items[n]=out.items[n]||[]).push(f);out.safety.push(f);
   });}catch(_){}
@@ -172,7 +176,11 @@ function compare(values,items){
   else if(has&&st==='부인'){kind=high?'conflict':'agreeLow'}
   else if(has&&st==='과거'){kind='past'}
   else if(high){kind='scale'}
-  if(kind)rows.push({n,topic:K.item(n).topic,value:v,kind,status:st,quotes:list.map(f=>({quote:f.quote,source:f.source,status:f.status})),safety:SAFETY.includes(n)||list.some(f=>f.safety)});
+  // A safety cue read outside the item's own topic (성적 위해 under item 1, 가출 under item 20) keeps its own name.
+  const lab=(list.find(f=>f.safety&&f.label&&f.status!=='부인')||{}).label;
+  // A high housing score does not already say the student ran away: the narrative cue stays its own safety row.
+  if(lab&&kind==='agree'&&!SAFETY.includes(n))kind='narrative';
+  if(kind)rows.push({n,topic:lab||K.item(n).topic,value:v,kind,status:st,quotes:list.map(f=>({quote:f.quote,source:f.source,status:f.status})),safety:SAFETY.includes(n)||list.some(f=>f.safety)});
  }
  const by=k=>rows.filter(r=>r.kind===k);
  return {rows,agree:by('agree'),narrative:by('narrative'),fill:by('fill'),conflict:by('conflict'),scale:by('scale'),low:by('agreeLow'),past:by('past')};

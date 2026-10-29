@@ -1,7 +1,7 @@
 /* OY-RALS v4.0/v4.2 single free-text case-context interpreter.
    All extracted cues are unverified review prompts; NEVER diagnosis, risk scoring, or auto-reporting. */
 (function(root,factory){'use strict';const api=factory();if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.YouthCaseContextCore=api;})(typeof window!=='undefined'?window:globalThis,function(){'use strict';
-const VERSION='1.5.1-logic400-20261028',LIMITS=Object.freeze({text:5000}),MAX_CLAUSES=65;
+const VERSION='1.6.0-random500-20261029',LIMITS=Object.freeze({text:5000}),MAX_CLAUSES=65;
 const TYPES=Object.freeze([
  {id:'protection',items:[1,2],label:'학대·보호 관련 언급',re:/학대|방임|체벌|맞았|폭행|가정폭력|보호자.{0,12}(?:위협|폭력)|보호.{0,4}부재|(?:아버지|아빠|어머니|엄마|보호자|부모|계부|계모|새아빠|새엄마|양부|양모|할아버지|할머니|삼촌|이모|고모)(?:가|께서|이|는|은|한테|에게)?[^.,]{0,14}(?:때리|때렸|때린|때려|때림|목을\s?졸|졸랐|발로\s?차|걷어차|던졌|던지|가둬|가뒀)|(?:벨트|허리띠|몽둥이|효자손|옷걸이|회초리)(?:로|를)?[^.,]{0,6}(?:때|맞)/,safety:true,ask:'현재 안전·발생시기·당사자 진술과 법정 신고·보호절차를 담당자가 확인합니다.'},
  {id:'peer',items:[3,4,5],label:'또래관계·학교폭력',re:/따돌림|왕따|학교폭력|괴롭힘|놀림|또래.{0,6}(?:위협|폭행)|금품.{0,6}요구|협박/,ask:'피해인지 행동인지와 학교의 안전조치, 동일 사건 여부를 구분합니다.'},
@@ -16,7 +16,15 @@ const TYPES=Object.freeze([
  {id:'peerConflict',items:[22],label:'교우 갈등·관계 부담',re:/(?:교우|친구|또래).{0,8}갈등/,ask:'상호 갈등인지 피해·위협인지, 학생이 원하는 거리와 지원을 확인합니다.'},
  {id:'support',items:[22,23],label:'관계·지지',re:/고립|(?:친한\s?)?친구(?:가|들이|는|도)?\s?(?:한\s?명도\s?|별로\s?)?없|지지.{0,6}부족|의지할.{0,5}사람.{0,3}없|도움.{0,6}받을.{0,5}(?:어른|사람).{0,4}없/,negWording:true,ask:'학생이 선택한 신뢰 인물과 실제 도움 요청 가능성을 확인합니다.'},
  {id:'digital',items:[24],label:'디지털 이용 조절',re:/SNS.{0,6}과몰입|게임.{0,6}과몰입|스마트폰.{0,6}(?:과다|과의존|과몰입)|디지털.{0,6}이용.{0,6}조절/,ask:'이용시간 자체보다 실제 수면·학습·관계의 영향을 확인합니다.'},
- {id:'onlineSexual',items:[25],label:'온라인 성착취·디지털 피해',re:/온라인.{0,9}성착취|그루밍|성적.{0,6}사진.{0,9}협박|성적.{0,6}영상.{0,9}유포|디지털.{0,6}성범죄|딥페이크.{0,6}(?:협박|성적)|(?:사진|영상)(?:을|를)?\s?(?:보내라|보내\s?달|요구)|(?:SNS|온라인|채팅|랜덤\s?채팅|게임)(?:에서|으로)?\s?(?:만난|알게\s?된)[^.,]{0,12}(?:남성|남자|어른|성인|아저씨)/,safety:true,ask:'현재 접촉·협박·유포 가능성과 피해보호 절차를 직접 확인합니다.'},
+ {id:'onlineSexual',items:[25],label:'온라인 성착취·디지털 피해',re:/온라인.{0,9}성착취|그루밍|성적.{0,6}사진.{0,9}협박|성적.{0,6}영상.{0,9}유포|디지털.{0,6}성범죄|딥페이크.{0,6}(?:협박|성적)|(?:사진|영상)(?:을|를)?\s?(?:보내라|보내\s?달|요구)|(?:SNS|온라인|채팅|랜덤\s?채팅|게임|앱|인스타|DM|디엠)(?:에서|으로)?\s?(?:만난|알게\s?된)[^.,]{0,12}(?:남성|남자|어른|성인|아저씨|오빠|형|언니|누나|사람)/,safety:true,ask:'현재 접촉·협박·유포 가능성과 피해보호 절차를 직접 확인합니다.'},
+ // Sexual touching or assault told by the student is a protection matter on its own (random 500-case check 2026-10-29).
+ {id:'sexualHarm',items:[1],label:'성적 위해 진술',re:/성추행|성폭력|성폭행|성학대|강간|(?:몸|가슴|엉덩이|속옷|신체|성기|허벅지|다리)(?:을|를|에)?\s?[^.,]{0,6}(?:만지|만졌|만진|만져|만짐|더듬)|(?:만지|더듬)[^.,]{0,8}(?:싫|무섭|못\s?하게)|(?:같이|함께)\s?(?:자자|씻자)고|옷을\s?벗(?:으라|기라)/,safety:true,ask:'캐묻지 않고 들은 말을 그대로 적은 뒤 오늘 학교 관리자·아동보호 절차로 알리고, 보호자 연락은 보호 담당과 먼저 판단합니다.'},
+ // Covering the wrists in heat or with bands is a reason to ask, never proof of self-harm.
+ {id:'selfharmCover',items:[7],label:'자해 흔적을 가리는 모습',re:/(?:손목|팔목)[^.,]{0,8}(?:밴드|붕대|반창고|보호대|아대|토시)|(?:더운|여름|체육)[^.,]{0,12}긴팔|긴팔만\s?(?:입|고집)/,safety:true,ask:'자해로 단정하지 않고 학생이 편한 자리에서 상처 여부와 현재 마음을 직접 묻습니다.'},
+ // A rooftop, railing or jumping talk is a lethal-means cue to ask about today.
+ {id:'fallRisk',items:[7],label:'투신 위험 장소·말',re:/옥상|난간[^.,]{0,6}(?:서|앉|매달|넘)|뛰어내리|투신|떨어지고\s?싶/,safety:true,ask:'그 장소에 왜 갔는지, 죽음에 대한 생각이 있는지 오늘 직접 묻고 혼자 두지 않습니다.'},
+ // Running away or staying out overnight: where the student sleeps tonight is a safety question.
+ {id:'runaway',items:[20],label:'가출·외박(오늘 거처 확인)',re:/가출|외박|집을\s?나(?:가|갔|와|왔)|(?:친구|아는)\s?집을?\s?전전|집에\s?(?:안|못)\s?들어가|(?:남성|남자|어른|성인|아저씨)의\s?집에서/,safety:true,ask:'오늘 밤 어디서 자는지, 함께 있는 사람이 누구인지 확인하고 필요하면 청소년쉼터·1388과 연결합니다.'},
  // A threat to spread images is a current safety issue whatever the images are; never assume they are sexual.
  {id:'imageThreat',items:[4,25],label:'촬영물·사진 유포 위협',re:/(?:촬영물|사진|영상|동영상|몸캠|나체|알몸).{0,15}(?:유포|퍼뜨|퍼트|뿌리|뿌린|올리겠|올린다고|게시|공개하)|(?:유포|퍼뜨리|퍼트리|뿌리|게시|공개)\S{0,4}\s?(?:하겠|겠다|한다고).{0,10}(?:촬영물|사진|영상)/,safety:true,ask:'어떤 촬영물인지 단정하지 않고, 현재 협박·유포 여부와 요구 내용, 피해 보호절차를 직접 확인합니다.'},
  // A hidden wound or bruise is a reason to ask about its context, not evidence of abuse or self-harm.
@@ -31,15 +39,18 @@ const CONTINUE=/(?:멈추|멈출|그만두|그만하|그만\s?하|끊)\S{0,4}\s?
 // it is the student's household, and a missed cue costs more than a check.
 const OTHERS='(?:친구|동생|형|오빠|언니|누나|선배|후배|다른 학생|옆 ?반 학생|사촌|친척|보호자|부모|어머니|아버지|엄마|아빠)',PEERS='(?:친구|선배|후배|다른 학생|옆 ?반 학생|사촌|친척)';
 // Another young person's story ("친구가 집에서 맞는다고 걱정함", "사촌이 가출했다") is that person's, not the student's (random 400-case check 2026-10-28).
-const THIRD_PARTY=new RegExp('(?:^|[\\s,])'+OTHERS+'(?:가|는|의|이)\\s?.{0,20}(?:자해|자살|죽고|손목|팔목|팔뚝|허벅지)|(?:^|[\\s,])'+PEERS+'(?:가|는|이)\\s?[^.,]{0,16}(?:맞았|맞는|맞고|맞아|학대(?:를)? ?(?:당|받)|폭행(?:을)? ?당|가출|따돌림(?:을)? ?당|괴롭힘(?:을)? ?당)');
+// A sibling or parent who ran away or left home is that person's leaving, not the student's runaway (2026-10-29).
+const THIRD_PARTY=new RegExp('(?:^|[\\s,])'+OTHERS+'(?:가|는|의|이)\\s?.{0,20}(?:자해|자살|죽고|손목|팔목|팔뚝|허벅지|옥상|뛰어내리|투신)|(?:^|[\\s,])'+PEERS+'(?:가|는|이)\\s?[^.,]{0,16}(?:맞았|맞는|맞고|맞아|학대(?:를)? ?(?:당|받)|폭행(?:을)? ?당|가출|따돌림(?:을)? ?당|괴롭힘(?:을)? ?당)|(?:^|[\\s,])'+OTHERS+'(?:가|는|이|께서)\\s?[^.,]{0,10}(?:가출|외박|집을\\s?나)');
 // The student named as the one who acts or is hurt keeps the cue with the student, even when someone else reported it.
-const STUDENT_SELF=new RegExp('(?:학생|본인)(?:이|은|도|의)?\\s?(?:(?!'+OTHERS+'(?:가|는|이|의)).){0,14}(?:자해|자살|죽고|손목|팔목|팔뚝|허벅지|맞았|학대(?:를)? ?(?:당|받)|폭행(?:을)? ?당)');
+// "옆 반 학생이 …" or "다른 학생이 …" is another student, not this one.
+const STUDENT_SELF=new RegExp('(?<!(?:반|다른)\\s?)(?:학생|본인)(?:이|은|도|의)?\\s?(?:(?!'+OTHERS+'(?:가|는|이|의)).){0,14}(?:자해|자살|죽고|손목|팔목|팔뚝|허벅지|맞았|학대(?:를)? ?(?:당|받)|폭행(?:을)? ?당)');
 const aboutOthers=clause=>THIRD_PARTY.test(clause)&&!STUDENT_SELF.test(clause);
 // Hiding or refusing to talk about a sign is not a denial; it stays an unverified cue to check.
 const CONCEAL=/(?:숨기|숨겨|감추|감춰|가리고|가린다|말하지\s?않|말을\s?안|이야기하지\s?않|밝히지\s?않|보여주지\s?않)/;
 const UNCERTAIN=/(?:의심|추정|가능성|모르|미확인|확인\s?필요|전해\s?들|소문|들은\s?바|인지\s?확인|같다고\s?함)/;
 const HYPOTHETICAL=/(?:만약|예시|가정하면|가상의|예를\s?들|척도\s?문항|예방\s?교육|매뉴얼|사례\s?교육|실습\s?문제)/;
-const HISTORICAL=/(?:과거|작년|지난해|지난\s?학기|예전|이전에는|몇\s?년\s?전|초등학교\s?때|과거에)/;
+// "중1 때 …적이 있고 지금은 안정적": a grade or childhood named as the time, or settled now, is a history to note.
+const HISTORICAL=/(?:과거|작년|지난해|지난\s?학기|예전|이전에는|몇\s?년\s?전|초등학교\s?때|과거에|어릴\s?때|어렸을\s?때|(?:초|중|고)\s?[1-6]\s?(?:학년\s?)?때|[1-6]학년\s?때|(?:지금|현재)은\s?(?:안정|괜찮|없|잘\s?지내))/;
 const WISH=/(?:원한다고|원한다|원해|원함|원했|바란다|바라|바람|희망|하고\s?싶|도움\s?요청|요청함|해줬으면|받고\s?싶)/;
 const STRENGTH=/(?:잘한다|잘하고|잘함|좋아하|좋아함|좋아해|잘\s?지낸|잘\s?챙기|잘\s?챙긴|아끼고|편해진|먼저\s?말을\s?거|즐겁게|즐겨|강점|장점|믿고\s?의지|신뢰하|신뢰함|스스로|극복|노력|도움\s?청|친한\s?친구|격려|격려해)/;
 const SUPPORT=/(?:상담\s?중|치료\s?중|이용\s?중|이용중|연계중|지원\s?받|이미\s?연계|접수\s?완료|접수\s?전|신청\s?중|진료\s?중|문의\s?전|Wee센터|위센터|복지관|가족센터|교육복지)/i;
@@ -49,9 +60,14 @@ const URGENT=/(?:당장|즉시|오늘\s?중|시급|급히|긴급|이번\s?주\s?
 const INJURY_NOW=/(?:목을\s?졸|졸랐|(?:멍|상처|피멍|혹)(?:이|가)?\s?(?:있|보|생겼|났|들어)|피가\s?(?:나|났)|부었|부어\s?있|다쳤|골절|화상)/;
 const RECENT=/(?:어제|오늘|그저께|방금|어젯밤|지난밤|이번\s?주|주말에|며칠\s?전|아침에)/;
 const MEANS_PLAN=/(?:유서|커터\s?칼|면도칼|칼을?\s?(?:가지고|넣고|소지)|(?:약|수면제|진통제)(?:을|를)?\s?[^.,]{0,6}(?:모아|모았|모으)|약\s?봉투|방법을?\s?(?:찾|검색|알아)|날짜를?\s?정|구체적.{0,4}계획)/;
+const HOUSEHOLD=/(?:아버지|아빠|어머니|엄마|보호자|부모|계부|계모|새아빠|새엄마|양부|양모|할아버지|할머니|삼촌|이모부|고모부|외삼촌|큰아버지|작은아버지|친척|오빠|형|사촌|(?:엄마|아빠|어머니|아버지)(?:의)?\s?(?:남자|여자)\s?친구|동거인|집에\s?(?:같이|함께)\s?사는)/;
 function immediateOf(s){
  if(!s||!s.safety||s.subject==='third-party'||s.timeHint==='historical-mention'||!['reported','unverified'].includes(s.polarity))return null;
  if(s.tag==='protection'&&s.polarity==='reported'&&(/목을\s?졸|졸랐/.test(s.clause)||INJURY_NOW.test(s.clause)||(RECENT.test(s.clause)&&/(?:멍|상처|피|다쳤|부었)/.test(s.clause))))return {tag:s.tag,reason:'최근 보호자에 의한 신체 피해 진술과 상처 기록',clause:s.clause};
+ // Sexual harm told about an adult at home (carer, a parent's partner, a relative) is same-day protection work.
+ if(s.tag==='sexualHarm'&&s.polarity==='reported'&&HOUSEHOLD.test(s.clause))return {tag:s.tag,reason:'가정 안 성인에 의한 성적 위해 진술',clause:s.clause};
+ // Standing at a rooftop railing today, or saying where they would jump, is a lethal-means cue for today.
+ if(s.tag==='fallRisk'&&s.polarity==='reported'&&(RECENT.test(s.clause)||/난간|뛰어내리려|뛰어내릴\s?(?:곳|데)/.test(s.clause)))return {tag:s.tag,reason:'투신 위험 장소에서의 최근 행동·말',clause:s.clause};
  if(s.tag==='selfharm'&&MEANS_PLAN.test(s.clause))return {tag:s.tag,reason:'자해·죽음 관련 표현과 준비 행동·수단·계획 기록',clause:s.clause};
  // A fresh cut or one made in the last days is a current injury, not a history to note.
  if(s.tag==='selfharm'&&s.polarity==='reported'&&(/아물지\s?않|피가\s?(?:나|났)|새로\s?생긴/.test(s.clause)||(RECENT.test(s.clause)&&/(?:그었|그어|긋|베었|베어|자해(?:를|했)|칼자국|상처)/.test(s.clause))))return {tag:s.tag,reason:'최근 자해 행동·현재 상처 기록',clause:s.clause};
