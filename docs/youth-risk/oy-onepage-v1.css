@@ -27,6 +27,7 @@
 .oy1-c{border-top-color:var(--oy-check)}.oy1-c h4 i{color:var(--oy-check)}.oy1-c .oy1-v{color:var(--oy-check-ink)}
 .oy1-ok .oy1-v{color:var(--oy-ok)}
 .oy1-call{margin:8px 0 0;font-size:.85rem;color:var(--oy-risk)}
+.oy1-contacts{margin:8px 0 0;font-size:.82rem;line-height:1.45}.oy1-contacts>b{display:block;color:var(--oy-risk)}.oy1-contacts p{margin:2px 0 0}.oy1-contacts span{color:var(--oy-muted,#555)}
 .oy1-narr{margin:8px 0 0;padding:6px 8px;border-left:3px solid var(--oy-check-ink);font-size:.8rem;color:var(--oy-check-ink);background:rgba(0,0,0,.02)}
 .oy1-callc{margin:8px 0 0;font-size:.85rem;color:var(--oy-check-ink)}
 .oy1-tier{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px;margin:8px 0 0;padding:0;list-style:none}

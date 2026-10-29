@@ -34,7 +34,8 @@ const status=t=>{$('oy-ask-status').textContent=t;};
 const payload=()=>current?.payload||null;
 const narrativePresent=()=>Boolean(String(payload()?.caseContext||'').trim());
 // Scale-only report: the narrative never reaches quick answers or prompts unless the practitioner opts in.
-const scaleReport=()=>D.build({...payload(),caseContext:''});
+// The judgement chain is attached so the summary, first action and safety notice match the strip on screen; it holds no record text.
+const scaleReport=()=>{const p=payload(),r=D.build({...p,caseContext:''});try{r.chain=window.OYDecision?window.OYDecision.forPayload(p):null}catch(_){r.chain=null}return r;};
 
 function reportKind(article){
  if(article.classList.contains('onr-integrated'))return '통합 사정의견';
@@ -97,7 +98,7 @@ function open(next){
  ctx=next;lastFocus=document.activeElement;
  const r=scaleReport(),doc=ctx.mode==='document';
  $('oy-ask-where').textContent=ctx.where;$('oy-ask-title').textContent=doc?'AI로 보고서 작성·보완':ctx.title;
- $('oy-ask-safety').hidden=!(r.summary.safety!=='이번 응답의 안전 신호 없음');
+ $('oy-ask-safety').hidden=r.chain?r.chain.cells[0].tone==='ok':r.summary.safety==='이번 응답의 안전 신호 없음';
  $('oy-ask-chips').innerHTML=M.faqFor(doc?'report':ctx.key).map(f=>'<button type="button" data-ask-faq="'+f.id+'">'+esc(f.label)+'</button>').join('');
  $('oy-ask-found').hidden=true;
  $('oy-ask-task-row').hidden=!doc;if(doc)$('oy-ask-task').value=ctx.task||defaultTask();

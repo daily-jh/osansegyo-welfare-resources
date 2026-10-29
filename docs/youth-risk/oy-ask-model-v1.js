@@ -4,7 +4,7 @@
 (function(root){'use strict';
 const node=typeof module!=='undefined'&&module.exports;
 const D=node?require('./oy-deep-interpretation-v1.js'):root.OYDeepInterpretation;
-const VERSION='1.0.0-20261026';
+const VERSION='1.1.0-chain-20261029';
 
 // Frequent questions answered directly from deep-interpretation sections (no new sentences are generated).
 const FAQ=[
@@ -26,10 +26,15 @@ const GENERAL=['first','questions','roles'];
 
 function faqFor(section){const ids=[...(NEAR[section]||[]),...GENERAL];return [...new Set(ids)].slice(0,4).map(id=>FAQ.find(f=>f.id===id));}
 
-function answer(r,id){
+/* chain: optional OYDecision result. Its cells carry only levels, item numbers and safety type names (no record text),
+   so quick answers and prompts follow the same safety and level as the judgement strip. */
+const chainOf=(r,c)=>c||(r&&r.chain)||null;
+const firstOf=(r,c)=>(c&&c.integrated&&c.integrated.first)||r.summary.first;
+function answer(r,id,chain){
  const f=FAQ.find(x=>x.id===id);if(!f)throw Error('ASK_FAQ_UNKNOWN');
- const parts=[];
- if(id==='first')parts.push('첫 행동: '+r.summary.first);
+ const C=chainOf(r,chain),parts=[];
+ if(id==='first')parts.push('첫 행동: '+firstOf(r,C));
+ if(id==='reassess'&&C){const lv=C.cells[3];parts.push('[다시 판정할 때]\n개입 수준 '+lv.value+(lv.why?' · '+lv.why:'')+'\n'+(C.agenda.length?C.agenda.map(a=>'- '+a.t).join('\n'):'- 다음 평가에서 지금 응답이 유지되는지와 새 어려움·안전 단서가 생겼는지 봅니다.'));}
  f.keys.forEach(k=>{const t=D.sectionText(r,k);if(!t)return;
   if(id==='family'){const line=t.split('\n').find(x=>/^보호자 참여/.test(x));if(line)parts.push(line);return;}
   if(id==='first'&&k==='plan'){const lines=t.split('\n'),i=lines.findIndex(x=>/^▸/.test(x)),j=lines.findIndex((x,n)=>n>i&&/^▸/.test(x));parts.push(lines.slice(Math.max(i,0),j>0?j:undefined).join('\n'));return;}
@@ -60,7 +65,9 @@ const TASKS={
  result:{label:'평가결과 해석 요약',form:'① 핵심 어려움 3가지 ② 현재 안전 ③ 강점 ④ 면담 확인 질문 5개 (A4 한 장 분량)'}
 };
 
-function glance(r){const s=r.summary;return ['사례관리 수준: '+s.level,'현재 안전: '+s.safety,'핵심 어려움: '+(s.keys.join(', ')||'두드러진 어려움 없음'),'응답 유형: '+r.code.name,'CORE 판단: '+r.title].join('\n');}
+function glance(r,chain){const s=r.summary,C=chainOf(r,chain);
+ if(C){const c=C.cells;return ['사례관리 수준: '+c[3].value,'현재 안전: '+c[0].value+' ('+c[0].why+')','지원 우선순위: '+c[2].value,'핵심 어려움: '+(s.keys.join(', ')||'척도에서 두드러진 어려움 없음'),'응답 유형: '+r.code.name,'CORE 판단: '+r.title].join('\n');}
+ return ['사례관리 수준: '+s.level,'현재 안전: '+s.safety,'핵심 어려움: '+(s.keys.join(', ')||'두드러진 어려움 없음'),'응답 유형: '+r.code.name,'CORE 판단: '+r.title].join('\n');}
 function evidence(r){return r.items.map(x=>x.n+'번 '+x.topic+': '+(x.value==='unknown'?'미상':x.value+'점')).join('\n');}
 
 /* opts: {mode:'section'|'document', r, section, sectionTitle, sectionText, question, task, includeEvidence, redact}
@@ -69,7 +76,9 @@ function prompt(o){
  const r=o.r;if(!r||!r.summary)throw Error('ASK_REPORT_REQUIRED');
  const redact=typeof o.redact==='function'?o.redact:x=>x;
  const q=String(o.question||'').trim();
- const out=[RULES,'','[해석지 요약]',glance(r)];
+ const C=chainOf(r,o.chain);
+ const out=[RULES,'','[해석지 요약]',glance(r,C)];
+ if(C)out.push('','[판정 사슬 · 바꾸지 말 것]',...C.cells.map(c=>c.n+' '+c.name+': '+c.value+(c.why?' ('+c.why+')':'')));
  if(o.mode==='document'){
   const t=TASKS[o.task]||TASKS.integrated;
   out[0]=RULES.replace('실무자가 고른 부분이며','전체이며');
@@ -85,6 +94,6 @@ function prompt(o){
  return redact(out.join('\n'));
 }
 
-const api=Object.freeze({VERSION,FAQ,TASKS,faqFor,answer,prompt});
+const api=Object.freeze({VERSION,FAQ,TASKS,faqFor,answer,prompt,glance});
 if(node)module.exports=api;else root.OYAskModel=api;
 })(typeof window!=='undefined'?window:globalThis);

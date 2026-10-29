@@ -35,7 +35,9 @@ function figures(kind,p){const F=window.OYScaleFigures;if(!F||!p)return '';try{r
 // The paged deep report places each figure on the page it belongs to, so the standalone figures article
 // is only rendered when the report falls back to its linear form.
 function scalePages(p){const deep=deepReport('html',p);return (deep.indexOf('odi-paged')>=0?'':figures('html',p))+deep;}
-function deepReport(kind,p){const M=window.OYDeepInterpretation;if(!M||!p)return '';try{return M[kind](M.build(p));}catch(_){return '';}}
+/* 해석지는 25문항 점수만 읽는다. 서술·안전 기준으로 판정이 달라질 수 있어 첫머리에 전체 판정(판정 사슬 ①③④)을 한 줄로 밝힌다(가상 1,200사례 P1-4). */
+function scopeLine(p){try{const R=window.OYDecision&&window.OYDecision.forPayload(p);if(!R)return '';const c=R.cells;return '점수만 본 해석입니다 · 전체 판정은 '+c[2].value+' · 개입 수준 '+c[3].value+' · 안전 '+c[0].value+' (04 판정 띠와 같은 값)';}catch(_){return '';}}
+function deepReport(kind,p){const M=window.OYDeepInterpretation;if(!M||!p)return '';try{const out=M[kind](M.build(p)),line=scopeLine(p);if(!line||!out)return out;return kind==='text'?'['+line+']\n'+out:out.replace(/(<\/header>)/,'$1<p class="odi-scope">'+esc(line)+'</p>');}catch(_){return '';}}
 // Each result tab reads as one document: a short route at the top and the same part heading over every block,
 // so the paged report, the numbers and the raw scores follow one another instead of standing apart.
 const SCORE_PARTS=[['read','해석지 읽기','해석지'],['numbers','숫자로 보기 · 통합지원 5단계와 지표','숫자로 보기'],['raw','원점수 · 25문항 응답','원점수']];

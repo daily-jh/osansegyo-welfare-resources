@@ -70,3 +70,4 @@
 @media print{.ogl-src{display:block}.ogl-src summary{display:none}}
 .odi-paren{font-weight:500;font-size:.82em;color:var(--oy-muted,#5b6878);white-space:nowrap}
 .odi-toc .odi-paren{display:block}
+.odi-scope{margin:6px 0 12px;padding:8px 12px;border-left:3px solid var(--oy-accent,#3268ae);background:rgba(50,104,174,.06);font-size:.85rem;line-height:1.5}

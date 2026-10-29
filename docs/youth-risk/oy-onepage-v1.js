@@ -5,10 +5,11 @@
 (function(root){
 'use strict';
 const node=typeof module!=='undefined'&&module.exports;
-const VERSION='1.5.0-20261029';
+const VERSION='1.6.0-xmod1200-20261029';
 const need=(n,g)=>node?require('./'+n):root[g];
 const FR=()=>need('oy-final-report-v1.js','OYFinalReport');
 const LIB=()=>{try{return need('oy-scale-library-v1.js','OYScaleLibrary')}catch(_){return null}};
+const SC=()=>{try{return need('oy-safety-contacts-v1.js','OYSafetyContacts')}catch(_){return null}};
 const OBS=()=>{try{return need('oy-perspective-v1.js','OYPerspective').OBS||{}}catch(_){return {}}};
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const NAMES=['안정관찰','초기주의','집중지원','다기관 집중개입','최우선 안전대응'];
@@ -37,7 +38,9 @@ function model(p,role){
   const steps=nextSteps(k,role,unknown,sel);
   const teach=extras(k,ans,role);
   const narrNote=narrNoteOf(k);
-  return {k,role,scope:SCOPE[role]||null,unknown,hard,safetyTone,steps,teach,narrNote,tier:k.tier,tierName:k.tierName,tierWhy:k.tierWhy,provisional:!!k.R.provisional};
+  /* 안전 유형별 오늘 연락처(가상 1,200사례 P1-3): 서술에만 안전 단서가 있어 척도 영역이 비어도 연락할 곳이 보이게 한다. */
+  const contacts=safetyTone==='ok'?[]:((SC()&&SC().fromChain(k.R,p.explicit))||[]).slice(0,2);
+  return {k,role,contacts,scope:SCOPE[role]||null,unknown,hard,safetyTone,steps,teach,narrNote,tier:k.tier,tierName:k.tierName,tierWhy:k.tierWhy,provisional:!!k.R.provisional};
 }
 /* 역할별로 한 장을 채우는 추천 항목. 모두 척도 응답·판정 사슬·해석에서 나오며 서술 원문은 쓰지 않는다.
    블록: {h 제목, li 목록 | p 문단, tip 작은 안내, cls}. 마지막은 그 역할이 손으로 적는 메모 칸. */
@@ -117,8 +120,8 @@ function extras(k,ans,role){
   add('연계 후보 기관',{near,tip:nearTip});
   return {title:SCOPE[role].name+' 실무 정리',blocks:B,memo:['사례 메모','예: 초기상담 일정, 확인할 급여·서비스, 협력 기관 담당자.']};
 }
-/* 결과 → 척도 자료실 연결(G5). 2점 이상 영역마다 더 확인해 볼 공개 척도 1~2개, 학교급에 맞는 것만. */
-const SCALE_BY={'자해·정서·정신건강':['phq','gad7'],'디지털·온라인 안전':['smart'],'가족·돌봄':['maca'],'행동·건강 안전':['crafft'],'학습·출결':['basic'],'관계·지지체계':['cyrm'],'학교폭력·또래 안전':['sdq'],'아동학대·보호':['cries']};
+/* 결과 → 척도 자료실 연결(G5). 2점 이상 영역마다 더 확인해 볼 공개 척도 1~2개, 학교급에 맞는 것만. 정서는 초등용 RCADS·SCARED도 둔다(PHQ·GAD-7은 중·고). */
+const SCALE_BY={'자해·정서·정신건강':['phq','gad7','rcads','scared'],'디지털·온라인 안전':['smart'],'가족·돌봄':['maca'],'행동·건강 안전':['crafft'],'학습·출결':['basic'],'관계·지지체계':['cyrm'],'학교폭력·또래 안전':['sdq'],'아동학대·보호':['cries']};
 function scalesFor(k,hard){
   const L=LIB();if(!L||!L.SCALES)return [];
   const lv=k.grade&&L.levelOf?L.levelOf(k.grade.short||k.grade.label||''):'';
@@ -232,7 +235,7 @@ function html(m){
    (sc?'':'<div class="oy1-pick" role="group" aria-label="역할 고르기">'+roles.map(r=>'<button type="button" data-oy-role="'+r+'">'+esc(SCOPE[r].name)+'</button>').join('')+'</div>')+
    '<div class="oy1-grid">'+
    '<section class="oy1-q oy1-'+m.safetyTone+'"><h4><i>01</i>안전 확인 결과</h4><p class="oy1-v">'+esc(k.safety.value)+'</p><p class="oy1-why">'+esc(k.safety.why)+'</p>'+(m.narrNote?'<p class="oy1-narr">'+esc(m.narrNote)+'</p>':'')+
-    (m.safetyTone==='c'?'<p class="oy1-callc">'+esc(((k.R.safetyOpen||[]).length&&!(k.R.narrSafety||[]).length&&!(k.R.pending||[]).length?'모르는 안전 문항은 안전하다고 보지 않습니다.':'확인하기 전에는 안전하다고 보지 않습니다.')+' 오늘 직접 확인해 주세요.')+'</p>':'')+(k.urgent||(m.tier||0)>=5?'<p class="oy1-call">급하면 <b>112</b> · 청소년상담 <b>1388</b> · 자살예방 <b>109</b></p>':'')+'</section>'+
+    (m.safetyTone==='c'?'<p class="oy1-callc">'+esc(((k.R.safetyOpen||[]).length&&!(k.R.narrSafety||[]).length&&!(k.R.pending||[]).length?'모르는 안전 문항은 안전하다고 보지 않습니다.':'확인하기 전에는 안전하다고 보지 않습니다.')+' 오늘 직접 확인해 주세요.')+'</p>':'')+(k.urgent||(m.tier||0)>=5?'<p class="oy1-call">급하면 <b>112</b> · 청소년상담 <b>1388</b> · 자살예방 <b>109</b></p>':'')+(m.contacts&&m.contacts.length?contactsHtml(m.contacts):'')+'</section>'+
    '<section class="oy1-q"><h4><i>02</i>지원 우선순위</h4><p class="oy1-v">'+esc(m.tier?m.tier+'단계 '+m.tierName:m.tierName)+'</p>'+tierBar+'<p class="oy1-why">'+esc(m.tier?m.tierWhy:'모르는 문항을 확인하기 전에는 단계를 정하지 않습니다.')+'</p></section>'+
    '<section class="oy1-q"><h4><i>03</i>주요 어려움 영역</h4>'+hard+goBtn('score','척도 해석')+'</section>'+
    '<section class="oy1-q oy1-do"><h4><i>04</i>'+esc(dutyTitle(m))+'</h4><ol class="oy1-steps">'+m.steps.map(s=>'<li>'+esc(s)+'</li>').join('')+'</ol>'+goBtn('integrated','통합 사정의견')+'</section>'+
@@ -247,6 +250,9 @@ function html(m){
    (m.role==='teacher'?'<div class="oy1-pass" id="oy1Pass" hidden><p><b>전달 방법 두 가지</b> 어느 쪽이든 학생 이름과 서술기록은 들어가지 않습니다.</p><ol><li><button type="button" class="flow-btn" data-oy1-print>한 장 인쇄해서 건네기</button></li><li><button type="button" class="flow-btn" data-oy1-json>응답 파일(JSON) 저장해서 보내기</button> <small>교육복지사가 「JSON 불러오기」로 열면 이어서 보완할 수 있습니다.</small></li></ol></div>':'')+
    '<p class="oy1-foot">판정은 05 최종 보고서·04 판정 띠와 같은 값입니다. 이 한 장은 시스템이 낸 초안이며 실무자 판단을 대신하지 않습니다.</p>'+
    '<button type="button" class="flow-btn oy1-more oy1-band" data-oy1-more aria-expanded="false" aria-controls="journey88">'+bandHtml(false)+'</button>';
+}
+function contactsHtml(list){
+  return '<div class="oy1-contacts"><b>오늘 연락처</b>'+list.map(c=>'<p><span>'+esc(c.h)+'</span> '+c.rows.slice(0,2).map(r=>'<b>'+esc(r.b)+'</b>').join(' · ')+'</p>').join('')+'</div>';
 }
 function teachHtml(t){
   const ul=a=>'<ul>'+a.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>';
@@ -263,6 +269,7 @@ function text(m){
   const k=m.k,L=['OY-RALS 핵심 결과 한 장'+(m.scope?' · '+m.scope.name+' 기준':''),''];
   L.push('1. 안전 확인 결과: '+k.safety.value+' ('+k.safety.why+')');
   if(m.narrNote)L.push('   '+m.narrNote);
+  (m.contacts||[]).forEach(c=>L.push('   오늘 연락처 · '+c.h+': '+c.rows.map(r=>r.b).join(', ')));
   L.push('2. 지원 우선순위: '+(m.tier?m.tier+'단계 '+m.tierName:m.tierName));
   L.push('3. 주요 어려움 영역: '+(m.hard.map(h=>h.t+' '+h.v+'점').join(', ')||'2점 이상 영역 없음'));
   L.push('4. '+dutyTitle(m)+':');m.steps.forEach((s,i)=>L.push('  '+(i+1)+') '+s));
