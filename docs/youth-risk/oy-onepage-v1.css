@@ -97,6 +97,11 @@
 .oy1-band-a{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.22);font-size:.8rem;animation:oy1-down 1.6s ease-in-out infinite}
 @keyframes oy1-down{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
 #assessmentFlow .oy1 .flow-btn.oy1-band[aria-expanded="true"] .oy1-band-a{background:transparent;animation:none}
+/* 넓은 띠에서도 이전 버튼처럼 반짝이도록 빛줄기를 좁고 밝게, 두 줄기로(지훈 2026-10-29). */
+#assessmentFlow .oy1 .flow-btn.oy1-band::after{width:16%;background:linear-gradient(100deg,transparent 0%,rgba(255,255,255,.75) 50%,transparent 100%);animation:oy1-shine 2.6s ease-in-out infinite}
+#assessmentFlow .oy1 .flow-btn.oy1-band::before{content:"";position:absolute;top:-20%;bottom:-20%;left:-60%;width:8%;z-index:-1;background:linear-gradient(100deg,transparent 0%,rgba(255,255,255,.5) 50%,transparent 100%);transform:skewX(-20deg);animation:oy1-shine 2.6s ease-in-out .25s infinite;pointer-events:none}
+#assessmentFlow .oy1 .flow-btn.oy1-band[aria-expanded="true"]::before{display:none}
+@media (prefers-reduced-motion:reduce){#assessmentFlow .oy1 .flow-btn.oy1-band::before{display:none}}
 @media (prefers-reduced-motion:reduce){.oy1-band-a{animation:none}}
 /* 접힌 동안 자세한 결과(척도 해석·서술·통합 사정의견)는 숨긴다. 「자세히 보기」로 펼친다. */
 #assessmentFlow.oy1-fold #journey88{display:none!important}
