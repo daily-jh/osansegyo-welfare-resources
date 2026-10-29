@@ -4,9 +4,10 @@
 (function(root){
 'use strict';
 const node=typeof module!=='undefined'&&module.exports;
+const OC=node?require('./oy-constants-v1.js'):root.OYConstants;
 const K=node?require('./oy-item-knowledge-v1.js'):root.OYItemKnowledge;
 const VERSION='1.0.0-20261026';
-const SAFETY=[1,2,7,25];
+const SAFETY=OC.SAFETY_ITEMS;
 const BANDS=[
  {id:1,name:'1구간',range:'0~25%',label:'낮음',text:'어려움이 없거나 가끔 보이는 수준'},
  {id:2,name:'2구간',range:'25~50%',label:'주의',text:'어려움이 반복되어 살펴볼 수준'},

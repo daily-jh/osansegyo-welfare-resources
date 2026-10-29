@@ -4,6 +4,7 @@
    Reads CORE (criteria.js), item knowledge and cross patterns. Never changes scores or safety decisions. */
 (function(root){'use strict';
 const node=typeof module!=='undefined'&&module.exports;
+const OC=node?require('./oy-constants-v1.js'):root.OYConstants;
 const C=node?require('./criteria.js'):root.YouthCriteria;
 const CC=(()=>{try{return node?require('./case-context-core.js'):null}catch(_){return null}})()||{reconcile:(a,t)=>root.YouthCaseContextCore?root.YouthCaseContextCore.reconcile(a,t):null};
 const K=node?require('./oy-item-knowledge-v1.js'):root.OYItemKnowledge;
@@ -12,7 +13,7 @@ const X=node?require('./oy-cross-patterns-v1.js'):root.OYCrossPatterns;
 const GL=(()=>{try{return node?require('./oy-grade-lens-v1.js'):root.OYGradeLens}catch(_){return null}})();
 const VERSION='1.0.0-20261026';
 const LEVELS=['보고 없음','경미','주의','상승','현저'];
-const SAFETY=[1,2,7,25],PRIORITY=[4,5,8,12,13,16,19,20];
+const SAFETY=OC.SAFETY_ITEMS,PRIORITY=[4,5,8,12,13,16,19,20];
 const NOTICE='이 해석지는 25문항 응답을 OY-RALS 규칙에 따라 풀어 쓴 실무 참고자료입니다. 문장은 응답이 가리키는 상태를 읽기 쉽게 서술한 것이며, 진단·학대 판정·위험 예측이나 서비스 자격 결정이 아닙니다. 면담과 관찰로 확인한 사실이 응답보다 우선하고, 안전 신호가 있으면 이 해석지와 관계없이 소속기관의 보호·신고 절차를 먼저 따릅니다. 0~4점 기준과 교차 패턴은 전문가 내용타당도 검토 전 개발판입니다. 공식 점수와 안전판정은 CORE(criteria.js)가 정합니다.';
 const DOMAIN_TEXT=[
  ['보호자와의 관계에서 학생이 안전하게 지내는지가 이 영역의 핵심입니다.','이번 응답에서 보호자에 의한 위해·방임은 보고되지 않았습니다. 면담에서 확인되면 보호자를 지원의 협력자로 함께할 수 있습니다.'],

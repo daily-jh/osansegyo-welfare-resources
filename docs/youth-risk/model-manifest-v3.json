@@ -30,7 +30,8 @@
       "file": "interpretation-v3.js",
       "version": "3.0.1-explainable-context-20261024",
       "changed": true,
-      "scope": "Clause-scoped narrative polarity/uncertainty, evidence trace and human-reviewed case understanding; no verified claim inference"
+      "scope": "Clause-scoped narrative polarity/uncertainty, evidence trace and human-reviewed case understanding; no verified claim inference",
+      "retired": "2026-10-29: file removed; narrative reading is case-context-core.js and oy-narrative-interpretation-v1.js"
     },
     "languageExisting": {
       "file": "language-response-model.js",

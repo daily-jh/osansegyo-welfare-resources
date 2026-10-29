@@ -63,10 +63,9 @@ flowchart TD
 
 ## 4. AI 연구 작업실: 연결과 한계
 
-- `ai-workbench-stage-v1.js`는 평가·서술·종합의견·사례사정·서비스계획·자원연계 후보를 선택하게 한다.
+- (2026-10-29 정리) 예전 `ai-workbench-stage-v1.js`·`cie-flow-v32.js`는 메인 화면에서 내려간 뒤 파일도 삭제했다. 지금은 해석지 옆 「AI에 묻기」(`oy-ask-panel-v1.js`·`oy-ask-model-v1.js`)가 같은 역할을 한다.
 - CORE와 안전판정은 항상 포함하고 서술기록은 기본 제외한다.
 - 선택 범위는 `OYModelGateway.analyze`에서 파생된 **검토 자료**이며 공식 점수는 재계산하지 않는다.
-- `cie-flow-v32.js`가 질문과 사용자 역할을 받아 `OYCIE32.run`을 실행한다. `linkedDocuments`는 질문 의도에 따라 참고하는 자료이며 확정 사실·실제 서비스 수혜로 승격하지 않는다.
 - 저장·전송 없이 브라우저 내에서 문서 참조, 규칙·검색 응답, 요청문 복사, PDF 인쇄가 가능하다.
 - **외부 GPT/Claude/Gemini를 iframe으로 읽거나 로그인된 AI의 답변을 자동 수집하지 않는다.** 실제 LLM 직접 호출은 별도의 안전한 백엔드와 법적·개인정보 검토가 필요하다.
 
