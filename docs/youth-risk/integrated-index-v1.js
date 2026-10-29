@@ -28,7 +28,7 @@ const PAIRS=Object.freeze([
  {id:'housing-attend',a:7,b:3,label:'기본생활 × 출결',weight:1},
  {id:'access-learning',a:5,b:3,label:'교육접근 × 출결',weight:0.9}
 ]);
-const CRITICAL=Object.freeze([1,2,7,25]);
+const CRITICAL=(node?require('./oy-constants-v1.js'):window.OYConstants).SAFETY_ITEMS;
 const ROUND=n=>Math.round(n*10)/10,clamp=n=>Math.max(0,Math.min(100,n));
 function analyze(p){
  if(!M?.validate?.(p))throw Error('FIVE_LEVEL_PAYLOAD_INVALID');

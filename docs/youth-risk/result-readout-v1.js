@@ -10,7 +10,7 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.OYRe
 const G=typeof window!=='undefined'?window:globalThis;
 const NAMES=['안정관찰','초기주의','집중지원','다기관 집중개입','최우선 안전대응'];
 const SIZES=[2,3,3,3,2,2,3,3,2,2];
-const SAFETY_ITEMS=[1,2,7,25];
+const SAFETY_ITEMS=(typeof module!=='undefined'&&module.exports?require('./oy-constants-v1.js'):G.OYConstants).SAFETY_ITEMS;
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const stage=n=>n?'제'+n+'단계('+NAMES[n-1]+')':'';
 const list=a=>a.map(n=>n+'번').join('·');

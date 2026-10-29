@@ -23,7 +23,7 @@ function kCarrMarkup(a){const k=a.kCarr;if(!k||k.abstain)return '';return '<deta
 function reviewGuide(a,kind){const e=window.OYCIESemanticV2;let v;try{v=e.interpret(state.payload.answers)}catch(_){return '';}const top=v.ranked.slice(0,4);if(kind==='사례사정')return '<section class="j88-formulation"><h3>사정에서 먼저 확인할 내용</h3>'+caseBrief(a)+'<ol>'+top.map(x=>'<li><strong>'+esc(x.topic)+'</strong>: '+esc(x.meaning)+'. '+esc(x.verify.join(' / '))+'</li>').join('')+'</ol><p>응답은 학생이 경험한 사실을 확정하지 않습니다. 면담으로 확인된 내용과 미확인 가설을 구분해 기록합니다.</p></section>';if(kind==='사례협의')return '<section class="j88-formulation"><h3>회의에서 결정해야 할 사항</h3><p>현재 안전을 먼저 확인하고, 학생의 희망과 실제 생활 영향을 근거로 우선과제 1~3개를 선정합니다. 아래 자동 제안은 회의 결정이 아닙니다.</p><ol>'+top.slice(0,3).map(x=>'<li>'+esc(x.topic)+' — '+esc(x.verify[0])+' 확인 후 담당자·확인일 지정</li>').join('')+'</ol></section>';if(kind==='서비스계획')return '<section class="j88-formulation"><h3>학생에게 필요한 변화를 목표로 설정하세요</h3><p>서비스 횟수보다 학생의 일상이 어떻게 달라질지를 목표로 삼습니다. 기준선·학생 동의·담당·점검일을 정하고, 안전 확인이 필요한 경우 즉시 보호를 우선합니다.</p><ol>'+top.slice(0,3).map(x=>'<li>'+esc(x.topic)+' — '+esc(x.verify[0])+' 확인 → 학생과 합의한 지원 → 변화 점검</li>').join('')+'</ol></section>';return '';}
 
 /* Three independent result views: no CORE rescoring and no narrative leakage into the score-only view. */
-// Deep interpretation (OYDeepInterpretation) replaces the common scale report; the older module stays as fallback.
+// Deep interpretation (OYDeepInterpretation) replaced the common scale report, now removed.
 // Narrative and integrated reports (③, 03). Exports pass a narrative-free payload unless the practitioner opts in.
 // Exports without the narrative still carry its safety signal types (no wording).
 function privatePayload(p){return window.OYNarrativeInterpretation?.redact?window.OYNarrativeInterpretation.redact(p):{...p,caseContext:''}}
@@ -35,7 +35,7 @@ function figures(kind,p){const F=window.OYScaleFigures;if(!F||!p)return '';try{r
 // The paged deep report places each figure on the page it belongs to, so the standalone figures article
 // is only rendered when the report falls back to its linear form.
 function scalePages(p){const deep=deepReport('html',p);return (deep.indexOf('odi-paged')>=0?'':figures('html',p))+deep;}
-function deepReport(kind,p){const M=window.OYDeepInterpretation||window.OYCommonScaleReport;if(!M||!p)return '';try{return M[kind](M.build(p));}catch(_){return '';}}
+function deepReport(kind,p){const M=window.OYDeepInterpretation;if(!M||!p)return '';try{return M[kind](M.build(p));}catch(_){return '';}}
 // Each result tab reads as one document: a short route at the top and the same part heading over every block,
 // so the paged report, the numbers and the raw scores follow one another instead of standing apart.
 const SCORE_PARTS=[['read','해석지 읽기','해석지'],['numbers','숫자로 보기 · 통합지원 5단계와 지표','숫자로 보기'],['raw','원점수 · 25문항 응답','원점수']];

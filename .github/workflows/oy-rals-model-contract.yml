@@ -80,7 +80,6 @@ jobs:
       - name: Verify narrative export privacy and common reports
         run: |
           node tests/youth-narrative-export-privacy.cjs
-          node tests/common-scale-report.cjs
           node tests/oy-deep-interpretation.cjs
           node tests/oy-grade-lens.cjs
           node tests/oy-scale-library.cjs

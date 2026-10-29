@@ -134,5 +134,5 @@ function formulate(answers){
    '현재 안전과 학생의 희망·강점·기존 지원을 확인한 뒤 실제 지원 우선순위를 결정합니다.'].filter(Boolean);
  return {version:'OY-CIE-meaning-priority-v2.3-anchor-caution',base,scored,intersections,unknown,top,headline,narratives,assumptions:'응답 영향 곡선과 문항별 우선검토 가중치는 연구·개발 가정이며 검증된 확률·위험 절단점이 아닙니다.',rawScore:base.knownTotal,rawIncomplete:unknown.length>0};
 }
-const api=Object.freeze({TOPICS,PAIRS,LABELS,ITEM_LEVELS,RESEARCH,PROBES,PRIORITY_WEIGHTS,RESPONSE_IMPACT,interpret,formulate,interpretItemScore,SCORE_MEANING_RULES,EVIDENCE_LIBRARY,REASONING_RULES,evidenceAssessment,MULTI_DOMAIN_PATTERNS,crossDomainAssessment,COMBINATION_SPACE,scoreCombination,DEVELOPMENT_KNOWLEDGE,DEVELOPMENT_SOURCES,developmentalAssessment});if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.OYCIESemanticV2=api;
+const api=Object.freeze({VERSION:'2.0.0-20261029',TOPICS,PAIRS,LABELS,ITEM_LEVELS,RESEARCH,PROBES,PRIORITY_WEIGHTS,RESPONSE_IMPACT,interpret,formulate,interpretItemScore,SCORE_MEANING_RULES,EVIDENCE_LIBRARY,REASONING_RULES,evidenceAssessment,MULTI_DOMAIN_PATTERNS,crossDomainAssessment,COMBINATION_SPACE,scoreCombination,DEVELOPMENT_KNOWLEDGE,DEVELOPMENT_SOURCES,developmentalAssessment});if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.OYCIESemanticV2=api;
 })(typeof window!=='undefined'?window:globalThis);

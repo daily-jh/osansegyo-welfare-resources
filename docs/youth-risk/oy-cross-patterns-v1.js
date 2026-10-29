@@ -3,6 +3,7 @@
    and integrated-index-v1 PAIRS. Interpretation only; CORE scores and safety stay in criteria.js. */
 (function(root){'use strict';
 const VERSION='1.1.0-20261028';
+const SAFETY=(typeof module!=='undefined'&&module.exports?require('./oy-constants-v1.js'):root.OYConstants).SAFETY_ITEMS;
 // core: every item must meet its min (safety items 1, others 2). extra: items that deepen the text when >=1.
 // legacy: ids of the older rules this pattern absorbs.
 const P=[
@@ -157,7 +158,7 @@ function status(answers){
   const extra=p.extra.filter(n=>typeof answers[n-1]==='number'&&answers[n-1]>=1);
   const strength=met.reduce((s,x)=>s+x.v,0)+extra.reduce((s,n)=>s+answers[n-1],0)/2;
   return {id:p.id,name:p.name,items:p.core.map(x=>x[0]),extra,pending:unknown.length>0,unknown,strength,loop:p.loop,sign:p.sign,q:p.q,first:p.first,advice:p.advice,
-   safety:p.core.some(([n])=>[1,2,7,25].includes(n))};
+   safety:p.core.some(([n])=>SAFETY.includes(n))};
  }).filter(Boolean).filter(x=>!x.pending||x.unknown.length<x.items.length);
 }
 function match(answers){

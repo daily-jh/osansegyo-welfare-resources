@@ -63,5 +63,5 @@ function analyze(p){if(!M.validate(p))throw Error('평가 자료의 형식을 �
  options.unshift({title:decision.title,reason:decision.description});
  return {decision,domains,active,pending,axes,options,plans,observation,defaultDomains,safetyPlan,safetyPending,model:decision.urgent||safetyPending?'안전·보호 절차를 우선하면서 확인된 생활 문제를 함께 해결합니다. 구체적인 실천모델은 학생의 희망과 안전·실행 여건을 확인한 뒤 선택합니다.':decision.substantial.length>=2?'강점·생태체계 관점으로 학교·가족·지역의 역할을 함께 살피고, 먼저 해결할 생활 문제와 작은 실행과제를 의논합니다. 관점·기법·기관 서비스를 구분해 최종 모델을 선택합니다.':'학생이 바라는 변화를 먼저 듣고 문제해결·과제중심·해결중심 질문 중 적합한 접근을 검토합니다. 점수만으로 모델을 지정하지 않습니다.'};
 }
-const api={analyze,referral};if(typeof module!=='undefined')module.exports=api;else root.YouthPlanning=api;
+const api={VERSION:'1.0.0-20261029',analyze,referral};if(typeof module!=='undefined')module.exports=api;else root.YouthPlanning=api;
 })(typeof window!=='undefined'?window:globalThis);

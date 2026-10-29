@@ -3,6 +3,7 @@
 (function(root){
 'use strict';
 const node=typeof module!=='undefined'&&module.exports;
+const OC=node?require('./oy-constants-v1.js'):root.OYConstants;
 const K=node?require('./oy-item-knowledge-v1.js'):root.OYItemKnowledge;
 const X=node?require('./oy-cross-patterns-v1.js'):root.OYCrossPatterns;
 const D=node?require('./oy-deep-interpretation-v1.js'):root.OYDeepInterpretation;
@@ -11,7 +12,7 @@ const C=node?require('./case-context-core.js'):root.YouthCaseContextCore;
 const OD=()=>{try{return node?require('./oy-decision-v1.js'):root.OYDecision}catch(_){return null}};
 const FV=()=>{try{return node?require('./integrated-index-v1.js'):root.OYFiveLevelIndex}catch(_){return null}};
 const VERSION='1.5.0-mono-20261029';
-const SAFETY=[1,2,7,25];
+const SAFETY=OC.SAFETY_ITEMS;
 const NOTICE='이 해석은 25문항 응답과 선택 서술기록을 OY-RALS 규칙으로 함께 읽어 풀어 쓴 실무 참고자료입니다. 서술 문장은 표현 단서로 분류한 것이므로 인용·부정·추정·과거 언급은 면담에서 사실 여부를 확인하며, 진단·학대 판정·위험 예측이나 서비스 자격 결정이 아닙니다. 서술은 공식 점수와 CORE 안전판정을 바꾸지 않고, 서술에 안전 관련 표현이 있으면 이 해석과 관계없이 소속기관의 보호·신고 절차를 먼저 따릅니다. 단서 사전과 대조 규칙은 전문가 내용타당도 검토 전 개발판입니다.';
 
 /* Cue lexicon: n = linked item, neg = wording is already negative (no negation check). */

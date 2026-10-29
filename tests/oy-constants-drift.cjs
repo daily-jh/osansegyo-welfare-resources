@@ -20,6 +20,15 @@ for(const f of fs.readdirSync(SRC).filter(f=>f.endsWith('.js'))){
   for(const m of t.matchAll(/\[\s*1\s*,\s*2\s*,\s*7\b[^\]]*\]/g)){copies++;if(m[0].replace(/\s/g,'')!=='[1,2,7,25]')bad.push(f+': '+m[0]);}
 }
 assert.deepEqual(bad,[],'safety item copies differ');
-// 새로 만든 판정 모듈은 사본을 두지 않고 공통 정의를 읽는다
-for(const f of ['oy-decision-v1.js','oy-perspective-v1.js'])assert.ok(!/\[1,2,7,25\]/.test(fs.readFileSync(path.join(SRC,f),'utf8')),f+' should read OYConstants');
+// 메인 화면에서만 쓰는 판정·해석 모듈은 사본을 두지 않고 공통 정의를 읽는다(2026-10-29 해석 모듈 6개 추가).
+// support-model·scale-interpretation-v821 등은 공통 정의를 싣지 않는 다른 화면도 쓰므로 사본을 두고 위 검사로 지킨다.
+for(const f of ['oy-decision-v1.js','oy-perspective-v1.js','oy-deep-interpretation-v1.js','oy-narrative-interpretation-v1.js','oy-scale-figures-v1.js','oy-cross-patterns-v1.js','integrated-index-v1.js','result-readout-v1.js'])assert.ok(!/\[1,2,7,25\]/.test(fs.readFileSync(path.join(SRC,f),'utf8')),f+' should read OYConstants');
+// Any page that loads a module reading OYConstants must load oy-constants-v1.js before it.
+for(const page of fs.readdirSync(SRC).filter(f=>f.endsWith('.html'))){
+  const srcs=[...fs.readFileSync(path.join(SRC,page),'utf8').matchAll(/<script\b[^>]*src="([^"?]+)/g)].map(m=>m[1]);
+  const at=srcs.indexOf('oy-constants-v1.js');
+  for(const f of ['oy-decision-v1.js','oy-perspective-v1.js','oy-deep-interpretation-v1.js','oy-narrative-interpretation-v1.js','oy-scale-figures-v1.js','oy-cross-patterns-v1.js','integrated-index-v1.js','result-readout-v1.js']){
+    const i=srcs.indexOf(f);if(i>=0)assert.ok(at>=0&&at<i,page+' loads '+f+' before oy-constants-v1.js');
+  }
+}
 console.log('oy-constants-drift ok · safety-item copies elsewhere:',copies);
