@@ -23,6 +23,9 @@ async function complete(page,frame){await frame.locator('#complete').click();awa
 async function servicePlan(page){
  await page.locator('[data-oy-step="2"]').click();
  await page.waitForFunction(()=>document.querySelector('#mapArea')?.hidden===false,{timeout:20000});
+ // 02 opens with a smooth scroll and the map iframe resizes once it loads; click only after both settle, or the button moves under the pointer.
+ await page.waitForFunction(()=>{const f=document.querySelector('#mapArea iframe');const h=f?Math.round(f.getBoundingClientRect().height):0;const same=h>200&&window.__oyMapH===h;window.__oyMapH=h;return same;},null,{polling:400,timeout:20000});
+ await page.waitForFunction(()=>new Promise(r=>{const y=scrollY;setTimeout(()=>r(scrollY===y),250)}),null,{timeout:10000});
  await page.locator('#confirmLinkageReview').click();
  await page.locator('#journey88 [data-j88-tab="서비스계획"]').click();
  return page.locator('#journey88');
