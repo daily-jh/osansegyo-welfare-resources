@@ -1,0 +1,13 @@
+.ref-hub h1{margin:.2em 0 .4em}
+.ref-hub h2{margin-top:1.6em}
+.ref-scope{padding:.7em .9em;border-left:3px solid #c2410c;background:rgba(194,65,12,.06);border-radius:6px}
+.ref-badge{display:inline-block;margin-left:.4em;padding:.1em .5em;border-radius:999px;background:#c2410c;color:#fff;font-size:.72em;font-weight:700;vertical-align:middle}
+.ref-where th,.ref-where td{padding:.5em .6em;text-align:left;vertical-align:top}
+.ref-where tr.ref-new{background:rgba(194,65,12,.07)}
+.ref-rules li{margin:.35em 0}
+.ref-cites,.ref-kind{color:#5b6472;font-size:.9em}
+.ref-cite{margin-right:.25em;white-space:nowrap}
+.ref-domain{margin:.4em 0;padding:.5em .8em;border:1px solid rgba(0,0,0,.12);border-radius:8px}
+.ref-domain summary{cursor:pointer;font-weight:700}
+.ref-new-list li:target,.reference-list li:target{outline:2px solid #c2410c;outline-offset:4px;border-radius:4px}
+@media (prefers-color-scheme:dark){.ref-cites,.ref-kind{color:#a9b1bd}.ref-domain{border-color:rgba(255,255,255,.18)}}

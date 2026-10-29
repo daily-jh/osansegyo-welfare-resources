@@ -244,6 +244,7 @@ function html(opt){
  return '<header class="osl-head"><p class="osl-kicker">추가 자료</p><h2>척도 자료실</h2>'
   +'<p>청소년 정서·안전·물질·디지털·자아·학업과 관련해 무료로 공개된 척도를 모았습니다. 이름을 누르면 개요·채점·이용 조건이 펼쳐지고, 양식은 각 척도의 <strong>공식 배포처</strong>에서 내려받습니다.</p>'
   +'<p class="osl-note">대부분의 척도는 저작권자 허가 없이 다른 사이트에 올려 다시 배포할 수 없어, 이 사이트에는 OY-RALS 자체 양식만 올려 두었습니다. 척도 점수는 OY-RALS의 점수·판정에 더해지지 않으며 진단이 아닙니다. 이용 조건과 주소는 '+CHECKED+' 확인 기준입니다.</p></header>'
+  +'<a class="osl-refs" href="references.html" target="_blank" rel="noopener noreferrer"><span class="osl-refs-badge">새로 추가</span><b>참고문헌·근거</b><span>척도 해석·판정 규칙·개입 방향의 근거 문헌 50건과 기존 [1]~[18]·학년 S1~S12·교차해석 L01~L19를 한곳에 모았습니다 ↗</span></a>'
   +'<p class="osl-note osl-foreign-note"><strong>외국 척도</strong> 표시는 다른 나라에서 개발한 척도입니다. 기준점과 규준이 그 나라 표본에서 나왔으므로, 한국 학생에게는 한국판 타당화 연구의 기준을 우선 참고하고, 한국 기준이 없으면 기준점 통과 여부보다 하위척도의 상대적 높낮이와 재평가 때의 변화로 읽은 뒤 면담으로 확인합니다. 카드마다 한국판 여부와 해석 주의를 적었습니다.</p>'
   +filt+'<p class="osl-legend"><span class="osl-acc osl-own">이 사이트 양식</span><span class="osl-acc osl-official">공식 배포처 무료</span><span class="osl-acc osl-request">요청·가입 후 이용</span><span class="osl-acc osl-restricted">공개 배포 안 됨</span></p>'
   +GROUPS.map(([g,name,desc])=>{const list=SCALES.filter(s=>s.group===g);return list.length?'<section class="osl-group" data-osl-group="'+g+'"><h3>'+esc(name)+' <span>'+esc(desc)+'</span></h3>'+list.map(card).join('')+'</section>':''}).join('')
