@@ -241,7 +241,7 @@ function card(s){
 function html(opt){
  opt=opt||{};const lv=opt.level||'';
  const filt='<div class="osl-filter" role="group" aria-label="학교급으로 보기">'+[['','전체'],['e','초등'],['m','중학교'],['h','고등학교']].map(([k,n])=>'<button type="button" data-osl-level="'+k+'" aria-pressed="'+(k===lv)+'">'+n+'</button>').join('')+'</div>';
- return '<header class="osl-head"><p class="osl-kicker">06 · 참고 자료</p><h2>척도 자료실</h2>'
+ return '<header class="osl-head"><p class="osl-kicker">추가 자료</p><h2>척도 자료실</h2>'
   +'<p>청소년 정서·안전·물질·디지털·자아·학업과 관련해 무료로 공개된 척도를 모았습니다. 이름을 누르면 개요·채점·이용 조건이 펼쳐지고, 양식은 각 척도의 <strong>공식 배포처</strong>에서 내려받습니다.</p>'
   +'<p class="osl-note">대부분의 척도는 저작권자 허가 없이 다른 사이트에 올려 다시 배포할 수 없어, 이 사이트에는 OY-RALS 자체 양식만 올려 두었습니다. 척도 점수는 OY-RALS의 점수·판정에 더해지지 않으며 진단이 아닙니다. 이용 조건과 주소는 '+CHECKED+' 확인 기준입니다.</p></header>'
   +'<p class="osl-note osl-foreign-note"><strong>외국 척도</strong> 표시는 다른 나라에서 개발한 척도입니다. 기준점과 규준이 그 나라 표본에서 나왔으므로, 한국 학생에게는 한국판 타당화 연구의 기준을 우선 참고하고, 한국 기준이 없으면 기준점 통과 여부보다 하위척도의 상대적 높낮이와 재평가 때의 변화로 읽은 뒤 면담으로 확인합니다. 카드마다 한국판 여부와 해석 주의를 적었습니다.</p>'

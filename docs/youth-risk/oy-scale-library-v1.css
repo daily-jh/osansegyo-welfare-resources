@@ -1,11 +1,15 @@
 /* 06 척도 자료실(oy-scale-library-v1). 토큰 v12만 쓴다. 자료실이 열리면 5단계 흐름의 다른 화면은 숨기기만 하고 상태는 그대로 둔다. */
 body.oy-lib-open #assessmentFlow>:not(.flow-nav):not(#scaleLibraryArea),body.oy-lib-open #welcome{display:none!important}
 #scaleLibraryArea[hidden]{display:none}
+/* 추가 자료 메뉴는 01~05 흐름과 다른 청록색으로 구분한다(지훈 2026-10-29). */
+#assessmentFlow .flow-nav button[data-oy-lib]{background:#e6f4f1!important;color:#0f5f56!important;border:1px dashed #2a8a7e!important}
+#assessmentFlow .flow-nav button[data-oy-lib]:hover{background:#d3ece7!important}
+#assessmentFlow .flow-nav button[data-oy-lib][aria-pressed="true"]{background:#0f766e!important;color:#fff!important;border:1px solid #0f766e!important}
 @media(min-width:1000px){#assessmentFlow .flow-nav:has([data-oy-lib]){grid-template-columns:repeat(6,minmax(0,1fr))}}
 @media(min-width:701px) and (max-width:999px){#assessmentFlow .flow-nav:has([data-oy-lib]){grid-template-columns:repeat(3,minmax(0,1fr))}}
 .osl{max-width:900px;margin:8px auto 40px;color:var(--oy-ink)}
 .osl-head h2{font-size:30px;line-height:1.2;margin:2px 0 10px;letter-spacing:-.01em}
-.osl-kicker{margin:0;font-size:13px;font-weight:700;letter-spacing:.08em;color:var(--oy-data)}
+.osl-kicker{margin:0;font-size:13px;font-weight:700;letter-spacing:.08em;color:#0f766e}
 .osl-head p{font-size:16px;line-height:1.7;margin:0 0 8px}
 .osl-head .osl-note{font-size:14px;color:var(--oy-muted)}
 .osl-filter{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0 8px}

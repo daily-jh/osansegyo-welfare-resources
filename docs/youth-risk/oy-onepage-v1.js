@@ -5,7 +5,7 @@
 (function(root){
 'use strict';
 const node=typeof module!=='undefined'&&module.exports;
-const VERSION='1.2.0-20261029';
+const VERSION='1.3.0-20261029';
 const need=(n,g)=>node?require('./'+n):root[g];
 const FR=()=>need('oy-final-report-v1.js','OYFinalReport');
 const OBS=()=>{try{return need('oy-perspective-v1.js','OYPerspective').OBS||{}}catch(_){return {}}};
@@ -158,6 +158,10 @@ function deck(m){
   return m.tier+'단계 '+m.tierName+(names.length?'. '+josa(names.join('·'),'을','를')+' 함께 살펴야 하는 학생입니다.':'. 두드러진 어려움 없이 지켜보는 학생입니다.');
 }
 /* 네 칸 제목은 질문형 대신 이름으로 붙인다: 안전 확인 결과·지원 우선순위·주요 어려움 영역·교사 역할 및 지원사항(지훈 2026-10-29). */
+/* 03·04 칸은 색 띠가 없어 해석이 없는 것처럼 보였다(지훈 2026-10-29). 칸 끝에 「자세히 알아보기 ↓」를 두어 해당 결과 탭으로 바로 내려간다. */
+const goBtn=(tab,name)=>'<button type="button" class="oy1-go" data-oy1-go="'+tab+'">'+esc(name)+'에서 자세히 알아보기 <span aria-hidden="true">↓</span></button>';
+/* 자세히 보기는 한 장 아래 끝에 걸친 띠 버튼 + 아래 화살표(지훈 2026-10-29). */
+const bandHtml=on=>on?'<span class="oy1-band-t">자세히 보기 접기</span><span class="oy1-band-a" aria-hidden="true">▲</span>':'<span class="oy1-band-t">자세히 보기</span><small>척도 해석 · 서술기록 · 통합 사정의견</small><span class="oy1-band-a" aria-hidden="true">▼</span>';
 const dutyTitle=m=>m.scope?(m.role==='teacher'?'교사':m.scope.name)+' 역할 및 지원사항':'역할 및 지원사항';
 function html(m){
   const k=m.k,sc=m.scope;
@@ -173,17 +177,18 @@ function html(m){
    '<section class="oy1-q oy1-'+m.safetyTone+'"><h4><i>01</i>안전 확인 결과</h4><p class="oy1-v">'+esc(k.safety.value)+'</p><p class="oy1-why">'+esc(k.safety.why)+'</p>'+(m.narrNote?'<p class="oy1-narr">'+esc(m.narrNote)+'</p>':'')+
     (m.safetyTone==='c'?'<p class="oy1-callc">'+esc(((k.R.safetyOpen||[]).length&&!(k.R.narrSafety||[]).length&&!(k.R.pending||[]).length?'모르는 안전 문항은 안전하다고 보지 않습니다.':'확인하기 전에는 안전하다고 보지 않습니다.')+' 오늘 직접 확인해 주세요.')+'</p>':'')+(k.urgent||(m.tier||0)>=5?'<p class="oy1-call">급하면 <b>112</b> · 청소년상담 <b>1388</b> · 자살예방 <b>109</b></p>':'')+'</section>'+
    '<section class="oy1-q"><h4><i>02</i>지원 우선순위</h4><p class="oy1-v">'+esc(m.tier?m.tier+'단계 '+m.tierName:m.tierName)+'</p>'+tierBar+'<p class="oy1-why">'+esc(m.tier?m.tierWhy:'모르는 문항을 확인하기 전에는 단계를 정하지 않습니다.')+'</p></section>'+
-   '<section class="oy1-q"><h4><i>03</i>주요 어려움 영역</h4>'+hard+'</section>'+
-   '<section class="oy1-q oy1-do"><h4><i>04</i>'+esc(dutyTitle(m))+'</h4><ol class="oy1-steps">'+m.steps.map(s=>'<li>'+esc(s)+'</li>').join('')+'</ol></section>'+
+   '<section class="oy1-q"><h4><i>03</i>주요 어려움 영역</h4>'+hard+goBtn('score','척도 해석')+'</section>'+
+   '<section class="oy1-q oy1-do"><h4><i>04</i>'+esc(dutyTitle(m))+'</h4><ol class="oy1-steps">'+m.steps.map(s=>'<li>'+esc(s)+'</li>').join('')+'</ol>'+goBtn('integrated','통합 사정의견')+'</section>'+
    '</div>'+
    (m.teach?teachHtml(m.teach):'')+
    (sc?'<blockquote class="oy1-end"><p>'+esc(sc.end)+'</p><cite>'+esc(sc.name)+'의 역할</cite></blockquote>':'')+
    '<div class="oy1-actions">'+(m.role==='teacher'?'<button type="button" class="flow-btn flow-primary" data-oy1-pass aria-expanded="false" aria-controls="oy1Pass">교육복지사에게 전달하기</button>':'')+
    '<button type="button" class="flow-btn'+(m.role==='teacher'?'':' flow-primary')+'" data-oy1-print>이 한 장 인쇄 · PDF</button>'+
    (m.scope&&m.scope.steps.includes('2')?'<button type="button" class="flow-btn oy1-map" data-oy1-map>지역자원 지도 보기</button>':'')+
-   '<button type="button" class="flow-btn oy1-more" data-oy1-more aria-expanded="false" aria-controls="journey88">자세히 보기 · 척도 해석·서술기록·통합 사정의견</button></div>'+
+   '</div>'+
    (m.role==='teacher'?'<div class="oy1-pass" id="oy1Pass" hidden><p><b>전달 방법 두 가지</b> 어느 쪽이든 학생 이름과 서술기록은 들어가지 않습니다.</p><ol><li><button type="button" class="flow-btn" data-oy1-print>한 장 인쇄해서 건네기</button></li><li><button type="button" class="flow-btn" data-oy1-json>응답 파일(JSON) 저장해서 보내기</button> <small>교육복지사가 「JSON 불러오기」로 열면 이어서 보완할 수 있습니다.</small></li></ol></div>':'')+
-   '<p class="oy1-foot">판정은 05 최종 보고서·04 판정 띠와 같은 값입니다. 이 한 장은 시스템이 낸 초안이며 실무자 판단을 대신하지 않습니다.</p>';
+   '<p class="oy1-foot">판정은 05 최종 보고서·04 판정 띠와 같은 값입니다. 이 한 장은 시스템이 낸 초안이며 실무자 판단을 대신하지 않습니다.</p>'+
+   '<button type="button" class="flow-btn oy1-more oy1-band" data-oy1-more aria-expanded="false" aria-controls="journey88">'+bandHtml(false)+'</button>';
 }
 function teachHtml(t){
   const ul=a=>'<ul>'+a.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>';
@@ -212,7 +217,7 @@ function navMine(role){
   const doc=root.document,sc=SCOPE[role];
   doc.querySelectorAll('.flow-nav [data-oy-step]').forEach(b=>{const mine=!sc||sc.steps.includes(b.dataset.oyStep);b.classList.toggle('oy1-other',!mine);if(!mine)b.title='다른 역할 자료 · 필요할 때 열 수 있습니다';else b.removeAttribute('title');});
 }
-function setFold(on){const f=flow();if(f)f.classList.toggle('oy1-fold',on);const b=root.document.querySelector('[data-oy1-more]');if(b){b.setAttribute('aria-expanded',String(!on));b.textContent=on?'자세히 보기 · 척도 해석·서술기록·통합 사정의견':'자세히 보기 접기';}}
+function setFold(on){const f=flow();if(f)f.classList.toggle('oy1-fold',on);const b=root.document.querySelector('[data-oy1-more]');if(b){b.setAttribute('aria-expanded',String(!on));b.innerHTML=bandHtml(!on);}}
 function render(){
   const doc=root.document;let box=doc.getElementById('oyOnePage');
   navMine(roleNow());
@@ -234,7 +239,7 @@ function printOne(doc){
   const old=doc.getElementById('oy1-print-root');if(old)old.remove();
   const el=doc.createElement('section');el.id='oy1-print-root';el.className='oy1 oy1-print';
   el.innerHTML=html(box.__model);
-  el.querySelectorAll('.oy1-actions,.oy1-pass,.oy1-pick').forEach(x=>x.remove());
+  el.querySelectorAll('.oy1-actions,.oy1-pass,.oy1-pick,.oy1-band,.oy1-go').forEach(x=>x.remove());
   /* 메모는 화면에서 쓴 글을 줄 친 칸으로 옮겨 인쇄한다(저장하지 않음). */
   const memo=doc.getElementById('oy1Memo'),ta=el.querySelector('#oy1Memo');if(ta){const dv=doc.createElement('div');dv.className='oy1-lines';dv.textContent=memo?memo.value:'';ta.replaceWith(dv);el.querySelectorAll('.oy1-memo .oy1-tip,.oy1-memo .oy1-vh').forEach(x=>x.remove());}
   doc.body.append(el);fitA4(el);doc.body.classList.add('oy1-printing');
@@ -247,6 +252,7 @@ function bind(doc){
     const t=e.target&&e.target.closest?e.target:null;if(!t)return;
     if(t.closest('[data-oy-role]')){setTimeout(render,0);return;}
     const more=t.closest('[data-oy1-more]');if(more&&cur){const rev=cur.payload.flowRevision;open[rev]=!open[rev];setFold(!open[rev]);if(open[rev]){const j=doc.getElementById('journey88');j&&j.scrollIntoView({behavior:'smooth',block:'start'});}return;}
+    const go=t.closest('[data-oy1-go]');if(go&&cur){open[cur.payload.flowRevision]=true;setFold(false);const tb=doc.querySelector('#journey88 [data-j88-result-tab="'+go.dataset.oy1Go+'"]');if(tb&&tb.getAttribute('aria-pressed')!=='true')tb.click();const j=doc.getElementById('journey88');j&&j.scrollIntoView({behavior:'smooth',block:'start'});return;}
     if(t.closest('[data-oy1-map]')){const n=doc.querySelector('.flow-nav [data-oy-step="2"]');if(n&&!n.disabled)n.click();return;}
     if(t.closest('[data-oy1-print]')){printOne(doc);return;}
     const pass=t.closest('[data-oy1-pass]');if(pass){const p=doc.getElementById('oy1Pass');if(p){p.hidden=!p.hidden;pass.setAttribute('aria-expanded',String(!p.hidden));}return;}

@@ -37,6 +37,6 @@ const csv=L.csv();assert.equal(csv.split('\r\n').length,L.SCALES.length+1,'CSV o
 assert.ok(/개발 국가.*한국판.*해석할 때/.test(csv.split('\r\n')[0]),'CSV carries origin columns');
 assert.equal(L.levelOf('중2'),'m');assert.equal(L.levelOf(''),'');
 const page=fs.readFileSync(path.join(dir,'index.html'),'utf8');
-assert.ok(/data-oy-lib[^>]*>06 · 척도 자료실<\/button><\/nav>/.test(page),'06 button closes the step nav');
+assert.ok(/data-oy-lib[^>]*>추가 자료 · 척도 자료실<\/button><\/nav>/.test(page),'06 button closes the step nav');
 assert.ok(page.includes('id="scaleLibraryArea"')&&page.includes('oy-scale-library-v1.js'),'library area and script wired');
 console.log('PASS scale library: '+L.SCALES.length+' scales folded with overview, scoring, licence and official source; one hosted form');

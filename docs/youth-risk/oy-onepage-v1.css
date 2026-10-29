@@ -86,6 +86,18 @@
 .oy1-pass small{display:block;color:var(--oy-muted);margin-top:2px}
 .oy1-muted,.oy1-foot{color:var(--oy-muted);font-size:.8rem}
 .oy1-foot{margin:12px 0 0}
+/* 03·04 칸 끝 「자세히 알아보기 ↓」: 색 띠가 없어도 해석이 아래에 있음을 알린다(지훈 2026-10-29). */
+.oy1-go{display:inline-flex;align-items:center;gap:4px;margin:12px 0 0;padding:6px 0 2px;border:0;border-bottom:1px solid currentColor;background:none;color:var(--oy-data);font:inherit;font-size:.82rem;font-weight:700;cursor:pointer}
+.oy1-go span{display:inline-block;transition:transform .15s ease}
+.oy1-go:hover span{transform:translateY(2px)}
+.oy1-go:focus-visible{outline:3px solid var(--oy-data);outline-offset:2px}
+/* 「자세히 보기」 띠: 한 장 아래 끝 좌우에 걸치고 아래 화살표로 펼침을 알린다(지훈 2026-10-29). */
+#assessmentFlow .oy1 .flow-btn.oy1-band{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px 12px;width:calc(100% + 60px);margin:18px -30px -22px;min-height:56px;padding:12px 20px;border-radius:0;border-width:1px 0 0;font-size:1.02rem}
+.oy1-band small{font-size:.82rem;font-weight:600;opacity:.92}
+.oy1-band-a{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.22);font-size:.8rem;animation:oy1-down 1.6s ease-in-out infinite}
+@keyframes oy1-down{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
+#assessmentFlow .oy1 .flow-btn.oy1-band[aria-expanded="true"] .oy1-band-a{background:transparent;animation:none}
+@media (prefers-reduced-motion:reduce){.oy1-band-a{animation:none}}
 /* 접힌 동안 자세한 결과(척도 해석·서술·통합 사정의견)는 숨긴다. 「자세히 보기」로 펼친다. */
 #assessmentFlow.oy1-fold #journey88{display:none!important}
 /* 내 역할이 아닌 메뉴는 숨기지 않고 연하게 */
@@ -111,6 +123,8 @@
   .oy1-end p{font-size:1.02rem}
   .oy1-actions .flow-btn{flex:1 1 100%}
   .oy1-more{margin-left:0}
+  #assessmentFlow .oy1 .flow-btn.oy1-band{width:calc(100% + 32px);margin:16px -16px -18px}
+  .oy1-band small{flex-basis:100%;order:3}
 }
 .oy1-print{display:none}
 @media print{
