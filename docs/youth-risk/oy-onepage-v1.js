@@ -5,7 +5,7 @@
 (function(root){
 'use strict';
 const node=typeof module!=='undefined'&&module.exports;
-const VERSION='1.1.0-20261028';
+const VERSION='1.2.0-20261029';
 const need=(n,g)=>node?require('./'+n):root[g];
 const FR=()=>need('oy-final-report-v1.js','OYFinalReport');
 const OBS=()=>{try{return need('oy-perspective-v1.js','OYPerspective').OBS||{}}catch(_){return {}}};
@@ -35,7 +35,8 @@ function model(p,role){
   const sel=k.R.selection||{};
   const steps=nextSteps(k,role,unknown,sel);
   const teach=extras(k,ans,role);
-  return {k,role,scope:SCOPE[role]||null,unknown,hard,safetyTone,steps,teach,tier:k.tier,tierName:k.tierName,tierWhy:k.tierWhy,provisional:!!k.R.provisional};
+  const narrNote=narrNoteOf(k);
+  return {k,role,scope:SCOPE[role]||null,unknown,hard,safetyTone,steps,teach,narrNote,tier:k.tier,tierName:k.tierName,tierWhy:k.tierWhy,provisional:!!k.R.provisional};
 }
 /* 역할별로 한 장을 채우는 추천 항목. 모두 척도 응답·판정 사슬·해석에서 나오며 서술 원문은 쓰지 않는다.
    블록: {h 제목, li 목록 | p 문단, tip 작은 안내, cls}. 마지막은 그 역할이 손으로 적는 메모 칸. */
@@ -51,7 +52,8 @@ function extras(k,ans,role){
   const meet=[...k.agenda.map(a=>a.t),...(k.meet||[])].slice(0,4);
   const stops=(k.stops||[]).map(st=>st.h+' · '+(((st.rows||[])[0]||{}).what||'')).filter(t=>!/ · $/.test(t)).slice(0,4);
   const goals=(k.goals||[]).slice(0,3).map(g=>g.topic+' → '+g.target);
-  const fam=first(k.family);
+  /* 보호자 문장은 자르지 않는다. 둘째 문장이 '보호자에게 먼저 연락하지 않고…' 같은 핵심 지시일 때가 많다(무작위 500사례 2026-10-29). */
+  const fam=String(k.family||'').trim();
   const B=[];const add=(h,o)=>{if((o.li&&o.li.length)||o.p||o.near&&o.near.length)B.push({h,...o})};
   const nearTip='연결은 담당자와 함께 정합니다. 02 지역자원 지도에서 더 볼 수 있습니다.';
   if(role==='teacher'){
@@ -97,6 +99,12 @@ function extras(k,ans,role){
   add('가족과 함께하기',{p:fam});
   add('연계 후보 기관',{near,tip:nearTip});
   return {title:SCOPE[role].name+' 실무 정리',blocks:B,memo:['사례 메모','예: 초기상담 일정, 확인할 급여·서비스, 협력 기관 담당자.']};
+}
+/* 서술기록이 있는데 시스템이 읽은 안전 단서가 없으면 그렇다고 적는다. 사전이 모르는 말투의 위험은 작성자만 안다. */
+function narrNoteOf(k){
+  const R=k.R||{};
+  if(!k.hasNarr||k.urgent||(R.narrSafety||[]).length||((R.five||{}).immediate||[]).length)return '';
+  return '서술기록이 있습니다. 시스템이 서술에서 읽은 안전 단서는 0개입니다. 서술에 적은 위험(성적 위해·자해 흔적·가출 등)은 작성자가 직접 판단해 교육복지사에게 오늘 알려 주세요.';
 }
 /* 받침(ㄹ 제외)이 있으면 '으로'. 판정 문구를 문장 안에 넣을 때 쓴다. */
 const ro=w=>{w=String(w);const c=w.slice(-1).charCodeAt(0)-0xAC00,f=c>=0&&c<11172?c%28:0;return w+(f&&f!==8?'으로':'로')};
@@ -160,7 +168,7 @@ function html(m){
    (sc?'':'<p class="oy1-role">역할을 고르면 다음 할 일이 맞춰집니다</p>')+'</div>'+
    (sc?'':'<div class="oy1-pick" role="group" aria-label="역할 고르기">'+roles.map(r=>'<button type="button" data-oy-role="'+r+'">'+esc(SCOPE[r].name)+'</button>').join('')+'</div>')+
    '<div class="oy1-grid">'+
-   '<section class="oy1-q oy1-'+m.safetyTone+'"><h4><i>01</i>지금 안전한가요?</h4><p class="oy1-v">'+esc(k.safety.value)+'</p><p class="oy1-why">'+esc(k.safety.why)+'</p>'+
+   '<section class="oy1-q oy1-'+m.safetyTone+'"><h4><i>01</i>지금 안전한가요?</h4><p class="oy1-v">'+esc(k.safety.value)+'</p><p class="oy1-why">'+esc(k.safety.why)+'</p>'+(m.narrNote?'<p class="oy1-narr">'+esc(m.narrNote)+'</p>':'')+
     (m.safetyTone==='c'?'<p class="oy1-callc">'+esc(((k.R.safetyOpen||[]).length&&!(k.R.narrSafety||[]).length&&!(k.R.pending||[]).length?'모르는 안전 문항은 안전하다고 보지 않습니다.':'확인하기 전에는 안전하다고 보지 않습니다.')+' 오늘 직접 확인해 주세요.')+'</p>':'')+(k.urgent||(m.tier||0)>=5?'<p class="oy1-call">급하면 <b>112</b> · 청소년상담 <b>1388</b> · 자살예방 <b>109</b></p>':'')+'</section>'+
    '<section class="oy1-q"><h4><i>02</i>얼마나 급한가요?</h4><p class="oy1-v">'+esc(m.tier?m.tier+'단계 '+m.tierName:m.tierName)+'</p>'+tierBar+'<p class="oy1-why">'+esc(m.tier?m.tierWhy:'모르는 문항을 확인하기 전에는 단계를 정하지 않습니다.')+'</p></section>'+
    '<section class="oy1-q"><h4><i>03</i>무엇이 어려운가요?</h4>'+hard+'</section>'+
@@ -187,6 +195,7 @@ function teachHtml(t){
 function text(m){
   const k=m.k,L=['OY-RALS 핵심 결과 한 장'+(m.scope?' · '+m.scope.name+' 기준':''),''];
   L.push('1. 지금 안전한가요? '+k.safety.value+' ('+k.safety.why+')');
+  if(m.narrNote)L.push('   '+m.narrNote);
   L.push('2. 얼마나 급한가요? '+(m.tier?m.tier+'단계 '+m.tierName:m.tierName));
   L.push('3. 무엇이 어려운가요? '+(m.hard.map(h=>h.t+' '+h.v+'점').join(', ')||'2점 이상 영역 없음'));
   L.push('4. 다음 할 일');m.steps.forEach((s,i)=>L.push('  '+(i+1)+') '+s));
