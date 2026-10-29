@@ -43,6 +43,13 @@
 /* 현장 노트: 두 단, 단 사이 가는 선 */
 .oy1-sub{display:flex;align-items:baseline;gap:12px;margin:22px 0 4px;padding-bottom:8px;border-bottom:1px solid var(--oy1-rule);font-family:var(--oy1-serif);font-weight:800;font-size:1.35rem}
 .oy1-sub span{white-space:nowrap;flex:none;font-family:system-ui,sans-serif;font-size:.72rem;font-weight:800;letter-spacing:.06em;color:var(--oy-data-ink)}
+/* 학년 한 줄(G6)·척도 자료실 연결(G5)·검토 의견 버튼(G7) */
+.oy1-grade{margin:0 0 6px;padding:4px 8px;border-left:3px solid var(--oy-data);background:var(--oy-data-soft,#eef4fb);font-size:.82rem;line-height:1.55}
+.oy1-scales{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.oy1-scales button{border:0;border-bottom:1px solid #2a8a7e;background:none;padding:2px 0;color:#0f5f56;font:inherit;font-weight:700;cursor:pointer;text-align:left}
+.oy1-scales button:focus-visible{outline:3px solid #2a8a7e;outline-offset:2px}
+.oy1-scales small{display:block;color:var(--oy-muted);font-size:.78rem}
+#assessmentFlow .oy1 .flow-btn.oy1-check{background:var(--oy-surface);border:1px dashed var(--oy-line);color:var(--oy-ink);font-weight:600}
 /* 현장 노트는 화면에서 접어 둔다(G3). 인쇄는 printOne이 펼친다. */
 .oy1-notes{margin:22px 0 4px}
 .oy1-notes>summary{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 12px;padding:10px 0;border-bottom:1px solid var(--oy1-rule);cursor:pointer;list-style:none;font-weight:800;font-size:1.15rem}

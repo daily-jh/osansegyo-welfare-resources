@@ -91,4 +91,11 @@ for(const c of cases.slice(0,200)){const p=payload(c);const ms=['cwc','child','a
 {const base={answers:[0,0,1,0,0,0,0,1,1,0,0,0,1,0,1,0,0,0,1,2,1,1,0,0,0],narrative:'담임 관찰 기록. 담배 냄새가 나고 쉬는 시간마다 사라짐. 동생을 돌보느라 학원과 숙제를 못 한다고 함.'};
  const ORD=['monitor','brief','general','intensive','crisis'];const lv=a=>ORD.indexOf(run({...base,answers:a}).level.id);
  const up=base.answers.slice();up[12]=2;assert.ok(lv(up)>=lv(base.answers),'13번 1→2점에 개입 수준이 내려감');}
+// 6) 3차: 척도 자료실 연결은 학교급에 맞는 척도만, 학년 한 줄, 검토 의견 줄에는 판정 값만(서술 원문 없음).
+const LIB=require(path.join(SRC,'oy-scale-library-v1.js'));let linked=0;
+for(const c of cases.slice(0,200)){const p=payload(c),m=quiet(()=>ONE.model(p,'edu')),b=m.teach.blocks.find(x=>x.h==='더 확인해 볼 척도');
+ if(b){linked++;const lv=LIB.levelOf(c.grade);b.scales.forEach(x=>{const sc=LIB.SCALES.find(y=>y.id===x.id);assert.ok(sc&&(!lv||sc.levels.includes(lv)),c.id+' 학교급에 맞지 않는 척도 '+x.id);});}
+ const t=quiet(()=>ONE.model(p,'teacher'));if(c.grade)assert.ok(t.teach.blocks[0].lead&&t.teach.blocks[0].lead.startsWith(c.grade),c.id+' 학년 한 줄 없음');
+ const line=ONE.reviewLine(m);assert.ok(/^\[검토할 판정\] 지원 우선순위/.test(line)&&!(c.narrative&&c.narrative.split('.').some(x=>x.trim().length>6&&line.includes(x.trim()))),c.id+' 검토 줄');}
+assert.ok(linked>150,'척도 연결이 너무 적음 '+linked);
 console.log('oy-random500-regression ok',cases.length,'· 서술',narr,'· 단서 0개 안내',note,'· 보호자 문장',fam,'· 1단계 조용한 사례',calm);
