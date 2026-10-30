@@ -1,0 +1,75 @@
+{
+  "stats": {
+    "date": "2026-10-30",
+    "timezone": "Asia/Seoul",
+    "categoryCount": {
+      "zero": 47,
+      "safety_unknown": 47,
+      "core_safety": 47,
+      "followup_pending": 47,
+      "score_positive": 47,
+      "text_selfharm": 47,
+      "negated_selfharm": 47,
+      "historical_selfharm": 47,
+      "third_person": 47,
+      "narrative_food": 47,
+      "contradictory_food": 47,
+      "peer_attendance": 47,
+      "care_basic": 46,
+      "long_tail_safety": 46,
+      "followup_question": 46,
+      "random_domains": 46,
+      "mental_narrative": 46,
+      "health_narrative": 46,
+      "access_narrative": 46,
+      "care_narrative": 46,
+      "relation_narrative": 46,
+      "digital_narrative": 46
+    },
+    "requested": 1024,
+    "executed": 1024,
+    "exceptions": 0,
+    "coreMismatch": 0,
+    "safetyMismatch": 0,
+    "unknownMismatch": 0,
+    "mandatorySafetyMissing": 0,
+    "brokenEvidenceRefs": 0,
+    "unwantedServiceApproval": 0,
+    "privacyLeak": 0,
+    "technicalOnly": true,
+    "expertRatings": 0,
+    "corpusCount": 600,
+    "pairCount": 300,
+    "templateCount": 80,
+    "routeCount": 5550,
+    "uniqueFailuresToday": 0,
+    "cumulativeUniqueFindings": 0,
+    "duplicateFailureObservations": 0,
+    "dedup": {
+      "researchKB": {
+        "total": 600,
+        "unique": 600,
+        "duplicates": 0
+      },
+      "templates": {
+        "total": 80,
+        "unique": 80,
+        "duplicates": 0
+      },
+      "pairs": {
+        "total": 300,
+        "unique": 300,
+        "duplicates": 0
+      },
+      "route": {
+        "total": 5550,
+        "unique": 5550,
+        "duplicates": 0
+      }
+    },
+    "verdict": "SYNTHETIC_TECHNICAL_PASS",
+    "operationalCoreModified": false,
+    "autopatchedMain": false
+  },
+  "uniqueFailureKeysToday": []
+}
