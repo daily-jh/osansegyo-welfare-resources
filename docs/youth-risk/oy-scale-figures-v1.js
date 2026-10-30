@@ -64,7 +64,7 @@ function itemMap(f){
 // Ecological levels drawn as concentric progress rings (inner = individual, outer = community).
 function ecoDiagram(f){
  const size=320,c=160,R=[52,78,104,130],W=20;
- const col=r=>r.band===null?'#c7cdd6':['#1765bd','#e07068','#c42b2b','#b02424'][r.band-1];
+ const col=r=>r.band===null?'#c7cdd6':['#1765bd','#e07068','#c42b2b','#8a1c1c'][r.band-1];
  const rings=f.eco.map((e,i)=>{const len=2*Math.PI*R[i],v=e.pct===null?0:Math.max(e.pct>0?2:0,e.pct)/100;
   return '<circle cx="'+c+'" cy="'+c+'" r="'+R[i]+'" fill="none" stroke="#eef1f5" stroke-width="'+W+'"/>'
    +(v?'<circle cx="'+c+'" cy="'+c+'" r="'+R[i]+'" fill="none" stroke="'+col(e)+'" stroke-width="'+W+'" stroke-linecap="round" stroke-dasharray="'+(len*v).toFixed(1)+' '+len.toFixed(1)+'" transform="rotate(-90 '+c+' '+c+')"/>':'')
