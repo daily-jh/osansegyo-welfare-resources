@@ -22,6 +22,9 @@
     }
     const gridFragment = document.createDocumentFragment();
     const jumpFragment = document.createDocumentFragment();
+    // The jump links double as a bar chart of how many institutions each area lists (one hue, longest = 100%).
+    const most = Math.max(1, ...snapshot.sections.map(section => section.organizations.length));
+    jumpFragment.append(make('p', 'overview-jumps-title', '영역별 등록 기관 수 · 막대를 누르면 그 영역으로 이동합니다'));
     snapshot.sections.forEach((section, i) => {
       const block = make('section', 'overview-card');
       block.id = section.id;
@@ -50,9 +53,15 @@
       }
       block.append(list);
       gridFragment.append(block);
-      const jump = make('a', 'overview-jump', section.name);
+      const total = section.organizations.length;
+      const jump = make('a', 'overview-jump');
+      const bar = make('span', 'overview-jump-bar');
+      bar.style.setProperty('--share', (total / most * 100).toFixed(1) + '%');
+      bar.setAttribute('aria-hidden', 'true');
+      jump.append(make('span', 'overview-jump-name', section.name), bar, make('span', 'overview-jump-count', total + '곳'));
       jump.href = '#' + section.id;
-      jump.setAttribute('aria-label', section.name + ' 영역으로 이동');
+      jump.title = section.name + ' ' + total + '곳';
+      jump.setAttribute('aria-label', section.name + ' ' + total + '곳, 영역으로 이동');
       jumpFragment.append(jump);
     });
     board.replaceChildren(gridFragment);

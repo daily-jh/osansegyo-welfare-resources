@@ -340,7 +340,8 @@ function themeState(r,L){
 function linkMap(S){
  const W=380,H=350,cx=190,cy=182,R=118;
  const pos=S.T.map((t,i)=>{const a=-Math.PI/2+i*2*Math.PI/5;return [cx+R*Math.cos(a),cy+R*Math.sin(a)]});
- const fill=p=>p>=4?'#b02424':p===3?'#e07068':p===2?'#f1c4c0':'#ffffff',ink=p=>p>=4?'#ffffff':'#16273a';
+ // Same ramp as the radar bands: 주의 = 2구간, 상승 = 3구간, 현저 = 4구간.
+ const fill=p=>p>=4?'#8a1c1c':p===3?'#c42b2b':p===2?'#e07068':'#ffffff',ink=p=>p>=3?'#ffffff':'#16273a';
  const groups={};S.edges.forEach(e=>{const k=Math.min(e.a,e.b)+'-'+Math.max(e.a,e.b);(groups[k]=groups[k]||[]).push(e.p.name)});
  let s='<svg viewBox="0 0 '+W+' '+H+'" class="odi-mapsvg" role="img" aria-label="'+esc('생활 주제 연결 지도: '+(S.edges.length?S.edges.map(e=>S.T[e.a].title+'와 '+S.T[e.b].title+'이 '+e.p.name+'으로 이어짐').join(', '):'두 주제에 걸친 패턴 없음'))+'">';
  Object.keys(groups).forEach(k=>{const ab=k.split('-'),a=+ab[0],b=+ab[1],names=groups[k],p1=pos[a],p2=pos[b];
