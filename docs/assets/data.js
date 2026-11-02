@@ -3287,7 +3287,7 @@ window.WELFARE_DATA = {
       "phone": "1577-4312",
       "source": "https://ggwf.gg.go.kr/",
       "scope": "경기도",
-      "reviewed": "2026-10-20",
+      "reviewed": "2026-11-02",
       "status": "미확인",
       "jurisdiction": "",
       "services": [
@@ -3357,6 +3357,68 @@ window.WELFARE_DATA = {
           },
           "contacts": [],
           "rounds": []
+        },
+        {
+          "id": "SVC-SCR-20261102-011",
+          "name": "경기 극저신용대출 2.0 불법사금융 피해자 대출(2026년 11월)",
+          "category": "법률·금융",
+          "target": "신청일 기준 경기도 1년 이상 계속 거주한 19세 이상 저신용 도민 중 불법사금융 피해 확인 요건 충족자",
+          "description": "심사를 거쳐 최대 200만원, 연 1%, 최장 10년 상환. 신용 하위 10%(KCB 675 또는 NICE 724 이하), 수급·차상위·한부모는 하위 20%(KCB 700 또는 NICE 749 이하). 피해지원 상담확인서 또는 피해사실 확인서 필요. 재외국민·외국인·해외체류자, 2020~2022년 대출 미완제자 등 제외요건은 원문 확인. 접수 11.2.~11.30., 자금 소진 시 조기마감.",
+          "method": "사회연대은행 1800-6751 사전상담 후 온라인 또는 방문 신청. 방문 접수 평일 09:00~17:00. 단순 피해신고만으로 신청 불가.",
+          "operation": "공식 공고상 2026.11.02.~11.30. 접수. 자금 소진 조기마감 및 심사 여부는 1800-6751 확인.",
+          "editedOn": "2026-11-02",
+          "tags": {
+            "target": [],
+            "need": [
+              "법률·금융",
+              "소득·생계"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": [
+              "전화",
+              "온라인",
+              "직접 방문"
+            ]
+          },
+          "operationType": "공모형",
+          "localAvailable": "가능",
+          "source": "https://gnews.gg.go.kr/briefing/brief_gongbo_view.do?BS_CODE=s017&number=71799",
+          "verification": {
+            "status": "확인완료",
+            "date": "2026-11-02",
+            "method": "경기도 2026-10-26 공식 보도자료 원문에서 자격·금리·기간·접수경로 확인; 잔여자금·실제 접수 미확인",
+            "by": "자료 관리자",
+            "next": "2026-11-09"
+          },
+          "contacts": [
+            {
+              "contact_id": "CON-SCR-20261102-011",
+              "owner_type": "service",
+              "owner_id": "SVC-SCR-20261102-011",
+              "dept": "사회연대은행 전용 콜센터",
+              "phone": "1800-6751",
+              "fax": "",
+              "email": "",
+              "hours": "방문 접수 평일 09:00~17:00; 전화 운영시간 별도 확인",
+              "note": "사전상담 및 신청 안내",
+              "source_url": "https://gnews.gg.go.kr/briefing/brief_gongbo_view.do?BS_CODE=s017&number=71799",
+              "verified_on": "2026-11-02"
+            }
+          ],
+          "rounds": [
+            {
+              "round_id": "ROUND-SCR-20261102-001",
+              "service_id": "SVC-SCR-20261102-011",
+              "name": "2026년 11월 불법사금융 피해자 대출 접수(자금 소진 시 조기마감)",
+              "opens_on": "2026-11-02",
+              "closes_on": "2026-11-30",
+              "local_available": "가능",
+              "source_url": "https://gnews.gg.go.kr/briefing/brief_gongbo_view.do?BS_CODE=s017&number=71799",
+              "verified_on": "2026-11-02"
+            }
+          ]
         }
       ],
       "contact": {
@@ -13725,6 +13787,153 @@ window.WELFARE_DATA = {
       "addressStatus": "미확인",
       "addressCheckedOn": "",
       "addressNote": "주소·전화·운영주체 재확인"
+    },
+    {
+      "id": "417b919cab",
+      "name": "홀트아동복지회",
+      "level": "민간",
+      "kind": "아동·가족복지 민간기관",
+      "summary": "시설청소년·자립준비청년과 미혼한부모 가족 등을 위한 복지사업을 운영.",
+      "site": "https://www.holt.or.kr/",
+      "phone": "02-331-7000",
+      "source": "https://love.holt.or.kr/support/자립지원/",
+      "scope": "전국 민간",
+      "reviewed": "2026-11-02",
+      "status": "미확인",
+      "jurisdiction": "",
+      "services": [
+        {
+          "id": "SVC-SCR-20261102-008",
+          "name": "시설청소년·자립준비청년 자립지원",
+          "category": "취업·자립",
+          "target": "시설청소년 및 보호종료로 자립을 준비하는 청년",
+          "description": "시설청소년 진로·정서·경제 역량지원, 자립준비청년 취·창업 기술교육, 대학생활 지원과 자조모임·상담·교육 사업 운영. 회차별 조건과 신청 여부는 별도 확인.",
+          "method": "공식 홈페이지 참여/신청 → 지원사업(https://love.holt.or.kr/join/support/)에서 해당 회차의 대상·신청방법 확인. 현재 모집 여부 별도 확인.",
+          "operation": "공식 사업안내 확인. 현재 접수·예산·선정은 담당기관 확인.",
+          "editedOn": "2026-11-02",
+          "tags": {
+            "target": [
+              "청소년",
+              "청년"
+            ],
+            "need": [
+              "고용·자립",
+              "교육"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://love.holt.or.kr/support/자립지원/",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-02",
+            "method": "공식 사업안내 원문 직접 확인; 개별 모집·접수·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2026-11-16"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SCR-20261102-009",
+          "name": "미혼한부모 자녀 양육·교육물품 지원",
+          "category": "가족·아동",
+          "target": "미혼한부모 가정의 영유아 및 학령기 자녀",
+          "description": "365베이비케어키트의 영유아 양육물품과 365키즈키트의 학령기 교육물품, 맘마미아 이유식 지원사업 운영. 세부 연령·소득·회차·중복지원 조건은 개별 공고 확인.",
+          "method": "공식 홈페이지 참여/신청 → 지원사업(https://love.holt.or.kr/join/support/)에서 해당 회차의 대상·신청방법 확인. 현재 모집 여부 별도 확인.",
+          "operation": "공식 사업안내 확인. 현재 접수·예산·선정은 담당기관 확인.",
+          "editedOn": "2026-11-02",
+          "tags": {
+            "target": [
+              "영유아",
+              "아동",
+              "가족·한부모"
+            ],
+            "need": [
+              "돌봄",
+              "교육",
+              "가족지원"
+            ],
+            "form": [
+              "현물"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://love.holt.or.kr/support/양육지원/",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-02",
+            "method": "공식 사업안내 원문 직접 확인; 개별 모집·접수·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2026-11-16"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SCR-20261102-010",
+          "name": "위기미혼모자 긴급지원",
+          "category": "경제·긴급",
+          "target": "위기상황으로 긴급지원이 필요한 미혼모와 아기",
+          "description": "위기 미혼모와 아기의 의료·양육·생계·주거·심리상담 지원사업 운영. 지원한도·심사요건과 현재 접수는 담당기관 확인.",
+          "method": "공식 홈페이지 참여/신청 → 지원사업(https://love.holt.or.kr/join/support/)에서 해당 회차의 대상·신청방법 확인. 현재 모집 여부 별도 확인.",
+          "operation": "공식 사업안내 확인. 현재 접수·예산·선정은 담당기관 확인.",
+          "editedOn": "2026-11-02",
+          "tags": {
+            "target": [
+              "영유아",
+              "가족·한부모",
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "주거",
+              "의료·건강",
+              "가족지원"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://love.holt.or.kr/support/양육지원/",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-02",
+            "method": "공식 사업안내 원문 직접 확인; 개별 모집·접수·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2026-11-16"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-417b919cab",
+        "owner_type": "organization",
+        "owner_id": "417b919cab",
+        "dept": "",
+        "phone": "02-331-7000",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://love.holt.or.kr/support/양육지원/",
+        "verified_on": "2026-11-02"
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "방문주소와 담당 사업창구는 공식 안내에서 별도 확인"
     }
   ]
 };
