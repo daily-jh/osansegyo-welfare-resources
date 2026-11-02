@@ -1,6 +1,6 @@
 /* © 2026 오산세교종합사회복지관 김지훈 팀장. All rights reserved. */
 window.WELFARE_DATA = {
-  "date": "2026-10-26",
+  "date": "2026-11-02",
   "schemaVersion": 2,
   "note": "기존 자료 정리일이며, 기관·사업별 실제 운영 확인일과 다릅니다. 연계 전 최신 공식 공고를 확인해 주세요.",
   "taxonomy": {
@@ -4368,7 +4368,7 @@ window.WELFARE_DATA = {
       "phone": "02-766-1004",
       "source": "https://beautifulfund.org/",
       "scope": "전국 민간",
-      "reviewed": "2026-10-20",
+      "reviewed": "2026-11-02",
       "status": "미확인",
       "jurisdiction": "",
       "services": [
@@ -4438,6 +4438,54 @@ window.WELFARE_DATA = {
           },
           "contacts": [],
           "rounds": []
+        },
+        {
+          "id": "SVC-MON-20261102-001",
+          "name": "미래에셋 가족돌봄청년 금융투자 특강(2026.12.05)",
+          "category": "교육·청소년",
+          "target": "서울·경기·인천 거주 만 18~39세 가족돌봄청년 100명(동반인 제외)",
+          "description": "2026.12.05.(토) 13:30~18:00 서울 을지로 미래에셋센터원빌딩에서 무료 금융투자 특강. 2026.10.26.~11.20. 18:00 온라인 신청.",
+          "method": "아름다운재단 공식 공고의 온라인 신청서 작성 및 가족돌봄 증빙서류 제출(2026.11.20. 18:00 마감).",
+          "operation": "2026-11-02 아름다운재단 공식 행사 공고 확인(현재 잔여인원·선정 여부 별도 확인). 원문: https://beautifulfund.org/131351/",
+          "editedOn": "2026-11-02",
+          "tags": {
+            "target": [
+              "청년"
+            ],
+            "need": [
+              "교육",
+              "법률·금융"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": [
+              "온라인"
+            ]
+          },
+          "operationType": "공모형",
+          "localAvailable": "가능",
+          "source": "https://beautifulfund.org/131351/",
+          "verification": {
+            "status": "확인완료",
+            "date": "2026-11-02",
+            "method": "2026-10-26 아름다운재단 공식 행사 공고에서 대상·접수기간·신청방법·행사내용 확인",
+            "by": "자료 관리자",
+            "next": "2026-11-20"
+          },
+          "contacts": [],
+          "rounds": [
+            {
+              "round_id": "ROUND-MON-20261102-001",
+              "service_id": "SVC-MON-20261102-001",
+              "name": "미래에셋 가족돌봄청년 금융투자 특강 신청",
+              "opens_on": "2026-10-26",
+              "closes_on": "2026-11-20",
+              "local_available": "가능",
+              "source_url": "https://beautifulfund.org/131351/",
+              "verified_on": "2026-11-02"
+            }
+          ]
         }
       ],
       "contact": {
