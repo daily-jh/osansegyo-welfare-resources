@@ -6,5 +6,7 @@ const dream=D.organizations.find(o=>o.name==='오산시 드림스타트'),city=D
 assert.equal(D.organizations.find(o=>o.id==='438b636f15').services.length,0);
 const kord=D.organizations.find(o=>o.name==='한국희귀·난치성질환연합회');const round=kord.services.find(s=>s.rounds.length);assert.equal(M.applicationState(round,'2026-10-22'),'모집중');assert.equal(M.applicationState(round,'2026-11-05'),'마감');assert(M.matchesService(kord,round,{need:'의료·건강',audience:'아동',application:'모집중'},'2026-10-22'));
 const hosp=D.organizations.filter(o=>o.kind==='의료기관');assert(hosp.length>=4);const suwon=hosp.find(o=>o.name==='경기도의료원 수원병원');assert(suwon.services.some(s=>s.contacts.some(c=>c.phone==='031-888-0681')));
-assert.equal(D.organizations.find(o=>o.name==='오산아이드림센터').services.length,8);
+const iDream=D.organizations.find(o=>o.name==='오산아이드림센터');
+assert.equal(iDream.services.filter(s=>s.externalProgram).length,8,'preserve 8 screenshot-derived program entries');
+assert.equal(iDream.services.filter(s=>s.id.startsWith('SVC-MON-20261102-')).length,4,'four independently verified November official programs');
 console.log(JSON.stringify({visibleInstitutions:D.organizations.filter(o=>o.services.length).length,services:D.organizations.reduce((n,o)=>n+o.services.length,0),dongs:8,hospitals:hosp.length}));
