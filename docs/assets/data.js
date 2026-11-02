@@ -5420,10 +5420,153 @@ window.WELFARE_DATA = {
       "phone": "031-374-5540",
       "source": "https://osan.welinfo.kr/?board=programList",
       "scope": "오산시",
-      "reviewed": "",
+      "reviewed": "2026-11-02",
       "status": "미확인",
       "jurisdiction": "",
-      "services": [],
+      "services": [
+        {
+          "id": "SVC-MON-20261102-002",
+          "name": "11월 방송댄스(2026)",
+          "category": "교육·청소년",
+          "target": "5~7세 유아 및 어린이",
+          "description": "2026.11.05.~11.26. 오산아이드림센터 2층 다목적실 방송댄스 프로그램. 참가비 28,000원.",
+          "method": "기관 개별 프로그램 공고에서 신청·예약방법 확인(상세 접수방식 미기재).",
+          "operation": "2026-11-02 오산아이드림센터 공식 개별 프로그램 공고 확인(실제 예약 가능·잔여석 별도 확인). 원문: https://www.osanidream.or.kr/play/play_view.asp?sn=213",
+          "editedOn": "2026-11-02",
+          "tags": {
+            "target": [
+              "영유아",
+              "아동"
+            ],
+            "need": [
+              "교육"
+            ],
+            "form": [
+              "서비스 제공",
+              "시설 이용"
+            ],
+            "intake": []
+          },
+          "operationType": "시즌",
+          "localAvailable": "가능",
+          "source": "https://www.osanidream.or.kr/play/play_view.asp?sn=213",
+          "verification": {
+            "status": "확인완료",
+            "date": "2026-11-02",
+            "method": "오산아이드림센터 공식 개별 프로그램 공고에서 일정·대상·이용료 및 이용방법 확인(미기재 항목 추정하지 않음)",
+            "by": "자료 관리자",
+            "next": "2026-11-16"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-MON-20261102-003",
+          "name": "11월 롤링아트 안내(2026)",
+          "category": "교육·청소년",
+          "target": "18개월~9세 이하(초등학교 2학년) 아동",
+          "description": "2026.11.03.~11.29. 1층 롤링아트 운영. 자유놀이 이용요금 적용(정확한 금액은 기관 안내 확인).",
+          "method": "기관 자유놀이 이용안내에서 예약 및 요금 확인.",
+          "operation": "2026-11-02 오산아이드림센터 공식 개별 프로그램 공고 확인(실제 예약 가능·잔여석 별도 확인). 원문: https://www.osanidream.or.kr/play/play_view.asp?sn=211",
+          "editedOn": "2026-11-02",
+          "tags": {
+            "target": [
+              "영유아",
+              "아동"
+            ],
+            "need": [
+              "교육"
+            ],
+            "form": [
+              "시설 이용"
+            ],
+            "intake": []
+          },
+          "operationType": "시즌",
+          "localAvailable": "가능",
+          "source": "https://www.osanidream.or.kr/play/play_view.asp?sn=211",
+          "verification": {
+            "status": "확인완료",
+            "date": "2026-11-02",
+            "method": "오산아이드림센터 공식 개별 프로그램 공고에서 일정·대상·이용료 및 이용방법 확인(미기재 항목 추정하지 않음)",
+            "by": "자료 관리자",
+            "next": "2026-11-16"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-MON-20261102-004",
+          "name": "11월 영아대상 오감 톡톡 가을 놀이 프로그램(2026)",
+          "category": "교육·청소년",
+          "target": "18~24개월 영아 1명 및 동반 보호자 1명",
+          "description": "2026.11.19.~11.20. 오산아이드림센터 2층 다목적실 1에서 영아 오감 놀이 프로그램 운영. 참가비 5,000원.",
+          "method": "기관 개별 프로그램 공고에서 신청·예약방법 확인(상세 접수방식 미기재).",
+          "operation": "2026-11-02 오산아이드림센터 공식 개별 프로그램 공고 확인(실제 예약 가능·잔여석 별도 확인). 원문: https://www.osanidream.or.kr/play/play_view.asp?sn=208",
+          "editedOn": "2026-11-02",
+          "tags": {
+            "target": [
+              "영유아",
+              "가족·한부모"
+            ],
+            "need": [
+              "교육"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "시즌",
+          "localAvailable": "가능",
+          "source": "https://www.osanidream.or.kr/play/play_view.asp?sn=208",
+          "verification": {
+            "status": "확인완료",
+            "date": "2026-11-02",
+            "method": "오산아이드림센터 공식 개별 프로그램 공고에서 일정·대상·이용료 및 이용방법 확인(미기재 항목 추정하지 않음)",
+            "by": "자료 관리자",
+            "next": "2026-11-16"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-MON-20261102-005",
+          "name": "11월 아이드림극장 무료 영화상영(2026)",
+          "category": "교육·청소년",
+          "target": "보호자를 동반한 25개월 이상 아동 중 센터 자유놀이 이용객",
+          "description": "2026년 11월 오산아이드림센터 3층 아이드림극장에서 더빙 아동영화 무료 상영. 센터 자유놀이 이용객에 한하며 상영일시는 원문 일정표 확인.",
+          "method": "별도 영화 인터넷 사전예약 없이 자유놀이 이용객이 현장 관람(자유놀이 예약 회차 이용규정 별도).",
+          "operation": "2026-11-02 오산아이드림센터 공식 개별 프로그램 공고 확인(실제 예약 가능·잔여석 별도 확인). 원문: https://www.osanidream.or.kr/play/play_view.asp?sn=216",
+          "editedOn": "2026-11-02",
+          "tags": {
+            "target": [
+              "영유아",
+              "아동"
+            ],
+            "need": [
+              "교육"
+            ],
+            "form": [
+              "서비스 제공",
+              "시설 이용"
+            ],
+            "intake": []
+          },
+          "operationType": "시즌",
+          "localAvailable": "가능",
+          "source": "https://www.osanidream.or.kr/play/play_view.asp?sn=216",
+          "verification": {
+            "status": "확인완료",
+            "date": "2026-11-02",
+            "method": "오산아이드림센터 공식 개별 프로그램 공고에서 일정·대상·이용료 및 이용방법 확인(미기재 항목 추정하지 않음)",
+            "by": "자료 관리자",
+            "next": "2026-11-16"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
       "contact": {
         "contact_id": "CON-b66a287ba5",
         "owner_type": "organization",
