@@ -1,0 +1,177 @@
+{
+  "checked_on": "2026-11-02",
+  "base_commit": "d825713",
+  "candidate_count": 12,
+  "existing_organizations": 11,
+  "new_organizations": 0,
+  "services_added": 7,
+  "services_enriched": 14,
+  "changes": [
+    {
+      "service_id": "SVC-00053",
+      "org_id": "0ef71da5fe",
+      "name": "채무조정·개인회생·파산 상담",
+      "source_url": "https://www.gg.go.kr/bbs/boardView.do?bIdx=45504717&bsIdx=711&menuId=2867",
+      "change": "보강"
+    },
+    {
+      "service_id": "SVC-00054",
+      "org_id": "0ef71da5fe",
+      "name": "금융복지·복지자원 연계",
+      "source_url": "https://www.gg.go.kr/bbs/boardView.do?bIdx=45504717&bsIdx=711&menuId=2867",
+      "change": "보강"
+    },
+    {
+      "service_id": "SVC-SCR-20261102-001",
+      "org_id": "0ef71da5fe",
+      "name": "불법추심 대응·채무자대리인 연계",
+      "source_url": "https://www.gg.go.kr/bbs/boardView.do?bIdx=45504717&bsIdx=711&menuId=2867",
+      "change": "추가"
+    },
+    {
+      "service_id": "SVC-X26-167",
+      "org_id": "d39be30c51",
+      "name": "채무조정·상환곤란 상담",
+      "source_url": "https://www.kinfa.or.kr/counselingSupport/centerIntroduction.do",
+      "change": "보강"
+    },
+    {
+      "service_id": "SVC-SCR-20261102-002",
+      "org_id": "4ad5dbe058",
+      "name": "불법사금융 피해 채무자대리인 지원",
+      "source_url": "https://www.korea.kr/multi/visualNewsView.do?newsId=148942971",
+      "change": "추가"
+    },
+    {
+      "service_id": "SVC-X26-164",
+      "org_id": "7bd56a5349",
+      "name": "취약계층 의료지원 상담",
+      "source_url": "https://www.gg.go.kr/bbs/boardView.do?bIdx=216016332&bsIdx=651&menuId=1891&page=1",
+      "change": "보강"
+    },
+    {
+      "service_id": "SVC-SCR-20261102-003",
+      "org_id": "7bd56a5349",
+      "name": "외국인근로자 등 의료지원 상담",
+      "source_url": "https://www.medical.or.kr/suwon/contentsInfo.do?menu_no=1162",
+      "change": "추가"
+    },
+    {
+      "service_id": "SVC-00064",
+      "org_id": "c6dfc2d125",
+      "name": "청소년안전망 광역연계",
+      "source_url": "https://www.hi1318.or.kr/base/contents/view?contentsNo=12&menuLevel=3&menuNo=32",
+      "change": "보강"
+    },
+    {
+      "service_id": "SVC-SCR-20261102-004",
+      "org_id": "c6dfc2d125",
+      "name": "청소년동반자 찾아가는 상담",
+      "source_url": "https://www.hi1318.or.kr/base/contents/view?contentsNo=15&menuLevel=3&menuNo=22",
+      "change": "추가"
+    },
+    {
+      "service_id": "SVC-SCR-20261102-005",
+      "org_id": "c6dfc2d125",
+      "name": "디지털미디어 피해 청소년 회복지원",
+      "source_url": "https://www.hi1318.or.kr/base/contents/view?contentsNo=17&menuLevel=3&menuNo=27",
+      "change": "추가"
+    },
+    {
+      "service_id": "SVC-00066",
+      "org_id": "dc62532c91",
+      "name": "지역 돌봄·사회서비스 연계",
+      "source_url": "https://gnews.gg.go.kr/briefing/brief_gongbo_view.do?BS_CODE=s026&number=5251",
+      "change": "보강"
+    },
+    {
+      "service_id": "SVC-00067",
+      "org_id": "dc62532c91",
+      "name": "사회서비스 기관·종사자 지원",
+      "source_url": "https://gnews.gg.go.kr/briefing/brief_gongbo_view.do?BS_CODE=s026&number=5251",
+      "change": "보강"
+    },
+    {
+      "service_id": "SVC-00068",
+      "org_id": "df2f6968e5",
+      "name": "복지기관 전문교육",
+      "source_url": "https://edu.ggwf.or.kr/",
+      "change": "보강"
+    },
+    {
+      "service_id": "SVC-00070",
+      "org_id": "554a2d99a2",
+      "name": "직업교육·취업지원",
+      "source_url": "https://www.gjf.or.kr/main/intro.do",
+      "change": "보강"
+    },
+    {
+      "service_id": "SVC-SCR-20261102-006",
+      "org_id": "554a2d99a2",
+      "name": "여성 창업지원센터 운영(남부)",
+      "source_url": "https://www.gjf.or.kr/main/main_biz/search/view.do?main_biz_sn=24",
+      "change": "추가"
+    },
+    {
+      "service_id": "SVC-00076",
+      "org_id": "2c45d092e2",
+      "name": "아동 주거·돌봄 지원",
+      "source_url": "https://www.chorogusan.or.kr/domesticBiz/childSupport/Living.do",
+      "change": "보강"
+    },
+    {
+      "service_id": "SVC-00077",
+      "org_id": "2c45d092e2",
+      "name": "아동 자립·생활지원",
+      "source_url": "https://www.chorogusan.or.kr/domesticBiz/childSupport/Self-reliance.do",
+      "change": "보강"
+    },
+    {
+      "service_id": "SVC-SCR-20261102-007",
+      "org_id": "2c45d092e2",
+      "name": "아동 의료비·심리치료 지원",
+      "source_url": "https://www.chorogusan.or.kr/domesticBiz/childSupport/Health&Safety.do",
+      "change": "추가"
+    },
+    {
+      "service_id": "SVC-00078",
+      "org_id": "2060149408",
+      "name": "국내 위기가정 지원",
+      "source_url": "https://www.goodneighbors.kr/business/korea_welfare/crisis.gn",
+      "change": "보강"
+    },
+    {
+      "service_id": "SVC-00079",
+      "org_id": "2060149408",
+      "name": "아동 심리정서·가족지원",
+      "source_url": "https://www.goodneighbors.kr/business/korea_welfare/psychoemotional.gn",
+      "change": "보강"
+    },
+    {
+      "service_id": "SVC-00082",
+      "org_id": "f3647be053",
+      "name": "국내 위기아동 지원",
+      "source_url": "https://helpchild.or.kr/frt/board/business.do",
+      "change": "보강"
+    }
+  ],
+  "deferred": [
+    {
+      "organization": "홀트아동복지회",
+      "reason": "기존 ID 없음. 공식 자립지원 원문 403 및 홈페이지 502로 세부 대상·신청경로 대조 미완료. 신규기관 및 서비스 생성 보류.",
+      "source_url": "https://love.holt.or.kr/support/자립지원/"
+    },
+    {
+      "organization": "경기복지재단",
+      "service": "2026년 경기 극저신용대출 2.0 불법사금융 피해자 대출",
+      "reason": "공식 목록에서 공고 제목은 확인했으나 상세 본문·첨부의 자격·신청기간·방법 검증 미완료. 모집정보 등록 보류.",
+      "source_url": "https://ggwf.gg.go.kr/archives/72868?current_cat=34"
+    }
+  ],
+  "limits": [
+    "공식 공개 사업안내 범위만 확인. 실제 접수·잔여예산·선정은 확인하지 않음.",
+    "기존 기관·서비스 ID와 명칭, 오산 분류 및 별도 프로그램 데이터 보존.",
+    "사회서비스원 부천 근거를 오산 직접서비스로 확정하지 않음.",
+    "신규 서비스는 기존 포괄 서비스와 구분되는 사업·대상·지원내용을 확인한 항목만 추가."
+  ]
+}

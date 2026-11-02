@@ -102,3 +102,24 @@ service,SVC-MON-20261102-002,2026-11-02,오산아이드림센터 공식 2026년 
 service,SVC-MON-20261102-003,2026-11-02,오산아이드림센터 공식 2026년 11월 개별 프로그램 안내 확인,자료 관리자,확인완료,https://www.osanidream.or.kr/play/play_view.asp?sn=211,2026-11-16
 service,SVC-MON-20261102-004,2026-11-02,오산아이드림센터 공식 2026년 11월 개별 프로그램 안내 확인,자료 관리자,확인완료,https://www.osanidream.or.kr/play/play_view.asp?sn=208,2026-11-16
 service,SVC-MON-20261102-005,2026-11-02,오산아이드림센터 공식 2026년 11월 개별 프로그램 안내 확인,자료 관리자,확인완료,https://www.osanidream.or.kr/play/play_view.asp?sn=216,2026-11-16
+service,SVC-00053,2026-11-02,공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인,자료 관리자,사업별 확인 필요,https://www.gg.go.kr/bbs/boardView.do?bIdx=45504717&bsIdx=711&menuId=2867,2026-12-02
+service,SVC-00054,2026-11-02,공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인,자료 관리자,사업별 확인 필요,https://www.gg.go.kr/bbs/boardView.do?bIdx=45504717&bsIdx=711&menuId=2867,2026-12-02
+service,SVC-SCR-20261102-001,2026-11-02,공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인,자료 관리자,사업별 확인 필요,https://www.gg.go.kr/bbs/boardView.do?bIdx=45504717&bsIdx=711&menuId=2867,2026-12-02
+service,SVC-X26-167,2026-11-02,공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인,자료 관리자,사업별 확인 필요,https://www.kinfa.or.kr/counselingSupport/centerIntroduction.do,2026-12-02
+service,SVC-SCR-20261102-002,2026-11-02,공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인,자료 관리자,사업별 확인 필요,https://www.korea.kr/multi/visualNewsView.do?newsId=148942971,2026-12-02
+service,SVC-X26-164,2026-11-02,공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인,자료 관리자,사업별 확인 필요,https://www.gg.go.kr/bbs/boardView.do?bIdx=216016332&bsIdx=651&menuId=1891&page=1,2026-12-02
+service,SVC-SCR-20261102-003,2026-11-02,공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인,자료 관리자,사업별 확인 필요,https://www.medical.or.kr/suwon/contentsInfo.do?menu_no=1162,2026-12-02
+service,SVC-00064,2026-11-02,공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인,자료 관리자,사업별 확인 필요,https://www.hi1318.or.kr/base/contents/view?contentsNo=12&menuLevel=3&menuNo=32,2026-12-02
+service,SVC-SCR-20261102-004,2026-11-02,공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인,자료 관리자,사업별 확인 필요,https://www.hi1318.or.kr/base/contents/view?contentsNo=15&menuLevel=3&menuNo=22,2026-12-02
+service,SVC-SCR-20261102-005,2026-11-02,공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인,자료 관리자,사업별 확인 필요,https://www.hi1318.or.kr/base/contents/view?contentsNo=17&menuLevel=3&menuNo=27,2026-12-02
+service,SVC-00066,2026-11-02,공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인,자료 관리자,사업별 확인 필요,https://gnews.gg.go.kr/briefing/brief_gongbo_view.do?BS_CODE=s026&number=5251,2026-12-02
+service,SVC-00067,2026-11-02,공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인,자료 관리자,사업별 확인 필요,https://gnews.gg.go.kr/briefing/brief_gongbo_view.do?BS_CODE=s026&number=5251,2026-12-02
+service,SVC-00068,2026-11-02,공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인,자료 관리자,사업별 확인 필요,https://edu.ggwf.or.kr/,2026-12-02
+service,SVC-00070,2026-11-02,공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인,자료 관리자,사업별 확인 필요,https://www.gjf.or.kr/main/intro.do,2026-12-02
+service,SVC-SCR-20261102-006,2026-11-02,공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인,자료 관리자,사업별 확인 필요,https://www.gjf.or.kr/main/main_biz/search/view.do?main_biz_sn=24,2026-12-02
+service,SVC-00076,2026-11-02,공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인,자료 관리자,사업별 확인 필요,https://www.chorogusan.or.kr/domesticBiz/childSupport/Living.do,2026-12-02
+service,SVC-00077,2026-11-02,공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인,자료 관리자,사업별 확인 필요,https://www.chorogusan.or.kr/domesticBiz/childSupport/Self-reliance.do,2026-12-02
+service,SVC-SCR-20261102-007,2026-11-02,공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인,자료 관리자,사업별 확인 필요,https://www.chorogusan.or.kr/domesticBiz/childSupport/Health&Safety.do,2026-12-02
+service,SVC-00078,2026-11-02,공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인,자료 관리자,사업별 확인 필요,https://www.goodneighbors.kr/business/korea_welfare/crisis.gn,2026-12-02
+service,SVC-00079,2026-11-02,공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인,자료 관리자,사업별 확인 필요,https://www.goodneighbors.kr/business/korea_welfare/psychoemotional.gn,2026-12-02
+service,SVC-00082,2026-11-02,공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인,자료 관리자,사업별 확인 필요,https://helpchild.or.kr/frt/board/business.do,2026-12-02

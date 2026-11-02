@@ -51,8 +51,8 @@ f6f1f88fda,SVC-00049,오산시,오산시 지역아동센터,방과 후 아동돌
 4f434688e9,SVC-00050,경기도,경기도청,경기도형 긴급복지(무한돌봄),실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://www.gg.go.kr/
 4f434688e9,SVC-00051,경기도,경기도청,누구나돌봄,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://www.gg.go.kr/
 4f434688e9,SVC-00052,경기도,경기도청,경기도 긴급복지 상담,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://www.gg.go.kr/
-0ef71da5fe,SVC-00053,경기도,경기도서민금융복지지원센터,채무조정·개인회생·파산 상담,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://www.gcfwc.or.kr/
-0ef71da5fe,SVC-00054,경기도,경기도서민금융복지지원센터,금융복지·복지자원 연계,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://www.gcfwc.or.kr/
+0ef71da5fe,SVC-00053,경기도,경기도서민금융복지지원센터,채무조정·개인회생·파산 상담,실제 운영·접수 검증 필요,https://www.gg.go.kr/bbs/boardView.do?bIdx=45504717&bsIdx=711&menuId=2867
+0ef71da5fe,SVC-00054,경기도,경기도서민금융복지지원센터,금융복지·복지자원 연계,실제 운영·접수 검증 필요,https://www.gg.go.kr/bbs/boardView.do?bIdx=45504717&bsIdx=711&menuId=2867
 ee3da28d10,SVC-00055,경기도,경기주거복지센터,공공임대주택 정보,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://housing.gg.go.kr/
 ee3da28d10,SVC-00056,경기도,경기주거복지센터,주거복지 상담,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://housing.gg.go.kr/
 f9a63d4c92,SVC-00057,경기도,경기도의료원,취약계층 의료비 지원사업,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://www.medical.or.kr/
@@ -62,25 +62,25 @@ f9a63d4c92,SVC-00058,경기도,경기도의료원,공공의료·의료사회사�
 4e9030120d,SVC-00061,경기도,경기도장애인복지종합지원센터(누림센터),자립·사회참여 지원,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인 / 욕구 영역 분류 확인,https://www.ggnurim.or.kr/
 073a6c4498,SVC-00062,경기도,경기도발달장애인지원센터,개인별지원계획,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인 / 욕구 영역 분류 확인,https://www.broso.or.kr/
 073a6c4498,SVC-00063,경기도,경기도발달장애인지원센터,권리구제 및 돌봄 연계,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://www.broso.or.kr/
-c6dfc2d125,SVC-00064,경기도,경기도청소년상담복지센터,청소년안전망 광역연계,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://www.gysc.or.kr/
+c6dfc2d125,SVC-00064,경기도,경기도청소년상담복지센터,청소년안전망 광역연계,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.hi1318.or.kr/base/contents/view?contentsNo=12&menuLevel=3&menuNo=32
 c6dfc2d125,SVC-00065,경기도,경기도청소년상담복지센터,청소년 상담기관 실무연계,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://www.gysc.or.kr/
-dc62532c91,SVC-00066,경기도,경기도사회서비스원,지역 돌봄·사회서비스 연계,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://gg.pass.or.kr/
-dc62532c91,SVC-00067,경기도,경기도사회서비스원,사회서비스 기관·종사자 지원,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://gg.pass.or.kr/
-df2f6968e5,SVC-00068,경기도,경기복지재단,복지기관 전문교육,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://ggwf.gg.go.kr/
+dc62532c91,SVC-00066,경기도,경기도사회서비스원,지역 돌봄·사회서비스 연계,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://gnews.gg.go.kr/briefing/brief_gongbo_view.do?BS_CODE=s026&number=5251
+dc62532c91,SVC-00067,경기도,경기도사회서비스원,사회서비스 기관·종사자 지원,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://gnews.gg.go.kr/briefing/brief_gongbo_view.do?BS_CODE=s026&number=5251
+df2f6968e5,SVC-00068,경기도,경기복지재단,복지기관 전문교육,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://edu.ggwf.or.kr/
 df2f6968e5,SVC-00069,경기도,경기복지재단,복지정책·연구정보,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://ggwf.gg.go.kr/
-554a2d99a2,SVC-00070,경기도,경기도일자리재단,직업교육·취업지원,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://www.gjf.or.kr/
+554a2d99a2,SVC-00070,경기도,경기도일자리재단,직업교육·취업지원,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.gjf.or.kr/main/intro.do
 554a2d99a2,SVC-00071,경기도,경기도일자리재단,취업취약계층 일자리 정보,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://www.gjf.or.kr/
 bd69f8d5ea,SVC-00072,경기도,경기도교육청 Wee 프로젝트,Wee클래스·Wee센터 상담,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://www.goe.go.kr/
 bd69f8d5ea,SVC-00073,경기도,경기도교육청 Wee 프로젝트,위기학생 지역전문기관 연계,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://www.goe.go.kr/
 2c45d092e2,SVC-00074,민간,초록우산,아이리더 인재양성,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://www.chorogusan.or.kr/domesticBiz/childSupport/Education.do
 2c45d092e2,SVC-00075,민간,초록우산,학습·교육지원,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://www.chorogusan.or.kr/domesticBiz/childSupport/Education.do
-2c45d092e2,SVC-00076,민간,초록우산,아동 주거·돌봄 지원,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://www.chorogusan.or.kr/domesticBiz/childSupport/Education.do
-2c45d092e2,SVC-00077,민간,초록우산,아동 자립·생활지원,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://www.chorogusan.or.kr/domesticBiz/childSupport/Education.do
-2060149408,SVC-00078,민간,굿네이버스,국내 위기가정 지원,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://www.goodneighbors.kr/
-2060149408,SVC-00079,민간,굿네이버스,아동 심리정서·가족지원,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://www.goodneighbors.kr/
+2c45d092e2,SVC-00076,민간,초록우산,아동 주거·돌봄 지원,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.chorogusan.or.kr/domesticBiz/childSupport/Living.do
+2c45d092e2,SVC-00077,민간,초록우산,아동 자립·생활지원,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.chorogusan.or.kr/domesticBiz/childSupport/Self-reliance.do
+2060149408,SVC-00078,민간,굿네이버스,국내 위기가정 지원,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.goodneighbors.kr/business/korea_welfare/crisis.gn
+2060149408,SVC-00079,민간,굿네이버스,아동 심리정서·가족지원,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.goodneighbors.kr/business/korea_welfare/psychoemotional.gn
 2060149408,SVC-00080,민간,굿네이버스,기업협력 위기가정 지원사업,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://www.goodneighbors.kr/
 f3647be053,SVC-00081,민간,월드비전,꿈꾸는아이들,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://www.worldvision.or.kr/
-f3647be053,SVC-00082,민간,월드비전,국내 위기아동 지원,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://www.worldvision.or.kr/
+f3647be053,SVC-00082,민간,월드비전,국내 위기아동 지원,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://helpchild.or.kr/frt/board/business.do
 f3647be053,SVC-00083,민간,월드비전,식생활·돌봄 지원,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://www.worldvision.or.kr/
 d4b65309ba,SVC-00084,민간,세이브더칠드런,아동위기가정 지원,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://www.sc.or.kr/
 d4b65309ba,SVC-00085,민간,세이브더칠드런,아동보호·심리정서 사업,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://www.sc.or.kr/
@@ -162,10 +162,10 @@ be3601ba52,SVC-X26-160,경기도,분당서울대학교병원,진료예약·전�
 be3601ba52,SVC-X26-161,경기도,분당서울대학교병원,진료지원·돌봄 연계 창구 확인,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.snubh.org/index.do
 7bd56a5349,SVC-X26-162,경기도,경기도의료원 수원병원,진료예약·전문 진료 연결,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.medical.or.kr/suwon/index.do
 7bd56a5349,SVC-X26-163,경기도,경기도의료원 수원병원,의료사회복지 상담·퇴원 후 지역 연계,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.medical.or.kr/suwon/contentsInfo.do?brd_mgrno=0&menu_no=1159
-7bd56a5349,SVC-X26-164,경기도,경기도의료원 수원병원,취약계층 의료지원 상담,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.medical.or.kr/suwon/contentsInfo.do?brd_mgrno=0&menu_no=1160
+7bd56a5349,SVC-X26-164,경기도,경기도의료원 수원병원,취약계층 의료지원 상담,실제 운영·접수 검증 필요,https://www.gg.go.kr/bbs/boardView.do?bIdx=216016332&bsIdx=651&menuId=1891&page=1
 7bd56a5349,SVC-X26-165,경기도,경기도의료원 수원병원,장애인 구강진료 상담,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.medical.or.kr/suwon/contentsInfo.do?brd_mgrno=0&menu_no=1163
 4ad5dbe058,SVC-X26-166,민간,대한법률구조공단,법률상담·법률구조 검토,대표전화 미기재 / 실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.klac.or.kr/
-d39be30c51,SVC-X26-167,민간,신용회복위원회,채무조정·상환곤란 상담,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://edu.ccrs.or.kr/main.do
+d39be30c51,SVC-X26-167,민간,신용회복위원회,채무조정·상환곤란 상담,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.kinfa.or.kr/counselingSupport/centerIntroduction.do
 aa30852634,SVC-X26-168,민간,한국토지주택공사(LH) 마이홈,공공임대·주거복지 정보 상담,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://m.myhome.go.kr/hws/portal/main/selectSimpleSrchDataView.do
 f5cda30b9e,SVC-X26-169,민간,한국사회보장정보원 복지로,복지서비스 검색·신청창구 확인,대표전화 미기재 / 실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.bokjiro.go.kr/ssis-tbu/
 652b6177a3,SVC-X26-170,민간,한국사회복지협의회,좋은이웃들 지역 수행기관 연결,대표전화 미기재 / 실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.bokji.net/ssn/bin/13.bokji
@@ -242,3 +242,10 @@ ORG-Z26-YH2,SVC-Z26-020,오산시,꿈빛나래청소년문화의집,청소년 �
 4cd8235704,SVC-Z26-021,오산시,오산시육아종합지원센터,시간제보육,대표전화 미기재 / 실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.osanchild.or.kr/
 4cd8235704,SVC-Z26-022,오산시,오산시육아종합지원센터,장난감·도서 대여,대표전화 미기재 / 실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.osanchild.or.kr/
 4cd8235704,SVC-Z26-023,오산시,오산시육아종합지원센터,부모 전문가 상담·부모교육,대표전화 미기재 / 실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.osanchild.or.kr/
+0ef71da5fe,SVC-SCR-20261102-001,경기도,경기도서민금융복지지원센터,불법추심 대응·채무자대리인 연계,실제 운영·접수 검증 필요,https://www.gg.go.kr/bbs/boardView.do?bIdx=45504717&bsIdx=711&menuId=2867
+4ad5dbe058,SVC-SCR-20261102-002,민간,대한법률구조공단,불법사금융 피해 채무자대리인 지원,대표전화 미기재 / 실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.korea.kr/multi/visualNewsView.do?newsId=148942971
+7bd56a5349,SVC-SCR-20261102-003,경기도,경기도의료원 수원병원,외국인근로자 등 의료지원 상담,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.medical.or.kr/suwon/contentsInfo.do?menu_no=1162
+c6dfc2d125,SVC-SCR-20261102-004,경기도,경기도청소년상담복지센터,청소년동반자 찾아가는 상담,실제 운영·접수 검증 필요,https://www.hi1318.or.kr/base/contents/view?contentsNo=15&menuLevel=3&menuNo=22
+c6dfc2d125,SVC-SCR-20261102-005,경기도,경기도청소년상담복지센터,디지털미디어 피해 청소년 회복지원,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.hi1318.or.kr/base/contents/view?contentsNo=17&menuLevel=3&menuNo=27
+554a2d99a2,SVC-SCR-20261102-006,경기도,경기도일자리재단,여성 창업지원센터 운영(남부),실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.gjf.or.kr/main/main_biz/search/view.do?main_biz_sn=24
+2c45d092e2,SVC-SCR-20261102-007,민간,초록우산,아동 의료비·심리치료 지원,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.chorogusan.or.kr/domesticBiz/childSupport/Health&Safety.do

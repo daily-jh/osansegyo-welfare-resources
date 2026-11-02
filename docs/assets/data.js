@@ -2445,7 +2445,7 @@ window.WELFARE_DATA = {
       "phone": "1899-6014",
       "source": "https://gcfwc.ggwf.or.kr/",
       "scope": "경기도",
-      "reviewed": "2026-10-20",
+      "reviewed": "2026-11-02",
       "status": "미확인",
       "jurisdiction": "",
       "services": [
@@ -2453,10 +2453,10 @@ window.WELFARE_DATA = {
           "id": "SVC-00053",
           "name": "채무조정·개인회생·파산 상담",
           "category": "법률·금융",
-          "target": "과중채무·신용위기 주민",
-          "description": "채무상담, 신용회복, 법적 채무조정 연계",
-          "method": "센터 상담",
-          "operation": "기관 문의",
+          "target": "금융상담이 필요한 경기도민",
+          "description": "신용회복·개인회생·파산 절차를 상담하고 필요한 채무조정 지원을 연계. 구체적인 지원요건은 상담에서 확인.",
+          "method": "1899-6014 또는 센터 홈페이지에서 상담 사전예약",
+          "operation": "공식 사업안내 확인. 실제 접수·지원 여부는 담당기관 확인.",
           "editedOn": "2026-10-20",
           "tags": {
             "target": [
@@ -2468,17 +2468,20 @@ window.WELFARE_DATA = {
             "form": [
               "상담"
             ],
-            "intake": []
+            "intake": [
+              "전화",
+              "온라인"
+            ]
           },
           "operationType": "확인 필요",
-          "localAvailable": "확인 필요",
-          "source": "https://www.gcfwc.or.kr/",
+          "localAvailable": "가능",
+          "source": "https://www.gg.go.kr/bbs/boardView.do?bIdx=45504717&bsIdx=711&menuId=2867",
           "verification": {
-            "status": "미확인",
-            "date": "",
-            "method": "",
-            "by": "",
-            "next": ""
+            "status": "사업별 확인 필요",
+            "date": "2026-11-02",
+            "method": "공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2026-12-02"
           },
           "contacts": [],
           "rounds": []
@@ -2488,9 +2491,9 @@ window.WELFARE_DATA = {
           "name": "금융복지·복지자원 연계",
           "category": "법률·금융",
           "target": "금융취약계층",
-          "description": "금융교육·금융복지 상담·지역자원 연계",
-          "method": "센터 상담",
-          "operation": "기관 문의",
+          "description": "가계 재무상담과 이용할 수 있는 복지정책 정보를 안내하고 관련 자원을 연계.",
+          "method": "1899-6014 상담 예약 후 상황별 연계 문의",
+          "operation": "공식 사업안내 확인. 실제 접수·지원 여부는 담당기관 확인.",
           "editedOn": "2026-10-20",
           "tags": {
             "target": [
@@ -2506,14 +2509,48 @@ window.WELFARE_DATA = {
             "intake": []
           },
           "operationType": "확인 필요",
-          "localAvailable": "확인 필요",
-          "source": "https://www.gcfwc.or.kr/",
+          "localAvailable": "가능",
+          "source": "https://www.gg.go.kr/bbs/boardView.do?bIdx=45504717&bsIdx=711&menuId=2867",
           "verification": {
-            "status": "미확인",
-            "date": "",
-            "method": "",
-            "by": "",
-            "next": ""
+            "status": "사업별 확인 필요",
+            "date": "2026-11-02",
+            "method": "공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2026-12-02"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SCR-20261102-001",
+          "name": "불법추심 대응·채무자대리인 연계",
+          "category": "법률·금융",
+          "target": "불법추심 등 금융피해 상담이 필요한 경기도민",
+          "description": "대부업체의 불법추심에 관한 상담과 채무자대리인 지원 연계를 안내. 대리인 선임과 소송지원 요건은 별도 확인.",
+          "method": "1899-6014로 피해상담 및 법률지원 연계 문의",
+          "operation": "공식 사업안내 확인. 실제 접수·지원 여부는 담당기관 확인.",
+          "editedOn": "2026-11-02",
+          "tags": {
+            "target": [],
+            "need": [
+              "법률·금융"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": [
+              "전화"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "가능",
+          "source": "https://www.gg.go.kr/bbs/boardView.do?bIdx=45504717&bsIdx=711&menuId=2867",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-02",
+            "method": "공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2026-12-02"
           },
           "contacts": [],
           "rounds": []
@@ -2976,7 +3013,7 @@ window.WELFARE_DATA = {
       "phone": "031-248-1318",
       "source": "https://www.hi1318.or.kr/",
       "scope": "경기도",
-      "reviewed": "2026-10-20",
+      "reviewed": "2026-11-02",
       "status": "미확인",
       "jurisdiction": "",
       "services": [
@@ -2985,9 +3022,9 @@ window.WELFARE_DATA = {
           "name": "청소년안전망 광역연계",
           "category": "교육·청소년",
           "target": "위기 청소년·유관기관",
-          "description": "고위기청소년 지원 및 시군센터 협력",
+          "description": "청소년안전망 정보 플랫폼 채움을 통해 지역별 청소년 지원정보와 기관 자원을 확인·연계. 개별 서비스 이용조건은 해당 기관 확인.",
           "method": "지역 청소년상담복지센터·1388",
-          "operation": "기관 문의",
+          "operation": "공식 사업안내 확인. 실제 접수·지원 여부는 담당기관 확인.",
           "editedOn": "2026-10-20",
           "tags": {
             "target": [
@@ -3003,13 +3040,13 @@ window.WELFARE_DATA = {
           },
           "operationType": "확인 필요",
           "localAvailable": "확인 필요",
-          "source": "https://www.gysc.or.kr/",
+          "source": "https://www.hi1318.or.kr/base/contents/view?contentsNo=12&menuLevel=3&menuNo=32",
           "verification": {
-            "status": "미확인",
-            "date": "",
-            "method": "",
-            "by": "",
-            "next": ""
+            "status": "사업별 확인 필요",
+            "date": "2026-11-02",
+            "method": "공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2026-12-02"
           },
           "contacts": [],
           "rounds": []
@@ -3045,6 +3082,78 @@ window.WELFARE_DATA = {
             "method": "",
             "by": "",
             "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SCR-20261102-004",
+          "name": "청소년동반자 찾아가는 상담",
+          "category": "정신건강",
+          "target": "경기도에 거주하는 9~24세 위기청소년",
+          "description": "상담전문가가 청소년을 찾아가 정서적 지지와 심리상담을 제공하며 지역자원 및 기관 연계와 주변 환경 개입을 지원.",
+          "method": "센터 031-248-1318에 담당창구와 오산 지역 연계 절차 문의",
+          "operation": "공식 사업안내 확인. 실제 접수·지원 여부는 담당기관 확인.",
+          "editedOn": "2026-11-02",
+          "tags": {
+            "target": [
+              "청소년",
+              "청년"
+            ],
+            "need": [
+              "정신건강",
+              "사례관리"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "가능",
+          "source": "https://www.hi1318.or.kr/base/contents/view?contentsNo=15&menuLevel=3&menuNo=22",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-02",
+            "method": "공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2026-12-02"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SCR-20261102-005",
+          "name": "디지털미디어 피해 청소년 회복지원",
+          "category": "정신건강",
+          "target": "디지털·미디어 이용습관으로 어려움을 겪는 만 9~18세 청소년",
+          "description": "상담·심리검사와 치료기관 연계, 보호자교육을 지원. 치료지원 금액·대상 및 예산은 담당기관 확인. 종료된 2026년 여름 치유캠프를 현재 모집으로 표시하지 않음.",
+          "method": "센터 031-248-1318에 상담·치료지원과 지역 연계 절차 문의",
+          "operation": "공식 사업안내 확인. 실제 접수·지원 여부는 담당기관 확인.",
+          "editedOn": "2026-11-02",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년"
+            ],
+            "need": [
+              "정신건강"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.hi1318.or.kr/base/contents/view?contentsNo=17&menuLevel=3&menuNo=27",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-02",
+            "method": "공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2026-12-02"
           },
           "contacts": [],
           "rounds": []
@@ -3088,9 +3197,9 @@ window.WELFARE_DATA = {
           "name": "지역 돌봄·사회서비스 연계",
           "category": "돌봄·생활",
           "target": "돌봄 이용자·제공기관",
-          "description": "사회서비스 정보·기관협력 관련 지원",
-          "method": "시군 서비스 제공기관 상담",
-          "operation": "사업별 확인",
+          "description": "통합돌봄 서부지원센터의 긴급·방문돌봄 및 일상생활 지원 연계 역할 확인. 근거는 부천 지역 협력사업으로 오산 직접 제공 범위는 확인되지 않음.",
+          "method": "서부지원센터 032-351-8579에 제공 권역 문의. 오산은 관할 행정복지센터에서 지역 돌봄창구 확인",
+          "operation": "공식 사업안내 확인. 실제 접수·지원 여부는 담당기관 확인.",
           "editedOn": "2026-10-20",
           "tags": {
             "target": [
@@ -3104,13 +3213,13 @@ window.WELFARE_DATA = {
           },
           "operationType": "확인 필요",
           "localAvailable": "확인 필요",
-          "source": "https://gg.pass.or.kr/",
+          "source": "https://gnews.gg.go.kr/briefing/brief_gongbo_view.do?BS_CODE=s026&number=5251",
           "verification": {
-            "status": "미확인",
-            "date": "",
-            "method": "",
-            "by": "",
-            "next": ""
+            "status": "사업별 확인 필요",
+            "date": "2026-11-02",
+            "method": "공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2026-12-02"
           },
           "contacts": [],
           "rounds": []
@@ -3119,10 +3228,10 @@ window.WELFARE_DATA = {
           "id": "SVC-00067",
           "name": "사회서비스 기관·종사자 지원",
           "category": "지역협력",
-          "target": "복지·돌봄 기관",
-          "description": "서비스 품질·종사자 교육 등 협력",
+          "target": "사회서비스 제공기관·종사자",
+          "description": "통합돌봄 제공기관 종사자 역량강화 교육과 기관 간 보건·의료·복지·주거 협력체계 운영 사례 확인. 현재 교육 접수와 오산 기관 참여는 별도 문의.",
           "method": "기관 사업 공고",
-          "operation": "사업별 확인",
+          "operation": "공식 사업안내 확인. 실제 접수·지원 여부는 담당기관 확인.",
           "editedOn": "2026-10-20",
           "tags": {
             "target": [
@@ -3137,13 +3246,13 @@ window.WELFARE_DATA = {
           },
           "operationType": "확인 필요",
           "localAvailable": "확인 필요",
-          "source": "https://gg.pass.or.kr/",
+          "source": "https://gnews.gg.go.kr/briefing/brief_gongbo_view.do?BS_CODE=s026&number=5251",
           "verification": {
-            "status": "미확인",
-            "date": "",
-            "method": "",
-            "by": "",
-            "next": ""
+            "status": "사업별 확인 필요",
+            "date": "2026-11-02",
+            "method": "공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2026-12-02"
           },
           "contacts": [],
           "rounds": []
@@ -3187,9 +3296,9 @@ window.WELFARE_DATA = {
           "name": "복지기관 전문교육",
           "category": "지역협력",
           "target": "사회복지기관·종사자",
-          "description": "전문교육 및 역량 강화 정보",
-          "method": "교육사업별 신청",
-          "operation": "모집시기 확인",
+          "description": "사회복지 종사자를 위한 집합·온라인 교육, 월별 일정 및 연간 교육 편성표를 학습포털에서 제공. 과정별 대상·비용·접수기간 확인.",
+          "method": "경기복지재단 사회복지 학습포털의 과정별 안내 확인",
+          "operation": "공식 사업안내 확인. 실제 접수·지원 여부는 담당기관 확인.",
           "editedOn": "2026-10-20",
           "tags": {
             "target": [
@@ -3200,17 +3309,19 @@ window.WELFARE_DATA = {
               "교육"
             ],
             "form": [],
-            "intake": []
+            "intake": [
+              "온라인"
+            ]
           },
           "operationType": "확인 필요",
           "localAvailable": "확인 필요",
-          "source": "https://ggwf.gg.go.kr/",
+          "source": "https://edu.ggwf.or.kr/",
           "verification": {
-            "status": "미확인",
-            "date": "",
-            "method": "",
-            "by": "",
-            "next": ""
+            "status": "사업별 확인 필요",
+            "date": "2026-11-02",
+            "method": "공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2026-12-02"
           },
           "contacts": [],
           "rounds": []
@@ -3277,7 +3388,7 @@ window.WELFARE_DATA = {
       "phone": "031-270-9600",
       "source": "https://www.gjf.or.kr/main/main.do",
       "scope": "경기도",
-      "reviewed": "2026-10-20",
+      "reviewed": "2026-11-02",
       "status": "미확인",
       "jurisdiction": "",
       "services": [
@@ -3286,9 +3397,9 @@ window.WELFARE_DATA = {
           "name": "직업교육·취업지원",
           "category": "취업·자립",
           "target": "취업희망 도민",
-          "description": "직업훈련·취업연계·역량강화 교육",
-          "method": "재단 사업별 신청",
-          "operation": "모집시기 확인",
+          "description": "경기도기술학교·경기북부 직업교육과 여성새일센터 등 직업훈련·취업지원 사업정보 제공. 과정별 대상과 모집공고를 확인.",
+          "method": "재단 주요사업 안내에서 해당 과정의 잡아바·접수창구 확인",
+          "operation": "공식 사업안내 확인. 실제 접수·지원 여부는 담당기관 확인.",
           "editedOn": "2026-10-20",
           "tags": {
             "target": [],
@@ -3301,13 +3412,13 @@ window.WELFARE_DATA = {
           },
           "operationType": "확인 필요",
           "localAvailable": "확인 필요",
-          "source": "https://www.gjf.or.kr/",
+          "source": "https://www.gjf.or.kr/main/intro.do",
           "verification": {
-            "status": "미확인",
-            "date": "",
-            "method": "",
-            "by": "",
-            "next": ""
+            "status": "사업별 확인 필요",
+            "date": "2026-11-02",
+            "method": "공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2026-12-02"
           },
           "contacts": [],
           "rounds": []
@@ -3342,6 +3453,42 @@ window.WELFARE_DATA = {
             "method": "",
             "by": "",
             "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SCR-20261102-006",
+          "name": "여성 창업지원센터 운영(남부)",
+          "category": "취업·자립",
+          "target": "경기도 내 예비창업자 또는 도내 주사무소를 둔 창업 3년 미만 여성기업",
+          "description": "창업공간·특화교육·상담·사업화 및 판로 지원. 입주·지원 선정 및 잔여공간은 개별 공고 확인.",
+          "method": "경기여성 창업플랫폼 꿈마루 안내 확인; 031-270-9773 문의",
+          "operation": "공식 사업안내 확인. 실제 접수·지원 여부는 담당기관 확인.",
+          "editedOn": "2026-11-02",
+          "tags": {
+            "target": [],
+            "need": [
+              "고용·자립"
+            ],
+            "form": [
+              "상담",
+              "시설 이용"
+            ],
+            "intake": [
+              "온라인",
+              "전화"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.gjf.or.kr/main/main_biz/search/view.do?main_biz_sn=24",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-02",
+            "method": "공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2026-12-02"
           },
           "contacts": [],
           "rounds": []
@@ -3559,7 +3706,7 @@ window.WELFARE_DATA = {
       "phone": "1588-1940",
       "source": "https://www.chorogusan.or.kr/main.do",
       "scope": "전국 민간",
-      "reviewed": "2026-10-20",
+      "reviewed": "2026-11-02",
       "status": "미확인",
       "jurisdiction": "",
       "services": [
@@ -3636,9 +3783,9 @@ window.WELFARE_DATA = {
           "name": "아동 주거·돌봄 지원",
           "category": "주거",
           "target": "주거·돌봄 위기 아동가구",
-          "description": "취약아동 주거·돌봄 관련 사업",
-          "method": "지역본부·협력기관 상담",
-          "operation": "사업별 확인",
+          "description": "아동가정의 전·월세 보증금과 주거환경 개선을 지원. 기존 포괄 서비스 중 주거 하위사업만 대조했으며 돌봄 전체를 검증한 것은 아님.",
+          "method": "지역 사업기관에 주거지원 의뢰·심사 절차 확인",
+          "operation": "공식 사업안내 확인. 실제 접수·지원 여부는 담당기관 확인.",
           "editedOn": "2026-10-20",
           "tags": {
             "target": [
@@ -3654,13 +3801,13 @@ window.WELFARE_DATA = {
           },
           "operationType": "확인 필요",
           "localAvailable": "확인 필요",
-          "source": "https://www.chorogusan.or.kr/domesticBiz/childSupport/Education.do",
+          "source": "https://www.chorogusan.or.kr/domesticBiz/childSupport/Living.do",
           "verification": {
-            "status": "미확인",
-            "date": "",
-            "method": "",
-            "by": "",
-            "next": ""
+            "status": "사업별 확인 필요",
+            "date": "2026-11-02",
+            "method": "공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2026-12-02"
           },
           "contacts": [],
           "rounds": []
@@ -3669,14 +3816,13 @@ window.WELFARE_DATA = {
           "id": "SVC-00077",
           "name": "아동 자립·생활지원",
           "category": "취업·자립",
-          "target": "자립준비청년·아동",
-          "description": "취업·자립지원 등 세부 공모",
-          "method": "재단 공모·협력기관",
-          "operation": "사업별 확인",
+          "target": "자립준비청년",
+          "description": "자립준비청년 대상 긴급생계비·대학등록금·자립교육 프로그램을 지원. 개별 모집과 지원조건은 사업기관 확인.",
+          "method": "초록우산 지역 사업기관에 자립준비청년 지원사업 의뢰 절차 문의",
+          "operation": "공식 사업안내 확인. 실제 접수·지원 여부는 담당기관 확인.",
           "editedOn": "2026-10-20",
           "tags": {
             "target": [
-              "아동",
               "청년"
             ],
             "need": [
@@ -3689,13 +3835,49 @@ window.WELFARE_DATA = {
           },
           "operationType": "공모형",
           "localAvailable": "확인 필요",
-          "source": "https://www.chorogusan.or.kr/domesticBiz/childSupport/Education.do",
+          "source": "https://www.chorogusan.or.kr/domesticBiz/childSupport/Self-reliance.do",
           "verification": {
-            "status": "미확인",
-            "date": "",
-            "method": "",
-            "by": "",
-            "next": ""
+            "status": "사업별 확인 필요",
+            "date": "2026-11-02",
+            "method": "공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2026-12-02"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SCR-20261102-007",
+          "name": "아동 의료비·심리치료 지원",
+          "category": "보건·의료",
+          "target": "건강·심리 지원이 필요한 아동",
+          "description": "의료비와 심리검사·심리치료 지원사업 운영. 지원 한도·소득·질환·추천 요건은 개별 사업 확인.",
+          "method": "초록우산 지역 사업기관에 의료지원 담당창구와 추천 절차 문의",
+          "operation": "공식 사업안내 확인. 실제 접수·지원 여부는 담당기관 확인.",
+          "editedOn": "2026-11-02",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년"
+            ],
+            "need": [
+              "의료·건강",
+              "정신건강"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.chorogusan.or.kr/domesticBiz/childSupport/Health&Safety.do",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-02",
+            "method": "공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2026-12-02"
           },
           "contacts": [],
           "rounds": []
@@ -3739,9 +3921,9 @@ window.WELFARE_DATA = {
           "name": "국내 위기가정 지원",
           "category": "경제·긴급",
           "target": "경제적 위기 아동가구",
-          "description": "민간재원 긴급 생계·의료·주거·교육 지원 연계",
-          "method": "지역사업장·협력기관 문의",
-          "operation": "사업별 확인",
+          "description": "위기가정 아동의 생계·의료·주거 등 맞춤 지원과 긴급사례지원 사업 운영. 대상자별 지원과 추천 절차는 지역 사업기관 확인.",
+          "method": "굿네이버스 지역 사업기관에 위기가정사례 지원 의뢰·심사 절차 문의",
+          "operation": "공식 사업안내 확인. 실제 접수·지원 여부는 담당기관 확인.",
           "editedOn": "2026-10-20",
           "tags": {
             "target": [
@@ -3758,13 +3940,13 @@ window.WELFARE_DATA = {
           },
           "operationType": "확인 필요",
           "localAvailable": "확인 필요",
-          "source": "https://www.goodneighbors.kr/",
+          "source": "https://www.goodneighbors.kr/business/korea_welfare/crisis.gn",
           "verification": {
-            "status": "미확인",
-            "date": "",
-            "method": "",
-            "by": "",
-            "next": ""
+            "status": "사업별 확인 필요",
+            "date": "2026-11-02",
+            "method": "공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2026-12-02"
           },
           "contacts": [],
           "rounds": []
@@ -3774,9 +3956,9 @@ window.WELFARE_DATA = {
           "name": "아동 심리정서·가족지원",
           "category": "정신건강",
           "target": "취약 아동·가족",
-          "description": "정서지원·가족프로그램·아동권리 관련 사업",
-          "method": "지역사업장 상담",
-          "operation": "사업별 확인",
+          "description": "아주좋은이웃심리치유센터의 아동·가족 심리상담·치료와 마음건강증진교육 등 운영. 오산 이용권역·비용·대기는 별도 확인.",
+          "method": "지역 사업기관에서 담당 심리치유센터와 이용조건 확인",
+          "operation": "공식 사업안내 확인. 실제 접수·지원 여부는 담당기관 확인.",
           "editedOn": "2026-10-20",
           "tags": {
             "target": [
@@ -3792,13 +3974,13 @@ window.WELFARE_DATA = {
           },
           "operationType": "확인 필요",
           "localAvailable": "확인 필요",
-          "source": "https://www.goodneighbors.kr/",
+          "source": "https://www.goodneighbors.kr/business/korea_welfare/psychoemotional.gn",
           "verification": {
-            "status": "미확인",
-            "date": "",
-            "method": "",
-            "by": "",
-            "next": ""
+            "status": "사업별 확인 필요",
+            "date": "2026-11-02",
+            "method": "공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2026-12-02"
           },
           "contacts": [],
           "rounds": []
@@ -3907,10 +4089,10 @@ window.WELFARE_DATA = {
           "id": "SVC-00082",
           "name": "국내 위기아동 지원",
           "category": "경제·긴급",
-          "target": "경제·돌봄 위기 아동가구",
-          "description": "생활·교육·긴급지원 관련 사업",
-          "method": "지역사업본부·공모 문의",
-          "operation": "사업별 확인",
+          "target": "24세 이하 아동·청소년 동거, 중위소득 100% 이하 및 갑작스러운 위기 등 사업요건 충족 가정",
+          "description": "갑작스러운 위기 발생 3개월 이내, 24세 이하 아동·청소년이 함께 사는 중위소득 100% 이하 가정 등을 심사하여 지원. 개인이 직접 신청할 수 없으며 기관이 신청.",
+          "method": "사회복지기관·학교·공공기관 등에서 위기아동지원사업 홈페이지로 신청. 개인신청 불가",
+          "operation": "공식 사업안내 확인. 실제 접수·지원 여부는 담당기관 확인.",
           "editedOn": "2026-10-20",
           "tags": {
             "target": [
@@ -3923,18 +4105,19 @@ window.WELFARE_DATA = {
             ],
             "form": [],
             "intake": [
-              "공모"
+              "협력기관 추천",
+              "온라인"
             ]
           },
-          "operationType": "확인 필요",
+          "operationType": "상시",
           "localAvailable": "확인 필요",
-          "source": "https://www.worldvision.or.kr/",
+          "source": "https://helpchild.or.kr/frt/board/business.do",
           "verification": {
-            "status": "미확인",
-            "date": "",
-            "method": "",
-            "by": "",
-            "next": ""
+            "status": "사업별 확인 필요",
+            "date": "2026-11-02",
+            "method": "공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2026-12-02"
           },
           "contacts": [],
           "rounds": []
@@ -8632,7 +8815,7 @@ window.WELFARE_DATA = {
       "phone": "031-888-0114",
       "source": "https://www.medical.or.kr/suwon/index.do",
       "scope": "경기도",
-      "reviewed": "2026-10-22",
+      "reviewed": "2026-11-02",
       "status": "운영중",
       "jurisdiction": "사업별 관할·접수기준 확인",
       "services": [
@@ -8729,10 +8912,10 @@ window.WELFARE_DATA = {
           "id": "SVC-X26-164",
           "name": "취약계층 의료지원 상담",
           "category": "의료·건강",
-          "target": "해당 사업 상담이 필요한 환자·장애인과 보호자",
-          "description": "의료취약가구의 지원 가능 여부를 공공사업 담당창구에 문의. 사업별 기준·예산 확인.",
-          "method": "대표전화에서 해당 사업·센터 연결 후 예약·서류·지원기준 확인.",
-          "operation": "기관의 역할·사업 안내 확인. 현재 접수·잔여예산·대상 선정은 담당창구 확인.",
+          "target": "경기도 거주 기초생활수급권자·차상위계층 및 중위소득 65% 이하 저소득층",
+          "description": "경기도 거주 수급권자·차상위계층·중위소득 65% 이하 저소득층의 의료비 지원을 상담. 1인당 500만원 범위 안내가 있으나 제외항목·등록·병원별 운영 및 심사를 확인해야 함.",
+          "method": "수원병원 공공사업 담당 031-888-0681에 등록·필요서류·지원 가능 여부 문의",
+          "operation": "공식 사업안내 확인. 실제 접수·지원 여부는 담당기관 확인.",
           "editedOn": "2026-10-22",
           "tags": {
             "target": [
@@ -8746,17 +8929,19 @@ window.WELFARE_DATA = {
             "form": [
               "상담"
             ],
-            "intake": []
+            "intake": [
+              "전화"
+            ]
           },
           "operationType": "확인 필요",
-          "localAvailable": "확인 필요",
-          "source": "https://www.medical.or.kr/suwon/contentsInfo.do?brd_mgrno=0&menu_no=1160",
+          "localAvailable": "가능",
+          "source": "https://www.gg.go.kr/bbs/boardView.do?bIdx=216016332&bsIdx=651&menuId=1891&page=1",
           "verification": {
             "status": "사업별 확인 필요",
-            "date": "2026-10-22",
-            "method": "공식 기관·지자체 사업안내 검토",
+            "date": "2026-11-02",
+            "method": "공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인",
             "by": "자료 관리자",
-            "next": ""
+            "next": "2026-12-02"
           },
           "contacts": [],
           "rounds": []
@@ -8796,6 +8981,41 @@ window.WELFARE_DATA = {
           },
           "contacts": [],
           "rounds": []
+        },
+        {
+          "id": "SVC-SCR-20261102-003",
+          "name": "외국인근로자 등 의료지원 상담",
+          "category": "보건·의료",
+          "target": "노숙인·외국인근로자와 자녀·국적 취득 전 결혼이민 여성과 자녀·난민 등",
+          "description": "의료보장 사각지대 대상자의 입원진료·당일 외래수술 등 지원을 상담. 근로사실·진료항목·본인부담·심사요건은 공공사업과에서 확인.",
+          "method": "공공사업과 사회사업팀 031-888-0681 상담 후 방문",
+          "operation": "공식 사업안내 확인. 실제 접수·지원 여부는 담당기관 확인.",
+          "editedOn": "2026-11-02",
+          "tags": {
+            "target": [],
+            "need": [
+              "의료·건강"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": [
+              "전화",
+              "직접 방문"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.medical.or.kr/suwon/contentsInfo.do?menu_no=1162",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-02",
+            "method": "공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2026-12-02"
+          },
+          "contacts": [],
+          "rounds": []
         }
       ],
       "contact": {
@@ -8827,7 +9047,7 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.klac.or.kr/",
       "scope": "전국 공공",
-      "reviewed": "2026-10-22",
+      "reviewed": "2026-11-02",
       "status": "운영중",
       "jurisdiction": "사업별 관할·접수기준 확인",
       "services": [
@@ -8862,6 +9082,43 @@ window.WELFARE_DATA = {
             "method": "공식 기관·지자체 사업안내 검토",
             "by": "자료 관리자",
             "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SCR-20261102-002",
+          "name": "불법사금융 피해 채무자대리인 지원",
+          "category": "법률·금융",
+          "target": "불법사금융 채권추심 피해 또는 피해 우려가 있는 사람 등",
+          "description": "공단 변호사의 불법추심 대응과 피해 관련 소송대리를 지원. 소송대리는 별도 소득 등 요건 심사.",
+          "method": "금융감독원 1332 또는 공단 132 문의. 금융감독원 불법사금융 지킴이 온라인 신청 및 공단 지부·출장소 방문 경로 확인",
+          "operation": "공식 사업안내 확인. 실제 접수·지원 여부는 담당기관 확인.",
+          "editedOn": "2026-11-02",
+          "tags": {
+            "target": [],
+            "need": [
+              "법률·금융",
+              "안전·권리보호"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": [
+              "전화",
+              "온라인",
+              "직접 방문"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.korea.kr/multi/visualNewsView.do?newsId=148942971",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-02",
+            "method": "공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2026-12-02"
           },
           "contacts": [],
           "rounds": []
@@ -8905,9 +9162,9 @@ window.WELFARE_DATA = {
           "name": "채무조정·상환곤란 상담",
           "category": "법률·금융",
           "target": "연체 또는 채무 상환에 어려움이 있는 주민",
-          "description": "채무조정·상환유예·재조정 등 적합한 절차를 상담. 법원의 개인회생·파산과는 별도 제도.",
-          "method": "현재 채무·소득·연체기간을 정리해 전화 또는 홈페이지로 상담 예약.",
-          "operation": "기관의 역할·사업 안내 확인. 현재 접수·잔여예산·대상 선정은 담당창구 확인.",
+          "description": "채무조정 상담을 통해 개인워크아웃·프리워크아웃 등 적합한 절차와 법원 개인회생·파산 연계지원 여부를 안내.",
+          "method": "서민금융통합지원센터 신용회복위원회 창구 상담; 세부 자격·서류는 위원회 확인",
+          "operation": "공식 사업안내 확인. 실제 접수·지원 여부는 담당기관 확인.",
           "editedOn": "2026-10-22",
           "tags": {
             "target": [
@@ -8925,13 +9182,13 @@ window.WELFARE_DATA = {
           },
           "operationType": "상시",
           "localAvailable": "확인 필요",
-          "source": "https://edu.ccrs.or.kr/main.do",
+          "source": "https://www.kinfa.or.kr/counselingSupport/centerIntroduction.do",
           "verification": {
             "status": "사업별 확인 필요",
-            "date": "2026-10-22",
-            "method": "공식 기관·지자체 사업안내 검토",
+            "date": "2026-11-02",
+            "method": "공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인",
             "by": "자료 관리자",
-            "next": ""
+            "next": "2026-12-02"
           },
           "contacts": [],
           "rounds": []
