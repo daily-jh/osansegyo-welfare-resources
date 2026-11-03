@@ -12,3 +12,16 @@ assert.equal(P.status({...p,status:'마감'},'2026-10-22'),'마감');
 assert.equal(P.status({...p,verifiedOn:''},'2026-10-22'),'확인 필요');
 assert.equal(P.merge(data,{programs:[p]}),0);
 console.log('PASS: institution matching, deduplication, integrated search, deadlines, missing evidence');
+// A failed refresh (2026-11-03 random audit P2): keep the last good list but never show it as open, and say when it was last checked.
+{
+ const d={taxonomy:{target:['청소년'],need:['교육'],form:[],intake:[]},organizations:[{id:'1',name:'오산시가족센터',services:[]}]};
+ const feed={lastAttemptAt:'2026-11-02T09:05:32+09:00',lastSuccessAt:'2026-10-22T22:28:56+09:00',lastError:'HTTP 403',programs:[p]};
+ const f=P.freshness(feed);assert.equal(f.failed,true);assert.equal(f.lastSuccessOn,'2026-10-22');
+ assert.equal(P.merge(d,feed),1);const s2=d.organizations[0].services[0];
+ assert.equal(P.status(s2.externalProgram,'2026-10-22'),'확인 필요');
+ assert.equal(P.status({...s2.externalProgram,status:'마감'},'2026-10-22'),'마감');
+ assert.match(s2.operation,/갱신 실패.*마지막 확인 2026-10-22/);
+ assert.equal(P.freshness({lastAttemptAt:'2026-11-02T09:00:00+09:00',lastSuccessAt:'2026-11-02T09:00:00+09:00',lastError:''}).failed,false);
+ const real=require('../docs/programs.json');assert.ok(real.programs.every(x=>P.status({...x,feed:P.freshness(real)},'2026-11-03')!=='모집중'));
+ console.log('PASS: failed refresh shows last checked date and never reads as open');
+}

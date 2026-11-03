@@ -125,9 +125,12 @@ function resolve(p){
   if(safetyOpen.length)agenda.push({k:'safety',t:'안전 문항 '+safetyOpen.map(n=>n+'번').join('·')+'이 미상입니다. 직접 확인하기 전에는 안전하다고 보지 않습니다.'});
   if(tier==null)agenda.push({k:'tier',t:'미상 문항을 확인하기 전에는 지원 우선순위 단계를 정하지 않습니다.'});
   if(narrSafety.length&&!urgent)agenda.push({k:'level',t:'서술에서만 나온 '+narrSafety.join('·')+' 단서를 면담으로 확인합니다. 확인되면 보호 경로로 다시 판정합니다.'});
+  /* 2026-11-03 검수 P1: 서술의 안전 단서와 같은 주제 문항의 0점이 어긋나면 어느 쪽도 지우지 않고, 확인 순서를 적는다. */
+  const narrZero=narrRows.filter(x=>x.kind==='narrative'&&x.value===0);
+  if(narrZero.length)agenda.push({k:'mismatch',t:'서술의 안전 단서('+[...new Set(narrZero.map(x=>x.topic))].join('·')+')와 '+[...new Set(narrZero.map(x=>x.n))].map(n=>n+'번').join('·')+' 문항 0점이 어긋납니다. 점수만 보고 안전하다고 보지 않습니다. 먼저 학생 면담으로 지금 상황을 확인하고, 확인되면 해당 문항을 다시 응답해 판정을 다시 받습니다. 다시 응답하지 않으면 그 이유를 기록합니다.'});
   if(sel.status==='review')agenda.push({k:'select',t:sel.why+'. 통합사례관리로 선정할지 사례회의에서 정합니다.'});
   return {version:VERSION,payloadRevision:p.flowRevision,urgent,provisional,tier,level,selection:sel,pathway:path,lead,cells,agenda,five,deep,integrated:I,
-    pending,safetyOpen,safetyPos,narrSafety,levelOpen,versions:versions()};
+    pending,safetyOpen,safetyPos,narrSafety,narrZero:narrZero.map(x=>({item:x.n,topic:x.topic})),levelOpen,versions:versions()};
 }
 
 /* 근거 사다리: 판정마다 기준 → 이 사례 → 결과 */

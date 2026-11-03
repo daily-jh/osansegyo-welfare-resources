@@ -1,7 +1,7 @@
 /* OY-RALS v4.0/v4.2 single free-text case-context interpreter.
    All extracted cues are unverified review prompts; NEVER diagnosis, risk scoring, or auto-reporting. */
 (function(root,factory){'use strict';const api=factory();if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.YouthCaseContextCore=api;})(typeof window!=='undefined'?window:globalThis,function(){'use strict';
-const VERSION='1.7.0-xmod1200-20261029',LIMITS=Object.freeze({text:5000}),MAX_CLAUSES=65;
+const VERSION='1.8.0-audit-20261103',LIMITS=Object.freeze({text:5000}),MAX_CLAUSES=65;
 const TYPES=Object.freeze([
  {id:'protection',items:[1,2],label:'학대·보호 관련 언급',re:/학대|방임|체벌|맞았|폭행|가정폭력|보호자.{0,12}(?:위협|폭력)|보호.{0,4}부재|(?:아버지|아빠|어머니|엄마|보호자|부모|계부|계모|새아빠|새엄마|양부|양모|할아버지|할머니|삼촌|이모|고모)(?:가|께서|이|는|은|한테|에게)?[^.,]{0,14}(?:때리|때렸|때린|때려|때림|목을\s?졸|졸랐|발로\s?차|걷어차|던졌|던지|던진|던짐|던져|가둬|가뒀|밥을?\s?(?:안|못)\s?(?:주|준|줌)|낳지\s?말았|쫓아내|내쫓)|(?:벨트|허리띠|몽둥이|효자손|옷걸이|회초리)(?:로|를)?[^.,]{0,6}(?:때|맞)|(?:아버지|아빠|어머니|엄마|보호자|부모|계부|계모|새아빠|새엄마|양부|양모|할아버지|할머니|삼촌)(?:에게|한테|께)\s?[^.,]{0,6}맞(?:아|았|는|고|음|다|을|은)|(?:부모|보호자|엄마|아빠|어머니|아버지)[^.,]{0,6}며칠(?:씩|째)\s?(?:집에\s?)?(?:안|못)\s?들어|병원에\s?(?:안|못)?\s?데려가\s?(?:주지\s?)?않|병원에\s?(?:안|못)\s?데려|집에\s?(?:가기|들어가기)\s?(?:무섭|두렵)|(?:얼굴|눈가?|뺨|목|이마)[^.,]{0,6}멍(?!하)/,safety:true,ask:'현재 안전·발생시기·당사자 진술과 법정 신고·보호절차를 담당자가 확인합니다.'},
  {id:'peer',items:[3,4,5],label:'또래관계·학교폭력',re:/따돌림|왕따|학교폭력|괴롭힘|놀림|또래.{0,6}(?:위협|폭행)|금품.{0,6}요구|협박|저격|카톡\s?감옥|단톡(?:방)?[^.,]{0,10}(?:욕|저격|초대)|(?:빵|와이파이|게임)\s?셔틀|돈을?\s?(?:뺏|빼앗)|선배들?(?:이|가)[^.,]{0,14}(?:때렸|때린|때려|불러)/,ask:'피해인지 행동인지와 학교의 안전조치, 동일 사건 여부를 구분합니다.'},
@@ -18,7 +18,7 @@ const TYPES=Object.freeze([
  {id:'digital',items:[24],label:'디지털 이용 조절',re:/SNS.{0,6}과몰입|게임.{0,6}과몰입|스마트폰.{0,6}(?:과다|과의존|과몰입)|디지털.{0,6}이용.{0,6}조절|새벽까지\s?게임|게임하느라|휴대폰을?\s?뺏으면/,ask:'이용시간 자체보다 실제 수면·학습·관계의 영향을 확인합니다.'},
  {id:'onlineSexual',items:[25],label:'온라인 성착취·디지털 피해',re:/온라인.{0,9}성착취|그루밍|성적.{0,6}사진.{0,9}협박|성적.{0,6}영상.{0,9}유포|디지털.{0,6}성범죄|딥페이크.{0,6}(?:협박|성적)|(?:사진|영상)(?:을|를)?\s?(?:보내라|보내\s?달|요구)|(?:SNS|온라인|채팅|랜덤\s?채팅|게임|앱|인스타|DM|디엠)(?:에서|으로)?\s?(?:만난|알게\s?된)[^.,]{0,12}(?:남성|남자|어른|성인|아저씨|오빠|형|언니|누나|사람)|조건\s?만남|성적인?\s?(?:요구|대화)|몸캠|기프티콘[^.,]{0,12}(?:사진|영상)|랜덤\s?채팅[^.,]{0,12}(?:만나|만난|사진|성인)|모르는\s?(?:사람|어른|성인)[^.,]{0,8}만나/,safety:true,ask:'현재 접촉·협박·유포 가능성과 피해보호 절차를 직접 확인합니다.'},
  // Sexual touching or assault told by the student is a protection matter on its own (random 500-case check 2026-10-29).
- {id:'sexualHarm',items:[1],label:'성적 위해 진술',re:/성추행|성폭력|성폭행|성학대|강간|(?:몸|가슴|엉덩이|속옷|신체|성기|허벅지|다리)(?:을|를|에)?\s?[^.,]{0,6}(?:만지|만졌|만진|만져|만짐|더듬)|(?:만지|더듬)[^.,]{0,8}(?:싫|무섭|못\s?하게)|(?:같이|함께)\s?(?:자자|씻자)고|옷을\s?벗(?:으라|기라)|이상한\s?(?:데|곳)(?:를|을)?\s?(?:만지|만졌|만진|만져)|(?:단둘이|둘만)[^.,]{0,14}(?:껴안|안는|뽀뽀|만지)|(?:억지로|자꾸)\s?(?:껴안|뽀뽀)/,safety:true,ask:'캐묻지 않고 들은 말을 그대로 적은 뒤 오늘 학교 관리자·아동보호 절차로 알리고, 보호자 연락은 보호 담당과 먼저 판단합니다.'},
+ {id:'sexualHarm',items:[1],label:'성적 위해 진술',re:/성추행|성폭력|성폭행|성학대|강간|(?:몸|가슴|엉덩이|속옷|신체|성기|허벅지|다리)(?:을|를|에)?\s?[^.,]{0,6}(?:만지|만졌|만진|만져|만짐|더듬)|(?:만지|더듬)[^.,]{0,8}(?:싫|무섭|못\s?하게)|(?:같이|함께)\s?(?:자자|씻자)고|옷을\s?벗(?:으라|기라)|이상한\s?(?:데|곳)(?:를|을)?\s?(?:만지|만졌|만진|만져)|(?:단둘이|둘만)[^.,]{0,14}(?:껴안|안는|뽀뽀|만지)|(?:억지로|자꾸)\s?(?:껴안|뽀뽀)|성적(?:인)?\s?(?:접촉|행위|요구|학대|착취|괴롭힘|농담|발언|신체\s?접촉)|성희롱|(?<!자)추행|성관계(?:를)?\s?(?:요구|강요|하자|하려|당)|원(?:하|치)\s?(?:지\s?)?않(?:는|은)\s?(?:신체\s?)?(?:접촉|스킨십|터치)|(?:신체\s?)?접촉(?:을|이)?\s?(?:당|강요|억지)|스킨십(?:을|이)?\s?(?:강요|억지|당)|싫다(?:는데|고\s?했는데)도\s?[^.,]{0,10}(?:만지|만졌|껴안|뽀뽀|입맞춤|키스|스킨십)|(?:옷|치마|바지|속옷|셔츠|티셔츠)\s?(?:속|안)으로\s?(?:손|들어)|(?:강제로|억지로|몰래|갑자기)\s?(?:입맞춤|입을\s?맞|키스|뽀뽀|끌어안|껴안|만지|만졌)|(?:입맞춤|키스|뽀뽀)(?:을|를)?\s?(?:당|강요|하려고?\s?했)|(?:성기|알몸|나체|자기\s?몸|자신의\s?몸)(?:을|를)?\s?(?:보여|노출|만지게)|(?:바지|속옷)(?:을|를)?\s?(?:내리(?:라|게|고)|벗기)|(?:씻는|샤워하는|옷\s?갈아입는|화장실에\s?있는)[^.,]{0,8}(?:엿보|엿본|엿봐|훔쳐보|훔쳐본|훔쳐봐|들여다보|들여다본|몰래\s?(?:찍|촬영))|야한\s?(?:영상|동영상|사진|그림)(?:을|를)?\s?(?:보여|보게|보내|같이\s?보)|(?:밤에|자는\s?(?:중|동안|사이))[^.,]{0,10}(?:방에\s?들어와|이불\s?(?:속|안)으로|옆에\s?누워)[^.,]{0,10}(?:만지|더듬|껴안)?|무릎(?:에|\s?위에)\s?(?:앉히|앉으라)/,safety:true,ask:'캐묻지 않고 들은 말을 그대로 적은 뒤 오늘 학교 관리자·아동보호 절차로 알리고, 보호자 연락은 보호 담당과 먼저 판단합니다.'},
  // Covering the wrists in heat or with bands is a reason to ask, never proof of self-harm.
  {id:'selfharmCover',items:[7],label:'자해 흔적을 가리는 모습',re:/(?:손목|팔목)[^.,]{0,8}(?:밴드|붕대|반창고|보호대|아대|토시)|(?:더운|여름|체육)[^.,]{0,12}긴팔|긴팔만\s?(?:입|고집)/,safety:true,ask:'자해로 단정하지 않고 학생이 편한 자리에서 상처 여부와 현재 마음을 직접 묻습니다.'},
  // A rooftop, railing or jumping talk is a lethal-means cue to ask about today.
@@ -37,6 +37,11 @@ const TYPES=Object.freeze([
  {id:'datingViolence',items:[3,4],label:'교제 폭력(통제·폭행)',re:/(?:남자\s?친구|여자\s?친구|남친|여친|사귀는\s?(?:사람|선배|오빠|형))(?:가|이)?[^.,]{0,14}(?:때리|때린|때려|때렸|폭행|목을|휴대폰을?\s?검사|감시)/,safety:true,ask:'교제 상대의 폭력·통제가 지금도 이어지는지, 학생이 안전하게 지낼 방법과 학교폭력·신고 절차를 학생과 함께 확인합니다.'},
  {id:'woundContext',items:[1,7],label:'상처·멍의 맥락 확인',re:/(?:상처|멍(?!하)|흉터|화상).{0,12}(?:숨기|숨겨|감추|감춰|가리|가린|말하지\s?않|말을\s?안|설명하지\s?않|보여주지\s?않)|(?:숨기|숨겨|감추|감춰|가리|가린).{0,8}(?:상처|멍(?!하)|흉터)/,ask:'자해나 학대로 단정하지 않고 상처의 원인·위치·시점과 학생이 편하게 말할 수 있는 상황인지 확인합니다.'}
 ]);
+// 2026-11-03: "거르지 않는다", "굶지 않는다", "끼니를 잘 챙김" are reassurances that NEG's own forms missed.
+const REASSURE_NEG=/(?:거르|굶|빼먹|빠지|결석하)지\s?(?:는\s?)?않|(?:끼니|밥|식사|아침)(?:을|를|은|도)?\s?잘\s?(?:먹|챙기|챙김|챙겨|챙긴)/;
+// "원하지 않는 접촉", "싫다는데도": unwillingness is part of the cue, never a denial of it.
+const NOT_DENIAL=/원(?:하|치)\s?(?:지\s?)?않(?:는|은|았|음)|싫다(?:는데|고\s?했는데)도|거부했(?:는데|지만)도?/g;
+const denies=clause=>{const t=clause.replace(NOT_DENIAL,' ');return NEG.test(t)||REASSURE_NEG.test(t);};
 const NEG=/(?:없다|없음|없어|없었|없고|없으며|아니다|아님|아니며|하지\s?않|하지는\s?않|싶지\s?않|싶지는\s?않|않았|않음|부인|해당\s?없|안\s?한다|안\s?함|아니라고|(?:생각|마음)(?:은|이|도)?\s?(?:들지|나지)\s?않)/;
 // "Not wanting to stop" is the opposite of a denial.
 // "Not wanting to live" is itself the cue, never a denial of one.
@@ -47,7 +52,7 @@ const CONTINUE=/(?:멈추|멈출|그만두|그만하|그만\s?하|끊)\S{0,4}\s?
 const OTHERS='(?:친구|동생|형|오빠|언니|누나|선배|후배|다른 학생|옆 ?반 학생|사촌|친척|보호자|부모|어머니|아버지|엄마|아빠)',PEERS='(?:친구|선배|후배|다른 학생|옆 ?반 학생|사촌|친척)';
 // Another young person's story ("친구가 집에서 맞는다고 걱정함", "사촌이 가출했다") is that person's, not the student's (random 400-case check 2026-10-28).
 // A sibling or parent who ran away or left home is that person's leaving, not the student's runaway (2026-10-29).
-const THIRD_PARTY=new RegExp('(?:^|[\\s,])'+OTHERS+'(?:가|는|의|이)\\s?.{0,20}(?:자해|자살|죽고|손목|팔목|팔뚝|허벅지|옥상|뛰어내리|투신)|(?:^|[\\s,])'+PEERS+'(?:가|는|이)\\s?[^.,]{0,16}(?:맞았|맞는|맞고|맞아|학대(?:를)? ?(?:당|받)|폭행(?:을)? ?당|가출|따돌림(?:을)? ?당|괴롭힘(?:을)? ?당|협박(?:을)? ?당|몸캠|성착취|피해(?:를)? ?당)|(?:^|[\\s,])'+OTHERS+'(?:가|는|이|께서)\\s?[^.,]{0,10}(?:가출|외박|집을\\s?나)');
+const THIRD_PARTY=new RegExp('(?:^|[\\s,])'+OTHERS+'(?:가|는|의|이)\\s?.{0,20}(?:자해|자살|죽고|손목|팔목|팔뚝|허벅지|옥상|뛰어내리|투신)|(?:^|[\\s,])'+PEERS+'(?:가|는|이)\\s?[^.,]{0,16}(?:맞았|맞는|맞고|맞아|학대(?:를)? ?(?:당|받)|폭행(?:을)? ?당|가출|따돌림(?:을)? ?당|괴롭힘(?:을)? ?당|협박(?:을)? ?당|몸캠|성착취|피해(?:를)? ?당|(?:성추행|성폭력|성폭행|추행)(?:을)? ?당)|(?:^|[\\s,])'+OTHERS+'(?:가|는|이|께서)\\s?[^.,]{0,10}(?:가출|외박|집을\\s?나)');
 // The student named as the one who acts or is hurt keeps the cue with the student, even when someone else reported it.
 // "옆 반 학생이 …" or "다른 학생이 …" is another student, not this one.
 const STUDENT_SELF=new RegExp('(?<!(?:반|다른)\\s?)(?:학생|본인)(?:이|은|도|의)?\\s?(?:(?!'+OTHERS+'(?:가|는|이|의)).){0,14}(?:자해|자살|죽고|손목|팔목|팔뚝|허벅지|맞았|학대(?:를)? ?(?:당|받)|폭행(?:을)? ?당)');
@@ -60,6 +65,8 @@ const HYPOTHETICAL=/(?:만약|혹시|(?:하게|되게)\s?되면|(?:뉴스|기사
 // A threat made now about old photos ("예전 사진을 퍼뜨리겠다") is current, not a past event.
 const PRESENT_THREAT=/(?:퍼뜨리|유포하|뿌리|올리|보내)겠|협박하는\s?(?:메시지|문자|DM|연락)/;
 const HISTORICAL=/(?:과거|작년|지난해|지난\s?학기|예전|이전에는|몇\s?년\s?전|\d+\s?년\s?전|(?:사례가|사건이|사안이|개입이)\s?(?:종결|종료)|초등학교\s?때|과거에|어릴\s?때|어렸을\s?때|(?:초|중|고)\s?[1-6]\s?(?:학년\s?)?때|[1-6]학년\s?때|(?:지금|현재)은\s?(?:안정|괜찮|없|잘\s?지내))/;
+// A need met by support ("지원받아 해결됨") is a history for needs, never for a safety cue.
+const RESOLVED=/(?:지원|도움)(?:을)?\s?받아\s?(?:해결|해소)|해결(?:됨|되었|되어|했)/;
 const WISH=/(?:원한다고|원한다|원해|원함|원했|바란다|바라|바람|희망|하고\s?싶|도움\s?요청|요청함|해줬으면|받고\s?싶)/;
 const STRENGTH=/(?:잘한다|잘하고|잘함|좋아하|좋아함|좋아해|잘\s?지낸|잘\s?챙기|잘\s?챙긴|아끼고|편해진|먼저\s?말을\s?거|즐겁게|즐겨|강점|장점|믿고\s?의지|신뢰하|신뢰함|스스로|극복|노력|도움\s?청|친한\s?친구|격려|격려해)/;
 const SUPPORT=/(?:상담\s?중|치료\s?중|이용\s?중|이용중|연계중|지원\s?받|이미\s?연계|접수\s?완료|접수\s?전|신청\s?중|진료\s?중|문의\s?전|Wee센터|위센터|복지관|가족센터|교육복지)/i;
@@ -89,7 +96,7 @@ function immediateOf(s){
 // Physical-neglect signs. One alone is a basic-needs question; two or more together are a protection question.
 // The wording is itself negative ("먹지 않음", "집에 없음"), so only an explicit reassurance cancels a sign.
 const NEGLECT=[/같은\s?옷|얇은\s?(?:옷|점퍼|외투|겉옷)|계절에\s?맞지\s?않|(?:겨울|추운).{0,10}(?:여름\s?옷|반팔)/,/씻지\s?(?:못|않)|위생\s?상태|냄새가\s?(?:나|심)/,/끼니|굶|배고프|라면으로|아침을?\s?(?:거의\s?)?(?:먹지|거르|안\s?먹|못\s?먹)|허겁지겁|남은\s?(?:빵|음식)을?\s?챙/,/병원에\s?(?:간\s?적이\s?없|가지\s?못)|데려가지\s?않|치료를?\s?(?:받지\s?못|못\s?받)|충치/,/(?:보호자|부모|엄마|아빠|어머니|아버지).{0,12}(?:집에\s?(?:거의\s?)?없|들어오지\s?않|며칠씩)|(?:집에서|집에|방과\s?후(?:에|에는)?|밤에|저녁(?:에|에는)?|주말(?:에|에는)?)\s?혼자\s?(?:지내|있|잔다|잠)|돌봐\s?줄.{0,6}없/];
-const REASSURE=/(?:거르지\s?않|굶지\s?않|잘\s?(?:먹|챙겨|씻)|문제\s?없|해당\s?없|걱정\s?없)/;
+const REASSURE=/(?:거르지\s?(?:는\s?)?않|굶지\s?(?:는\s?)?않|잘\s?(?:먹|챙겨|챙기|챙김|씻)|문제\s?없|해당\s?없|걱정\s?없)/;
 function cleanString(v){return String(v==null?'':v).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g,' ').trim().slice(0,LIMITS.text)}
 function redact(s){return String(s||'').replace(/\b01[016789][- ]?\d{3,4}[- ]?\d{4}\b/g,'[연락처 생략]').replace(/\b\d{6}[- ]?[1-8]\d{6}\b/g,'[고유식별번호 생략]').replace(/[a-z\d._%+-]+@[a-z\d.-]+\.[a-z]{2,}/gi,'[이메일 생략]').replace(/\b\d{2,4}[- ]\d{3,4}[- ]\d{4}\b/g,'[전화번호 생략]');}
 function normalize(input){
@@ -111,13 +118,13 @@ function who(clause){if(/학생이\s?(?:말|진술|호소|알려|표현)|학생�
 function infer(input){
  const c=normalize(input);if(!c)return {version:VERSION,hasContext:false,signals:[],issues:[],fields:{},source:'없음',clauses:[],privacyWarnings:[]};
  const clauses=splitClauses(c.text),signals=[],seen=new Set(),issues=[];
- for(const clause of clauses){const hypo=HYPOTHETICAL.test(clause),neg=NEG.test(clause)&&!CONCEAL.test(clause)&&!CONTINUE.test(clause),uncertain=UNCERTAIN.test(clause)||CONCEAL.test(clause),old=HISTORICAL.test(clause)&&!PRESENT_THREAT.test(clause),third=aboutOthers(clause);
+ for(const clause of clauses){const hypo=HYPOTHETICAL.test(clause),neg=denies(clause)&&!CONCEAL.test(clause)&&!CONTINUE.test(clause),uncertain=UNCERTAIN.test(clause)||CONCEAL.test(clause),old=HISTORICAL.test(clause)&&!PRESENT_THREAT.test(clause),third=aboutOthers(clause);
   for(const def of TYPES){if(!def.re.test(clause))continue;
    const key=def.id+'|'+clause;if(seen.has(key))continue;seen.add(key);
    // A cue worded as an absence ("친구가 없다") is not denied by its own "없"; look for a denial elsewhere.
-   const denied=def.negWording?NEG.test(clause.replace(def.re,' '))&&!CONCEAL.test(clause)&&!CONTINUE.test(clause):neg;
+   const denied=def.negWording?denies(clause.replace(def.re,' '))&&!CONCEAL.test(clause)&&!CONTINUE.test(clause):neg;
    const polarity=hypo?'hypothetical':denied?'negated':uncertain?'unverified':'reported';
-   signals.push({tag:def.id,items:def.items.slice(),label:def.label,polarity,subject:third?'third-party':'unconfirmed',source:who(clause),timeHint:old?'historical-mention':/(?:현재|지금|요즘|최근|오늘)/.test(clause)?'current-or-recent':'unconfirmed',safety:!!def.safety,clause:redact(clause).slice(0,180),action:def.ask,evidenceClass:'unverified_optional_free_text',humanConfirmationRequired:true});
+   signals.push({tag:def.id,items:def.items.slice(),label:def.label,polarity,subject:third?'third-party':'unconfirmed',source:who(clause),timeHint:old||(!def.safety&&RESOLVED.test(clause))?'historical-mention':/(?:현재|지금|요즘|최근|오늘)/.test(clause)?'current-or-recent':'unconfirmed',safety:!!def.safety,clause:redact(clause).slice(0,180),action:def.ask,evidenceClass:'unverified_optional_free_text',humanConfirmationRequired:true});
   }
  }
  // A clause about another family member's harm stays that household cue; it is not also the student's own disclosure.

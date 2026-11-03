@@ -38,9 +38,11 @@ function model(p,role){
   const steps=nextSteps(k,role,unknown,sel);
   const teach=extras(k,ans,role);
   const narrNote=narrNoteOf(k);
+  /* 2026-11-03 검수 P1: 서술 안전 단서와 같은 주제 문항 0점이 어긋나면 모든 역할판 01에 판정 사슬 안건과 같은 문장을 싣는다(05와 같은 문장). */
+  const mismatchNote=((k.R&&k.R.agenda)||[]).filter(a=>a.k==='mismatch').map(a=>a.t)[0]||'';
   /* 안전 유형별 오늘 연락처(가상 1,200사례 P1-3): 서술에만 안전 단서가 있어 척도 영역이 비어도 연락할 곳이 보이게 한다. */
   const contacts=safetyTone==='ok'?[]:((SC()&&SC().fromChain(k.R,p.explicit))||[]).slice(0,2);
-  return {k,role,contacts,scope:SCOPE[role]||null,unknown,hard,safetyTone,steps,teach,narrNote,tier:k.tier,tierName:k.tierName,tierWhy:k.tierWhy,provisional:!!k.R.provisional};
+  return {k,role,contacts,scope:SCOPE[role]||null,unknown,hard,safetyTone,steps,teach,narrNote,mismatchNote,tier:k.tier,tierName:k.tierName,tierWhy:k.tierWhy,provisional:!!k.R.provisional};
 }
 /* 역할별로 한 장을 채우는 추천 항목. 모두 척도 응답·판정 사슬·해석에서 나오며 서술 원문은 쓰지 않는다.
    블록: {h 제목, li 목록 | p 문단, tip 작은 안내, cls}. 마지막은 그 역할이 손으로 적는 메모 칸. */
@@ -234,7 +236,7 @@ function html(m){
    '<p class="oy1-role">'+(sc?'다른 실무자 관점으로 바꿔 볼 수 있습니다. 판정은 그대로이고 다음 할 일만 바뀝니다.':'역할을 누르면 그 실무자 관점으로 다음 할 일이 맞춰집니다')+'</p></div>'+
    '<div class="oy1-pick'+(sc?'':' oy1-pick-open')+'" role="group" aria-label="실무자 관점 바꾸기">'+roles.map(r=>'<button type="button" data-oy-role="'+r+'" aria-pressed="'+(m.role===r)+'">'+esc(SCOPE[r].name)+'</button>').join('')+'</div>'+
    '<div class="oy1-grid">'+
-   '<section class="oy1-q oy1-'+m.safetyTone+'"><h4><i>01</i>안전 확인 결과</h4><p class="oy1-v">'+esc(k.safety.value)+'</p><p class="oy1-why">'+esc(k.safety.why)+'</p>'+(m.narrNote?'<p class="oy1-narr">'+esc(m.narrNote)+'</p>':'')+
+   '<section class="oy1-q oy1-'+m.safetyTone+'"><h4><i>01</i>안전 확인 결과</h4><p class="oy1-v">'+esc(k.safety.value)+'</p><p class="oy1-why">'+esc(k.safety.why)+'</p>'+(m.narrNote?'<p class="oy1-narr">'+esc(m.narrNote)+'</p>':'')+(m.mismatchNote?'<p class="oy1-narr">'+esc(m.mismatchNote)+'</p>':'')+
     (m.safetyTone==='c'?'<p class="oy1-callc">'+esc(((k.R.safetyOpen||[]).length&&!(k.R.narrSafety||[]).length&&!(k.R.pending||[]).length?'모르는 안전 문항은 안전하다고 보지 않습니다.':'확인하기 전에는 안전하다고 보지 않습니다.')+' 오늘 직접 확인해 주세요.')+'</p>':'')+(k.urgent||(m.tier||0)>=5?'<p class="oy1-call">급하면 <b>112</b> · 청소년상담 <b>1388</b> · 자살예방 <b>109</b></p>':'')+(m.contacts&&m.contacts.length?contactsHtml(m.contacts):'')+'</section>'+
    '<section class="oy1-q"><h4><i>02</i>지원 우선순위</h4><p class="oy1-v">'+esc(m.tier?m.tier+'단계 '+m.tierName:m.tierName)+'</p>'+tierBar+'<p class="oy1-why">'+esc(m.tier?m.tierWhy:'모르는 문항을 확인하기 전에는 단계를 정하지 않습니다.')+'</p></section>'+
    '<section class="oy1-q"><h4><i>03</i>주요 어려움 영역</h4>'+hard+goBtn('score','척도 해석')+'</section>'+
@@ -269,6 +271,7 @@ function text(m){
   const k=m.k,L=['OY-RALS 핵심 결과 한 장'+(m.scope?' · '+m.scope.name+' 기준':''),''];
   L.push('1. 안전 확인 결과: '+k.safety.value+' ('+k.safety.why+')');
   if(m.narrNote)L.push('   '+m.narrNote);
+  if(m.mismatchNote)L.push('   '+m.mismatchNote);
   (m.contacts||[]).forEach(c=>L.push('   오늘 연락처 · '+c.h+': '+c.rows.map(r=>r.b).join(', ')));
   L.push('2. 지원 우선순위: '+(m.tier?m.tier+'단계 '+m.tierName:m.tierName));
   L.push('3. 주요 어려움 영역: '+(m.hard.map(h=>h.t+' '+h.v+'점').join(', ')||'2점 이상 영역 없음'));
