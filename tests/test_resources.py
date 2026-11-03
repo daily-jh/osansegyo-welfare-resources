@@ -95,4 +95,19 @@ class Resources(unittest.TestCase):
         for p,v in first.items():p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(v)
         self.assertEqual(first,b.generate())
 
+class ServiceReviewQueue(unittest.TestCase):
+    """Every service in data/services.csv must sit in the review ledger (2026-11-03 random audit P1)."""
+    def ids(self,rel):
+        with (b.ROOT/rel).open(encoding='utf-8-sig',newline='') as f: return [r['service_id'] for r in csv.DictReader(f)]
+    def test_review_queue_matches_services(self):
+        src,queue=self.ids('data/services.csv'),self.ids('docs/service-review-queue.csv')
+        self.assertEqual(len(queue),len(set(queue)),'duplicate service_id in review queue')
+        self.assertEqual(set(src)-set(queue),set(),'run: python scripts/sync_service_review_queue.py')
+        self.assertEqual(set(queue)-set(src),set(),'review queue keeps a service that is no longer in data/services.csv')
+    def test_added_rows_are_never_marked_reviewed(self):
+        with (b.ROOT/'docs/service-review-queue.csv').open(encoding='utf-8-sig',newline='') as f: rows=list(csv.DictReader(f))
+        added=[r for r in rows if r['official_evidence_rechecked'].startswith('미검토')]
+        self.assertTrue(all(r['current_intake_verified']=='미확인' for r in added))
+        self.assertTrue(all(r['followup_priority'].startswith('미검토') for r in added))
+
 if __name__=='__main__':unittest.main()
