@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "sourceUrl": "https://osan.welinfo.kr/?board=programList",
-  "lastAttemptAt": "2026-11-02T09:05:32+09:00",
+  "lastAttemptAt": "2026-11-09T09:25:56+09:00",
   "lastSuccessAt": "2026-10-22T22:28:56+09:00",
-  "lastError": "2026-11-02 원문 목록 수집 실패: https://osan.welinfo.kr/?board=programList 공개 접근 시 HTTP 403 Forbidden(별도 웹 열람도 접근 오류). 개별 공고 본문·원문 URL·모집상태를 검증할 수 없어 기존 programs 10건 및 lastSuccessAt을 보존함. 로그인·보안 우회 미시도.",
+  "lastError": "2026-11-09 공개 프로그램 목록 https://osan.welinfo.kr/?board=programList 접근 실패(웹 열람 도구에서 접근 불가). 개별 공고 원문 검증 불가로 기존 programs 및 lastSuccessAt 보존. 로그인·보안 우회 미시도.",
   "evidenceNote": "이용자 제공 목록 캡처에서 10개 항목 확인. 사이트 직접 수집 성공을 의미하지 않음.",
   "programs": [
     {
