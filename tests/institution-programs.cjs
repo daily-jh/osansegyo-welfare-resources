@@ -25,3 +25,23 @@ console.log('PASS: institution matching, deduplication, integrated search, deadl
  const real=require('../docs/programs.json');assert.ok(real.programs.every(x=>P.status({...x,feed:P.freshness(real)},'2026-11-03')!=='모집중'));
  console.log('PASS: failed refresh shows last checked date and never reads as open');
 }
+// Separate official sources retain their own freshness and do not duplicate base services.
+{
+ const feed={lastError:'Welinfo blocked',programs:[],sources:{official:{lastAttemptAt:'2026-11-09T09:00:00+09:00',lastSuccessAt:'2026-11-09T09:00:00+09:00',lastError:''}}};
+ const official={...p,sourceId:'official',organizationId:'1'};
+ assert.equal(P.sourceState(feed,official).failed,false);
+ assert.equal(P.sourceState(feed,{...official,sourceId:'missing'}).failed,true);
+ assert.equal(P.sourceState({...feed,sources:{empty:{}}},{...official,sourceId:'empty'}).failed,true);
+ assert.equal(P.sourceState(feed,p).failed,true);
+ assert.equal(P.sourceState(feed,{...p,sourceId:'welinfo'}).failed,true);
+ const d={taxonomy:data.taxonomy,organizations:[{id:'1',name:'오산시가족센터',services:[]}]};
+ assert.equal(P.merge(d,{...feed,programs:[official]}),1);
+ assert.equal(P.status(d.organizations[0].services[0].externalProgram,'2026-10-22'),'모집중');
+ assert.equal(P.status({...official,status:'확인 필요'},'2026-10-22'),'확인 필요');
+ assert.equal(P.merge(d,{...feed,programs:[{...official,title:'기관명 불일치',organization:'다른기관'}]}),0);
+ const base={taxonomy:data.taxonomy,organizations:[{id:'1',name:'오산시가족센터',services:[{name:p.title,source:p.sourceUrl}]}]};
+ assert.equal(P.merge(base,{...feed,programs:[official]}),0);
+ feed.sources.official.lastError='상세 공고 실패';
+ assert.equal(P.sourceState(feed,official).failed,true); // equal timestamps still fail closed
+ console.log('PASS: source isolation, unknown source, ID/name mismatch, base-service deduplication');
+}

@@ -1,0 +1,13 @@
+{
+  "welinfo": {
+    "sourceUrl": "https://osan.welinfo.kr/?board=programList",
+    "hosts": ["osan.welinfo.kr"],
+    "note": "기존 최상위 갱신 기록. 접근 제한 시 우회하지 않고 기관 공식 개별 공고를 별도로 검증한다."
+  },
+  "osan-family": {
+    "sourceUrl": "https://osan.familynet.or.kr/center/lay1/program/S295T322C451/recruitReceipt/list.do",
+    "hosts": ["osan.familynet.or.kr"],
+    "organizationId": "6b509a4355",
+    "note": "프로그램홍보 목록보다 프로그램신청 목록을 우선한다. 개별 상세의 대상·신청방법이 비어 있으면 게시 보류. 목록 접수중 표기만으로 신청 가능을 확정하지 않는다."
+  }
+}

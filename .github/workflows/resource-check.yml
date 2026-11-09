@@ -26,6 +26,7 @@ jobs:
       - run: python scripts/build_data.py --check
       - run: python scripts/sync_service_review_queue.py --check
       - run: python -m unittest discover -s tests -p 'test_resources.py'
+      - run: python -m unittest discover -s tests -p 'test_program_refresh.py'
       - name: Search and youth resource compatibility
         shell: bash
         run: |
