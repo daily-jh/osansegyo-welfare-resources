@@ -11,6 +11,7 @@ async function open(browser,width){
  await page.route('https://osan-youth-usage.daily-89.workers.dev/**',route=>route.fulfill({status:200,contentType:'application/json',headers:{'Access-Control-Allow-Origin':'*'},body:'{}'}));
  page.on('dialog',d=>d.dismiss());
  await page.goto(base,{waitUntil:'domcontentloaded',timeout:45000});
+ await page.locator('#oyStartNotesCheck').check();
  const frame=page.frameLocator('#assessmentFrame');
  await frame.locator('#qi0 input[type=radio]').first().waitFor({timeout:18000});
  await page.waitForFunction(()=>document.readyState==='complete',null,{timeout:20000});

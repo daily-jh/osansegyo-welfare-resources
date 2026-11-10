@@ -9,12 +9,26 @@ const read=()=>{try{return JSON.parse(root.localStorage.getItem(KEY)||'{}')||{}}
 const write=v=>{try{const o=Object.assign({},v);delete o.role;root.localStorage.setItem(KEY,JSON.stringify(o))}catch(_){}};
 let prefs=read();if(prefs.role){prefs.role='';write(prefs);}
 const role=()=>ROLES.find(r=>r[0]===prefs.role)||null;
+let notesConfirmed=false,assessmentStarted=false;
+function syncNotes(){
+  const d=doc.getElementById('oyStartNotes'),r=role();if(!d)return;
+  const scope=root.OYOnePage&&root.OYOnePage.SCOPE[r&&r[0]];
+  doc.getElementById('oyStartNotesRole').textContent=scope?scope.end:'역할을 선택하면 담당 업무에 맞는 안내가 나옵니다. 역할을 고르지 않아도 공통 안내를 확인하고 시작할 수 있습니다.';
+  doc.getElementById('oyStartNotesCheck').checked=notesConfirmed;
+  doc.getElementById('oyStartNotesStatus').textContent=notesConfirmed?'확인했습니다. 평가를 시작할 수 있습니다.':'현장노트를 읽고 아래 확인란을 체크해 주세요.';
+  const hint=doc.getElementById('oyNotesReminder');if(hint)hint.hidden=notesConfirmed||assessmentStarted;
+  const frame=doc.getElementById('assessmentFrame');if(frame)frame.inert=!notesConfirmed&&!assessmentStarted;
+}
+function reviewNotes(){
+  const welcome=doc.getElementById('welcome');if(welcome)welcome.hidden=false;
+  const d=doc.getElementById('oyStartNotes');if(d){d.open=true;d.scrollIntoView({behavior:'smooth',block:'center'});doc.getElementById('oyStartNotesCheck').focus({preventScroll:true});}
+}
 function applyView(){
   const h=doc.documentElement;h.classList.toggle('oy-text-lg',prefs.text==='lg');h.classList.toggle('oy-text-xl',prefs.text==='xl');h.classList.toggle('oy-contrast',!!prefs.contrast);
   doc.querySelectorAll('[data-oy-text]').forEach(b=>b.setAttribute('aria-pressed',String((prefs.text||'base')===b.dataset.oyText)));
   doc.querySelectorAll('[data-oy-contrast]').forEach(b=>b.setAttribute('aria-pressed',String(!!prefs.contrast)));
   doc.querySelectorAll('[data-oy-role]').forEach(b=>b.setAttribute('aria-pressed',String(prefs.role===b.dataset.oyRole)));
-  const now=doc.getElementById('oyRoleNow');if(now){const r=role();const sc=root.OYOnePage&&root.OYOnePage.SCOPE[r&&r[0]];now.textContent=r?(sc?sc.end:r[1]+' 기준으로 03·04 자료와 다음 단계 버튼을 맞춥니다.'):'아직 고르지 않았습니다. 고르지 않으면 모든 역할 자료를 같은 순서로 보여 주고, 결과 화면에서도 언제든 고를 수 있습니다.';}
+  const now=doc.getElementById('oyRoleNow');if(now){const r=role();const sc=root.OYOnePage&&root.OYOnePage.SCOPE[r&&r[0]];now.textContent=r?r[1]+' 관점이 선택되었습니다. 아래 현장노트에서 역할과 확인사항을 살펴보세요.':'아직 고르지 않았습니다. 고르지 않으면 모든 역할 자료를 같은 순서로 보여 주고, 결과 화면에서도 언제든 고를 수 있습니다.';}
   const box=doc.getElementById('oyRoleStart');if(box)box.classList.toggle('oy-role-picked',!!role());
   emphasise();
 }
@@ -30,6 +44,13 @@ function mount(){
     const sec=doc.createElement('section');sec.id='oyRoleStart';sec.className='flow-wrap oy-role';sec.setAttribute('aria-labelledby','oyRoleTitle');
     sec.innerHTML='<h2 id="oyRoleTitle">어떤 역할로 쓰시나요? <span class="oy-role-tap">눌러서 각 실무자 관점의 해석을 확인하세요</span></h2><p>역할을 누르면 평가 뒤 <b>핵심 결과 한 장</b>이 그 실무자 관점으로 바뀌어 다음 할 일과 <b>어디까지 하면 되는지</b>가 나옵니다. 결과가 나온 뒤에도 다른 역할로 바꿔 볼 수 있습니다. 모든 학생에게 쓰는 도구가 아니라 걱정되는 학생이 있을 때 씁니다.</p><div class="oy-role-list" role="group" aria-label="역할 선택">'+ROLES.map(r=>'<button type="button" data-oy-role="'+r[0]+'" aria-pressed="false">'+r[1]+'</button>').join('')+'</div><span class="oy-role-now" id="oyRoleNow" role="status"></span>';
     grid.after(sec);
+    const notes=doc.createElement('details');notes.id='oyStartNotes';notes.className='oy-start-notes';notes.open=true;
+    notes.innerHTML='<summary><b>평가 전 현장노트</b><span>읽고 확인한 뒤 시작해 주세요</span></summary><div class="oy-start-notes-body"><p id="oyStartNotesRole"></p><ul><li>모르는 내용은 추측하지 않고 ‘미상’으로 표시합니다.</li><li>관찰한 사실과 학생이 말한 내용, 실무자의 해석을 구분해 기록합니다.</li><li>결과는 지원을 검토하는 초안입니다. 학생의 상황을 확인하고 실무자가 판단합니다.</li><li>긴급한 안전 문제가 있으면 평가 완료를 기다리지 않고 보호·연락을 먼저 진행합니다.</li></ul><label class="oy-notes-confirm"><input id="oyStartNotesCheck" type="checkbox">현장노트를 읽고, 응답·안전 확인 시 유의사항을 확인했습니다.</label><p id="oyStartNotesStatus" role="status"></p><button type="button" class="flow-btn flow-primary" id="oyNotesStart">확인 후 평가 시작하기 →</button></div>';
+    sec.append(notes);
+    doc.getElementById('oyStartNotesCheck').addEventListener('change',e=>{notesConfirmed=e.target.checked;syncNotes();});
+    doc.getElementById('oyNotesStart').addEventListener('click',()=>doc.getElementById('startAssessment').click());
+    const area=doc.getElementById('assessmentArea');if(area){const hint=doc.createElement('p');hint.id='oyNotesReminder';hint.innerHTML='평가 전 현장노트 확인이 필요합니다. <button type="button" class="flow-btn">현장노트 확인하기</button>';hint.querySelector('button').onclick=reviewNotes;area.prepend(hint);}
+    syncNotes();
   }
   const head=doc.querySelector('.flow-header');
   if(head&&!doc.getElementById('oyPrefs')){
@@ -41,10 +62,17 @@ function mount(){
 }
 doc.addEventListener('click',e=>{
   const t=e.target&&e.target.closest?e.target:null;if(!t)return;
-  const r=t.closest('[data-oy-role]');if(r){prefs.role=prefs.role===r.dataset.oyRole?'':r.dataset.oyRole;write(prefs);applyView();return;}
+  const r=t.closest('[data-oy-role]');if(r){const changed=prefs.role!==r.dataset.oyRole;prefs.role=r.dataset.oyRole;write(prefs);applyView();if(changed&&!assessmentStarted)notesConfirmed=false;syncNotes();const d=doc.getElementById('oyStartNotes');if(d)d.open=true;return;}
   const x=t.closest('[data-oy-text]');if(x){prefs.text=x.dataset.oyText;write(prefs);applyView();return;}
   const c=t.closest('[data-oy-contrast]');if(c){prefs.contrast=!prefs.contrast;write(prefs);applyView();return;}
 });
+doc.addEventListener('click',e=>{
+  const t=e.target&&e.target.closest?e.target:null;if(!t)return;
+  if(t.closest('#startAssessment,#resourceBridgeStart,#nextStep,.flow-skip-link')&&!assessmentStarted){
+    if(!notesConfirmed){e.preventDefault();e.stopImmediatePropagation();reviewNotes();return;}
+    assessmentStarted=true;syncNotes();const hint=doc.getElementById('oyNotesReminder');if(hint)hint.hidden=true;
+  }
+},true);
 root.addEventListener('oy-journey-view',()=>setTimeout(emphasise,0));
 root.OYRole=Object.freeze({roles:ROLES,current:()=>prefs.role||'',pack:kind=>{const r=role();return r&&r[2]===kind?r[0]:''}});
 if(doc.readyState==='loading')doc.addEventListener('DOMContentLoaded',mount);else mount();

@@ -11,6 +11,7 @@ async function scenario(browser,width){
  const page=await browser.newPage({viewport:{width,height:850}});
  const errors=[];page.on('pageerror',e=>errors.push(String(e).slice(0,250)));
  await page.goto('http://127.0.0.1:8765/youth-risk/',{waitUntil:'domcontentloaded',timeout:30000});
+ await page.locator('#oyStartNotesCheck').check();
  await page.waitForFunction(()=>!!window.OYJourney&&!!window.OYModelGateway&&!!window.YouthMap,{timeout:15000});
  await page.frameLocator('#assessmentFrame').locator('body').waitFor({timeout:15000});
  const frame=page.frame({url:/assessment.html/});assert.ok(frame,'assessment iframe should exist');

@@ -264,7 +264,7 @@ function teachHtml(t){
     (b.near&&b.near.length?'<ul>'+b.near.map(r=>'<li><b>'+esc(r.b)+'</b> '+esc(r.t)+' <small>'+esc(r.s)+'</small></li>').join('')+'</ul>':'')+
     (b.tip?'<p class="oy1-tip">'+esc(b.tip)+'</p>':'')+'</section>';
   const memo='<section class="oy1-t oy1-memo"><h4>'+esc(t.memo[0])+'</h4><label class="oy1-vh" for="oy1Memo">'+esc(t.memo[0])+'</label><textarea id="oy1Memo" rows="4" maxlength="300" placeholder="'+esc(t.memo[1])+'"></textarea><p class="oy1-tip">저장되지 않습니다. 인쇄하면 함께 나옵니다.</p></section>';
-  /* 화면에서는 접어 둔다(무작위 500사례 G3: 첫 화면은 네 칸과 할 일만). 인쇄는 펼쳐서 지금처럼 꽉 채운다. */
+  /* 첫 결과와 역할 선택 시 펼친다. 실무자가 읽은 뒤 직접 접을 수 있다. */
   return '<details class="oy1-notes"'+(notesOpen?' open':'')+'><summary><span class="oy1-sub-k">현장 노트</span><b>'+esc(t.title)+'</b><small>'+(t.blocks.length+1)+'가지 · 펼치기</small></summary><div class="oy1-tgrid">'+t.blocks.map(blk).join('')+memo+'</div></details>';
 }
 function text(m){
@@ -281,7 +281,8 @@ function text(m){
 }
 
 /* ── 화면 연결 ── */
-let cur=null,open={},notesOpen=false;
+let cur=null,open={},notesOpen=true;
+const memos=new Map();
 function flow(){return root.document&&root.document.getElementById('assessmentFlow');}
 function navMine(role){
   const doc=root.document,sc=SCOPE[role];
@@ -295,7 +296,11 @@ function render(){
   if(!on){if(box)box.hidden=true;const f=flow();if(f)f.classList.remove('oy1-fold');return;}
   if(!box){box=doc.createElement('section');box.id='oyOnePage';box.className='oy1';box.setAttribute('aria-labelledby','oy1Title');const j=doc.getElementById('journey88');(j&&j.parentNode?j.parentNode.insertBefore(box,j):flow().prepend(box));}
   let m;try{m=model(cur.payload,roleNow())}catch(e){box.hidden=true;setFold(false);return;}
+  const oldMemo=box.querySelector('#oy1Memo');
+  if(oldMemo&&box.__memoKey)memos.set(box.__memoKey,oldMemo.value);
   box.hidden=false;box.innerHTML=html(m);box.__model=m;
+  box.__memoKey=String(cur.payload.flowRevision)+':'+m.role;
+  const newMemo=box.querySelector('#oy1Memo');if(newMemo)newMemo.value=memos.get(box.__memoKey)||'';
   setFold(!open[cur.payload.flowRevision]);
 }
 /* A4 한 장(여백 14mm → 688×1017px)에 맞는 가장 큰 배율을 찾는다. 화면 규칙으로 재므로 인쇄 때는 조금 더 여유가 생긴다. */
@@ -332,7 +337,7 @@ function bind(doc){
   if(!doc||doc.__oy1Bound)return;doc.__oy1Bound=true;
   doc.addEventListener('click',e=>{
     const t=e.target&&e.target.closest?e.target:null;if(!t)return;
-    if(t.closest('[data-oy-role]')){setTimeout(render,0);return;}
+    if(t.closest('[data-oy-role]')){notesOpen=true;const selected=t.closest('[data-oy-role]').dataset.oyRole;const inResult=!!t.closest('#oyOnePage');setTimeout(()=>{render();if(inResult){const b=doc.querySelector('#oyOnePage [data-oy-role="'+selected+'"]');if(b)b.focus({preventScroll:true});}},0);return;}
     const more=t.closest('[data-oy1-more]');if(more&&cur){const rev=cur.payload.flowRevision;open[rev]=!open[rev];setFold(!open[rev]);if(open[rev]){const j=doc.getElementById('journey88');j&&j.scrollIntoView({behavior:'smooth',block:'start'});}return;}
     const go=t.closest('[data-oy1-go]');if(go&&cur){open[cur.payload.flowRevision]=true;setFold(false);const tb=doc.querySelector('#journey88 [data-j88-result-tab="'+go.dataset.oy1Go+'"]');if(tb&&tb.getAttribute('aria-pressed')!=='true')tb.click();const j=doc.getElementById('journey88');j&&j.scrollIntoView({behavior:'smooth',block:'start'});return;}
     const sc=t.closest('[data-oy1-scale]');if(sc){const L=LIB();if(L&&L.open){L.open(doc);const c=doc.getElementById('osl-'+sc.dataset.oy1Scale);if(c){c.hidden=false;const g=c.closest('.osl-group');if(g)g.hidden=false;c.open=true;setTimeout(()=>c.scrollIntoView({behavior:'smooth',block:'start'}),120);}}return;}
@@ -343,7 +348,7 @@ function bind(doc){
     if(t.closest('[data-oy1-json]')){const b=doc.getElementById('exportAssessment');if(b&&!b.disabled)b.click();return;}
   });
   doc.addEventListener('toggle',e=>{const d=e.target;if(d&&d.classList&&d.classList.contains('oy1-notes')&&d.closest('#oyOnePage'))notesOpen=d.open;},true);
-  root.addEventListener('oy-journey-view',e=>{cur=e.detail;setTimeout(render,0);});
+  root.addEventListener('oy-journey-view',e=>{if(e.detail.payload&&(!cur||!cur.payload||cur.payload.flowRevision!==e.detail.payload.flowRevision))notesOpen=true;cur=e.detail;setTimeout(render,0);});
 }
 const api=Object.freeze({VERSION,SCOPE,model,html,text,reviewLine});
 if(node)module.exports=api;else{root.OYOnePage=api;if(root.document)bind(root.document);}

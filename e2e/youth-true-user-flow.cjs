@@ -15,6 +15,7 @@ async function run(browserType,name,width,full){
  page.on('dialog',d=>d.dismiss());
  try {
   await page.goto(base,{waitUntil:'domcontentloaded',timeout:45000});
+ await page.locator('#oyStartNotesCheck').check();
   const frame=page.frameLocator('#assessmentFrame');
   await frame.locator('#qi0 input[type=radio]').first().waitFor({timeout:18000});
   assert.equal(await frame.locator('.question').count(),25,name+' form must have 25 questions');
