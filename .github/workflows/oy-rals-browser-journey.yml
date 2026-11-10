@@ -41,7 +41,7 @@ jobs:
           python3 -m http.server 8765 --bind 127.0.0.1 --directory docs > /tmp/oy-rals-http.log 2>&1 &
           sleep 2
           curl -fsS http://127.0.0.1:8765/youth-risk/ >/dev/null
-      - name: Verify field-note confirmation, role changes and responsive entry layout
+      - name: Verify optional start, result field notes and responsive entry layout
         run: node e2e/youth-field-notes-flow.cjs
       - name: Verify case assessment, plan, map, PDF print on desktop and mobile
         run: node e2e/youth-ui-browser-regression.cjs

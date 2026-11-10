@@ -12,20 +12,15 @@ const out=path.join(__dirname,'../artifacts/field-notes');fs.mkdirSync(out,{recu
   await page.route('**/usage-config.js*',r=>r.fulfill({contentType:'text/javascript',body:''}));
   await page.goto(process.env.TEST_BASE||'http://127.0.0.1:8766/youth-risk/',{waitUntil:'networkidle'});
   await page.waitForFunction(()=>document.getElementById('assessmentFrame').contentDocument?.readyState==='complete');
-  assert.equal(await page.locator('#assessmentFrame').evaluate(x=>x.inert),true);
-  await page.locator('#startAssessment').click();assert.equal(await page.locator('#welcome').isVisible(),true);
+  assert.equal(await page.locator('#oyStartNotes,#oyStartNotesCheck,#oyNotesReminder').count(),0,'no pre-assessment note or required checkbox');
+  assert.equal(await page.locator('#assessmentFrame').evaluate(x=>x.inert),false);
+  assert.match(await page.locator('#oyRoleStart').evaluate(x=>getComputedStyle(x).animationName),/oy-role-glow/,'original glow restored');
   await page.locator('#oyRoleStart [data-oy-role="teacher"]').click();
-  assert.equal(await page.locator('#oyStartNotes').evaluate(x=>x.open),true);
-  await page.locator('#oyStartNotesCheck').check();
-  await page.locator('#oyRoleStart [data-oy-role="cwc"]').click();
-  assert.equal(await page.locator('#oyStartNotesCheck').isChecked(),false,'changed role requires reread before starting');
-  await page.locator('#oyRoleStart [data-oy-role="teacher"]').click();
-  await page.locator('#oyStartNotesCheck').check();
   const boxes=await page.locator('#welcome .home-role-grid,#oyRoleStart,#welcome .youth-resource-bridge').evaluateAll(xs=>xs.map(x=>({x:x.getBoundingClientRect().x,w:x.getBoundingClientRect().width})));
   assert.ok(boxes.every(b=>Math.abs(b.x-boxes[0].x)<2&&Math.abs(b.w-boxes[0].w)<2),'aligned entry edges');
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'no page overflow');
   await page.locator('#oyRoleStart').screenshot({path:path.join(out,'entry-'+width+'.png')});
-  await page.locator('#oyNotesStart').click();assert.equal(await page.locator('#welcome').isVisible(),false);
+  await page.locator('#startAssessment').click();assert.equal(await page.locator('#welcome').isVisible(),false);
   assert.equal(await page.locator('#assessmentFrame').evaluate(x=>x.inert),false);
   const frame=page.frameLocator('#assessmentFrame');
   for(let i=0;i<25;i++)await frame.locator('#qi'+i+' input[type="radio"][value="'+(i===6?3:0)+'"]').check({force:true});
@@ -38,6 +33,7 @@ const out=path.join(__dirname,'../artifacts/field-notes');fs.mkdirSync(out,{recu
   for(const role of ['edu','team','cwc','child','admin','teacher']){
    await page.locator('#oyOnePage [data-oy-role="'+role+'"]').click();
    await page.waitForFunction(r=>document.querySelector('#oyOnePage').__model?.role===r&&document.querySelector('#oyOnePage .oy1-notes')?.open,role);
+   assert.ok(await page.locator('#oyOnePage [data-oy1-scale]').count()>0,'scale suggestions for '+role);
    assert.equal(await page.locator('#oyOnePage .oy1-q').nth(1).innerText(),original,'role never changes priority');
   }
   assert.equal(await page.locator('#oy1Memo').inputValue(),'가상 검수 메모','memo survives role switches');
@@ -48,6 +44,12 @@ const out=path.join(__dirname,'../artifacts/field-notes');fs.mkdirSync(out,{recu
   await page.evaluate(()=>window.dispatchEvent(new Event('afterprint')));
   await page.locator('#oyOnePage').screenshot({path:path.join(out,'result-'+width+'.png')});
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'result has no overflow');
+  const scaleId=await page.locator('#oyOnePage [data-oy1-scale]').first().getAttribute('data-oy1-scale');
+  await page.locator('#oyOnePage [data-oy1-scale]').first().click();
+  assert.equal(await page.locator('#osl-'+scaleId).evaluate(x=>x.open),true,'suggestion opens its scale');
+  await page.locator('[data-oy-step="1"]').click();
+  await page.locator('#oyOnePage [data-oy1-library]').click();
+  assert.equal(await page.locator('#scaleLibraryArea').isVisible(),true,'full library opens');
   assert.deepEqual(errors,[]);console.log('PASS field notes '+width);await page.close();
  }}finally{await browser.close();server.close();}
 })().catch(e=>{console.error(e);process.exit(1)});

@@ -74,6 +74,7 @@ function extras(k,ans,role){
   const fam=String(k.family||'').trim();
   const B=[];const add=(h,o)=>{if((o.li&&o.li.length)||o.p||o.near&&o.near.length||o.scales&&o.scales.length)B.push({h,...o})};
   const scaleTip='추가 자료 · 척도 자료실에서 개요와 공식 배포처를 봅니다. 척도 점수는 OY-RALS 판정에 더하지 않습니다.';
+  const addScales=()=>add('더 확인해 볼 척도',{scales,p:scales.length?'':'현재 결과와 학교급에 맞춰 제안할 추가 척도가 없습니다. 필요하면 척도 자료실을 살펴보세요.',tip:scaleTip,library:true});
   const nearTip='연결은 담당자와 함께 정합니다. 02 지역자원 지도에서 더 볼 수 있습니다.';
   if(role==='teacher'){
     const care=['어려움을 반 친구들 앞에서 지적하거나 묻지 않습니다.','원인(학대·방임 등)을 짐작해 학생이나 보호자에게 캐묻지 않습니다. 본 것만 적습니다.'];
@@ -85,6 +86,7 @@ function extras(k,ans,role){
     B.push({h:'조심할 점',li:care.slice(0,3),cls:'oy1-care'});
     add('보호자와 이야기할 때',{p:fam});
     add(strengthH,{li:strengths});
+    addScales();
     add('가까운 지역 기관',{near,tip:nearTip});
     return {title:'담임교사가 알아 두면 좋은 것',blocks:B,memo:['교육복지사에게 전할 메모','예: 3주째 월요일 1교시에 자주 졸고, 준비물을 자주 빠뜨림. 이름·서술기록은 쓰지 않습니다.']};
   }
@@ -92,7 +94,7 @@ function extras(k,ans,role){
     add('학교 안에서 할 지원',{li:roleItems(d,'교육복지사')});
     add('담임교사에게 부탁할 관찰',{li:watch.slice(0,4),tip:'03 학교 지원의 「2주 관찰 기록지」로 함께 적습니다.'});
     add('학생 면담에서 물을 것',{li:qs(true)});
-    add('더 확인해 볼 척도',{scales,tip:scaleTip});
+    addScales();
     B.push({h:'학맞통·통합사례관리 판단',li:[selName(sel)+' · '+(sel.why||''),sel.systems&&sel.systems.length?'함께 필요한 개입체계: '+sel.systems.join(', '):'학교 안 지원으로 시작합니다.','주관 제안: '+k.lead],cls:sel.status==='met'?'':'oy1-care'});
     add('보호자 연락',{p:fam,tip:'학생맞춤통합지원은 학생·보호자 동의가 필요합니다.'});
     add(strengthH,{li:strengths});
@@ -107,6 +109,7 @@ function extras(k,ans,role){
     add('지원 목표',{li:goals});
     add('보호자 동의·연락',{p:fam,tip:'학생맞춤통합지원은 학생·보호자 동의가 필요합니다.'});
     add(strengthH,{li:strengths});
+    addScales();
     return {title:'학맞통 지원팀 사례회의 준비',blocks:B,memo:['회의 메모','예: 선정 여부, 맡을 기관과 담당자, 다음 점검일.']};
   }
   /* 사회복지관·아동가족기관·행정복지센터: 같은 사례관리 항목 위에 역할마다 다른 첫 블록을 둔다(무작위 500사례 P1-4·G4). */
@@ -118,7 +121,7 @@ function extras(k,ans,role){
   add('시기별 계획',{li:stops});
   add('지원 목표',{li:goals});
   add('가족과 함께하기',{p:fam});
-  add('더 확인해 볼 척도',{scales,tip:scaleTip});
+  addScales();
   add('연계 후보 기관',{near,tip:nearTip});
   return {title:SCOPE[role].name+' 실무 정리',blocks:B,memo:['사례 메모','예: 초기상담 일정, 확인할 급여·서비스, 협력 기관 담당자.']};
 }
@@ -262,7 +265,7 @@ function teachHtml(t){
     (b.scales&&b.scales.length?'<ul class="oy1-scales">'+b.scales.map(x=>'<li><button type="button" data-oy1-scale="'+esc(x.id)+'">'+esc(x.b)+' <span aria-hidden="true">→</span></button> <small>'+esc(x.t)+'</small></li>').join('')+'</ul>':'')+
     (b.li&&b.li.length?ul(b.li):'')+(b.p?'<p>'+esc(b.p)+'</p>':'')+
     (b.near&&b.near.length?'<ul>'+b.near.map(r=>'<li><b>'+esc(r.b)+'</b> '+esc(r.t)+' <small>'+esc(r.s)+'</small></li>').join('')+'</ul>':'')+
-    (b.tip?'<p class="oy1-tip">'+esc(b.tip)+'</p>':'')+'</section>';
+    (b.tip?'<p class="oy1-tip">'+esc(b.tip)+'</p>':'')+(b.library?'<button type="button" class="flow-btn" data-oy1-library>척도 자료실 전체 보기 →</button>':'')+'</section>';
   const memo='<section class="oy1-t oy1-memo"><h4>'+esc(t.memo[0])+'</h4><label class="oy1-vh" for="oy1Memo">'+esc(t.memo[0])+'</label><textarea id="oy1Memo" rows="4" maxlength="300" placeholder="'+esc(t.memo[1])+'"></textarea><p class="oy1-tip">저장되지 않습니다. 인쇄하면 함께 나옵니다.</p></section>';
   /* 첫 결과와 역할 선택 시 펼친다. 실무자가 읽은 뒤 직접 접을 수 있다. */
   return '<details class="oy1-notes"'+(notesOpen?' open':'')+'><summary><span class="oy1-sub-k">현장 노트</span><b>'+esc(t.title)+'</b><small>'+(t.blocks.length+1)+'가지 · 펼치기</small></summary><div class="oy1-tgrid">'+t.blocks.map(blk).join('')+memo+'</div></details>';
@@ -314,7 +317,7 @@ function printOne(doc){
   const old=doc.getElementById('oy1-print-root');if(old)old.remove();
   const el=doc.createElement('section');el.id='oy1-print-root';el.className='oy1 oy1-print';
   el.innerHTML=html(box.__model);
-  el.querySelectorAll('.oy1-actions,.oy1-pass,.oy1-pick,.oy1-band,.oy1-go').forEach(x=>x.remove());
+  el.querySelectorAll('.oy1-actions,.oy1-pass,.oy1-pick,.oy1-band,.oy1-go,[data-oy1-library]').forEach(x=>x.remove());
   el.querySelectorAll('details.oy1-notes').forEach(x=>{x.open=true;});
   /* 메모는 화면에서 쓴 글을 줄 친 칸으로 옮겨 인쇄한다(저장하지 않음). */
   const memo=doc.getElementById('oy1Memo'),ta=el.querySelector('#oy1Memo');if(ta){const dv=doc.createElement('div');dv.className='oy1-lines';dv.textContent=memo?memo.value:'';ta.replaceWith(dv);el.querySelectorAll('.oy1-memo .oy1-tip,.oy1-memo .oy1-vh').forEach(x=>x.remove());}
@@ -340,6 +343,7 @@ function bind(doc){
     if(t.closest('[data-oy-role]')){notesOpen=true;const selected=t.closest('[data-oy-role]').dataset.oyRole;const inResult=!!t.closest('#oyOnePage');setTimeout(()=>{render();if(inResult){const b=doc.querySelector('#oyOnePage [data-oy-role="'+selected+'"]');if(b)b.focus({preventScroll:true});}},0);return;}
     const more=t.closest('[data-oy1-more]');if(more&&cur){const rev=cur.payload.flowRevision;open[rev]=!open[rev];setFold(!open[rev]);if(open[rev]){const j=doc.getElementById('journey88');j&&j.scrollIntoView({behavior:'smooth',block:'start'});}return;}
     const go=t.closest('[data-oy1-go]');if(go&&cur){open[cur.payload.flowRevision]=true;setFold(false);const tb=doc.querySelector('#journey88 [data-j88-result-tab="'+go.dataset.oy1Go+'"]');if(tb&&tb.getAttribute('aria-pressed')!=='true')tb.click();const j=doc.getElementById('journey88');j&&j.scrollIntoView({behavior:'smooth',block:'start'});return;}
+    if(t.closest('[data-oy1-library]')){const L=LIB();if(L&&L.open)L.open(doc);return;}
     const sc=t.closest('[data-oy1-scale]');if(sc){const L=LIB();if(L&&L.open){L.open(doc);const c=doc.getElementById('osl-'+sc.dataset.oy1Scale);if(c){c.hidden=false;const g=c.closest('.osl-group');if(g)g.hidden=false;c.open=true;setTimeout(()=>c.scrollIntoView({behavior:'smooth',block:'start'}),120);}}return;}
     if(t.closest('[data-oy1-check]')){askReview(doc);return;}
     if(t.closest('[data-oy1-map]')){const n=doc.querySelector('.flow-nav [data-oy-step="2"]');if(n&&!n.disabled)n.click();return;}

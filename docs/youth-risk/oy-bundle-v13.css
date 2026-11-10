@@ -1,4 +1,4 @@
-/* OY-RALS 메인 화면 CSS 묶음 v13 · 원본 34개 · sha 7d10fc1556dc · 직접 고치지 말고 원본을 고친 뒤 node scripts/build-youth-css.cjs */
+/* OY-RALS 메인 화면 CSS 묶음 v13 · 원본 34개 · sha 44206d0ac2c9 · 직접 고치지 말고 원본을 고친 뒤 node scripts/build-youth-css.cjs */
 /* ==== flow.css ==== */
 @font-face{font-family:SUIT;src:url(fonts/SUIT-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}*{box-sizing:border-box}body{margin:0;background:#f1f5fa;color:#263f57;font-family:SUIT,"Malgun Gothic",sans-serif}.flow-wrap{max-width:1240px;width:calc(100% - 32px);margin:auto}.flow-header{background:#fff;border-bottom:1px solid #dce5ef;padding:24px 0}.flow-header p{font-size:12px;letter-spacing:.12em;color:#5f7c99;margin:0 0 8px}.flow-header h1{font-size:28px;margin:0 0 8px}.flow-header small{font-size:15px;color:#56718b}.flow-nav{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 10px}.flow-nav button,.flow-btn{font:inherit;cursor:pointer;border:1px solid #cadbea;background:#fff;color:#315776;border-radius:22px;padding:12px 18px;font-weight:700}.flow-nav button[aria-current=step]{background:#305e89;color:white;border-color:#305e89}.flow-nav button:disabled{color:#8b9aaa;background:#eaf0f5;cursor:default}#flowStatus{font-size:14px;line-height:1.7;color:#57708a}#stepTitle{font-size:23px;margin:24px 0 16px}.flow-frame{display:block;width:100%;height:1000px;border:0;background:#f1f5fa;overflow:hidden}.flow-frame[hidden]{display:none}.flow-bottom{display:flex;justify-content:space-between;gap:12px;margin:24px 0 40px}.flow-primary{background:#305e89;color:white;border-color:#305e89}.flow-result-tabs{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}.flow-result-tabs [aria-pressed=true]{background:#dceafa}.flow-focus{border:1px solid #d6e2ef;background:#fff;border-radius:22px;padding:20px;margin:20px 0}.flow-focus h3{margin:0 0 8px;font-size:18px}.flow-focus p{font-size:14px;line-height:1.7;color:#587189}#focusChoices{display:flex;gap:12px;flex-wrap:wrap}#focusChoices label{padding:10px 13px;background:#f0f5fb;border-radius:16px;display:flex;gap:8px;align-items:center;font-size:14px}#recordVersion{font:inherit;padding:10px;border:1px solid #c2d5e7;border-radius:12px}footer.flow-footer{padding:25px 0;border-top:1px solid #d7e2ed;font-size:13px;line-height:1.8;color:#587087}footer.flow-footer a{color:inherit}button:focus-visible,a:focus-visible{outline:3px solid #94bce5;outline-offset:3px}@media(max-width:650px){.flow-wrap{width:calc(100% - 20px)}.flow-header h1{font-size:24px}.flow-nav{display:grid;grid-template-columns:1fr 1fr}.flow-nav button{padding:11px 8px;font-size:13px}.flow-bottom button{font-size:14px;padding:12px}.flow-focus{padding:16px}}@media print{.flow-header,.flow-nav,.flow-bottom,.flow-footer{display:none}}
 
@@ -2230,27 +2230,14 @@ body.oy-lib-open #assessmentFlow>:not(.flow-nav):not(#scaleLibraryArea),body.oy-
 #welcome .home-role-grid article{margin:0;padding:24px;min-width:0;border-radius:16px;box-shadow:none;align-items:start}
 #welcome .home-role-grid h2{margin:4px 0 12px;line-height:1.4}
 #welcome .home-role-grid p{margin:0;line-height:1.7}
-#welcome #oyRoleStart{padding:24px;gap:16px;animation:none;box-shadow:none;border:1px solid var(--oy-line);overflow:visible}
-#oyRoleStart::after{display:none}
+#welcome #oyRoleStart{padding:24px;gap:16px}
 #oyRoleTitle{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 16px}
-#oyRoleTitle .oy-role-tap{background:none;color:var(--oy-data-ink);padding:0;border-radius:0;font-weight:500}
 #oyRoleStart .oy-role-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:1fr;gap:12px}
 #oyRoleStart .oy-role-list button{min-height:48px;border-radius:12px;padding:12px;line-height:1.5;white-space:normal;word-break:keep-all}
 #welcome .youth-resource-card{max-width:none;margin:0;padding:24px;border-radius:16px;box-shadow:none;gap:16px 24px}
 #welcome .bridge-actions{display:flex;gap:12px;align-items:stretch}
 #welcome .bridge-actions>a,#welcome .bridge-actions>button{min-height:48px;box-sizing:border-box;display:flex;align-items:center;justify-content:center;margin:0;padding:12px 20px;line-height:1.5}
 #welcome .bridge-footnote{margin:0}
-.oy-start-notes{border-top:1px solid var(--oy-line);padding-top:16px;scroll-margin-top:24px}
-.oy-start-notes summary{min-height:44px;cursor:pointer;color:var(--oy-ink);line-height:1.6}
-.oy-start-notes summary span{margin-left:12px;color:var(--oy-data-ink);font-size:.875rem}
-.oy-start-notes-body{display:grid;gap:16px;padding-top:12px}
-.oy-start-notes-body ul{margin:0;padding-left:24px;line-height:1.8}
-.oy-notes-confirm{display:flex;align-items:flex-start;gap:12px;padding:16px;background:var(--oy-data-soft);color:var(--oy-ink);border-radius:8px;cursor:pointer;line-height:1.6}
-.oy-notes-confirm input{flex:none;width:20px;height:20px;margin:3px 0 0;accent-color:var(--oy-data)}
-#oyNotesStart{justify-self:start;min-height:48px}
-#oyStartNotesStatus{color:var(--oy-data-ink)}
-#oyNotesReminder{padding:16px;background:var(--oy-data-soft);border-radius:8px;line-height:1.8}
-.oy-start-notes summary:focus-visible,.oy-notes-confirm input:focus-visible{outline:3px solid var(--oy-data);outline-offset:4px}
 @media screen{#assessmentFlow .oy1-notes>summary{min-height:56px;padding:16px;background:var(--oy-data-soft)}.oy1-notes summary small{font-size:.85rem}.oy1-notes[open] summary small{display:inline;font-size:0}.oy1-notes[open] summary small::after{content:'확인 후 접기';font-size:.85rem}.oy1-notes .oy1-tgrid{padding-top:20px}}
 @media(max-width:760px){
  #welcome .home-role-grid,#welcome #oyRoleStart,#welcome .youth-resource-bridge{width:calc(100% - 32px);margin:20px auto}
@@ -2259,7 +2246,5 @@ body.oy-lib-open #assessmentFlow>:not(.flow-nav):not(#scaleLibraryArea),body.oy-
  #oyRoleStart .oy-role-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
  #welcome .bridge-actions{flex-direction:column;width:100%}
  #welcome .bridge-actions>a,#welcome .bridge-actions>button{width:100%}
- .oy-start-notes summary span{display:block;margin-left:0}
- #oyNotesStart{width:100%}
 }
 @media(max-width:360px){#oyRoleStart .oy-role-list{grid-template-columns:1fr}}

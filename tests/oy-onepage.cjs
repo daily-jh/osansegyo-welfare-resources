@@ -22,6 +22,7 @@ cases.forEach((c,i)=>{
   const p=payload(c,i),before=JSON.stringify(p),R=OD.resolve(p);
   ROLES.forEach(role=>{
     const m=OP.model(p,role),h=OP.html(m),t=OP.text(m);
+    if(role){assert.ok(m.teach.blocks.some(b=>b.h==='더 확인해 볼 척도'),c.id+' '+role+' scale section');assert.match(h,/data-oy1-library/);}
     assert.equal(m.tier,R.tier,c.id+' tier');
     assert.equal(m.k.safety.value,R.cells[0].value,c.id+' safety');
     assert.ok(m.steps.length>=1&&m.steps.length<=3,c.id+' '+role+' steps 1~3');
