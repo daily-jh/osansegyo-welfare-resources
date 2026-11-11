@@ -33,4 +33,7 @@ assert.ok(M.suggestWords('가출').includes('쉼터'));
  for(const q of ['자해','무료급식','결식','가출','게임중독','빚','통역','은둔','전기요금','조손','안경','학원비','아르바이트','임신']){
   const n=WELFARE_DATA.organizations.reduce((a,o)=>a+(o.services||[]).filter(s=>M.matchesService(o,s,{keyword:q})).length,0);if(!n)zero.push(q)}
  assert.deepEqual(zero,[],'field words with no result: '+zero.join(','));}
-console.log('PASS: field words, same-service AND filters, unknown eligibility, synonyms, KST date-based application boundaries');
+assert.equal(M.recheckDue({verification:{next:'2026-11-10'}},'2026-11-11'),true);
+assert.equal(M.recheckDue({verification:{next:'2026-11-11'}},'2026-11-11'),false);
+assert.equal(M.recheckDue({verification:{next:''}},'2026-11-11'),false);
+console.log('PASS: recheck due, field words, same-service AND filters, unknown eligibility, synonyms, KST date-based application boundaries');

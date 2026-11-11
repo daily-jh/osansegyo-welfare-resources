@@ -71,6 +71,8 @@
     // Institution identity is shared; eligibility filters always apply to this service.
     return queryMatch([o.name,o.kind,s.name,s.category,s.target,s.description,s.method,...Object.values(tags).flat()].join(' '),state.keyword);
   }
-  const api={norm,queryMatch,suggestWords,matchesService,applicationState,roundState,today};
+  // 다음 확인 예정일(next_check_on)이 지났는지. 예정일이 없으면 판단하지 않는다.
+  function recheckDue(s,day=today()){const next=s&&s.verification&&s.verification.next;return !!next&&day>next}
+  const api={norm,queryMatch,suggestWords,recheckDue,matchesService,applicationState,roundState,today};
   if(typeof module!=='undefined')module.exports=api;else root.ResourceSearch=api;
 })(typeof window!=='undefined'?window:globalThis);

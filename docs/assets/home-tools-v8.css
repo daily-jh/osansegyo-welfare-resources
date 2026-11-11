@@ -76,3 +76,6 @@ main>.help-now:last-child{margin-top:8px;margin-bottom:48px}
 @media print{.org-details .rc-form,.detail-links .rc-open{display:none}}
 .empty-state .empty-suggest .quick-tag{min-height:40px;padding:0 14px;border-radius:999px;border:1px solid #d6dee6;background:#fff;color:#1d4f7a;font-size:13px;font-weight:600}
 .empty-state .empty-suggest .quick-tag:hover{background:#eef5fc}
+
+/* 다시 확인할 때가 지난 서비스(2026-11-11): 주황 글자만, 배지·칸은 늘리지 않음 */
+.recheck-due{color:#a24a12;font-weight:700}
