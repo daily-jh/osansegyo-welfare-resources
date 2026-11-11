@@ -27,6 +27,7 @@ jobs:
       - run: python scripts/sync_service_review_queue.py --check
       - run: python -m unittest discover -s tests -p 'test_resources.py'
       - run: python -m unittest discover -s tests -p 'test_program_refresh.py'
+      - run: python -m unittest discover -s tests -p 'test_monthly_recheck.py'
       - name: Search and youth resource compatibility
         shell: bash
         run: |
@@ -35,6 +36,7 @@ jobs:
           node tests/resource-expansion.cjs
           node tests/resource-overview.cjs
           node tests/home-tools-v8.cjs
+          node tests/resource-correction.cjs
           for test in tests/youth-*.cjs; do node "$test"; done
       - name: Universal service guide verification and mobile Chrome smoke test
         run: |
@@ -56,6 +58,12 @@ jobs:
       - name: Source quality report
         if: github.event_name != 'schedule' && github.event_name != 'workflow_dispatch'
         run: python scripts/audit_resources.py
+      - name: Monthly recheck list (read only)
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: |
+          mkdir -p artifacts/resource-audit
+          python scripts/monthly_recheck.py --days 31 --csv artifacts/resource-audit/monthly-recheck.csv > artifacts/resource-audit/monthly-recheck.md
+          cat artifacts/resource-audit/monthly-recheck.md >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v4
         if: always()
         with:

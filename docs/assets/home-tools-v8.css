@@ -53,3 +53,29 @@
 /* 2026-10-28 메인 정리: 범주 이름 한 줄, 긴급전화 띠는 화면 맨 아래(자료 갱신 다음) */
 .stat-sub{display:block;margin-top:2px;color:var(--ads-secondary,#46586b);font-size:11px;line-height:1.4;word-break:keep-all}
 main>.help-now:last-child{margin-top:8px;margin-bottom:48px}
+
+/* 0건일 때 '이런 말로 찾아보세요'(2026-11-11) */
+.empty-suggest{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px;margin:14px auto 16px;max-width:560px}
+.empty-suggest:empty{display:none}
+.empty-suggest>span{flex-basis:100%;text-align:center;font-size:13px;font-weight:700;color:var(--muted,#56677a)}
+
+/* 기관 카드 · 정보 정정 알리기(2026-11-11) — 카드 안 머리선 아래 작은 칸, 화면을 늘리지 않게 누를 때만 펼침 */
+.rc-form{margin-top:14px;padding-top:14px;border-top:1px solid var(--line,#e3e8ee);display:grid;gap:10px;font-size:14px}
+.rc-lead{margin:0;line-height:1.55;color:var(--ink,#16273a)}
+.rc-what{border:0;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px 14px}
+.rc-what legend{font-weight:700;margin-bottom:6px;padding:0}
+.rc-what label,.rc-ok{display:inline-flex;align-items:center;gap:6px;min-height:32px}
+.rc-label{font-weight:700}
+.rc-form textarea{width:100%;font:inherit;padding:10px 12px;border:1px solid var(--line,#cfd8e3);border-radius:10px;resize:vertical}
+.rc-btns{display:flex;gap:8px}
+.rc-btns button{min-height:40px;padding:0 16px;border-radius:999px;font:inherit;font-weight:700;cursor:pointer;border:1px solid var(--line,#cfd8e3);background:#fff;color:var(--ink,#16273a)}
+.rc-btns .rc-send{background:#1765bd;border-color:#1765bd;color:#fff}
+.rc-btns button:disabled{opacity:.55;cursor:default}
+.rc-status{margin:0;min-height:1.2em;color:#a1321f;font-size:13px}
+.rc-done{margin:0;padding:12px 14px;border-radius:12px;background:#eef5fc;color:#16273a}
+@media print{.org-details .rc-form,.detail-links .rc-open{display:none}}
+.empty-state .empty-suggest .quick-tag{min-height:40px;padding:0 14px;border-radius:999px;border:1px solid #d6dee6;background:#fff;color:#1d4f7a;font-size:13px;font-weight:600}
+.empty-state .empty-suggest .quick-tag:hover{background:#eef5fc}
+
+/* 다시 확인할 때가 지난 서비스(2026-11-11): 주황 글자만, 배지·칸은 늘리지 않음 */
+.recheck-due{color:#a24a12;font-weight:700}

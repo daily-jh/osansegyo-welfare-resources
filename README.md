@@ -79,13 +79,14 @@ python scripts/build_data.py --check
 python -m unittest discover -s tests -p 'test_resources.py'
 node tests/resource-search.cjs
 python scripts/audit_resources.py --links
+python scripts/monthly_recheck.py            # 이번 달 다시 확인할 서비스 목록(읽기 전용)
 ```
 
 `--check`는 불완전 행·중복 ID·참조 오류·생성물 차이를 실패로 처리하며 데이터를 건너뛰지 않습니다. audit은 확인 목록만 `artifacts/resource-audit/`에 생성하고 원본을 변경하지 않습니다. 링크 응답 200은 정확성 검증이 아니며 403·429·시간초과도 폐지 근거가 아닙니다.
 
-GitHub Actions의 **Welfare resource checks**가 매월 1일 09:00 KST에 자동점검을 실행합니다. 실행이 지연·누락되면 **Run workflow**로 수동 실행합니다. 실행 페이지의 요약·resource-audit 첨부 보고서를 내려받아 공식 출처와 대조하십시오. 예약 검사 자체는 사이트를 갱신하거나 자료를 삭제하지 않습니다. 실제 확인·수정 후 생성물 검사, 청소년 회귀검사, `docs/changelog.html` 이력 기록을 거쳐 배포하십시오.
+GitHub Actions의 **Welfare resource checks**가 매월 1일 09:00 KST에 자동점검을 실행합니다. 실행이 지연·누락되면 **Run workflow**로 수동 실행합니다. 실행 페이지의 요약·resource-audit 첨부 보고서를 내려받아 공식 출처와 대조하십시오. 같은 실행이 `monthly-recheck.md·csv`(다음 확인 예정일이 지났거나 31일 안에 오는 서비스, 확인 기록이 없는 서비스, 주소 미확인 기관)를 함께 만듭니다. 사이트의 서비스 상세에도 예정일이 지난 항목은 「다시 확인할 때가 지났습니다」로 표시됩니다. 예약 검사 자체는 사이트를 갱신하거나 자료를 삭제하지 않습니다. 실제 확인·수정 후 생성물 검사, 청소년 회귀검사, `docs/changelog.html` 이력 기록을 거쳐 배포하십시오.
 
-공개 기준·이용조건: `docs/data-guide.html`. 오류 제보: GitHub Issue 양식. 개인정보를 입력하거나 비공개 확인자 명단을 저장소에 올리지 마십시오. CSV의 CC·공공누리 이용허락은 새로 부여하지 않았습니다.
+공개 기준·이용조건: `docs/data-guide.html`. 오류 제보: 기관 카드의 「정보 정정 알리기」(로그인 없이 의견 창구로 접수, 관리 화면 youth-risk/feedback-admin.html의 「복지자원 정정」) 또는 GitHub Issue 양식. 개인정보를 입력하거나 비공개 확인자 명단을 저장소에 올리지 마십시오. CSV의 CC·공공누리 이용허락은 새로 부여하지 않았습니다.
 
 ## 운영상 주의사항
 

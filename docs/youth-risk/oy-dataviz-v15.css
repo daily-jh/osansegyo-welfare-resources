@@ -17,3 +17,15 @@
 .oy-radar-key span{display:inline-flex;align-items:center;font-variant-numeric:tabular-nums}
 .oy-viz-radar-legend span{font-variant-numeric:tabular-nums}
 
+
+/* 휴대폰 레이더(2026-11-11): 700 단위 그림이 약 270px로 줄어 영역 이름이 6px이 되던 문제.
+   좁은 화면에서는 둘레 이름·값 대신 번호(01~10, 약 14px)만 두고, 바로 아래 목록이 이름·값·구간을 큰 글자로 보여 줍니다.
+   PC·인쇄·고해상도 이미지 저장은 그대로입니다. */
+.oy-radar-lband{font-style:normal;font-weight:500;color:#56677a;margin-left:-5px}
+.oy-radar-hot .oy-radar-lband{color:inherit}
+@media screen and (max-width:560px){
+ .oy-viz-radar .oy-radar-axis,.oy-viz-radar .oy-radar-ring{display:none}
+ .oy-viz-radar .oy-radar-num{display:inline}
+ .oy-viz-main-radar .oy-viz-radar-legend span,.oy-viz-radar-legend span{font-size:14px;line-height:1.45}
+ .oy-viz-radar-legend i{font-size:13px}
+}
