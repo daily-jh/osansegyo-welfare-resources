@@ -3,7 +3,7 @@
    read by a homeroom teacher and by a supervisor. Carries no scores and never changes a judgement. */
 (function(root){'use strict';
 const node=typeof module!=='undefined'&&module.exports;
-const VERSION='1.0.0-20261026';
+const VERSION='1.1.0-20261111';
 
 // Five life themes over the ten CORE domains (domain index order follows K.DOMAIN_NAMES).
 const THEMES=[
@@ -23,17 +23,17 @@ const THEME_OF_DOMAIN=[];THEMES.forEach((t,i)=>t.domains.forEach(d=>{THEME_OF_DO
 // One rung per cross pattern: plain wording → professional concept → why the concept matters in practice.
 // Drafted for practitioner review; the pattern itself and its wording come from oy-cross-patterns-v1.
 const CONCEPTS={
- 'emotion-safety':{plain:'너무 힘들어서 스스로를 해칠 생각까지 이어진 상태',term:'정서적 고통–자해 사고의 동반',
+ 'emotion-safety':{plain:'너무 힘들어서 스스로를 해치거나 죽고 싶은 생각까지 이어진 상태',term:'정서적 고통과 자해·자살 사고의 동반',
   why:'고통의 크기와 안전 신호가 함께 움직입니다. 정서 지원과 안전계획을 한 묶음으로 다루는 근거가 됩니다.'},
  'isolated-distress':{plain:'힘든데 기댈 어른이 없는 상태',term:'지지 결핍 속 고통 (보호요인 결손)',
   why:'믿을 어른은 고통의 영향을 줄이는 완충 장치입니다. 그 완충이 비어 있어 같은 고통이 더 크게 작용합니다.'},
  'care-burnout':{plain:'가족을 돌보느라 마음이 지친 상태',term:'가족돌봄 청소년의 돌봄 소진',
   why:'돌봄 책임이 또래·학업 같은 발달 과업을 밀어내면서 정서 소진으로 이어지는 경로입니다.'},
  'night-cycle':{plain:'밤에 온라인으로 버티다 잠이 무너진 상태',term:'수면–디지털 이용의 악순환',
-  why:'디지털 이용이 불안을 달래는 대처로 쓰이면서 수면을 깎고, 줄어든 수면이 다시 불안을 키웁니다.'},
+  why:'디지털 이용이 불안이나 외로움을 달래는 방법으로 쓰이면 수면이 줄고, 줄어든 수면이 다시 마음을 흔드는 순환일 수 있습니다. 이용 시간보다 밤에 무엇을 견디고 있는지 먼저 묻습니다.'},
  'peer-withdrawal':{plain:'괴롭힘을 당한 뒤 움츠러든 상태',term:'또래 피해 후 내재화 반응',
   why:'피해 경험이 위축·자기비난처럼 안으로 향하는 어려움으로 이어져, 겉으로는 조용해 보일 수 있습니다.'},
- 'peer-avoidance':{plain:'괴롭힘 때문에 학교 가기를 피하는 상태',term:'피해 회피로서의 결석 (회피의 강화)',
+ 'peer-avoidance':{plain:'괴롭힘 때문에 학교 가기를 피하는 상태',term:'피해 회피로서의 결석 (부적 강화에 의한 회피 유지)',
   why:'결석이 불안을 잠시 줄여 주기 때문에 회피가 굳어집니다. 학교 안 안전이 먼저 확보되어야 등교 회복이 가능합니다.'},
  'coercion-avoidance':{plain:'누군가의 강요가 무서워 학교를 피하는 상태',term:'강압·착취 노출과 회피 결석',
   why:'결석이 위협을 피하는 방법이 된 경우로, 등교 독려보다 위협 차단이 먼저입니다.'},
@@ -45,22 +45,22 @@ const CONCEPTS={
   why:'가정에서 맡은 역할이 학생 역할과 시간을 다투는 구조여서, 출결 지도만으로는 바뀌지 않습니다.'},
  'family-disengage':{plain:'집안의 긴장이 등교를 흔드는 상태',term:'가족 긴장의 학교 적응 파급',
   why:'가정의 긴장이 가정–학교 연결을 거쳐 출결로 나타납니다. 보호자 면담이 출결 대책의 일부가 됩니다.'},
- 'basic-disengage':{plain:'먹고 입을 것이 부족해 학교가 부담인 상태',term:'기본욕구 결핍과 낙인 회피',
+ 'basic-disengage':{plain:'먹고 입는 생활의 기본이 부족해 학교가 부담인 상태',term:'기본욕구 결핍과 낙인 회피',
   why:'기본욕구가 채워지지 않으면 학습과 소속으로 나아가기 어렵고, 결핍이 드러날까 하는 부담이 회피를 키웁니다.'},
  'housing-instability':{plain:'집이 불안정해 생활 리듬이 무너진 상태',term:'주거 불안정의 생태체계 파급',
-  why:'주거라는 바깥 조건이 수면·이동·공부 공간을 거쳐 학교생활에 닿습니다. 학교 안 대책만으로는 멈추지 않습니다.'},
+  why:'주거라는 바깥 조건이 수면·이동·공부 공간을 거쳐 학교생활에 닿습니다. 학교 안 대책만으로는 멈추기 어렵습니다.'},
  'care-gap':{plain:'챙겨 주는 어른이 비어 있는 상태',term:'돌봄 공백 (보호요인 결손)',
   why:'일상 돌봄의 빈자리는 다른 어려움이 커지는 바탕이 됩니다. 방임 해당 여부는 면담과 기관 판단으로 확인합니다.'},
  'parentified':{plain:'아이가 부모 역할을 대신하는 상태',term:'부모화 (역할 전도)',
   why:'학생이 정서적·실질적으로 보호자 역할을 맡아 자신의 발달 욕구가 뒤로 밀리는 상태입니다.'},
  'cost-barrier':{plain:'돈 때문에 필요한 지원을 못 쓰는 상태',term:'경제적 접근 장벽',
   why:'지원이 있어도 비용 때문에 쓰지 못하는 구조로, 서비스 연결과 비용 지원을 함께 설계해야 합니다.'},
- 'learning-access':{plain:'배울 환경이 학생에게 맞지 않는 상태',term:'학습 접근성 장벽 (편의 제공 부족)',
+ 'learning-access':{plain:'배울 환경이 학생에게 맞지 않는 상태',term:'학습 접근성 장벽 (학습 환경 조정 필요)',
   why:'학생의 능력보다 환경이 맞지 않아 생긴 어려움이므로, 환경 조정이 첫 개입입니다.'},
  'learning-belonging':{plain:'공부가 어려워 학교에 마음을 못 붙이는 상태',term:'학업 좌절–학교 유대 약화',
   why:'반복된 학업 실패가 학교 소속감을 깎아 이탈 위험을 키웁니다.'},
  'disengagement':{plain:'학교에서 점점 멀어지는 상태',term:'학교 이탈 진행 (학업중단 위기 경로)',
-  why:'출결 감소와 소속감 저하가 함께 나타나는 단계로, 연결 회복이 등교 회복보다 먼저입니다.'},
+  why:'출결 감소와 소속감 저하가 함께 나타나는 단계로, 등교 요구보다 믿을 어른·참여할 자리 같은 학교와의 연결을 먼저 회복합니다.'},
  'family-acting-out':{plain:'집의 긴장이 행동으로 터지는 상태',term:'가족 스트레스의 외현화',
   why:'가정의 긴장이 밖으로 드러나는 행동으로 나타나, 행동 지도만으로는 반복됩니다.'},
  'risk-cluster':{plain:'위험한 행동이 여러 개 겹친 상태',term:'위험행동 군집',
@@ -69,12 +69,12 @@ const CONCEPTS={
   why:'지지망이 비어 있어, 다른 지원이 학생에게 닿을 통로부터 만들어야 합니다.'},
  'protection-school':{plain:'집에서의 안전 문제가 학교생활을 흔드는 상태',term:'보호 위기의 학교 적응 파급',
   why:'학교에서 보이는 변화가 가정 내 안전 문제의 신호일 수 있습니다.'},
- 'protection-family':{plain:'집의 긴장이 학생을 다치게 하는 상태',term:'가정 내 위해와 가족 기능 저하',
+ 'protection-family':{plain:'집에서 다칠 위험과 가족 갈등이 함께 있는 상태',term:'가정 내 위해와 가족 기능 저하',
   why:'가족 갈등이 위해로 이어지고 있어, 가족 지원보다 학생 보호가 먼저입니다.'},
- 'protection-distress':{plain:'다친 경험이 마음의 고통으로 이어진 상태',term:'위해 경험의 외상 반응',
-  why:'지금의 정서 문제가 위해 경험에 대한 반응일 수 있어, 보호 확인과 외상 기반 정서 지원을 함께 합니다.'},
- 'neglect-care-gap':{plain:'돌봄을 받지 못해 생활이 비어 있는 상태',term:'방임에 의한 돌봄 결핍',
-  why:'생활의 빈자리가 지속된 돌봄 결핍의 신호일 수 있어, 생활 지원과 보호 판단을 함께 합니다.'},
+ 'protection-distress':{plain:'다친 경험이 마음의 고통으로 이어진 상태',term:'위해 경험 이후의 외상 관련 반응 (가능성)',
+  why:'지금의 정서 문제가 위해 경험에 대한 반응일 수 있습니다. 진단이 아니라 면담으로 확인할 부분이며, 보호 확인과 외상 기반 정서 지원을 함께 합니다.'},
+ 'neglect-care-gap':{plain:'돌봄을 받지 못해 생활이 비어 있는 상태',term:'돌봄 결핍 (방임 의심 신호 포함)',
+  why:'생활의 빈자리가 지속된 돌봄 결핍의 신호일 수 있어, 생활 지원과 보호 판단을 함께 합니다. 방임 해당 여부는 이 결과가 아니라 면담과 아동보호전문기관·아동학대전담공무원의 판단으로 정합니다.'},
  'selfharm-alone':{plain:'위험한 순간에 기댈 사람이 없는 상태',term:'자살·자해 위험과 지지체계 부재',
   why:'위기 순간에 연락할 사람이 없으면 안전 계획이 작동하지 않아, 연락할 어른을 먼저 정합니다.'},
  'exploitation-distress':{plain:'온라인 피해가 마음의 고통이 된 상태',term:'디지털 성범죄 피해의 정서적 영향',
