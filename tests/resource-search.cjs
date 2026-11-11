@@ -19,4 +19,18 @@ assert.equal(M.roundState({...round,opens_on:''},'2026-10-22'),'확인 필요');
 assert.equal(M.roundState({...round,local_available:'확인 필요'},'2026-10-22'),'확인 필요');
 assert.equal(M.applicationState({...housing,operationType:'공모형',rounds:[round]},'2026-11-01'),'마감');
 assert.equal(M.applicationState(housing,'2026-10-22'),'확인 필요');
-console.log('PASS: same-service AND filters, unknown eligibility, synonyms, KST date-based application boundaries');
+// 현장 말 검색(2026-11-11): 일상어가 자료에 쓰인 말로 넓혀지고, 넓힘은 한쪽 방향만.
+assert.equal(M.queryMatch('자살예방상담전화 109 정신건강위기상담','자해'),true);
+assert.equal(M.queryMatch('스마트쉼센터 스마트폰 과의존 상담','게임중독'),true);
+assert.equal(M.queryMatch('다누리콜센터 다국어 상담','통역'),true);
+assert.equal(M.queryMatch('신용회복위원회 채무조정','빚'),true);
+assert.equal(M.queryMatch('지역아동센터 급식 제공','죽고 싶어요'),false);
+assert.equal(M.queryMatch('자살예방상담전화 109','죽고 싶어요'),true);
+assert.equal(M.queryMatch('스마트쉼센터 과의존','자해'),false);
+assert.deepEqual(M.suggestWords('우주여행'),[]);
+assert.ok(M.suggestWords('가출').includes('쉼터'));
+{global.window=global;require('../docs/assets/data.js');const zero=[];
+ for(const q of ['자해','무료급식','결식','가출','게임중독','빚','통역','은둔','전기요금','조손','안경','학원비','아르바이트','임신']){
+  const n=WELFARE_DATA.organizations.reduce((a,o)=>a+(o.services||[]).filter(s=>M.matchesService(o,s,{keyword:q})).length,0);if(!n)zero.push(q)}
+ assert.deepEqual(zero,[],'field words with no result: '+zero.join(','));}
+console.log('PASS: field words, same-service AND filters, unknown eligibility, synonyms, KST date-based application boundaries');
