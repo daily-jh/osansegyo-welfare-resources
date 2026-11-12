@@ -1,0 +1,60 @@
+/* OY-RALS 첫 화면 2차 배치와 창(팝업) — 2026-11-12. oy-entry-layout-v1.css 뒤에 읽는다.
+   평가 시작까지의 길이를 줄인다: 5단계 안내는 한 줄 띠(누르면 창), 역할 소개 두 칸은 낮게, 휴대폰은 그림 대신 시작 단추가 먼저.
+   세 묶음(.home-role-grid, #oyRoleStart, .youth-resource-bridge)의 좌우 맞춤은 oy-entry-layout-v1 그대로 둔다. */
+#welcome .hero-actions{flex-wrap:wrap;gap:12px 16px}
+#welcome .hero-actions .oy-call-open{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 16px;border-radius:999px;border:1px solid #f0c7c7;background:#fff;color:#b02424;font:inherit;font-weight:800;cursor:pointer}
+#welcome .hero-actions .oy-call-open:hover,#welcome .hero-actions .oy-call-open:focus-visible{background:#fff4f4}
+#welcome .home-role-grid article{padding:16px 20px;align-items:center}
+#welcome .home-role-grid h2{margin:2px 0 4px;font-size:clamp(17px,1.5vw,20px)}
+
+/* 5단계: 한 줄 띠. 설명은 창에서 읽는다(스크립트가 없으면 예전 카드 그대로). */
+#howItWorks.welcome-steps.oy-steps-strip{gap:8px!important;margin-top:8px}
+#howItWorks.oy-steps-strip article{display:flex;align-items:center;gap:10px;padding:12px 14px!important;cursor:pointer;transition:border-color .15s,background .15s}
+#howItWorks.oy-steps-strip article:hover,#howItWorks.oy-steps-strip article:focus-visible{border-color:var(--ads-accent,#1765bd)!important;background:var(--ads-accent-soft,#e8f1fc)}
+#howItWorks.oy-steps-strip article:focus-visible{outline:3px solid var(--ads-accent,#1765bd);outline-offset:2px}
+#howItWorks.oy-steps-strip article h2{margin:0;font-size:16px;line-height:1.35}
+#howItWorks.oy-steps-strip article p{display:none}
+#howItWorks.oy-steps-strip article .step-number{flex:none;margin:0}
+
+/* 창 공통 */
+.oy-pop{border:0;padding:0;margin:auto;width:min(680px,calc(100vw - 32px));max-height:calc(100vh - 48px);border-radius:22px;background:#fff;color:#16273a;box-shadow:0 30px 80px rgba(10,25,40,.35);font-family:inherit}
+.oy-pop[open]{display:flex;flex-direction:column;overflow:hidden}
+.oy-pop::backdrop{background:rgba(10,25,40,.5)}
+.oy-pop-head{flex:none;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:20px 24px 16px;border-bottom:1px solid #dfe5ec}
+.oy-pop-head h2{margin:2px 0 0;font-size:22px;line-height:1.35;letter-spacing:-.02em;font-weight:800}
+.oy-pop-kicker{display:block;font-size:13px;font-weight:700;letter-spacing:.06em;color:#46586b}
+.oy-pop-close{flex:none;min-height:40px;padding:0 16px;border-radius:999px;border:1px solid #dfe5ec;background:#fff;color:#16273a;font:inherit;font-weight:700;cursor:pointer}
+.oy-pop-body{flex:1 1 auto;min-height:0;overflow:auto;overscroll-behavior:contain;padding:20px 24px 24px}
+.oy-pop-steps{list-style:none;margin:0;padding:0;border-top:1px solid #dfe5ec}
+.oy-pop-steps li{display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;padding:14px 0;border-bottom:1px solid #dfe5ec}
+.oy-pop-num{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:12px;background:#e8f1fc;color:#1765bd;font-weight:800;font-variant-numeric:tabular-nums}
+.oy-pop-steps b{font-size:17px}
+.oy-pop-steps p{margin:4px 0 0;color:#46586b;line-height:1.65;font-size:15px}
+.oy-pop-note{margin:16px 0 0;padding:12px 14px;border-radius:12px;background:#fff4e5;color:#6b3d00;font-size:14px;line-height:1.6}
+.oy-pop-lead{margin:0 0 12px;color:#46586b;line-height:1.65}
+.oy-pop-lead strong{color:#b02424}
+.oy-pop-calls{list-style:none;margin:0;padding:0;border-top:1px solid #dfe5ec}
+.oy-pop-calls li{border-bottom:1px solid #dfe5ec}
+.oy-pop-calls a{display:grid;grid-template-columns:5.2em minmax(0,1fr);grid-template-areas:"num label" "num note";align-items:center;column-gap:14px;min-height:60px;padding:10px 6px;color:#16273a;text-decoration:none;border-radius:10px}
+.oy-pop-calls a:hover,.oy-pop-calls a:focus-visible{background:#f2f5f8}
+.oy-pop-calls strong{grid-area:num;font-size:20px;font-weight:800;font-variant-numeric:tabular-nums}
+.oy-pop-calls .oy-pop-red strong{color:#b02424}
+.oy-pop-calls span{grid-area:label;font-weight:700}
+.oy-pop-calls small{grid-area:note;color:#46586b;font-size:13px}
+
+@media(max-width:760px){
+ /* 휴대폰: 그림을 빼고 시작 단추를 첫 화면에, 역할 소개는 두 칸 낮은 카드, 5단계는 옆으로 넘기는 띠 */
+ #welcome .hero-art{display:none}
+ #welcome .home-role-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ #welcome .home-role-grid article{padding:14px;flex-direction:column;align-items:flex-start;gap:8px}
+ #welcome .home-role-grid p{display:none}
+ #welcome .home-role-grid h2{font-size:15px;margin:0}
+ #howItWorks.welcome-steps.oy-steps-strip{display:flex!important;overflow-x:auto;scrollbar-width:none;padding-bottom:4px;scroll-snap-type:x proximity}
+ #howItWorks.oy-steps-strip::-webkit-scrollbar{display:none}
+ #howItWorks.oy-steps-strip article{flex:none;scroll-snap-align:start}
+ .oy-pop{width:100%;max-width:100%;max-height:88dvh;margin:auto 0 0;border-radius:22px 22px 0 0}
+ .oy-pop-head{padding:16px 16px 12px}.oy-pop-head h2{font-size:19px}
+ .oy-pop-body{padding:16px 16px calc(20px + env(safe-area-inset-bottom))}
+}
+@media print{.oy-pop{display:none!important}}
+@media(prefers-reduced-motion:reduce){#howItWorks.oy-steps-strip article{transition:none}}
