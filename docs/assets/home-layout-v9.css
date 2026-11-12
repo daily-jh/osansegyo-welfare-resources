@@ -1,0 +1,283 @@
+/* © 2026 오산세교종합사회복지관 김지훈 팀장. All rights reserved. */
+/* v9 메인 배치(2026-11-12) — 검색이 먼저 보이게 다시 짠 레이아웃 레이어. home-tools-v8.css 뒤에 읽는다.
+   01 히어로+검색   검색창을 첫 화면 안에 둔다(예전: 휴대폰에서 첫 결과까지 약 4화면 스크롤).
+   02 벤토 그리드   숫자 현황 + 많이 찾는 욕구 영역 바로가기 + 청소년 위기평가 입구.
+   05 사이드바      넓은 화면: 왼쪽 조건 칸 고정, 오른쪽 결과. 좁은 화면: 아래에서 올라오는 조건 창.
+   04 카드 그리드   기관 카드. 상세는 카드 안에서 펼치지 않고 창(팝업)으로 연다.
+   03 스플릿        기관 창 안: 왼쪽 연락처, 오른쪽 서비스.
+   08 Z 패턴        다른 길로 찾기 두 줄을 좌우를 바꿔 배치.
+   06 매거진        데이터 이용안내(기존 FIELD NOTE)는 그대로.
+   07 대시보드      자료 갱신 칸 안 '자료 상태 한눈에'.
+   09 풀블리드      긴급전화 띠를 화면 끝까지.
+   + 팝업·바텀시트·떠 있는 버튼·고정 실행 막대·적용 조건 칩(목록에 없던 패턴). */
+:root{--v9-rule:var(--ed-rule,#dfe5ec);--v9-fill:var(--ads-fill,#f2f5f8);--v9-ink:var(--ads-text,#16273a);--v9-sub:var(--ads-secondary,#46586b);--v9-accent:var(--ed-accent,#1765bd);--v9-navy:#122b3b;--v9-radius:18px}
+
+/* 01 히어로 + 검색 */
+.hero-v9 .hero-inner{grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr);gap:40px;min-height:0;align-items:center;padding-top:40px;padding-bottom:44px}
+.hero-v9 .hero-content{padding:0}
+.hero-v9 h1{font-size:clamp(32px,3.5vw,48px);margin:16px 0 14px}
+.hero-v9 .hero-description{font-size:16px;line-height:1.75;margin:0 0 20px;max-width:34em}
+.hero-v9 .hero-search{margin:0 0 16px;box-shadow:0 10px 30px rgba(18,43,59,.08)}
+.hero-v9 .hero-actions{gap:20px;flex-wrap:wrap}
+
+/* 02 벤토 그리드 */
+.hero-bento{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-areas:"svc svc org org" "svc svc lvl lvl" "need need need need" "date date youth youth";gap:12px}
+.hero-bento>.stat{display:flex;flex-direction:column;align-items:flex-start;gap:6px;margin:0;padding:16px 18px;border:1px solid var(--v9-rule);border-radius:var(--v9-radius);background:#fff;min-width:0;box-shadow:none}
+.hero-bento>.stat::before,.hero-bento>.stat::after{display:none}
+.hero-bento>.stat:nth-child(1){grid-area:org}
+.hero-bento>.stat:nth-child(2){grid-area:svc;background:var(--v9-accent);border-color:var(--v9-accent);color:#fff}
+.hero-bento>.stat:nth-child(2) .stat-label,.hero-bento>.stat:nth-child(2) strong,.hero-bento>.stat:nth-child(2) .stat-unit{color:#fff}
+.hero-bento>.stat:nth-child(2) strong{font-size:44px}
+.hero-bento>.stat:nth-child(2) .stat-icon{background:rgba(255,255,255,.16);color:#fff}
+.hero-bento>.stat:nth-child(3){grid-area:lvl}
+.hero-bento>.stat:nth-child(4){grid-area:date}
+.hero-bento>.stat:nth-child(1) .stat-icon,.hero-bento>.stat:nth-child(3) .stat-icon{display:none}
+.hero-bento .stat-icon{width:36px;height:36px;border-radius:10px}
+.hero-bento .stat strong{font-size:28px;line-height:1.1}
+.hero-bento .stat-date strong{font-size:20px}
+.bento-needs{grid-area:need;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.bento-needs button{display:flex;align-items:baseline;justify-content:space-between;gap:8px;min-height:52px;padding:10px 14px;border:1px solid var(--v9-rule);border-radius:14px;background:#fff;color:var(--v9-ink);font:inherit;text-align:left;cursor:pointer;transition:background .15s,border-color .15s}
+.bento-needs button:hover,.bento-needs button:focus-visible{border-color:var(--v9-accent);background:var(--ed-accent-soft,#e8f1fc)}
+.bento-needs b{font-size:15px}
+.bento-needs small{color:var(--v9-sub);font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.bento-youth{grid-area:youth;position:relative;display:flex;flex-direction:column;justify-content:center;gap:4px;padding:16px 44px 16px 18px;border-radius:var(--v9-radius);background:var(--v9-navy);color:#fff;text-decoration:none;min-height:96px}
+.bento-youth .eyebrow{color:#a9c3dd!important;font-size:12px}
+.bento-youth b{font-size:17px}
+.bento-youth small{color:#cfdbe7;font-size:13px;line-height:1.45}
+.bento-youth .bento-go{position:absolute;right:16px;top:16px;font-size:18px}
+.bento-youth:hover,.bento-youth:focus-visible{background:#183a50}
+
+/* 05 사이드바 + 04 카드 그리드 */
+.finder-v9{padding-top:56px}
+.finder{display:grid;grid-template-columns:288px minmax(0,1fr);gap:28px;align-items:start}
+/* editorial-v7이 범주 탭·조건 칸을 !important로 가로 배치하므로, 사이드바 안에서만 같은 강도로 세로 배치로 바꾼다. */
+.finder-side{position:sticky;top:96px;max-height:calc(100vh - 112px);overflow:auto;overscroll-behavior:contain;padding:2px;scrollbar-width:thin}
+.finder-side .filter-panel{margin:0!important;padding:18px!important}
+.finder-side .filter-title-line{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px;white-space:nowrap}
+.finder-side .region-tabs{display:grid!important;grid-template-columns:1fr!important;gap:2px!important;width:100%;margin:0 0 16px!important}
+.finder-side .region-tabs button{display:flex!important;align-items:center;gap:6px;justify-content:flex-start!important;width:100%;min-height:42px!important;padding:0 12px!important;text-align:left}
+.finder-side .region-tabs button .facet-n{margin-left:auto}
+.facet-n{display:inline-block;min-width:1.6em;padding:0 6px;border-radius:999px;background:var(--v9-fill);color:var(--v9-sub);font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;text-align:center;line-height:20px}
+.selected>.facet-n,.active>.facet-n{background:rgba(255,255,255,.22);color:inherit}
+.finder-side .filter-controls{display:grid;grid-template-columns:1fr;gap:14px}
+.finder-side .category-chips{display:flex;flex-wrap:wrap;gap:6px}
+.finder-side .category-chips button{min-height:36px}
+.category-chips button:disabled{opacity:.42;cursor:not-allowed}
+.finder-side .advanced-filters{margin:12px 0 0}
+.finder-side .filter-hint{display:block;margin-bottom:8px}
+.finder-side .extra-filter-grid{grid-template-columns:1fr}
+.finder-side .search-guide{margin:12px 4px 0;font-size:13px;line-height:1.6;color:var(--v9-sub)}
+.side-sheet-head,.side-sheet-foot{display:none}
+.finder-main{min-width:0}
+.finder-bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.finder-bar .results-toolbar{flex:1;margin:0;min-width:0}
+.filter-open{display:none;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:999px;border:1px solid var(--v9-ink);background:#fff;color:var(--v9-ink);font:inherit;font-weight:700;cursor:pointer}
+.filter-open b{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:var(--v9-accent);color:#fff;font-size:12px}
+.active-chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 4px}
+.active-chips:empty{display:none}
+.active-chip{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 12px;border-radius:999px;border:1px solid var(--ed-accent-line,#b9d1f2);background:var(--ed-accent-soft,#e8f1fc);color:#0f4a8a;font:inherit;font-size:14px;font-weight:600;cursor:pointer}
+.active-chip.clear-all{background:#fff;border-color:var(--v9-rule);color:var(--v9-sub)}
+.finder-main .results-grid{grid-template-columns:repeat(auto-fill,minmax(300px,1fr));margin-top:12px}
+.org-name-open{all:unset;cursor:pointer;color:inherit;font:inherit;border-radius:6px}
+.org-name-open:hover{color:var(--v9-accent);text-decoration:underline;text-underline-offset:3px}
+.org-name-open:focus-visible{outline:3px solid var(--v9-accent);outline-offset:2px}
+.card-actions{display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap}
+.card-call{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--v9-rule);color:var(--v9-ink);font-weight:700;font-size:14px;text-decoration:none}
+.card-call:hover,.card-call:focus-visible{border-color:var(--v9-accent);color:var(--v9-accent)}
+
+/* 고정 실행 막대: 연계 시트에 1곳 이상 담으면 화면 아래에 떠 있다 */
+.print-toolbar.has-pick{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:45;margin:0;padding:10px 12px 10px 20px;border-radius:999px;background:var(--v9-navy);color:#fff;box-shadow:0 12px 30px rgba(18,43,59,.28);width:max-content;max-width:calc(100vw - 32px)}
+.print-toolbar.has-pick b{color:#fff}
+.print-toolbar.has-pick button{min-height:40px}
+.print-toolbar.has-pick #clearPrint{background:transparent;color:#d4e1ee;border-color:rgba(255,255,255,.3)}
+
+/* 떠 있는 긴급 전화 버튼 → 번호 창 */
+.sos-fab{position:fixed;right:20px;bottom:20px;z-index:44;display:inline-flex;align-items:center;gap:6px;min-height:48px;padding:0 18px;border-radius:999px;border:1px solid #f0c7c7;background:#fff;color:#b02424;font:inherit;font-weight:800;box-shadow:0 8px 24px rgba(18,43,59,.16);cursor:pointer}
+.sos-fab:hover,.sos-fab:focus-visible{background:#fff4f4}
+body:has(.print-toolbar.has-pick) .sos-fab{bottom:84px}
+
+/* 팝업(창) 공통 */
+html.dlg-lock{overflow:hidden}
+.v9-dialog{border:0;padding:0;margin:auto;width:min(980px,calc(100vw - 32px));max-height:calc(100vh - 48px);border-radius:22px;background:#fff;color:var(--v9-ink);box-shadow:0 30px 80px rgba(10,25,40,.35)}
+.v9-dialog[open]{display:flex;flex-direction:column}
+.v9-dialog::backdrop{background:rgba(10,25,40,.5)}
+.dlg-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:20px 24px 16px;border-bottom:1px solid var(--v9-rule)}
+.dlg-head h2{margin:2px 0 0;font-size:22px;line-height:1.35;letter-spacing:-.01em}
+.dlg-head h2 a{color:inherit}
+.dlg-kicker{display:block;font-size:13px;font-weight:700;letter-spacing:.04em;color:var(--v9-sub)}
+.dlg-close{flex:none;min-height:40px;padding:0 16px;border-radius:999px;border:1px solid var(--v9-rule);background:#fff;color:var(--v9-ink);font:inherit;font-weight:700;cursor:pointer}
+.dlg-body{overflow:auto;overscroll-behavior:contain;padding:20px 24px 24px}
+.dlg-foot{display:flex;justify-content:flex-end;gap:8px;padding:14px 24px;border-top:1px solid var(--v9-rule)}
+.dlg-primary,.dlg-secondary{min-height:44px;padding:0 20px;border-radius:999px;font:inherit;font-weight:700;cursor:pointer;border:1px solid var(--v9-accent)}
+.dlg-primary{background:var(--v9-accent);color:#fff}
+.dlg-secondary{background:#fff;color:var(--v9-accent)}
+/* 03 스플릿: 기관 창 안 왼쪽 연락처 · 오른쪽 서비스 */
+#orgDialogBody.org-details{margin:0;border:0;padding:20px 24px 24px}
+@media (min-width:900px){
+  #orgDialogBody{display:grid;grid-template-columns:minmax(240px,300px) minmax(0,1fr);column-gap:32px;align-items:start}
+  #orgDialogBody>*{grid-column:2}
+  #orgDialogBody>.institution-contact{grid-column:1;grid-row:1/span 60;position:sticky;top:0;margin:0}
+  #orgDialogBody>.detail-heading{margin-top:0}
+}
+.detail-links{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.dlg-select{margin-left:auto}
+.help-dialog{width:min(620px,calc(100vw - 32px))}
+.help-dialog-lead{margin:0 0 12px;color:var(--v9-sub);line-height:1.65}
+.help-dialog-lead strong{color:#b02424}
+.help-dialog .help-now-list{grid-column:auto;grid-template-columns:1fr}
+.print-dialog{width:min(560px,calc(100vw - 32px))}
+.print-dialog .dlg-body>p{margin:0 0 12px;color:var(--v9-sub);line-height:1.65}
+.print-pick{list-style:none;margin:0;padding:0;border-top:1px solid var(--v9-rule)}
+.print-pick li{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--v9-rule)}
+.print-pick small{display:block;color:var(--v9-sub);font-size:13px}
+.print-pick button{min-height:36px;padding:0 12px;border-radius:999px;border:1px solid var(--v9-rule);background:#fff;font:inherit;cursor:pointer}
+.filter-dialog{width:min(520px,calc(100vw - 32px))}
+.filter-dialog .finder-side{display:block;position:static;max-height:none;overflow:auto;padding:0 16px;flex:1}
+.filter-dialog .finder-side .filter-panel{border:0!important;padding:0!important}
+.filter-dialog .side-sheet-head{display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:2;margin:0 -16px 12px;padding:16px;background:#fff;border-bottom:1px solid var(--v9-rule)}
+.filter-dialog .side-sheet-foot{display:block;position:sticky;bottom:0;margin:16px -16px 0;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--v9-rule)}
+.side-sheet-foot button{width:100%;min-height:48px;border-radius:999px;border:0;background:var(--v9-accent);color:#fff;font:inherit;font-weight:800;cursor:pointer}
+
+/* 08 Z 패턴: 다른 길로 찾기 두 줄, 좌우를 바꿔 시선이 Z로 흐르게 */
+.connected-z{display:grid;gap:16px;padding-top:64px}
+.connected-z .connected-tools{padding:0;margin:0}
+.connected-z .connected-card{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);grid-template-areas:"text act" "note act";align-items:center;gap:8px 32px;padding:28px 32px;border:1px solid var(--v9-rule);border-radius:var(--v9-radius);background:#fff;box-shadow:none}
+.connected-z .connected-card>div:first-child{grid-area:text}
+.connected-z .connected-card>.connected-actions{grid-area:act;display:flex;flex-direction:column;align-items:stretch;gap:8px}
+.connected-z .connected-card>small{grid-area:note;color:var(--v9-sub)}
+.connected-z .connected-tools-youth .connected-card{grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);grid-template-areas:"act text" "act note";background:var(--v9-fill);border-color:transparent}
+.connected-z .connected-card h2{font-size:22px;line-height:1.4;margin:6px 0 8px}
+.connected-z .connected-card p{color:var(--v9-sub);line-height:1.75}
+
+/* 07 대시보드: 자료 상태 한눈에 */
+.data-dash{margin:20px 0;padding:20px;border:1px solid var(--v9-rule);border-radius:var(--v9-radius);background:#fff}
+.dash-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 16px;margin-bottom:12px}
+.dash-head h3{margin:0;font-size:18px}
+.dash-head p{margin:0;color:var(--v9-sub);font-size:13px}
+.dash-tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px}
+.dash-tiles div{padding:12px 14px;border-radius:12px;background:var(--v9-fill)}
+.dash-tiles b{display:block;font-size:24px;font-variant-numeric:tabular-nums;color:var(--v9-ink)}
+.dash-tiles span{font-size:13px;color:var(--v9-sub)}
+.dash-bar{display:flex;gap:2px;height:12px}
+.dash-bar .seg{min-width:4px;border-radius:4px}
+.seg.ok,.dash-legend i.ok{background:var(--v9-accent)}
+.seg.check,.dash-legend i.check{background:var(--ed-check,#c26a00)}
+.seg.none,.dash-legend i.none{background:#9aa6b2}
+.dash-legend{display:flex;flex-wrap:wrap;gap:6px 18px;list-style:none;margin:10px 0 0;padding:0;font-size:13px;color:var(--v9-sub)}
+.dash-legend li{display:inline-flex;align-items:center;gap:6px}
+.dash-legend i{display:inline-block;width:10px;height:10px;border-radius:3px}
+.dash-legend b{color:var(--v9-ink);font-variant-numeric:tabular-nums}
+
+/* 09 풀블리드: 긴급전화 띠를 화면 끝까지 */
+.help-band{margin-top:56px;padding:48px 0 56px;background:var(--v9-fill);border-top:1px solid var(--v9-rule)}
+.help-band .help-now{margin:0;padding-top:0;border-top:0}
+.help-band .help-now-list a:hover,.help-band .help-now-list a:focus-visible{background:#fff}
+.help-band .easy-guide,.help-band .lang-guide{background:#fff}
+
+/* 좁은 화면 */
+@media (max-width:1080px){
+  .hero-v9 .hero-inner{grid-template-columns:minmax(0,1fr);gap:24px;padding-top:28px;padding-bottom:32px}
+  .hero-v9 .hero-art{display:none}
+}
+@media (max-width:900px){
+  .finder{grid-template-columns:1fr}
+  .finder>.finder-side{display:none}
+  .filter-open{display:inline-flex}
+  .connected-z .connected-card,.connected-z .connected-tools-youth .connected-card{grid-template-columns:1fr;grid-template-areas:"text" "act" "note";padding:22px}
+  .dash-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:700px){
+  .hero-v9 .hero-inner{padding-top:20px;padding-bottom:24px}
+  .hero-v9 h1{font-size:30px;margin:12px 0 10px}
+  .hero-v9 .hero-description{font-size:15px;margin-bottom:16px}
+  .hero-bento{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-areas:"svc org" "lvl date" "need need" "youth youth";gap:8px}
+  .hero-bento>.stat{padding:12px 14px}
+  .hero-bento>.stat:nth-child(2) strong{font-size:30px}
+  .hero-bento>.stat:nth-child(2) .stat-icon{display:none}
+  .hero-bento .stat strong{font-size:24px}
+  .hero-bento .stat-date strong{font-size:17px}
+  .hero-bento .stat-date small,.hero-bento .stat-sub{display:none}
+  .bento-needs button{min-height:46px;padding:8px 12px;flex-direction:column;gap:0}
+  .bento-needs b{font-size:14px}
+  .bento-youth{min-height:0}
+  .finder-v9{padding-top:36px}
+  .finder-main .results-grid{grid-template-columns:1fr}
+  .finder-bar .results-toolbar{flex-basis:100%}
+  /* 휴대폰: 창은 화면 아래에서 올라오는 시트, 기관 창은 화면 전체 */
+  .v9-dialog{width:100%;max-width:100%;max-height:88dvh;margin:auto 0 0;border-radius:22px 22px 0 0}
+  .org-dialog{max-height:100dvh;height:100dvh;border-radius:0}
+  .dlg-head{padding:16px 16px 12px}
+  .dlg-head h2{font-size:19px}
+  #orgDialogBody.org-details,.dlg-body{padding:16px}
+  .dlg-foot{padding:12px 16px calc(12px + env(safe-area-inset-bottom))}
+  .print-toolbar.has-pick{left:12px;right:12px;bottom:12px;transform:none;width:auto;border-radius:18px;flex-wrap:wrap}
+  .sos-fab{right:12px;bottom:12px;min-height:44px;padding:0 14px}
+  body:has(.print-toolbar.has-pick) .sos-fab{bottom:120px}
+  .help-band{padding:32px 0 88px}
+  .dlg-select{margin-left:0}
+}
+@media print{.sos-fab,.v9-dialog{display:none!important}}
+@media (prefers-reduced-motion:reduce){.bento-needs button,.org-name-open{transition:none}}
+@media (max-width:700px){.hero-v9 .quick-tags{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}.hero-v9 .quick-tags::-webkit-scrollbar{display:none}.hero-v9 .quick-tag{flex:none}}
+.print-toolbar.has-pick,.print-toolbar.has-pick>span{color:#fff!important}
+.print-toolbar.has-pick #clearPrint{background:transparent!important;color:#e6eef6!important;border:1px solid rgba(255,255,255,.4)!important}
+/* 창 안에서는 본문만 스크롤: 머리(제목·닫기)와 아래 단추는 늘 보인다 */
+.v9-dialog[open]{overflow:hidden}
+.v9-dialog .dlg-body,.filter-dialog .finder-side{flex:1 1 auto;min-height:0}
+.dlg-head,.dlg-foot{flex:none}
+@media (max-width:700px){.org-dialog{margin:0;inset:0}}
+
+/* ── 2차 다듬기(2026-11-12 오전) ───────────────────────────────
+   카드 높이 맞춤·하단 고정, 담기 칩, 빈 연계 시트 막대 숨김, 휴대폰 결과 막대 고정, 기관 창 아래 고정 단추 */
+.finder-main .results-grid{align-items:stretch!important}
+.finder-main .org-card{display:flex;flex-direction:column;align-self:stretch!important;transition:border-color .18s,box-shadow .18s,transform .18s}
+.finder-main .org-card:hover{transform:translateY(-2px)}
+.finder-main .org-card .card-footer{margin-top:auto;padding-top:14px}
+.finder-main .org-card .tag-cloud{margin-bottom:14px}
+.card-footer{flex-wrap:wrap;row-gap:10px}
+.card-actions{margin-left:auto}
+.pick-chip{display:inline-flex!important;align-items:center;gap:8px;align-self:flex-start;min-height:36px!important;margin-top:10px!important;padding:0 12px 0 10px;border-radius:999px;border:1px dashed var(--v9-rule);color:var(--v9-sub);font-size:13px!important;font-weight:600;cursor:pointer}
+.pick-chip input{width:18px!important;height:18px!important;accent-color:var(--v9-accent)}
+.pick-chip:has(input:checked){border-style:solid;border-color:var(--v9-accent);background:var(--ed-accent-soft,#e8f1fc);color:#0f4a8a}
+.print-toolbar:not(.has-pick){display:none!important}
+.finder-v9 .section-head{margin-bottom:20px}
+.finder-v9 .section-head h2{font-size:clamp(26px,2.6vw,34px)}
+/* 결과 막대: 개수 한 줄 + 조건 단추·정렬·켜고 끄기 칩 */
+.finder-bar .results-toolbar{display:flex;align-items:center;flex-wrap:wrap;gap:10px 16px;padding-bottom:12px}
+.finder-bar .toolbar-actions{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-left:auto}
+.finder-bar .favorite-toggle{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 12px;border:1px solid var(--v9-rule);border-radius:999px;background:#fff;font-size:14px;cursor:pointer}
+.finder-bar .favorite-toggle:has(input:checked){border-color:var(--v9-accent);background:var(--ed-accent-soft,#e8f1fc);color:#0f4a8a}
+.finder-bar .favorite-toggle input{width:16px;height:16px;accent-color:var(--v9-accent)}
+.finder-bar #sortSelect{min-height:36px;border-radius:999px;padding:0 32px 0 14px;font-size:14px}
+/* 기관 창 아래 고정 단추 */
+.org-foot{justify-content:space-between;align-items:center;flex-wrap:wrap}
+.org-foot:empty{display:none}
+.dlg-call{display:inline-flex;align-items:center;gap:8px;text-decoration:none}
+.dlg-call small{font-weight:600;opacity:.85}
+.org-foot .pick-chip{margin:0!important}
+@media (max-width:900px){
+  .finder-bar{position:sticky;top:0;z-index:20;margin:0 -16px;padding:10px 16px 0;background:rgba(246,248,251,.94);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+  .finder-bar .results-toolbar{flex-basis:100%;border-bottom:0;padding-bottom:10px;margin:0!important}
+  .finder-bar .results-count{flex-basis:100%;font-size:14px}
+  .finder-bar .toolbar-actions{margin-left:0;width:100%;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+  .finder-bar .toolbar-actions>*{flex:none}
+}
+@media (max-width:700px){
+  .overline .edition{display:none}
+  .finder-v9 .section-head{margin-bottom:12px}
+  .finder-v9 .section-head p{font-size:14px}
+  .finder-v9 .section-decoration{display:none}
+  .card-actions{margin-left:0;width:100%}
+  .card-actions .expand-button{margin-left:auto}
+  .org-foot .dlg-call{flex:1;justify-content:center}
+}
+@media (prefers-reduced-motion:reduce){.finder-main .org-card,.finder-main .org-card:hover{transition:none;transform:none}}
+
+/* 글씨체: OY-RALS 해석지와 같은 SUIT(또렷한 잡지형)로 통일. 앞선 층이 시스템 글꼴로 덮어써 미리 받아 둔 SUIT가 쓰이지 않던 것을 바로잡는다. */
+body{font-family:'SUIT Variable',SUIT,-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;word-break:keep-all}
+button,input,select,textarea,dialog{font-family:inherit}
+h1,h2,h3,.org-name,.dlg-head h2,.detail-title{font-weight:800;letter-spacing:-.02em;color:var(--v9-ink)}
+.hero-v9 h1{letter-spacing:-.035em;font-weight:800}
+.org-summary,.detail-desc,.hero-description{color:#33465a}
+.stat strong,.dash-tiles b,.facet-n,.help-now-list strong{font-feature-settings:"tnum" 1}
+@media (max-width:900px){.finder-bar .results-toolbar{justify-content:flex-start!important;align-items:flex-start!important}.finder-bar .results-count{text-align:left;justify-content:flex-start;margin:0}}

@@ -31,11 +31,15 @@
     [['도박','토토','불법도박'],['도박','중독']],
     [['생리대'],['생리','위생']],
     [['교복','장학금'],['교복','장학']],
-    [['자퇴','학업중단','학교밖'],['학교밖','꿈드림']]
+    [['자퇴','학업중단','학교밖'],['학교밖','꿈드림']],
+    [['초등학생','중학생','고등학생','초등학교','중학교','고등학교','초중고','재학생'],['청소년','아동','학생']],
+    [['쌀','라면','식료품','기저귀','분유','생필품','생활용품'],['푸드뱅크','식품','현물']]
   ];
+  /* 한 글자 말(술·빚·밥·굶·쌀)은 낱말 첫머리에서만 찾는다. '수술비·미술·기술'이 '술'로 잡혀 중독 기관이 섞이던 문제(2026-11-12). */
+  const keyHit=(q,k)=>{const key=norm(k);if(key.length>1)return q.includes(key);return q.split(/[^가-힣a-z0-9]+/).some(t=>t.startsWith(key))};
   // 검색어(전체 또는 낱말)에 해당하는 자료 쪽 말 목록. 0건일 때 '이런 말로 찾아보세요'에도 쓴다.
   function suggestWords(keyword){const q=norm(keyword);if(!q)return [];const out=[];
-    fieldWords.forEach(([keys,targets])=>{if(keys.some(k=>q.includes(norm(k))))targets.forEach(t=>{if(!out.includes(t))out.push(t)})});
+    fieldWords.forEach(([keys,targets])=>{if(keys.some(k=>keyHit(q,k)))targets.forEach(t=>{if(!out.includes(t))out.push(t)})});
     return out;
   }
   function queryMatch(text,keyword){const hay=norm(text),q=String(keyword||'').trim();if(!q)return true;
