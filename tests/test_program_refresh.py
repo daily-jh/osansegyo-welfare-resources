@@ -14,7 +14,8 @@ class ProgramRefreshTests(unittest.TestCase):
     def setUp(self):
         self.feed = json.loads((ROOT / 'docs/programs.json').read_text(encoding='utf-8'))
         self.config = {'sourceUrl': 'https://official.example/list', 'hosts': ['official.example'], 'organizationId': '1'}
-        self.at = '2026-11-10T09:00:00+09:00'
+        # 실제 programs.json의 마지막 시도 시각보다 항상 뒤여야 하므로 먼 미래 시각을 씁니다.
+        self.at = '2099-01-01T09:00:00+09:00'
         self.p = dict(id='notice-1', sourceId='test', organizationId='1', organization='기관', title='사업',
                       target='공고 대상', method='공고 신청방법', summary='공고 내용', periodText='공고 기간',
                       verifiedOn='2026-11-10', sourceUrl='https://official.example/notice/1',
