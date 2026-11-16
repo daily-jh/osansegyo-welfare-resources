@@ -22,7 +22,7 @@ function safetyNames(R){
 }
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const NAMES=['안정관찰','초기주의','집중지원','다기관 집중개입','최우선 안전대응'];
-const dots=v=>'<span class="oy1-dots" aria-label="가장 높은 문항 '+v+'점">'+[1,2,3,4].map(k=>'<i class="'+(k<=v?'f':'')+'"></i>').join('')+'</span>';
+const dots=v=>'<span class="oy1-dots" role="img" aria-label="가장 높은 문항 '+v+'점">'+[1,2,3,4].map(k=>'<i class="'+(k<=v?'f':'')+'"></i>').join('')+'</span>';
 
 /* 역할별 범위. steps는 상단 메뉴 data-oy-step 값(1=01, 2=02, 6=03, 3=04, 7=05). */
 const SCOPE={
