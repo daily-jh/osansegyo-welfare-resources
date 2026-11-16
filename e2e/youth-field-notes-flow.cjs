@@ -44,6 +44,12 @@ const out=path.join(__dirname,'../artifacts/field-notes');fs.mkdirSync(out,{recu
   await page.evaluate(()=>window.dispatchEvent(new Event('afterprint')));
   await page.locator('#oyOnePage').screenshot({path:path.join(out,'result-'+width+'.png')});
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'result has no overflow');
+  /* 읽는 순서(2026-11-16): 한 장 02 칸 → 판정 근거(세 탭 위) → 풀이. 근거 표를 펼쳐도 화면이 옆으로 밀리지 않는다. */
+  await page.locator('#oyOnePage [data-oy1-why]').click();
+  await page.locator('#j88-basis [data-oyd-ladder="tier"]').waitFor({state:'visible'});
+  assert.equal(await page.locator('#journey88 [data-oyd]').count(),1,'one decision basis for all three result tabs');
+  assert.ok(await page.evaluate(()=>!!(document.getElementById('j88-basis').compareDocumentPosition(document.querySelector('#journey88 .j88-result-tabs'))&Node.DOCUMENT_POSITION_FOLLOWING)),'basis comes before the result tabs');
+  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'open basis ladder has no overflow');
   const scaleId=await page.locator('#oyOnePage [data-oy1-scale]').first().getAttribute('data-oy1-scale');
   await page.locator('#oyOnePage [data-oy1-scale]').first().click();
   assert.equal(await page.locator('#osl-'+scaleId).evaluate(x=>x.open),true,'suggestion opens its scale');

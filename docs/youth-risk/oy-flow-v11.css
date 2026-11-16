@@ -82,3 +82,9 @@
  #journey88 .j88-route,#journey88 .odi-next-part{display:none!important}
  #journey88 .j88-part{margin:14pt 0 4pt;padding-top:8pt;break-after:avoid}
 }
+
+/* 2026-11-16 판정 근거 묶음: 세 탭 위에 한 번만 둔다. 격자 칸 안에서 근거 표가 화면 밖으로 밀리지 않게 한다. */
+#journey88 .j88-basis{min-width:0;max-width:100%;margin:0 0 18px}
+#journey88 .j88-basis>.j88-view-note{margin-bottom:10px}
+/* 판정 띠는 한 칸짜리 격자라 근거 표(최소 폭 520px)를 펼치면 휴대폰에서 띠 전체가 화면 밖으로 밀렸다. 칸 폭을 화면에 묶고 표만 옆으로 민다. */
+#journey88 .oyd{grid-template-columns:minmax(0,1fr)}

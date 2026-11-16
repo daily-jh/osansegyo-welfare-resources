@@ -85,4 +85,13 @@ for(let i=0;i<600;i++)run(Array.from({length:25},()=>{const r=rnd();return r<0.0
  assert.ok(I.redacted&&/^오늘 안에/.test(I.first)&&I.level.id==='intensive');
  assert.ok(!N.integratedText(I).includes('메시지'),'redacted export carries no wording');
 }
+{/* 2026-11-16 읽는 순서: 사정(생태체계·강점) → 개입 수준·주관 → 계획 → 안건 → 확인 질문. 화면과 TXT가 같은 순서다. */
+ const a=Array(25).fill(0);a[9]=3;a[10]=2;a[15]=2;
+ const I=N.integrate({answers:a,caseContext:''}),h=N.integratedHtml(I),t=N.integratedText(I);
+ const at=(s,x)=>{const i=s.indexOf(x);assert.ok(i>=0,'missing '+x);return i};
+ const H=['생태체계 사정','강점·보호요인과 학생의 욕구','개입 수준과 주관기관','단계별 개입계획','사례회의 안건','면담 확인 질문'].map(x=>at(h,x));
+ assert.deepEqual(H,H.slice().sort((x,y)=>x-y),'integrated opinion sections follow assessment → decision → plan');
+ const T=['[강점·보호요인과 학생의 욕구]','[개입 수준과 주관기관]','[단계별 개입계획]','[사례회의 안건]','[면담 확인 질문]'].map(x=>at(t,x));
+ assert.deepEqual(T,T.slice().sort((x,y)=>x-y),'text export keeps the same order');
+}
 console.log('oy-narrative-interpretation: ok');

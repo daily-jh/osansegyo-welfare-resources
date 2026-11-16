@@ -248,7 +248,7 @@ function html(m){
    '<p class="oy1-role">'+(sc?'다른 실무자 관점으로 바꿔 볼 수 있습니다. 판정은 그대로이고 다음 할 일만 바뀝니다.':'역할을 누르면 그 실무자 관점으로 다음 할 일이 맞춰집니다')+'</p></div>'+
    '<div class="oy1-pick'+(sc?'':' oy1-pick-open')+'" role="group" aria-label="실무자 관점 바꾸기">'+roles.map(r=>'<button type="button" data-oy-role="'+r+'" aria-pressed="'+(m.role===r)+'">'+esc(SCOPE[r].name)+'</button>').join('')+'</div>'+
    '<div class="oy1-grid">'+
-   '<section class="oy1-q oy1-'+m.safetyTone+'"><h4><i>01</i>안전 확인 결과</h4><p class="oy1-v">'+esc(k.safety.value)+'</p><p class="oy1-why">'+esc(k.safety.why)+'</p>'+(m.safetyNames?'<p class="oy1-why oy1-names">'+esc(m.safetyNames)+'</p>':'')+(m.narrNote?'<p class="oy1-narr">'+esc(m.narrNote)+'</p>':'')+(m.mismatchNote?'<p class="oy1-narr">'+esc(m.mismatchNote)+'</p>':'')+
+   '<section class="oy1-q oy1-'+m.safetyTone+'"><h4><i>01</i>안전 확인 결과</h4><p class="oy1-v">'+esc(k.safety.value)+'</p><p class="oy1-why">'+esc(safetyWhy(m))+'</p>'+(m.narrNote?'<p class="oy1-narr">'+esc(m.narrNote)+'</p>':'')+(m.mismatchNote?'<p class="oy1-narr">'+esc(m.mismatchNote)+'</p>':'')+
     (m.safetyTone==='c'?'<p class="oy1-callc">'+esc(((k.R.safetyOpen||[]).length&&!(k.R.narrSafety||[]).length&&!(k.R.pending||[]).length?'모르는 안전 문항은 안전하다고 보지 않습니다.':'확인하기 전에는 안전하다고 보지 않습니다.')+' 오늘 직접 확인해 주세요.')+'</p>':'')+(k.urgent||(m.tier||0)>=5?'<p class="oy1-call">급하면 <b>112</b> · 청소년상담 <b>1388</b> · 자살예방 <b>109</b></p>':'')+(m.contacts&&m.contacts.length?contactsHtml(m.contacts):'')+'</section>'+
    '<section class="oy1-q"><h4><i>02</i>지원 우선순위</h4><p class="oy1-v">'+esc(m.tier?m.tier+'단계 '+m.tierName:m.tierName)+'</p>'+tierBar+'<p class="oy1-why">'+esc(m.tier?m.tierWhy:'모르는 문항을 확인하기 전에는 단계를 정하지 않습니다.')+'</p><button type="button" class="oy1-go" data-oy1-why>'+(m.tier?'이 단계가 나온 이유 보기':'확인하면 어떻게 바뀌는지 보기')+' <span aria-hidden="true">↓</span></button></section>'+
    '<section class="oy1-q"><h4><i>03</i>주요 어려움 영역</h4>'+hard+goBtn('score','척도 해석')+'</section>'+
@@ -265,6 +265,8 @@ function html(m){
    '<p class="oy1-foot">판정은 05 최종 보고서·04 판정 띠와 같은 값입니다. 이 한 장은 시스템이 낸 초안이며 실무자 판단을 대신하지 않습니다.</p>'+
    '<button type="button" class="flow-btn oy1-more oy1-band" data-oy1-more aria-expanded="false" aria-controls="journey88">'+bandHtml(false)+'</button>';
 }
+/* 근거가 번호뿐일 때(예: '7번 응답')만 이름 붙인 문장으로 바꾼다. 서술 단서·추가확인 같은 다른 근거 문장은 그대로 둔다. */
+function safetyWhy(m){const w=String(m.k.safety.why||'');return m.safetyNames&&/^\d+번(·\d+번)* (응답|미상)$/.test(w)?m.safetyNames:w;}
 function contactsHtml(list){
   return '<div class="oy1-contacts"><b>오늘 연락처</b>'+list.map(c=>'<p><span>'+esc(c.h)+'</span> '+c.rows.slice(0,2).map(r=>'<b>'+esc(r.b)+'</b>').join(' · ')+'</p>').join('')+'</div>';
 }
@@ -281,8 +283,7 @@ function teachHtml(t){
 }
 function text(m){
   const k=m.k,L=['OY-RALS 핵심 결과 한 장'+(m.scope?' · '+m.scope.name+' 기준':''),''];
-  L.push('1. 안전 확인 결과: '+k.safety.value+' ('+k.safety.why+')');
-  if(m.safetyNames)L.push('   '+m.safetyNames);
+  L.push('1. 안전 확인 결과: '+k.safety.value+' ('+safetyWhy(m)+')');
   if(m.narrNote)L.push('   '+m.narrNote);
   if(m.mismatchNote)L.push('   '+m.mismatchNote);
   (m.contacts||[]).forEach(c=>L.push('   오늘 연락처 · '+c.h+': '+c.rows.map(r=>r.b).join(', ')));
