@@ -13,7 +13,7 @@ const X=node?require('./oy-cross-patterns-v1.js'):root.OYCrossPatterns;
 const GL=(()=>{try{return node?require('./oy-grade-lens-v1.js'):root.OYGradeLens}catch(_){return null}})();
 // Evidence registry is optional too: it adds the "why" lines and source list, never a score or a level.
 const EV=(()=>{try{return node?require('./oy-evidence-v1.js'):root.OYEvidence}catch(_){return null}})();
-const VERSION='1.0.0-20261026';
+const VERSION='1.1.0-routes-20261116';
 const LEVELS=['보고 없음','경미','주의','상승','현저'];
 const SAFETY=OC.SAFETY_ITEMS,PRIORITY=[4,5,8,12,13,16,19,20];
 const NOTICE='이 해석지는 25문항 응답을 OY-RALS 규칙에 따라 풀어 쓴 실무 참고자료입니다. 문장은 응답이 가리키는 상태를 읽기 쉽게 서술한 것이며, 진단·학대 판정·위험 예측이나 서비스 자격 결정이 아닙니다. 면담과 관찰로 확인한 사실이 응답보다 우선하고, 안전 신호가 있으면 이 해석지와 관계없이 소속기관의 보호·신고 절차를 먼저 따릅니다. 0~4점 기준과 교차 패턴은 전문가 내용타당도 검토 전 개발판입니다. 공식 점수와 안전판정은 CORE(criteria.js)가 정합니다.';
@@ -162,12 +162,21 @@ function reassess(values){
 // Same conditions that put the five-level index at its safety-first ceiling: explicit check, confirmed current risk, or a 3-4 point safety item.
 function urgentLevel(values,c,p){return !!((p&&p.explicit)||[]).length||c.checkItems.some(n=>((p&&p.followups)||{})[n]==='yes')||SAFETY.some(n=>isNum(values[n-1])&&values[n-1]>=3)}
 // Who acts today versus who carries the case afterwards, for the safety signals (Claude draft; confirm against local agreements).
-function safetyRoute(has,explicit){
- if(has(1)||has(2))return {immediate:'발견한 교직원의 아동학대 신고(112) → 시·군·구 아동학대전담공무원·아동보호전문기관',lead:'시·군·구 아동학대전담공무원·아동보호전문기관, 학교·복지관 협력'};
- if(has(25)||has(4))return {immediate:'경찰 신고(112·117)와 증거 보전 안내 → 해바라기센터·디지털성범죄 피해 지원기관(마주봄센터)',lead:'해바라기센터·마주봄센터, 학교는 보호 조치와 학교폭력 절차'};
- if(has(7))return {immediate:'학교 상담교사(Wee)·위기관리위원회의 당일 안전 면담, 급박하면 119·112',lead:'정신건강복지센터, 학교 Wee·복지관 협력'};
- if(explicit)return {immediate:'112·119 즉시 연락과 학교 위기관리위원회 소집',lead:null};
- return null;
+/* 2026-11-16 지훈 결정: 신호 하나만 고르지 않고 해당하는 안전 신호마다 오늘의 대응을 모두 싣는다.
+   순서: 학대·방임 의심(1·2번)은 신고의무가 있어 늘 맨 앞, 그다음은 점수가 높은 신호부터(같으면 자해 → 성적 위해 → 강요·협박).
+   주관은 맨 앞 신호의 기관. 해바라기센터·마주봄센터는 25번(성적 요구·성착취)일 때만 나온다. 4번(강요·협박·착취)은 경찰·학교폭력 절차로 간다.
+   score(n)을 주지 않으면(서술 단서) 위 기본 순서를 쓴다. */
+const SAFETY_ROUTES=[
+ {items:[1,2],fixed:true,immediate:'발견한 교직원의 아동학대 신고(112) → 시·군·구 아동학대전담공무원·아동보호전문기관',lead:'시·군·구 아동학대전담공무원·아동보호전문기관, 학교·복지관 협력'},
+ {items:[7],immediate:'학교 상담교사(Wee)·위기관리위원회의 당일 안전 면담, 급박하면 119·112',lead:'정신건강복지센터, 학교 Wee·복지관 협력'},
+ {items:[25],immediate:'경찰 신고(112·117)와 증거 보전 안내 → 해바라기센터·디지털성범죄 피해 지원기관(마주봄센터)',lead:'해바라기센터·마주봄센터, 학교는 보호 조치와 학교폭력 절차'},
+ {items:[4],immediate:'경찰(112·학교폭력 117) 상담·신고와 증거 보전 안내 → 학교폭력 사안 절차',lead:'학교(학교폭력 사안 절차)·학교전담경찰관, 청소년상담복지센터 협력'}
+];
+function safetyRoute(has,explicit,score){
+ const hit=SAFETY_ROUTES.map((r,i)=>({r,i,v:score?Math.max(...r.items.map(n=>has(n)?(score(n)||0):0)):0})).filter(x=>x.r.items.some(has));
+ if(!hit.length)return explicit?{immediate:'112·119 즉시 연락과 학교 위기관리위원회 소집',lead:null,routes:[]}:null;
+ hit.sort((a,b)=>(b.r.fixed?1:0)-(a.r.fixed?1:0)||b.v-a.v||a.i-b.i);
+ return {immediate:hit.map(x=>x.r.immediate).join(' 그리고 '),lead:hit[0].r.lead,routes:hit.map(x=>x.r.items[0])};
 }
 // Integrated case management view: intervention level, lead agency, ecology, phased plan, meeting agenda, consultant notes.
 const ECO=[['self','개인'],['family','가족'],['school','학교'],['community','지역사회']];
@@ -194,11 +203,14 @@ function casework(values,c,prof,patterns,crit,str,p){
  const order=Object.keys(own).sort((a,b)=>own[b]-own[a]);
  const first=own.protect?'protect':own.crisis?'crisis':null;
  const main=order.find(o=>o==='school'||o==='welfare')||order[0];
- const route0=safetyRoute(n=>isNum(val(n))&&(SAFETY.includes(n)?val(n)>=1:val(n)>=2),!!(p.explicit||[]).length);
+ /* 4번은 안전 문항이 아니다. 현재 위험 추가확인이 「예」일 때만 오늘의 대응에 싣는다(① 안전과 같은 기준). */
+ const yes4=(p.followups||{})[4]==='yes',sc=n=>isNum(val(n))?val(n):0;
+ const route0=safetyRoute(n=>isNum(val(n))&&(SAFETY.includes(n)?val(n)>=1:n===4?yes4&&val(n)>=1:val(n)>=2),!!(p.explicit||[]).length,sc);
  // A specialist agency leads only at the intensive/crisis levels and when its own item is 2+; suspected abuse always goes to the statutory route.
- const abuseAny=[1,2].some(n=>isNum(val(n))&&val(n)>=1),leadRoute=['intensive','crisis'].includes(level.id)||abuseAny?safetyRoute(n=>isNum(val(n))&&([1,2].includes(n)?val(n)>=1:val(n)>=2),false):null;
+ const abuseAny=[1,2].some(n=>isNum(val(n))&&val(n)>=1),leadRoute=['intensive','crisis'].includes(level.id)||abuseAny?safetyRoute(n=>isNum(val(n))&&([1,2].includes(n)?val(n)>=1:n===4?yes4&&val(n)>=2:val(n)>=2),false,sc):null;
  const route=route0&&{...route0,lead:leadRoute&&leadRoute.lead||null};
- const lead=route&&route.lead?route.lead:main&&!(route&&['protect','crisis'].includes(main))?OWNER[main]:route?OWNER.school:'학교 담임',immediate=route?route.immediate:'';
+ /* 보호·위기 기관은 오늘의 대응 경로가 주관을 정할 때만 주관이 된다. 경로가 없으면(예: 4번 2점, 현재 위험 아님) 학교가 맡는다. */
+ const lead=route&&route.lead?route.lead:main&&!['protect','crisis'].includes(main)?OWNER[main]:main||route?OWNER.school:'학교 담임',immediate=route?route.immediate:'';
  const partners=order.filter(o=>o!==main&&!(route&&route.lead&&['protect','crisis'].includes(o))).map(o=>OWNER[o]).concat(route&&route.lead&&main?[OWNER[main]]:[]);
  const leadText=route&&route.lead?'안전 신호가 있어 오늘의 즉시 대응과 이후 사례관리 주관을 나눕니다. 오늘의 즉시 대응: '+route.immediate+'. 이후 사례관리: '+josa(route.lead.replace(/ \(.*\)$/,''),'이','가')+' 주관합니다.':(first==='protect'?'아동보호·수사기관의 판단과 보호 조치가 가장 먼저입니다. 그 뒤 ':first==='crisis'?'정신건강 위기대응 기관과 함께 하는 안전 확인이 가장 먼저입니다. 그 뒤 ':'')+(main==='welfare'?'생활 기반·가족 영역의 비중이 커서 복지관 통합사례관리가 주관하고 학교가 협력하는 구조가 맞습니다.':main==='school'?'어려움이 학교생활 안에 주로 드러나 학교(담임·교육복지사)가 주관하고 지역 기관이 협력하는 구조가 맞습니다.':'지원 영역에 맞는 기관이 주관합니다.');
  // ecology

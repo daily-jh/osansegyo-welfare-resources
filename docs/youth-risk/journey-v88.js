@@ -98,7 +98,6 @@ function systemOutcome(a){
 }
 function resultIntegratedPage(a){
  return '<section class="j88-result-pane j88-flow"><p class="j88-view-note">척도 응답과 서술기록을 함께 분석한 통합 사정의견입니다. 공식 점수와 CORE 안전판정은 바뀌지 않습니다.</p>'
- +decisionStrip()
  +partRoute(INTEGRATED_PARTS)
  +partHead(INTEGRATED_PARTS,'stage','이 사례가 몇 단계인지와 그 단계가 나온 이유입니다.')
  +systemOutcome(a)+'<div id="oy-integrated-visual-slot"></div>'
@@ -113,7 +112,11 @@ function resultIntegratedPage(a){
 }
 function resultViews(a){
  const menu=[['score','척도 해석','25문항 응답으로 읽은 해석'],['narrative','서술기록 분석','관찰·면담 기록을 문장별로'],['integrated','통합 사정의견','척도와 서술을 함께 본 종합']];
- return '<nav class="j88-tabs j88-result-tabs" aria-label="척도 평가 결과별 분석">'+menu.map(([id,label,sub])=>'<button type="button" data-j88-result-tab="'+id+'" aria-pressed="'+(id===resultTab)+'"><strong>'+label+'</strong><small>'+sub+'</small></button>').join('')+'</nav>'
+ /* 읽는 순서(2026-11-16 검수): 핵심 결과 한 장(결론) → 판정 경로(근거) → 세 탭(풀이). 판정 경로는 통합 사정의견 탭 안에만 있어
+    척도 해석부터 읽는 사람은 단계가 왜 나왔는지 보지 못했다. 세 탭 위에 한 번만 둔다. 값은 그대로(OYDecision.forPayload). */
+ const strip=decisionStrip();
+ return (strip?'<div class="j88-basis" id="j88-basis"><p class="j88-view-note"><b>판정 근거</b> · 위 한 장의 결론이 어떤 순서로 정해졌는지입니다. 칸을 누르면 기준 → 이 사례 → 결과가 펼쳐집니다. 아래 세 탭은 이 판정을 풀어 쓴 자료입니다.</p>'+strip+'</div>':'')
+ +'<nav class="j88-tabs j88-result-tabs" aria-label="척도 평가 결과별 분석">'+menu.map(([id,label,sub])=>'<button type="button" data-j88-result-tab="'+id+'" aria-pressed="'+(id===resultTab)+'"><strong>'+label+'</strong><small>'+sub+'</small></button>').join('')+'</nav>'
  +(resultTab==='score'?resultScorePage(a):resultTab==='narrative'?resultNarrativePage(a):resultIntegratedPage(a));
 }
 

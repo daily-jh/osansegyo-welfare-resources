@@ -12,6 +12,7 @@ new Function('window',fs.readFileSync(path.join(SRC,'../assets/data.js'),'utf8')
 const rows=require(path.join(SRC,'resource-adapter.js')).rows(globalThis.WELFARE_DATA);
 const OD=require(path.join(SRC,'oy-decision-v1.js'));
 const OP=require(path.join(SRC,'oy-onepage-v1.js'));
+const IK=require(path.join(SRC,'oy-item-knowledge-v1.js'));
 const cases=require('./fixtures/synthetic-cases100-20261027.json');
 const EXP=['현재 자해·자살 시도 또는 구체적인 실행 계획·수단이 확인됨','아동학대·성폭력이 의심됨 (즉각적 위해 여부와 무관하게 신고의무 확인)'];
 const payload=(c,i)=>({type:'youth-support-data-v1',answers:c.answers.slice(),domains:domains.map(d=>({name:d.name,items:d.items.slice(),hints:d.hints.slice()})),routes,resources:rows,
@@ -27,6 +28,9 @@ cases.forEach((c,i)=>{
     assert.equal(m.k.safety.value,R.cells[0].value,c.id+' safety');
     assert.ok(m.steps.length>=1&&m.steps.length<=3,c.id+' '+role+' steps 1~3');
     assert.ok(m.hard.length<=3,c.id+' at most three hard areas');
+    /* 2026-11-16 읽는 순서 검수: 02 칸에서 판정 근거로 가는 단추가 있고, 01 근거가 번호뿐이면 문항 이름이 붙는다. */
+    assert.match(h,/data-oy1-why/,c.id+' 02 links to the decision basis');
+    if(/^\d+번(·\d+번)* 응답$/.test(m.k.safety.why))R.safetyPos.forEach(n=>assert.ok(h.includes(n+'번 '+IK.item(n).topic),c.id+' safety item '+n+' named'));
     if(role==='teacher'){assert.ok(m.steps.some(s=>/전달/.test(s)),c.id+' teacher hands over');if(R.urgent)assert.match(m.steps[0],/알립니다/,c.id+' teacher tells first when unsafe');}
     fragments(c.narrative).forEach(f=>{assert.ok(!h.includes(f)&&!t.includes(f),c.id+' narrative fragment leaked: '+f)});
   });
