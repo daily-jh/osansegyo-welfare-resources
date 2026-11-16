@@ -1,12 +1,12 @@
 /* OY-RALS 05 최종 보고서 v1: 한 사례의 판정·해석·연계·계획을 A4 2쪽으로 압축한다.
    판정(①안전 ~ ⑥진행체계)은 OYDecision.forPayload가 낸 화면 값만 읽고 다시 계산하지 않는다.
    서술기록을 빼고 출력해도 판정은 화면과 같고, 서술 원문·인용·서술 분석 문장만 뺀다(지훈 결정 2026-10-27).
-   화면: PC는 인쇄 미리보기처럼 A4 쪽, 휴대폰(640px 이하)은 읽기 화면. 인쇄·PDF는 언제나 A4 2쪽.
+   화면: PC는 인쇄 미리보기처럼 A4 쪽(다른 결과 화면과 같은 폭까지 비율대로 키움, 2026-11-16), 휴대폰(640px 이하)은 읽기 화면. 인쇄·PDF는 언제나 A4 2쪽.
    실무자 의견은 작성자가 직접 쓴 글이라 보고서에 늘 들어가고, ZIP 자료 보관에는 '서술 포함'을 고른 경우에만 넣는다. */
 (function(root){
 'use strict';
 const node=typeof module!=='undefined'&&module.exports;
-const VERSION='1.0.0-20261027';
+const VERSION='1.1.0-20261116';
 const need=(n,g)=>node?require('./'+n):root[g];
 const OD=()=>need('oy-decision-v1.js','OYDecision');
 const YM=()=>{try{return need('support-model.js','YouthMap')}catch(_){return null}};
@@ -130,8 +130,8 @@ const signHtml=k=>'<div class="sign"><div>작성자</div><div>검토자</div><di
 const goalTable=k=>k.goals.length?'<div class="tw"><table><thead><tr><th>주제</th><th>지금</th><th>다음 재평가까지</th><th>점검</th></tr></thead><tbody>'+k.goals.map(g=>'<tr><td><b>'+esc(g.topic)+'</b></td><td class="nw">'+(g.now?dots(g.now)+g.now+'점':'서술')+'</td><td>'+esc(g.target)+'</td><td>'+esc(g.measure)+'</td></tr>').join('')+'</tbody></table></div>':'<p class="sm mut">2점 이상 영역이 없어 목표는 첫 만남에서 학생과 정합니다.</p>';
 
 function page1(k){
-  const sub=['최종 보고서'+(k.grade?' · '+k.grade.label:'')+(k.revision?' · 평가 '+k.revision+'차':''),k.date+' · 서술 '+(k.inc?'포함':'미포함')+' · 실무자 확인 전 초안'];
-  return '<header class="mast pad"><h1>OY-RALS <span>사례 저널</span></h1><p>'+esc(sub[0])+'<br>'+esc(sub[1])+'</p></header>'+
+  const sub=['사정·판정·연계·계획 종합'+(k.grade?' · '+k.grade.label:'')+(k.revision?' · 평가 '+k.revision+'차':''),k.date+' · 서술 '+(k.inc?'포함':'미포함')+' · 실무자 확인 전 초안'];
+  return '<header class="mast pad"><h1>OY-RALS <span>최종 보고서</span></h1><p>'+esc(sub[0])+'<br>'+esc(sub[1])+'</p></header>'+
    '<div class="lead pad"><p class="t '+k.tone+'"><small>지원 우선순위</small>'+esc(k.tier?k.tier+'단계':'미확정')+'</p><div><h2>'+esc(k.path)+'</h2><p>'+esc(k.tierName)+' · '+esc(k.level.name||'')+' · 통합사례관리 '+esc(k.sel.value)+'</p></div></div>'+
    (k.urgent||k.agenda.length?'<div class="pad ofr-notes">'+alertHtml(k)+agendaHtml(k)+'</div>':'')+
    '<div class="four pad">'+
@@ -202,7 +202,7 @@ function fill(scope){
   return {over:reps.some(r=>over(r)>1)};
 }
 function fitScale(scope){
-  scope.querySelectorAll('.ofr-sheet-box').forEach(box=>{const s=Math.min(1,box.clientWidth/794);const sc=box.querySelector('.ofr-scale');if(sc)sc.style.transform='scale('+s+')';box.style.height=(1123*s)+'px';});
+  scope.querySelectorAll('.ofr-sheet-box').forEach(box=>{const s=box.clientWidth/794;const sc=box.querySelector('.ofr-scale');if(sc)sc.style.transform='scale('+s+')';box.style.height=(1123*s)+'px';});
 }
 
 /* TXT: 화면과 같은 판정 + 핵심 내용. inc=false면 서술 분석 문장·원문을 넣지 않는다. */
