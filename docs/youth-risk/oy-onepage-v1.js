@@ -50,7 +50,7 @@ function model(p,role){
   /* 2026-11-03 검수 P1: 서술 안전 단서와 같은 주제 문항 0점이 어긋나면 모든 역할판 01에 판정 사슬 안건과 같은 문장을 싣는다(05와 같은 문장). */
   const mismatchNote=((k.R&&k.R.agenda)||[]).filter(a=>a.k==='mismatch').map(a=>a.t)[0]||'';
   /* 안전 유형별 오늘 연락처(가상 1,200사례 P1-3): 서술에만 안전 단서가 있어 척도 영역이 비어도 연락할 곳이 보이게 한다. */
-  const contacts=safetyTone==='ok'?[]:((SC()&&SC().fromChain(k.R,p.explicit))||[]).slice(0,2);
+  const contacts=safetyTone==='ok'?[]:((SC()&&SC().fromChain(k.R,(Array.isArray(p.explicit)?p.explicit:[]).concat((p.followups||{})[4]==='yes'?['강요·협박·착취']:[])))||[]).slice(0,2);
   return {k,role,contacts,safetyNames:safetyNames(k.R),scope:SCOPE[role]||null,unknown,hard,safetyTone,steps,teach,narrNote,mismatchNote,tier:k.tier,tierName:k.tierName,tierWhy:k.tierWhy,provisional:!!k.R.provisional};
 }
 /* 역할별로 한 장을 채우는 추천 항목. 모두 척도 응답·판정 사슬·해석에서 나오며 서술 원문은 쓰지 않는다.
