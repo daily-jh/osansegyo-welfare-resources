@@ -5,12 +5,21 @@
 (function(root){
 'use strict';
 const node=typeof module!=='undefined'&&module.exports;
-const VERSION='1.7.0-role-switch-20261029';
+const VERSION='1.8.0-basis-20261116';
 const need=(n,g)=>node?require('./'+n):root[g];
 const FR=()=>need('oy-final-report-v1.js','OYFinalReport');
 const LIB=()=>{try{return need('oy-scale-library-v1.js','OYScaleLibrary')}catch(_){return null}};
 const SC=()=>{try{return need('oy-safety-contacts-v1.js','OYSafetyContacts')}catch(_){return null}};
 const OBS=()=>{try{return need('oy-perspective-v1.js','OYPerspective').OBS||{}}catch(_){return {}}};
+const IK=()=>{try{return need('oy-item-knowledge-v1.js','OYItemKnowledge')}catch(_){return null}};
+/* 01 칸 근거가 '7번 응답'처럼 번호만 있으면 읽는 사람이 무엇에 대한 응답인지 알 수 없다(2026-11-16 검수). 번호 옆에 문항 주제를 붙인다. 판정 값은 그대로. */
+function safetyNames(R){
+  const K=IK();if(!K||!K.item)return '';
+  const pos=(R&&R.safetyPos)||[],open=(R&&R.safetyOpen)||[];
+  const nm=n=>{try{return n+'번 '+K.item(n).topic}catch(_){return ''}};
+  const a=pos.map(nm).filter(Boolean),b=pos.length?[]:open.map(nm).filter(Boolean);
+  return a.length?a.join(' · '):b.length?'미상: '+b.join(' · '):'';
+}
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const NAMES=['안정관찰','초기주의','집중지원','다기관 집중개입','최우선 안전대응'];
 const dots=v=>'<span class="oy1-dots" aria-label="가장 높은 문항 '+v+'점">'+[1,2,3,4].map(k=>'<i class="'+(k<=v?'f':'')+'"></i>').join('')+'</span>';
@@ -42,7 +51,7 @@ function model(p,role){
   const mismatchNote=((k.R&&k.R.agenda)||[]).filter(a=>a.k==='mismatch').map(a=>a.t)[0]||'';
   /* 안전 유형별 오늘 연락처(가상 1,200사례 P1-3): 서술에만 안전 단서가 있어 척도 영역이 비어도 연락할 곳이 보이게 한다. */
   const contacts=safetyTone==='ok'?[]:((SC()&&SC().fromChain(k.R,p.explicit))||[]).slice(0,2);
-  return {k,role,contacts,scope:SCOPE[role]||null,unknown,hard,safetyTone,steps,teach,narrNote,mismatchNote,tier:k.tier,tierName:k.tierName,tierWhy:k.tierWhy,provisional:!!k.R.provisional};
+  return {k,role,contacts,safetyNames:safetyNames(k.R),scope:SCOPE[role]||null,unknown,hard,safetyTone,steps,teach,narrNote,mismatchNote,tier:k.tier,tierName:k.tierName,tierWhy:k.tierWhy,provisional:!!k.R.provisional};
 }
 /* 역할별로 한 장을 채우는 추천 항목. 모두 척도 응답·판정 사슬·해석에서 나오며 서술 원문은 쓰지 않는다.
    블록: {h 제목, li 목록 | p 문단, tip 작은 안내, cls}. 마지막은 그 역할이 손으로 적는 메모 칸. */
@@ -239,9 +248,9 @@ function html(m){
    '<p class="oy1-role">'+(sc?'다른 실무자 관점으로 바꿔 볼 수 있습니다. 판정은 그대로이고 다음 할 일만 바뀝니다.':'역할을 누르면 그 실무자 관점으로 다음 할 일이 맞춰집니다')+'</p></div>'+
    '<div class="oy1-pick'+(sc?'':' oy1-pick-open')+'" role="group" aria-label="실무자 관점 바꾸기">'+roles.map(r=>'<button type="button" data-oy-role="'+r+'" aria-pressed="'+(m.role===r)+'">'+esc(SCOPE[r].name)+'</button>').join('')+'</div>'+
    '<div class="oy1-grid">'+
-   '<section class="oy1-q oy1-'+m.safetyTone+'"><h4><i>01</i>안전 확인 결과</h4><p class="oy1-v">'+esc(k.safety.value)+'</p><p class="oy1-why">'+esc(k.safety.why)+'</p>'+(m.narrNote?'<p class="oy1-narr">'+esc(m.narrNote)+'</p>':'')+(m.mismatchNote?'<p class="oy1-narr">'+esc(m.mismatchNote)+'</p>':'')+
+   '<section class="oy1-q oy1-'+m.safetyTone+'"><h4><i>01</i>안전 확인 결과</h4><p class="oy1-v">'+esc(k.safety.value)+'</p><p class="oy1-why">'+esc(k.safety.why)+'</p>'+(m.safetyNames?'<p class="oy1-why oy1-names">'+esc(m.safetyNames)+'</p>':'')+(m.narrNote?'<p class="oy1-narr">'+esc(m.narrNote)+'</p>':'')+(m.mismatchNote?'<p class="oy1-narr">'+esc(m.mismatchNote)+'</p>':'')+
     (m.safetyTone==='c'?'<p class="oy1-callc">'+esc(((k.R.safetyOpen||[]).length&&!(k.R.narrSafety||[]).length&&!(k.R.pending||[]).length?'모르는 안전 문항은 안전하다고 보지 않습니다.':'확인하기 전에는 안전하다고 보지 않습니다.')+' 오늘 직접 확인해 주세요.')+'</p>':'')+(k.urgent||(m.tier||0)>=5?'<p class="oy1-call">급하면 <b>112</b> · 청소년상담 <b>1388</b> · 자살예방 <b>109</b></p>':'')+(m.contacts&&m.contacts.length?contactsHtml(m.contacts):'')+'</section>'+
-   '<section class="oy1-q"><h4><i>02</i>지원 우선순위</h4><p class="oy1-v">'+esc(m.tier?m.tier+'단계 '+m.tierName:m.tierName)+'</p>'+tierBar+'<p class="oy1-why">'+esc(m.tier?m.tierWhy:'모르는 문항을 확인하기 전에는 단계를 정하지 않습니다.')+'</p></section>'+
+   '<section class="oy1-q"><h4><i>02</i>지원 우선순위</h4><p class="oy1-v">'+esc(m.tier?m.tier+'단계 '+m.tierName:m.tierName)+'</p>'+tierBar+'<p class="oy1-why">'+esc(m.tier?m.tierWhy:'모르는 문항을 확인하기 전에는 단계를 정하지 않습니다.')+'</p><button type="button" class="oy1-go" data-oy1-why>'+(m.tier?'이 단계가 나온 이유 보기':'확인하면 어떻게 바뀌는지 보기')+' <span aria-hidden="true">↓</span></button></section>'+
    '<section class="oy1-q"><h4><i>03</i>주요 어려움 영역</h4>'+hard+goBtn('score','척도 해석')+'</section>'+
    '<section class="oy1-q oy1-do"><h4><i>04</i>'+esc(dutyTitle(m))+'</h4><ol class="oy1-steps">'+m.steps.map(s=>'<li>'+esc(s)+'</li>').join('')+'</ol>'+goBtn('integrated','통합 사정의견')+'</section>'+
    '</div>'+
@@ -273,6 +282,7 @@ function teachHtml(t){
 function text(m){
   const k=m.k,L=['OY-RALS 핵심 결과 한 장'+(m.scope?' · '+m.scope.name+' 기준':''),''];
   L.push('1. 안전 확인 결과: '+k.safety.value+' ('+k.safety.why+')');
+  if(m.safetyNames)L.push('   '+m.safetyNames);
   if(m.narrNote)L.push('   '+m.narrNote);
   if(m.mismatchNote)L.push('   '+m.mismatchNote);
   (m.contacts||[]).forEach(c=>L.push('   오늘 연락처 · '+c.h+': '+c.rows.map(r=>r.b).join(', ')));
@@ -342,7 +352,9 @@ function bind(doc){
     const t=e.target&&e.target.closest?e.target:null;if(!t)return;
     if(t.closest('[data-oy-role]')){notesOpen=true;const selected=t.closest('[data-oy-role]').dataset.oyRole;const inResult=!!t.closest('#oyOnePage');setTimeout(()=>{render();if(inResult){const b=doc.querySelector('#oyOnePage [data-oy-role="'+selected+'"]');if(b)b.focus({preventScroll:true});}},0);return;}
     const more=t.closest('[data-oy1-more]');if(more&&cur){const rev=cur.payload.flowRevision;open[rev]=!open[rev];setFold(!open[rev]);if(open[rev]){const j=doc.getElementById('journey88');j&&j.scrollIntoView({behavior:'smooth',block:'start'});}return;}
-    const go=t.closest('[data-oy1-go]');if(go&&cur){open[cur.payload.flowRevision]=true;setFold(false);const tb=doc.querySelector('#journey88 [data-j88-result-tab="'+go.dataset.oy1Go+'"]');if(tb&&tb.getAttribute('aria-pressed')!=='true')tb.click();const j=doc.getElementById('journey88');j&&j.scrollIntoView({behavior:'smooth',block:'start'});return;}
+    const go=t.closest('[data-oy1-go]');if(go&&cur){open[cur.payload.flowRevision]=true;setFold(false);const tb=doc.querySelector('#journey88 [data-j88-result-tab="'+go.dataset.oy1Go+'"]');if(tb&&tb.getAttribute('aria-pressed')!=='true')tb.click();const j=doc.querySelector('#journey88 .j88-result-tabs')||doc.getElementById('journey88');j&&j.scrollIntoView({behavior:'smooth',block:'start'});return;}
+    /* 02 칸 → 판정 근거 띠의 ③ 지원 우선순위를 펼쳐 보여 준다. 단계 미확정이면 '확인하면 결과가 어떻게 바뀌나'도 함께 연다. */
+    if(t.closest('[data-oy1-why]')&&cur){open[cur.payload.flowRevision]=true;setFold(false);const basis=doc.getElementById('j88-basis')||doc.getElementById('journey88');if(basis){const b=basis.querySelector('[data-oyd-open="tier"]');if(b&&b.getAttribute('aria-expanded')!=='true')b.click();const w=basis.querySelector('details.oyd-whatif'),mm=doc.getElementById('oyOnePage').__model;if(w&&mm&&!mm.tier)w.open=true;basis.scrollIntoView({behavior:'smooth',block:'start'});}return;}
     if(t.closest('[data-oy1-library]')){const L=LIB();if(L&&L.open)L.open(doc);return;}
     const sc=t.closest('[data-oy1-scale]');if(sc){const L=LIB();if(L&&L.open){L.open(doc);const c=doc.getElementById('osl-'+sc.dataset.oy1Scale);if(c){c.hidden=false;const g=c.closest('.osl-group');if(g)g.hidden=false;c.open=true;setTimeout(()=>c.scrollIntoView({behavior:'smooth',block:'start'}),120);}}return;}
     if(t.closest('[data-oy1-check]')){askReview(doc);return;}
