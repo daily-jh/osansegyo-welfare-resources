@@ -64,6 +64,10 @@ async function scenario(browser,width){
  assert.ok((await page.locator('#journey88 .j88-raw-accordion').innerText()).includes('종합사정 및 지원 방향'));
  assert.equal(await page.locator('#oy-integrated-visual-slot .oy-viz-grade').count(),1,'integrated opinion receives five-level badge');
  assert.equal(await page.locator('.j88-operational-summary').count(),1,'system integrated judgment summary exists');
+ /* 2026-11-16 디자인 고도화: 단계는 판정 근거 띠에 이미 있으므로 통합 사정의견 1부는 한 줄 요약으로 접혀 시작한다. */
+ assert.equal(await page.locator('#journey88 .j88-stage-fold').getAttribute('open'),null,'integrated stage block starts folded');
+ assert.match(await page.locator('#journey88 .j88-stage-fold > summary').innerText(),/단계/,'folded summary still names the stage');
+ await page.locator('#journey88 .j88-stage-fold > summary').click();
  assert.match(await page.locator('.j88-operational-summary').innerText(),/우선 실행|권장 진행체계/,'direct actionable guidance');
  const originalCore=await page.evaluate(a=>window.YouthCriteria.evaluate(a,[2,3,3,3,2,2,3,3,2,2],false,{}).knownTotal,answers);
  assert.equal(await page.evaluate(a=>window.YouthCriteria.evaluate(a,[2,3,3,3,2,2,3,3,2,2],false,{}).knownTotal,answers),originalCore,'V3.2 never changes CORE');

@@ -96,11 +96,18 @@ function systemOutcome(a){
  +'<div><dt>권장 진행체계</dt><dd>'+esc(pathway)+'</dd></div></dl>'
  +'<small>기준: 현재 입력된 25문항 및 선택 서술로 산출한 지원우선순위. 실제 발생 사실·진단·행정적 서비스 이용 결정을 대신하지 않습니다.</small></section>';
 }
+function stageFold(a){
+ let line='';try{const x=window.OYFiveLevelIndex?.analyze(state.payload);if(x)line=x.tier?'제'+x.tier+'단계 '+x.label:(window.OYResultReadout?window.OYResultReadout.tierLine(x):'단계 미확정 · 확인된 문항 우선');}catch(_){}
+ return '<details class="j88-stage-fold"><summary><span class="j88-stage-fold-k">통합지원 단계</span><b>'+esc(line||'단계 정보 없음')+'</b><small>지표·서술 반영·단계가 나온 이유 펼치기</small></summary>'
+ +systemOutcome(a)+'<div id="oy-integrated-visual-slot"></div></details>';
+}
 function resultIntegratedPage(a){
  return '<section class="j88-result-pane j88-flow"><p class="j88-view-note">척도 응답과 서술기록을 함께 분석한 통합 사정의견입니다. 공식 점수와 CORE 안전판정은 바뀌지 않습니다.</p>'
  +partRoute(INTEGRATED_PARTS)
- +partHead(INTEGRATED_PARTS,'stage','이 사례가 몇 단계인지와 그 단계가 나온 이유입니다.')
- +systemOutcome(a)+'<div id="oy-integrated-visual-slot"></div>'
+ +partHead(INTEGRATED_PARTS,'stage','단계는 위 판정 근거 ③과 같습니다. 서술까지 반영한 지표와 단계가 나온 이유는 펼쳐서 봅니다.')
+ /* 2026-11-16 디자인 고도화: 단계가 판정 띠·시스템 분석 결과·통합지원 단계로 세 번 펼쳐져 있던 것을 한 줄 요약 + 접기로 줄인다.
+    내용(systemOutcome, 통합 지표 칸)은 그대로 접기 안에 있어 인쇄·내보내기·시험이 같은 값을 읽는다. */
+ +stageFold(a)
  +partHead(INTEGRATED_PARTS,'opinion','단계를 바탕으로 개입 수준, 주관기관, 개입계획을 정리한 의견서입니다.')
  +narrReport('integratedHtml',state.payload)
  +partHead(INTEGRATED_PARTS,'raw','이전 모델의 원자료와 대조 규칙입니다. 필요할 때 펼쳐 확인합니다.')
@@ -172,7 +179,7 @@ function renderContent(){if(!state?.ready||!state.payload||state.stage===1||stat
  if($('j88-rel-editor')){const editor=$('j88-rel-editor');editor.oninput=()=>{relations=OYRelations.read(editor);$('j88-rel-svg').innerHTML=OYRelations.svg(relations);invalidate();};editor.onclick=e=>{const del=e.target.closest('[data-remove-relation]'),add=e.target.closest('[data-add-relation]');if(del||add){relations=OYRelations.read(editor);if(del)relations.splice(+del.dataset.removeRelation,1);else if(relations.length<40)relations.push({kind:'family',label:'',status:'관계 언급·미확인',cohabit:false,source:''});editor.innerHTML=OYRelations.editor(relations);$('j88-rel-svg').innerHTML=OYRelations.svg(relations);invalidate();}};}
  box.querySelectorAll('[data-draft]').forEach(el=>{const remember=()=>{drafts[el.dataset.draft]=el.value;invalidate();};el.addEventListener('input',remember);if(el.tagName==='SELECT')el.addEventListener('change',remember);});
  box.querySelectorAll('[data-j88-tab]').forEach(b=>b.onclick=()=>{tab=b.dataset.j88Tab;render();box.querySelector('[data-j88-tab][aria-pressed="true"]').focus({preventScroll:true});});
- box.querySelectorAll('[data-j88-result-tab]').forEach(b=>b.onclick=()=>{resultTab=b.dataset.j88ResultTab;render();window.OYStageInsights?.render(state);box.querySelector('[data-j88-result-tab][aria-pressed="true"]')?.focus({preventScroll:true});});
+ box.querySelectorAll('[data-j88-result-tab]').forEach(b=>b.onclick=()=>{resultTab=b.dataset.j88ResultTab;render();window.OYStageInsights?.render(state);box.querySelector('.j88-result-pane')?.classList.add('j88-enter');box.querySelector('[data-j88-result-tab][aria-pressed="true"]')?.focus({preventScroll:true});});
  box.querySelectorAll('[data-j88-part]').forEach(b=>b.onclick=()=>box.querySelector('#j88-part-'+b.dataset.j88Part)?.scrollIntoView({behavior:'smooth',block:'start'}));
  box.querySelector('[data-j88-lab]')?.addEventListener('click',()=>{const lab=window.open('cie-lab-v32/?from=assessment','_blank');if(!lab){alert('팝업이 차단되었습니다. 브라우저에서 새 창을 허용해 주세요.');return;}const answers=state.payload.answers.slice();const followups={...state.payload.followups};const explicit=Array.isArray(state.payload.explicit)?state.payload.explicit.slice():[];const handler=e=>{if(e.origin!==location.origin||e.source!==lab||e.data?.type!=='oy-cie-lab-ready')return;window.removeEventListener('message',handler);lab.postMessage({type:'oy-cie-assessment-handoff',answers,followups,explicit},location.origin);};window.addEventListener('message',handler);});
  box.querySelector('[data-j88-research]')?.addEventListener('click',()=>{const tools=box.querySelector('.j88-tools');tools.open=true;tools.scrollIntoView({behavior:'smooth',block:'nearest'});$('j88-format').value='서비스계획서';$('j88-instructions').value='OY-CIE 연구 작업실: 근거 문항별 가설과 반증 질문을 제시하고, 학생 희망·강점·기존 지원·접근 장벽을 대조한 뒤 우선순위 3개, 안전 조치, 단기 1~2주 및 중장기 1~3개월 목표, 담당·기준선·측정 지표·점검일을 제안하세요. 미확인 사실을 확정하지 말고 대안 가설과 추가 질문을 포함하세요.';invalidate();});

@@ -1,4 +1,4 @@
-/* OY-RALS 메인 화면 CSS 묶음 v13 · 원본 35개 · sha 07d7de7f5295 · 직접 고치지 말고 원본을 고친 뒤 node scripts/build-youth-css.cjs */
+/* OY-RALS 메인 화면 CSS 묶음 v13 · 원본 36개 · sha 4a43e7bad856 · 직접 고치지 말고 원본을 고친 뒤 node scripts/build-youth-css.cjs */
 /* ==== flow.css ==== */
 @font-face{font-family:SUIT;src:url(fonts/SUIT-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}*{box-sizing:border-box}body{margin:0;background:#f1f5fa;color:#263f57;font-family:SUIT,"Malgun Gothic",sans-serif}.flow-wrap{max-width:1240px;width:calc(100% - 32px);margin:auto}.flow-header{background:#fff;border-bottom:1px solid #dce5ef;padding:24px 0}.flow-header p{font-size:12px;letter-spacing:.12em;color:#5f7c99;margin:0 0 8px}.flow-header h1{font-size:28px;margin:0 0 8px}.flow-header small{font-size:15px;color:#56718b}.flow-nav{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 10px}.flow-nav button,.flow-btn{font:inherit;cursor:pointer;border:1px solid #cadbea;background:#fff;color:#315776;border-radius:22px;padding:12px 18px;font-weight:700}.flow-nav button[aria-current=step]{background:#305e89;color:white;border-color:#305e89}.flow-nav button:disabled{color:#8b9aaa;background:#eaf0f5;cursor:default}#flowStatus{font-size:14px;line-height:1.7;color:#57708a}#stepTitle{font-size:23px;margin:24px 0 16px}.flow-frame{display:block;width:100%;height:1000px;border:0;background:#f1f5fa;overflow:hidden}.flow-frame[hidden]{display:none}.flow-bottom{display:flex;justify-content:space-between;gap:12px;margin:24px 0 40px}.flow-primary{background:#305e89;color:white;border-color:#305e89}.flow-result-tabs{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}.flow-result-tabs [aria-pressed=true]{background:#dceafa}.flow-focus{border:1px solid #d6e2ef;background:#fff;border-radius:22px;padding:20px;margin:20px 0}.flow-focus h3{margin:0 0 8px;font-size:18px}.flow-focus p{font-size:14px;line-height:1.7;color:#587189}#focusChoices{display:flex;gap:12px;flex-wrap:wrap}#focusChoices label{padding:10px 13px;background:#f0f5fb;border-radius:16px;display:flex;gap:8px;align-items:center;font-size:14px}#recordVersion{font:inherit;padding:10px;border:1px solid #c2d5e7;border-radius:12px}footer.flow-footer{padding:25px 0;border-top:1px solid #d7e2ed;font-size:13px;line-height:1.8;color:#587087}footer.flow-footer a{color:inherit}button:focus-visible,a:focus-visible{outline:3px solid #94bce5;outline-offset:3px}@media(max-width:650px){.flow-wrap{width:calc(100% - 20px)}.flow-header h1{font-size:24px}.flow-nav{display:grid;grid-template-columns:1fr 1fr}.flow-nav button{padding:11px 8px;font-size:13px}.flow-bottom button{font-size:14px;padding:12px}.flow-focus{padding:16px}}@media print{.flow-header,.flow-nav,.flow-bottom,.flow-footer{display:none}}
 
@@ -2240,6 +2240,42 @@ body.oy-lib-open #assessmentFlow>:not(.flow-nav):not(#scaleLibraryArea),body.oy-
  .oy-viz-radar .oy-radar-num{display:inline}
  .oy-viz-main-radar .oy-viz-radar-legend span,.oy-viz-radar-legend span{font-size:14px;line-height:1.45}
  .oy-viz-radar-legend i{font-size:13px}
+}
+
+/* ==== oy-polish-v16.css ==== */
+/* OY-RALS 디자인 고도화 v16 (2026-11-16, 「홈페이지 디자인·기능 고도화 통합 지침」 기준)
+   - 움직임 토큰: 빠른 반응 150ms, 일반 전환 240ms, ease-out. 움직임 줄이기 설정이면 모두 끔.
+   - 통합 사정의견 1부: 단계 반복을 한 줄 요약 + 접기로(journey-v88 stageFold).
+   - 결과 탭 전환: 새 탭 내용만 짧게 떠오르며 나타남(transform·opacity만 사용, 탭을 누를 때만).
+   - 「AI에 묻기」 버튼 대비 4.5:1 이상(반투명 제거). */
+:root{--oy-dur-fast:150ms;--oy-dur:240ms;--oy-ease:cubic-bezier(.2,.7,.2,1)}
+
+/* 통합 사정의견 1부 · 단계 한 줄 요약 */
+#assessmentFlow .j88-stage-fold{margin:12px 0 22px;border:1px solid #d6e2ee;border-radius:16px;background:#fff;overflow:hidden}
+#assessmentFlow .j88-stage-fold>summary{display:flex!important;flex-wrap:wrap;align-items:center;gap:6px 12px;padding:14px 18px!important;min-height:56px}
+#assessmentFlow .j88-stage-fold>summary .j88-stage-fold-k{font-size:13px;font-weight:700;color:#4b5b6e;letter-spacing:.01em}
+#assessmentFlow .j88-stage-fold>summary b{font-size:18px;font-weight:800;color:#12263f}
+#assessmentFlow .j88-stage-fold>summary small{flex:1 1 100%;order:3;font-size:13px;font-weight:600;color:#1765bd}
+#assessmentFlow .j88-stage-fold[open]>summary{border-bottom:1px solid #e3ebf3;background:#f7fafd}
+#assessmentFlow .j88-stage-fold[open]>summary small{color:#4b5b6e}
+#assessmentFlow .j88-stage-fold>.j88-operational-summary{margin:16px}
+#assessmentFlow .j88-stage-fold>#oy-integrated-visual-slot{padding:0 16px 16px}
+@media (min-width:761px){#assessmentFlow .j88-stage-fold>summary small{flex:0 1 auto;order:0;margin-left:auto;margin-right:6px}#assessmentFlow .j88-stage-fold>summary::after{margin-left:0}}
+
+/* 결과 탭 전환 */
+@keyframes oy-enter{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+#journey88 .j88-result-pane.j88-enter{animation:oy-enter var(--oy-dur) var(--oy-ease) both}
+#journey88 .j88-result-tabs>button{transition:background-color var(--oy-dur-fast) var(--oy-ease),border-color var(--oy-dur-fast) var(--oy-ease),box-shadow var(--oy-dur-fast) var(--oy-ease),transform var(--oy-dur-fast) var(--oy-ease)}
+#journey88 .j88-result-tabs>button:active{transform:scale(.985)}
+#assessmentFlow details>summary::after{transition:transform var(--oy-dur-fast) var(--oy-ease)}
+
+/* 「AI에 묻기」: 반투명으로 글자 대비가 4.3:1까지 떨어지던 것을 바로잡음 */
+#assessmentFlow .oy-ask-btn{opacity:1;color:#1765bd}
+
+@media (prefers-reduced-motion:reduce){
+ #journey88 .j88-result-pane.j88-enter{animation:none}
+ #journey88 .j88-result-tabs>button,#assessmentFlow details>summary::after{transition:none}
+ #journey88 .j88-result-tabs>button:active{transform:none}
 }
 
 /* ==== oy-entry-layout-v1.css ==== */
