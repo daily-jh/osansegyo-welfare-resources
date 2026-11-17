@@ -1,0 +1,30 @@
+/* 두 사이트 공통 그라데이션(2026-11-18). 강조 파랑 #1765bd를 가운데에 두고 같은 방향·같은 세 색으로만 쓴다.
+   흰 글자 대비: 시작 #2674cf 4.7, 가운데 #1765bd 5.8, 끝 #12509c 7.9(모두 AA 이상). 글자 없는 막대만 밝은 시작색을 쓴다.
+   background-image만 덮으므로 바탕색 규칙은 그대로 두고, 인쇄에서는 단색으로 돌아간다. */
+:root{
+  --g-brand:linear-gradient(135deg,#2674cf 0%,#1765bd 52%,#12509c 100%);
+  --g-brand-hover:linear-gradient(135deg,#1f69c0 0%,#145aa9 52%,#0f4585 100%);
+  --g-navy:linear-gradient(135deg,#21455c 0%,#163447 55%,#0f2433 100%);
+  --g-bar:linear-gradient(90deg,#5a9be0 0%,#1765bd 100%);
+  --g-soft:linear-gradient(135deg,#f3f8fe 0%,#e6effb 100%);
+}
+/* 꽉 찬 파랑: 주요 버튼·선택된 단계·선택된 칸·첫 화면 큰 숫자 타일.
+   예전 층들이 background 묶음 값을 !important로 쓰는 곳이 있어 html body :is(...)로 한 단계 강하게 건다. */
+html body :is(.btn-primary,.flow-primary,.bridge-primary,.connected-primary,.ofr-primary,.oyp-print,.overview-backlink,
+#searchForm button[type="submit"],.stat:has(.stat-icon.coral),.overview-visual-central,
+[data-oy-step][aria-pressed="true"],[data-oy-role][aria-pressed="true"],.oy-role-tap,
+.overview-scopes button.selected,.overview-scopes button[aria-pressed="true"],[data-oy-text][aria-pressed="true"]),
+html body #complete.btn.btn-primary,html body .connected-actions a.connected-primary,html body .bridge-actions .bridge-primary{background-image:var(--g-brand)!important}
+html body :is(.btn-primary,.flow-primary:not(:disabled),.bridge-primary,.connected-primary,.ofr-primary,.oyp-print,#searchForm button[type="submit"]):hover,
+html body .connected-actions a.connected-primary:hover,html body .bridge-actions .bridge-primary:hover{background-image:var(--g-brand-hover)!important}
+/* 진한 남색 타일 */
+.bento-youth{background-image:var(--g-navy)!important}
+/* 막대(글자 없음) */
+.oy-viz-track span{background-image:var(--g-bar)!important}
+/* 옅은 파랑 칸: 같은 방향의 옅은 그라데이션 */
+.header-form-download{background-image:var(--g-soft)!important}
+@media print{
+  html body .btn-primary,html body #complete.btn.btn-primary,html body .connected-actions a.connected-primary,html body .bridge-actions .bridge-primary,.btn-primary,.flow-primary,.bridge-primary,.connected-primary,.ofr-primary,.oyp-print,.overview-backlink,#searchForm button[type="submit"],
+  .stat:has(.stat-icon.coral),.overview-visual-central,[data-oy-step][aria-pressed="true"],[data-oy-role][aria-pressed="true"],.oy-role-tap,
+  .overview-scopes button.selected,.overview-scopes button[aria-pressed="true"],[data-oy-text][aria-pressed="true"],.bento-youth,.oy-viz-track span,.header-form-download{background-image:none!important}
+}

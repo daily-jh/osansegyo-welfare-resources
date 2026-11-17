@@ -1,4 +1,4 @@
-/* OY-RALS 메인 화면 CSS 묶음 v13 · 원본 36개 · sha 13920ffcefdf · 직접 고치지 말고 원본을 고친 뒤 node scripts/build-youth-css.cjs */
+/* OY-RALS 메인 화면 CSS 묶음 v13 · 원본 37개 · sha d7f449cd318c · 직접 고치지 말고 원본을 고친 뒤 node scripts/build-youth-css.cjs */
 /* ==== flow.css ==== */
 @font-face{font-family:SUIT;src:url(fonts/SUIT-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}*{box-sizing:border-box}body{margin:0;background:#f1f5fa;color:#263f57;font-family:SUIT,"Malgun Gothic",sans-serif}.flow-wrap{max-width:1240px;width:calc(100% - 32px);margin:auto}.flow-header{background:#fff;border-bottom:1px solid #dce5ef;padding:24px 0}.flow-header p{font-size:12px;letter-spacing:.12em;color:#5f7c99;margin:0 0 8px}.flow-header h1{font-size:28px;margin:0 0 8px}.flow-header small{font-size:15px;color:#56718b}.flow-nav{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 10px}.flow-nav button,.flow-btn{font:inherit;cursor:pointer;border:1px solid #cadbea;background:#fff;color:#315776;border-radius:22px;padding:12px 18px;font-weight:700}.flow-nav button[aria-current=step]{background:#305e89;color:white;border-color:#305e89}.flow-nav button:disabled{color:#8b9aaa;background:#eaf0f5;cursor:default}#flowStatus{font-size:14px;line-height:1.7;color:#57708a}#stepTitle{font-size:23px;margin:24px 0 16px}.flow-frame{display:block;width:100%;height:1000px;border:0;background:#f1f5fa;overflow:hidden}.flow-frame[hidden]{display:none}.flow-bottom{display:flex;justify-content:space-between;gap:12px;margin:24px 0 40px}.flow-primary{background:#305e89;color:white;border-color:#305e89}.flow-result-tabs{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}.flow-result-tabs [aria-pressed=true]{background:#dceafa}.flow-focus{border:1px solid #d6e2ef;background:#fff;border-radius:22px;padding:20px;margin:20px 0}.flow-focus h3{margin:0 0 8px;font-size:18px}.flow-focus p{font-size:14px;line-height:1.7;color:#587189}#focusChoices{display:flex;gap:12px;flex-wrap:wrap}#focusChoices label{padding:10px 13px;background:#f0f5fb;border-radius:16px;display:flex;gap:8px;align-items:center;font-size:14px}#recordVersion{font:inherit;padding:10px;border:1px solid #c2d5e7;border-radius:12px}footer.flow-footer{padding:25px 0;border-top:1px solid #d7e2ed;font-size:13px;line-height:1.8;color:#587087}footer.flow-footer a{color:inherit}button:focus-visible,a:focus-visible{outline:3px solid #94bce5;outline-offset:3px}@media(max-width:650px){.flow-wrap{width:calc(100% - 20px)}.flow-header h1{font-size:24px}.flow-nav{display:grid;grid-template-columns:1fr 1fr}.flow-nav button{padding:11px 8px;font-size:13px}.flow-bottom button{font-size:14px;padding:12px}.flow-focus{padding:16px}}@media print{.flow-header,.flow-nav,.flow-bottom,.flow-footer{display:none}}
 
@@ -2376,3 +2376,35 @@ body.oy-lib-open #assessmentFlow>:not(.flow-nav):not(#scaleLibraryArea),body.oy-
 }
 @media print{.oy-pop{display:none!important}}
 @media(prefers-reduced-motion:reduce){#howItWorks.oy-steps-strip article{transition:none}}
+
+/* ==== ../assets/brand-gradient-v17.css ==== */
+/* 두 사이트 공통 그라데이션(2026-11-18). 강조 파랑 #1765bd를 가운데에 두고 같은 방향·같은 세 색으로만 쓴다.
+   흰 글자 대비: 시작 #2674cf 4.7, 가운데 #1765bd 5.8, 끝 #12509c 7.9(모두 AA 이상). 글자 없는 막대만 밝은 시작색을 쓴다.
+   background-image만 덮으므로 바탕색 규칙은 그대로 두고, 인쇄에서는 단색으로 돌아간다. */
+:root{
+  --g-brand:linear-gradient(135deg,#2674cf 0%,#1765bd 52%,#12509c 100%);
+  --g-brand-hover:linear-gradient(135deg,#1f69c0 0%,#145aa9 52%,#0f4585 100%);
+  --g-navy:linear-gradient(135deg,#21455c 0%,#163447 55%,#0f2433 100%);
+  --g-bar:linear-gradient(90deg,#5a9be0 0%,#1765bd 100%);
+  --g-soft:linear-gradient(135deg,#f3f8fe 0%,#e6effb 100%);
+}
+/* 꽉 찬 파랑: 주요 버튼·선택된 단계·선택된 칸·첫 화면 큰 숫자 타일.
+   예전 층들이 background 묶음 값을 !important로 쓰는 곳이 있어 html body :is(...)로 한 단계 강하게 건다. */
+html body :is(.btn-primary,.flow-primary,.bridge-primary,.connected-primary,.ofr-primary,.oyp-print,.overview-backlink,
+#searchForm button[type="submit"],.stat:has(.stat-icon.coral),.overview-visual-central,
+[data-oy-step][aria-pressed="true"],[data-oy-role][aria-pressed="true"],.oy-role-tap,
+.overview-scopes button.selected,.overview-scopes button[aria-pressed="true"],[data-oy-text][aria-pressed="true"]),
+html body #complete.btn.btn-primary,html body .connected-actions a.connected-primary,html body .bridge-actions .bridge-primary{background-image:var(--g-brand)!important}
+html body :is(.btn-primary,.flow-primary:not(:disabled),.bridge-primary,.connected-primary,.ofr-primary,.oyp-print,#searchForm button[type="submit"]):hover,
+html body .connected-actions a.connected-primary:hover,html body .bridge-actions .bridge-primary:hover{background-image:var(--g-brand-hover)!important}
+/* 진한 남색 타일 */
+.bento-youth{background-image:var(--g-navy)!important}
+/* 막대(글자 없음) */
+.oy-viz-track span{background-image:var(--g-bar)!important}
+/* 옅은 파랑 칸: 같은 방향의 옅은 그라데이션 */
+.header-form-download{background-image:var(--g-soft)!important}
+@media print{
+  html body .btn-primary,html body #complete.btn.btn-primary,html body .connected-actions a.connected-primary,html body .bridge-actions .bridge-primary,.btn-primary,.flow-primary,.bridge-primary,.connected-primary,.ofr-primary,.oyp-print,.overview-backlink,#searchForm button[type="submit"],
+  .stat:has(.stat-icon.coral),.overview-visual-central,[data-oy-step][aria-pressed="true"],[data-oy-role][aria-pressed="true"],.oy-role-tap,
+  .overview-scopes button.selected,.overview-scopes button[aria-pressed="true"],[data-oy-text][aria-pressed="true"],.bento-youth,.oy-viz-track span,.header-form-download{background-image:none!important}
+}
