@@ -7,7 +7,7 @@
 .youth-resource-card::before{content:"";position:absolute;z-index:-1;pointer-events:none;width:285px;height:285px;border:1px solid #dce7f8;border-radius:50%;right:9%;top:-128px;background:radial-gradient(circle at 50% 50%,#eaf3ff80,transparent 66%)}
 .youth-resource-card::after{content:"";position:absolute;z-index:-1;pointer-events:none;width:142px;height:142px;border:1px solid #d8f2e8;border-radius:50%;right:25%;bottom:-98px}
 .bridge-copy{min-width:0}
-.bridge-kicker{display:inline-flex;gap:9px;align-items:center;font-size:11px;font-weight:800;letter-spacing:.105em;color:#4c6cab}
+.bridge-kicker{display:inline-flex;gap:9px;align-items:center;font-size:11px;font-weight:800;letter-spacing:0;color:#4c6cab}
 .bridge-dot{width:7px;height:7px;border-radius:50%;background:#4589d9}
 .bridge-copy h2,.bridge-copy h3{font-size:clamp(21px,2.4vw,28px);font-weight:850;line-height:1.35;color:#1e3658;letter-spacing:-.04em;margin:10px 0}
 .bridge-copy p{font-size:14px;color:#61778f;line-height:1.85;margin:0;word-break:keep-all}

@@ -18,7 +18,7 @@ html:has(body.flow-embedded:not([data-flow-mode=result])){background:#fff!import
 .flow-embedded:not([data-flow-mode=result]) .panel>.panel-head{background:none!important;border:0!important;padding:0 0 18px!important;margin:0!important;box-shadow:none!important}
 .flow-embedded:not([data-flow-mode=result]) .panel-head h2{font-size:clamp(26px,3.2vw,34px)!important;line-height:1.2!important;letter-spacing:-.02em!important;font-weight:750!important;color:var(--k-ink)!important;margin:4px 0 8px!important}
 .flow-embedded:not([data-flow-mode=result]) .panel-head p{font-size:16px!important;line-height:1.65!important;color:var(--k-sec)!important;margin:0!important;max-width:62ch}
-.flow-embedded:not([data-flow-mode=result]) .panel-head .eyebrow{font-size:13px!important;letter-spacing:.06em!important;font-weight:700!important;color:var(--k-ter)!important;background:none!important;padding:0!important}
+.flow-embedded:not([data-flow-mode=result]) .panel-head .eyebrow{font-size:13px!important;letter-spacing:0!important;font-weight:700!important;color:var(--k-ter)!important;background:none!important;padding:0!important}
 .flow-embedded:not([data-flow-mode=result]) #safety,.flow-embedded:not([data-flow-mode=result]) #assessment{border-top:1px solid var(--k-hair)!important;padding-top:40px!important;margin-top:40px!important}
 .flow-embedded:not([data-flow-mode=result]) #safety .panel-head .eyebrow::before{content:"01 · ";color:var(--k-rose)}
 .flow-embedded:not([data-flow-mode=result]) #assessment .panel-head .eyebrow::before{content:"02 · "}

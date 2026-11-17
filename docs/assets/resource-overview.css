@@ -2,7 +2,7 @@
 .overview-page{background:#f0f3f6}
 .overview-main{padding-top:34px;padding-bottom:90px}
 .overview-hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);align-items:center;gap:32px;min-height:340px;padding:44px 56px;border:1px solid #fff;border-radius:34px;overflow:hidden;background:linear-gradient(115deg,#fff 0%,#f7faff 60%,#e6eef9 100%);box-shadow:var(--shadow)}
-.overview-eyebrow{color:#4d77aa;letter-spacing:.06em;font-size:12px;font-weight:850;margin:0 0 18px}.overview-eyebrow span{font-size:16px;color:#db8d73;margin-right:8px}
+.overview-eyebrow{color:#4d77aa;letter-spacing:0;font-size:12px;font-weight:850;margin:0 0 18px}.overview-eyebrow span{font-size:16px;color:#db8d73;margin-right:8px}
 .overview-hero h1{font-size:clamp(36px,4.2vw,54px);line-height:1.26;letter-spacing:-.06em;margin:0 0 17px;color:#243548;font-weight:860}
 .overview-hero h1 em{font-style:normal;color:#2863ac}
 .overview-hero-copy>p:not(.overview-eyebrow){font-size:16px;color:#536c83;line-height:1.85;max-width:540px;margin:0 0 22px}

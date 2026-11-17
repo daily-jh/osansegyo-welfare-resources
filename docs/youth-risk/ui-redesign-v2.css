@@ -2,7 +2,7 @@
 .welcome{padding:48px 0 32px;background:radial-gradient(ellipse at 71% 30%,#e8efff 0,transparent 40%),radial-gradient(ellipse at 12% 80%,#e7f9f5 0,transparent 34%),linear-gradient(120deg,#fff 5%,#fafaff 100%);border-color:#e5eafa}
 .hero-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:20px;min-height:380px}
 .hero-copy{padding:18px 0}
-.hero-kicker{letter-spacing:.035em;color:#3c61ca;background:#eaf0ff;border-color:#dce5fb;font-weight:800}
+.hero-kicker{letter-spacing:0;color:#3c61ca;background:#eaf0ff;border-color:#dce5fb;font-weight:800}
 .hero-copy h1{font-size:clamp(35px,3.6vw,54px);letter-spacing:-.064em;line-height:1.23;margin:20px 0 10px;color:#152651}
 .hero-copy h1 em{font-style:normal;color:#365bcb}
 .hero-copy .hero-en{font-size:15px;color:#6582a6;line-height:1.4;margin:12px 0 19px}
@@ -19,7 +19,7 @@
 .home-role-grid .role-worker{background:linear-gradient(110deg,#e7f9f5,#fff 86%)}
 .role-icon{display:grid;place-items:center;width:54px;height:54px;border-radius:18px;background:#e3ddff;color:#5d54cd;font-weight:900;font-size:31px}
 .role-worker .role-icon{background:#cff2eb;color:#079884}
-.role-overline{font-size:12px;font-weight:800;color:#5f55b2;letter-spacing:.035em}
+.role-overline{font-size:12px;font-weight:800;color:#5f55b2;letter-spacing:0}
 .role-worker .role-overline{color:#0c8879}
 .home-role-grid h2{font-size:22px;line-height:1.45;color:#20335b;margin:6px 0 8px;letter-spacing:-.03em}
 .home-role-grid p{font-size:14px;line-height:1.75;margin:0;color:#60758d}

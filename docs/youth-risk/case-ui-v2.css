@@ -17,7 +17,7 @@
 #referenceReport .document-table th{line-height:1.65;padding:14px}
 #referenceReport .document-section{padding-top:24px;padding-bottom:23px}
 #aiMethodSection{margin:30px 0 14px;padding:23px 26px;background:#fff;border:1px solid #e1e5ef;border-radius:20px;box-shadow:none}
-#aiMethodSection .eyebrow{font-size:12px;color:#5e68aa;letter-spacing:.04em}
+#aiMethodSection .eyebrow{font-size:12px;color:#5e68aa;letter-spacing:0}
 #aiMethodSection h2{font-size:21px;line-height:1.5;margin:9px 0 7px;color:#26365d}
 #aiMethodSection>p{font-size:14px;color:#65758b;line-height:1.8;margin:0}
 #aiMethodSection .ai-method-options{gap:12px;margin:17px 0 12px}

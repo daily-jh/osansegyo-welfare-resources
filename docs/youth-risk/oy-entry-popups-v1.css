@@ -22,7 +22,7 @@
 .oy-pop::backdrop{background:rgba(10,25,40,.5)}
 .oy-pop-head{flex:none;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:20px 24px 16px;border-bottom:1px solid #dfe5ec}
 .oy-pop-head h2{margin:2px 0 0;font-size:22px;line-height:1.35;letter-spacing:-.02em;font-weight:800}
-.oy-pop-kicker{display:block;font-size:13px;font-weight:700;letter-spacing:.06em;color:#46586b}
+.oy-pop-kicker{display:block;font-size:13px;font-weight:700;letter-spacing:0;color:#46586b}
 .oy-pop-close{flex:none;min-height:40px;padding:0 16px;border-radius:999px;border:1px solid #dfe5ec;background:#fff;color:#16273a;font:inherit;font-weight:700;cursor:pointer}
 .oy-pop-body{flex:1 1 auto;min-height:0;overflow:auto;overscroll-behavior:contain;padding:20px 24px 24px}
 .oy-pop-steps{list-style:none;margin:0;padding:0;border-top:1px solid #dfe5ec}

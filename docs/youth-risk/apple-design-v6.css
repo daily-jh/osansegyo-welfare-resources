@@ -34,7 +34,7 @@
 .flow-header .youth-header-links svg{width:17px;height:17px}
 
 /* 2. Typography — caption floor 13px, readable secondary text */
-.hero-kicker,.eyebrow,.bridge-kicker,.role-overline{font-size:var(--ads-caption)!important;letter-spacing:.04em}
+.hero-kicker,.eyebrow,.bridge-kicker,.role-overline{font-size:var(--ads-caption)!important;letter-spacing:0}
 .eyebrow{color:#1f5fae}
 .hero-copy>small{font-size:var(--ads-footnote);color:var(--ads-secondary)}
 .welcome-steps p,.home-role-grid p{color:var(--ads-secondary)}
