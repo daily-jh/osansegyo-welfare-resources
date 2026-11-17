@@ -32,6 +32,8 @@ function expertHtml(){return '<div class="oyfb-expert" id="oyfbExpert" hidden>'+
  '</ol></div>';}
 function html(){return '<div class="oyfb-head"><span class="oyfb-kicker">의견 보내기</span><h2 id="oyFeedbackTitle">시스템을 쓰며 느낀 점을 알려 주세요</h2>'+
  '<p>시험 운영 기간의 오류 제보와 사용 후기를 받아 정식 운영 전에 고칩니다. <strong>학생·가족·학교 이름, 연락처, 사례 내용은 쓰지 마세요.</strong></p></div>'+
+ /* 결과 화면 분량을 줄이려고 창구 본문은 접어 둔다. 안내 문단의 링크·#oyFeedback·#expert-review·검토 요청 버튼으로 열린다. */
+ '<details class="oyfb-fold" id="oyfbFold"><summary class="oyfb-open">의견 쓰기 · 사용 후기 보기</summary>'+
  '<div class="oyfb-tabs" role="tablist" aria-label="의견 종류"><button type="button" role="tab" id="oyfbTabReport" aria-selected="true" data-oyfb-kind="report">오류·수정 요청 <small>비공개</small></button><button type="button" role="tab" id="oyfbTabReview" aria-selected="false" data-oyfb-kind="review">사용 후기 <small>승인 후 공개</small></button><button type="button" role="tab" id="oyfbTabExpert" aria-selected="false" data-oyfb-kind="expert">전문가 검토 <small>검토단 · 비공개</small></button></div>'+
  '<form class="oyfb-form" novalidate><p class="oyfb-mode" id="oyfbMode"></p>'+
  '<div class="oyfb-row"><label id="oyfbAreaWrap">어느 화면인가요<select id="oyfbArea">'+AREAS.map(a=>'<option>'+esc(a)+'</option>').join('')+'</select></label>'+
@@ -42,7 +44,8 @@ function html(){return '<div class="oyfb-head"><span class="oyfb-kicker">의견 
  '<label class="oyfb-text"><span id="oyfbTextLabel">내용</span><textarea id="oyfbBody" rows="5" maxlength="1000"></textarea><small id="oyfbCount">0 / 1000자</small></label>'+
  '<label class="oyfb-check"><input type="checkbox" id="oyfbOk"> 학생·가족·학교 이름, 연락처, 사례 내용을 쓰지 않았습니다.</label>'+
  '<div class="oyfb-actions"><button type="submit" class="flow-btn flow-primary" id="oyfbSend">보내기</button><p class="oyfb-status" id="oyfbStatus" role="status" aria-live="polite"></p></div></form>'+
- '<section class="oyfb-public" aria-labelledby="oyfbPublicTitle"><h3 id="oyfbPublicTitle">사용 후기</h3><div id="oyfbList"><p class="oyfb-muted">불러오는 중입니다.</p></div></section>';}
+ '<section class="oyfb-public" aria-labelledby="oyfbPublicTitle"><h3 id="oyfbPublicTitle">사용 후기</h3><div id="oyfbList"><p class="oyfb-muted">불러오는 중입니다.</p></div></section></details>';}
+function openFold(){const d=document.getElementById('oyfbFold');if(d&&!d.open)d.open=true}
 function mount(){
  const box=document.getElementById('oyFeedback');if(!box||box.dataset.ready)return;box.dataset.ready='1';box.innerHTML=html();
  const $=id=>document.getElementById(id);let kind='report';
@@ -77,7 +80,11 @@ function mount(){
    else st.textContent='보내지 못했습니다. 잠시 뒤 다시 시도해 주세요.';
   }catch(_){st.textContent='보내지 못했습니다. 인터넷 연결을 확인해 주세요.'}finally{$('oyfbSend').disabled=false}});
  /* 검토단에게는 주소 끝에 #expert-review를 붙여 보내면 검토지 탭이 바로 열린다. */
- setKind(/^#expert-review$/.test(root.location&&root.location.hash||'')?'expert':'report');load();
+ const hash=()=>root.location&&root.location.hash||'';
+ if(/^#(expert-review|oyFeedback)$/.test(hash()))openFold();
+ root.addEventListener('hashchange',()=>{if(/^#(expert-review|oyFeedback)$/.test(hash()))openFold()});
+ document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('a[href="#oyFeedback"]');if(a)openFold()});
+ setKind(/^#expert-review$/.test(hash())?'expert':'report');load();
  if(kind==='expert')setTimeout(()=>box.scrollIntoView({block:'start'}),300);
 }
 async function load(){const list=document.getElementById('oyfbList');if(!list)return;
@@ -87,6 +94,6 @@ async function load(){const list=document.getElementById('oyfbList');if(!list)re
   if(!j||!Array.isArray(j.reviews))throw Error('not ready');ready=true;const st=document.getElementById('oyfbStatus');if(st&&/준비/.test(st.textContent))st.textContent='';
   list.innerHTML=j.reviews.length?'<ul class="oyfb-reviews">'+j.reviews.map(v=>'<li><div class="oyfb-meta"><span class="oyfb-stars">'+esc((r=>FACES[r-1][0]+' '+r+'점 '+FACES[r-1][1])(Math.min(5,Math.max(1,+v.rating||4))))+'</span>'+(v.role?'<span>'+esc(v.role)+'</span>':'')+'<time>'+esc(v.day)+'</time></div><p>'+esc(v.body)+'</p></li>').join('')+'</ul>':'<p class="oyfb-muted">아직 공개된 후기가 없습니다. 첫 후기를 남겨 주세요.</p>';
  }catch(_){ready=false;list.innerHTML='<p class="oyfb-muted">의견 창구를 준비하고 있습니다. 곧 열립니다.</p>';const st=document.getElementById('oyfbStatus');if(st&&!st.textContent)st.textContent='의견 창구를 준비하고 있습니다. 곧 열립니다.'}}
-root.OYFeedback={piiFound,AREAS,EXPERT_HEAD,reload:load};
+root.OYFeedback={piiFound,AREAS,EXPERT_HEAD,reload:load,open:openFold};
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
 })(window);

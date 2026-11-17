@@ -343,7 +343,7 @@ function reviewLine(m){
 }
 function askReview(doc){
   const box=doc.getElementById('oyOnePage'),fb=doc.getElementById('oyFeedback');if(!box||!box.__model||!fb)return;
-  const tab=fb.querySelector('[data-oyfb-kind="expert"]');if(tab)tab.click();
+  const fold=doc.getElementById('oyfbFold');if(fold)fold.open=true;const tab=fb.querySelector('[data-oyfb-kind="expert"]');if(tab)tab.click();
   const ta=doc.getElementById('oyfbBody');if(ta){const line=reviewLine(box.__model);if(ta.value.indexOf('[검토할 판정]')<0)ta.value=(line+'\n'+ta.value).slice(0,1000);ta.dispatchEvent(new root.Event('input',{bubbles:true}));}
   fb.scrollIntoView({behavior:'smooth',block:'start'});
 }
