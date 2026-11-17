@@ -1,7 +1,7 @@
 /* © 2026 오산세교종합사회복지관 김지훈 팀장. All rights reserved. */
 (function(root){'use strict';
   const norm=s=>String(s||'').normalize('NFKC').toLocaleLowerCase('ko').replace(/[\s\u200b\u00a0]+/g,'');
-  const aliases=[['어르신','노인','고령'],['위기가정','위기가구'],['정신건강','마음건강'],['주거지원','주거'],['의료비','치료비']];
+  const aliases=[['어르신','노인','고령'],['위기가정','위기가구'],['정신건강','마음건강'],['주거지원','주거'],['의료비','치료비'],['아이','아동','어린이'],['중독','과의존']];
   /* 현장 말 → 자료에 쓰인 말(한쪽 방향). 실무자가 쓰는 일상어로 찾아도 기관 소개·서비스 설명에 있는 말로 넓혀 찾는다.
      왼쪽 말이 검색어 안에 들어 있으면(예: '게임중독', '죽고 싶어요') 오른쪽 말 중 하나만 있어도 결과에 넣는다. */
   const fieldWords=[
@@ -33,20 +33,43 @@
     [['교복','장학금'],['교복','장학']],
     [['자퇴','학업중단','학교밖'],['학교밖','꿈드림']],
     [['초등학생','중학생','고등학생','초등학교','중학교','고등학교','초중고','재학생'],['청소년','아동','학생']],
-    [['쌀','라면','식료품','기저귀','분유','생필품','생활용품'],['푸드뱅크','식품','현물']]
+    [['쌀','라면','식료품','기저귀','분유','생필품','생활용품'],['푸드뱅크','식품','생활용품','기저귀']]
   ];
-  /* 한 글자 말(술·빚·밥·굶·쌀)은 낱말 첫머리에서만 찾는다. '수술비·미술·기술'이 '술'로 잡혀 중독 기관이 섞이던 문제(2026-11-12). */
-  const keyHit=(q,k)=>{const key=norm(k);if(key.length>1)return q.includes(key);return q.split(/[^가-힣a-z0-9]+/).some(t=>t.startsWith(key))};
+  /* 한 글자 말(술·빚·밥·굶·쌀)은 낱말 첫머리에서만 찾는다. '수술비·미술·기술'이 '술'로 잡혀 중독 기관이 섞이던 문제(2026-11-12).
+     낱말은 띄어쓰기 기준이라 '아빠 술', '엄마가 술을 마셔요'처럼 둘째 낱말부터 나와도 찾는다(2026-11-17).
+     '세교복지관'의 '교복'처럼 기관 이름 속에 우연히 든 말은 뺀다. */
+  const words=keyword=>String(keyword||'').trim().split(/\s+/).filter(Boolean);
+  const keyHit=(q,k,tokens)=>{const key=norm(k);if(key.length>1)return q.includes(key)&&!(key==='교복'&&q.includes('세교복지'));return (tokens||[q]).some(t=>norm(t).split(/[^가-힣a-z0-9]+/).some(x=>x.startsWith(key)))};
+  const entriesFor=keyword=>{const q=norm(keyword),tokens=words(keyword);return q?fieldWords.filter(([keys])=>keys.some(k=>keyHit(q,k,tokens))):[]};
   // 검색어(전체 또는 낱말)에 해당하는 자료 쪽 말 목록. 0건일 때 '이런 말로 찾아보세요'에도 쓴다.
-  function suggestWords(keyword){const q=norm(keyword);if(!q)return [];const out=[];
-    fieldWords.forEach(([keys,targets])=>{if(keys.some(k=>keyHit(q,k)))targets.forEach(t=>{if(!out.includes(t))out.push(t)})});
+  function suggestWords(keyword){const out=[];
+    entriesFor(keyword).forEach(([,targets])=>targets.forEach(t=>{if(!out.includes(t))out.push(t)}));
     return out;
   }
-  function queryMatch(text,keyword){const hay=norm(text),q=String(keyword||'').trim();if(!q)return true;
-    if(hay.includes(norm(q)))return true;
-    if(suggestWords(q).some(x=>hay.includes(norm(x))))return true;
-    return q.split(/\s+/).every(token=>{const group=aliases.find(g=>g.includes(token));return (group||[token]).concat(suggestWords(token)).some(x=>hay.includes(norm(x)))});
+  /* 자료에 실제로 쓰이는 말(분류 이름·자료 쪽 말·같은 말 묶음). 검색어에 이 말이 있으면 반드시 들어 있어야 한다.
+     '노인 급식'이 '급식'과 같은 결과(지역아동센터)를 내던 문제를 막는다(2026-11-17). 그 밖의 말(조사 붙은 문장 등)은 걸러내지 않는다. */
+  const VOCAB=new Set(['영유아','아동','청소년','청년','중장년','노인','가족','한부모','다문화','위기가구','1인가구','장애인','질환','소득','생계','주거','의료','건강','정신건강','돌봄','교육','고용','자립','법률','금융','안전','사례관리','현금','현물','상담','여성','학생','쉼터','일자리','취업','장학','급식','치매','발달장애','임산부','미혼모','학대','폭력','중독','채무','심리']
+    .concat(aliases.flat(),fieldWords.flatMap(([,targets])=>targets)).map(norm));
+  const vocabForm=t=>{const n=norm(t);if(VOCAB.has(n))return n;const bare=n.replace(/(?:에게|한테|으로|이랑|을|를|이|가|은|는|의|에|도|와|과|로)$/,'');return bare!==n&&VOCAB.has(bare)?bare:''};
+  /* loose=true는 넓혀 찾기: 낱말을 모두 담은 자료가 한 곳도 없을 때 화면이 다시 부른다(현장 말 묶음 가운데 하나만 맞아도 넣음). */
+  /* 두 글자 이하 말은 한 낱말 안에서만 찾는다. 띄어쓰기를 지우면 '공식 사이트'가 '식사'로 읽혀 병원이 '급식'에 걸리던 문제(2026-11-17). */
+  const haystack=text=>{const flat=norm(text),parts=String(text||'').normalize('NFKC').toLocaleLowerCase('ko').split(/[^가-힣a-z0-9]+/).filter(Boolean);
+    return {includes:x=>{const k=norm(x);return k.length>2?flat.includes(k):parts.some(w=>w.includes(k))}}};
+  function queryMatch(text,keyword,loose){const hay=haystack(text),q=String(keyword||'').trim();if(!q)return true;
+    const entries=entriesFor(q),one=norm(q).length===1&&entries.length>0; // '술'이 '기술·미술'에 걸리지 않게 한 글자 말은 묶음으로만 찾는다
+    if(!one&&hay.includes(norm(q)))return true;
+    const tokens=words(q),direct=t=>{if(norm(t).length===1&&entriesFor(t).length)return false;const group=aliases.find(g=>g.includes(t));return (group||[t]).some(x=>hay.includes(norm(x)))||(!!vocabForm(t)&&hay.includes(vocabForm(t)))};
+    if(!entries.length)return tokens.every(direct);
+    if(loose)return entries.some(([,targets])=>targets.some(x=>hay.includes(norm(x))))||tokens.every(t=>direct(t)||suggestWords(t).some(x=>hay.includes(norm(x))));
+    const triggers=(t,keys)=>keys.some(k=>keyHit(norm(t),k,[t]));
+    // 현장 말 묶음은 묶음마다 하나 이상 맞아야 하고(여러 묶음이면 모두), 자료에 쓰이는 다른 낱말도 함께 있어야 한다.
+    if(!entries.every(([keys,targets])=>targets.some(x=>hay.includes(norm(x)))||tokens.some(t=>triggers(t,keys)&&direct(t))))return false;
+    return tokens.filter(t=>!entries.some(([keys])=>triggers(t,keys))&&(vocabForm(t)||aliases.some(g=>g.includes(t)))).every(direct);
   }
+  /* 기관 이름을 줄여 쓴 말('세교복지관' → 오산세교종합사회복지관): 띄어쓰기 없는 네 글자 이상이 이름 속에 같은 순서로 들어 있고,
+     첫 두 글자와 끝 두 글자가 이름에 그대로 있을 때만 이름으로 본다. */
+  function nameLike(name,keyword){const n=norm(name),q=norm(keyword);if(q.length<4||/\s/.test(String(keyword||'').trim())||n.includes(q))return false;
+    if(!n.includes(q.slice(0,2))||!n.endsWith(q.slice(-2)))return false;let i=0;for(const ch of n)if(ch===q[i])i++;return i===q.length}
   const today=()=>new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
   function roundState(r,day=today()){
     if(r.closes_on&&day>r.closes_on)return '마감';
@@ -73,10 +96,10 @@
     if(state.verified&&s.verification.status!==state.verified)return false;
     if(state.application&&applicationState(s,day)!==state.application)return false;
     // Institution identity is shared; eligibility filters always apply to this service.
-    return queryMatch([o.name,o.kind,s.name,s.category,s.target,s.description,s.method,...Object.values(tags).flat()].join(' '),state.keyword);
+    return nameLike(o.name,state.keyword)||queryMatch([o.name,o.kind,s.name,s.category,s.target,s.description,s.method,...Object.values(tags).flat()].join(' '),state.keyword,state.loose);
   }
   // 다음 확인 예정일(next_check_on)이 지났는지. 예정일이 없으면 판단하지 않는다.
   function recheckDue(s,day=today()){const next=s&&s.verification&&s.verification.next;return !!next&&day>next}
-  const api={norm,queryMatch,suggestWords,recheckDue,matchesService,applicationState,roundState,today};
+  const api={norm,queryMatch,nameLike,suggestWords,recheckDue,matchesService,applicationState,roundState,today};
   if(typeof module!=='undefined')module.exports=api;else root.ResourceSearch=api;
 })(typeof window!=='undefined'?window:globalThis);

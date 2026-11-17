@@ -33,6 +33,24 @@ assert.ok(M.suggestWords('가출').includes('쉼터'));
  for(const q of ['자해','무료급식','결식','가출','게임중독','빚','통역','은둔','전기요금','조손','안경','학원비','아르바이트','임신']){
   const n=WELFARE_DATA.organizations.reduce((a,o)=>a+(o.services||[]).filter(s=>M.matchesService(o,s,{keyword:q})).length,0);if(!n)zero.push(q)}
  assert.deepEqual(zero,[],'field words with no result: '+zero.join(','));}
+// 검색 낱말 모두 맞추기(2026-11-17): 두 낱말은 둘 다 담은 자료만, 한 글자 낱말은 낱말 첫머리에서만, 기관 줄임 이름.
+{const D=WELFARE_DATA.organizations,find=(q,loose)=>{const r=[];for(const o of D)for(const s of o.services||[])if(M.matchesService(o,s,{keyword:q,loose:!!loose}))r.push(o.name+'|'+s.name);return r};
+ const both=find('노인 급식'),one=find('급식');
+ assert.ok(both.length<one.length&&!both.some(x=>x.startsWith('조은오산병원')),'노인 급식 should be narrower than 급식: '+both.length+'/'+one.length);
+ assert.ok(both.every(x=>one.includes(x)),'노인 급식 must be a subset of 급식');
+ assert.equal(M.queryMatch('공식 사이트에서 진료 안내','급식'),false);
+ assert.ok(find('아빠 술').length>0,'아빠 술 should find alcohol support');
+ assert.ok(find('엄마가 술을 마셔요').length>0,'sentence with 술 should find alcohol support');
+ assert.equal(M.queryMatch('직업기술 교육 훈련','술'),false);
+ assert.equal(M.queryMatch('알코올 중독 상담','술'),true);
+ assert.ok(find('세교복지관').length>0&&find('세교복지관').every(x=>x.startsWith('오산세교종합사회복지관|')),'세교복지관 should mean the centre, not 교복');
+ assert.equal(M.nameLike('오산세교종합사회복지관','세교복지관'),true);
+ assert.equal(M.nameLike('오산세교종합사회복지관','교복'),false);
+ assert.equal(M.nameLike('오산남부종합사회복지관','세교복지관'),false);
+ assert.ok(find('교복').length>0,'교복 keeps its own results');
+ assert.ok(!find('쌀').some(x=>x.includes('장난감')),'쌀 should not reach toy lending');
+ assert.equal(M.queryMatch('가정폭력 상담','가정폭력 쉼터'),false);
+ assert.equal(M.queryMatch('가정폭력 상담','가정폭력 쉼터',true),true);}
 assert.equal(M.recheckDue({verification:{next:'2026-11-10'}},'2026-11-11'),true);
 assert.equal(M.recheckDue({verification:{next:'2026-11-11'}},'2026-11-11'),false);
 assert.equal(M.recheckDue({verification:{next:''}},'2026-11-11'),false);

@@ -1,7 +1,7 @@
 /* OY-RALS v4.0/v4.2 single free-text case-context interpreter.
    All extracted cues are unverified review prompts; NEVER diagnosis, risk scoring, or auto-reporting. */
 (function(root,factory){'use strict';const api=factory();if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.YouthCaseContextCore=api;})(typeof window!=='undefined'?window:globalThis,function(){'use strict';
-const VERSION='1.8.0-audit-20261103',LIMITS=Object.freeze({text:5000}),MAX_CLAUSES=65;
+const VERSION='1.9.0-runon-20261117',LIMITS=Object.freeze({text:5000}),MAX_CLAUSES=65;
 const TYPES=Object.freeze([
  {id:'protection',items:[1,2],label:'학대·보호 관련 언급',re:/학대|방임|체벌|맞았|폭행|가정폭력|보호자.{0,12}(?:위협|폭력)|보호.{0,4}부재|(?:아버지|아빠|어머니|엄마|보호자|부모|계부|계모|새아빠|새엄마|양부|양모|할아버지|할머니|삼촌|이모|고모)(?:가|께서|이|는|은|한테|에게)?[^.,]{0,14}(?:때리|때렸|때린|때려|때림|목을\s?졸|졸랐|발로\s?차|걷어차|던졌|던지|던진|던짐|던져|가둬|가뒀|밥을?\s?(?:안|못)\s?(?:주|준|줌)|낳지\s?말았|쫓아내|내쫓)|(?:벨트|허리띠|몽둥이|효자손|옷걸이|회초리)(?:로|를)?[^.,]{0,6}(?:때|맞)|(?:아버지|아빠|어머니|엄마|보호자|부모|계부|계모|새아빠|새엄마|양부|양모|할아버지|할머니|삼촌)(?:에게|한테|께)\s?[^.,]{0,6}맞(?:아|았|는|고|음|다|을|은)|(?:부모|보호자|엄마|아빠|어머니|아버지)[^.,]{0,6}며칠(?:씩|째)\s?(?:집에\s?)?(?:안|못)\s?들어|병원에\s?(?:안|못)?\s?데려가\s?(?:주지\s?)?않|병원에\s?(?:안|못)\s?데려|집에\s?(?:가기|들어가기)\s?(?:무섭|두렵)|(?:얼굴|눈가?|뺨|목|이마)[^.,]{0,6}멍(?!하)/,safety:true,ask:'현재 안전·발생시기·당사자 진술과 법정 신고·보호절차를 담당자가 확인합니다.'},
  {id:'peer',items:[3,4,5],label:'또래관계·학교폭력',re:/따돌림|왕따|학교폭력|괴롭힘|놀림|또래.{0,6}(?:위협|폭행)|금품.{0,6}요구|협박|저격|카톡\s?감옥|단톡(?:방)?[^.,]{0,10}(?:욕|저격|초대)|(?:빵|와이파이|게임)\s?셔틀|돈을?\s?(?:뺏|빼앗)|선배들?(?:이|가)[^.,]{0,14}(?:때렸|때린|때려|불러)/,ask:'피해인지 행동인지와 학교의 안전조치, 동일 사건 여부를 구분합니다.'},
@@ -108,9 +108,11 @@ function normalize(input){
 // Records often run sentences together without a full stop ("…들지 않는다고 함 자해 흔적이 있음"). A word ending in
 // 함·됨 or a past/existence form + 음 (했음·있음·없음·않음…) followed by another word starts a new clause, so a denial or
 // time word in one sentence does not carry into the next. Nouns such as 마음·처음·다음 are not split.
-const RUN_ON=/((?:[가-힣]함|\s함|\s줌|됨|[했였있없었았않겠]음|[가-힣]임)(?:ㅠ+|ㅜ+|ㅋ+|~+)?)[ \t]+(?!때문|이후|뒤\b|후\b|등\b|으로|에서|이라|정도|상태|중\b)(?=[가-힣"“'‘A-Za-z0-9])/g;
+const RUN_ON=/((?:[가-힣]함|\s함|\s줌|됨|[했였있없었았않겠]음|[가-힣]임|미룸|물음|맡음|받음|들음|다님|지름|어봄|[가-힣]줌|(?<!말)씀|\s옴|\s둠)(?:ㅠ+|ㅜ+|ㅋ+|~+)?)[ \t]+(?!때문|이후|뒤\b|후\b|등\b|으로|에서|이라|정도|상태|중\b)(?=[가-힣"“'‘A-Za-z0-9])/g;
+// A source label in the middle of a record ("… 미룸 어머니 전화 상담: …") starts a new clause even without a full stop.
+const SOURCE_LABEL=/[ \t]+(?=(?:학생|어머니|아버지|보호자|부모|조부모|할머니|할아버지|친구|담임|교사|보건교사|상담교사|교육복지사|사회복지사|기관)[가-힣 ]{0,8}(?:진술|전언|기록|메모|상담|관찰|보고)\s*:)/g;
 function splitClauses(text){
- return String(text||'').replace(RUN_ON,'$1\n').replace(/(없다지만|없다는데|없다고 하지만|않았다지만|없고|않고|없지만|않지만|없으나|않으나|했으나|였으나|하지만|그러나|반면|다만|그런데|그리고|또한)/g,'$1\n')
+ return String(text||'').replace(SOURCE_LABEL,'\n').replace(RUN_ON,'$1\n').replace(/(없다지만|없다는데|없다고 하지만|않았다지만|없고|않고|없지만|않지만|없으나|않으나|했으나|였으나|하지만|그러나|반면|다만|그런데|그리고|또한)/g,'$1\n')
  .split(/(?<=[.!?。])\s*|[\n;]+|,(?=\s*(?:학생|보호자|교사|친구|가족|본인|그러나|다만|반면))/)
  .map(s=>s.trim()).filter(Boolean).slice(0,MAX_CLAUSES);
 }
