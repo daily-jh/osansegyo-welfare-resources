@@ -11,7 +11,7 @@
 }
 
 /* 1. Kickers: one style everywhere (해석지 .odi-kicker 기조) */
-.overline,.eyebrow,p.eyebrow,span.eyebrow,.about-lead .eyebrow.light{color:var(--ads-secondary)!important;font-size:13px;font-weight:700;letter-spacing:.06em}
+.overline,.eyebrow,p.eyebrow,span.eyebrow,.about-lead .eyebrow.light{color:var(--ads-secondary)!important;font-size:13px;font-weight:700;letter-spacing:0}
 .eyebrow span,.about-lead .eyebrow span{background:var(--ed-rule)!important}
 .overline .tiny-dot,.results-dot{background:var(--ed-accent)!important}
 

@@ -77,4 +77,4 @@
  .oy-scale-figures .osf-bandtable th,.oy-scale-figures .osf-bandtable td{padding:8px 2px;font-size:12px}.oy-scale-figures .osf-bandtable thead th:first-child,.oy-scale-figures .osf-bandtable tbody th{width:6.5em}.oy-scale-figures .osf-bandtable thead small{display:none}.oy-scale-figures .osf-bandtable td.osf-hit b{min-width:0;padding:2px 6px;font-size:12px}.oy-scale-figures .osf-bandtable td.osf-unk{width:3em}}
 @media print{.oy-scale-figures{max-width:none;padding:0;background:none;font-size:10pt}.oy-scale-figures section.osf-sec{box-shadow:none;border:.5pt solid #dbe3ec;break-inside:avoid}.oy-scale-figures *{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 /* unknown follows the resource map: amber text */
-.oy-scale-figures .osf-bandtable td.osf-unk,.osf-val.osf-su,.osf-sf-u span{color:#c26a00}
+.oy-scale-figures .osf-bandtable td.osf-unk,.osf-val.osf-su,.osf-sf-u span{color:#9a5600}

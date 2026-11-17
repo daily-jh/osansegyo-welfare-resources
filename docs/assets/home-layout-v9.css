@@ -104,7 +104,7 @@ html.dlg-lock{overflow:hidden}
 .dlg-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:20px 24px 16px;border-bottom:1px solid var(--v9-rule)}
 .dlg-head h2{margin:2px 0 0;font-size:22px;line-height:1.35;letter-spacing:-.01em}
 .dlg-head h2 a{color:inherit}
-.dlg-kicker{display:block;font-size:13px;font-weight:700;letter-spacing:.04em;color:var(--v9-sub)}
+.dlg-kicker{display:block;font-size:13px;font-weight:700;letter-spacing:0;color:var(--v9-sub)}
 .dlg-close{flex:none;min-height:40px;padding:0 16px;border-radius:999px;border:1px solid var(--v9-rule);background:#fff;color:var(--v9-ink);font:inherit;font-weight:700;cursor:pointer}
 .dlg-body{overflow:auto;overscroll-behavior:contain;padding:20px 24px 24px}
 .dlg-foot{display:flex;justify-content:flex-end;gap:8px;padding:14px 24px;border-top:1px solid var(--v9-rule)}

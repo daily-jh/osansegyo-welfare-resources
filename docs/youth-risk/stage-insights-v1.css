@@ -28,7 +28,7 @@
 .oy-viz-radar-legend i{font-style:normal;font-size:11px;font-weight:800;color:#196da9;min-width:20px}
 .oy-viz-bar{margin:0 0 11px}.oy-viz-bar-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
 .oy-viz-bar-meta strong{font-size:14px;font-weight:650}.oy-viz-bar-meta span{font-size:13px;color:#466680;font-variant-numeric:tabular-nums}
-.oy-viz-bar small{color:#607c92;font-size:12px}
+.oy-viz-bar small{color:#56677a;font-size:12px}
 .oy-viz-track{height:9px;background:#e9eef5;border-radius:99px;overflow:hidden}
 .oy-viz-track span{display:block;height:100%;background:linear-gradient(90deg,#74afd7,#1e679f);border-radius:99px}
 .oy-viz-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;width:100%;margin:12px 0 18px}

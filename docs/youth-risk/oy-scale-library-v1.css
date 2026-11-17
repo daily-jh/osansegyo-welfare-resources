@@ -9,7 +9,7 @@ body.oy-lib-open #assessmentFlow>:not(.flow-nav):not(#scaleLibraryArea),body.oy-
 @media(min-width:701px) and (max-width:999px){#assessmentFlow .flow-nav:has([data-oy-lib]){grid-template-columns:repeat(3,minmax(0,1fr))}}
 .osl{max-width:900px;margin:8px auto 40px;color:var(--oy-ink)}
 .osl-head h2{font-size:30px;line-height:1.2;margin:2px 0 10px;letter-spacing:-.01em}
-.osl-kicker{margin:0;font-size:13px;font-weight:700;letter-spacing:.08em;color:#0f766e}
+.osl-kicker{margin:0;font-size:13px;font-weight:700;letter-spacing:0;color:#0f766e}
 .osl-head p{font-size:16px;line-height:1.7;margin:0 0 8px}
 .osl-head .osl-note{font-size:14px;color:var(--oy-muted)}
 .osl-filter{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0 8px}

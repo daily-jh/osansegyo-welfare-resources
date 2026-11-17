@@ -54,3 +54,10 @@
 .oyfb-scale label{min-width:52px;justify-content:center}
 .oyfb-choice label:has(input:checked),.oyfb-scale label:has(input:checked){background:var(--oy-data-soft);border-color:var(--oy-data);color:var(--oy-data-ink);font-weight:600}
 .oyfb-ends{display:block;margin-top:4px;color:var(--oy-muted);font-size:12px}
+/* 접힌 창구: 머리말만 보이고 단추 하나로 연다. */
+.oyfb-fold{margin-top:14px}
+.oyfb-fold>summary{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border:1px solid var(--oy-line);border-radius:999px;background:var(--oy-surface);color:var(--oy-ink);font-weight:700;cursor:pointer;list-style:none}
+.oyfb-fold>summary::-webkit-details-marker{display:none}
+.oyfb-fold>summary::after{content:'';width:8px;height:8px;margin-left:10px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:translateY(-2px) rotate(45deg)}
+.oyfb-fold[open]>summary{margin-bottom:14px}
+.oyfb-fold[open]>summary::after{transform:translateY(2px) rotate(-135deg)}
