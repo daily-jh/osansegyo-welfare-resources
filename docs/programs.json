@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "sourceUrl": "https://osan.welinfo.kr/?board=programList",
-  "lastAttemptAt": "2026-11-16T09:54:12+09:00",
+  "lastAttemptAt": "2026-11-23T09:37:21+09:00",
   "lastSuccessAt": "2026-10-22T22:28:56+09:00",
-  "lastError": "2026-11-16 오산 웰인포 공개 프로그램 목록 접근 실패(웹 도구 Internal Error). 개별 공고 확인 불가. 보안 우회 미시도. 기존 programs 및 lastSuccessAt 보존.",
+  "lastError": "2026-11-23 오산 웰인포 공개 프로그램 목록 접근 실패(웹 도구 Internal Error). 개별 공고 확인 불가. 로그인·보안 우회 미시도. 기존 programs 및 lastSuccessAt 보존.",
   "evidenceNote": "이용자 제공 목록 캡처에서 10개 항목 확인. 사이트 직접 수집 성공을 의미하지 않음.",
   "programs": [
     {
