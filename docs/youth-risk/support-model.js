@@ -88,7 +88,8 @@ function groupedCandidates(p,d){
  if(!d.sum)return [];
  var economic=[19,20,21].some(n=>p.answers[n-1]>0),blocked=/주민조직화|자원개발|아이리더|인재양성|예방 및 유관기관 협력|배움터 교육지원|발달장애인 평생교육|직업지원|노인·장애인 공적돌봄|한부모·다문화|아이돌봄서비스/;
  var allowed=new Set(p.routes[d.i].map(identity));
- var rows=routingResources(p.resources,p.student?student(p):undefined).filter(r=>(allowed.has(identity(r['기관명']))||allowed.has(identity(r.profileName))||additional(p,d,r))&&typeof r['서비스명']==='string'&&r['서비스명'].trim()&&!blocked.test(r['서비스명'])&&(!/장학|교육지원 공모/.test(r['서비스명'])||economic));
+  // 공공 API로 들어온 행정 사업(SVC-SSIS-*)은 아동·청소년·한부모 대상일 때만 연계 후보로 씀(이재민·보훈 등 제외).
+ var rows=routingResources(p.resources,p.student?student(p):undefined).filter(r=>(allowed.has(identity(r['기관명']))||allowed.has(identity(r.profileName))||additional(p,d,r))&&typeof r['서비스명']==='string'&&r['서비스명'].trim()&&!blocked.test(r['서비스명'])&&!(/^SVC-SSIS-/.test(r.serviceId||'')&&!/아동|청소년|학생|한부모/.test((r['지원대상']||'')+' '+(r['서비스명']||'')))&&(!/장학|교육지원 공모/.test(r['서비스명'])||economic));
  var seen=new Set();
  rows=rows.filter(r=>{
   var key=identity(r['기관명'])+'|'+identity(r['서비스명']);if(seen.has(key))return false;seen.add(key);
