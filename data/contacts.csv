@@ -138,3 +138,11 @@ CON-N24-HOWEE,organization,ORG-N24-HOWEE,"상담신청(031-371-0606~0609 외, �
 CON-N24-POLICE,organization,ORG-N24-POLICE,,,,,,대표전화,,
 CON-ORG-N24-CCCITY,organization,ORG-N24-CCCITY,,031-375-2600,031-375-2601,,"학기중 10:00~20:00, 방학중 10:00~19:00, 토 10:00~15:00",대표전화,https://www.ion.or.kr/osancity,2026-11-24
 CON-CARE26-NHIS,organization,ORG-CARE26-NHIS,,1577-1000,,,"평일 09:00~18:00(누리집 안내 기준, 재확인)",대표전화,https://www.longtermcare.or.kr/,
+CON-SVC-CARE26-011,service,SVC-CARE26-011,희망복지과 통합돌봄팀 팀장,031-8036-7392,,,,통합돌봄 업무 총괄·협의체·통합지원회의,https://www.osan.go.kr/search/search.jsp,2026-11-25
+CON-SVC-CARE26-011B,service,SVC-CARE26-011,희망복지과 통합돌봄팀,031-8036-7395,,,,통합돌봄 시스템 운영 총괄·5313(오산일상) 돌봄·퇴원환자 연계(동 담당: 대원1동·대원2동·남촌동),https://www.osan.go.kr/search/search.jsp,2026-11-25
+CON-SVC-CARE26-011C,service,SVC-CARE26-011,희망복지과 통합돌봄팀,031-8036-7393,,,,지역계획·협의체·담당자 교육·5313 중간집·평가(동 담당: 중앙동·세마동),https://www.osan.go.kr/search/search.jsp,2026-11-25
+CON-SVC-CARE26-011D,service,SVC-CARE26-011,희망복지과 통합돌봄팀,031-8036-7394,,,,장애인 의료·요양 통합돌봄·대상자 발굴·모니터링(동 담당: 신장1동·신장2동·초평동·세마동),https://www.osan.go.kr/search/search.jsp,2026-11-25
+CON-SVC-CARE26-009,service,SVC-CARE26-009,세마동 찾아가는 보건복지팀,031-8036-6328,,,,세마동 통합돌봄 대상자 발굴·조사·서비스 연계,https://www.osan.go.kr/search/search.jsp,2026-11-25
+CON-SVC-00031,service,SVC-00031,건강증진과 지역보건팀,031-8036-6684,,,,방문건강관리(금암·갈곶·내삼미·외삼미·세교·가장동 법정동)·지역사회 통합돌봄 연계,https://www.osan.go.kr/search/search.jsp,2026-11-25
+CON-SVC-00031B,service,SVC-00031,건강증진과 지역보건팀,031-8036-6683,,,,방문건강관리(서동·오산동·청호동 법정동)·통합돌봄 연계,https://www.osan.go.kr/search/search.jsp,2026-11-25
+CON-SVC-CARE26-012,service,SVC-CARE26-012,건강증진과 지역보건팀,031-8036-6081,,,,AI·IoT 기반 어르신 건강관리사업 운영·통합돌봄(보건·의료)·보건소 협력체계,https://www.osan.go.kr/search/search.jsp,2026-11-25
