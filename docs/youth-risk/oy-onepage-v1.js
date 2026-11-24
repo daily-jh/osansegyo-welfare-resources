@@ -83,7 +83,7 @@ function extras(k,ans,role){
   const fam=String(k.family||'').trim();
   const B=[];const add=(h,o)=>{if((o.li&&o.li.length)||o.p||o.near&&o.near.length||o.scales&&o.scales.length)B.push({h,...o})};
   /* 2026-11-24 학맞통 연계: 교육복지사·학맞통 지원팀 한 장에 연계 층과 첫 할 일 한 블록(04 학교 지원에 전체). */
-  const addSchoolLink=()=>{try{const L=root.OYSchoolLink;if(!L)return;const m=L.build({answers:ans},k.R);B.push({h:'학맞통 연계 경로',li:[m.head,m.first,...(m.reasons.length?['교육지원청 센터 요청 사유: '+m.reasons.join(' · ')]:[])],tip:'단계별 담당과 지원 종류는 04 학교 지원 첫머리에 있습니다. 대상 선정은 학교장이 합니다.'})}catch(_){}};
+  const addSchoolLink=()=>{try{const L=root.OYSchoolLink;if(!L)return;const m=L.build({answers:ans},k.R);B.push({h:'학맞통 연계 경로',li:[m.head,m.first,...(m.reasons.length?['교육지원청 센터 요청 사유: '+m.reasons.join(' · ')]:[])],tip:'단계별 담당과 지원 종류는 04 기관별 개입방안의 학교·교육지원청 화면 첫머리에 있습니다. 대상 선정은 학교장이 합니다.'})}catch(_){}};
   const scaleTip='추가 자료 · 척도 자료실에서 개요와 공식 배포처를 봅니다. 척도 점수는 OY-RALS 판정에 더하지 않습니다.';
   const addScales=()=>add('더 확인해 볼 척도',{scales,p:scales.length?'':'현재 결과와 학교급에 맞춰 제안할 추가 척도가 없습니다. 필요하면 척도 자료실을 살펴보세요.',tip:scaleTip,library:true});
   const nearTip='연결은 담당자와 함께 정합니다. 03 지역자원 지도에서 더 볼 수 있습니다.';
@@ -103,7 +103,7 @@ function extras(k,ans,role){
   }
   if(role==='edu'){
     add('학교 안에서 할 지원',{li:roleItems(d,'교육복지사')});
-    add('담임교사에게 부탁할 관찰',{li:watch.slice(0,4),tip:'04 학교 지원의 「2주 관찰 기록지」로 함께 적습니다.'});
+    add('담임교사에게 부탁할 관찰',{li:watch.slice(0,4),tip:'04 기관별 개입방안 · 학교의 「2주 관찰 기록지」로 함께 적습니다.'});
     add('학생 면담에서 물을 것',{li:qs(true)});
     addScales();
     addSchoolLink();

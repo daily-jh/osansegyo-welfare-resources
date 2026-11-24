@@ -147,12 +147,14 @@ function build(p,opt){opt=opt||{};const D=opt.data||data();
  const checked=items.map(i=>i.checked).filter(Boolean).sort().pop()||'';
  return {version:VERSION,ready:true,items,desks,groups,total:all.length,safety,checked,household:x.hhList.slice(),grade:x.grade}}
 
-function deskText(d){return d?d.name+(d.phone?' '+d.phone:''):'복지로 상세 안내에서 신청 창구 확인'}
+/* 창구 이름에 번호가 이미 들어 있으면(예: 자살예방상담전화 109) 번호를 다시 붙이지 않는다(2026-11-25 검수). */
+const phoneOf=d=>d&&d.phone&&!String(d.name||'').includes(d.phone)?d.phone:'';
+function deskText(d){return d?d.name+(phoneOf(d)?' '+phoneOf(d):''):'복지로 상세 안내에서 신청 창구 확인'}
 function html(m){if(!m||!m.ready)return '';
  const head='<header><span class="oypb-k">공공 API · 복지로·오산시·경기도 등록 사업 '+m.total+'개 중</span><h3>'+(m.items.length?'응답과 이어지는 공공 지원사업 '+m.items.length+'개':'응답과 바로 이어지는 공공 지원사업 없음')+'</h3>'
   +'<p>'+(m.safety?'안전 확인·신고 절차가 먼저입니다. 아래 사업은 그 뒤 생활 지원을 함께 볼 때 씁니다. ':'')+'자격(소득·연령·가구)과 접수 시기는 사업마다 다르므로 <b>확인 후 신청</b> 목록입니다. 판정에는 쓰지 않습니다.</p></header>';
  if(!m.items.length)return '<section class="oypb" aria-label="공공 지원사업 연결">'+head+'<p class="oypb-empty">2점 이상 문항이나 서술의 가구 특성(수급·한부모·조손·다문화·가정위탁 등)이 있으면 해당 사업을 이어 드립니다.</p></section>';
- const desks='<div class="oypb-desks"><b>한 번에 묻기</b><ul>'+m.desks.filter(d=>d.desk).slice(0,4).map(d=>'<li><strong>'+esc(d.desk.name)+(d.desk.phone?' <i>'+esc(d.desk.phone)+'</i>':'')+'</strong><span>'+esc(d.names.join(' · '))+'</span></li>').join('')+'</ul></div>';
+ const desks='<div class="oypb-desks"><b>한 번에 묻기</b><ul>'+m.desks.filter(d=>d.desk).slice(0,4).map(d=>'<li><strong>'+esc(d.desk.name)+(phoneOf(d.desk)?' <i>'+esc(phoneOf(d.desk))+'</i>':'')+'</strong><span>'+esc(d.names.join(' · '))+'</span></li>').join('')+'</ul></div>';
  const row=i=>'<li class="oypb-item"><div class="oypb-name"><strong>'+esc(i.name)+'</strong>'+(i.source?' <a href="'+esc(i.source)+'" target="_blank" rel="noopener">복지로 원문</a>':'')+'</div>'
   +'<p class="oypb-chain"><span>연결 고리</span>'+i.why.map(w=>'<em>'+esc(w)+'</em>').join('')+'</p>'
   +'<p class="oypb-meta">문의 '+esc(deskText(i.desk))+(i.office?' · 담당 '+esc(i.office):'')+(i.checked?' · 확인 '+esc(i.checked):'')+'</p>'
@@ -167,6 +169,6 @@ function html(m){if(!m||!m.ready)return '';
 function text(m){if(!m||!m.ready||!m.items.length)return '';
  return ['[공공 지원사업 연결 · 확인 후 신청]'].concat(m.items.map(i=>'- '+i.name+' ← '+i.why.join(', ')+' / 문의 '+deskText(i.desk)+(i.checked?' / 확인 '+i.checked:''))).join('\n')}
 
-const api={version:VERSION,RULES,build,html,text,context};
+const api={version:VERSION,RULES,build,html,text,context,deskText};
 if(node)module.exports=api;else root.OYPublicBenefits=api;
 })(typeof window!=='undefined'?window:globalThis);

@@ -6,10 +6,19 @@
 (function(root){
 'use strict';
 const node=typeof module!=='undefined'&&module.exports;
-const VERSION='1.1.0-20261116';
+const VERSION='1.2.0-20261125';
 const need=(n,g)=>node?require('./'+n):root[g];
 const OD=()=>need('oy-decision-v1.js','OYDecision');
 const YM=()=>{try{return need('support-model.js','YouthMap')}catch(_){return null}};
+/* 2026-11-25 전체 검수: 04 교육지원청(학맞통 연계 층)과 03 공공 지원사업 연결이 05에 빠져 화면끼리 내용이 달랐다. 두 모듈 값을 그대로 읽어 한 블록으로 싣는다(다시 계산하지 않음, 판정 불변). */
+const SL=()=>{try{return need('oy-school-link-v1.js','OYSchoolLink')}catch(_){return null}};
+const PB=()=>{try{return need('oy-public-benefits-v1.js','OYPublicBenefits')}catch(_){return null}};
+function links(p,R){
+  let school=null,benefits=null;
+  try{const L=SL();if(L){const m=L.build(p,R);if(m&&m.layer>0)school={layer:m.layer,head:m.head,first:m.first,reasons:(m.reasons||[]).slice(0,3)}}}catch(_){}
+  try{const P=PB();if(P){const m=P.build(p);if(m&&m.ready&&m.items.length)benefits={n:m.items.length,names:m.items.slice(0,4).map(i=>i.name),desks:m.desks.filter(d=>d.desk).slice(0,2).map(d=>P.deskText?P.deskText(d.desk):d.desk.name),safety:m.safety}}}catch(_){}
+  return {school,benefits};
+}
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const NAMES=['안정관찰','초기주의','집중지원','다기관 집중개입','최우선 안전대응'];
 const OP_MAX=400;
@@ -65,7 +74,7 @@ function model(p,opt){
     agenda:R.agenda.filter(a=>!(urgent&&a.k==='safety')),meet:(I.agenda||[]).filter(a=>!/다음 점검일/.test(a)).slice(0,4),questions:(I.questions||[]).slice(0,3),
     ladder:OD().ladders(R,false).select,profile:d.profile||[],immediate:I.immediate||'',critical:((d.critical&&d.critical.list)||[]).filter(x=>x.kind==='안전'),
     leadText:I.leadText||d.casework.leadText||'',adjust:inc?(I.adjust||''):'',family:I.family||'',gaps:inc&&I.narrative&&I.narrative.gaps||[],
-    grade:d.grade||null,revision:p.flowRevision||'',date:opt.date||today(),opinion:String(opt.opinion||'').trim().slice(0,OP_MAX),
+    grade:d.grade||null,links:links(p,R),revision:p.flowRevision||'',date:opt.date||today(),opinion:String(opt.opinion||'').trim().slice(0,OP_MAX),
     ver:((R.versions||[]).find(v=>v[0]==='판정 사슬')||[])[1]||OD().VERSION};
 }
 
@@ -149,7 +158,7 @@ function page1(k){
 }
 function page2(k){
   return '<header class="mast pad mast2"><h1>근거와 점검</h1><p>회의·재평가용'+(k.revision?' · 평가 '+esc(k.revision)+'차':'')+'</p></header>'+
-   '<figure class="band pad band0"><h3>그림 3 · 역할별 흐름도 · 지금 이 사례가 어디쯤인가</h3>'+laneDiagram(k)+'<figcaption class="xs mut">가로는 시기, 세로는 맡는 곳입니다. 강조한 칸이 지금 할 일이며, 얇은 선이 계획의 순서입니다. 한 칸에는 맡는 곳별 첫 할 일만 넣었고, 전체 계획은 04 기관 사례관리에 있습니다.</figcaption></figure>'+
+   '<figure class="band pad band0"><h3>그림 3 · 역할별 흐름도 · 지금 이 사례가 어디쯤인가</h3>'+laneDiagram(k)+'<figcaption class="xs mut">가로는 시기, 세로는 맡는 곳입니다. 강조한 칸이 지금 할 일이며, 얇은 선이 계획의 순서입니다. 한 칸에는 맡는 곳별 첫 할 일만 넣었고, 전체 계획은 04 기관별 개입방안에 있습니다.</figcaption></figure>'+
    '<div class="p2 pad"><section><h3>통합사례관리 선정</h3><p class="big">'+esc(k.sel.value)+'</p><ul>'+selMarks(k)+'</ul></section>'+
     '<section><h3>사례회의에서 정할 것</h3><ul>'+k.agenda.map(a=>'<li><b>'+esc(a.t)+'</b></li>').join('')+k.meet.map(a=>'<li>'+esc(a)+'</li>').join('')+'</ul></section>'+
     '<section><h3>다음 면담에서 물을 것</h3><ul>'+k.questions.slice(0,2).map(q=>'<li>'+esc(q.q)+'</li>').join('')+'</ul></section></div>'+
@@ -166,6 +175,10 @@ function extras(k){
   if(k.family)X.push(['family','<h3 class="xh">보호자와 함께하기</h3><p>'+esc(k.family)+'</p>']);
   X.push(['rhythm','<h3 class="xh">접촉·회의·재사정 주기</h3><ul class="xrow"><li><b>접촉</b>'+esc(k.level.contact||'—')+'</li><li><b>회의</b>'+esc(k.level.meeting||'—')+'</li><li><b>재사정</b>'+esc(k.level.review||'—')+'</li></ul>']);
   if(k.resources.length)X.push(['res','<h3 class="xh">연계 자원 후보 <span>03 지역자원연계와 같은 순위 · 접수 조건은 기관에 확인</span></h3><div class="tw"><table><thead><tr><th>영역</th><th>기관</th><th>서비스</th><th>확인할 것</th></tr></thead><tbody>'+k.resources.slice(0,5).map(r=>'<tr><td>'+esc(r.domain)+'</td><td><b>'+esc(orgShort(r.name))+'</b></td><td>'+esc(r.service)+'</td><td>'+esc(r.cond)+(r.checked?'<br><small>'+esc(r.checked)+'</small>':'')+'</td></tr>').join('')+'</tbody></table></div>'+srcNote(k.resources)]);
+  const lk=k.links||{};
+  if(lk.school||lk.benefits)X.push(['links','<h3 class="xh">학교·공공 지원 연결 <span>04 교육지원청 · 03 공공 지원사업과 같은 값 · 판정 불변</span></h3><ul class="xcols">'+
+    (lk.school?'<li><b>학맞통 연계 '+lk.school.layer+'층</b> '+esc(lk.school.head)+(lk.school.reasons.length?' · 센터 요청 사유: '+esc(lk.school.reasons.join(', ')):'')+'</li>':'')+
+    (lk.benefits?'<li><b>공공 지원사업 '+lk.benefits.n+'개</b> '+esc(lk.benefits.names.join(' · '))+(lk.benefits.n>4?' 외':'')+(lk.benefits.desks.length?' · 한 번에 묻기: '+esc(lk.benefits.desks.join(', ')):'')+(lk.benefits.safety?' · 안전 확인이 먼저':'')+'</li>':'')+'</ul>']);
   if(k.inc&&k.gaps.length)X.push(['gaps','<h3 class="xh">기록 보완할 것</h3><ul class="xcols">'+k.gaps.slice(0,4).map(g=>'<li><b>'+esc(g.topic)+'</b> '+esc(g.text)+'</li>').join('')+'</ul>']);
   if(k.questions.length>2)X.push(['moreq','<h3 class="xh">추가로 물어볼 것</h3><ul>'+k.questions.slice(2).map(q=>'<li>'+esc(q.q)+(q.about?' <span class="mut">('+esc(q.about)+')</span>':'')+'</li>').join('')+'</ul>']);
   return X.map(([id,h])=>'<section class="xtra pad" data-x="'+id+'">'+h+'</section>').join('');
@@ -225,6 +238,9 @@ function text(p,opt){
   if(k.leadText)L.push('','[통합 사정의견]',k.leadText+(k.adjust?' '+k.adjust:''));
   if(k.grade){L.push('','[학년으로 읽기 · 판정 불변] '+k.grade.label+' · '+k.grade.band,k.grade.summary);if(k.grade.transition)L.push(k.grade.transition);k.grade.readings.forEach(x=>L.push('- '+x.domain+': '+x.text));L.push('근거: '+k.grade.sources.map(s=>'['+s.id+'] '+s.short).join(' · '));}
   if(k.resources.length){L.push('','[연계 자원 후보 · 접수 조건은 기관에 확인]');k.resources.forEach(r=>L.push('- '+r.domain+' · '+r.name+' · '+r.service+(r.cond?' · '+r.cond:'')+(r.checked?' · '+r.checked:'')));L.push(srcText(k.resources));}
+  const lk=k.links||{};
+  if(lk.school)L.push('','[학맞통 연계 · 04 교육지원청과 같음] '+lk.school.layer+'층 · '+lk.school.head+(lk.school.reasons.length?' · 센터 요청 사유: '+lk.school.reasons.join(', '):''));
+  if(lk.benefits)L.push('','[공공 지원사업 · 03과 같음 · 확인 후 신청] '+lk.benefits.n+'개: '+lk.benefits.names.join(' · ')+(lk.benefits.n>4?' 외':'')+(lk.benefits.desks.length?' / 한 번에 묻기: '+lk.benefits.desks.join(', '):''));
   if(k.opinion)L.push('','[실무자 의견]',k.opinion);
   L.push('','25문항 응답'+(k.inc?'과 서술기록':'')+'을 OY-RALS 규칙으로 정리한 실무 참고자료이며 진단·학대 판정·위험 예측·서비스 자격 결정이 아닙니다. 공식 판정은 CORE, 지원 우선순위 5단계는 검증 전 개발지표입니다.'+(k.hasNarr&&!k.inc?' 서술 원문은 넣지 않았고 판정은 화면과 같습니다.':'')+' 시험 운영판(2026년 12월 중순 정식 운영 예정)으로 결과값·항목이 바뀔 수 있습니다.');
   return L.join('\n');

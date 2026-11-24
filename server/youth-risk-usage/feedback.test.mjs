@@ -38,4 +38,7 @@ assert.equal(sqlite.prepare('SELECT COUNT(*) n FROM feedback_rate').get().n,2);a
 // 기존 집계는 그대로
 assert.equal((await call('/',{method:'POST',body:{event:'visit',id:crypto.randomUUID()}})).status,200);
 delete env.FEEDBACK_ADMIN_TOKEN;assert.equal((await call('/feedback/admin',{token:'x'})).status,503);
+/* 2026-11-25: 새 메뉴 이름과 옛 이름을 모두 받고, 화면(oy-feedback-v1.js)의 선택지는 모두 서버 허용 목록에 있어야 한다. */
+{const src=fs.readFileSync(new URL('../../docs/youth-risk/oy-feedback-v1.js',import.meta.url),'utf8');const screen=JSON.parse(src.match(/const AREAS=(\[[^\]]+\])/)[1].replace(/'/g,'"'));
+ let n=0;for(const area of [...screen,'02 지역자원 연계','06 척도 자료실'])assert.equal((await call('/feedback',{method:'POST',body:{...report,area},ip:'9.9.9.'+(n++)})).status,201,area);}
 console.log('PASS: feedback private reports, approved-only public reviews, personal-info block, daily limit without IP, admin token');sqlite.close();

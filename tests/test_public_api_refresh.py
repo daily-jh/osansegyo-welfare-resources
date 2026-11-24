@@ -90,6 +90,26 @@ class PublicApiRefresh(unittest.TestCase):
         self.assertFalse([n for reg, n, a in rows if reg == 'national'])   # 청소년 대표 영역 수집에는 들어가지 않음
         self.assertEqual(status['runs']['ssis-national:national-care']['lastSuccessAt'], NOW)
 
+    def test_exclude_words_drop_non_resident_programs(self):
+        """2026-11-25 재실행: 종사자 장기근속비(경기)·어업활동지원·학교우유급식(전국 돌봄통합)은 주민 돌봄 서비스가 아니라 후보에서 뺀다."""
+        self.fixtures_ok()
+        self.write('ssis-local-gyeonggi-p1.xml', xml([
+            {'servId': 'G7', 'servNm': '경기도 장애인자립지원과 사회복지 종사자 장기근속비', 'sggNm': '', 'ctpvNm': '경기도', 'bizChrDeptNm': '경기도 복지국 장애인자립지원과'},
+            {'servId': 'G8', 'servNm': '경기남부청소년자립지원관', 'sggNm': '', 'ctpvNm': '경기도', 'bizChrDeptNm': '경기도 평생교육국 청소년과'},
+        ]))
+        self.write('ssis-national-national-care-p1.xml', xml([
+            {'servId': 'C5', 'servNm': '어업활동지원', 'servDgst': '요양 중 어업인', 'jurMnofNm': '해양수산부'},
+            {'servId': 'C6', 'servNm': '학교우유급식', 'servDgst': '영양 지원', 'jurMnofNm': '농림축산식품부'},
+            {'servId': 'C7', 'servNm': '긴급돌봄 지원사업', 'servDgst': '일시 돌봄', 'jurMnofNm': '보건복지부'},
+        ]))
+        status, payload, failures = p.run(self.config, self.tmp, NOW, fixtures=self.fx, env={})
+        names = {r['name'] for r in payload['items']}
+        self.assertNotIn('경기도 장애인자립지원과 사회복지 종사자 장기근속비', names)
+        self.assertIn('경기남부청소년자립지원관', names)
+        self.assertNotIn('어업활동지원', names)
+        self.assertNotIn('학교우유급식', names)
+        self.assertIn('긴급돌봄 지원사업', names)
+
     def test_source_tables_are_never_modified(self):
         self.fixtures_ok()
         before = {f: hashlib.sha256((self.tmp / 'data' / f).read_bytes()).hexdigest() for f in ('organizations.csv', 'services.csv', 'contacts.csv')}

@@ -20,7 +20,11 @@
         "경기 "
       ],
       "excludeOrgPattern": "^경기도 \\S+[시군](\\s|$)",
-      "excludeNamePattern": "^(\\(\\S+[시군]\\)|\\S+[시군]\\s)"
+      "excludeNamePattern": "^(\\(\\S+[시군]\\)|\\S+[시군]\\s)",
+      "excludeWords": [
+        "종사자",
+        "장기근속"
+      ]
     },
     "national": {
       "label": "전국(대표 영역만)",
@@ -65,6 +69,10 @@
         "care"
       ],
       "excludeWords": [
+        "어업",
+        "산재보험",
+        "취업연계",
+        "우유급식",
         "보훈",
         "국가유공자",
         "고엽제",

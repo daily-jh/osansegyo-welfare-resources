@@ -6,7 +6,8 @@
 <title>필요한 도움으로 찾기 | 오산 복지자원</title>
 <meta name="description" content="전 생애주기 복지서비스를 욕구·대상·지원유형별로 탐색하고 담당 창구와 의뢰 전 확인사항을 검토하세요.">
 <style>
-:root{font-family:system-ui,'Malgun Gothic',sans-serif;color:#203142;background:#f5f7fb}*{box-sizing:border-box}
+@font-face{font-family:'SUIT';src:url('youth-risk/fonts/SUIT-Variable.woff2') format('woff2');font-weight:100 900;font-display:swap}
+:root{font-family:'SUIT',system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:#203142;background:#f5f7fb}*{box-sizing:border-box}
 body{margin:0}header,main,footer{max-width:1120px;margin:auto;padding:24px}a{color:#17599a}
 header{display:flex;justify-content:space-between;gap:16px;align-items:center}header a{text-decoration:none;font-weight:700}
 .hero{padding:38px 34px;border-radius:24px;background:#e7eef8}.hero h1{font-size:clamp(28px,4vw,42px);margin:8px 0}.hero p{max-width:700px;line-height:1.7}
@@ -45,13 +46,14 @@ body.printing .print-card{border:1px solid #aaa;padding:10px;margin:10px 0;break
 body.printing .print-card dl{display:grid;grid-template-columns:132px 1fr;gap:6px;margin:0;font-size:12px}
 body.printing .print-card dt{font-weight:700}body.printing .print-card dd{margin:0;overflow-wrap:anywhere}
 }
+header nav{display:flex;gap:14px;flex-wrap:wrap;font-size:14px}.hero h1,h2,h3{word-break:keep-all}header nav a[aria-current="page"]{color:#16273a;text-decoration:underline;text-underline-offset:5px}
 </style>
 <script defer src="assets/data.js"></script>
 <script defer src="assets/service-evidence.js?v=20261025-e11"></script>
 <script defer src="assets/service-guide-model.js?v=20261025-e11"></script>
 <script defer src="assets/service-guide.js?v=20261025-r3"></script>
 </head><body>
-<header><a href="./">← 오산 복지자원 찾기</a><nav><a href="./#searchArea">기관·사업 전체 검색</a>　<a href="resource-map.html">영역별 보기</a></nav></header>
+<header><a href="./">← 오산 복지자원 찾기</a><nav aria-label="사이트 메뉴"><a href="./#searchArea">자원 찾기</a><a href="service-guide.html" aria-current="page">필요한 도움으로 찾기</a><a href="benefit-check.html">복지혜택 자가점검</a><a href="care/">통합돌봄 길잡이</a><a href="resource-gaps.html">자원 공백 지도</a></nav></header>
 <main><section class="hero"><span class="pill">전 생애주기 · 지역사회 복지자원</span><h1>필요한 도움부터 찾아보세요.</h1><p>청소년뿐 아니라 영유아·아동·청년·중장년·노인·장애인·가족·위기가구 등 누구나 대상입니다. 아래 분류는 서비스를 탐색하는 보조정보이며, 실제 지원 가능 여부는 기관 확인이 필요합니다.</p></section>
 <section aria-label="다차원 서비스 탐색"><h2>지원과제 중심 서비스 탐색</h2>
 <div class="filters">
