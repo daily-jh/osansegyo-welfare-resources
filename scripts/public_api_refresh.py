@@ -138,9 +138,15 @@ def keep(rec, run, source, config):
     if source['kind'] == 'facility' and region.get('addressWords'):
         if not any(w in rec.get('address', '') for w in region['addressWords']):
             return False
-    rec['areas'] = areas_for(' '.join(rec.get(k, '') for k in ('name', 'summary', 'target', 'theme', 'kind')), config)
-    if region.get('representativeOnly') and not rec['areas']:
+    if region.get('excludeOrgPattern') and re.match(region['excludeOrgPattern'], rec.get('org', '')):
+        return False                                   # 경기도 수집에 섞인 시·군 사업
+    if region.get('excludeNamePattern') and re.match(region['excludeNamePattern'], rec.get('name', '')):
         return False
+    fields = config.get('areaTextFields', ['name', 'summary', 'target'])
+    rec['areas'] = areas_for(' '.join(rec.get(k, '') for k in fields), config)
+    if region.get('representativeOnly'):
+        if not rec['areas'] or any(w in rec.get('name', '') for w in region.get('excludeWords', [])):
+            return False
     return bool(rec.get('name'))
 
 

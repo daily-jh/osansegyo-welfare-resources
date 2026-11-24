@@ -38,10 +38,15 @@ class PublicApiRefresh(unittest.TestCase):
         self.write('ssis-local-gyeonggi-p1.xml', xml([
             {'servId': 'G1', 'servNm': '경기도 청년 마음건강 지원', 'sggNm': '', 'ctpvNm': '경기도', 'servDgst': '심리상담'},
             {'servId': 'G2', 'servNm': '수원시 출산축하금', 'sggNm': '수원시', 'ctpvNm': '경기도', 'servDgst': '현금'},
+            {'servId': 'G3', 'servNm': '(파주시)무연고 사망자 장례비 지원', 'sggNm': '', 'ctpvNm': '경기도', 'bizChrDeptNm': '경기도 파주시 복지정책국 노인장애인과'},
+            {'servId': 'G4', 'servNm': '정신질환자 치료지원사업', 'sggNm': '', 'ctpvNm': '경기도', 'bizChrDeptNm': '경기도 안양시 보건소'},
+            {'servId': 'G5', 'servNm': '경기도 청소년복지시설 퇴소청소년 자립정착금 지급', 'sggNm': '', 'ctpvNm': '경기도', 'bizChrDeptNm': '경기도 미래평생교육국 청소년과'},
         ]))
         self.write('ssis-national-national-p1.xml', xml([
             {'servId': 'N1', 'servNm': '자립준비청년 자립수당', 'servDgst': '보호종료 청년 지원', 'jurMnofNm': '보건복지부'},
             {'servId': 'N2', 'servNm': '농지연금', 'servDgst': '고령 농업인 노후', 'jurMnofNm': '농식품부'},
+            {'servId': 'N3', 'servNm': '석면피해구제급여', 'servDgst': '석면 피해자 의료비', 'jurMnofNm': '환경부'},
+            {'servId': 'N4', 'servNm': '보훈가족 심리재활서비스 지원', 'servDgst': '심리 상담', 'jurMnofNm': '국가보훈부'},
         ]))
 
     def test_osan_required_gyeonggi_province_level_and_national_representative_only(self):
@@ -57,6 +62,11 @@ class PublicApiRefresh(unittest.TestCase):
         self.assertIn('자립준비청년 자립수당', names)
         self.assertIn('independence', names['자립준비청년 자립수당']['area'])
         self.assertNotIn('농지연금', names)                    # 전국은 대표 영역만
+        self.assertNotIn('석면피해구제급여', names)            # '피해자'만으로는 대표 영역 아님
+        self.assertNotIn('보훈가족 심리재활서비스 지원', names)  # 제외 낱말
+        self.assertNotIn('(파주시)무연고 사망자 장례비 지원', names)  # 경기도 수집의 시·군 사업
+        self.assertNotIn('정신질환자 치료지원사업', names)
+        self.assertIn('경기도 청소년복지시설 퇴소청소년 자립정착금 지급', names)
         self.assertEqual(status['runs']['ssis-local:osan']['lastSuccessAt'], NOW)
         self.assertTrue(status['runs']['ssis-local:osan']['required'])
 

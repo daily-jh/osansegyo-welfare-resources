@@ -2,19 +2,163 @@
   "schemaVersion": 1,
   "note": "공공 API 수집 설정. 수집 결과는 변경 후보로만 쓰며 data/*.csv 원본을 자동으로 고치거나 '확인완료'를 주지 않는다. 인증키는 저장소 비밀값(환경변수)으로만 읽는다.",
   "regions": {
-    "osan": {"label": "경기도 오산시", "required": true, "ctpvNm": "경기도", "sggNm": "오산시", "addressWords": ["오산시"]},
-    "gyeonggi": {"label": "경기도", "required": false, "ctpvNm": "경기도", "addressWords": ["경기도", "경기 "]},
-    "national": {"label": "전국(대표 영역만)", "required": false, "representativeOnly": true}
+    "osan": {
+      "label": "경기도 오산시",
+      "required": true,
+      "ctpvNm": "경기도",
+      "sggNm": "오산시",
+      "addressWords": [
+        "오산시"
+      ]
+    },
+    "gyeonggi": {
+      "label": "경기도",
+      "required": false,
+      "ctpvNm": "경기도",
+      "addressWords": [
+        "경기도",
+        "경기 "
+      ],
+      "excludeOrgPattern": "^경기도 \\S+[시군](\\s|$)",
+      "excludeNamePattern": "^(\\(\\S+[시군]\\)|\\S+[시군]\\s)"
+    },
+    "national": {
+      "label": "전국(대표 영역만)",
+      "required": false,
+      "representativeOnly": true,
+      "excludeWords": [
+        "노인",
+        "어르신",
+        "보훈",
+        "국가유공자",
+        "고엽제",
+        "독립유공",
+        "참전",
+        "한센",
+        "원폭",
+        "석면",
+        "환경오염",
+        "납북",
+        "위안부",
+        "장기근속",
+        "농어민",
+        "농업인",
+        "자동차사고",
+        "산재근로자"
+      ]
+    }
   },
   "representativeAreas": [
-    {"id": "mental", "label": "정신건강·자살·자해", "need": "정신건강", "words": ["정신건강", "자살", "자해", "우울", "심리", "마음", "트라우마"]},
-    {"id": "youth", "label": "위기청소년·상담", "need": "사례관리", "words": ["청소년", "1388", "학교밖", "꿈드림", "위기청소년", "청소년상담"]},
-    {"id": "shelter", "label": "가출·쉼터·보호", "need": "주거", "words": ["쉼터", "가출", "일시보호", "자립지원관", "회복지원시설"]},
-    {"id": "abuse", "label": "학대·폭력·성폭력 피해", "need": "안전·권리보호", "words": ["학대", "폭력", "성폭력", "성착취", "디지털성범죄", "스토킹", "해바라기", "피해자"]},
-    {"id": "school", "label": "학업중단·학교폭력·교육", "need": "교육", "words": ["학업", "학교폭력", "대안교육", "검정고시", "교육급여", "학습"]},
-    {"id": "independence", "label": "자립·고립은둔·가족돌봄", "need": "고용·자립", "words": ["자립준비", "보호종료", "고립", "은둔", "가족돌봄", "영케어러", "청소년부모"]},
-    {"id": "addiction", "label": "중독(인터넷·도박·약물)", "need": "정신건강", "words": ["중독", "도박", "마약", "약물", "과의존", "스마트폰"]},
-    {"id": "crisis", "label": "긴급 생계·의료", "need": "소득·생계", "words": ["긴급복지", "긴급지원", "위기가구", "의료비", "생계"]}
+    {
+      "id": "mental",
+      "label": "정신건강·자살·자해",
+      "need": "정신건강",
+      "words": [
+        "정신건강",
+        "자살",
+        "자해",
+        "우울",
+        "심리",
+        "트라우마"
+      ]
+    },
+    {
+      "id": "youth",
+      "label": "위기청소년·상담",
+      "need": "사례관리",
+      "words": [
+        "청소년",
+        "1388",
+        "학교밖",
+        "꿈드림",
+        "위기청소년",
+        "청소년상담"
+      ]
+    },
+    {
+      "id": "shelter",
+      "label": "가출·쉼터·보호",
+      "need": "주거",
+      "words": [
+        "쉼터",
+        "가출",
+        "일시보호",
+        "자립지원관",
+        "회복지원시설"
+      ]
+    },
+    {
+      "id": "abuse",
+      "label": "학대·폭력·성폭력 피해",
+      "need": "안전·권리보호",
+      "words": [
+        "학대",
+        "폭력피해",
+        "폭력 피해",
+        "가정폭력",
+        "성폭력",
+        "성착취",
+        "성매매",
+        "디지털성범죄",
+        "스토킹",
+        "해바라기",
+        "1366",
+        "범죄피해"
+      ]
+    },
+    {
+      "id": "school",
+      "label": "학업중단·학교폭력·교육",
+      "need": "교육",
+      "words": [
+        "학업",
+        "학교폭력",
+        "대안교육",
+        "검정고시",
+        "교육급여",
+        "학교 밖",
+        "학교밖"
+      ]
+    },
+    {
+      "id": "independence",
+      "label": "자립·고립은둔·가족돌봄",
+      "need": "고용·자립",
+      "words": [
+        "자립준비",
+        "보호종료",
+        "고립",
+        "은둔",
+        "가족돌봄",
+        "영케어러",
+        "청소년부모"
+      ]
+    },
+    {
+      "id": "addiction",
+      "label": "중독(인터넷·도박·약물)",
+      "need": "정신건강",
+      "words": [
+        "중독",
+        "도박",
+        "마약",
+        "약물",
+        "과의존",
+        "스마트폰"
+      ]
+    },
+    {
+      "id": "crisis",
+      "label": "긴급 생계·의료",
+      "need": "소득·생계",
+      "words": [
+        "긴급복지",
+        "긴급지원",
+        "위기가구",
+        "생계급여",
+        "재난적의료비"
+      ]
+    }
   ],
   "sources": [
     {
@@ -32,12 +176,44 @@
       "sizeParam": "numOfRows",
       "pageSize": 100,
       "maxPages": 20,
-      "params": {"srchKeyCode": "003"},
+      "params": {
+        "srchKeyCode": "003"
+      },
       "regionRuns": [
-        {"region": "osan", "params": {"ctpvNm": "경기도", "sggNm": "오산시"}},
-        {"region": "gyeonggi", "params": {"ctpvNm": "경기도"}, "keepWhen": {"field": "sggNm", "in": ["", "경기도"]}}
+        {
+          "region": "osan",
+          "params": {
+            "ctpvNm": "경기도",
+            "sggNm": "오산시"
+          }
+        },
+        {
+          "region": "gyeonggi",
+          "params": {
+            "ctpvNm": "경기도"
+          },
+          "keepWhen": {
+            "field": "sggNm",
+            "in": [
+              "",
+              "경기도"
+            ]
+          }
+        }
       ],
-      "fields": {"id": "servId", "name": "servNm", "summary": "servDgst", "org": "bizChrDeptNm", "sido": "ctpvNm", "sigungu": "sggNm", "target": "trgterIndvdlNmArray", "theme": "intrsThemaNmArray", "method": "aplyMtdNm", "updated": "lastModYmd", "link": "servDtlLink"},
+      "fields": {
+        "id": "servId",
+        "name": "servNm",
+        "summary": "servDgst",
+        "org": "bizChrDeptNm",
+        "sido": "ctpvNm",
+        "sigungu": "sggNm",
+        "target": "trgterIndvdlNmArray",
+        "theme": "intrsThemaNmArray",
+        "method": "aplyMtdNm",
+        "updated": "lastModYmd",
+        "link": "servDtlLink"
+      },
       "note": "목록 요청변수 ctpvNm·sggNm은 공공데이터포털 페이지에서 확인. 오퍼레이션 이름(LcgvWelfarelist)은 첫 실행에서 확인."
     },
     {
@@ -55,9 +231,27 @@
       "sizeParam": "numOfRows",
       "pageSize": 100,
       "maxPages": 10,
-      "params": {"callTp": "L", "srchKeyCode": "003"},
-      "regionRuns": [{"region": "national", "params": {}}],
-      "fields": {"id": "servId", "name": "servNm", "summary": "servDgst", "org": "jurMnofNm", "target": "trgterIndvdlArray", "theme": "intrsThemaArray", "method": "aplyMtdNm", "updated": "svcfrstRegTs", "link": "servDtlLink"},
+      "params": {
+        "callTp": "L",
+        "srchKeyCode": "003"
+      },
+      "regionRuns": [
+        {
+          "region": "national",
+          "params": {}
+        }
+      ],
+      "fields": {
+        "id": "servId",
+        "name": "servNm",
+        "summary": "servDgst",
+        "org": "jurMnofNm",
+        "target": "trgterIndvdlArray",
+        "theme": "intrsThemaArray",
+        "method": "aplyMtdNm",
+        "updated": "svcfrstRegTs",
+        "link": "servDtlLink"
+      },
       "note": "개발계정 하루 100건. 요청변수·응답 항목은 활용가이드(v2.2)로 첫 실행 전 확인."
     },
     {
@@ -75,9 +269,30 @@
       "sizeParam": "numOfRows",
       "pageSize": 100,
       "maxPages": 10,
-      "params": {"type": "json"},
-      "regionRuns": [{"region": "osan", "params": {}}, {"region": "gyeonggi", "params": {}}, {"region": "national", "params": {}}],
-      "fields": {"name": "", "address": "", "phone": "", "hours": "", "site": ""},
+      "params": {
+        "type": "json"
+      },
+      "regionRuns": [
+        {
+          "region": "osan",
+          "params": {}
+        },
+        {
+          "region": "gyeonggi",
+          "params": {}
+        },
+        {
+          "region": "national",
+          "params": {}
+        }
+      ],
+      "fields": {
+        "name": "",
+        "address": "",
+        "phone": "",
+        "hours": "",
+        "site": ""
+      },
       "note": "활용신청 후 Swagger에서 호출 주소와 응답 항목 이름을 채우고 enabled를 true로."
     },
     {
@@ -96,8 +311,18 @@
       "pageSize": 100,
       "maxPages": 5,
       "params": {},
-      "regionRuns": [{"region": "gyeonggi", "params": {}}],
-      "fields": {"name": "", "address": "", "phone": "", "kind": ""},
+      "regionRuns": [
+        {
+          "region": "gyeonggi",
+          "params": {}
+        }
+      ],
+      "fields": {
+        "name": "",
+        "address": "",
+        "phone": "",
+        "kind": ""
+      },
       "note": "설명상 연 1회 갱신. 경기데이터드림 제공이면 keyEnv를 GG_OPENAPI_KEY로 바꾸고 호출 주소를 채운다."
     },
     {
@@ -116,8 +341,17 @@
       "pageSize": 1000,
       "maxPages": 40,
       "params": {},
-      "regionRuns": [{"region": "osan", "params": {}}],
-      "fields": {"name": "", "address": "", "kind": ""},
+      "regionRuns": [
+        {
+          "region": "osan",
+          "params": {}
+        }
+      ],
+      "fields": {
+        "name": "",
+        "address": "",
+        "kind": ""
+      },
       "note": "파일데이터 자동변환 API. 오산시 주소만 남겨 복지관·지역아동센터 폐업·주소 변경을 대조."
     },
     {
@@ -136,9 +370,24 @@
       "pageSize": 100,
       "maxPages": 3,
       "params": {},
-      "regionRuns": [{"region": "osan", "params": {}}],
-      "fields": {"name": "", "address": "", "phone": "", "site": ""},
+      "regionRuns": [
+        {
+          "region": "osan",
+          "params": {}
+        }
+      ],
+      "fields": {
+        "name": "",
+        "address": "",
+        "phone": "",
+        "site": ""
+      },
       "note": "시군구 코드로 오산 청년센터만 조회. 코드값은 활용가이드로 확인."
     }
+  ],
+  "areaTextFields": [
+    "name",
+    "summary",
+    "target"
   ]
 }
