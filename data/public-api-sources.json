@@ -426,6 +426,41 @@
       "required": false
     },
     {
+      "id": "hira-mental-clinic",
+      "name": "건강보험심사평가원_병원정보서비스(정신건강의학과)",
+      "page": "https://www.data.go.kr/data/15001698/openapi.do",
+      "kind": "facility",
+      "enabled": true,
+      "endpointChecked": true,
+      "keyEnv": "DATA_GO_KR_KEY",
+      "endpoint": "https://apis.data.go.kr/B551182/hospInfoServicev2/getHospBasisList",
+      "format": "xml",
+      "itemPath": "item",
+      "pageParam": "pageNo",
+      "sizeParam": "numOfRows",
+      "pageSize": 100,
+      "maxPages": 15,
+      "params": {},
+      "regionRuns": [
+        {
+          "region": "osan",
+          "params": {
+            "sidoCd": "310000",
+            "dgsbjtCd": "03"
+          }
+        }
+      ],
+      "fields": {
+        "id": "ykiho",
+        "name": "yadmNm",
+        "address": "addr",
+        "phone": "telno",
+        "kind": "clCdNm"
+      },
+      "note": "2026-11-24 실제 호출 확인(경기 sidoCd=310000, 진료과목 03 정신건강의학과). 오산시 주소만 남김. 기존 병원 전화·주소 대조와 새 의원 후보용.",
+      "required": false
+    },
+    {
       "id": "mogef-youth-program",
       "name": "성평등가족부_청소년 활동정보 공공기관 프로그램 서비스",
       "page": "https://www.data.go.kr/data/15067705/openapi.do",
