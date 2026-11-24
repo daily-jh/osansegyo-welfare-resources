@@ -23,7 +23,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 KST = dt.timezone(dt.timedelta(hours=9))
 OUT_COLUMNS = ['change', 'source', 'region', 'area', 'name', 'org', 'match_kind', 'match_id', 'match_name',
-               'field_diffs', 'summary', 'address', 'phone', 'updated', 'link', 'api_id']
+               'field_diffs', 'summary', 'target', 'theme', 'method', 'address', 'phone', 'updated', 'link',
+               'api_id']
 MATCH_RATIO = 0.86
 
 
@@ -218,6 +219,7 @@ def compare(records, db):
         row = {k: '' for k in OUT_COLUMNS}
         row.update(source=rec['source'], region=rec['region'], area='|'.join(rec.get('areas', [])),
                    name=rec['name'], org=rec.get('org', ''), summary=rec.get('summary', '')[:300],
+                   target=rec.get('target', ''), theme=rec.get('theme', ''), method=rec.get('method', ''),
                    address=rec.get('address', ''), phone=rec.get('phone', ''), updated=rec.get('updated', ''),
                    link=rec.get('link', ''), api_id=rec.get('id', ''))
         if rec['kind_of_source'] == 'service':
