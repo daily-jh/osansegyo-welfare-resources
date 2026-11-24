@@ -1,7 +1,7 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
 const context={window:{}};vm.runInNewContext(fs.readFileSync('docs/assets/data.js','utf8'),context);const D=context.window.WELFARE_DATA,P=require('../docs/assets/program-feed.js');globalThis.ProgramFeed=P;const M=require('../docs/assets/search-model.js');
 P.merge(D,JSON.parse(fs.readFileSync('docs/programs.json','utf8')));
-const dongs=D.organizations.filter(o=>o.kind==='행정복지센터');assert.equal(dongs.length,8);assert(dongs.every(o=>o.services.length===4));assert(dongs.every(o=>o.contact.dept.includes('직통전화 아님')));
+const dongs=D.organizations.filter(o=>o.kind==='행정복지센터');assert.equal(dongs.length,8);assert(dongs.every(o=>o.services.length===5));assert(dongs.every(o=>o.services.some(s=>s.name==='의료·요양 통합돌봄 신청(돌봄통합지원법)')));assert(dongs.every(o=>o.contact.dept.includes('직통전화 아님')));
 const dream=D.organizations.find(o=>o.name==='오산시 드림스타트'),city=D.organizations.find(o=>o.name==='오산시청');assert(dream.services.some(s=>s.id==='SVC-00016'));assert(!city.services.some(s=>s.name.includes('드림스타트')));
 assert.equal(D.organizations.find(o=>o.id==='438b636f15').services.length,0);
 const kord=D.organizations.find(o=>o.name==='한국희귀·난치성질환연합회');const round=kord.services.find(s=>s.rounds.length);assert.equal(M.applicationState(round,'2026-10-22'),'모집중');assert.equal(M.applicationState(round,'2026-11-05'),'마감');assert(M.matchesService(kord,round,{need:'의료·건강',audience:'아동',application:'모집중'},'2026-10-22'));

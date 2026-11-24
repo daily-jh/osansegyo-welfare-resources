@@ -9380,7 +9380,7 @@ window.WELFARE_DATA = {
       "phone": "031-8036-8036",
       "source": "https://www.osan.go.kr/main.do",
       "scope": "오산시",
-      "reviewed": "2026-10-22",
+      "reviewed": "2026-11-24",
       "status": "운영중",
       "jurisdiction": "오산시",
       "services": [
@@ -9518,6 +9518,47 @@ window.WELFARE_DATA = {
           },
           "contacts": [],
           "rounds": []
+        },
+        {
+          "id": "SVC-CARE26-003",
+          "name": "의료·요양 통합돌봄 신청(돌봄통합지원법)",
+          "category": "돌봄·생활",
+          "target": "중앙동 주소지 주민 중 노쇠·장애·질병·사고로 의료·요양·돌봄 복합 지원이 필요한 사람(65세 이상 등)",
+          "description": "통합돌봄 신청 접수 → 사전조사(접수 5일 이내) → 통합판정조사·종합판정 → 개인별지원계획·통합지원회의 → 서비스 연계·모니터링. 퇴원 직후·장기요양 기각 등은 동의를 받아 직권 신청 가능.",
+          "method": "중앙동 행정복지센터 복지담당 방문·우편·팩스 신청. 가족(8촌 이내)·후견인·기관 담당자는 본인 동의 후 신청.",
+          "operation": "법·복지부 이용안내 기준 신청 창구. 오산시 전담부서·현재 제공 서비스 범위는 담당창구 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "노인",
+              "장애인",
+              "질환"
+            ],
+            "need": [
+              "돌봄",
+              "의료·건강",
+              "사례관리"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": [
+              "직접 방문",
+              "전화"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "가능",
+          "source": "https://www.mohw.go.kr/menu.es?mid=a60200000000",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "보건복지부 통합돌봄 이용안내(신청방법) 기준; 오산시 실제 운영 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
         }
       ],
       "contact": {
@@ -9549,7 +9590,7 @@ window.WELFARE_DATA = {
       "phone": "031-8036-8036",
       "source": "https://www.osan.go.kr/main.do",
       "scope": "오산시",
-      "reviewed": "2026-10-22",
+      "reviewed": "2026-11-24",
       "status": "운영중",
       "jurisdiction": "오산시",
       "services": [
@@ -9703,6 +9744,47 @@ window.WELFARE_DATA = {
           },
           "contacts": [],
           "rounds": []
+        },
+        {
+          "id": "SVC-CARE26-004",
+          "name": "의료·요양 통합돌봄 신청(돌봄통합지원법)",
+          "category": "돌봄·생활",
+          "target": "대원1동 주소지 주민 중 노쇠·장애·질병·사고로 의료·요양·돌봄 복합 지원이 필요한 사람(65세 이상 등)",
+          "description": "통합돌봄 신청 접수 → 사전조사(접수 5일 이내) → 통합판정조사·종합판정 → 개인별지원계획·통합지원회의 → 서비스 연계·모니터링. 퇴원 직후·장기요양 기각 등은 동의를 받아 직권 신청 가능.",
+          "method": "대원1동 행정복지센터 복지담당 방문·우편·팩스 신청. 가족(8촌 이내)·후견인·기관 담당자는 본인 동의 후 신청.",
+          "operation": "법·복지부 이용안내 기준 신청 창구. 오산시 전담부서·현재 제공 서비스 범위는 담당창구 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "노인",
+              "장애인",
+              "질환"
+            ],
+            "need": [
+              "돌봄",
+              "의료·건강",
+              "사례관리"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": [
+              "직접 방문",
+              "전화"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "가능",
+          "source": "https://www.mohw.go.kr/menu.es?mid=a60200000000",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "보건복지부 통합돌봄 이용안내(신청방법) 기준; 오산시 실제 운영 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
         }
       ],
       "contact": {
@@ -9734,7 +9816,7 @@ window.WELFARE_DATA = {
       "phone": "031-8036-8036",
       "source": "https://www.osan.go.kr/main.do",
       "scope": "오산시",
-      "reviewed": "2026-10-22",
+      "reviewed": "2026-11-24",
       "status": "운영중",
       "jurisdiction": "오산시",
       "services": [
@@ -9888,6 +9970,47 @@ window.WELFARE_DATA = {
           },
           "contacts": [],
           "rounds": []
+        },
+        {
+          "id": "SVC-CARE26-005",
+          "name": "의료·요양 통합돌봄 신청(돌봄통합지원법)",
+          "category": "돌봄·생활",
+          "target": "대원2동 주소지 주민 중 노쇠·장애·질병·사고로 의료·요양·돌봄 복합 지원이 필요한 사람(65세 이상 등)",
+          "description": "통합돌봄 신청 접수 → 사전조사(접수 5일 이내) → 통합판정조사·종합판정 → 개인별지원계획·통합지원회의 → 서비스 연계·모니터링. 퇴원 직후·장기요양 기각 등은 동의를 받아 직권 신청 가능.",
+          "method": "대원2동 행정복지센터 복지담당 방문·우편·팩스 신청. 가족(8촌 이내)·후견인·기관 담당자는 본인 동의 후 신청.",
+          "operation": "법·복지부 이용안내 기준 신청 창구. 오산시 전담부서·현재 제공 서비스 범위는 담당창구 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "노인",
+              "장애인",
+              "질환"
+            ],
+            "need": [
+              "돌봄",
+              "의료·건강",
+              "사례관리"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": [
+              "직접 방문",
+              "전화"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "가능",
+          "source": "https://www.mohw.go.kr/menu.es?mid=a60200000000",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "보건복지부 통합돌봄 이용안내(신청방법) 기준; 오산시 실제 운영 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
         }
       ],
       "contact": {
@@ -9919,7 +10042,7 @@ window.WELFARE_DATA = {
       "phone": "031-8036-8036",
       "source": "https://www.osan.go.kr/main.do",
       "scope": "오산시",
-      "reviewed": "2026-10-22",
+      "reviewed": "2026-11-24",
       "status": "운영중",
       "jurisdiction": "오산시",
       "services": [
@@ -10073,6 +10196,47 @@ window.WELFARE_DATA = {
           },
           "contacts": [],
           "rounds": []
+        },
+        {
+          "id": "SVC-CARE26-006",
+          "name": "의료·요양 통합돌봄 신청(돌봄통합지원법)",
+          "category": "돌봄·생활",
+          "target": "남촌동 주소지 주민 중 노쇠·장애·질병·사고로 의료·요양·돌봄 복합 지원이 필요한 사람(65세 이상 등)",
+          "description": "통합돌봄 신청 접수 → 사전조사(접수 5일 이내) → 통합판정조사·종합판정 → 개인별지원계획·통합지원회의 → 서비스 연계·모니터링. 퇴원 직후·장기요양 기각 등은 동의를 받아 직권 신청 가능.",
+          "method": "남촌동 행정복지센터 복지담당 방문·우편·팩스 신청. 가족(8촌 이내)·후견인·기관 담당자는 본인 동의 후 신청.",
+          "operation": "법·복지부 이용안내 기준 신청 창구. 오산시 전담부서·현재 제공 서비스 범위는 담당창구 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "노인",
+              "장애인",
+              "질환"
+            ],
+            "need": [
+              "돌봄",
+              "의료·건강",
+              "사례관리"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": [
+              "직접 방문",
+              "전화"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "가능",
+          "source": "https://www.mohw.go.kr/menu.es?mid=a60200000000",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "보건복지부 통합돌봄 이용안내(신청방법) 기준; 오산시 실제 운영 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
         }
       ],
       "contact": {
@@ -10104,7 +10268,7 @@ window.WELFARE_DATA = {
       "phone": "031-8036-8036",
       "source": "https://www.osan.go.kr/main.do",
       "scope": "오산시",
-      "reviewed": "2026-10-22",
+      "reviewed": "2026-11-24",
       "status": "운영중",
       "jurisdiction": "오산시",
       "services": [
@@ -10258,6 +10422,47 @@ window.WELFARE_DATA = {
           },
           "contacts": [],
           "rounds": []
+        },
+        {
+          "id": "SVC-CARE26-007",
+          "name": "의료·요양 통합돌봄 신청(돌봄통합지원법)",
+          "category": "돌봄·생활",
+          "target": "신장1동 주소지 주민 중 노쇠·장애·질병·사고로 의료·요양·돌봄 복합 지원이 필요한 사람(65세 이상 등)",
+          "description": "통합돌봄 신청 접수 → 사전조사(접수 5일 이내) → 통합판정조사·종합판정 → 개인별지원계획·통합지원회의 → 서비스 연계·모니터링. 퇴원 직후·장기요양 기각 등은 동의를 받아 직권 신청 가능.",
+          "method": "신장1동 행정복지센터 복지담당 방문·우편·팩스 신청. 가족(8촌 이내)·후견인·기관 담당자는 본인 동의 후 신청.",
+          "operation": "법·복지부 이용안내 기준 신청 창구. 오산시 전담부서·현재 제공 서비스 범위는 담당창구 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "노인",
+              "장애인",
+              "질환"
+            ],
+            "need": [
+              "돌봄",
+              "의료·건강",
+              "사례관리"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": [
+              "직접 방문",
+              "전화"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "가능",
+          "source": "https://www.mohw.go.kr/menu.es?mid=a60200000000",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "보건복지부 통합돌봄 이용안내(신청방법) 기준; 오산시 실제 운영 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
         }
       ],
       "contact": {
@@ -10289,7 +10494,7 @@ window.WELFARE_DATA = {
       "phone": "031-8036-8036",
       "source": "https://www.osan.go.kr/main.do",
       "scope": "오산시",
-      "reviewed": "2026-10-22",
+      "reviewed": "2026-11-24",
       "status": "운영중",
       "jurisdiction": "오산시",
       "services": [
@@ -10443,6 +10648,47 @@ window.WELFARE_DATA = {
           },
           "contacts": [],
           "rounds": []
+        },
+        {
+          "id": "SVC-CARE26-008",
+          "name": "의료·요양 통합돌봄 신청(돌봄통합지원법)",
+          "category": "돌봄·생활",
+          "target": "신장2동 주소지 주민 중 노쇠·장애·질병·사고로 의료·요양·돌봄 복합 지원이 필요한 사람(65세 이상 등)",
+          "description": "통합돌봄 신청 접수 → 사전조사(접수 5일 이내) → 통합판정조사·종합판정 → 개인별지원계획·통합지원회의 → 서비스 연계·모니터링. 퇴원 직후·장기요양 기각 등은 동의를 받아 직권 신청 가능.",
+          "method": "신장2동 행정복지센터 복지담당 방문·우편·팩스 신청. 가족(8촌 이내)·후견인·기관 담당자는 본인 동의 후 신청.",
+          "operation": "법·복지부 이용안내 기준 신청 창구. 오산시 전담부서·현재 제공 서비스 범위는 담당창구 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "노인",
+              "장애인",
+              "질환"
+            ],
+            "need": [
+              "돌봄",
+              "의료·건강",
+              "사례관리"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": [
+              "직접 방문",
+              "전화"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "가능",
+          "source": "https://www.mohw.go.kr/menu.es?mid=a60200000000",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "보건복지부 통합돌봄 이용안내(신청방법) 기준; 오산시 실제 운영 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
         }
       ],
       "contact": {
@@ -10474,7 +10720,7 @@ window.WELFARE_DATA = {
       "phone": "031-8036-8036",
       "source": "https://www.osan.go.kr/main.do",
       "scope": "오산시",
-      "reviewed": "2026-10-22",
+      "reviewed": "2026-11-24",
       "status": "운영중",
       "jurisdiction": "오산시",
       "services": [
@@ -10628,6 +10874,47 @@ window.WELFARE_DATA = {
           },
           "contacts": [],
           "rounds": []
+        },
+        {
+          "id": "SVC-CARE26-009",
+          "name": "의료·요양 통합돌봄 신청(돌봄통합지원법)",
+          "category": "돌봄·생활",
+          "target": "세마동 주소지 주민 중 노쇠·장애·질병·사고로 의료·요양·돌봄 복합 지원이 필요한 사람(65세 이상 등)",
+          "description": "통합돌봄 신청 접수 → 사전조사(접수 5일 이내) → 통합판정조사·종합판정 → 개인별지원계획·통합지원회의 → 서비스 연계·모니터링. 퇴원 직후·장기요양 기각 등은 동의를 받아 직권 신청 가능.",
+          "method": "세마동 행정복지센터 복지담당 방문·우편·팩스 신청. 가족(8촌 이내)·후견인·기관 담당자는 본인 동의 후 신청.",
+          "operation": "법·복지부 이용안내 기준 신청 창구. 오산시 전담부서·현재 제공 서비스 범위는 담당창구 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "노인",
+              "장애인",
+              "질환"
+            ],
+            "need": [
+              "돌봄",
+              "의료·건강",
+              "사례관리"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": [
+              "직접 방문",
+              "전화"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "가능",
+          "source": "https://www.mohw.go.kr/menu.es?mid=a60200000000",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "보건복지부 통합돌봄 이용안내(신청방법) 기준; 오산시 실제 운영 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
         }
       ],
       "contact": {
@@ -10659,7 +10946,7 @@ window.WELFARE_DATA = {
       "phone": "031-8036-8036",
       "source": "https://www.osan.go.kr/main.do",
       "scope": "오산시",
-      "reviewed": "2026-10-22",
+      "reviewed": "2026-11-24",
       "status": "운영중",
       "jurisdiction": "오산시",
       "services": [
@@ -10810,6 +11097,47 @@ window.WELFARE_DATA = {
             "method": "공식 기관·지자체 사업안내 검토",
             "by": "자료 관리자",
             "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-CARE26-010",
+          "name": "의료·요양 통합돌봄 신청(돌봄통합지원법)",
+          "category": "돌봄·생활",
+          "target": "초평동 주소지 주민 중 노쇠·장애·질병·사고로 의료·요양·돌봄 복합 지원이 필요한 사람(65세 이상 등)",
+          "description": "통합돌봄 신청 접수 → 사전조사(접수 5일 이내) → 통합판정조사·종합판정 → 개인별지원계획·통합지원회의 → 서비스 연계·모니터링. 퇴원 직후·장기요양 기각 등은 동의를 받아 직권 신청 가능.",
+          "method": "초평동 행정복지센터 복지담당 방문·우편·팩스 신청. 가족(8촌 이내)·후견인·기관 담당자는 본인 동의 후 신청.",
+          "operation": "법·복지부 이용안내 기준 신청 창구. 오산시 전담부서·현재 제공 서비스 범위는 담당창구 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "노인",
+              "장애인",
+              "질환"
+            ],
+            "need": [
+              "돌봄",
+              "의료·건강",
+              "사례관리"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": [
+              "직접 방문",
+              "전화"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "가능",
+          "source": "https://www.mohw.go.kr/menu.es?mid=a60200000000",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "보건복지부 통합돌봄 이용안내(신청방법) 기준; 오산시 실제 운영 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
           },
           "contacts": [],
           "rounds": []
@@ -19902,6 +20230,123 @@ window.WELFARE_DATA = {
       "addressStatus": "공식",
       "addressCheckedOn": "2026-11-24",
       "addressNote": "센터 누리집 표기 주소. 누리집 소식이 오래되어 현재 운영·정원은 전화로 확인 필요."
+    },
+    {
+      "id": "ORG-CARE26-NHIS",
+      "name": "국민건강보험공단 노인장기요양보험",
+      "level": "민간",
+      "kind": "전국 공공 보험자",
+      "summary": "노인장기요양보험 운영기관. 장기요양 인정(등급) 신청·조사, 재가·시설급여 기관 안내. 「의료·요양 등 지역 돌봄의 통합지원에 관한 법률」에 따라 지사에서 통합돌봄 신청 접수와 통합판정조사를 맡음.",
+      "site": "https://www.longtermcare.or.kr/",
+      "phone": "1577-1000",
+      "source": "https://www.longtermcare.or.kr/",
+      "scope": "전국 공공",
+      "reviewed": "2026-11-24",
+      "status": "미확인",
+      "jurisdiction": "",
+      "services": [
+        {
+          "id": "SVC-CARE26-001",
+          "name": "장기요양 인정(등급) 신청",
+          "category": "돌봄·생활",
+          "target": "65세 이상 또는 노인성 질병이 있는 65세 미만으로 혼자 일상생활이 어려운 사람",
+          "description": "장기요양 인정 신청 후 방문조사·등급판정. 등급에 따라 방문요양·방문목욕·방문간호·주야간보호·단기보호·복지용구 등 재가급여나 시설급여 이용.",
+          "method": "국번 없이 1577-1000 또는 가까운 공단 지사 방문·우편·팩스·누리집 신청",
+          "operation": "공식 안내에서 제도 존재 확인. 지사·서류·처리기간은 연계 전 재확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "노인",
+              "질환"
+            ],
+            "need": [
+              "돌봄",
+              "의료·건강"
+            ],
+            "form": [
+              "서비스 제공",
+              "상담"
+            ],
+            "intake": [
+              "전화",
+              "직접 방문",
+              "온라인"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "가능",
+          "source": "https://www.longtermcare.or.kr/",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "제도 공개 안내 기준 정리; 지사 접수 세부 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-CARE26-002",
+          "name": "통합돌봄 신청 접수·통합판정조사",
+          "category": "돌봄·생활",
+          "target": "노쇠·장애·질병·사고로 일상생활이 어려워 의료·요양·돌봄 복합 지원이 필요한 사람(65세 이상 등)",
+          "description": "「의료·요양 등 지역 돌봄의 통합지원에 관한 법률」(2026.3.27 시행)에 따른 통합돌봄 신청을 행정복지센터와 함께 접수하고, 시·군·구 의뢰로 대면 통합판정조사 수행.",
+          "method": "공단 지사 방문·우편·팩스 신청(본인·가족·후견인·기관 담당자는 본인 동의 후)",
+          "operation": "보건복지부 통합돌봄 이용안내 기준. 지사별 접수 방식은 연계 전 재확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "노인",
+              "장애인",
+              "질환"
+            ],
+            "need": [
+              "돌봄",
+              "의료·건강",
+              "사례관리"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "직접 방문",
+              "전화"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "가능",
+          "source": "https://www.mohw.go.kr/menu.es?mid=a60200000000",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "보건복지부 통합돌봄 이용안내(신청방법·통합판정조사) 기준 정리",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-CARE26-NHIS",
+        "owner_type": "organization",
+        "owner_id": "ORG-CARE26-NHIS",
+        "dept": "",
+        "phone": "1577-1000",
+        "fax": "",
+        "email": "",
+        "hours": "평일 09:00~18:00(누리집 안내 기준, 재확인)",
+        "note": "대표전화",
+        "source_url": "https://www.longtermcare.or.kr/",
+        "verified_on": ""
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소지 관할 지사는 1577-1000 또는 누리집 지사 찾기로 확인"
     }
   ]
 };

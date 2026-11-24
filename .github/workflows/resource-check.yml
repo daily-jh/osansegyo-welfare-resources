@@ -39,6 +39,8 @@ jobs:
           node tests/home-tools-v8.cjs
           node tests/resource-correction.cjs
           node tests/home-layout-v9.cjs
+          node --check docs/care/care-app.js
+          node tests/care-integration.cjs
           for test in tests/youth-*.cjs; do node "$test"; done
       - name: Universal service guide verification and mobile Chrome smoke test
         run: |
