@@ -34,31 +34,35 @@ function scorePrint(p){const d=deepReport('html',p);return (/odi-paged/.test(d)?
 function figures(kind,p){const F=window.OYScaleFigures;if(!F||!p)return '';try{return F[kind](F.build(p));}catch(_){return '';}}
 // The paged deep report places each figure on the page it belongs to, so the standalone figures article
 // is only rendered when the report falls back to its linear form.
-function scalePages(p){const deep=deepReport('html',p);return (deep.indexOf('odi-paged')>=0?'':figures('html',p))+deep;}
+/* 2026-11-24 결과 페이지 개편: 영역별 점수와 25문항 표는 해석지 근거 자료·원점수 부분에 두 번 나오던 것을 원점수 부분 한 곳으로 모은다.
+   해석지 TXT·인쇄본(scorePrint, deepReport text)은 그대로 둔다. */
+const MOVED_RAW=/<details(?: open)?><summary>(?:영역별 점수|25문항 응답과 점수 기준)<\/summary>[\s\S]*?<\/details>/g;
+function scalePages(p){const deep=deepReport('html',p).replace(MOVED_RAW,'');return (deep.indexOf('odi-paged')>=0?'':figures('html',p))+deep;}
+function rawRows(p){const M=window.OYDeepInterpretation;try{return M&&M.appendixRows?M.appendixRows(M.build(p)):null}catch(_){return null}}
 /* 해석지는 25문항 점수만 읽는다. 서술·안전 기준으로 판정이 달라질 수 있어 첫머리에 전체 판정(판정 사슬 ①③④)을 한 줄로 밝힌다(가상 1,200사례 P1-4). */
 function scopeLine(p){try{const R=window.OYDecision&&window.OYDecision.forPayload(p);if(!R)return '';const c=R.cells;return '점수만 본 해석입니다 · 전체 판정은 '+c[2].value+' · 개입 수준 '+c[3].value+' · 안전 '+c[0].value+' (04 판정 띠와 같은 값)';}catch(_){return '';}}
 function deepReport(kind,p){const M=window.OYDeepInterpretation;if(!M||!p)return '';try{const out=M[kind](M.build(p)),line=scopeLine(p);if(!line||!out)return out;return kind==='text'?'['+line+']\n'+out:out.replace(/(<\/header>)/,'$1<p class="odi-scope">'+esc(line)+'</p>');}catch(_){return '';}}
 // Each result tab reads as one document: a short route at the top and the same part heading over every block,
 // so the paged report, the numbers and the raw scores follow one another instead of standing apart.
 const SCORE_PARTS=[['read','해석지 읽기','해석지'],['numbers','숫자로 보기 · 통합지원 5단계와 지표','숫자로 보기'],['raw','원점수 · 25문항 응답','원점수']];
-const INTEGRATED_PARTS=[['stage','지원 단계와 판단 근거','지원 단계'],['opinion','통합 사정의견서','사정의견서'],['raw','기존 분석 근거','분석 근거']];
+const INTEGRATED_PARTS=[['opinion','통합 사정의견서','사정의견서'],['raw','단계 지표와 분석 근거','근거 자료']];
 function partRoute(parts){return '<ol class="j88-route" aria-label="이 탭의 읽는 순서">'+parts.map((p,i)=>'<li><button type="button" data-j88-part="'+p[0]+'"><b>'+(i+1)+'</b><span>'+esc(p[2])+'</span></button></li>').join('')+'</ol>';}
 function partHead(parts,id,deck,note){const i=parts.findIndex(p=>p[0]===id);return '<header class="j88-part" id="j88-part-'+id+'"><p class="j88-part-no">'+(i+1)+' / '+parts.length+'</p><h3>'+esc(parts[i][1])+(note?' <small>'+esc(note)+'</small>':'')+'</h3>'+(deck?'<p>'+esc(deck)+'</p>':'')+'</header>';}
 function resultScorePage(a){
  const d=a.decision;
- return '<section class="j88-result-pane j88-flow" aria-label="척도 해석"><p class="j88-view-note">25문항 응답만으로 읽은 해석입니다. 사례관리 수준과 개입계획은 서술기록까지 합쳐 통합 사정의견에서 정합니다. CORE 원점수와 공식 안전판정은 바뀌지 않습니다.</p>'
+ return '<section class="j88-result-pane j88-flow" aria-label="척도 해석"><p class="j88-view-note">25문항 응답만으로 읽은 해석입니다. 서술기록까지 합친 개입 수준과 계획은 통합 사정의견에서 정합니다.</p>'
  +partRoute(SCORE_PARTS)
  +partHead(SCORE_PARTS,'read','생활 주제별로 나눈 해석지입니다. 장을 넘기며 읽고, 마지막 장에서 숫자로 이어집니다.')
  +scalePages(state.payload)
- +partHead(SCORE_PARTS,'numbers','해석지의 단계와 영역을 숫자와 그래프로 다시 봅니다.','개발형 보조지표')+'<div id="oy-index-visual-slot"></div>'
+ +partHead(SCORE_PARTS,'numbers','10개 영역을 그래프로 봅니다. 단계 판정은 위 판정 근거 ③에 한 번만 둡니다.','개발형 보조지표')+'<div id="oy-index-visual-slot"></div>'
  +partHead(SCORE_PARTS,'raw','CORE 원점수와 문항별 응답입니다. 필요할 때 펼쳐 확인합니다.')
  +'<details class="j88-raw-accordion"><summary>원점수 · 25문항 상세 결과 펼치기</summary><div class="j88-metrics"><article><small>CORE 원점수</small><strong>'+esc(d.incomplete?'판정 보류':d.knownTotal+' / 100')+'</strong><span>미상 '+d.unknownItems.length+'개는 0점 처리하지 않습니다.</span></article>'
  +'<article><small>확인한 문항</small><strong>'+d.knownCount+' / 25</strong><span>미상·응답별 확인 상태 구분</span></article>'
  +'<article><small>3~4점 응답</small><strong>'+a.high.length+'개</strong><span>높은 개별 응답만 집계</span></article></div>'
  +'<div class="j88-alert"><strong>CORE 안전판정</strong><p>'+esc(d.safetyReview)+'</p></div>'
- +'<h3>10개 평가 영역별 원점수</h3>'
- +table(['영역','확인 합계 / 확인 최대','미상','기록 상태'],a.domains.map(x=>[x.name,x.known?x.sum+' / '+(x.known*4):'확인자료 없음',x.unknown?x.unknown+'개':'없음',x.known?'문항별 응답 확인':'추가 확인 필요']))
- +'<h3>25문항 개별 응답</h3>'+table(['문항','점수','상태'],state.payload.answers.map((value,i)=>[(i+1)+'번',value==='unknown'?'미상':value+'점',value==='unknown'?'미확인':'응답 확인']))
+ +(()=>{const r=rawRows(state.payload);return '<h3>10개 평가 영역별 원점수</h3>'
+ +(r?table(['영역','확인 합계 / 최대','평균(0~4)','수준','미상'],r.domains):table(['영역','확인 합계 / 확인 최대','미상','기록 상태'],a.domains.map(x=>[x.name,x.known?x.sum+' / '+(x.known*4):'확인자료 없음',x.unknown?x.unknown+'개':'없음',x.known?'문항별 응답 확인':'추가 확인 필요'])))
+ +'<h3>25문항 개별 응답</h3>'+(r?table(['문항','내용','응답','이 점수의 기준'],r.items):table(['문항','점수','상태'],state.payload.answers.map((value,i)=>[(i+1)+'번',value==='unknown'?'미상':value+'점',value==='unknown'?'미확인':'응답 확인'])));})()
  +'<p>CORE 응답은 5단계 보조지표와 별도로 보존합니다.</p></details></section>';
 }
 function resultNarrativePage(a){
@@ -66,17 +70,16 @@ function resultNarrativePage(a){
  const report=narrReport('narrativeHtml',state.payload);
  if(!v?.present)return '<section class="j88-result-pane">'+(report||'<h3>서술기록 분석</h3><p>서술기록이 입력되지 않았습니다. 척도 응답만으로 위기단계와 학교·복지 개입 방향을 확인할 수 있습니다.</p>')+'</section>';
  const sections=v.paragraphs.map(p=>'<section class="j88-narrative-section"><h4>단락 '+p.number+' · '+esc(p.topic)+'</h4><p>'+esc(p.source)+'</p><div class="j88-narrative-tags"><span>연관 영역 · '+esc(p.areas.join('·')||'별도 영역 없음')+'</span><span>문항 · '+esc(p.items.map(n=>n+'번').join('·')||'별도 대응문항 없음')+'</span></div></section>').join('');
- return '<section class="j88-result-pane"><p class="j88-view-note">서술기록을 출처·생활영역·척도 교차검토로 분석합니다. 서술은 척도 원점수와 CORE 안전판정을 바꾸지 않습니다.</p>'+report
+ return '<section class="j88-result-pane"><p class="j88-view-note">관찰·면담 기록을 출처·생활영역별로 읽은 분석입니다.</p>'+report
  +'<details class="j88-raw-accordion"><summary>문장 구조 분석 원자료 펼치기</summary>'
  +'<h3>단락별 생활상황</h3>'+sections
- +'<h3>문장별 근거 · 문항·영역 대응</h3>'
- +table(['문장','실제 서술','문항별 점수','해석 영역·상태'],v.sentences.slice(0,35).map(x=>[x.id,x.text,x.scores.join(' · ')||'직접 연결 문항 없음',x.areas.join(' · ')+' / '+x.status]))
- +'<h3>영역별 서술 보강</h3>'
+  +'<h3>영역별 서술 보강</h3>'
  +(v.themes.length?table(['해석 주제','연결 문장','문항 점수'],v.themes.map(x=>[x.name,x.sentences.join('·'),x.scores.join(' · ')])):'<p>현재 서술에서 문항과 직접 연결되는 핵심 표현은 추출되지 않았습니다.</p>')
  +(a.context.mismatches?.length?'<h3>기존 대조 규칙 결과</h3>'+table(['관련 문항','원점수·서술 대조'],a.context.mismatches.map(x=>[x.items.join('·')+'번',(window.OYResultReadout?window.OYResultReadout.mismatchText(x,state.payload):x.issue)])):'')
  +(a.kCarr&&!a.kCarr.abstain?'<h3>K-CARR 서술형 통합 사정</h3><p>'+esc(a.kCarr.situationOverview||'')+'</p><p>'+esc(a.kCarr.integratedJudgment||'')+'</p>':'')
  +'</details></section>';
 }
+function basisLine(){try{const c=window.OYDecision.forPayload(state.payload).cells;return [c[0],c[2],c[3]].map(x=>x.value).join(' · ')}catch(_){return ''}}
 function decisionStrip(){try{return window.OYDecision?window.OYDecision.strip(window.OYDecision.forPayload(state.payload)):''}catch(_){return ''}}
 function decisionResult(){try{return window.OYDecision?window.OYDecision.forPayload(state.payload):null}catch(_){return null}}
 function systemOutcome(a){
@@ -102,15 +105,14 @@ function stageFold(a){
  +systemOutcome(a)+'<div id="oy-integrated-visual-slot"></div></details>';
 }
 function resultIntegratedPage(a){
- return '<section class="j88-result-pane j88-flow"><p class="j88-view-note">척도 응답과 서술기록을 함께 분석한 통합 사정의견입니다. 공식 점수와 CORE 안전판정은 바뀌지 않습니다.</p>'
+ return '<section class="j88-result-pane j88-flow"><p class="j88-view-note">척도 응답과 서술기록을 함께 본 의견서입니다. 단계는 위 판정 근거 ③과 같은 값입니다.</p>'
  +partRoute(INTEGRATED_PARTS)
- +partHead(INTEGRATED_PARTS,'stage','단계는 위 판정 근거 ③과 같습니다. 서술까지 반영한 지표와 단계가 나온 이유는 펼쳐서 봅니다.')
+ +partHead(INTEGRATED_PARTS,'opinion','개입 수준, 주관기관, 개입계획을 정리한 의견서입니다.')
+ +narrReport('integratedHtml',state.payload)
+ +partHead(INTEGRATED_PARTS,'raw','서술까지 반영한 단계 지표와 이전 모델의 원자료입니다. 검토할 때만 펼칩니다.')
  /* 2026-11-16 디자인 고도화: 단계가 판정 띠·시스템 분석 결과·통합지원 단계로 세 번 펼쳐져 있던 것을 한 줄 요약 + 접기로 줄인다.
     내용(systemOutcome, 통합 지표 칸)은 그대로 접기 안에 있어 인쇄·내보내기·시험이 같은 값을 읽는다. */
  +stageFold(a)
- +partHead(INTEGRATED_PARTS,'opinion','단계를 바탕으로 개입 수준, 주관기관, 개입계획을 정리한 의견서입니다.')
- +narrReport('integratedHtml',state.payload)
- +partHead(INTEGRATED_PARTS,'raw','이전 모델의 원자료와 대조 규칙입니다. 필요할 때 펼쳐 확인합니다.')
  +'<details class="j88-raw-accordion"><summary>기존 분석 근거 전체 보기 · 척도 원자료·대조 규칙·종합사정</summary>'+interpretation(a)
  +(a.context.mismatches?.length?'<h3>정량·서술 불일치 검토</h3>'+table(['관련 문항','해석 차이·확인 필요'],a.context.mismatches.map(x=>[x.items.join(' · '),(window.OYResultReadout?window.OYResultReadout.mismatchText(x,state.payload):x.issue)])):'')
  +'<h3>종합사정 및 지원 방향</h3>'+integratedSections(a)
@@ -122,7 +124,11 @@ function resultViews(a){
  /* 읽는 순서(2026-11-16 검수): 핵심 결과 한 장(결론) → 판정 경로(근거) → 세 탭(풀이). 판정 경로는 통합 사정의견 탭 안에만 있어
     척도 해석부터 읽는 사람은 단계가 왜 나왔는지 보지 못했다. 세 탭 위에 한 번만 둔다. 값은 그대로(OYDecision.forPayload). */
  const strip=decisionStrip();
- return (strip?'<div class="j88-basis" id="j88-basis"><p class="j88-view-note"><b>판정 근거</b> · 위 한 장의 결론이 어떤 순서로 정해졌는지입니다. 칸을 누르면 기준 → 이 사례 → 결과가 펼쳐집니다. 아래 세 탭은 이 판정을 풀어 쓴 자료입니다.</p>'+strip+'</div>':'')
+ /* 2026-11-24 결과 페이지 개편: 척도 판정 띠가 서술기록·통합 탭 머리에도 그대로 붙어 있어 읽을 때마다 척도 결과가 반복됐다.
+    척도 해석 탭에서만 펼쳐 두고, 다른 두 탭에서는 판정 값 한 줄로 접는다(내용·값은 같은 DOM, 펼치면 그대로). */
+ const note='<p class="j88-view-note"><b>판정 근거</b> · 위 한 장의 결론이 어떤 순서로 정해졌는지입니다. 칸을 누르면 기준 → 이 사례 → 결과가 펼쳐집니다. 아래 세 탭은 이 판정을 풀어 쓴 자료이며, CORE 원점수와 공식 안전판정은 어느 탭에서도 바뀌지 않습니다.</p>';
+ return (strip?(resultTab==='score'?'<div class="j88-basis" id="j88-basis">'+note+strip+'</div>'
+  :'<details class="j88-basis j88-basis-fold" id="j88-basis"><summary><b>판정 근거</b><span>'+esc(basisLine())+'</span><small>펼치기</small></summary>'+note+strip+'</details>'):'')
  +'<nav class="j88-tabs j88-result-tabs" aria-label="척도 평가 결과별 분석">'+menu.map(([id,label,sub])=>'<button type="button" data-j88-result-tab="'+id+'" aria-pressed="'+(id===resultTab)+'"><strong>'+label+'</strong><small>'+sub+'</small></button>').join('')+'</nav>'
  +(resultTab==='score'?resultScorePage(a):resultTab==='narrative'?resultNarrativePage(a):resultIntegratedPage(a));
 }

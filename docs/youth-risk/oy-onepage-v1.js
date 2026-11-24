@@ -82,6 +82,8 @@ function extras(k,ans,role){
   /* 보호자 문장은 자르지 않는다. 둘째 문장이 '보호자에게 먼저 연락하지 않고…' 같은 핵심 지시일 때가 많다(무작위 500사례 2026-10-29). */
   const fam=String(k.family||'').trim();
   const B=[];const add=(h,o)=>{if((o.li&&o.li.length)||o.p||o.near&&o.near.length||o.scales&&o.scales.length)B.push({h,...o})};
+  /* 2026-11-24 학맞통 연계: 교육복지사·학맞통 지원팀 한 장에 연계 층과 첫 할 일 한 블록(03 학교 지원에 전체). */
+  const addSchoolLink=()=>{try{const L=root.OYSchoolLink;if(!L)return;const m=L.build({answers:ans},k.R);B.push({h:'학맞통 연계 경로',li:[m.head,m.first,...(m.reasons.length?['교육지원청 센터 요청 사유: '+m.reasons.join(' · ')]:[])],tip:'단계별 담당과 지원 종류는 03 학교 지원 첫머리에 있습니다. 대상 선정은 학교장이 합니다.'})}catch(_){}};
   const scaleTip='추가 자료 · 척도 자료실에서 개요와 공식 배포처를 봅니다. 척도 점수는 OY-RALS 판정에 더하지 않습니다.';
   const addScales=()=>add('더 확인해 볼 척도',{scales,p:scales.length?'':'현재 결과와 학교급에 맞춰 제안할 추가 척도가 없습니다. 필요하면 척도 자료실을 살펴보세요.',tip:scaleTip,library:true});
   const nearTip='연결은 담당자와 함께 정합니다. 02 지역자원 지도에서 더 볼 수 있습니다.';
@@ -104,6 +106,7 @@ function extras(k,ans,role){
     add('담임교사에게 부탁할 관찰',{li:watch.slice(0,4),tip:'03 학교 지원의 「2주 관찰 기록지」로 함께 적습니다.'});
     add('학생 면담에서 물을 것',{li:qs(true)});
     addScales();
+    addSchoolLink();
     B.push({h:'학맞통·통합사례관리 판단',li:[selName(sel)+' · '+(sel.why||''),sel.systems&&sel.systems.length?'함께 필요한 개입체계: '+sel.systems.join(', '):'학교 안 지원으로 시작합니다.','주관 제안: '+k.lead],cls:sel.status==='met'?'':'oy1-care'});
     add('보호자 연락',{p:fam,tip:'학생맞춤통합지원은 학생·보호자 동의가 필요합니다.'});
     add(strengthH,{li:strengths});
@@ -112,6 +115,7 @@ function extras(k,ans,role){
   }
   if(role==='team'){
     B.push({h:'판정 한눈에',li:k.cells.map(c=>c.name+': '+c.value)});
+    addSchoolLink();
     add('사례회의에서 정할 것',{li:meet,cls:'oy1-care'});
     B.push({h:'누가 맡나',li:['주관 제안: '+k.lead,...(k.parts.length?['함께: '+k.parts.join(', ')]:[]),...(k.cands.length?['문의할 곳: '+k.cands.map(c=>c.s).join(', ')]:[])]});
     add('시기별 계획',{li:stops});
@@ -355,7 +359,7 @@ function bind(doc){
     const more=t.closest('[data-oy1-more]');if(more&&cur){const rev=cur.payload.flowRevision;open[rev]=!open[rev];setFold(!open[rev]);if(open[rev]){const j=doc.getElementById('journey88');j&&j.scrollIntoView({behavior:'smooth',block:'start'});}return;}
     const go=t.closest('[data-oy1-go]');if(go&&cur){open[cur.payload.flowRevision]=true;setFold(false);const tb=doc.querySelector('#journey88 [data-j88-result-tab="'+go.dataset.oy1Go+'"]');if(tb&&tb.getAttribute('aria-pressed')!=='true')tb.click();const j=doc.querySelector('#journey88 .j88-result-tabs')||doc.getElementById('journey88');j&&j.scrollIntoView({behavior:'smooth',block:'start'});return;}
     /* 02 칸 → 판정 근거 띠의 ③ 지원 우선순위를 펼쳐 보여 준다. 단계 미확정이면 '확인하면 결과가 어떻게 바뀌나'도 함께 연다. */
-    if(t.closest('[data-oy1-why]')&&cur){open[cur.payload.flowRevision]=true;setFold(false);const basis=doc.getElementById('j88-basis')||doc.getElementById('journey88');if(basis){const b=basis.querySelector('[data-oyd-open="tier"]');if(b&&b.getAttribute('aria-expanded')!=='true')b.click();const w=basis.querySelector('details.oyd-whatif'),mm=doc.getElementById('oyOnePage').__model;if(w&&mm&&!mm.tier)w.open=true;basis.scrollIntoView({behavior:'smooth',block:'start'});}return;}
+    if(t.closest('[data-oy1-why]')&&cur){open[cur.payload.flowRevision]=true;setFold(false);const basis=doc.getElementById('j88-basis')||doc.getElementById('journey88');if(basis){if(basis.tagName==='DETAILS')basis.open=true;const b=basis.querySelector('[data-oyd-open="tier"]');if(b&&b.getAttribute('aria-expanded')!=='true')b.click();const w=basis.querySelector('details.oyd-whatif'),mm=doc.getElementById('oyOnePage').__model;if(w&&mm&&!mm.tier)w.open=true;basis.scrollIntoView({behavior:'smooth',block:'start'});}return;}
     if(t.closest('[data-oy1-library]')){const L=LIB();if(L&&L.open)L.open(doc);return;}
     const sc=t.closest('[data-oy1-scale]');if(sc){const L=LIB();if(L&&L.open){L.open(doc);const c=doc.getElementById('osl-'+sc.dataset.oy1Scale);if(c){c.hidden=false;const g=c.closest('.osl-group');if(g)g.hidden=false;c.open=true;setTimeout(()=>c.scrollIntoView({behavior:'smooth',block:'start'}),120);}}return;}
     if(t.closest('[data-oy1-check]')){askReview(doc);return;}

@@ -106,3 +106,4 @@ jobs:
           node tests/oy-css-bundle.cjs
           node tests/oy-final-report.cjs
           node tests/oy-onepage.cjs
+          node tests/oy-school-link.cjs
