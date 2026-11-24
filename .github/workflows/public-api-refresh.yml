@@ -1,6 +1,15 @@
 name: Public API refresh (change candidates)
 on:
   workflow_dispatch:
+    inputs:
+      open_pr:
+        description: '변경 후보 PR 열기'
+        type: boolean
+        default: true
+      probe:
+        description: '호출 주소 시험(공백 구분, 비우면 생략)'
+        type: string
+        default: ''
   schedule:
     # Weekly Monday 06:00 KST (Sunday 21:00 UTC). GitHub may delay scheduled runs.
     - cron: '0 21 * * 0'
@@ -24,6 +33,11 @@ jobs:
           python-version: '3.12'
       - name: Offline contract tests
         run: python -m unittest discover -s tests -p 'test_public_api_refresh.py'
+      - name: Probe endpoints (optional)
+        if: inputs.probe != ''
+        env:
+          PROBE: ${{ inputs.probe }}
+        run: python scripts/public_api_refresh.py --probe "$PROBE"
       - name: Collect public APIs (writes docs/public-api only)
         run: python scripts/public_api_refresh.py --summary public-api-summary.md
       - name: Job summary
@@ -32,6 +46,7 @@ jobs:
       - name: Source tables must be untouched
         run: git diff --exit-code -- data/
       - name: Open or update the review PR
+        if: github.event_name == 'schedule' || inputs.open_pr
         env:
           GH_TOKEN: ${{ github.token }}
         run: |

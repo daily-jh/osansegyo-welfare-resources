@@ -38,16 +38,22 @@ class PublicApiRefresh(unittest.TestCase):
         self.write('ssis-local-gyeonggi-p1.xml', xml([
             {'servId': 'G1', 'servNm': '경기도 청년 마음건강 지원', 'sggNm': '', 'ctpvNm': '경기도', 'servDgst': '심리상담'},
             {'servId': 'G2', 'servNm': '수원시 출산축하금', 'sggNm': '수원시', 'ctpvNm': '경기도', 'servDgst': '현금'},
+            {'servId': 'G3', 'servNm': '(파주시)무연고 사망자 장례비 지원', 'sggNm': '', 'ctpvNm': '경기도', 'bizChrDeptNm': '경기도 파주시 복지정책국 노인장애인과'},
+            {'servId': 'G4', 'servNm': '정신질환자 치료지원사업', 'sggNm': '', 'ctpvNm': '경기도', 'bizChrDeptNm': '경기도 안양시 보건소'},
+            {'servId': 'G5', 'servNm': '경기도 청소년복지시설 퇴소청소년 자립정착금 지급', 'sggNm': '', 'ctpvNm': '경기도', 'bizChrDeptNm': '경기도 미래평생교육국 청소년과'},
         ]))
         self.write('ssis-national-national-p1.xml', xml([
             {'servId': 'N1', 'servNm': '자립준비청년 자립수당', 'servDgst': '보호종료 청년 지원', 'jurMnofNm': '보건복지부'},
             {'servId': 'N2', 'servNm': '농지연금', 'servDgst': '고령 농업인 노후', 'jurMnofNm': '농식품부'},
+            {'servId': 'N3', 'servNm': '석면피해구제급여', 'servDgst': '석면 피해자 의료비', 'jurMnofNm': '환경부'},
+            {'servId': 'N4', 'servNm': '보훈가족 심리재활서비스 지원', 'servDgst': '심리 상담', 'jurMnofNm': '국가보훈부'},
         ]))
 
     def test_osan_required_gyeonggi_province_level_and_national_representative_only(self):
         self.fixtures_ok()
         status, payload, failures = p.run(self.config, self.tmp, NOW, fixtures=self.fx, env={})
-        self.assertEqual(failures, [])
+        self.assertEqual(failures, [])                          # 보조 수집(응급의료기관) 실패는 필수 실패가 아님
+        self.assertTrue(status['runs']['nmc-emergency:osan']['lastError'])
         names = {r['name']: r for r in payload['items']}
         self.assertEqual(names['청소년 심리상담']['change'], '기존과 일치')
         self.assertEqual(names['청소년 심리상담']['match_id'], 'SVC-00023')
@@ -57,6 +63,11 @@ class PublicApiRefresh(unittest.TestCase):
         self.assertIn('자립준비청년 자립수당', names)
         self.assertIn('independence', names['자립준비청년 자립수당']['area'])
         self.assertNotIn('농지연금', names)                    # 전국은 대표 영역만
+        self.assertNotIn('석면피해구제급여', names)            # '피해자'만으로는 대표 영역 아님
+        self.assertNotIn('보훈가족 심리재활서비스 지원', names)  # 제외 낱말
+        self.assertNotIn('(파주시)무연고 사망자 장례비 지원', names)  # 경기도 수집의 시·군 사업
+        self.assertNotIn('정신질환자 치료지원사업', names)
+        self.assertIn('경기도 청소년복지시설 퇴소청소년 자립정착금 지급', names)
         self.assertEqual(status['runs']['ssis-local:osan']['lastSuccessAt'], NOW)
         self.assertTrue(status['runs']['ssis-local:osan']['required'])
 
@@ -127,6 +138,15 @@ class PublicApiRefresh(unittest.TestCase):
         self.assertEqual(row['match_id'], '6dff4fa866')
         self.assertIn('전화', row['field_diffs'])
 
+    def test_probe_redacts_key(self):
+        import contextlib, io
+        secret = 'PROBE-SECRET-1'
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            p.probe(['https://example.invalid/x?Q0=a'], secret, fetcher=lambda s, prm, k: ('echo ' + k + ' ' + s['endpoint']).encode())
+        self.assertNotIn(secret, buf.getvalue())
+        self.assertIn('example.invalid', buf.getvalue())
+
     def test_config_contract(self):
         regions = self.config['regions']
         self.assertTrue(regions['osan']['required'])
@@ -141,8 +161,8 @@ class PublicApiRefresh(unittest.TestCase):
                 self.assertIn(r['region'], regions)
             if s['enabled']:
                 self.assertTrue(s['endpoint'].startswith('https://'))
-        enabled_osan = [s for s in self.config['sources'] if s['enabled'] and any(r['region'] == 'osan' for r in s['regionRuns'])]
-        self.assertTrue(enabled_osan, '오산 수집이 하나 이상 켜져 있어야 함')
+        required_osan = [s for s in self.config['sources'] if s['enabled'] and s.get('required') and any(r['region'] == 'osan' for r in s['regionRuns'])]
+        self.assertTrue(required_osan, '필수 오산 수집이 하나 이상 켜져 있어야 함')
 
 
 if __name__ == '__main__':
