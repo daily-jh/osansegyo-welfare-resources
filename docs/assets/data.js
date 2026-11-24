@@ -1,6 +1,6 @@
 /* © 2026 오산세교종합사회복지관 김지훈 팀장. All rights reserved. */
 window.WELFARE_DATA = {
-  "date": "2026-11-24",
+  "date": "2026-11-25",
   "schemaVersion": 2,
   "note": "기존 자료 정리일이며, 기관·사업별 실제 운영 확인일과 다릅니다. 연계 전 최신 공식 공고를 확인해 주세요.",
   "taxonomy": {
@@ -562,7 +562,7 @@ window.WELFARE_DATA = {
       "phone": "031-8036-8036",
       "source": "https://www.osan.go.kr/",
       "scope": "오산시",
-      "reviewed": "2026-11-24",
+      "reviewed": "2026-11-25",
       "status": "미확인",
       "jurisdiction": "",
       "services": [
@@ -1464,6 +1464,101 @@ window.WELFARE_DATA = {
           },
           "contacts": [],
           "rounds": []
+        },
+        {
+          "id": "SVC-CARE26-011",
+          "name": "의료·요양 통합돌봄 총괄·문의(희망복지과 통합돌봄팀)",
+          "category": "돌봄·생활",
+          "target": "오산시 주민 중 노쇠·장애·질병·사고로 의료·요양·돌봄 복합 지원이 필요한 사람(65세 이상 등)과 연계 기관",
+          "description": "오산시 통합돌봄 총괄. 지역계획, 통합지원협의체·통합지원회의, 오산형 특화사업, 5313(오산일상) 돌봄·중간집, 장애인 의료·요양 통합돌봄, 대상자 발굴·모니터링, 담당자 교육, 평가·실적 관리.",
+          "method": "주민 신청은 주소지 동 행정복지센터. 기관 연계·사업 문의는 희망복지과 통합돌봄팀(팀장 031-8036-7392, 동별 담당은 연락처 참고).",
+          "operation": "오산시청 누리집 직원/업무 검색(통합돌봄)으로 팀 구성·전화·업무 확인(2026-11-25).",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "노인",
+              "장애인",
+              "질환"
+            ],
+            "need": [
+              "돌봄",
+              "의료·건강",
+              "사례관리"
+            ],
+            "form": [
+              "상담",
+              "정보 제공"
+            ],
+            "intake": [
+              "전화",
+              "동 행정복지센터 경유"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "가능",
+          "source": "https://www.osan.go.kr/search/search.jsp",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "오산시청 누리집 직원/업무 검색 화면 확인(이름 제외, 부서·전화·업무만 수록)",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [
+            {
+              "contact_id": "CON-SVC-CARE26-011",
+              "owner_type": "service",
+              "owner_id": "SVC-CARE26-011",
+              "dept": "희망복지과 통합돌봄팀 팀장",
+              "phone": "031-8036-7392",
+              "fax": "",
+              "email": "",
+              "hours": "",
+              "note": "통합돌봄 업무 총괄·협의체·통합지원회의",
+              "source_url": "https://www.osan.go.kr/search/search.jsp",
+              "verified_on": "2026-11-25"
+            },
+            {
+              "contact_id": "CON-SVC-CARE26-011B",
+              "owner_type": "service",
+              "owner_id": "SVC-CARE26-011",
+              "dept": "희망복지과 통합돌봄팀",
+              "phone": "031-8036-7395",
+              "fax": "",
+              "email": "",
+              "hours": "",
+              "note": "통합돌봄 시스템 운영 총괄·5313(오산일상) 돌봄·퇴원환자 연계(동 담당: 대원1동·대원2동·남촌동)",
+              "source_url": "https://www.osan.go.kr/search/search.jsp",
+              "verified_on": "2026-11-25"
+            },
+            {
+              "contact_id": "CON-SVC-CARE26-011C",
+              "owner_type": "service",
+              "owner_id": "SVC-CARE26-011",
+              "dept": "희망복지과 통합돌봄팀",
+              "phone": "031-8036-7393",
+              "fax": "",
+              "email": "",
+              "hours": "",
+              "note": "지역계획·협의체·담당자 교육·5313 중간집·평가(동 담당: 중앙동·세마동)",
+              "source_url": "https://www.osan.go.kr/search/search.jsp",
+              "verified_on": "2026-11-25"
+            },
+            {
+              "contact_id": "CON-SVC-CARE26-011D",
+              "owner_type": "service",
+              "owner_id": "SVC-CARE26-011",
+              "dept": "희망복지과 통합돌봄팀",
+              "phone": "031-8036-7394",
+              "fax": "",
+              "email": "",
+              "hours": "",
+              "note": "장애인 의료·요양 통합돌봄·대상자 발굴·모니터링(동 담당: 신장1동·신장2동·초평동·세마동)",
+              "source_url": "https://www.osan.go.kr/search/search.jsp",
+              "verified_on": "2026-11-25"
+            }
+          ],
+          "rounds": []
         }
       ],
       "contact": {
@@ -2236,7 +2331,7 @@ window.WELFARE_DATA = {
       "phone": "031-8036-6036",
       "source": "https://www.osan.go.kr/depart/contents.do?mId=0502070000",
       "scope": "오산시",
-      "reviewed": "2026-10-20",
+      "reviewed": "2026-11-25",
       "status": "미확인",
       "jurisdiction": "",
       "services": [
@@ -2299,7 +2394,34 @@ window.WELFARE_DATA = {
             "by": "",
             "next": ""
           },
-          "contacts": [],
+          "contacts": [
+            {
+              "contact_id": "CON-SVC-00031",
+              "owner_type": "service",
+              "owner_id": "SVC-00031",
+              "dept": "건강증진과 지역보건팀",
+              "phone": "031-8036-6684",
+              "fax": "",
+              "email": "",
+              "hours": "",
+              "note": "방문건강관리(금암·갈곶·내삼미·외삼미·세교·가장동 법정동)·지역사회 통합돌봄 연계",
+              "source_url": "https://www.osan.go.kr/search/search.jsp",
+              "verified_on": "2026-11-25"
+            },
+            {
+              "contact_id": "CON-SVC-00031B",
+              "owner_type": "service",
+              "owner_id": "SVC-00031",
+              "dept": "건강증진과 지역보건팀",
+              "phone": "031-8036-6683",
+              "fax": "",
+              "email": "",
+              "hours": "",
+              "note": "방문건강관리(서동·오산동·청호동 법정동)·통합돌봄 연계",
+              "source_url": "https://www.osan.go.kr/search/search.jsp",
+              "verified_on": "2026-11-25"
+            }
+          ],
           "rounds": []
         },
         {
@@ -2333,6 +2455,57 @@ window.WELFARE_DATA = {
             "next": ""
           },
           "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-CARE26-012",
+          "name": "AI·IoT 기반 어르신 건강관리",
+          "category": "보건·의료",
+          "target": "건강관리가 필요한 어르신(세부 기준은 보건소 확인)",
+          "description": "스마트 기기로 건강 상태를 확인하고 간호사 등이 비대면 건강관리를 지원. 지역사회 통합돌봄(보건·의료) 연계.",
+          "method": "보건소 건강증진과 지역보건팀 문의(031-8036-6081)",
+          "operation": "오산시청 누리집 직원/업무 검색으로 담당·업무 확인(2026-11-25). 모집·정원은 보건소 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "노인"
+            ],
+            "need": [
+              "의료·건강",
+              "돌봄"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "가능",
+          "source": "https://www.osan.go.kr/search/search.jsp",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "오산시청 누리집 직원/업무 검색 화면 확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [
+            {
+              "contact_id": "CON-SVC-CARE26-012",
+              "owner_type": "service",
+              "owner_id": "SVC-CARE26-012",
+              "dept": "건강증진과 지역보건팀",
+              "phone": "031-8036-6081",
+              "fax": "",
+              "email": "",
+              "hours": "",
+              "note": "AI·IoT 기반 어르신 건강관리사업 운영·통합돌봄(보건·의료)·보건소 협력체계",
+              "source_url": "https://www.osan.go.kr/search/search.jsp",
+              "verified_on": "2026-11-25"
+            }
+          ],
           "rounds": []
         }
       ],
@@ -10913,7 +11086,21 @@ window.WELFARE_DATA = {
             "by": "자료 관리자",
             "next": "2027-02-24"
           },
-          "contacts": [],
+          "contacts": [
+            {
+              "contact_id": "CON-SVC-CARE26-009",
+              "owner_type": "service",
+              "owner_id": "SVC-CARE26-009",
+              "dept": "세마동 찾아가는 보건복지팀",
+              "phone": "031-8036-6328",
+              "fax": "",
+              "email": "",
+              "hours": "",
+              "note": "세마동 통합돌봄 대상자 발굴·조사·서비스 연계",
+              "source_url": "https://www.osan.go.kr/search/search.jsp",
+              "verified_on": "2026-11-25"
+            }
+          ],
           "rounds": []
         }
       ],
