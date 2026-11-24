@@ -231,7 +231,7 @@ def run(config, root, now, fixtures=None, env=os.environ, fetcher=None):
             run_id = f"{source['id']}:{regionrun['region']}"
             state = status['runs'].setdefault(run_id, {})
             state.update(lastAttemptAt=now, source=source['name'], region=config['regions'][regionrun['region']]['label'],
-                         required=bool(config['regions'][regionrun['region']].get('required')))
+                         required=bool(source.get('required') and config['regions'][regionrun['region']].get('required')))
             try:
                 if not fixtures and not key:
                     raise ValueError(f"인증키 없음({source['keyEnv']} 비밀값 미등록)")
@@ -301,14 +301,34 @@ def markdown(status, payload):
     return '\n'.join(lines) + '\n'
 
 
+def probe(urls, key, fetcher=None):
+    """Print status and the first part of each response, key redacted. Used to confirm endpoints."""
+    for url in urls:
+        base, _, query = url.partition('?')
+        params = dict(urllib.parse.parse_qsl(query))
+        params.setdefault('pageNo', '1')
+        params.setdefault('numOfRows', '2')
+        try:
+            raw = (fetcher or fetch_live)({'endpoint': base}, params, key)
+            text = raw[:600].decode('utf-8', 'replace')
+        except Exception as exc:  # noqa: BLE001
+            text = f'{type(exc).__name__}: {exc}'
+        print('### ' + base)
+        print(redact(text, [key]).replace('\n', ' ')[:600])
+    return 0
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument('--fixtures')
     ap.add_argument('--strict', action='store_true')
     ap.add_argument('--now')
     ap.add_argument('--summary')
+    ap.add_argument('--probe', help='공백으로 구분한 호출 주소들을 시험 호출해 응답 앞부분만 보여 줌(DB·결과 파일 안 건드림)')
     args = ap.parse_args(argv)
     config = json.loads((ROOT / 'data/public-api-sources.json').read_text(encoding='utf-8'))
+    if args.probe:
+        return probe(args.probe.split(), os.environ.get('DATA_GO_KR_KEY', ''))
     now = args.now or dt.datetime.now(KST).isoformat(timespec='seconds')
     status, payload, failures = run(config, ROOT, now, fixtures=args.fixtures)
     write_outputs(ROOT, status, payload)

@@ -52,7 +52,8 @@ class PublicApiRefresh(unittest.TestCase):
     def test_osan_required_gyeonggi_province_level_and_national_representative_only(self):
         self.fixtures_ok()
         status, payload, failures = p.run(self.config, self.tmp, NOW, fixtures=self.fx, env={})
-        self.assertEqual(failures, [])
+        self.assertEqual(failures, [])                          # 보조 수집(응급의료기관) 실패는 필수 실패가 아님
+        self.assertTrue(status['runs']['nmc-emergency:osan']['lastError'])
         names = {r['name']: r for r in payload['items']}
         self.assertEqual(names['청소년 심리상담']['change'], '기존과 일치')
         self.assertEqual(names['청소년 심리상담']['match_id'], 'SVC-00023')
@@ -137,6 +138,15 @@ class PublicApiRefresh(unittest.TestCase):
         self.assertEqual(row['match_id'], '6dff4fa866')
         self.assertIn('전화', row['field_diffs'])
 
+    def test_probe_redacts_key(self):
+        import contextlib, io
+        secret = 'PROBE-SECRET-1'
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            p.probe(['https://example.invalid/x?Q0=a'], secret, fetcher=lambda s, prm, k: ('echo ' + k + ' ' + s['endpoint']).encode())
+        self.assertNotIn(secret, buf.getvalue())
+        self.assertIn('example.invalid', buf.getvalue())
+
     def test_config_contract(self):
         regions = self.config['regions']
         self.assertTrue(regions['osan']['required'])
@@ -151,8 +161,8 @@ class PublicApiRefresh(unittest.TestCase):
                 self.assertIn(r['region'], regions)
             if s['enabled']:
                 self.assertTrue(s['endpoint'].startswith('https://'))
-        enabled_osan = [s for s in self.config['sources'] if s['enabled'] and any(r['region'] == 'osan' for r in s['regionRuns'])]
-        self.assertTrue(enabled_osan, '오산 수집이 하나 이상 켜져 있어야 함')
+        required_osan = [s for s in self.config['sources'] if s['enabled'] and s.get('required') and any(r['region'] == 'osan' for r in s['regionRuns'])]
+        self.assertTrue(required_osan, '필수 오산 수집이 하나 이상 켜져 있어야 함')
 
 
 if __name__ == '__main__':

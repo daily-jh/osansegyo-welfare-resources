@@ -214,7 +214,8 @@
         "updated": "lastModYmd",
         "link": "servDtlLink"
       },
-      "note": "목록 요청변수 ctpvNm·sggNm은 공공데이터포털 페이지에서 확인. 오퍼레이션 이름(LcgvWelfarelist)은 첫 실행에서 확인."
+      "note": "목록 요청변수 ctpvNm·sggNm은 공공데이터포털 페이지에서 확인. 오퍼레이션 이름(LcgvWelfarelist)은 첫 실행에서 확인.",
+      "required": true
     },
     {
       "id": "ssis-national",
@@ -252,7 +253,8 @@
         "updated": "svcfrstRegTs",
         "link": "servDtlLink"
       },
-      "note": "개발계정 하루 100건. 요청변수·응답 항목은 활용가이드(v2.2)로 첫 실행 전 확인."
+      "note": "개발계정 하루 100건. 요청변수·응답 항목은 활용가이드(v2.2)로 첫 실행 전 확인.",
+      "required": false
     },
     {
       "id": "mogef-youth-counsel",
@@ -293,7 +295,8 @@
         "hours": "",
         "site": ""
       },
-      "note": "활용신청 후 Swagger에서 호출 주소와 응답 항목 이름을 채우고 enabled를 true로."
+      "note": "활용신청 후 Swagger에서 호출 주소와 응답 항목 이름을 채우고 enabled를 true로.",
+      "required": false
     },
     {
       "id": "gg-youth-shelter",
@@ -323,7 +326,8 @@
         "phone": "",
         "kind": ""
       },
-      "note": "설명상 연 1회 갱신. 경기데이터드림 제공이면 keyEnv를 GG_OPENAPI_KEY로 바꾸고 호출 주소를 채운다."
+      "note": "설명상 연 1회 갱신. 경기데이터드림 제공이면 keyEnv를 GG_OPENAPI_KEY로 바꾸고 호출 주소를 채운다.",
+      "required": false
     },
     {
       "id": "mohw-welfare-facility",
@@ -352,7 +356,8 @@
         "address": "",
         "kind": ""
       },
-      "note": "파일데이터 자동변환 API. 오산시 주소만 남겨 복지관·지역아동센터 폐업·주소 변경을 대조."
+      "note": "파일데이터 자동변환 API. 오산시 주소만 남겨 복지관·지역아동센터 폐업·주소 변경을 대조.",
+      "required": false
     },
     {
       "id": "keis-youth-center",
@@ -382,7 +387,78 @@
         "phone": "",
         "site": ""
       },
-      "note": "시군구 코드로 오산 청년센터만 조회. 코드값은 활용가이드로 확인."
+      "note": "시군구 코드로 오산 청년센터만 조회. 코드값은 활용가이드로 확인.",
+      "required": false
+    },
+    {
+      "id": "nmc-emergency",
+      "name": "국립중앙의료원_전국 응급의료기관 정보 조회 서비스",
+      "page": "https://www.data.go.kr/data/15000563/openapi.do",
+      "kind": "facility",
+      "enabled": true,
+      "endpointChecked": false,
+      "keyEnv": "DATA_GO_KR_KEY",
+      "endpoint": "https://apis.data.go.kr/B552657/ErmctInfoInqireService/getEgytListInfoInqire",
+      "format": "xml",
+      "itemPath": "item",
+      "pageParam": "pageNo",
+      "sizeParam": "numOfRows",
+      "pageSize": 100,
+      "maxPages": 3,
+      "params": {},
+      "regionRuns": [
+        {
+          "region": "osan",
+          "params": {
+            "Q0": "경기도",
+            "Q1": "오산시"
+          }
+        }
+      ],
+      "fields": {
+        "id": "hpid",
+        "name": "dutyName",
+        "address": "dutyAddr",
+        "phone": "dutyTel1",
+        "kind": "dutyEmclsName"
+      },
+      "note": "요청변수 Q0(시도)·Q1(시군구), 응답 dutyName·dutyAddr·dutyTel1·dutyTel3(응급실). 페이지 명세 확인. 목록 오퍼레이션 이름은 첫 실행에서 확인.",
+      "required": false
+    },
+    {
+      "id": "mogef-youth-program",
+      "name": "성평등가족부_청소년 활동정보 공공기관 프로그램 서비스",
+      "page": "https://www.data.go.kr/data/15067705/openapi.do",
+      "kind": "service",
+      "enabled": false,
+      "endpointChecked": false,
+      "keyEnv": "DATA_GO_KR_KEY",
+      "endpoint": "",
+      "format": "xml",
+      "itemPath": "item",
+      "pageParam": "pageNo",
+      "sizeParam": "numOfRows",
+      "pageSize": 100,
+      "maxPages": 5,
+      "params": {},
+      "regionRuns": [
+        {
+          "region": "national",
+          "params": {}
+        }
+      ],
+      "fields": {
+        "id": "key1",
+        "name": "pgmNm",
+        "org": "organNm",
+        "summary": "info1",
+        "target": "target",
+        "address": "addr",
+        "phone": "tel",
+        "updated": "sdate"
+      },
+      "note": "서비스 주소 https://apis.data.go.kr/1383000/YouthActivInfoPublicSrvc. 상세 getOrganProgrmInfo는 확인, 목록 오퍼레이션 이름은 미확인. 주소 필드로 오산 필터 예정.",
+      "required": false
     }
   ],
   "areaTextFields": [
