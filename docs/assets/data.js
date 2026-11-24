@@ -1527,7 +1527,7 @@ window.WELFARE_DATA = {
               "fax": "",
               "email": "",
               "hours": "",
-              "note": "통합돌봄 시스템 운영 총괄·5313(오산일상) 돌봄 사업",
+              "note": "통합돌봄 시스템 운영 총괄·5313(오산일상) 돌봄·퇴원환자 연계(동 담당: 대원1동·대원2동·남촌동)",
               "source_url": "https://www.osan.go.kr/search/search.jsp",
               "verified_on": "2026-11-25"
             },
