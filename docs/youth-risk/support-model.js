@@ -111,5 +111,10 @@ function candidates(p,d){return groupedCandidates(p,d).map(group=>group.primary)
 function referrals(p){var groups=new Map();rank(domains(p)).filter(d=>d.sum>0).forEach(d=>groupedCandidates(p,d).forEach(g=>{var key=g.primary.orgId||identity(g.name);if(!groups.has(key))groups.set(key,{name:g.name,primary:g.primary,services:[],domainIds:[]});var v=groups.get(key);v.domainIds.push(d.i);g.services.forEach(r=>{if(!v.services.some(s=>(s.serviceId||s['서비스명'])===(r.serviceId||r['서비스명'])))v.services.push(r)})}));return Array.from(groups.values())}
 // Read-only view of the role profile a row was matched by; used to explain recommendations.
 function profileFor(row){var x=profiles.find(x=>x[0]===(row.profileName||row['기관명'])&&x[1]===(row.profileService||row['서비스명']));return x?{name:x[0],service:x[1],items:x[2].slice(),rank:x[3],reason:x[4],condition:x[5]}:null}
-var api={profileFor,additional,caseChecks,welfareZones,welfareZone,welfareZoneText,dongs,student,referrals,routingResources,labels,validate,domains,rank,candidates,groupedCandidates,context,describe};if(typeof module!=='undefined')module.exports=api;else root.YouthMap=api;
+// 정신건강의학과 진료 후보에는 진료비 지원·응급 경로를 함께 붙인다(묶음 안내, 점수·판정·순위와 무관).
+function companion(row){var kind=String(row&&row['기관유형']||''),name=String(row&&row['서비스명']||'');
+ if(/정신건강 의료기관|정신건강의학과/.test(kind)||/정신건강의학과/.test(name))return '진료비가 걱정되면 「경기도 청(소)년 마인드케어 외래진료비 지원」(만 15~34세, 오산시정신건강복지센터 문의)과 학교 Wee의 학생마음바우처를 함께 확인합니다. 자해·자살 위험이 지금 있으면 진료 예약보다 119·가까운 응급실이 먼저입니다.';
+ if(/마인드케어/.test(name))return '지원 대상이면 오산 정신건강의학과 진료기관(지역자원 연계 지도의 정신건강 영역)과 묶어 안내합니다. 진료기관의 초진 예약 가능 여부는 따로 확인합니다.';
+ return ''}
+var api={companion,profileFor,additional,caseChecks,welfareZones,welfareZone,welfareZoneText,dongs,student,referrals,routingResources,labels,validate,domains,rank,candidates,groupedCandidates,context,describe};if(typeof module!=='undefined')module.exports=api;else root.YouthMap=api;
 })(typeof window!=='undefined'?window:globalThis);

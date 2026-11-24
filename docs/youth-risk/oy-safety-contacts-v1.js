@@ -2,10 +2,10 @@
    Pure function. Only national hotlines and Osan agencies already in the resource DB (resource-links.js) are listed;
    the practitioner still follows the own agency's protection procedure. No record text is read, only type names. */
 (function(root){'use strict';
-const VERSION='1.0.0-xmod1200-20261029';
+const VERSION='1.1.0-er-20261124';
 const KINDS=[
  {id:'selfharm',h:'자해·자살 위험',items:[7],re:/자해|자살|죽음|추락/,
-  rows:[['자살예방상담전화 109','24시간 상담'],['오산시정신건강복지센터 031-374-8680','위기 상담·응급 연계'],['119·112','지금 위험하면 바로']]},
+  rows:[['자살예방상담전화 109','24시간 상담'],['오산시정신건강복지센터 031-374-8680','위기 상담·응급 연계'],['119·112','지금 위험하면 바로'],['가까운 응급실','오산한국병원 031-379-8300 · 조은오산병원 1544-5355(대표번호, 응급실 운영 여부 전화 확인) · 그 밖은 119 안내나 응급의료포털 e-gen.or.kr'],['정신건강의학과 진료','응급이 아니면 오산시정신건강복지센터를 거쳐 진료 연계 · 경기도 청(소)년 마인드케어 외래진료비 지원 함께 확인']]},
  {id:'abuse',h:'학대·방임·가족 안 위해',items:[1,2],re:/학대|보호자에 의한|가정 안|방임|가족 피해/,
   rows:[['아동학대 신고 112','신고의무자는 의심만으로도 신고'],['오산시아동보호전문기관 031-8077-9610','신고 뒤 피해아동·가족 사례관리']]},
  {id:'sexual',h:'성적 위해·온라인 성착취',items:[25],re:/성적|성착취|성폭력|촬영물|사진 유포/,

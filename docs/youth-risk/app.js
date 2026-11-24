@@ -298,6 +298,8 @@ else value+=c;
 var keys=rows.shift()||[];return rows.map(function(r){var o={};keys.forEach(function(k,i){o[k]=r[i]||""});return o});
 }
 function getLink(u){try{var url=new URL(u,location.href);return /^https?:$/.test(url.protocol)?url.href:""}catch(e){return ""}}
+// 연계 후보마다 자료 확인일을 보여준다. 확인일이 없거나 오래되면 이용 전 문의를 먼저 안내한다.
+function checkedText(item){var v=item&&item.verification||{},d=/^\d{4}-\d{2}-\d{2}$/.test(v.date||'')?v.date:'';return d?(v.status==='확인완료'?'공식 안내 확인 ':'기관 안내 확인 ')+d+(item['최종검토일']?' · DB 검토 '+item['최종검토일']:''):'공식 안내 확인일 없음'+(item&&item['최종검토일']?' · DB 검토 '+item['최종검토일']:'')+' · 이용 전 기관에 확인';}
 function renderResources(domainScores){
 if(!ready)return;
 if(answers.includes('unknown')&&!domainScores.some(v=>v>0)&&!getUrgent().length){$('resourceFilter').disabled=true;$('filterCount').textContent='';$('resourceList').innerHTML='<p>미상인 내용을 어려움 없음으로 해석하거나 근거 없이 기관을 추천하지 않습니다. 학생과 상황을 더 살펴보고, 필요하면 전체 복지자원 검색에서 상담할 곳을 찾아주세요.</p>';return;}
@@ -305,7 +307,7 @@ var ranked=domainScores.map(function(s,i){return {s:s,i:i}}).sort(function(a,b){
 var previous=$("resourceFilter").value;$("resourceFilter").innerHTML='<option value="all">전체 후보</option>'+ranked.map(function(x){return '<option value="'+x.i+'">'+clean(domains[x.i].name)+'</option>'}).join('');if(Array.from($("resourceFilter").options).some(function(o){return o.value===previous}))$("resourceFilter").value=previous;$("resourceFilter").disabled=!csv.length;
 var groups=YouthMap.referrals(snapshot()),content='';
 groups.forEach(function(group){var item=group.primary,info=YouthLinks.resolve(item),url=info.primary;
- content+='<article class="resource-item" data-domains="'+group.domainIds.join(',')+'"><span class="category">'+clean(item['범주'])+' · 기관별 문의 필요</span><h3>'+clean(group.name)+'</h3><p>후보 제시 이유: '+clean(group.domainIds.map(i=>domains[i].name).join(' · '))+'</p>'+(item.routingReason?'<p>'+clean(item.routingReason)+'</p>':'')+'<p>응답과 연결된 서비스: '+clean(group.services.map(r=>r['서비스명']).join(' · '))+'</p><p>'+clean(YouthLinks.contactText(item))+'</p><p>신청·연계: '+clean(item['신청·연계방법']||'기관 문의')+'</p><p>대상·비용·접수·관할은 실제 문의 후 확인합니다.</p>';
+ content+='<article class="resource-item" data-domains="'+group.domainIds.join(',')+'"><span class="category">'+clean(item['범주'])+' · 기관별 문의 필요</span><h3>'+clean(group.name)+'</h3><p>후보 제시 이유: '+clean(group.domainIds.map(i=>domains[i].name).join(' · '))+'</p>'+(item.routingReason?'<p>'+clean(item.routingReason)+'</p>':'')+'<p>응답과 연결된 서비스: '+clean(group.services.map(r=>r['서비스명']).join(' · '))+'</p><p>'+clean(YouthLinks.contactText(item))+'</p><p>신청·연계: '+clean(item['신청·연계방법']||'기관 문의')+'</p>'+(YouthMap.companion&&YouthMap.companion(item)?'<p><b>함께 확인</b> '+clean(YouthMap.companion(item))+'</p>':'')+'<p>대상·비용·접수·관할은 실제 문의 후 확인합니다. '+clean(checkedText(item))+'</p>';
  if(info.address){var term=encodeURIComponent(info.address+' '+group.name);content+='<a href="https://www.google.com/maps/search/?api=1&amp;query='+term+'" target="_blank" rel="noopener noreferrer">구글 지도 ↗</a> · <a href="https://map.naver.com/p/search/'+term+'" target="_blank" rel="noopener noreferrer">네이버 지도 ↗</a> · ';}
  if(item.orgId)content+='<a href="../#org='+encodeURIComponent(item.orgId)+'" target="_blank" rel="noopener noreferrer">복지자원 상세정보 ↗</a> · ';
  if(url)content+='<a href="'+clean(url)+'" target="_blank" rel="noopener noreferrer">기관·사업 안내 ↗</a>';content+='</article>';

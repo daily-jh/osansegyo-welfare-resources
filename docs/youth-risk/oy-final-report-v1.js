@@ -18,13 +18,18 @@ const orgShort=s=>String(s||'').replace(/\s*\(.*\)\s*/,'').replace(/^오산시\s
 const dots=v=>'<span class="dots" aria-label="'+v+'점">'+[1,2,3,4].map(k=>'<i class="'+(k<=v?'f':'')+'"></i>').join('')+'</span>';
 const today=()=>{try{return new Date().toLocaleDateString('ko-KR',{timeZone:'Asia/Seoul'})}catch(_){return new Date().toISOString().slice(0,10)}};
 
+/* 출처 부록에는 주소 전체 대신 기관 누리집 주소(호스트)만 적는다. */
+function sourceHost(u){try{const x=new URL(String(u));return /^https?:$/.test(x.protocol)?x.hostname.replace(/^www\./,''):''}catch(_){return ''}}
+function srcText(list){const hosts=[...new Set(list.slice(0,5).map(r=>r.source).filter(Boolean))],day=(list.find(r=>r.directoryDate)||{}).directoryDate||'';return '자료 출처: 오산 복지자원 찾기 DB'+(day?'(정리일 '+day+')':'')+(hosts.length?' · 기관 공식 안내 '+hosts.join(', '):'')+' · 확인일 이후 바뀌었을 수 있어 연계 전 기관에 확인합니다.';}
+function srcNote(list){return '<p class="xsrc"><small>'+esc(srcText(list))+'</small></p>';}
 /* 복지자원 찾기의 영역별 상위 후보(지역자원 연계 지도와 같은 순위). */
 function resources(p){
   const M=YM();if(!M||!Array.isArray(p.resources)||!p.resources.length||!Array.isArray(p.domains))return [];
   const out=[],seen=new Set();
   try{M.rank(M.domains(p)).filter(x=>x.sum>0).forEach(dm=>(M.groupedCandidates(p,dm)||[]).slice(0,2).forEach(g=>{const r=g.primary;if(!r)return;const key=g.name+'|'+r['서비스명'];if(seen.has(key))return;seen.add(key);
     let cond='';try{cond=String(M.describe(p,dm,r).condition||'').split(' · ')[0]}catch(_){}
-    out.push({domain:dm.name,name:g.name,service:r['서비스명']||'',cond});}));}catch(_){}
+    const v=r.verification||{},date=/^\d{4}-\d{2}-\d{2}$/.test(v.date||'')?v.date:'';
+    out.push({domain:dm.name,name:g.name,service:r['서비스명']||'',cond,checked:date?(v.status==='확인완료'?'공식 안내 확인 ':'기관 안내 확인 ')+date:'확인일 없음 · 이용 전 문의',source:sourceHost(r['근거URL']||r['홈페이지']||''),directoryDate:r.directoryDate||''});}));}catch(_){}
   return out.slice(0,6);
 }
 
@@ -160,7 +165,7 @@ function extras(k){
   if(k.strengths.length)X.push(['strength','<h3 class="xh">강점 · 지원의 발판</h3><ul class="xcols">'+k.strengths.slice(0,4).map(s=>'<li><b>'+esc(s.label)+'</b> '+esc(s.text)+'</li>').join('')+'</ul>']);
   if(k.family)X.push(['family','<h3 class="xh">보호자와 함께하기</h3><p>'+esc(k.family)+'</p>']);
   X.push(['rhythm','<h3 class="xh">접촉·회의·재사정 주기</h3><ul class="xrow"><li><b>접촉</b>'+esc(k.level.contact||'—')+'</li><li><b>회의</b>'+esc(k.level.meeting||'—')+'</li><li><b>재사정</b>'+esc(k.level.review||'—')+'</li></ul>']);
-  if(k.resources.length)X.push(['res','<h3 class="xh">연계 자원 후보 <span>02 지역자원 연계와 같은 순위 · 접수 조건은 기관에 확인</span></h3><div class="tw"><table><thead><tr><th>영역</th><th>기관</th><th>서비스</th><th>확인할 것</th></tr></thead><tbody>'+k.resources.slice(0,5).map(r=>'<tr><td>'+esc(r.domain)+'</td><td><b>'+esc(orgShort(r.name))+'</b></td><td>'+esc(r.service)+'</td><td>'+esc(r.cond)+'</td></tr>').join('')+'</tbody></table></div>']);
+  if(k.resources.length)X.push(['res','<h3 class="xh">연계 자원 후보 <span>02 지역자원 연계와 같은 순위 · 접수 조건은 기관에 확인</span></h3><div class="tw"><table><thead><tr><th>영역</th><th>기관</th><th>서비스</th><th>확인할 것</th></tr></thead><tbody>'+k.resources.slice(0,5).map(r=>'<tr><td>'+esc(r.domain)+'</td><td><b>'+esc(orgShort(r.name))+'</b></td><td>'+esc(r.service)+'</td><td>'+esc(r.cond)+(r.checked?'<br><small>'+esc(r.checked)+'</small>':'')+'</td></tr>').join('')+'</tbody></table></div>'+srcNote(k.resources)]);
   if(k.inc&&k.gaps.length)X.push(['gaps','<h3 class="xh">기록 보완할 것</h3><ul class="xcols">'+k.gaps.slice(0,4).map(g=>'<li><b>'+esc(g.topic)+'</b> '+esc(g.text)+'</li>').join('')+'</ul>']);
   if(k.questions.length>2)X.push(['moreq','<h3 class="xh">추가로 물어볼 것</h3><ul>'+k.questions.slice(2).map(q=>'<li>'+esc(q.q)+(q.about?' <span class="mut">('+esc(q.about)+')</span>':'')+'</li>').join('')+'</ul>']);
   return X.map(([id,h])=>'<section class="xtra pad" data-x="'+id+'">'+h+'</section>').join('');
@@ -219,7 +224,7 @@ function text(p,opt){
   if(k.questions.length){L.push('','[다음 면담에서 물을 것]');k.questions.forEach(q=>L.push('- '+q.q));}
   if(k.leadText)L.push('','[통합 사정의견]',k.leadText+(k.adjust?' '+k.adjust:''));
   if(k.grade){L.push('','[학년으로 읽기 · 판정 불변] '+k.grade.label+' · '+k.grade.band,k.grade.summary);if(k.grade.transition)L.push(k.grade.transition);k.grade.readings.forEach(x=>L.push('- '+x.domain+': '+x.text));L.push('근거: '+k.grade.sources.map(s=>'['+s.id+'] '+s.short).join(' · '));}
-  if(k.resources.length){L.push('','[연계 자원 후보 · 접수 조건은 기관에 확인]');k.resources.forEach(r=>L.push('- '+r.domain+' · '+r.name+' · '+r.service+(r.cond?' · '+r.cond:'')));}
+  if(k.resources.length){L.push('','[연계 자원 후보 · 접수 조건은 기관에 확인]');k.resources.forEach(r=>L.push('- '+r.domain+' · '+r.name+' · '+r.service+(r.cond?' · '+r.cond:'')+(r.checked?' · '+r.checked:'')));L.push(srcText(k.resources));}
   if(k.opinion)L.push('','[실무자 의견]',k.opinion);
   L.push('','25문항 응답'+(k.inc?'과 서술기록':'')+'을 OY-RALS 규칙으로 정리한 실무 참고자료이며 진단·학대 판정·위험 예측·서비스 자격 결정이 아닙니다. 공식 판정은 CORE, 지원 우선순위 5단계는 검증 전 개발지표입니다.'+(k.hasNarr&&!k.inc?' 서술 원문은 넣지 않았고 판정은 화면과 같습니다.':'')+' 시험 운영판(2026년 12월 중순 정식 운영 예정)으로 결과값·항목이 바뀔 수 있습니다.');
   return L.join('\n');
