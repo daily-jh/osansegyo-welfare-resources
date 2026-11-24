@@ -21,7 +21,7 @@
 .hero-v9 .hero-actions{gap:20px;flex-wrap:wrap}
 
 /* 02 벤토 그리드 */
-.hero-bento{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-areas:"svc svc org org" "svc svc lvl lvl" "need need need need" "date date youth youth";gap:12px}
+.hero-bento{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-areas:"svc svc org org" "svc svc lvl lvl" "need need need need" "date date youth youth" "care care care care";gap:12px}
 .hero-bento>.stat{display:flex;flex-direction:column;align-items:flex-start;gap:6px;margin:0;padding:16px 18px;border:1px solid var(--v9-rule);border-radius:var(--v9-radius);background:#fff;min-width:0;box-shadow:none}
 .hero-bento>.stat::before,.hero-bento>.stat::after{display:none}
 .hero-bento>.stat:nth-child(1){grid-area:org}
@@ -190,7 +190,7 @@ html.dlg-lock{overflow:hidden}
   .hero-v9 .hero-inner{padding-top:20px;padding-bottom:24px}
   .hero-v9 h1{font-size:30px;margin:12px 0 10px}
   .hero-v9 .hero-description{font-size:15px;margin-bottom:16px}
-  .hero-bento{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-areas:"svc org" "lvl date" "need need" "youth youth";gap:8px}
+  .hero-bento{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-areas:"svc org" "lvl date" "need need" "youth youth" "care care";gap:8px}
   .hero-bento>.stat{padding:12px 14px}
   .hero-bento>.stat:nth-child(2) strong{font-size:30px}
   .hero-bento>.stat:nth-child(2) .stat-icon{display:none}
@@ -281,3 +281,8 @@ h1,h2,h3,.org-name,.dlg-head h2,.detail-title{font-weight:800;letter-spacing:-.0
 .org-summary,.detail-desc,.hero-description{color:#33465a}
 .stat strong,.dash-tiles b,.facet-n,.help-now-list strong{font-feature-settings:"tnum" 1}
 @media (max-width:900px){.finder-bar .results-toolbar{justify-content:flex-start!important;align-items:flex-start!important}.finder-bar .results-count{text-align:left;justify-content:flex-start;margin:0}}
+
+/* 통합돌봄 길잡이(2026-11-24): 청소년 카드와 같은 모양, 돌봄 초록 */
+.hero-bento .bento-care{grid-area:care;background:#1f6a58;min-height:76px}
+.hero-bento .bento-care small{color:#d5ece4}
+.hero-bento .bento-care:hover,.hero-bento .bento-care:focus-visible{background:#195747}

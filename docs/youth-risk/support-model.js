@@ -68,7 +68,7 @@ var label=safety?'안전과 전문지원 먼저':critical?'생활·건강부터 
 function identity(value){return String(value||'').normalize('NFKC').replace(/\s+/g,'').toLowerCase()}
 // Administrative dong is explicitly selected, never inferred from a street or legal dong.
 function routingResources(resources,profile){
- resources=welfareResources(resources,profile);
+ resources=welfareResources(resources,profile).filter(r=>!/통합돌봄 신청|통합판정조사/.test(r['서비스명']||'')); // 노인·장애인 대상 통합돌봄 창구는 청소년 연계 후보에서 제외(돌봄 길잡이 docs/care 전용)
  var dongs=resources.filter(r=>/^오산시 (중앙동|대원[12]동|남촌동|신장[12]동|세마동|초평동) 행정복지센터$/.test(r['기관명']||''));
  if(!dongs.length)return resources;
  var selected=student({student:profile}).dong;
