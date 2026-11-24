@@ -54,12 +54,12 @@
     if (ltc === 'grade') domainSet.add('ltc');
     const domainsHit = ['health', 'prevent', 'ltc', 'daily', 'housing', 'family'].filter(d => domainSet.has(d));
 
-    /* 대상 범위(시행령안 제2조): 판정이 아니라 '상담 시 해당 가능성' 표시 */
+    /* 대상 범위(시행령 제2조, 2025.12.9 공포): 판정이 아니라 '상담 시 해당 가능성' 표시 */
     let scope;
     if (age65) scope = { id: 'in', label: '65세 이상: 법의 대상 범위에 들어갈 수 있습니다.' };
-    else if (severe) scope = { id: 'in', label: '심한 장애 등록: 복지부장관이 인정하는 경우 대상이 됩니다(1단계는 의료 필요도가 높은 중증장애인 중심 시범).' };
-    else if (anyDisability) scope = { id: 'maybe', label: '심하지 않은 장애: 지자체장이 인정하는 경우에만 대상이 됩니다. 행정복지센터에 먼저 물어보세요.' };
-    else scope = { id: 'maybe', label: '65세 미만·비장애: 지자체장이 복지부와 협의해 인정하는 경우에만 대상이 됩니다. 다른 돌봄 자원도 함께 보세요.' };
+    else if (severe) scope = { id: 'in', label: '심한 장애 등록: 복지부장관이 정하는 경우 대상이 됩니다. 2026년에는 의료 필요도가 높은 65세 미만 장애인부터 시작했고, 장애인 신청을 받는 지자체가 차례로 늘고 있습니다.' };
+    else if (anyDisability) scope = { id: 'maybe', label: '심하지 않은 장애: 시장·군수·구청장이 복지부와 협의해 인정하는 경우에만 대상이 됩니다. 행정복지센터에 먼저 물어보세요.' };
+    else scope = { id: 'maybe', label: '65세 미만·비장애: 취약계층 등으로서 시장·군수·구청장이 복지부와 협의해 인정하는 경우에만 대상이 됩니다. 다른 돌봄 자원도 함께 보세요.' };
 
     const flags = {
       discharge: yes.has('h2'),
@@ -77,11 +77,14 @@
     if (age65 && flags.discharge) priority.push('퇴원환자 등 입원·입소 경계에 있는 어르신');
     if (severe && (yes.has('h1') || yes.has('h3') || yes.has('l2'))) priority.push('의료 필요도가 높은 중증장애인(시범)');
 
-    /* 직권 신청 경로(법 제10조 ②, 시행령안 제4조) — 본인 동의 필요 */
+    /* 직권 신청 경로(법 제10조 ②, 시행령 제4조: 장기요양 신청 기각, 긴급복지지원법 위기상황 등) — 본인 동의 필요 */
     const exOfficio = [];
-    if (flags.ltcRejected) exOfficio.push('장기요양급여(또는 활동지원급여) 신청이 기각된 사람');
-    if (flags.discharge) exOfficio.push('의료기관에서 퇴원한 직후인 사람');
-    if (flags.carerGap && (flags.alone || yes.has('l2'))) exOfficio.push('혼자 생활하기 어렵고 보호자 돌봄이 현저히 곤란한 사람');
+    if (flags.ltcRejected) exOfficio.push('장기요양 등급 신청이 기각된 사람');
+    if (flags.carerGap && (flags.alone || yes.has('l2'))) exOfficio.push('돌봐 줄 사람이 없는 위기상황 등으로 스스로 신청하기 어려운 사람(긴급복지지원법 위기상황 포함)');
+    /* 기관 담당자 신청(시행규칙 제7조): 퇴원하는 의료기관 등 복지부장관이 인정한 기관 담당자가 동의를 받아 신청 */
+    const agencyApply = [];
+    if (flags.discharge) agencyApply.push('퇴원하는 병원의 담당자(의료사회복지팀 등)가 본인·가족 동의를 받아 신청하거나, 협약병원이면 「퇴원환자 지역사회 연계 서식」으로 시·군·구에 바로 알립니다.');
+    if (a.who === 'agency') agencyApply.push('재가노인복지시설·장애인복지관 등 복지부장관이 인정한 기관의 담당자는 본인이나 가족의 동의를 받아 신청할 수 있습니다.');
 
     const preExamWaived = flags.discharge && a.who === 'agency';
 
@@ -117,11 +120,11 @@
 
     const applicant = {
       self: '본인이 주소지 행정복지센터나 건보공단 지사에 신청합니다(방문·우편·팩스).',
-      family: '가족(8촌 이내)이 대신 신청할 수 있습니다. 본인 신분증과 상황을 알 수 있는 자료를 준비하세요.',
-      agency: '기관 담당자는 본인 동의를 받은 뒤 신청합니다. 동의를 받기 어렵고 긴급하면 행정복지센터에 직권 신청을 요청하세요.'
+      family: '배우자·부모·자녀 등 친족이나 후견인이 대신 신청할 수 있습니다. 신청하는 사람의 신분증과 본인의 상황을 알 수 있는 자료를 준비하세요.',
+      agency: '복지부장관이 인정한 기관의 담당자는 본인이나 가족의 동의를 받은 뒤 신청합니다. 동의를 받기 어렵고 위기상황이면 행정복지센터에 직권 신청을 요청하세요.'
     }[a.who] || '';
 
-    return { level, headline, note, scope, flags, priority, exOfficio, preExamWaived, domains: domainsHit, serviceIds: ids, applicant };
+    return { level, headline, note, scope, flags, priority, exOfficio, agencyApply, preExamWaived, domains: domainsHit, serviceIds: ids, applicant };
   }
 
   /* 개인별지원계획 초안: 모니터링 날짜(첫 회의 + 1개월, 이후 3개월마다 1년), 연계 점검 */

@@ -1,0 +1,77 @@
+/* © 2026 오산세교종합사회복지관 김지훈 팀장.
+   공통 도구 UI v1 (2026-11-25) — 통합돌봄 길잡이·복지혜택 자가점검이 메인 복지자원 찾기·OY-RALS와 같은 움직임과 창을 쓰도록 한 층.
+   - 움직임 토큰: 빠른 반응 150ms, 일반 전환 240ms(OY-RALS v16과 같음). 움직임 줄이기 설정이면 모두 끔.
+   - 창: 메인 v9-dialog와 같은 모양(PC 가운데, 휴대폰 아래에서 올라오는 시트).
+   - 반짝임: 아직 누르지 않은 다음 단계 버튼만 숨 쉬듯 빛나고 빛줄기가 지나감(OY-RALS 역할 칸·자세히 보기와 같은 방식). 누르면 멈춤.
+   - 긴급 전화 버튼: 메인 첫 화면 오른쪽 아래 버튼과 같은 자리·모양. */
+:root{--tu-dur-fast:150ms;--tu-dur:240ms;--tu-ease:cubic-bezier(.2,.7,.2,1);--tu-ink:#16273a;--tu-sub:#46586b;--tu-rule:#dfe5ec;--tu-fill:#f2f5f8;--tu-accent:#1765bd;--tu-glow:23,101,189}
+
+/* 떠오름: 탭을 바꾸거나 결과가 나올 때 새 내용만 짧게 */
+@keyframes tu-enter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.tu-enter{animation:tu-enter var(--tu-dur) var(--tu-ease) both}
+.tu-stagger>*{animation:tu-enter var(--tu-dur) var(--tu-ease) both}
+.tu-stagger>*:nth-child(2){animation-delay:40ms}.tu-stagger>*:nth-child(3){animation-delay:80ms}.tu-stagger>*:nth-child(4){animation-delay:120ms}.tu-stagger>*:nth-child(5){animation-delay:160ms}.tu-stagger>*:nth-child(n+6){animation-delay:200ms}
+
+/* 반짝이는 다음 단계 버튼 */
+.tu-shine{position:relative;overflow:hidden;isolation:isolate;animation:tu-glow 2.6s ease-in-out infinite}
+.tu-shine::after{content:"";position:absolute;top:-20%;bottom:-20%;left:-60%;width:30%;z-index:-1;background:linear-gradient(100deg,transparent 0%,rgba(255,255,255,.6) 50%,transparent 100%);transform:skewX(-20deg);animation:tu-sweep 2.6s ease-in-out infinite;pointer-events:none}
+.tu-shine.tu-done{animation:none}.tu-shine.tu-done::after{display:none}
+@keyframes tu-glow{0%,100%{box-shadow:0 2px 8px rgba(var(--tu-glow),.25)}50%{box-shadow:0 0 0 4px rgba(var(--tu-glow),.16),0 6px 18px rgba(var(--tu-glow),.34)}}
+@keyframes tu-sweep{0%{left:-60%}55%,100%{left:130%}}
+.tu-down{display:inline-block;animation:tu-down 1.6s ease-in-out infinite}
+@keyframes tu-down{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
+
+/* 눌렀을 때 살짝 눌리는 느낌 */
+.tu-press{transition:transform var(--tu-dur-fast) var(--tu-ease),box-shadow var(--tu-dur-fast) var(--tu-ease),background-color var(--tu-dur-fast) var(--tu-ease),border-color var(--tu-dur-fast) var(--tu-ease)}
+.tu-press:active{transform:scale(.985)}
+.tu-lift{transition:transform var(--tu-dur) var(--tu-ease),box-shadow var(--tu-dur) var(--tu-ease),border-color var(--tu-dur-fast) var(--tu-ease)}
+.tu-lift:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(18,43,59,.10)}
+
+/* 창(메인 v9-dialog와 같은 모양) */
+.tu-dialog{border:0;padding:0;margin:auto;width:min(760px,calc(100vw - 32px));max-height:calc(100vh - 48px);border-radius:22px;background:#fff;color:var(--tu-ink);box-shadow:0 30px 80px rgba(10,25,40,.35);font-family:inherit}
+.tu-dialog[open]{display:flex;flex-direction:column;overflow:hidden;animation:tu-pop var(--tu-dur) var(--tu-ease) both}
+.tu-dialog::backdrop{background:rgba(10,25,40,.5)}
+@keyframes tu-pop{from{opacity:0;transform:translateY(12px) scale(.985)}to{opacity:1;transform:none}}
+.tu-dlg-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:20px 24px 16px;border-bottom:1px solid var(--tu-rule)}
+.tu-dlg-head h2{margin:2px 0 0;font-size:21px;line-height:1.35;letter-spacing:-.02em}
+.tu-dlg-kicker{display:block;font-size:13px;font-weight:700;color:var(--tu-sub)}
+.tu-dlg-close{flex:none;min-height:40px;padding:0 16px;border-radius:999px;border:1px solid var(--tu-rule);background:#fff;color:var(--tu-ink);font:inherit;font-weight:700;cursor:pointer}
+.tu-dlg-close:hover,.tu-dlg-close:focus-visible{border-color:var(--tu-accent);color:var(--tu-accent)}
+.tu-dlg-body{flex:1 1 auto;min-height:0;overflow:auto;padding:18px 24px 22px;line-height:1.7;overscroll-behavior:contain}
+.tu-dlg-body h3{font-size:16px;margin:18px 0 6px}.tu-dlg-body h3:first-child{margin-top:0}
+.tu-dlg-body p{margin:6px 0}
+.tu-dlg-foot{display:flex;justify-content:flex-end;flex-wrap:wrap;gap:8px;padding:14px 24px calc(14px + env(safe-area-inset-bottom));border-top:1px solid var(--tu-rule)}
+.tu-dlg-foot a,.tu-dlg-foot button{display:inline-flex;align-items:center;min-height:44px;padding:0 20px;border-radius:999px;font:inherit;font-weight:700;cursor:pointer;border:1px solid var(--tu-accent);background:#fff;color:var(--tu-accent);text-decoration:none}
+.tu-dlg-foot .tu-primary{background:var(--tu-accent);color:#fff}
+html.tu-lock{overflow:hidden}
+
+@media (min-width:641px){.tu-dialog.tu-wide{width:min(980px,calc(100vw - 32px))}}
+
+/* 긴급 전화 버튼(메인과 같은 자리) */
+.tu-sos{position:fixed;right:20px;bottom:20px;z-index:44;display:inline-flex;align-items:center;gap:6px;min-height:48px;padding:0 18px;border-radius:999px;border:1px solid #f0c7c7;background:#fff;color:#b02424;font:inherit;font-weight:800;box-shadow:0 8px 24px rgba(18,43,59,.16);cursor:pointer}
+.tu-sos:hover,.tu-sos:focus-visible{background:#fff4f4}
+.tu-hot{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:8px}
+.tu-hot a{display:flex;flex-direction:column;gap:2px;padding:12px 14px;border:1px solid var(--tu-rule);border-radius:14px;text-decoration:none;color:var(--tu-ink)}
+.tu-hot a:hover,.tu-hot a:focus-visible{border-color:#b02424;background:#fff7f7}
+.tu-hot b{font-size:20px;color:#b02424;font-variant-numeric:tabular-nums}.tu-hot span{font-size:14px;color:var(--tu-sub)}
+
+/* 진행 띠: 고른 개수를 바로 보여 줌 */
+.tu-progress{display:flex;align-items:center;flex-wrap:wrap;gap:6px 14px;font-size:14px;color:var(--tu-sub)}
+.tu-progress b{color:var(--tu-ink);font-variant-numeric:tabular-nums}
+.tu-count{margin:0 3px;display:inline-grid;place-items:center;min-width:24px;height:24px;padding:0 7px;border-radius:999px;background:var(--tu-accent);color:#fff;font-size:13px;font-weight:800;font-variant-numeric:tabular-nums;transition:transform var(--tu-dur-fast) var(--tu-ease)}
+.tu-count.tu-bump{transform:scale(1.18)}
+
+@media (max-width:640px){
+  .tu-dialog{width:100%;max-width:100%;max-height:88dvh;margin:auto 0 0;border-radius:22px 22px 0 0}
+  .tu-dialog[open]{animation-name:tu-sheet}
+  .tu-dlg-head{padding:16px 18px 12px}.tu-dlg-body{padding:14px 18px 18px}.tu-dlg-foot{padding:12px 18px calc(12px + env(safe-area-inset-bottom))}
+  .tu-sos{right:12px;bottom:12px;min-height:44px;padding:0 14px}
+}
+@keyframes tu-sheet{from{transform:translateY(24px);opacity:.4}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){
+  .tu-enter,.tu-stagger>*,.tu-dialog[open],.tu-shine,.tu-down{animation:none!important}
+  .tu-shine::after{display:none}
+  .tu-press,.tu-lift,.tu-count{transition:none}
+  .tu-lift:hover{transform:none}
+}
+@media print{.tu-sos,.tu-dialog{display:none!important}}

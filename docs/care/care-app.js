@@ -3,6 +3,7 @@
 (function () {
   'use strict';
   const C = window.CARE_DATA, M = window.CareModel, W = window.WELFARE_DATA;
+  const UI = window.ToolsUI || { open() {}, enter() {}, done() {}, bump(el, n) { if (el) el.textContent = n; }, sos() {} };
   const $ = (s, r) => (r || document).querySelector(s);
   const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
   const esc = v => String(v == null ? '' : v).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -23,6 +24,7 @@
       panel.hidden = t !== tab;
       link.setAttribute('aria-selected', String(t === tab));
       if (t === tab) link.setAttribute('aria-current', 'page'); else link.removeAttribute('aria-current');
+      if (t === tab) UI.enter(panel);
     });
     if (tab === 'map') renderMap();
   }
@@ -36,11 +38,16 @@
     $('#channelRow').innerHTML = Object.entries(C.channels).map(([k, c]) => `<div class="channel ch-${k}"><b>${esc(c.label)}</b><p>${esc(c.text)}</p></div>`).join('');
     const o = C.osan;
     if (o) $('#osanBox').innerHTML = `<div class="osan-contact"><p class="oc-kicker">총괄·기관 연계 문의</p><h3>${esc(o.dept)}</h3><a class="oc-tel" href="${telHref(o.phone)}">${esc(o.phone)}</a><p class="muted">${esc(o.phoneNote)}</p><p>주민 신청은 <b>주소지 동 행정복지센터</b>에서 합니다.</p>${o.staff ? `<ul class="oc-staff">${o.staff.slice(1).map(x => `<li><a href="${telHref(x.phone)}">${esc(x.phone)}</a><span>${esc(x.role)}</span></li>`).join('')}</ul><p class="muted">${esc(o.staffNote)} <a href="${esc(safeUrl(o.staffSource))}" target="_blank" rel="noopener noreferrer">시청 검색 ↗</a></p>` : ''}</div><ul class="osan-facts">${o.facts.map(f => `<li><p>${esc(f.text)}</p><small><a href="${esc(safeUrl(f.source))}" target="_blank" rel="noopener noreferrer">출처 ↗</a> · ${esc(f.date)}</small></li>`).join('')}</ul>`;
+    const ap = C.apply;
+    if (ap) $('#applyBox').innerHTML = `<article class="apply-card"><p class="ap-k">어디에</p><h3>${esc(ap.where)}</h3><p class="muted">방문해서 신청합니다. 사전조사는 접수 뒤 5일 안에 대면이나 전화로 합니다(복지부 이용안내).</p></article>
+      <article class="apply-card"><p class="ap-k">누가</p><ul>${ap.who.map(w => `<li>${esc(w)}</li>`).join('')}</ul><small>시행규칙 제7조 · 시행령 제4조</small></article>
+      <article class="apply-card"><p class="ap-k">무엇으로</p><p>${esc(ap.form)}</p><p class="ap-links"><a href="${esc(safeUrl(C.sources.lawForms))}" target="_blank" rel="noopener noreferrer">시행규칙·서식 원문 ↗</a><button type="button" class="link-btn" data-open="apply">챙길 것 보기</button></p></article>`;
+    if (C.news) $('#newsList').innerHTML = C.news.map(n => `<li class="tu-lift"><time datetime="${esc(n.date)}">${esc(n.date.replace(/-/g, '.'))}</time><div><h3>${esc(n.title)}</h3><p>${esc(n.text)}</p><small><a href="${esc(safeUrl(n.source))}" target="_blank" rel="noopener noreferrer">${esc(n.by)} ↗</a></small></div></li>`).join('');
     const s = C.sources;
-    $('#lawSources').innerHTML = `원문 확인: <a href="${esc(s.law)}" target="_blank" rel="noopener noreferrer">국가법령정보센터 ↗</a> · <a href="${esc(s.decree)}" target="_blank" rel="noopener noreferrer">시행령 입법 정보 ↗</a> · <a href="${esc(s.guide)}" target="_blank" rel="noopener noreferrer">복지부 통합돌봄 이용안내 ↗</a>`;
+    $('#lawSources').innerHTML = `원문 확인: <a href="${esc(s.law)}" target="_blank" rel="noopener noreferrer">국가법령정보센터 ↗</a> · <a href="${esc(s.decree)}" target="_blank" rel="noopener noreferrer">시행령 입법 정보 ↗</a> · <a href="${esc(s.rule)}" target="_blank" rel="noopener noreferrer">시행규칙 공포 정보 ↗</a> · <a href="${esc(s.promulgation)}" target="_blank" rel="noopener noreferrer">공포 보도자료 ↗</a> · <a href="${esc(s.guide)}" target="_blank" rel="noopener noreferrer">복지부 통합돌봄 이용안내 ↗</a>`;
   }
 
-  /* ---------- 02 신청 전 확인 ---------- */
+  /* ---------- 02 미리 살펴보기(옛 이름: 신청 전 확인) ---------- */
   function renderCheckForm() {
     $('#ltcSelect').innerHTML = M.ltcOptions.map(o => `<option value="${o.id}"${o.id === 'none' ? ' selected' : ''}>${esc(o.label)}</option>`).join('');
     const groups = C.domains.map(d => {
@@ -49,6 +56,15 @@
       return `<div class="q-group d-${d.id}"><h3>${esc(d.label)}</h3>${qs.map(q => `<label class="q"><input type="checkbox" name="yes" value="${q.id}"><span>${esc(q.text)}</span></label>`).join('')}</div>`;
     });
     $('#questionList').innerHTML = groups.join('');
+  }
+
+  function updatePick() {
+    const yes = $$('input[name="yes"]:checked');
+    const doms = new Set(yes.map(i => (M.questions.find(q => q.id === i.value) || {}).domain).filter(Boolean));
+    if ($('#ltcSelect').value === 'grade') doms.add('ltc');
+    UI.bump($('#pickCount'), yes.length);
+    $('#pickDomains').textContent = doms.size;
+    $('#pickHint').textContent = doms.size >= 2 ? '여러 영역에 걸쳐 있습니다. 결과에서 신청 창구를 함께 보여 드립니다.' : doms.size === 1 ? '한 영역입니다. 그 영역 서비스부터 연결할 수 있습니다.' : '두 영역 이상이면 통합돌봄 상담을 권합니다.';
   }
 
   function readCheck() {
@@ -83,25 +99,60 @@
         ${r.level !== 'emergency' && r.note ? `<p>${esc(r.note)}</p>` : ''}
         ${r.domains.length ? `<div class="chips">${r.domains.map(d => `<span class="chip d-${d}">${esc(domainOf(d).label)}</span>`).join('')}</div>` : ''}
       </div>
-      <div class="facts">
+      <div class="facts tu-stagger">
         <div><h4>대상 범위</h4><p>${esc(r.scope.label)}</p></div>
         ${r.priority.length ? `<div><h4>1단계 우선지원 대상 단서</h4><ul>${r.priority.map(p => `<li>${esc(p)}</li>`).join('')}</ul></div>` : ''}
-        ${r.exOfficio.length ? `<div><h4>직권 신청을 요청할 수 있는 경우</h4><ul>${r.exOfficio.map(p => `<li>${esc(p)}</li>`).join('')}</ul><p class="muted">시·군·구가 내용을 설명하고 본인 동의를 받아 대신 신청합니다(법 제10조 ②).</p></div>` : ''}
+        ${r.exOfficio.length ? `<div><h4>직권 신청을 요청할 수 있는 경우</h4><ul>${r.exOfficio.map(p => `<li>${esc(p)}</li>`).join('')}</ul><p class="muted">담당 공무원이 내용을 설명하고 본인 동의를 받아 대신 신청합니다(법 제10조 ②, 시행령 제4조).</p></div>` : ''}
+        ${r.agencyApply && r.agencyApply.length ? `<div><h4>기관 담당자가 신청할 수 있습니다</h4><ul>${r.agencyApply.map(p => `<li>${esc(p)}</li>`).join('')}</ul><p class="muted">시행규칙 제7조</p></div>` : ''}
         ${r.preExamWaived ? '<div><h4>사전조사 면제</h4><p>의료기관 퇴원 연계로 신청하면 사전조사 없이 통합판정조사로 넘어갑니다(복지부 이용안내).</p></div>' : ''}
         ${r.applicant ? `<div><h4>신청 방법</h4><p>${esc(r.applicant)}</p></div>` : ''}
       </div>
       ${(r.level === 'apply' || r.level === 'emergency' || r.level === 'single') ? `<div class="windows-box"><h4>오산 신청 창구</h4><p class="muted">주소지 행정복지센터 또는 국민건강보험공단 지사(1577-1000). 사전조사는 접수 5일 이내에 합니다.</p>${windowsList()}${C.osan ? `<p class="muted">기관 연계·사업 문의: ${esc(C.osan.dept)} <a href="${telHref(C.osan.phone)}">${esc(C.osan.phone)}</a> (팀장, 업무 총괄)</p>` : ''}</div>` : ''}
-      ${services.length ? `<h4 class="svc-title">먼저 살펴볼 서비스 ${Math.min(services.length, 6)}가지</h4><div class="svc-grid">${services.slice(0, 6).map(svcCard).join('')}</div>${services.length > 6 ? `<details class="more-svc"><summary>함께 검토할 서비스 ${services.length - 6}가지 더 보기</summary><div class="svc-grid">${services.slice(6).map(svcCard).join('')}</div></details>` : ''}` : ''}
+      ${services.length ? `<h4 class="svc-title">먼저 살펴볼 서비스 ${Math.min(services.length, 6)}가지</h4><p class="muted">카드의 버튼을 누르면 오산·경기·전국 연결 기관이 창으로 열립니다.</p><div class="svc-grid tu-stagger">${services.slice(0, 6).map(svcCard).join('')}</div>${services.length > 6 ? `<details class="more-svc"><summary>함께 검토할 서비스 ${services.length - 6}가지 더 보기</summary><div class="svc-grid">${services.slice(6).map(svcCard).join('')}</div></details>` : ''}` : ''}
       <div class="form-actions"><a class="btn primary" href="#plan" id="toPlan">이 결과로 지원계획 초안 쓰기 (실무자)</a><button type="button" class="btn ghost" id="printCheck">결과 인쇄</button></div>`;
-    function svcCard(s) { return `<article class="svc d-${s.domain}"><p class="svc-meta"><span>${esc(domainOf(s.domain).label)}</span><span class="ch ch-${s.channel}">${esc(C.channels[s.channel].short)}</span></p><h5>${esc(s.name)}</h5><p>${esc(s.what)}</p>${s.osan ? `<p class="osan-note">${esc(s.osan)}</p>` : ''}${resourceList(s, 3)}</article>`; }
+    function svcCard(s) {
+      const n = W ? M.matchResources(s, W, { dedupeOrg: true }) : [];
+      const osanN = n.filter(r => r.level === '오산시').length;
+      return `<article class="svc d-${s.domain} tu-lift"><p class="svc-meta"><span>${esc(domainOf(s.domain).label)}</span><span class="ch ch-${s.channel}">${esc(C.channels[s.channel].short)}</span></p><h5>${esc(s.name)}</h5><p>${esc(s.what)}</p><button type="button" class="svc-open tu-press" data-svc="${esc(s.id)}" aria-haspopup="dialog">${n.length ? `연결 기관 ${n.length}곳${osanN ? ` · 오산 ${osanN}` : ''}` : '공식 안내 확인'} <span aria-hidden="true">→</span></button></article>`;
+    }
     box.hidden = false;
+    UI.enter(box);
     $('#printCheck').addEventListener('click', () => printHtml(checkPrintHtml(r, services)));
     $('#toPlan').addEventListener('click', () => { fillPlanFromCheck(); });
+    box.addEventListener('click', e => { const b = e.target.closest('[data-svc]'); if (b) openService(b.dataset.svc); });
     box.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
+  /* 서비스 창: 하는 일·근거·오산 사정·연결 기관 전체 */
+  function openService(id) {
+    const s = svcOf(id); if (!s) return;
+    const src = safeUrl(s.source);
+    UI.open({
+      kicker: `${domainOf(s.domain).label} · ${C.channels[s.channel].label}`,
+      title: s.name,
+      html: `<p>${esc(s.what)}</p>${s.osan ? `<p class="osan-note">${esc(s.osan)}</p>` : ''}<h3>연결할 수 있는 기관</h3>${resourceList(s, 12)}<p class="muted">근거 ${esc(s.law)} · 자격과 이용 가능 여부는 기관에 확인해 주세요.</p>`,
+      foot: (src ? `<a href="${esc(src)}" target="_blank" rel="noopener noreferrer">공식 안내 ↗</a>` : '') + '<button type="button" class="tu-primary" data-close>닫기</button>'
+    });
+  }
+
+  function openHow() {
+    UI.open({
+      kicker: '오산 통합돌봄 길잡이', title: '이 화면 쓰는 법',
+      html: `<ol class="how-list"><li><b>01 법 한눈에</b> 통합돌봄이 무엇이고 어떤 순서로 진행되는지, 오산시 담당 창구와 신청 방법을 봅니다.</li><li><b>02 미리 살펴보기</b> 요즘 어려운 일을 고르면 몇 개 영역에 걸쳐 있는지, 어디에 신청하고 어떤 서비스를 먼저 볼지 알려 줍니다.</li><li><b>03 지원계획 초안</b> 실무자가 통합지원회의 전에 법이 정한 계획 항목을 빠짐없이 적도록 돕습니다.</li><li><b>04 돌봄 자원 지도</b> 법의 서비스 영역마다 오산에서 연결할 수 있는 기관과 아직 자료가 없는 곳을 보여 줍니다.</li></ol><p class="muted">이 화면은 대상 여부를 판정하지 않습니다. 고른 내용은 화면에만 있고 저장하거나 보내지 않으며, 창을 닫거나 새로고침하면 사라집니다.</p>`,
+      foot: '<a class="tu-primary" href="#check" data-close>미리 살펴보기 시작</a>'
+    });
+  }
+  function openApply() {
+    const ap = C.apply;
+    UI.open({
+      kicker: '시행규칙 제7조 · 복지부 이용안내', title: '신청할 때 챙길 것',
+      html: `<h3>어디에</h3><p>${esc(ap.where)}</p><h3>누가</h3><ul>${ap.who.map(w => `<li>${esc(w)}</li>`).join('')}</ul><h3>신청서</h3><p>${esc(ap.form)}</p><h3>있으면 상담이 빨라지는 것</h3><ul class="bring">${ap.bring.map(w => `<li>${esc(w)}</li>`).join('')}</ul><p class="muted">${esc(ap.bringNote)}</p>`,
+      foot: `<a href="${esc(safeUrl(C.sources.lawForms))}" target="_blank" rel="noopener noreferrer">서식 원문 ↗</a><button type="button" class="tu-primary" data-close>닫기</button>`
+    });
+  }
+
   function checkPrintHtml(r, services) {
-    return `<h1>통합돌봄 신청 전 확인 결과</h1><p class="p-note">판정이 아닌 상담 준비 자료입니다. 대상 여부는 시·군·구 종합판정으로 정해집니다. 출력일 ${today()}</p>
+    return `<h1>통합돌봄 미리 살펴보기 결과</h1><p class="p-note">판정이 아닌 상담 준비 자료입니다. 대상 여부는 시·군·구 종합판정으로 정해집니다. 출력일 ${today()}</p>
       <h2>${esc(r.headline)}</h2><p>${esc(r.note)}</p>
       <p><b>어려운 영역</b> ${r.domains.map(d => esc(domainOf(d).label)).join(', ') || '없음'}</p>
       <p><b>대상 범위</b> ${esc(r.scope.label)}</p>
@@ -147,7 +198,7 @@
     const v = M.planReview({ rows: plan.rows, linkage: $('#linkage').value, consent: $('#consent').checked, meeting: $('#meetingDate').value }, C.services);
     $('#planReview').innerHTML = `<div class="pr-stats"><span><b>${v.count}</b>개 서비스</span><span><b>${v.domains.length}</b>개 영역</span><span><b>${v.providers}</b>개 제공 주체</span></div>
       ${v.warnings.length ? `<ul class="warn">${v.warnings.map(w => `<li>${esc(w)}</li>`).join('')}</ul>` : '<p class="ok">법이 정한 계획 항목이 모두 채워졌습니다. 통합지원회의에서 본인·가족 의견과 함께 확정하세요.</p>'}
-      ${v.monitor.length ? `<div class="monitor"><h4>모니터링 일정(법 제14조 ④, 복지부 권고)</h4><ol>${v.monitor.map(m => `<li>${esc(m.label)} <b>${esc(m.date)}</b>까지</li>`).join('')}</ol></div>` : '<p class="muted">통합지원회의일을 넣으면 모니터링 날짜(1개월 안, 이후 3개월마다)를 계산합니다.</p>'}`;
+      ${v.monitor.length ? `<div class="monitor"><h4>모니터링 일정(복지부 이용안내 권고 · 시행규칙 제10조는 처음 3개월 이내, 그 뒤 6개월 이내 범위)</h4><ol>${v.monitor.map(m => `<li>${esc(m.label)} <b>${esc(m.date)}</b>까지</li>`).join('')}</ol></div>` : '<p class="muted">통합지원회의일을 넣으면 모니터링 날짜(1개월 안, 이후 3개월마다)를 계산합니다.</p>'}`;
     return v;
   }
   function bindPlan() {
@@ -172,7 +223,7 @@
     $('#printPlan').addEventListener('click', () => printHtml(planPrintHtml()));
   }
   function fillPlanFromCheck() {
-    if (!lastCheck) { $('#planReview').insertAdjacentHTML('afterbegin', '<p class="warn-one">먼저 「신청 전 확인」에서 결과를 본 뒤 눌러 주세요.</p>'); return; }
+    if (!lastCheck) { $('#planReview').insertAdjacentHTML('afterbegin', '<p class="warn-one">먼저 「미리 살펴보기」에서 결과를 본 뒤 눌러 주세요.</p>'); return; }
     plan.rows = [];
     lastCheck.serviceIds.slice(0, 6).forEach(addRow);
     renderPlan();
@@ -228,8 +279,15 @@
     renderCheckForm();
     $('#hotlines').innerHTML = C.hotlines.map(h => `<li><a href="tel:${esc(h.tel)}"><b>${esc(h.num)}</b><span>${esc(h.label)}</span></a></li>`).join('');
     $('#checkedOn').textContent = C.checkedOn;
-    $('#checkForm').addEventListener('submit', e => { e.preventDefault(); lastCheck = M.evaluate(readCheck()); renderCheckResult(lastCheck); });
-    $('#checkForm').addEventListener('reset', () => { lastCheck = null; $('#checkResult').hidden = true; $('#checkResult').innerHTML = ''; });
+    $('#checkForm').addEventListener('submit', e => { e.preventDefault(); lastCheck = M.evaluate(readCheck()); UI.done($('#runCheck')); renderCheckResult(lastCheck); });
+    $('#checkForm').addEventListener('reset', () => { lastCheck = null; $('#checkResult').hidden = true; $('#checkResult').innerHTML = ''; $('#runCheck').classList.remove('tu-done'); setTimeout(updatePick, 0); });
+    $('#checkForm').addEventListener('change', updatePick);
+    updatePick();
+    $('#heroStart').addEventListener('click', () => UI.done($('#heroStart')));
+    $('#openHow').addEventListener('click', openHow);
+    $('#openApply').addEventListener('click', openApply);
+    $('#applyBox').addEventListener('click', e => { if (e.target.closest('[data-open="apply"]')) openApply(); });
+    UI.sos(C.hotlines.map(h => [h.num, h.label]), '생명·신체가 위험하면 <b>119·112가 먼저</b>입니다. 통합돌봄 신청은 응급 대응이 끝난 뒤에 이어 갈 수 있습니다.');
     bindPlan();
     renderPlan();
     show(location.hash.slice(1));
