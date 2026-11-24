@@ -1,6 +1,6 @@
 /* © 2026 오산세교종합사회복지관 김지훈 팀장. All rights reserved. */
 window.WELFARE_DATA = {
-  "date": "2026-11-02",
+  "date": "2026-11-24",
   "schemaVersion": 2,
   "note": "기존 자료 정리일이며, 기관·사업별 실제 운영 확인일과 다릅니다. 연계 전 최신 공식 공고를 확인해 주세요.",
   "taxonomy": {
@@ -894,7 +894,7 @@ window.WELFARE_DATA = {
       "phone": "031-372-4004",
       "source": "https://www.osan1318.or.kr/1318/main.do",
       "scope": "오산시",
-      "reviewed": "2026-10-20",
+      "reviewed": "2026-11-24",
       "status": "미확인",
       "jurisdiction": "",
       "services": [
@@ -957,6 +957,86 @@ window.WELFARE_DATA = {
           "operationType": "확인 필요",
           "localAvailable": "확인 필요",
           "source": "https://www.cyber1388.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-N24-004",
+          "name": "심리위기 예방·개입·회복 통합지원(자해 예방)",
+          "category": "정신건강",
+          "target": "협약 학교 학생(2026년 보도 기준 6개교) 및 자해·자살 고위험 청소년",
+          "description": "학급 단위 자해 예방 프로그램, 고위험군 개인·집단·가족 상담, 위기개입·사례관리. 2026년 사회복지공동모금회 배분 사업(언론 보도).",
+          "method": "학교 위기학생 발굴 후 센터 의뢰(031-372-4004). 협약 외 학교 참여 가능 여부는 센터 확인",
+          "operation": "언론 보도로 존재 확인, 공식 안내 미열람. 연계 전 센터에 직접 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청소년"
+            ],
+            "need": [
+              "정신건강",
+              "안전·권리보호",
+              "사례관리"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "협력기관 추천",
+              "전화"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.vision21.kr/news/article.html?no=572249",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-N24-005",
+          "name": "1388청소년지원단 위기청소년 발견·연계",
+          "category": "교육·청소년",
+          "target": "오산시 위기청소년",
+          "description": "지역 약국·의료기관·상담센터·학원 등 민간 위원(2026년 7월 13명 위촉)이 위기청소년을 발견하면 상담·의료·복지 기관으로 연계. 위원별 지원 내용은 다름.",
+          "method": "청소년상담복지센터(031-372-4004) 또는 1388로 연계 요청",
+          "operation": "언론 보도로 존재 확인, 공식 안내 미열람. 연계 전 센터에 직접 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청소년",
+              "위기가구"
+            ],
+            "need": [
+              "사례관리",
+              "안전·권리보호"
+            ],
+            "form": [
+              "정보 제공",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화",
+              "협력기관 추천"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.ajunews.com/view/20260724134429563",
           "verification": {
             "status": "미확인",
             "date": "",
@@ -1095,8 +1175,8 @@ window.WELFARE_DATA = {
       "phone": "031-374-8680",
       "source": "https://www.osmh.or.kr/",
       "scope": "오산시",
-      "reviewed": "2026-10-20",
-      "status": "미확인",
+      "reviewed": "2026-11-24",
+      "status": "운영중",
       "jurisdiction": "",
       "services": [
         {
@@ -1135,33 +1215,37 @@ window.WELFARE_DATA = {
           "id": "SVC-00028",
           "name": "아동청소년 정신건강 연계",
           "category": "정신건강",
-          "target": "정서·행동 어려움이 있는 아동·청소년",
-          "description": "정신건강 상담·연계 프로그램",
-          "method": "센터 상담",
-          "operation": "사업별 확인",
-          "editedOn": "2026-10-20",
+          "target": "만 18세 이하 아동·청소년과 보호자, 유관기관",
+          "description": "정서·행동 선별검사와 상담, 정서행동특성검사 2차 검사 연계, 이동상담, 등록 사례관리(지속상담·보호자 상담·지역자원 연계), 초등 사회기술훈련, 부모-자녀 소통 프로그램, 찾아가는 교육·교사 교육.",
+          "method": "센터 대표전화 031-374-8680 내선 1(아동청소년)",
+          "operation": "공식 사업안내 확인. 현재 대기·등록 여부는 센터 확인.",
+          "editedOn": "2026-11-24",
           "tags": {
             "target": [
               "아동",
               "청소년"
             ],
             "need": [
-              "정신건강"
+              "정신건강",
+              "사례관리"
             ],
             "form": [
               "상담"
             ],
-            "intake": []
+            "intake": [
+              "전화",
+              "협력기관 추천"
+            ]
           },
           "operationType": "확인 필요",
-          "localAvailable": "확인 필요",
-          "source": "https://www.osan.go.kr/",
+          "localAvailable": "가능",
+          "source": "https://www.osmh.or.kr/Business",
           "verification": {
-            "status": "미확인",
-            "date": "",
-            "method": "",
-            "by": "",
-            "next": ""
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공식 사업안내 원문에서 대상·사업 범위 확인; 현재 접수·대기 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
           },
           "contacts": [],
           "rounds": []
@@ -1201,20 +1285,103 @@ window.WELFARE_DATA = {
           },
           "contacts": [],
           "rounds": []
+        },
+        {
+          "id": "SVC-N24-002",
+          "name": "자살 시도자·유족 지원과 위기 대응",
+          "category": "정신건강",
+          "target": "오산시 거주 자살 생각·시도자, 자살유족",
+          "description": "고위험군 사례관리, 자살 응급 위기 대응 지원, 자살유족 지원, 치료비 지원. 생명지킴이 양성·생애주기별 자살예방교육 운영. 24시간 위기상담은 109.",
+          "method": "센터 031-374-8680 내선 2(자살예방센터). 즉시 위험은 112·119, 24시간 상담 109",
+          "operation": "공식 사업안내 확인. 치료비 지원은 예산 소진 시 마감.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청소년",
+              "청년",
+              "중장년",
+              "노인",
+              "위기가구"
+            ],
+            "need": [
+              "정신건강",
+              "사례관리",
+              "안전·권리보호"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공",
+              "현금"
+            ],
+            "intake": [
+              "전화",
+              "협력기관 추천"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "가능",
+          "source": "https://www.osmh.or.kr/Business",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공식 사업안내 원문에서 대상·사업 범위 확인; 치료비 예산·현재 접수 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-N24-003",
+          "name": "경기도 청(소)년 마인드케어 외래진료비 지원",
+          "category": "정신건강",
+          "target": "만 15~34세 (정신건강 외래진료가 필요한 청소년·청년)",
+          "description": "정신건강의학과 외래진료비를 연 36만원까지 지원. 예산 소진 시 지원 불가. 세부 소득·서류 요건은 센터 확인.",
+          "method": "센터 031-374-8680 내선 4(정신건강증진·청년마인드케어)",
+          "operation": "공식 사업안내 확인. 예산 잔여·서류는 센터 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청소년",
+              "청년"
+            ],
+            "need": [
+              "정신건강",
+              "의료·건강"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": [
+              "전화"
+            ]
+          },
+          "operationType": "공모형",
+          "localAvailable": "확인 필요",
+          "source": "https://www.osmh.or.kr/Business",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공식 사업안내 원문에서 연령·한도 확인; 예산 잔여·서류 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
         }
       ],
       "contact": {
         "contact_id": "CON-b89fdc14c6",
         "owner_type": "organization",
         "owner_id": "b89fdc14c6",
-        "dept": "",
+        "dept": "내선 1 아동청소년 · 2 자살예방센터 · 4 정신건강증진(청년마인드케어)",
         "phone": "031-374-8680",
         "fax": "031-373-8680",
         "email": "osmh1998@naver.com",
         "hours": "",
         "note": "대표전화",
-        "source_url": "https://www.osmh.or.kr/",
-        "verified_on": "2026-10-22"
+        "source_url": "https://www.osmh.or.kr/Business",
+        "verified_on": "2026-11-24"
       },
       "address": "경기도 오산시 경기동로 59, 오산시보건소 2층",
       "addressSource": "https://www.osan1365.or.kr/board/board.php?orderby=DESC&p=2&table=mn01_04_02",
@@ -3013,8 +3180,8 @@ window.WELFARE_DATA = {
       "phone": "031-248-1318",
       "source": "https://www.hi1318.or.kr/",
       "scope": "경기도",
-      "reviewed": "2026-11-02",
-      "status": "미확인",
+      "reviewed": "2026-11-24",
+      "status": "운영중",
       "jurisdiction": "",
       "services": [
         {
@@ -3022,10 +3189,10 @@ window.WELFARE_DATA = {
           "name": "청소년안전망 광역연계",
           "category": "교육·청소년",
           "target": "위기 청소년·유관기관",
-          "description": "청소년안전망 정보 플랫폼 채움을 통해 지역별 청소년 지원정보와 기관 자원을 확인·연계. 개별 서비스 이용조건은 해당 기관 확인.",
+          "description": "e-청소년안전망 「채움」(cheum.hi1318.or.kr)에서 지역·유형별 청소년 지원 서비스 검색, 상담·심리검사 신청. 개별 서비스 이용조건은 해당 기관 확인.",
           "method": "지역 청소년상담복지센터·1388",
           "operation": "공식 사업안내 확인. 실제 접수·지원 여부는 담당기관 확인.",
-          "editedOn": "2026-10-20",
+          "editedOn": "2026-11-24",
           "tags": {
             "target": [
               "청소년",
@@ -3043,10 +3210,10 @@ window.WELFARE_DATA = {
           "source": "https://www.hi1318.or.kr/base/contents/view?contentsNo=12&menuLevel=3&menuNo=32",
           "verification": {
             "status": "사업별 확인 필요",
-            "date": "2026-11-02",
-            "method": "공식 공개 사업안내에서 서비스 범위 확인; 실제 접수·예산·선정 미확인",
+            "date": "2026-11-24",
+            "method": "공식 사업안내 원문 재열람(채움 기능·연락처); 실제 접수·지원 미확인",
             "by": "자료 관리자",
-            "next": "2026-12-02"
+            "next": "2027-02-24"
           },
           "contacts": [],
           "rounds": []
@@ -13934,6 +14101,156 @@ window.WELFARE_DATA = {
       "addressStatus": "미확인",
       "addressCheckedOn": "",
       "addressNote": "방문주소와 담당 사업창구는 공식 안내에서 별도 확인"
+    },
+    {
+      "id": "ORG-N24-HOWEE",
+      "name": "화성오산교육지원청 Wee센터",
+      "level": "오산시",
+      "kind": "학생상담",
+      "summary": "화성·오산 관내 초·중·고등학생 위기상담·심리검사·치료와 지역기관 연계를 맡는 교육지원청 Wee센터. 비용 무료.",
+      "site": "https://www.goehs.kr/goehs/cm/cntnts/cntntsView.do?cntntsId=2147&mi=18023",
+      "phone": "031-371-0606",
+      "source": "https://www.goehs.kr/goehs/cm/cntnts/cntntsView.do?cntntsId=2147&mi=18023",
+      "scope": "오산시",
+      "reviewed": "2026-11-24",
+      "status": "운영중",
+      "jurisdiction": "화성시·오산시 초·중·고등학생",
+      "services": [
+        {
+          "id": "SVC-N24-001",
+          "name": "학생 위기상담·심리검사·치료 연계",
+          "category": "정신건강",
+          "target": "화성·오산 관내 초·중·고등학생과 보호자",
+          "description": "위기상담·개인상담·집단상담, 심리검사, 놀이·미술 치료, 특별교육, 지역기관 연계. 예약 후 내방상담 또는 학교순회상담. 비용 무료.",
+          "method": "학교 Wee클래스·담임 의뢰 또는 Wee센터 상담신청 전화(031-371-0606 외) 후 예약 방문",
+          "operation": "공식 안내에서 대상·방법·이용시간 확인. 현재 대기 여부는 센터 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년",
+              "가족·한부모"
+            ],
+            "need": [
+              "정신건강",
+              "교육",
+              "사례관리"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화",
+              "협력기관 추천"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "가능",
+          "source": "https://www.goehs.kr/goehs/cm/cntnts/cntntsView.do?cntntsId=2147&mi=18023",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공식 Wee센터 안내 원문에서 대상·방법·시간·비용 확인; 현재 대기·배정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-N24-HOWEE",
+        "owner_type": "organization",
+        "owner_id": "ORG-N24-HOWEE",
+        "dept": "상담신청(031-371-0606~0609 외, 공식 안내 참조)",
+        "phone": "031-371-0606",
+        "fax": "031-371-0795",
+        "email": "",
+        "hours": "평일 09:00~18:00(점심 12:00~13:00)",
+        "note": "대표전화",
+        "source_url": "https://www.goehs.kr/goehs/cm/cntnts/cntntsView.do?cntntsId=2147&mi=18023",
+        "verified_on": "2026-11-24"
+      },
+      "address": "경기도 오산시 북삼미로 119, 화성오산교육지원청 본관 2층",
+      "addressSource": "https://www.goehs.kr/goehs/cm/cntnts/cntntsView.do?cntntsId=2147&mi=18023",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-11-24",
+      "addressNote": "공식 Wee센터 안내 기준. 방문은 예약 후 내방."
+    },
+    {
+      "id": "ORG-N24-POLICE",
+      "name": "오산경찰서",
+      "level": "오산시",
+      "kind": "경찰",
+      "summary": "학교폭력·가출·아동학대·성폭력 등 청소년 안전 사안 신고·수사와 학교전담경찰관 운영. 오산시 청소년 생명지킴 지역안전망 협의회 참여기관(2026년 보도). 긴급 상황은 112.",
+      "site": "",
+      "phone": "",
+      "source": "https://www.metroseoul.co.kr/article/20261019500514",
+      "scope": "오산시",
+      "reviewed": "2026-11-24",
+      "status": "미확인",
+      "jurisdiction": "오산시",
+      "services": [
+        {
+          "id": "SVC-N24-006",
+          "name": "학교전담경찰관·여성청소년 보호 연계",
+          "category": "법률·금융",
+          "target": "학교폭력·가출·학대·성폭력 등 안전 위험이 있는 아동·청소년",
+          "description": "학교폭력 상담·선도, 가출·실종 청소년 발견과 보호, 아동학대·성폭력 사건 수사 연계. 피해 지원은 해바라기센터 등과 연계.",
+          "method": "긴급 112, 학교폭력 117. 학교전담경찰관은 학교를 통해 연락",
+          "operation": "언론 보도로 협의회 참여 확인, 부서·직통번호 미확인. 연계 전 경찰서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년"
+            ],
+            "need": [
+              "안전·권리보호",
+              "법률·금융"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화",
+              "협력기관 추천"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.metroseoul.co.kr/article/20261019500514",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-N24-POLICE",
+        "owner_type": "organization",
+        "owner_id": "ORG-N24-POLICE",
+        "dept": "",
+        "phone": "",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "",
+        "verified_on": ""
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소·부서 직통번호는 경찰청 공식 안내로 확인 필요"
     }
   ]
 };
