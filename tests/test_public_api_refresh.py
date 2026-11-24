@@ -147,6 +147,16 @@ class PublicApiRefresh(unittest.TestCase):
         self.assertNotIn(secret, buf.getvalue())
         self.assertIn('example.invalid', buf.getvalue())
 
+    def test_matching_levels(self):
+        rows = [{'서비스명': '경기도형 긴급복지(무한돌봄)'}, {'서비스명': '자립준비청년 지원'}, {'서비스명': '긴급복지지원 상담'}]
+        hit, sc = p.best('경기도형 긴급복지 지원사업', rows, '서비스명')
+        self.assertEqual(hit['서비스명'], '경기도형 긴급복지(무한돌봄)')     # 괄호·흔한 낱말 빼고 같음
+        hit, sc = p.best('자립준비청년 자립수당 지급', rows, '서비스명')
+        self.assertIsNone(hit)                                          # 상위 사업과 하위 수당은 같은 것으로 보지 않음
+        hit, sc = p.best('긴급복지 생계지원', rows, '서비스명', p.NEAR_RATIO)
+        self.assertEqual(hit['서비스명'], '긴급복지지원 상담')              # '비슷한 항목 있음'으로 사람이 보게 함
+        self.assertLess(sc, p.MATCH_RATIO)
+
     def test_config_contract(self):
         regions = self.config['regions']
         self.assertTrue(regions['osan']['required'])

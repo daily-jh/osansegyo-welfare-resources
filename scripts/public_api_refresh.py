@@ -178,17 +178,37 @@ def load_db(root):
     return orgs, services, phones
 
 
-def best(name, rows, key):
-    target = norm(name)
-    hit, score = None, 0.0
+NEAR_RATIO = 0.66
+STOP_WORDS = ('경기도', '오산시', '사업', '지원', '운영', '지급')
+
+
+def core(value):
+    value = norm(re.sub(r'\([^)]*\)', '', value or ''))     # 괄호 설명은 빼고 비교
+    for w in STOP_WORDS:
+        value = value.replace(w, '')
+    return value
+
+
+def score(a, b):
+    na, nb = norm(a), norm(b)
+    if not na or not nb:
+        return 0.0
+    if na == nb:
+        return 1.0
+    ca, cb = core(a), core(b)
+    short, long_ = sorted((ca, cb), key=len)
+    if len(short) >= 6 and short in long_ and len(short) / len(long_) >= 0.7:
+        return 0.9                                       # 한쪽 이름이 다른 쪽을 품음(괄호 설명 등)
+    return max(difflib.SequenceMatcher(None, na, nb).ratio(), difflib.SequenceMatcher(None, ca, cb).ratio())
+
+
+def best(name, rows, key, threshold=MATCH_RATIO):
+    hit, top = None, 0.0
     for r in rows:
-        cand = norm(r[key])
-        if not cand:
-            continue
-        s = 1.0 if cand == target else difflib.SequenceMatcher(None, target, cand).ratio()
-        if s > score:
-            hit, score = r, s
-    return (hit, score) if score >= MATCH_RATIO else (None, score)
+        s = score(name, r[key])
+        if s > top:
+            hit, top = r, s
+    return (hit, top) if top >= threshold else (None, top)
 
 
 def compare(records, db):
@@ -201,9 +221,11 @@ def compare(records, db):
                    address=rec.get('address', ''), phone=rec.get('phone', ''), updated=rec.get('updated', ''),
                    link=rec.get('link', ''), api_id=rec.get('id', ''))
         if rec['kind_of_source'] == 'service':
-            hit, _ = best(rec['name'], services, '서비스명')
-            if hit:
+            hit, sc = best(rec['name'], services, '서비스명', NEAR_RATIO)
+            if hit and sc >= MATCH_RATIO:
                 row.update(change='기존과 일치', match_kind='service', match_id=hit['service_id'], match_name=hit['서비스명'])
+            elif hit:
+                row.update(change='비슷한 항목 있음', match_kind='service', match_id=hit['service_id'], match_name=hit['서비스명'])
             else:
                 row['change'] = '신규 후보'
         else:
@@ -280,10 +302,11 @@ def run(config, root, now, fixtures=None, env=os.environ, fetcher=None):
     region_of = {k: v['label'] for k, v in config['regions'].items()}
     for r in carried:
         r.setdefault('region', '')
-    items = sorted(carried + fresh, key=lambda r: (r['change'] != '정보 다름', r['change'] != '신규 후보', r['region'], r['source'], r['name']))
+    order = {'정보 다름': 0, '신규 후보': 1, '비슷한 항목 있음': 2, '기존과 일치': 3}
+    items = sorted(carried + fresh, key=lambda r: (order.get(r['change'], 9), r['region'], r['source'], r['name']))
     status['generatedAt'] = now
     status['note'] = '공공 API 수집 기록. 성공은 응답을 받았다는 뜻이며 서비스 운영·자격을 확인했다는 뜻이 아님.'
-    summary = {c: sum(1 for r in items if r['change'] == c) for c in ('정보 다름', '신규 후보', '기존과 일치')}
+    summary = {c: sum(1 for r in items if r['change'] == c) for c in ('정보 다름', '신규 후보', '비슷한 항목 있음', '기존과 일치')}
     payload = {'schemaVersion': 1, 'generatedAt': now, 'regions': region_of, 'summary': summary,
                'note': '변경 후보 목록. 원본 DB에 반영하려면 사람이 공식 안내를 확인한 뒤 data/*.csv를 직접 고친다.',
                'items': items}
