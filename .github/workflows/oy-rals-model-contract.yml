@@ -107,3 +107,4 @@ jobs:
           node tests/oy-final-report.cjs
           node tests/oy-onepage.cjs
           node tests/oy-school-link.cjs
+          node tests/oy-public-benefits.cjs

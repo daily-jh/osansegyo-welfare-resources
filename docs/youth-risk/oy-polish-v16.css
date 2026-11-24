@@ -106,3 +106,28 @@
 .oysl-contacts ul{margin:10px 0;padding-left:18px;font-size:14.5px;line-height:1.75}
 .oysl-line{margin:14px 0;padding:12px 16px;border-radius:12px;background:#f2f7fd;border:1px solid #d6e4f3;font-size:14.5px;line-height:1.6}
 .oysl-line b{margin-right:6px;color:#1765bd}
+/* 03 지역자원연계 · 공공 지원사업 연결(oy-public-benefits-v1) */
+.oypb{margin:18px 0 26px;padding:20px 22px;border:1px solid #d6e4d3;border-radius:18px;background:#f8fcf6;color:#16273a}
+.oypb header h3{margin:4px 0 6px;font-size:1.3rem;line-height:1.35;letter-spacing:-.02em}
+.oypb header p{margin:0;font-size:15px;line-height:1.6;color:#34465a}
+.oypb-k{font-size:13px;font-weight:700;letter-spacing:.04em;color:#2f6b2a}
+.oypb-desks{margin:14px 0 6px;padding:12px 14px;border-radius:14px;background:#fff;border:1px solid #dbe8d6}
+.oypb-desks>b{display:block;font-size:14px;color:#2f6b2a;margin-bottom:6px}
+.oypb-desks ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.oypb-desks li{display:grid;grid-template-columns:minmax(0,15em) minmax(0,1fr);gap:10px;font-size:14px;line-height:1.5}
+.oypb-desks li span{color:#3f5165}
+.oypb-group h4{margin:16px 0 6px;font-size:15px;color:#12263f}
+.oypb-group ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.oypb-item{padding:10px 14px;border:1px solid #e1e9df;border-radius:12px;background:#fff}
+.oypb-name{font-size:15px;line-height:1.45}
+.oypb-name a{font-size:13px;margin-left:6px;color:#1765bd;white-space:nowrap}
+.oypb-chain{margin:6px 0 2px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px}
+.oypb-chain span{font-weight:700;color:#2f6b2a}
+.oypb-chain em{font-style:normal;padding:2px 8px;border-radius:999px;background:#eef6ea;color:#24451f}
+.oypb-meta,.oypb-note{margin:4px 0 0;font-size:13px;line-height:1.55;color:#4a5b6d}
+.oypb-more{margin:12px 0 0}
+.oypb-more summary{cursor:pointer;font-weight:700;color:#2f6b2a;font-size:14px}
+.oypb-empty,.oypb-foot{margin:10px 0 0;font-size:13px;line-height:1.55;color:#556678}
+@media (max-width:700px){.oypb{padding:16px}.oypb-desks li{grid-template-columns:1fr;gap:2px}}
+@media print{.oypb{break-inside:avoid-page}}
+.oypb-desks li strong i{font-style:normal;white-space:nowrap;font-weight:600;color:#2f6b2a}
