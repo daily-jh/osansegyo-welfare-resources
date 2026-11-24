@@ -34,6 +34,8 @@
     $('#lawCards').innerHTML = C.lawCards.map(c => `<article class="law-card"><h3>${esc(c.title)}</h3><p>${esc(c.body)}</p><small>${esc(c.law)}</small></article>`).join('');
     $('#domainGrid').innerHTML = C.domains.map(d => `<article class="domain d-${d.id}"><span class="domain-law">${esc(d.article)}</span><h3>${esc(d.label)}</h3><p class="domain-short">${esc(d.short)}</p><p>${esc(d.text)}</p></article>`).join('');
     $('#channelRow').innerHTML = Object.entries(C.channels).map(([k, c]) => `<div class="channel ch-${k}"><b>${esc(c.label)}</b><p>${esc(c.text)}</p></div>`).join('');
+    const o = C.osan;
+    if (o) $('#osanBox').innerHTML = `<div class="osan-contact"><p class="oc-kicker">총괄·기관 연계 문의</p><h3>${esc(o.dept)}</h3><a class="oc-tel" href="${telHref(o.phone)}">${esc(o.phone)}</a><p class="muted">${esc(o.phoneNote)}</p><p>주민 신청은 <b>주소지 동 행정복지센터</b>에서 합니다.</p></div><ul class="osan-facts">${o.facts.map(f => `<li><p>${esc(f.text)}</p><small><a href="${esc(safeUrl(f.source))}" target="_blank" rel="noopener noreferrer">출처 ↗</a> · ${esc(f.date)}</small></li>`).join('')}</ul>`;
     const s = C.sources;
     $('#lawSources').innerHTML = `원문 확인: <a href="${esc(s.law)}" target="_blank" rel="noopener noreferrer">국가법령정보센터 ↗</a> · <a href="${esc(s.decree)}" target="_blank" rel="noopener noreferrer">시행령 입법 정보 ↗</a> · <a href="${esc(s.guide)}" target="_blank" rel="noopener noreferrer">복지부 통합돌봄 이용안내 ↗</a>`;
   }
@@ -88,7 +90,7 @@
         ${r.preExamWaived ? '<div><h4>사전조사 면제</h4><p>의료기관 퇴원 연계로 신청하면 사전조사 없이 통합판정조사로 넘어갑니다(복지부 이용안내).</p></div>' : ''}
         ${r.applicant ? `<div><h4>신청 방법</h4><p>${esc(r.applicant)}</p></div>` : ''}
       </div>
-      ${(r.level === 'apply' || r.level === 'emergency' || r.level === 'single') ? `<div class="windows-box"><h4>오산 신청 창구</h4><p class="muted">주소지 행정복지센터 또는 국민건강보험공단 지사(1577-1000). 사전조사는 접수 5일 이내에 합니다.</p>${windowsList()}</div>` : ''}
+      ${(r.level === 'apply' || r.level === 'emergency' || r.level === 'single') ? `<div class="windows-box"><h4>오산 신청 창구</h4><p class="muted">주소지 행정복지센터 또는 국민건강보험공단 지사(1577-1000). 사전조사는 접수 5일 이내에 합니다.</p>${windowsList()}${C.osan ? `<p class="muted">기관 연계·사업 문의: ${esc(C.osan.dept)} <a href="${telHref(C.osan.phone)}">${esc(C.osan.phone)}</a> (공식 교차 확인 전)</p>` : ''}</div>` : ''}
       ${services.length ? `<h4 class="svc-title">먼저 살펴볼 서비스 ${Math.min(services.length, 6)}가지</h4><div class="svc-grid">${services.slice(0, 6).map(svcCard).join('')}</div>${services.length > 6 ? `<details class="more-svc"><summary>함께 검토할 서비스 ${services.length - 6}가지 더 보기</summary><div class="svc-grid">${services.slice(6).map(svcCard).join('')}</div></details>` : ''}` : ''}
       <div class="form-actions"><a class="btn primary" href="#plan" id="toPlan">이 결과로 지원계획 초안 쓰기 (실무자)</a><button type="button" class="btn ghost" id="printCheck">결과 인쇄</button></div>`;
     function svcCard(s) { return `<article class="svc d-${s.domain}"><p class="svc-meta"><span>${esc(domainOf(s.domain).label)}</span><span class="ch ch-${s.channel}">${esc(C.channels[s.channel].short)}</span></p><h5>${esc(s.name)}</h5><p>${esc(s.what)}</p>${s.osan ? `<p class="osan-note">${esc(s.osan)}</p>` : ''}${resourceList(s, 3)}</article>`; }

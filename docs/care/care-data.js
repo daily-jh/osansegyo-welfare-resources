@@ -16,10 +16,11 @@
     overview: 'https://www.mohw.go.kr/menu.es?mid=a60100000000',
     ltc: 'https://www.longtermcare.or.kr/',
     osanDischarge: 'https://kgnews.co.kr/mobile/article.html?no=903460',
-    osanHousing: 'https://www.vision21.kr/news/article.html?no=585424'
+    osanHousing: 'https://www.vision21.kr/news/article.html?no=585424',
+    osanTraining: 'https://www.kbcs.kr/news/article.html?no=430295',
+    osanContact: 'https://www.careworks.co.kr/care/gyeonggi/osan'
   };
 
-  const checkedOn = '2026-11-24';
 
   /* 법의 서비스 영역(제2조 제1호, 제15~19조). 화면 순서와 색은 이 순서를 따른다. */
   const domains = [
@@ -161,5 +162,18 @@
     { num: '109', label: '자살예방 상담', tel: '109' }
   ];
 
-  return { version: '1.0.0', checkedOn, sources: SRC, domains, channels, services, steps, lawCards, hotlines };
+  /* 오산시 현황(2026-11-25 보완). 오산시 누리집은 자동 열람이 막혀 언론 보도·민간 정리 사이트로 확인하고 출처를 표시한다. */
+  const osan = {
+    dept: '오산시청 희망복지과 통합돌봄팀',
+    phone: '031-8036-7391',
+    phoneNote: '민간 정리 사이트(돌봄에대한) 표기값입니다. 오산시 누리집에서 아직 교차 확인하지 못했으니 연결 전 시청 대표전화(031-8036-8036)로 한 번 더 확인하세요.',
+    facts: [
+      { text: '주민 신청은 주소지 동 행정복지센터 통합돌봄 담당(팀장·담당자)이 받고, 시청 희망복지과가 총괄합니다.', source: SRC.osanTraining, date: '2026-10-15 보도' },
+      { text: '2026년 10월 14일 동 행정복지센터 통합돌봄 담당자 교육: 사업 지침, 「행복이음」 사용법, 오산시 통합돌봄 특화사업 안내. 업무 흐름은 대상자 발굴 → 신청·접수 → 종합판정조사 → 개인별지원계획 → 서비스 연계입니다.', source: SRC.osanTraining, date: '2026-10-15 보도' },
+      { text: '「5313(오산일상) 퇴원환자 연계」: 송호욱·버팀·오산세종·이안한방·오산한국·조은오산병원 6곳이 퇴원환자의 의료·돌봄 욕구를 파악해 시에 연계합니다.', source: SRC.osanDischarge, date: '2026-07 보도' },
+      { text: '대원1동 통합돌봄: 독거 어르신 집 화장실 문턱에 맞춤 안전 발판을 설치(지역 목공업체 재능기부).', source: SRC.osanHousing, date: '2026-05 보도' }
+    ]
+  };
+
+  return { version: '1.1.0', checkedOn: '2026-11-25', osan, sources: SRC, domains, channels, services, steps, lawCards, hotlines };
 });

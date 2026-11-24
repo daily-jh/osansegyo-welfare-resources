@@ -1,6 +1,6 @@
 /* © 2026 오산세교종합사회복지관 김지훈 팀장. All rights reserved. */
 window.WELFARE_DATA = {
-  "date": "2026-11-24",
+  "date": "2026-11-25",
   "schemaVersion": 2,
   "note": "기존 자료 정리일이며, 기관·사업별 실제 운영 확인일과 다릅니다. 연계 전 최신 공식 공고를 확인해 주세요.",
   "taxonomy": {
@@ -562,7 +562,7 @@ window.WELFARE_DATA = {
       "phone": "031-8036-8036",
       "source": "https://www.osan.go.kr/",
       "scope": "오산시",
-      "reviewed": "2026-11-24",
+      "reviewed": "2026-11-25",
       "status": "미확인",
       "jurisdiction": "",
       "services": [
@@ -1463,6 +1463,62 @@ window.WELFARE_DATA = {
             "next": "2027-02-24"
           },
           "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-CARE26-011",
+          "name": "의료·요양 통합돌봄 총괄·문의(희망복지과 통합돌봄팀)",
+          "category": "돌봄·생활",
+          "target": "오산시 주민 중 노쇠·장애·질병·사고로 의료·요양·돌봄 복합 지원이 필요한 사람(65세 이상 등)과 연계 기관",
+          "description": "오산시 통합돌봄 총괄. 동 행정복지센터 통합돌봄 담당자와 함께 대상자 발굴, 신청·접수, 종합판정조사, 개인별지원계획 수립, 서비스 연계를 운영하고 오산시 통합돌봄 특화사업(퇴원환자 연계 등)을 안내.",
+          "method": "주민 신청은 주소지 동 행정복지센터. 기관 연계·사업 문의는 희망복지과 통합돌봄팀(전화는 민간 정리 사이트 표기값으로 시청 공식 안내 교차확인 전).",
+          "operation": "2026-10-14 동 행정복지센터 통합돌봄 담당자 교육 보도(희망복지과)로 담당 부서 확인. 전화번호는 공식 누리집 미확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "노인",
+              "장애인",
+              "질환"
+            ],
+            "need": [
+              "돌봄",
+              "의료·건강",
+              "사례관리"
+            ],
+            "form": [
+              "상담",
+              "정보 제공"
+            ],
+            "intake": [
+              "전화",
+              "동 행정복지센터 경유"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "가능",
+          "source": "https://www.kbcs.kr/news/article.html?no=430295",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "언론 보도(2026-10-15)로 담당 부서 확인; 전화는 민간 정리 사이트 표기, 오산시 누리집 자동 열람 차단으로 공식 교차확인 못함",
+            "by": "자료 관리자",
+            "next": "2026-12-31"
+          },
+          "contacts": [
+            {
+              "contact_id": "CON-SVC-CARE26-011",
+              "owner_type": "service",
+              "owner_id": "SVC-CARE26-011",
+              "dept": "희망복지과 통합돌봄팀",
+              "phone": "031-8036-7391",
+              "fax": "",
+              "email": "",
+              "hours": "",
+              "note": "통합돌봄 담당(공식 교차확인 필요)",
+              "source_url": "https://www.careworks.co.kr/care/gyeonggi/osan",
+              "verified_on": ""
+            }
+          ],
           "rounds": []
         }
       ],

@@ -138,3 +138,4 @@ CON-N24-HOWEE,organization,ORG-N24-HOWEE,"상담신청(031-371-0606~0609 외, �
 CON-N24-POLICE,organization,ORG-N24-POLICE,,,,,,대표전화,,,,미확인,,
 CON-ORG-N24-CCCITY,organization,ORG-N24-CCCITY,,031-375-2600,031-375-2601,,"학기중 10:00~20:00, 방학중 10:00~19:00, 토 10:00~15:00",대표전화,https://www.ion.or.kr/osancity,2026-11-24,"경기도 오산시 성호대로 83, 2층 (오산동)",공식,https://www.ion.or.kr/osancity,2026-11-24
 CON-CARE26-NHIS,organization,ORG-CARE26-NHIS,,1577-1000,,,"평일 09:00~18:00(누리집 안내 기준, 재확인)",대표전화,https://www.longtermcare.or.kr/,,,미확인,,
+CON-SVC-CARE26-011,service,SVC-CARE26-011,희망복지과 통합돌봄팀,031-8036-7391,,,,통합돌봄 담당(공식 교차확인 필요),https://www.careworks.co.kr/care/gyeonggi/osan,,경기도 오산시 성호대로 141,공공·지도,https://www.osancouncil.go.kr/kr/member/active?district=%EB%82%98,2026-10-23

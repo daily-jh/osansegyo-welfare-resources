@@ -74,4 +74,11 @@ assert.doesNotMatch(html, /name="(?:name|rrn|phone|address)"/, '개인정보 입
 const home = fs.readFileSync('docs/index.html', 'utf8');
 assert.ok((home.match(/href="care\/"/g) || []).length >= 3, '메인 메뉴·첫 화면·자료 링크');
 assert.ok(fs.existsSync(path.join('docs', 'care', 'care.css')));
+// 6) 오산시 현황: 담당 부서·출처, DB 총괄 창구
+assert.equal(C.osan.dept, '오산시청 희망복지과 통합돌봄팀');
+assert.match(C.osan.phoneNote, /교차 확인/, '공식 미확인 표시');
+for (const f of C.osan.facts) assert.match(f.source, /^https:\/\//);
+const hq = W.organizations.find(o => o.name === '오산시청').services.find(s => s.id === 'SVC-CARE26-011');
+assert.ok(hq && hq.contacts.some(c => c.phone === '031-8036-7391' && /희망복지과/.test(c.dept)), '희망복지과 통합돌봄팀 연락처');
+assert.match(html, /id="osanBox"/);
 console.log(`PASS: care guide ${C.services.length} services / 6 domains; rules, plan review, ${windows.length} application windows, home links, no storage`);
