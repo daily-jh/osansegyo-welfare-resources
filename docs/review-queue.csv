@@ -201,7 +201,7 @@ osan26care016,SVC-OSAN26-016,오산시,버팀병원,진료·검사·치료 연�
 osan26care017,SVC-OSAN26-017,오산시,송호욱병원,진료·검사·치료 연계,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://hospital.ottl.net/%EA%B2%BD%EA%B8%B0/%EC%98%A4%EC%82%B0%EC%8B%9C/%EB%B3%91%EC%9B%90/
 osan26care018,SVC-OSAN26-018,오산시,오산세종병원,진료·검사·치료 연계,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.hira.or.kr/ra/hosp/hospInfoAjax.do?ykiho=JDQ4MTYyMiM1MSMkMSMkMCMkOTkkMzgxOTYxIzExIyQxIyQzIyQ5OSQzNjEwMDIjNTEjJDEjJDIjJDgz
 osan26care019,SVC-OSAN26-019,오산시,평안한사랑병원,진료·검사·치료 연계,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://hospitalfact.kr/clinics/%ED%8F%89%EC%95%88%ED%95%9C%EC%82%AC%EB%9E%91%EB%B3%91%EC%9B%90-9dd7483c-dae8-4e28-bbf8-377a2858f27b/
-osan26care020,SVC-OSAN26-020,오산시,오산신경정신병원,진료·검사·치료 연계,대표전화 미기재 / 실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://clinics.seoul.kr/gyeonggi-do/osan-si/psychiatry
+osan26care020,SVC-OSAN26-020,오산시,오산신경정신병원,진료·검사·치료 연계,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://clinics.seoul.kr/gyeonggi-do/osan-si/psychiatry
 osan26care021,SVC-OSAN26-021,오산시,최중철정신건강의학과의원,정신건강의학과 외래 진료,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://clinics.seoul.kr/gyeonggi-do/osan-si/osan-dong/psychiatry
 osan26care022,SVC-OSAN26-022,오산시,행복주는의원,정신건강의학과 외래 진료,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://happyosan.com/contact
 osan26care023,SVC-OSAN26-023,오산시,오산세교정신건강의학과의원,정신건강의학과 외래 진료,실제 운영·접수 검증 필요 / 실제 확인일 미기록 / 오산 접수 가능 여부 확인,https://clinics.seoul.kr/gyeonggi-do/osan-si/gwol-dong/psychiatry
@@ -413,3 +413,4 @@ b66a287ba5,SVC-MON-20261124-003,오산시,오산아이드림센터,12월 놀이�
 b66a287ba5,SVC-MON-20261124-004,오산시,오산아이드림센터,12월 롤링레스토랑(2026),실제 운영·접수 검증 필요,https://www.osanidream.or.kr/play/play_list.asp
 b66a287ba5,SVC-MON-20261124-005,오산시,오산아이드림센터,12월 롤링창작소(2026),실제 운영·접수 검증 필요,https://www.osanidream.or.kr/play/play_list.asp
 b66a287ba5,SVC-MON-20261124-006,오산시,오산아이드림센터,12월 월간 만들기 체험(2026),실제 운영·접수 검증 필요,https://www.osanidream.or.kr/play/play_list.asp
+ORG-N24-CCCITY,SVC-N24-007,오산시,오산시립지역아동센터,방과 후 아동 보호·급식·학습 지원,실제 운영·접수 검증 필요,https://www.ion.or.kr/osancity
