@@ -32,3 +32,38 @@
  #journey88 .j88-result-tabs>button,#assessmentFlow details>summary::after{transition:none}
  #journey88 .j88-result-tabs>button:active{transform:none}
 }
+/* 2026-11-24 결과 페이지 개편: 점수만 본 단계(숫자로 보기)와 서술·통합 탭의 판정 근거를 한 줄로 접는다. 통합 탭 단계 접기와 같은 모양. */
+#assessmentFlow .oy-viz-stagefold,#assessmentFlow .j88-basis-fold{margin:12px 0 22px;border:1px solid #d6e2ee;border-radius:16px;background:#fff;overflow:hidden}
+#assessmentFlow .oy-viz-stagefold>summary,#assessmentFlow .j88-basis-fold>summary{display:flex!important;flex-wrap:wrap;align-items:center;gap:6px 12px;padding:14px 18px!important;min-height:56px;cursor:pointer}
+#assessmentFlow .oy-viz-stagefold>summary span,#assessmentFlow .j88-basis-fold>summary b{font-size:13px;font-weight:700;color:#4b5b6e}
+#assessmentFlow .oy-viz-stagefold>summary b,#assessmentFlow .j88-basis-fold>summary span{font-size:17px;font-weight:800;color:#12263f}
+#assessmentFlow .oy-viz-stagefold>summary small,#assessmentFlow .j88-basis-fold>summary small{flex:1 1 100%;order:3;font-size:13px;font-weight:600;color:#1765bd}
+#assessmentFlow .oy-viz-stagefold[open]>summary,#assessmentFlow .j88-basis-fold[open]>summary{border-bottom:1px solid #e3ebf3;background:#f7fafd}
+#assessmentFlow .oy-viz-stagefold>:not(summary){margin-left:16px;margin-right:16px}
+#assessmentFlow .oy-viz-stagefold[open]{padding-bottom:16px}
+#assessmentFlow .j88-basis-fold>:not(summary){margin:12px 16px}
+@media (min-width:761px){#assessmentFlow .oy-viz-stagefold>summary small,#assessmentFlow .j88-basis-fold>summary small{flex:0 1 auto;order:0;margin-left:auto;margin-right:6px}}
+/* 2026-11-24 학맞통 연계 카드(03 학교 지원 첫머리). 학교 안 → 교육지원청 센터 → 지역기관 세 층. */
+.oysl{margin:18px 0 26px;padding:20px 22px;border:1px solid #cfe0f1;border-radius:18px;background:#f7fbff;color:#16273a}
+.oysl header h3{margin:4px 0 6px;font-size:1.3rem;line-height:1.35;letter-spacing:-.02em}
+.oysl header p{margin:0;font-size:15px;line-height:1.6;color:#34465a}
+.oysl-k{font-size:13px;font-weight:700;letter-spacing:.04em;color:#1765bd}
+.oysl-steps{list-style:none;margin:16px 0 12px;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.oysl-steps li{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border:1px solid #dbe5ef;border-radius:14px;background:#fff;opacity:.62}
+.oysl-steps li.on{opacity:1;border-color:#9cc3ea}
+.oysl-steps li.now{box-shadow:0 0 0 2px #1765bd inset}
+.oysl-steps b{flex:0 0 26px;height:26px;border-radius:50%;display:grid;place-items:center;background:#e3edf8;color:#1765bd;font-size:14px}
+.oysl-steps li.on b{background:#1765bd;color:#fff}
+.oysl-steps strong{display:block;font-size:15px;line-height:1.4}
+.oysl-steps span{display:block;font-size:13px;line-height:1.5;color:#3f5165;margin-top:2px}
+.oysl-steps small{display:block;font-size:12px;color:#617387;margin-top:4px}
+.oysl-why{margin:8px 0;font-size:14px;line-height:1.6}
+.oysl-why b{margin-right:6px;color:#12263f}
+.oysl-t{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px;background:#fff}
+.oysl-t th,.oysl-t td{border:1px solid #dbe5ef;padding:8px 10px;text-align:left;vertical-align:top;line-height:1.5}
+.oysl-t th{background:#eef4fa;font-weight:700}
+.oysl-more{margin:8px 0;font-size:14px;line-height:1.6}
+.oysl-more summary{cursor:pointer;font-weight:700;color:#1765bd}
+.oysl-muted{display:block;margin-top:8px;font-size:12.5px;color:#5b6b7d;line-height:1.55}
+@media (max-width:760px){.oysl{padding:16px}.oysl-steps{grid-template-columns:minmax(0,1fr)}.oysl-t thead{display:none}.oysl-t,.oysl-t tbody,.oysl-t tr,.oysl-t td{display:block;width:100%}.oysl-t tr{border:1px solid #dbe5ef;border-radius:12px;margin:8px 0;padding:6px 0;background:#fff}.oysl-t td{border:0;padding:4px 12px}.oysl-t td::before{content:attr(data-l);display:inline-block;min-width:64px;margin-right:6px;font-size:12px;font-weight:700;color:#617387}.oysl-t td:first-child{font-weight:700}}
+@media print{.oysl{break-inside:avoid;background:#fff}}

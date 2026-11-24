@@ -422,7 +422,9 @@ function mountStage(e){
   const on=!!(st&&st.ready&&st.payload&&st.stage===6);area.hidden=!on;if(!on)return;
   const key=st.payload.flowRevision+'|'+(st.payload.caseContext||'').length;
   if(area.dataset.oypKey===key)return;area.dataset.oypKey=key;
-  area.innerHTML='<div class="oyp-stagehead"><span class="oyp-eyebrow">03 학교 지원</span><h2>담임교사와 교육복지사가 바로 쓰는 자료</h2><p>척도 판정·해석지·서술 분석·지역자원 지도를 학생맞춤통합지원 절차에 맞춰 정리했습니다.</p></div>'+(()=>{try{return OD().strip(OD().forPayload(st.payload),{audience:'school'})}catch(_){return ''}})()+render('school',st.payload);
+  area.innerHTML='<div class="oyp-stagehead"><span class="oyp-eyebrow">03 학교 지원</span><h2>담임교사와 교육복지사가 바로 쓰는 자료</h2><p>척도 판정·해석지·서술 분석·지역자원 지도를 학생맞춤통합지원 절차에 맞춰 정리했습니다.</p></div>'+(()=>{try{return OD().strip(OD().forPayload(st.payload),{audience:'school'})}catch(_){return ''}})()
+    /* 2026-11-24 학맞통 연계: 판정 띠 바로 아래에 학교 안 → 교육지원청 센터 → 지역기관 경로를 한 장으로. */
+    +(()=>{try{const L=root.OYSchoolLink;return L?L.html(L.build(st.payload)):''}catch(_){return ''}})()+render('school',st.payload);
   area.querySelectorAll('[data-oyd]').forEach(el=>{el.__payload=st.payload});
 }
 const api=Object.freeze({VERSION,OBS,render,sheetCodes,analyze,bind,printPack});

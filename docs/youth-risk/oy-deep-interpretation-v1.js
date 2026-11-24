@@ -559,6 +559,6 @@ function text(r){
  L.push('','[해석 안내]',r.notice);
  return L.join('\n');
 }
-const api=Object.freeze({VERSION,NOTICE,LEVELS,TITLES,build,html,text,sectionText,safetyRoute});
+const api=Object.freeze({VERSION,NOTICE,LEVELS,TITLES,build,html,text,sectionText,safetyRoute,appendixRows});
 if(node)module.exports=api;else root.OYDeepInterpretation=api;
 })(typeof window!=='undefined'?window:globalThis);

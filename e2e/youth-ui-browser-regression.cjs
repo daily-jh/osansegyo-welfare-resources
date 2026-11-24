@@ -36,7 +36,10 @@ async function scenario(browser,width){
  assert.equal(await page.locator('.oy-viz-radar svg').isVisible(),true,'ten-axis radar visible without opening anything');
  assert.equal(await page.locator('#journey88 .j88-route button').count(),3,'score tab opens with its reading order');
  assert.equal(await page.locator('#journey88 .j88-part').count(),3,'three parts share one heading style');
- const edges=await page.evaluate(()=>['.j88-part','.oy-deep-report','#oy-index-visual-slot .oy-viz-grade'].map(s=>Math.round(document.querySelector('#journey88 '+s).getBoundingClientRect().left)));
+ /* 2026-11-24 결과 페이지 개편: 점수만 본 단계 카드는 판정 근거 ③과 겹쳐 한 줄로 접혀 시작한다. 왼쪽 선은 접힌 줄로 맞춘다. */
+ assert.equal(await page.locator('#oy-index-visual-slot .oy-viz-stagefold').getAttribute('open'),null,'score-only stage card starts folded');
+ assert.match(await page.locator('#oy-index-visual-slot .oy-viz-stagefold > summary').innerText(),/단계/,'folded line still names the stage');
+ const edges=await page.evaluate(()=>['.j88-part','.oy-deep-report','#oy-index-visual-slot .oy-viz-stagefold'].map(s=>Math.round(document.querySelector('#journey88 '+s).getBoundingClientRect().left)));
  assert.equal(new Set(edges).size,1,'report, part headings and stage card start on one left edge: '+edges.join(','));
  await page.locator('#oy-index-visual-slot .oy-viz-more > summary').click();
   assert.equal(await page.locator('.oy-viz-radar svg').getAttribute('viewBox'),'0 0 700 700','radar labeled enlarged');
@@ -47,7 +50,7 @@ async function scenario(browser,width){
   assert.equal(await page.locator('#oy-viz-copy-assessment').count(),1,'AI copy action present');
  assert.equal(await page.locator('.oy-viz-heatmap > div').count(),25,'25-item heatmap');
  assert.equal(await page.locator('#oy-index-visual-slot .oy-viz-scale > div').count(),5,'five-stage classification');
- assert.match(await page.locator('#oy-index-visual-slot .oy-viz-grade-head strong').innerText(),/제5단계/,'high Q7 raises safety priority');
+ assert.match(await page.locator('#oy-index-visual-slot .oy-viz-grade-head strong').textContent(),/제5단계/,'high Q7 raises safety priority');
  assert.equal(await page.evaluate(()=>window.OYFiveLevelIndex.analyze({answers:Array(25).fill(0),domains:Array.from({length:10},(_,i)=>({name:'영역',items:Array.from({length:[2,3,3,3,2,2,3,3,2,2][i]},()=> '가상 문항')})),routes:Array.from({length:10},()=>[]),resources:[],explicit:[],followups:{}}).tier),1,'all-zero responses return stage 1');
  await page.evaluate(()=>{window.print=()=>{};});
  assert.equal(await page.locator('#j88-print-quick').count(),1,'direct PDF action available');

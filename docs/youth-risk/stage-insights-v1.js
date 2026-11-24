@@ -101,7 +101,11 @@ function patternSummary(x,p){
 function scoreDashboard(x,p,full){
  const domains=x.domainRows, top=x.activePairs.slice(0,7);
  return '<div class="oy-viz-dashboard" aria-label="통합지원 단계·영역별 응답강도">'
- +'<h3>통합지원 5단계 · 응답 패턴</h3>'+grade(x)+topStats(x,p,true)+(window.OYResultReadout?window.OYResultReadout.html(x,p,{objective:true,fullTier:full?.tier}):'')
+ +'<h3>10개 영역 응답 패턴</h3>'
+ /* 2026-11-24 결과 페이지 개편: 단계 카드·지표·'이 단계가 나온 이유'는 판정 근거 띠 ③과 핵심 결과 02에 이미 있다.
+    여기서는 점수만 본 단계를 한 줄로 접어 두고(값·DOM 그대로), 그래프부터 보이게 한다. */
+ +'<details class="oy-viz-stagefold"><summary><span>점수만 본 단계</span><b>'+esc(x.tier===null?'단계 미확정':'제'+x.tier+'단계 '+x.label)+'</b><small>지표와 단계가 나온 이유 펼치기</small></summary>'
+ +grade(x)+topStats(x,p,true)+(window.OYResultReadout?window.OYResultReadout.html(x,p,{objective:true,fullTier:full?.tier}):'')+'</details>'
  // The radar is the one picture of all ten areas, so it stays open under the stage card. The bars, cross
  // responses and item evidence behind it stay folded: item numbers keep out of the first view.
  +'<section class="oy-viz-main-radar"><h4>10개 영역의 응답강도 분포</h4><p class="oy-viz-explain"><strong>읽는 방법</strong> 중심은 0%, 바깥쪽은 100%입니다. 다각형이 특정 방향으로 커질수록 <strong>해당 영역의 평균 응답수준이 높습니다.</strong> 면적은 전체 위기점수나 발생확률이 아니며, 영역별 문항 수 차이를 보정한 형태입니다.</p>'+radar(x.domainStrengths,domains.map(z=>z.name))+'</section>'

@@ -378,7 +378,8 @@ function sentenceAppendix(n,head){
  const KIND={agree:'일치',narrative:'서술이 더 큼',fill:'서술로 보완',conflict:'엇갈림',scale:'척도에만',agreeLow:'함께 낮음',past:'과거'};
  const crs=n.compare.rows.map(r=>[r.n+'번',r.topic,r.value==='unknown'?'미상':r.value+'점',r.status?STATUS_TEXT[r.status]:'언급 없음',KIND[r.kind]]);
  return '<section class="odi-appendix"><h3>'+esc(head||'근거 자료 · 문장과 문항')+'</h3><p>본문 해석의 바탕이 된 문장 분해와 문항 대조표입니다.</p>'
-  +'<details open><summary>문장별 근거</summary>'+t(['문장','서술','출처','연결 문항·상태'],rows)+'</details>'
+  /* 2026-11-24: 서술기록 탭에서만 펼쳐 둔다. 통합 사정의견에서는 같은 표가 반복되므로 접어서 시작. */
+  +'<details'+(head?'':' open')+'><summary>문장별 근거</summary>'+t(['문장','서술','출처','연결 문항·상태'],rows)+'</details>'
   +'<details><summary>척도·서술 대조표</summary>'+t(['문항','내용','척도 응답','서술','관계'],crs)+'</details></section>';
 }
 function narrativeHtml(nv){
