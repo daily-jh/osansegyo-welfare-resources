@@ -147,6 +147,16 @@ class PublicApiRefresh(unittest.TestCase):
         self.assertNotIn(secret, buf.getvalue())
         self.assertIn('example.invalid', buf.getvalue())
 
+    def test_probe_uses_gg_key_for_gyeonggi_data_dream(self):
+        import contextlib, io
+        seen = []
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            p.probe(['https://openapi.gg.go.kr/Sample?SIGUN_NM=x'], 'DATA-KEY', gg_key='GG-KEY',
+                    fetcher=lambda s, prm, k: seen.append((s['keyParam'], k, prm.get('pIndex'))) or b'ok GG-KEY')
+        self.assertEqual(seen, [('KEY', 'GG-KEY', '1')])
+        self.assertNotIn('GG-KEY', buf.getvalue())
+
     def test_matching_levels(self):
         rows = [{'서비스명': '경기도형 긴급복지(무한돌봄)'}, {'서비스명': '자립준비청년 지원'}, {'서비스명': '긴급복지지원 상담'}]
         hit, sc = p.best('경기도형 긴급복지 지원사업', rows, '서비스명')

@@ -54,7 +54,7 @@ def redact(text, secrets):
 def fetch_live(source, params, key, timeout=30, attempts=3, wait=5):
     import time, urllib.error
     query = dict(params)
-    query['serviceKey'] = key
+    query[source.get('keyParam') or 'serviceKey'] = key   # 경기데이터드림은 KEY
     url = source['endpoint'] + '?' + urllib.parse.urlencode(query)
     req = urllib.request.Request(url, headers={'User-Agent': 'welfare-resource-refresh/1.0', 'Accept': '*/*'})
     for n in range(attempts):
@@ -336,20 +336,23 @@ def markdown(status, payload):
     return '\n'.join(lines) + '\n'
 
 
-def probe(urls, key, fetcher=None):
-    """Print status and the first part of each response, key redacted. Used to confirm endpoints."""
+def probe(urls, key, fetcher=None, gg_key=''):
+    """Print status and the first part of each response, key redacted. Used to confirm endpoints.
+    openapi.gg.go.kr(경기데이터드림) 주소는 GG_OPENAPI_KEY를 KEY 인자로 보낸다."""
     for url in urls:
         base, _, query = url.partition('?')
         params = dict(urllib.parse.parse_qsl(query))
-        params.setdefault('pageNo', '1')
-        params.setdefault('numOfRows', '2')
+        gg = 'openapi.gg.go.kr' in base
+        params.setdefault('pIndex' if gg else 'pageNo', '1')
+        params.setdefault('pSize' if gg else 'numOfRows', '2')
         try:
-            raw = (fetcher or fetch_live)({'endpoint': base}, params, key)
+            src = {'endpoint': base, 'keyParam': 'KEY' if gg else 'serviceKey'}
+            raw = (fetcher or fetch_live)(src, params, gg_key if gg else key)
             text = raw[:600].decode('utf-8', 'replace')
         except Exception as exc:  # noqa: BLE001
             text = f'{type(exc).__name__}: {exc}'
         print('### ' + base)
-        print(redact(text, [key]).replace('\n', ' ')[:600])
+        print(redact(text, [key, gg_key]).replace('\n', ' ')[:600])
     return 0
 
 
@@ -363,7 +366,7 @@ def main(argv=None):
     args = ap.parse_args(argv)
     config = json.loads((ROOT / 'data/public-api-sources.json').read_text(encoding='utf-8'))
     if args.probe:
-        return probe(args.probe.split(), os.environ.get('DATA_GO_KR_KEY', ''))
+        return probe(args.probe.split(), os.environ.get('DATA_GO_KR_KEY', ''), gg_key=os.environ.get('GG_OPENAPI_KEY', ''))
     now = args.now or dt.datetime.now(KST).isoformat(timespec='seconds')
     status, payload, failures = run(config, ROOT, now, fixtures=args.fixtures)
     write_outputs(ROOT, status, payload)
