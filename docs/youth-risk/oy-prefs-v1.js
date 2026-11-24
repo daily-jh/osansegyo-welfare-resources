@@ -18,7 +18,7 @@ function applyView(){
   const box=doc.getElementById('oyRoleStart');if(box)box.classList.toggle('oy-role-picked',!!role());
   emphasise();
 }
-/* 02 지도 아래 두 갈래 버튼 중 역할에 맞는 쪽을 주 버튼으로 */
+/* 03 지도 아래 두 갈래 버튼 중 역할에 맞는 쪽을 주 버튼으로 */
 function emphasise(){
   const r=role(),s=doc.getElementById('toSchoolSupport'),a=doc.getElementById('confirmLinkageReview');if(!s||!a||!a.parentNode)return;
   const school=!r||r[2]==='school';s.classList.toggle('flow-primary',school);a.classList.toggle('flow-primary',!r||!school);

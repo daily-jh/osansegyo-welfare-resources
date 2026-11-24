@@ -19,8 +19,8 @@ class Element{
  querySelectorAll(){return []}
 }
 const nodes=new Map(props.map(id=>[id,new Element(id)]));nodes.get('recordVersion').value='';
-// The five visible steps (01 result, 02 map, 03 school, 04 agency, 05 final report) carry data-oy-step 1·2·6·3·7.
-const steps=new Map([1,2,6,3,7].map(v=>{const a=new Element('step'+v);a.dataset={oyStep:String(v)};return [v,a];}));
+// 2026-11-25 menu: 01 screening(0) · 02 result(1) · 03 local resources(2) · 04 by agency: school(6)·education office(8)·welfare/agency(3) · 05 final report(7).
+const steps=new Map([0,1,2,6,8,3,7].map(v=>{const a=new Element('step'+v);a.dataset={oyStep:String(v)};return [v,a];}));
 const extra=new Element('flow-data-tools');
 const document={
  baseURI:'https://example.test/youth-risk/',
@@ -64,7 +64,14 @@ assert.equal(nodes.get('stepTitle').textContent,'최종 보고서 · A4 2쪽');
 assert.match(nodes.get('previousStep').textContent,/04 기관 사례관리/);
 nodes.get('previousStep').onclick();
 assert.equal(events.at(-1).detail.stage,3,'Back from 05 goes to 04 agency case management');
-assert.ok(/data-oy-step="7"[^>]*>05 · 최종 보고서/.test(html),'05 final report step in navigation');
+assert.ok(/data-oy-step="7"[^>]*><b>05<\/b><span>최종보고서/.test(html),'05 final report step in navigation');
+steps.get(8).onclick();
+assert.equal(events.at(-1).detail.stage,8,'04 education office tab opens its own step');
+assert.equal(nodes.get('nextStep').hidden,false,'education office offers the way on to 05');
+nodes.get('previousStep').onclick();
+assert.equal(events.at(-1).detail.view,'map','back from 04 goes to 03 local resources');
+steps.get(0).onclick();
+assert.equal(events.at(-1).detail.stage,1,'01 opens the screening answers');
 steps.get(1).onclick();
 assert.equal(events.at(-1).detail.stage,2);
 assert.equal(events.at(-1).detail.view,'result','step 01 returns to the result tabs');
