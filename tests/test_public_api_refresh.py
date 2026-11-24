@@ -71,6 +71,25 @@ class PublicApiRefresh(unittest.TestCase):
         self.assertEqual(status['runs']['ssis-local:osan']['lastSuccessAt'], NOW)
         self.assertTrue(status['runs']['ssis-local:osan']['required'])
 
+    def test_national_care_region_keeps_care_items_only(self):
+        """돌봄통합 영역(national-care)은 노인·장애인 돌봄 사업을 받되, 청소년 대표 영역(national)은 그대로."""
+        self.fixtures_ok()
+        care = [
+            {'servId': 'C1', 'servNm': '노인맞춤돌봄서비스', 'servDgst': '일상생활 지원', 'jurMnofNm': '보건복지부'},
+            {'servId': 'C2', 'servNm': '장기요양 재택의료센터 시범사업', 'servDgst': '방문진료', 'jurMnofNm': '보건복지부'},
+            {'servId': 'C3', 'servNm': '농지연금', 'servDgst': '고령 농업인 노후', 'jurMnofNm': '농식품부'},
+            {'servId': 'C4', 'servNm': '참전유공자 재가복지', 'servDgst': '재가 서비스', 'jurMnofNm': '국가보훈부'},
+        ]
+        self.write('ssis-national-national-care-p1.xml', xml(care))
+        self.write('ssis-national-national-p1.xml', xml(care[:2]))
+        status, payload, failures = p.run(self.config, self.tmp, NOW, fixtures=self.fx, env={})
+        rows = [(r['region'], r['name'], r['area']) for r in payload['items']]
+        care_names = {n for reg, n, a in rows if reg == 'national-care'}
+        self.assertEqual(care_names, {'노인맞춤돌봄서비스', '장기요양 재택의료센터 시범사업'})
+        self.assertTrue(all(a == 'care' for reg, n, a in rows if reg == 'national-care'))
+        self.assertFalse([n for reg, n, a in rows if reg == 'national'])   # 청소년 대표 영역 수집에는 들어가지 않음
+        self.assertEqual(status['runs']['ssis-national:national-care']['lastSuccessAt'], NOW)
+
     def test_source_tables_are_never_modified(self):
         self.fixtures_ok()
         before = {f: hashlib.sha256((self.tmp / 'data' / f).read_bytes()).hexdigest() for f in ('organizations.csv', 'services.csv', 'contacts.csv')}
