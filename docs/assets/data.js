@@ -19829,6 +19829,79 @@ window.WELFARE_DATA = {
       "addressStatus": "미확인",
       "addressCheckedOn": "",
       "addressNote": "주소·부서 직통번호는 경찰청 공식 안내로 확인 필요"
+    },
+    {
+      "id": "ORG-N24-CCCITY",
+      "name": "오산시립지역아동센터",
+      "level": "오산시",
+      "kind": "아동돌봄",
+      "summary": "오산시가 설치한 지역아동센터. 방과 후 아동의 보호·급식·학습·정서·문화 프로그램 제공.",
+      "site": "https://www.ion.or.kr/osancity",
+      "phone": "031-375-2600",
+      "source": "https://www.ion.or.kr/osancity",
+      "scope": "오산시",
+      "reviewed": "2026-11-24",
+      "status": "미확인",
+      "jurisdiction": "",
+      "services": [
+        {
+          "id": "SVC-N24-007",
+          "name": "방과 후 아동 보호·급식·학습 지원",
+          "category": "가족·아동",
+          "target": "돌봄이 필요한 초등학생 등 18세 미만 아동(입소 기준·정원은 센터 확인)",
+          "description": "방과 후 보호, 급식, 학습 지도, 정서·문화 프로그램.",
+          "method": "센터에 전화 상담 후 입소 신청(031-375-2600)",
+          "operation": "센터 누리집에서 주소·연락처·이용시간 확인(2026-11-24). 누리집 소식이 오래되어 현재 정원·대기는 전화 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "아동"
+            ],
+            "need": [
+              "돌봄",
+              "교육"
+            ],
+            "form": [
+              "서비스 제공",
+              "시설 이용"
+            ],
+            "intake": [
+              "전화",
+              "직접 방문"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "가능",
+          "source": "https://www.ion.or.kr/osancity",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "센터 누리집 열람(주소·전화·이용시간); 현재 정원·대기 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-ORG-N24-CCCITY",
+        "owner_type": "organization",
+        "owner_id": "ORG-N24-CCCITY",
+        "dept": "",
+        "phone": "031-375-2600",
+        "fax": "031-375-2601",
+        "email": "",
+        "hours": "학기중 10:00~20:00, 방학중 10:00~19:00, 토 10:00~15:00",
+        "note": "대표전화",
+        "source_url": "https://www.ion.or.kr/osancity",
+        "verified_on": "2026-11-24"
+      },
+      "address": "경기도 오산시 성호대로 83, 2층 (오산동)",
+      "addressSource": "https://www.ion.or.kr/osancity",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-11-24",
+      "addressNote": "센터 누리집 표기 주소. 누리집 소식이 오래되어 현재 운영·정원은 전화로 확인 필요."
     }
   ]
 };

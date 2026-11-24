@@ -493,6 +493,75 @@
       },
       "note": "data.go.kr에는 LINK(경기데이터드림 제공)로만 등록됨. 경기데이터드림 인증키(GG_OPENAPI_KEY)와 서비스 주소(openapi.gg.go.kr/…)를 받은 뒤 시험 호출로 항목 이름을 채우고 켠다. 소방서·경찰서·지구대·파출소·치안센터 포함(설명 기준).",
       "required": false
+    },
+    {
+      "id": "library-standard",
+      "name": "전국도서관표준데이터",
+      "page": "https://www.data.go.kr/data/15013109/standard.do",
+      "kind": "facility",
+      "enabled": false,
+      "endpointChecked": false,
+      "keyEnv": "DATA_GO_KR_KEY",
+      "endpoint": "http://api.data.go.kr/openapi/tn_pubr_public_lbrry_api",
+      "format": "json",
+      "itemPath": "items",
+      "pageParam": "pageNo",
+      "sizeParam": "numOfRows",
+      "pageSize": 100,
+      "maxPages": 5,
+      "params": {
+        "type": "json"
+      },
+      "regionRuns": [
+        {
+          "region": "osan",
+          "params": {
+            "signguNm": "오산시"
+          }
+        }
+      ],
+      "fields": {
+        "name": "lbrryNm",
+        "address": "rdnmadr",
+        "phone": "phoneNumber",
+        "kind": "lbrrySe"
+      },
+      "note": "2026-11-24 시험 호출: 주소는 있음(403, 활용신청 전). 활용신청 승인 뒤 항목 이름·시군구 필터를 시험 호출로 확인하고 켠다. 항목 이름은 표준데이터 정의 기준 추정값.",
+      "required": false
+    },
+    {
+      "id": "gg-child-center",
+      "name": "경기도 지역아동센터 현황(경기데이터드림)",
+      "page": "https://data.gg.go.kr/",
+      "kind": "facility",
+      "enabled": false,
+      "endpointChecked": false,
+      "keyEnv": "GG_OPENAPI_KEY",
+      "keyParam": "KEY",
+      "endpoint": "",
+      "format": "xml",
+      "itemPath": "row",
+      "pageParam": "pIndex",
+      "sizeParam": "pSize",
+      "pageSize": 100,
+      "maxPages": 5,
+      "params": {},
+      "regionRuns": [
+        {
+          "region": "osan",
+          "params": {
+            "SIGUN_NM": "오산시"
+          }
+        }
+      ],
+      "fields": {
+        "name": "",
+        "address": "",
+        "phone": "",
+        "kind": ""
+      },
+      "note": "전국 단위 지역아동센터 API를 공공데이터포털에서 찾지 못함. 경기데이터드림 키와 서비스 주소를 받은 뒤 켠다.",
+      "required": false
     }
   ],
   "areaTextFields": [
