@@ -28,6 +28,7 @@ jobs:
       - run: python -m unittest discover -s tests -p 'test_resources.py'
       - run: python -m unittest discover -s tests -p 'test_program_refresh.py'
       - run: python -m unittest discover -s tests -p 'test_monthly_recheck.py'
+      - run: python -m unittest discover -s tests -p 'test_public_api_refresh.py'
       - name: Search and youth resource compatibility
         shell: bash
         run: |

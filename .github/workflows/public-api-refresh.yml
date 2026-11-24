@@ -1,0 +1,59 @@
+name: Public API refresh (change candidates)
+on:
+  workflow_dispatch:
+  schedule:
+    # Weekly Monday 06:00 KST (Sunday 21:00 UTC). GitHub may delay scheduled runs.
+    - cron: '0 21 * * 0'
+permissions:
+  contents: write
+  pull-requests: write
+concurrency:
+  group: public-api-refresh
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
+      GG_OPENAPI_KEY: ${{ secrets.GG_OPENAPI_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Offline contract tests
+        run: python -m unittest discover -s tests -p 'test_public_api_refresh.py'
+      - name: Collect public APIs (writes docs/public-api only)
+        run: python scripts/public_api_refresh.py --summary public-api-summary.md
+      - name: Job summary
+        if: always()
+        run: '[ -f public-api-summary.md ] && cat public-api-summary.md >> "$GITHUB_STEP_SUMMARY" || true'
+      - name: Source tables must be untouched
+        run: git diff --exit-code -- data/
+      - name: Open or update the review PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet -- docs/public-api; then echo "No change"; exit 0; fi
+          branch=automation/public-api-refresh
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B "$branch"
+          git add docs/public-api
+          git commit -m "chore: 공공 API 변경 후보 갱신 $(date -u +%Y-%m-%d)"
+          git push --force origin "$branch"
+          if [ -z "$(gh pr list --head "$branch" --state open --json number -q '.[0].number')" ]; then
+            gh pr create --draft --base main --head "$branch" \
+              --title "공공 API 변경 후보 검토 (자동)" \
+              --body-file public-api-summary.md
+          fi
+      - name: Fail when a required 오산 run failed
+        run: |
+          python - <<'PY'
+          import json, sys
+          s = json.load(open('docs/public-api/status.json', encoding='utf-8'))
+          bad = [k for k, v in s['runs'].items() if v.get('required') and v.get('lastAttemptAt') == s.get('generatedAt') and v.get('lastError')]
+          if bad:
+              print('필수(오산) 수집 실패:', ', '.join(bad)); sys.exit(1)
+          PY
