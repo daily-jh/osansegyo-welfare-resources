@@ -562,7 +562,7 @@ window.WELFARE_DATA = {
       "phone": "031-8036-8036",
       "source": "https://www.osan.go.kr/",
       "scope": "오산시",
-      "reviewed": "2026-10-20",
+      "reviewed": "2026-11-24",
       "status": "미확인",
       "jurisdiction": "",
       "services": [
@@ -624,6 +624,843 @@ window.WELFARE_DATA = {
             "method": "",
             "by": "",
             "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00001909",
+          "name": "공공치료기관 이용 아동 재활치료비 지원",
+          "category": "보건·의료",
+          "target": "장애인 등(세부 자격은 공식 안내 확인)",
+          "description": "공공치료기관 이용아동 치료비 지원",
+          "method": "신청방법: 방문. 담당: 경기도 오산시 복지교육국 노인장애인과. 오산시 사업은 시 담당부서 또는 주소지 행정복지센터에 문의.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "아동",
+              "장애인",
+              "질환"
+            ],
+            "need": [
+              "의료·건강"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": [
+              "직접 방문"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "가능",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001909&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00001909) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00004253",
+          "name": "보완적 출산장려지원 (첫째아이 이상 출산지원금 지급)",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "출산율 제고 및 다자녀가정의 경제적 부담 경감",
+          "method": "신청방법: 방문. 담당: 경기도 오산시 복지교육국 가족보육과. 오산시 사업은 시 담당부서 또는 주소지 행정복지센터에 문의.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-08-13). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "영유아"
+            ],
+            "need": [
+              "소득·생계",
+              "의료·건강",
+              "법률·금융",
+              "가족지원"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": [
+              "직접 방문"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "가능",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00004253&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00004253) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003657",
+          "name": "보완적 출산장려지원 (출산축하용품)",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "저출산 극복을 위한 출산장려 지원",
+          "method": "신청방법: 방문. 담당: 경기도 오산시 복지교육국 가족보육과. 오산시 사업은 시 담당부서 또는 주소지 행정복지센터에 문의.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-08-13). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "영유아"
+            ],
+            "need": [
+              "소득·생계",
+              "의료·건강",
+              "법률·금융"
+            ],
+            "form": [
+              "현물"
+            ],
+            "intake": [
+              "직접 방문"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "가능",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003657&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00003657) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003679",
+          "name": "보훈수당 및 보훈대상 사망위로금 지급",
+          "category": "경제·긴급",
+          "target": "보훈대상자 등(세부 자격은 공식 안내 확인)",
+          "description": "국가보훈대상자 예우 및 지원",
+          "method": "신청방법: 방문. 담당: 경기도 오산시 복지교육국 희망복지과. 오산시 사업은 시 담당부서 또는 주소지 행정복지센터에 문의.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-10-13). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [],
+            "need": [
+              "소득·생계",
+              "법률·금융"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": [
+              "직접 방문"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "가능",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003679&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00003679) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003680",
+          "name": "어린이집 입학준비금 지원",
+          "category": "경제·긴급",
+          "target": "한부모·조손,  저소득 등(세부 자격은 공식 안내 확인)",
+          "description": "관내 어린이집을 이용 중인 법정저소득층 자녀에게 입학금을 지원함으로써 저소득층의 경제적 부담 완화 및 안정된 보육환경 조성",
+          "method": "신청방법: 인터넷. 담당: 경기도 오산시 복지교육국 가족보육과. 오산시 사업은 시 담당부서 또는 주소지 행정복지센터에 문의.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-08-22). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "영유아",
+              "아동",
+              "가족·한부모",
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "돌봄",
+              "교육",
+              "법률·금융"
+            ],
+            "form": [],
+            "intake": [
+              "온라인"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "가능",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003680&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00003680) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00004759",
+          "name": "오산시 미취업청년과 중소기업상생사업",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "경기도 소재 중소기업에 고용증대 효과 및 지역경제 활성화에 기여 관내 만 39세 이하의 미취업 청년의 실업 해소",
+          "method": "담당: 경기도 오산시 경제문화국 민생경제과. 오산시 사업은 시 담당부서 또는 주소지 행정복지센터에 문의.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-08-04). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청년"
+            ],
+            "need": [
+              "소득·생계",
+              "고용·자립",
+              "법률·금융"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "가능",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00004759&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00004759) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00006191",
+          "name": "오산시 청년 및 신혼부부 주택임차 보증금 대출이자 지원사업",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "오산시 청년 및 신혼부부의 주택임차 보증금 대출이자를 지원함으로 주거비 부담 완화, 안정된 정주여건 조성, 출산 장려, 경제적 자립 지원, 타지역 유출 방지 등을 위한 목적",
+          "method": "신청방법: E-mail. 담당: 경기도 오산시 도시주택국 주택과. 오산시 사업은 시 담당부서 또는 주소지 행정복지센터에 문의.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-08-27). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "영유아",
+              "청년",
+              "가족·한부모"
+            ],
+            "need": [
+              "소득·생계",
+              "주거",
+              "의료·건강",
+              "고용·자립"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": [
+              "온라인"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "가능",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006191&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00006191) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00005934",
+          "name": "오산시 초등학교 입학축하금 지원",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "초등학생의 입학을 축하하고 행복한 학교생활 시작에 꼭 필요한 가방, 학용품, 학습용 도서 등 물품 구입할 수 있도록 지원하여 교육의 공공성 강화 및 오산시 미래 인재 양성과 학생 간의 차별 없는 보편적 교육복지 실현 목적 무상교복(체육복)을 지원하는 중 고등학교 신입생에 비해 초등학교 신입생에 대한 교육복지 혜택은 다자녀 가정에만 대상이 제한되어있어, 교육복지의 형평성 제고를 위하여 초등학교 신입생 대상 보편적 지원으로 확대 필요",
+          "method": "신청방법: 인터넷,  방문. 담당: 경기도 오산시 복지교육국 평생교육과. 오산시 사업은 시 담당부서 또는 주소지 행정복지센터에 문의.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-10). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년"
+            ],
+            "need": [
+              "소득·생계",
+              "교육",
+              "법률·금융"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": [
+              "직접 방문",
+              "온라인"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "가능",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005934&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00005934) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00005917",
+          "name": "오산시 화장장려금 지원",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "오산시 관내에 화장시설이 없어 타 지역 화장시설을 이용하는 오산시민이 인근 지역에 비해 상대적으로 고비용의 화장료로 이용하여 경제적인 부담을 완화하고 장묘문화의 개선을 도모하고자 화장장려금을 지원합니다.",
+          "method": "신청방법: 방문. 담당: 경기도 오산시 복지교육국 노인장애인과. 오산시 사업은 시 담당부서 또는 주소지 행정복지센터에 문의.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [],
+            "need": [
+              "소득·생계",
+              "법률·금융",
+              "안전·권리보호"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": [
+              "직접 방문"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "가능",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005917&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00005917) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00001023",
+          "name": "장애인활동지원 시추가지원",
+          "category": "경제·긴급",
+          "target": "장애인 등(세부 자격은 공식 안내 확인)",
+          "description": "혼자서 일상생활과 사회생활을 하기 어려운 장애인에게 국도비사업으로 활동지원급여를 제공하고 있으나, 서비스시간 부족으로 어려움을 겪고 있어 시 자체적으로 추가시간을 제공하여 장애인의 자립생활을 지원하고 그 가족의 부담을 줄이기 위함",
+          "method": "신청방법: 방문. 담당: 경기도 오산시 복지교육국 노인장애인과. 오산시 사업은 시 담당부서 또는 주소지 행정복지센터에 문의.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "가족·한부모",
+              "장애인"
+            ],
+            "need": [
+              "소득·생계",
+              "고용·자립",
+              "가족지원"
+            ],
+            "form": [],
+            "intake": [
+              "직접 방문"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "가능",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001023&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00001023) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003786",
+          "name": "재해 이재민 구호물품 지원",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "재해를 입은 이재민과 재해가 예상되는 일시대피자에 대해 구호를 실시함으로써 이재민과 일시대피자 보호와 생활안정 도모",
+          "method": "담당: 경기도 오산시 복지교육국 희망복지과. 오산시 사업은 시 담당부서 또는 주소지 행정복지센터에 문의.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-10-13). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "안전·권리보호"
+            ],
+            "form": [
+              "현물"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "가능",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003786&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00003786) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003787",
+          "name": "재해 이재민·행려자 보호(행려자 응급구료비, 행려자 귀항여비, 무연고사망자 장례비 지원)",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "행려자에게 귀향여비 및 무연고 사망자의 장제비용 지원",
+          "method": "담당: 경기도 오산시 복지교육국 희망복지과. 오산시 사업은 시 담당부서 또는 주소지 행정복지센터에 문의.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-08-19). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "법률·금융",
+              "안전·권리보호"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "가능",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003787&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00003787) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003788",
+          "name": "저소득 한부모가정 아동발달 지원계좌 지원",
+          "category": "경제·긴급",
+          "target": "한부모·조손 등(세부 자격은 공식 안내 확인)",
+          "description": "저소득 한부모가족 자녀의 자립을 위한 경제적 지원",
+          "method": "신청방법: 방문. 담당: 경기도 오산시 복지교육국 가족보육과. 오산시 사업은 시 담당부서 또는 주소지 행정복지센터에 문의.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "아동",
+              "가족·한부모",
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "고용·자립",
+              "법률·금융",
+              "가족지원"
+            ],
+            "form": [],
+            "intake": [
+              "직접 방문"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "가능",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003788&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00003788) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003789",
+          "name": "저소득 한부모가정 지원 (연료비)",
+          "category": "경제·긴급",
+          "target": "한부모·조손 등(세부 자격은 공식 안내 확인)",
+          "description": "저소득 한부모가족 및 국민기초수급자 한부모가족 1가구당 연1회 연료비 지원",
+          "method": "담당: 경기도 오산시 복지교육국 가족보육과. 오산시 사업은 시 담당부서 또는 주소지 행정복지센터에 문의.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "가족·한부모",
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "법률·금융",
+              "가족지원"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "가능",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003789&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00003789) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00001024",
+          "name": "저소득 한부모가정 초·중·고등학생  체험학습비 지원",
+          "category": "경제·긴급",
+          "target": "한부모·조손 등(세부 자격은 공식 안내 확인)",
+          "description": "저소득한부모가정의 교육비 부담을 경감",
+          "method": "담당: 경기도 오산시 복지교육국 가족보육과. 오산시 사업은 시 담당부서 또는 주소지 행정복지센터에 문의.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청소년",
+              "가족·한부모",
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "교육",
+              "법률·금융",
+              "가족지원"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "가능",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001024&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00001024) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00002992",
+          "name": "저소득 한부모가족 대학등록금 지원",
+          "category": "경제·긴급",
+          "target": "한부모·조손 등(세부 자격은 공식 안내 확인)",
+          "description": "한부모가족 자녀들의 학습 의욕을 고취시켜 대학교육의 기회를 제공",
+          "method": "신청방법: 방문. 담당: 경기도 오산시 복지교육국 가족보육과. 오산시 사업은 시 담당부서 또는 주소지 행정복지센터에 문의.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청년",
+              "가족·한부모",
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "교육",
+              "법률·금융",
+              "가족지원"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": [
+              "직접 방문"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "가능",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00002992&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00002992) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00001044",
+          "name": "저소득 한부모가족 안경 구입비 지원",
+          "category": "경제·긴급",
+          "target": "한부모·조손 등(세부 자격은 공식 안내 확인)",
+          "description": "저소득 한부모가족의 건강한 생활을 위한 안경구입에 대한 경제적 지원",
+          "method": "신청방법: 방문. 담당: 경기도 오산시 복지교육국 가족보육과. 오산시 사업은 시 담당부서 또는 주소지 행정복지센터에 문의.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "가족·한부모",
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "의료·건강",
+              "법률·금융",
+              "가족지원"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": [
+              "직접 방문"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "가능",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001044&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00001044) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00002993",
+          "name": "저소득층 성인여성 위생용품 지급",
+          "category": "보건·의료",
+          "target": "한부모·조손,  장애인,  저소득 등(세부 자격은 공식 안내 확인)",
+          "description": "저소득 성인여성 (만25~50세)에게 위생용품(생리대)을 지급하여 경제적 부담 경감을 통한 생활안정 지원 및 여성의 건강과 인권을 증진하고자 함.",
+          "method": "신청방법: 방문,  우편. 담당: 경기도 오산시 복지교육국 가족보육과. 오산시 사업은 시 담당부서 또는 주소지 행정복지센터에 문의.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "가족·한부모",
+              "위기가구",
+              "장애인"
+            ],
+            "need": [
+              "의료·건강",
+              "가족지원"
+            ],
+            "form": [
+              "현물"
+            ],
+            "intake": [
+              "직접 방문"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "가능",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00002993&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00002993) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00002994",
+          "name": "중증장애인 택시요금 할인카드 지원",
+          "category": "경제·긴급",
+          "target": "장애인 등(세부 자격은 공식 안내 확인)",
+          "description": "중증장애인들에게 택시요금 할인지원 사업을 통해 중증장애인의 교통비 부담을 경감하고, 이동권을 보장함으로서 사회활동 참여와 자립생활을 기회를 제공함으로서 삶의 질 향상에 기어코자 함.",
+          "method": "신청방법: 방문. 담당: 경기도 오산시 복지교육국 노인장애인과. 오산시 사업은 시 담당부서 또는 주소지 행정복지센터에 문의.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "장애인"
+            ],
+            "need": [
+              "소득·생계",
+              "고용·자립",
+              "법률·금융"
+            ],
+            "form": [
+              "현물"
+            ],
+            "intake": [
+              "직접 방문"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "가능",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00002994&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00002994) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00004700",
+          "name": "청년 면접합격 응원세트",
+          "category": "취업·자립",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "청년 구직활동 지원 및 경제적 부담 완화",
+          "method": "신청방법: 인터넷. 담당: 경기도 오산시 경제문화국 민생경제과. 오산시 사업은 시 담당부서 또는 주소지 행정복지센터에 문의.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-31). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청년"
+            ],
+            "need": [
+              "고용·자립"
+            ],
+            "form": [
+              "현물"
+            ],
+            "intake": [
+              "온라인"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "가능",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00004700&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00004700) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003881",
+          "name": "홍익일자리사업추진",
+          "category": "경제·긴급",
+          "target": "다문화·탈북민,  보훈대상자,  한부모·조손 등(세부 자격은 공식 안내 확인)",
+          "description": "저소득 실업자에게 한시적인 일자리 창출로 최소한의 생계를 보장하여 참여자가 새로운 직장을 구할 수 있는 기회를 제공",
+          "method": "신청방법: 방문. 담당: 경기도 오산시 경제문화국 기업일자리과. 오산시 사업은 시 담당부서 또는 주소지 행정복지센터에 문의.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-06-27). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "가족·한부모",
+              "다문화",
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "고용·자립",
+              "법률·금융",
+              "가족지원"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": [
+              "직접 방문"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "가능",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003881&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00003881) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003763",
+          "name": "청각장애아동재활치료비",
+          "category": "경제·긴급",
+          "target": "장애인 등(세부 자격은 공식 안내 확인)",
+          "description": "청각장애인의 재활치료 지원으로 의료비 부담 경감 및 사회, 경제 활동 활성화 도모.",
+          "method": "신청방법: 방문. 담당: 경기도 오산시 복지교육국 노인장애인과. 오산시 사업은 시 담당부서 또는 주소지 행정복지센터에 문의.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "아동",
+              "장애인",
+              "질환"
+            ],
+            "need": [
+              "소득·생계",
+              "의료·건강",
+              "법률·금융"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": [
+              "직접 방문"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "가능",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003763&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00003763) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
           },
           "contacts": [],
           "rounds": []
@@ -2390,7 +3227,7 @@ window.WELFARE_DATA = {
       "phone": "031-120",
       "source": "https://www.gg.go.kr/",
       "scope": "경기도",
-      "reviewed": "2026-10-24",
+      "reviewed": "2026-11-24",
       "status": "미확인",
       "jurisdiction": "",
       "services": [
@@ -2499,8 +3336,8 @@ window.WELFARE_DATA = {
           "target": "가정 밖·일시보호 필요 청소년",
           "description": "경기도 내 청소년쉼터 운영 현황 및 입소 경로 안내. 시설별 대상·보호가능 여부 확인.",
           "method": "청소년상담 1388 및 관할 청소년안전망을 통해 문의",
-          "operation": "공식 안내에서 서비스 존재 확인·개별 접수는 재확인",
-          "editedOn": "2026-10-24",
+          "operation": "2026-11-24 재점검: 경기도 원문 서버 오류로 재열람 실패. 연계 전 담당기관에 직접 확인.",
+          "editedOn": "2026-11-24",
           "tags": {
             "target": [
               "청소년",
@@ -2524,11 +3361,11 @@ window.WELFARE_DATA = {
           "localAvailable": "확인 필요",
           "source": "https://www.gg.go.kr/bbs/boardView.do?bIdx=71116882&bcIdx=0&bsIdx=497&menuId=1860",
           "verification": {
-            "status": "확인완료",
+            "status": "사업별 확인 필요",
             "date": "2026-10-24",
             "method": "정부·교육청 공식 안내 검토(실제 접수 별도)",
             "by": "자료 관리자",
-            "next": "2026-11-01"
+            "next": "2026-12-24"
           },
           "contacts": [],
           "rounds": []
@@ -2540,8 +3377,8 @@ window.WELFARE_DATA = {
           "target": "도내 거주 및 대안교육기관 등 지정 요건에 해당하는 입학생",
           "description": "2026 학생 교복·단체복 실비 최대 40만원. 신청기한 2026.12.11 및 거주·중복지원 기준 확인.",
           "method": "경기민원24 사업 공고에서 신청·증빙 확인",
-          "operation": "공식 안내에서 서비스 존재 확인·개별 접수는 재확인",
-          "editedOn": "2026-10-24",
+          "operation": "2026-11-24 재점검: 경기민원24 원문 자동 열람 차단으로 재열람 실패. 연계 전 담당기관에 직접 확인.",
+          "editedOn": "2026-11-24",
           "tags": {
             "target": [
               "청소년"
@@ -2562,11 +3399,11 @@ window.WELFARE_DATA = {
           "localAvailable": "확인 필요",
           "source": "https://gg24.gg.go.kr/svcreqst/selectSvcReqst.do?svc_seq=939",
           "verification": {
-            "status": "확인완료",
+            "status": "사업별 확인 필요",
             "date": "2026-10-24",
             "method": "정부·교육청 공식 안내 검토(실제 접수 별도)",
             "by": "자료 관리자",
-            "next": "2026-11-01"
+            "next": "2026-12-24"
           },
           "contacts": [],
           "rounds": [
@@ -2581,6 +3418,2239 @@ window.WELFARE_DATA = {
               "verified_on": "2026-10-24"
             }
           ]
+        },
+        {
+          "id": "SVC-SSIS-WLF00001739",
+          "name": "1인 소상공인 고용보험료 지원",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "근로자가 없는 1인 영세 소상공인의 사회안전망 편입 도모 및 안정적인 경영기반 마련 지원",
+          "method": "신청방법: 방문,  우편,  인터넷,  팩스. 담당: 경기도 경제투자실 소상공인과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-15). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [],
+            "need": [
+              "소득·생계",
+              "고용·자립"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": [
+              "직접 방문",
+              "온라인"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001739&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00001739) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00000686",
+          "name": "가정위탁 양육지원",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "가정위탁 아동이 가정적인 환경에서 건전한 사회인으로 자라날 수 있도록 양육보조금 지원",
+          "method": "담당: 경기도 여성가족국 아동돌봄과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-08-21). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "아동",
+              "가족·한부모"
+            ],
+            "need": [
+              "소득·생계",
+              "돌봄",
+              "법률·금융",
+              "가족지원"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00000686&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00000686) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00000687",
+          "name": "가정위탁 학습활동 지원",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "가정위탁 아동의 학습활동에 필요한 교육비 지원으로 경제적 부담을 해소하여 건전한 육성 도모",
+          "method": "신청방법: 방문. 담당: 경기도 여성가족국 아동돌봄과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-08-27). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "아동",
+              "가족·한부모"
+            ],
+            "need": [
+              "소득·생계",
+              "교육",
+              "법률·금융",
+              "가족지원"
+            ],
+            "form": [],
+            "intake": [
+              "직접 방문"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00000687&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00000687) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00000688",
+          "name": "결식아동 급식지원",
+          "category": "보건·의료",
+          "target": "한부모·조손,  저소득 등(세부 자격은 공식 안내 확인)",
+          "description": "결식 우려가 있는 18세 미만 아동 급식지원을 통한 건강한 성장 도모",
+          "method": "신청방법: 방문,  인터넷. 담당: 경기도 여성가족국 아동돌봄과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-10). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "아동",
+              "가족·한부모",
+              "위기가구"
+            ],
+            "need": [
+              "의료·건강",
+              "안전·권리보호"
+            ],
+            "form": [
+              "현물"
+            ],
+            "intake": [
+              "직접 방문",
+              "온라인"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00000688&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00000688) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00005029",
+          "name": "경기남부청소년자립지원관",
+          "category": "돌봄·생활",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "일정기간 청소년복지시설의 지원을 받았음에도 가정 학교 사회로 복귀하여 생활 할 수 없는 청소년에게 자립하여 생활할 수 있도록 기반 마련",
+          "method": "담당: 경기도 평생교육국 청소년과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-23). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청소년"
+            ],
+            "need": [
+              "돌봄",
+              "교육",
+              "고용·자립"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005029&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00005029) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00004990",
+          "name": "경기도 농어민 기회소득",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "농어업 농어촌의 소멸위기에 대응 공익적 기능 유지 및 지속성 등 사회적 가치 창출 활동을 하는 농어민에게 기회소득 지급",
+          "method": "신청방법: 방문,  인터넷. 담당: 경기도 농수산생명과학국 농업정책과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-31). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "법률·금융",
+              "안전·권리보호"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": [
+              "직접 방문",
+              "온라인"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00004990&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00004990) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00006107",
+          "name": "경기도 분만취약지 임산부 교통비 지원사업",
+          "category": "보건·의료",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "임산부의 의료접근성을 높여 안전한 임신 출산환경 조성 및 모자 건강증진 도모 임산부 교통비 지원을 통해 의료장벽 해소 및 경제적 부담 완화에 도움",
+          "method": "신청방법: 방문,  인터넷. 담당: 경기도 보건건강국 응급의료과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-08-13). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "영유아"
+            ],
+            "need": [
+              "의료·건강"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": [
+              "직접 방문",
+              "온라인"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006107&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00006107) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00001361",
+          "name": "경기도 산후조리비 지원",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "출산가정의 경제적 부담 완화 및 산모신생아 건강보호",
+          "method": "신청방법: 방문. 담당: 경기도 보건건강국 건강증진과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-08-19). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "영유아"
+            ],
+            "need": [
+              "소득·생계",
+              "의료·건강",
+              "법률·금융",
+              "가족지원"
+            ],
+            "form": [],
+            "intake": [
+              "직접 방문"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001361&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00001361) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00005270",
+          "name": "경기도 소규모 노후주택 집수리 지원사업",
+          "category": "경제·긴급",
+          "target": "한부모·조손,  저소득 등(세부 자격은 공식 안내 확인)",
+          "description": "사업목적 : 노후․불량 주택의 성능개선을 통해 주거취약계층의 주거환경개선 및 거주민의 주거복지 증진 □ 사업근거 경기도 소규모 노후주택 집수리 지원 조례(′24. 5. 16. 전부개정) □ 사업개요 (대상지역) 도내 전지역 (대상주택) 사용승인일로부터 20년 이상 경과한 노후 단독주택, 15년 이상 경과한 30세대 미만 공동주택 (사업내용) 옥상방수, 도색, 주차장 조성 등 집수리 비용 지원 (지원금액) 단독주택(최대1,200만원), 공동주택(최대 공용1,600만원, 전유500만원) - 자부담",
+          "method": "신청방법: 방문,  우편. 담당: 경기도 도시주택실 도시재생과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2025-07-04). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "가족·한부모",
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "주거",
+              "법률·금융"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": [
+              "직접 방문"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005270&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00005270) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00004768",
+          "name": "경기도 소상공인 사업정리 지원",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "도내 6개월 이상 영업한 폐업 및 폐업 예정 소상공인",
+          "method": "신청방법: 인터넷,  모바일앱,  우편,  전화,  방문. 담당: 경기도 경제투자실 소상공인과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-15). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [],
+            "need": [
+              "소득·생계",
+              "법률·금융"
+            ],
+            "form": [],
+            "intake": [
+              "직접 방문",
+              "전화",
+              "온라인"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00004768&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00004768) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00004473",
+          "name": "경기도 어린이·청소년 교통비 지원 사업",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "경기버스 요금인상에 따라 교통비가 증가한 도내 만6~18세 어린이 청소년들이 사용한 대중교통 금액을 연 최대 24만원(분기별 6만원) 한도 내 교통비 환급",
+          "method": "신청방법: 모바일,  인터넷. 담당: 경기도 교통국 버스정책과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-23). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년"
+            ],
+            "need": [
+              "소득·생계",
+              "법률·금융"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": [
+              "온라인"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00004473&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00004473) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003575",
+          "name": "경기도 의약품 안전사용 환경조성 사업",
+          "category": "보건·의료",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "건강취약계층 대상 의약품 안전사용 교육 및 방문약료 서비스 제공으로 약물 부작용 저감",
+          "method": "담당: 경기도 보건건강국 의료자원과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-08-28). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [],
+            "need": [
+              "의료·건강",
+              "교육"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003575&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00003575) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00004995",
+          "name": "경기도 장애인 누림통장",
+          "category": "경제·긴급",
+          "target": "장애인 등(세부 자격은 공식 안내 확인)",
+          "description": "24개월간 월 10만원이내 1:1 매칭 지원",
+          "method": "신청방법: 방문. 담당: 경기도 복지국 장애인복지과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-29). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "장애인"
+            ],
+            "need": [
+              "소득·생계"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": [
+              "직접 방문"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00004995&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00004995) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00004511",
+          "name": "경기도 참전명예수당",
+          "category": "경제·긴급",
+          "target": "보훈대상자 등(세부 자격은 공식 안내 확인)",
+          "description": "국가를 위해 공헌 헌신한 참전유공자의 예우와 지원을 통해 유공자에 대한 자긍심 고취 및 명예를 선양하고 도민의 애국정신을 함양하고자 함.",
+          "method": "담당: 경기도 복지국 복지정책과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-08-05). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [],
+            "need": [
+              "소득·생계",
+              "정신건강",
+              "법률·금융"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00004511&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00004511) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00004207",
+          "name": "경기도 청년노동자 통장(舊경기도 일하는 청년 통장)",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "도내 청년노동자의 근로의지 고취 및 자산형성 지원을 통한 자립기반 마련",
+          "method": "신청방법: 인터넷. 담당: 경기도 사회적경제국 청년기회과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-08-22). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청년"
+            ],
+            "need": [
+              "소득·생계",
+              "고용·자립",
+              "법률·금융"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": [
+              "온라인"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00004207&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00004207) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00006073",
+          "name": "경기도 청소년복지시설 퇴소청소년 자립정착금 지급",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "청소년복지시설 퇴소 가정 밖 청소년의 안정적인 자립지원을 위한 자립정착금 지급",
+          "method": "신청방법: 방문,  E-mail,  우편. 담당: 경기도 미래평생교육국 청소년과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청소년"
+            ],
+            "need": [
+              "소득·생계",
+              "돌봄",
+              "고용·자립",
+              "법률·금융"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": [
+              "직접 방문",
+              "온라인"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006073&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00006073) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003676",
+          "name": "경기도 초등학생 치과주치의사업",
+          "category": "보건·의료",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "예방중심의 포괄적 구강건강관리서비스 제공을 통한 경기도 초등학생의 구강건강실현",
+          "method": "담당: 경기도 보건건강국 공공의료과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-08-28). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년"
+            ],
+            "need": [
+              "의료·건강",
+              "교육"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003676&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00003676) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00004801",
+          "name": "경기도 학자금 장기연체자 신용회복 지원사업",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "학자금대출 연체 문제로 인해 신용유의자로 전락하여 어려움을 겪는 도민의 신용회복 지원",
+          "method": "신청방법: 모바일,  인터넷. 담당: 경기도 미래평생교육국 청년기회과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-14). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [],
+            "need": [
+              "소득·생계",
+              "법률·금융"
+            ],
+            "form": [],
+            "intake": [
+              "온라인"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00004801&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00004801) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003288",
+          "name": "경기도 한부모가족복지시설 퇴소자 자립지원금 지원",
+          "category": "경제·긴급",
+          "target": "한부모·조손 등(세부 자격은 공식 안내 확인)",
+          "description": "한부모가족복지 시설 퇴소자에 대한 최소한의 자립지원금을 보조하여 자립에 도움을 주고자 함",
+          "method": "신청방법: 방문. 담당: 경기도 여성가족국 가족다문화과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-11). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "가족·한부모"
+            ],
+            "need": [
+              "소득·생계",
+              "돌봄",
+              "고용·자립",
+              "법률·금융"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": [
+              "직접 방문"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003288&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00003288) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00006211",
+          "name": "경기도이주여성상담센터",
+          "category": "정신건강",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "도내 폭력피해 이주여성(난민) 및 그 가족구성원에 대한 상담 및 지원서비스 제공으로 여성인권 도모",
+          "method": "신청방법: 전화,  방문,  팩스,  모바일앱,  E-mail,  우편,  인터넷. 담당: 경기도 이민사회국 이민사회지원과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-03-13). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "가족·한부모",
+              "다문화"
+            ],
+            "need": [
+              "정신건강",
+              "안전·권리보호",
+              "가족지원"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "직접 방문",
+              "전화",
+              "온라인"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006211&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00006211) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00005030",
+          "name": "경기북부청소년자립지원관",
+          "category": "교육·청소년",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "일정기간 청소년복지시설의 지원을 받았음에도 가정 학교 사회로 복귀하여 생활 할 수 없는 청소년에게 자립하여 생활할 수 있도록 기반 마련",
+          "method": "담당: 경기도 평생교육국 청소년과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-23). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청소년"
+            ],
+            "need": [
+              "교육",
+              "고용·자립"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005030&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00005030) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00004076",
+          "name": "경기여성 취업지원금 지원 사업",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "도내 경력보유여성에게 구직지원금을 지원하여 적극적 구직의사가 있는 미취업 여성의 노동시장 진입을 촉진 접수기간: 2026년 4월 16일 ~ 4월 20일 (접수마감) 선정인원: 300명 내외(접수인원 중 평가를 통해 최종 선정) 신청방법: 온라인 신청(https://apply.jobaba.net) 지원대상: 경기도에 1년 이상 거주하고 기준 중위소득 150% 이하 가구에 속한 적극적 구직의지가 있는내가이거 35세~59세 미취업 여성 지원내용: : 취업지원금, 취업지원프로그램 등",
+          "method": "신청방법: 인터넷. 담당: 경기도 여성가족국 고용평등과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-08-11). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [],
+            "need": [
+              "소득·생계",
+              "고용·자립",
+              "법률·금융"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": [
+              "온라인"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00004076&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00004076) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00006099",
+          "name": "경기임산부 친환경농산물 지원",
+          "category": "보건·의료",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "ㅇ 친환경농산물의 중장기적인 고정 소비층 확보에 따른 안정적인 소비체계 확립 및 친환경 농업을 통한 환경 보전 등 사회적 가치 구현 ㅇ 임산부에게 친환경농산물 공급을 통한 건강한 임신ㆍ출산 환경 조성 및 건강한 먹거리 인식제고",
+          "method": "신청방법: 인터넷,  방문. 담당: 경기도 농수산생명과학국 친환경농업과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-08-13). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "영유아"
+            ],
+            "need": [
+              "의료·건강"
+            ],
+            "form": [
+              "현물"
+            ],
+            "intake": [
+              "직접 방문",
+              "온라인"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006099&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00006099) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00005170",
+          "name": "경기청년 갭이어 프로그램 운영",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "청년이 스스로 인생을 설계할 수 있도록 다양한 도전과 체험 기회 제공",
+          "method": "신청방법: 모바일앱,  인터넷. 담당: 경기도 사회적경제국 청년기회과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-08-21). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청년"
+            ],
+            "need": [
+              "소득·생계",
+              "고용·자립",
+              "법률·금융"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": [
+              "온라인"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005170&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00005170) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00006126",
+          "name": "경기청년 매치업 플러스(북부특화형)",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "경기도 및 경기북부 중소기업 청년 인력난 개선과 일자리 미스매치 해소 우수기업 발굴과 지역 청년 일-체험을 통해 지속적인 일자리 창출 유도",
+          "method": "신청방법: 인터넷. 담당: 경기도 경제실 경제기획관 일자리경제정책과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-23). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청년"
+            ],
+            "need": [
+              "소득·생계",
+              "고용·자립",
+              "법률·금융"
+            ],
+            "form": [],
+            "intake": [
+              "온라인"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006126&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00006126) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00005974",
+          "name": "경기청년 역량강화 기회지원 사업",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "도내 미취업 청년의 구직활동에 필요한 어학 자격시험 응시료 지원을 통해 고른 취업기회 제공, 취업준비 비용 부담 완화",
+          "method": "신청방법: 인터넷. 담당: 경기도 미래평생교육국 청년기회과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-23). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청년"
+            ],
+            "need": [
+              "소득·생계",
+              "고용·자립",
+              "법률·금융"
+            ],
+            "form": [],
+            "intake": [
+              "온라인"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005974&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00005974) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003847",
+          "name": "국가유공자 생활보조보훈수당 지원",
+          "category": "경제·긴급",
+          "target": "저소득,  보훈대상자 등(세부 자격은 공식 안내 확인)",
+          "description": "차상위계층 이하인 국가유공자 생계 유지 지원",
+          "method": "신청방법: 방문. 담당: 경기도 복지국 복지정책과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-08-06). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "법률·금융",
+              "가족지원"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": [
+              "직접 방문"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003847&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00003847) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003678",
+          "name": "기초생활수급 노인 월동난방비 지원",
+          "category": "경제·긴급",
+          "target": "저소득 등(세부 자격은 공식 안내 확인)",
+          "description": "기초생활보장 수급자 노인가구에 난방비를 지원하여 생활안정 및 건강관리 도모",
+          "method": "담당: 경기도 복지국 노인복지과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-11). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "노인",
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "의료·건강",
+              "법률·금융"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003678&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00003678) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00000690",
+          "name": "노숙인 보호 및 지원",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "거리 노숙인 보호",
+          "method": "담당: 경기도 복지국 복지사업과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-08-13). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00000690&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00000690) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003696",
+          "name": "노숙인 일시보호소 운영",
+          "category": "주거",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "노숙인 등에 대한 복지서비스 제공 체계 구축하여 자립 및 사회복귀를 증진할 수 있도록 지원, 노숙인 등의 보호에 적정을 기하고 효율적인 시설운영 도모",
+          "method": "담당: 경기도 복지국 복지사업과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-08-13). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "주거",
+              "고용·자립"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003696&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00003696) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00000715",
+          "name": "노숙인 임시주거 지원",
+          "category": "주거",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "노숙인 임시주거 지원",
+          "method": "신청방법: 방문. 담당: 경기도 복지국 복지사업과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-08-13). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "주거"
+            ],
+            "form": [],
+            "intake": [
+              "직접 방문"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00000715&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00000715) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003697",
+          "name": "노숙인 자활시설 운영",
+          "category": "취업·자립",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "노숙인 등에 대한 복지서비스 제공 체계 구축하여 자립 및 사회복귀를 증진할 수 있도록 지원, 노숙인 등의 보호에 적정을 기하고 효율적인 시설운영 도모",
+          "method": "신청방법: 방문. 담당: 경기도 복지국 복지사업과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-08-13). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "고용·자립"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": [
+              "직접 방문"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003697&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00003697) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003846",
+          "name": "누리과정 차액보육료 지원",
+          "category": "돌봄·생활",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "누리과정 운영의 내실을 기하고 어린이집 이용 부모의 보육비 부담 경감",
+          "method": "신청방법: 방문,  인터넷. 담당: 경기도 여성가족국 보육정책과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-11). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "영유아",
+              "아동"
+            ],
+            "need": [
+              "돌봄"
+            ],
+            "form": [],
+            "intake": [
+              "직접 방문",
+              "온라인"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003846&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00003846) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003574",
+          "name": "대학생 학자금 대출이자 지원(경기도)",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "도내 대학(원) 재학생, 미취업 졸업(수료)생의 경제적 부담을 경감",
+          "method": "신청방법: 인터넷,  모바일. 담당: 경기도 미래평생교육국 청년기회과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-14). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청소년",
+              "청년"
+            ],
+            "need": [
+              "소득·생계",
+              "교육",
+              "고용·자립",
+              "법률·금융"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": [
+              "온라인"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003574&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00003574) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00004070",
+          "name": "도비 장애수당",
+          "category": "경제·긴급",
+          "target": "저소득,  장애인 등(세부 자격은 공식 안내 확인)",
+          "description": "중증장애인 가구의 생활안정 기여",
+          "method": "담당: 경기도 복지국 장애인복지과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2025-06-06). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "위기가구",
+              "장애인"
+            ],
+            "need": [
+              "소득·생계",
+              "법률·금융"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00004070&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00004070) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003699",
+          "name": "독립유공자 의료비 지원사업",
+          "category": "경제·긴급",
+          "target": "보훈대상자 등(세부 자격은 공식 안내 확인)",
+          "description": "독립유공자와 그 유족 중 의료급여 혜택을 받지 못하고 있는 자에 대하여 의료비(본인부담금) 지원",
+          "method": "담당: 경기도 복지국 복지정책과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-08-12). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "질환"
+            ],
+            "need": [
+              "소득·생계",
+              "의료·건강",
+              "법률·금융"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003699&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00003699) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00001235",
+          "name": "미등록 대안교육기관 이용 청소년 급식비 지원",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "교육청 미등록 대안교육기관 이용 청소년에게 급식을 지원하여 무상급식 사각지대를 해소하고, 부모의 부담 경감 및 청소년의 건강한 성장 도모",
+          "method": "신청방법: 우편,  방문. 담당: 경기도 평생교육국 청소년과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-06-30). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청소년"
+            ],
+            "need": [
+              "소득·생계",
+              "의료·건강",
+              "교육",
+              "법률·금융"
+            ],
+            "form": [
+              "현물",
+              "서비스 제공"
+            ],
+            "intake": [
+              "직접 방문"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001235&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00001235) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00006773",
+          "name": "미등록 이주배경아동 보육지원금(어린이집 직접지원)",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "출생 이후 돌봄의 공백 속에 방치되는 미등록 이주배경 아동의 기본권 보장",
+          "method": "담당: 경기도 이민사회국 이민사회지원과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-09-05). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "영유아",
+              "아동",
+              "다문화"
+            ],
+            "need": [
+              "소득·생계",
+              "돌봄"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006773&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00006773) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003781",
+          "name": "보훈대상자 위문금 지원",
+          "category": "경제·긴급",
+          "target": "보훈대상자 등(세부 자격은 공식 안내 확인)",
+          "description": "국가보훈대상자 예우를 위하여 명절 및 국경일, 기념일 등에 위문금 지급",
+          "method": "담당: 경기도 복지국 복지정책과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-08-06). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [],
+            "need": [
+              "소득·생계",
+              "법률·금융"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003781&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00003781) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00005924",
+          "name": "어르신 안전 하우징",
+          "category": "주거",
+          "target": "저소득 등(세부 자격은 공식 안내 확인)",
+          "description": "고령인구 증가로 인한 가정 내 안전사고(낙상 등) 급증 현실에 대응하여 안전한 주거공간 조성을 위한 고령자 맞춤형 주택개조 사업입니다.",
+          "method": "신청방법: 방문. 담당: 경기도 도시주택실 주택정책과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-16). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "노인",
+              "위기가구"
+            ],
+            "need": [
+              "주거"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": [
+              "직접 방문"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005924&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00005924) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00000717",
+          "name": "일본군'위안부' 피해자 생활안정지원",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "경기도 내 일본군'위안부' 피해자의 안정적인 생활 영위 지원",
+          "method": "담당: 경기도 여성가족국 여성정책과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "법률·금융",
+              "안전·권리보호"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00000717&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00000717) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003392",
+          "name": "장애인가구 냉난방비",
+          "category": "경제·긴급",
+          "target": "장애인,  저소득 등(세부 자격은 공식 안내 확인)",
+          "description": "기초생활 수급 중증 장애인가구에 냉난방비 지원으로 생활안정 도모",
+          "method": "담당: 경기도 복지국 장애인복지과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-29). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "위기가구",
+              "장애인"
+            ],
+            "need": [
+              "소득·생계",
+              "법률·금융"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003392&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00003392) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00004069",
+          "name": "저소득 노인가구 건강보험료",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "저소득 노인 가구에 건강보험료 지원",
+          "method": "담당: 경기도 복지국 노인복지과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-11). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "노인",
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "의료·건강"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00004069&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00004069) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00004001",
+          "name": "저소득 재가노인 식사배달",
+          "category": "보건·의료",
+          "target": "저소득 등(세부 자격은 공식 안내 확인)",
+          "description": "가정 형편이 어렵거나 기타 부득이한 사유로 점심을 거르시는 거동불편 어르신에게 식사 배달 사업을 통해 노인 급식 수준 향상",
+          "method": "신청방법: 방문. 담당: 경기도 복지국 노인복지과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-11). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "노인",
+              "위기가구"
+            ],
+            "need": [
+              "의료·건강",
+              "돌봄",
+              "안전·권리보호"
+            ],
+            "form": [
+              "현물"
+            ],
+            "intake": [
+              "직접 방문"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00004001&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00004001) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00001237",
+          "name": "저소득 주민을 위한 경기도 부동산 중개보수 지원사업",
+          "category": "경제·긴급",
+          "target": "저소득 등(세부 자격은 공식 안내 확인)",
+          "description": "2억원 이하의 주택 매매 및 전 월세를 계약한 국민기초생활수급자에게 부동산 중개보수를 지원하여 서민 주거 안정에 기여하고자 함",
+          "method": "신청방법: 방문,  우편. 담당: 경기도 도시주택실 토지정보과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "주거",
+              "법률·금융"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": [
+              "직접 방문"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001237&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00001237) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00006696",
+          "name": "저소득장애인 의료비 지원",
+          "category": "경제·긴급",
+          "target": "장애인 등(세부 자격은 공식 안내 확인)",
+          "description": "가구소득기준 중위소득 80% 이하 장애인의 입원비를 지원하여 저소득층의 건강관리 및 생활안정에 실질적인 도움 지원",
+          "method": "신청방법: 방문. 담당: 경기도 복지국 장애인복지과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-29). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "위기가구",
+              "장애인",
+              "질환"
+            ],
+            "need": [
+              "소득·생계",
+              "의료·건강",
+              "법률·금융"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": [
+              "직접 방문"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006696&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00006696) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00000720",
+          "name": "저소득층 청각장애인 재활지원",
+          "category": "보건·의료",
+          "target": "장애인 등(세부 자격은 공식 안내 확인)",
+          "description": "저소득층 청각장애인 의료비 부담 경감 및 사회 경제활동 활성화 도모",
+          "method": "신청방법: 방문. 담당: 경기도 복지국 장애인복지과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-29). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "위기가구",
+              "장애인",
+              "질환"
+            ],
+            "need": [
+              "의료·건강"
+            ],
+            "form": [],
+            "intake": [
+              "직접 방문"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00000720&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00000720) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00004161",
+          "name": "정신질환자 치료지원사업",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "발병 초기에 집중적인 치료를 유도하고 적절하고 꾸준한 치료를 받을 수 있도록 정신질환자에게 치료비를 지원하고 사례관리를 제공하는 사업입니다.",
+          "method": "신청방법: 방문,  우편. 담당: 경기도 보건건강국 정신건강과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-08-14). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "질환"
+            ],
+            "need": [
+              "소득·생계",
+              "의료·건강",
+              "정신건강",
+              "법률·금융"
+            ],
+            "form": [],
+            "intake": [
+              "직접 방문"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00004161&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00004161) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003470",
+          "name": "조손가정 손자녀 대학신입생 입학금(등록금) 지원",
+          "category": "경제·긴급",
+          "target": "한부모·조손 등(세부 자격은 공식 안내 확인)",
+          "description": "저소득 조손가족 자녀의 대학입학생활이 순조롭게 정착될 수 있도록 대학 입학(등록)금을 지원하여, 교육기회 제공 및 자립기반 조성",
+          "method": "신청방법: 방문,  우편. 담당: 경기도 여성가족국 가족정책과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-11). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년",
+              "청년",
+              "가족·한부모",
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "교육",
+              "고용·자립",
+              "법률·금융"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": [
+              "직접 방문"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003470&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00003470) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00000835",
+          "name": "중, 고등학교 신입생 교복구입비 지원",
+          "category": "교육·청소년",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "교육의 공공성 및 보편적 교육복지 실현을 위하여 중, 고등학교 신입생 교복 지원",
+          "method": "담당: 경기도 미래평생교육국 평생교육과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-14). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청소년"
+            ],
+            "need": [
+              "교육"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00000835&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00000835) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003472",
+          "name": "청각장애인 인공달팽이관 수술지원",
+          "category": "보건·의료",
+          "target": "장애인 등(세부 자격은 공식 안내 확인)",
+          "description": "청각장애인 의료비 부담 경감 및 사회경제 활동 활성화 도모",
+          "method": "신청방법: 방문. 담당: 경기도 복지국 장애인복지과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-29). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "장애인",
+              "질환"
+            ],
+            "need": [
+              "의료·건강"
+            ],
+            "form": [],
+            "intake": [
+              "직접 방문"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003472&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00003472) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003473",
+          "name": "청년 노동자 지원사업(중소기업 청년 노동자 지원사업)",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "경기도 소재 중소기업에 재직중인 도 거주 청년 노동자에게 임금보전을 통해 청년 노동자 처우개선 및 복지증진",
+          "method": "신청방법: 인터넷,  모바일. 담당: 경기도 사회적경제국 청년기회과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-08-22). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청년"
+            ],
+            "need": [
+              "소득·생계",
+              "고용·자립",
+              "법률·금융"
+            ],
+            "form": [],
+            "intake": [
+              "온라인"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003473&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00003473) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003927",
+          "name": "청년 노동자 지원사업(청년 복지포인트)",
+          "category": "취업·자립",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "청년 노동자에게 복리후생을 제공하여 청년노동자 처우개선 및 복지향상",
+          "method": "신청방법: 인터넷,  모바일. 담당: 경기도 사회적경제국 청년기회과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-08-22). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청년"
+            ],
+            "need": [
+              "고용·자립"
+            ],
+            "form": [],
+            "intake": [
+              "온라인"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003927&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00003927) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00005405",
+          "name": "청소년 자립두배통장",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "가정 밖 청소년들이 안정적으로 미래를 준비하고 자립 정착할 수 있도록 최소한의 자산 형성에 기여",
+          "method": "신청방법: 방문,  전화. 담당: 경기도 평생교육국 청소년과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-23). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청소년"
+            ],
+            "need": [
+              "소득·생계",
+              "주거",
+              "돌봄",
+              "고용·자립"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": [
+              "직접 방문",
+              "전화"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005405&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00005405) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00005590",
+          "name": "청소년 학습코칭 및 온라인서비스 제공",
+          "category": "교육·청소년",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "도내 교육 사각지대에 있는 청소년에게 고른 교육기회 제공으로 지역․계층간 교육격차 해소 및 청소년의 자기주도적 학습 기반 마련",
+          "method": "신청방법: 인터넷. 담당: 경기도 평생교육국 평생교육과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-17). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청소년"
+            ],
+            "need": [
+              "교육"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": [
+              "온라인"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005590&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00005590) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003474",
+          "name": "카네이션 하우스 운영지원 사업",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "노인 1인가구의 공동체 형성을 통한 사회참여기회 확대",
+          "method": "담당: 경기도 복지국 노인복지과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-08-14). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "노인"
+            ],
+            "need": [],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003474&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00003474) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003476",
+          "name": "한방난임 지원 사업",
+          "category": "보건·의료",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "난임부부의 다양한 요구를 수용한 지원정책으로 경제적 부담을 완화하고 임신 출산의 사회의료적 장애를 제거하여 저출산 극복에 기여",
+          "method": "신청방법: 인터넷. 담당: 경기도 보건건강국 의료자원과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-23). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "영유아",
+              "장애인"
+            ],
+            "need": [
+              "의료·건강"
+            ],
+            "form": [],
+            "intake": [
+              "온라인"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003476&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00003476) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00005926",
+          "name": "햇살하우징 사업",
+          "category": "경제·긴급",
+          "target": "저소득 등(세부 자격은 공식 안내 확인)",
+          "description": "에너지효율화 주택개조를 통한 저소득층의 난방비 및 전기료 등 주거비 절감 및 주거환경 개선",
+          "method": "신청방법: 방문. 담당: 경기도 도시주택실 주택정책과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-16). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "주거"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": [
+              "직접 방문"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005926&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00005926) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00005016",
+          "name": "다문화가족 도비지원사업",
+          "category": "경제·긴급",
+          "target": "다문화·탈북민 등(세부 자격은 공식 안내 확인)",
+          "description": "ㅇ 다문화가족 서포터즈 운영 : 다문화가족의 지역사회 적응과 생활 편익 향상 도모 ㅇ 결혼이민자 취업교육 지원 : 결혼이민자들의 경제적 자립을 위한 지원 및 생활안정 도모 ㅇ 다문화아동 이중언어 교육 지원 : 다문화가족 초등학생 대상으로 한 이중언어 수업을 통해 다문화 감수성을 지닌 글로벌 인재로의 성장 지원 ㅇ 결혼이민자 한국어 교육 : 결혼이민자 한국어교육을 시군별 책임 하에 운영하여 결혼이민자의 한국어 실력 향상 및 국내 정착에 기여 ㅇ 중도입국자녀 한국사회 적응지원 : 중도입국자녀의 상황에 맞는 맞춤형 프로그램 운영, 중도입",
+          "method": "신청방법: 방문. 담당: 경기도 여성가족국 가족다문화과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2023-02-08). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년",
+              "가족·한부모",
+              "다문화"
+            ],
+            "need": [
+              "소득·생계",
+              "교육",
+              "고용·자립",
+              "법률·금융"
+            ],
+            "form": [],
+            "intake": [
+              "직접 방문"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005016&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00005016) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00000718",
+          "name": "장애인활동지원",
+          "category": "취업·자립",
+          "target": "장애인 등(세부 자격은 공식 안내 확인)",
+          "description": "일상생활 및 사회활동이 어려운 장애인에게 활동보조서비스를 제공하여 장애인의 자립생활과 사회참여 증진",
+          "method": "신청방법: 방문,  인터넷. 담당: 경기도 복지국 장애인복지과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-29). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "장애인"
+            ],
+            "need": [
+              "고용·자립"
+            ],
+            "form": [],
+            "intake": [
+              "직접 방문",
+              "온라인"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00000718&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00000718) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00005606",
+          "name": "한부모가족 아동양육비 지원",
+          "category": "경제·긴급",
+          "target": "한부모·조손 등(세부 자격은 공식 안내 확인)",
+          "description": "아동양육비를 지원받지 못하는 한부모가족에 양육비를 지원함으로써 한부모가족의 경제적 부담을 경감하고자 한 사업입니다. 소득인정액이 정부지원 기준(65%)초과 100% 이하이면서 18세 미만 자녀를 양육하는 한부모가족에 자녀 1명당 아동양육비 월 10만원 지원합니다.",
+          "method": "신청방법: 인터넷,  방문. 담당: 경기도 여성가족국 가족정책과. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 지자체복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-07-11). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "아동",
+              "가족·한부모"
+            ],
+            "need": [
+              "소득·생계",
+              "돌봄",
+              "법률·금융",
+              "가족지원"
+            ],
+            "form": [],
+            "intake": [
+              "직접 방문",
+              "온라인"
+            ]
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005606&wlfareInfoReldBztpCd=02",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 지자체복지서비스 API 등록정보(WLF00005606) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
         }
       ],
       "contact": {
@@ -3454,7 +6524,7 @@ window.WELFARE_DATA = {
       "phone": "1577-4312",
       "source": "https://ggwf.gg.go.kr/",
       "scope": "경기도",
-      "reviewed": "2026-11-02",
+      "reviewed": "2026-11-24",
       "status": "미확인",
       "jurisdiction": "",
       "services": [
@@ -3533,7 +6603,7 @@ window.WELFARE_DATA = {
           "description": "심사를 거쳐 최대 200만원, 연 1%, 최장 10년 상환. 신용 하위 10%(KCB 675 또는 NICE 724 이하), 수급·차상위·한부모는 하위 20%(KCB 700 또는 NICE 749 이하). 피해지원 상담확인서 또는 피해사실 확인서 필요. 재외국민·외국인·해외체류자, 2020~2022년 대출 미완제자 등 제외요건은 원문 확인. 접수 11.2.~11.30., 자금 소진 시 조기마감.",
           "method": "사회연대은행 1800-6751 사전상담 후 온라인 또는 방문 신청. 방문 접수 평일 09:00~17:00. 단순 피해신고만으로 신청 불가.",
           "operation": "공식 공고상 2026.11.02.~11.30. 접수. 자금 소진 조기마감 및 심사 여부는 1800-6751 확인.",
-          "editedOn": "2026-11-02",
+          "editedOn": "2026-11-24",
           "tags": {
             "target": [],
             "need": [
@@ -3553,11 +6623,11 @@ window.WELFARE_DATA = {
           "localAvailable": "가능",
           "source": "https://gnews.gg.go.kr/briefing/brief_gongbo_view.do?BS_CODE=s017&number=71799",
           "verification": {
-            "status": "확인완료",
+            "status": "사업별 확인 필요",
             "date": "2026-11-02",
             "method": "경기도 2026-10-26 공식 보도자료 원문에서 자격·금리·기간·접수경로 확인; 잔여자금·실제 접수 미확인",
             "by": "자료 관리자",
-            "next": "2026-11-09"
+            "next": "2026-12-01"
           },
           "contacts": [
             {
@@ -3752,7 +6822,7 @@ window.WELFARE_DATA = {
       "phone": "031-371-0606",
       "source": "https://www.goehs.kr/goehs/cm/cntnts/cntntsView.do?cntntsId=2147&mi=18023",
       "scope": "경기도",
-      "reviewed": "2026-10-24",
+      "reviewed": "2026-11-24",
       "status": "미확인",
       "jurisdiction": "",
       "services": [
@@ -3831,8 +6901,8 @@ window.WELFARE_DATA = {
           "target": "학교폭력 피해학생 및 보호자",
           "description": "교육지원청 Wee센터의 학교폭력 피해학생 상담·전담기관 연계 관련 업무. 선정된 2026 기관은 별도 확인.",
           "method": "학교·Wee센터에 실제 지정기관·연계 가능 여부 확인",
-          "operation": "공식 안내에서 서비스 존재 확인·개별 접수는 재확인",
-          "editedOn": "2026-10-24",
+          "operation": "2026-11-24 재점검: 등록된 원문이 2025.11. 전담지원기관 지정 공고(접수 종료). 연계 전 담당기관에 직접 확인.",
+          "editedOn": "2026-11-24",
           "tags": {
             "target": [
               "청소년",
@@ -3855,11 +6925,11 @@ window.WELFARE_DATA = {
           "localAvailable": "확인 필요",
           "source": "https://www.goehs.kr/goehs/na/ntt/selectNttInfo.do?bbsId=9826&mi=17846&nttSn=1212366",
           "verification": {
-            "status": "확인완료",
+            "status": "사업별 확인 필요",
             "date": "2026-10-24",
             "method": "정부·교육청 공식 안내 검토(실제 접수 별도)",
             "by": "자료 관리자",
-            "next": "2026-11-01"
+            "next": "2026-12-24"
           },
           "contacts": [],
           "rounds": []
@@ -3871,8 +6941,8 @@ window.WELFARE_DATA = {
           "target": "정서행동 지원이 필요한 경기도 학생",
           "description": "화성오산 Wee센터 학생마음바우처 및 중등 정서행동특성검사 심층평가 업무 안내.",
           "method": "학교·Wee센터에 의료·심리치료비 지원기준과 심사 확인",
-          "operation": "공식 안내에서 서비스 존재 확인·개별 접수는 재확인",
-          "editedOn": "2026-10-24",
+          "operation": "2026-11-24 재점검: 공식 페이지가 업무분장표뿐이라 학생마음바우처·심층평가 안내 근거로 부족. 연계 전 담당기관에 직접 확인.",
+          "editedOn": "2026-11-24",
           "tags": {
             "target": [
               "아동",
@@ -3896,11 +6966,11 @@ window.WELFARE_DATA = {
           "localAvailable": "확인 필요",
           "source": "https://munsi-m.goehs.kr/goehs/jo/jobshare/selectJobShareView.do?mi=18196",
           "verification": {
-            "status": "확인완료",
+            "status": "사업별 확인 필요",
             "date": "2026-10-24",
             "method": "정부·교육청 공식 안내 검토(실제 접수 별도)",
             "by": "자료 관리자",
-            "next": "2026-11-01"
+            "next": "2026-12-24"
           },
           "contacts": [],
           "rounds": []
@@ -4780,7 +7850,7 @@ window.WELFARE_DATA = {
       "phone": "02-766-1004",
       "source": "https://beautifulfund.org/",
       "scope": "전국 민간",
-      "reviewed": "2026-11-02",
+      "reviewed": "2026-10-20",
       "status": "미확인",
       "jurisdiction": "",
       "services": [
@@ -4850,54 +7920,6 @@ window.WELFARE_DATA = {
           },
           "contacts": [],
           "rounds": []
-        },
-        {
-          "id": "SVC-MON-20261102-001",
-          "name": "미래에셋 가족돌봄청년 금융투자 특강(2026.12.05)",
-          "category": "교육·청소년",
-          "target": "서울·경기·인천 거주 만 18~39세 가족돌봄청년 100명(동반인 제외)",
-          "description": "2026.12.05.(토) 13:30~18:00 서울 을지로 미래에셋센터원빌딩에서 무료 금융투자 특강. 2026.10.26.~11.20. 18:00 온라인 신청.",
-          "method": "아름다운재단 공식 공고의 온라인 신청서 작성 및 가족돌봄 증빙서류 제출(2026.11.20. 18:00 마감).",
-          "operation": "2026-11-02 아름다운재단 공식 행사 공고 확인(현재 잔여인원·선정 여부 별도 확인). 원문: https://beautifulfund.org/131351/",
-          "editedOn": "2026-11-02",
-          "tags": {
-            "target": [
-              "청년"
-            ],
-            "need": [
-              "교육",
-              "법률·금융"
-            ],
-            "form": [
-              "서비스 제공"
-            ],
-            "intake": [
-              "온라인"
-            ]
-          },
-          "operationType": "공모형",
-          "localAvailable": "가능",
-          "source": "https://beautifulfund.org/131351/",
-          "verification": {
-            "status": "확인완료",
-            "date": "2026-11-02",
-            "method": "2026-10-26 아름다운재단 공식 행사 공고에서 대상·접수기간·신청방법·행사내용 확인",
-            "by": "자료 관리자",
-            "next": "2026-11-20"
-          },
-          "contacts": [],
-          "rounds": [
-            {
-              "round_id": "ROUND-MON-20261102-001",
-              "service_id": "SVC-MON-20261102-001",
-              "name": "미래에셋 가족돌봄청년 금융투자 특강 신청",
-              "opens_on": "2026-10-26",
-              "closes_on": "2026-11-20",
-              "local_available": "가능",
-              "source_url": "https://beautifulfund.org/131351/",
-              "verified_on": "2026-11-02"
-            }
-          ]
         }
       ],
       "contact": {
@@ -5832,7 +8854,7 @@ window.WELFARE_DATA = {
       "phone": "031-374-5540",
       "source": "https://osan.welinfo.kr/?board=programList",
       "scope": "오산시",
-      "reviewed": "2026-11-02",
+      "reviewed": "2026-11-24",
       "status": "미확인",
       "jurisdiction": "",
       "services": [
@@ -5844,7 +8866,7 @@ window.WELFARE_DATA = {
           "description": "2026.11.05.~11.26. 오산아이드림센터 2층 다목적실 방송댄스 프로그램. 참가비 28,000원.",
           "method": "기관 개별 프로그램 공고에서 신청·예약방법 확인(상세 접수방식 미기재).",
           "operation": "2026-11-02 오산아이드림센터 공식 개별 프로그램 공고 확인(실제 예약 가능·잔여석 별도 확인). 원문: https://www.osanidream.or.kr/play/play_view.asp?sn=213",
-          "editedOn": "2026-11-02",
+          "editedOn": "2026-11-24",
           "tags": {
             "target": [
               "영유아",
@@ -5864,10 +8886,10 @@ window.WELFARE_DATA = {
           "source": "https://www.osanidream.or.kr/play/play_view.asp?sn=213",
           "verification": {
             "status": "확인완료",
-            "date": "2026-11-02",
-            "method": "오산아이드림센터 공식 개별 프로그램 공고에서 일정·대상·이용료 및 이용방법 확인(미기재 항목 추정하지 않음)",
+            "date": "2026-11-24",
+            "method": "2026-11-24 오산아이드림센터 공식 공고 재열람(2026.11.5.~11.26. 운영 중)",
             "by": "자료 관리자",
-            "next": "2026-11-16"
+            "next": "2026-11-27"
           },
           "contacts": [],
           "rounds": []
@@ -5880,7 +8902,7 @@ window.WELFARE_DATA = {
           "description": "2026.11.03.~11.29. 1층 롤링아트 운영. 자유놀이 이용요금 적용(정확한 금액은 기관 안내 확인).",
           "method": "기관 자유놀이 이용안내에서 예약 및 요금 확인.",
           "operation": "2026-11-02 오산아이드림센터 공식 개별 프로그램 공고 확인(실제 예약 가능·잔여석 별도 확인). 원문: https://www.osanidream.or.kr/play/play_view.asp?sn=211",
-          "editedOn": "2026-11-02",
+          "editedOn": "2026-11-24",
           "tags": {
             "target": [
               "영유아",
@@ -5899,45 +8921,10 @@ window.WELFARE_DATA = {
           "source": "https://www.osanidream.or.kr/play/play_view.asp?sn=211",
           "verification": {
             "status": "확인완료",
-            "date": "2026-11-02",
-            "method": "오산아이드림센터 공식 개별 프로그램 공고에서 일정·대상·이용료 및 이용방법 확인(미기재 항목 추정하지 않음)",
+            "date": "2026-11-24",
+            "method": "2026-11-24 오산아이드림센터 공식 공고 재열람(2026.11.3.~11.29. 운영 중)",
             "by": "자료 관리자",
-            "next": "2026-11-16"
-          },
-          "contacts": [],
-          "rounds": []
-        },
-        {
-          "id": "SVC-MON-20261102-004",
-          "name": "11월 영아대상 오감 톡톡 가을 놀이 프로그램(2026)",
-          "category": "교육·청소년",
-          "target": "18~24개월 영아 1명 및 동반 보호자 1명",
-          "description": "2026.11.19.~11.20. 오산아이드림센터 2층 다목적실 1에서 영아 오감 놀이 프로그램 운영. 참가비 5,000원.",
-          "method": "기관 개별 프로그램 공고에서 신청·예약방법 확인(상세 접수방식 미기재).",
-          "operation": "2026-11-02 오산아이드림센터 공식 개별 프로그램 공고 확인(실제 예약 가능·잔여석 별도 확인). 원문: https://www.osanidream.or.kr/play/play_view.asp?sn=208",
-          "editedOn": "2026-11-02",
-          "tags": {
-            "target": [
-              "영유아",
-              "가족·한부모"
-            ],
-            "need": [
-              "교육"
-            ],
-            "form": [
-              "서비스 제공"
-            ],
-            "intake": []
-          },
-          "operationType": "시즌",
-          "localAvailable": "가능",
-          "source": "https://www.osanidream.or.kr/play/play_view.asp?sn=208",
-          "verification": {
-            "status": "확인완료",
-            "date": "2026-11-02",
-            "method": "오산아이드림센터 공식 개별 프로그램 공고에서 일정·대상·이용료 및 이용방법 확인(미기재 항목 추정하지 않음)",
-            "by": "자료 관리자",
-            "next": "2026-11-16"
+            "next": "2026-11-30"
           },
           "contacts": [],
           "rounds": []
@@ -5950,7 +8937,7 @@ window.WELFARE_DATA = {
           "description": "2026년 11월 오산아이드림센터 3층 아이드림극장에서 더빙 아동영화 무료 상영. 센터 자유놀이 이용객에 한하며 상영일시는 원문 일정표 확인.",
           "method": "별도 영화 인터넷 사전예약 없이 자유놀이 이용객이 현장 관람(자유놀이 예약 회차 이용규정 별도).",
           "operation": "2026-11-02 오산아이드림센터 공식 개별 프로그램 공고 확인(실제 예약 가능·잔여석 별도 확인). 원문: https://www.osanidream.or.kr/play/play_view.asp?sn=216",
-          "editedOn": "2026-11-02",
+          "editedOn": "2026-11-24",
           "tags": {
             "target": [
               "영유아",
@@ -5970,10 +8957,244 @@ window.WELFARE_DATA = {
           "source": "https://www.osanidream.or.kr/play/play_view.asp?sn=216",
           "verification": {
             "status": "확인완료",
-            "date": "2026-11-02",
-            "method": "오산아이드림센터 공식 개별 프로그램 공고에서 일정·대상·이용료 및 이용방법 확인(미기재 항목 추정하지 않음)",
+            "date": "2026-11-24",
+            "method": "2026-11-24 오산아이드림센터 공식 공고 재열람(11월 상영, 사전예약 없음)",
             "by": "자료 관리자",
-            "next": "2026-11-16"
+            "next": "2026-12-01"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-MON-20261124-001",
+          "name": "12월 놀이체육(2026)",
+          "category": "교육·청소년",
+          "target": "영유아·아동과 보호자(대상 연령·이용료는 공고 확인)",
+          "description": "2026.12.5.(토)~12.27.(일) 놀이체육 프로그램. 사전 예약자 신청 가능.",
+          "method": "오산아이드림센터 누리집 예약 또는 031-374-5540 문의",
+          "operation": "2026-11-24 오산아이드림센터 공식 프로그램 목록 확인(개별 공고의 대상·이용료·잔여석은 별도 확인).",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "영유아",
+              "아동"
+            ],
+            "need": [
+              "교육",
+              "돌봄"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": [
+              "온라인",
+              "전화"
+            ]
+          },
+          "operationType": "시즌",
+          "localAvailable": "가능",
+          "source": "https://www.osanidream.or.kr/play/play_list.asp",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "오산아이드림센터 공식 프로그램 목록에서 프로그램명·일정 확인; 개별 공고 세부 미확인",
+            "by": "자료 관리자",
+            "next": "2026-12-31"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-MON-20261124-002",
+          "name": "12월 방송댄스(2026)",
+          "category": "교육·청소년",
+          "target": "영유아·아동과 보호자(대상 연령·이용료는 공고 확인)",
+          "description": "2026.12.2.(수)~12.30.(수) 방송댄스 프로그램.",
+          "method": "오산아이드림센터 누리집 예약 또는 031-374-5540 문의",
+          "operation": "2026-11-24 오산아이드림센터 공식 프로그램 목록 확인(개별 공고의 대상·이용료·잔여석은 별도 확인).",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "영유아",
+              "아동"
+            ],
+            "need": [
+              "교육",
+              "돌봄"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": [
+              "온라인",
+              "전화"
+            ]
+          },
+          "operationType": "시즌",
+          "localAvailable": "가능",
+          "source": "https://www.osanidream.or.kr/play/play_list.asp",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "오산아이드림센터 공식 프로그램 목록에서 프로그램명·일정 확인; 개별 공고 세부 미확인",
+            "by": "자료 관리자",
+            "next": "2026-12-31"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-MON-20261124-003",
+          "name": "12월 놀이축제(2026)",
+          "category": "교육·청소년",
+          "target": "영유아·아동과 보호자(대상 연령·이용료는 공고 확인)",
+          "description": "2026.12.25.(금) 센터 놀이축제.",
+          "method": "오산아이드림센터 누리집 예약 또는 031-374-5540 문의",
+          "operation": "2026-11-24 오산아이드림센터 공식 프로그램 목록 확인(개별 공고의 대상·이용료·잔여석은 별도 확인).",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "영유아",
+              "아동"
+            ],
+            "need": [
+              "교육",
+              "돌봄"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": [
+              "온라인",
+              "전화"
+            ]
+          },
+          "operationType": "시즌",
+          "localAvailable": "가능",
+          "source": "https://www.osanidream.or.kr/play/play_list.asp",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "오산아이드림센터 공식 프로그램 목록에서 프로그램명·일정 확인; 개별 공고 세부 미확인",
+            "by": "자료 관리자",
+            "next": "2026-12-31"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-MON-20261124-004",
+          "name": "12월 롤링레스토랑(2026)",
+          "category": "교육·청소년",
+          "target": "영유아·아동과 보호자(대상 연령·이용료는 공고 확인)",
+          "description": "12월 롤링레스토랑 운영. 일시는 센터 안내문 확인.",
+          "method": "오산아이드림센터 누리집 예약 또는 031-374-5540 문의",
+          "operation": "2026-11-24 오산아이드림센터 공식 프로그램 목록 확인(개별 공고의 대상·이용료·잔여석은 별도 확인).",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "영유아",
+              "아동"
+            ],
+            "need": [
+              "교육",
+              "돌봄"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": [
+              "온라인",
+              "전화"
+            ]
+          },
+          "operationType": "시즌",
+          "localAvailable": "가능",
+          "source": "https://www.osanidream.or.kr/play/play_list.asp",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "오산아이드림센터 공식 프로그램 목록에서 프로그램명·일정 확인; 개별 공고 세부 미확인",
+            "by": "자료 관리자",
+            "next": "2026-12-31"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-MON-20261124-005",
+          "name": "12월 롤링창작소(2026)",
+          "category": "교육·청소년",
+          "target": "영유아·아동과 보호자(대상 연령·이용료는 공고 확인)",
+          "description": "12월 주말 롤링창작소 운영(12.19.~20. 휴무). 세부 일정은 센터 안내문 확인.",
+          "method": "오산아이드림센터 누리집 예약 또는 031-374-5540 문의",
+          "operation": "2026-11-24 오산아이드림센터 공식 프로그램 목록 확인(개별 공고의 대상·이용료·잔여석은 별도 확인).",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "영유아",
+              "아동"
+            ],
+            "need": [
+              "교육",
+              "돌봄"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": [
+              "온라인",
+              "전화"
+            ]
+          },
+          "operationType": "시즌",
+          "localAvailable": "가능",
+          "source": "https://www.osanidream.or.kr/play/play_list.asp",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "오산아이드림센터 공식 프로그램 목록에서 프로그램명·일정 확인; 개별 공고 세부 미확인",
+            "by": "자료 관리자",
+            "next": "2026-12-31"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-MON-20261124-006",
+          "name": "12월 월간 만들기 체험(2026)",
+          "category": "교육·청소년",
+          "target": "영유아·아동과 보호자(대상 연령·이용료는 공고 확인)",
+          "description": "12월 월간 만들기 체험. 일시는 센터 안내문 확인.",
+          "method": "오산아이드림센터 누리집 예약 또는 031-374-5540 문의",
+          "operation": "2026-11-24 오산아이드림센터 공식 프로그램 목록 확인(개별 공고의 대상·이용료·잔여석은 별도 확인).",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "영유아",
+              "아동"
+            ],
+            "need": [
+              "교육",
+              "돌봄"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": [
+              "온라인",
+              "전화"
+            ]
+          },
+          "operationType": "시즌",
+          "localAvailable": "가능",
+          "source": "https://www.osanidream.or.kr/play/play_list.asp",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "오산아이드림센터 공식 프로그램 목록에서 프로그램명·일정 확인; 개별 공고 세부 미확인",
+            "by": "자료 관리자",
+            "next": "2026-12-31"
           },
           "contacts": [],
           "rounds": []
@@ -8296,7 +11517,7 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.gg.go.kr/contents/contents.do?ciIdx=1472&menuId=3302",
       "scope": "경기도",
-      "reviewed": "2026-10-24",
+      "reviewed": "2026-11-24",
       "status": "운영중",
       "jurisdiction": "사업별 관할·접수기준 확인",
       "services": [
@@ -8393,8 +11614,8 @@ window.WELFARE_DATA = {
           "target": "성착취 관련 위험·피해가 의심되는 청소년",
           "description": "아동청소년 성착취 피해 전문 상담·보호·수사 및 자립지원 연계 안내. 피해 유형 확정은 별도.",
           "method": "현재 안전·신고절차 우선, 전문센터 1551-9116 문의",
-          "operation": "공식 안내에서 서비스 존재 확인·개별 접수는 재확인",
-          "editedOn": "2026-10-24",
+          "operation": "2026-11-24 재점검: 공식 페이지 본문 확인 불충분(마주봄센터 안내 제목만 확인). 연계 전 담당기관에 직접 확인.",
+          "editedOn": "2026-11-24",
           "tags": {
             "target": [
               "아동",
@@ -8418,11 +11639,11 @@ window.WELFARE_DATA = {
           "localAvailable": "확인 필요",
           "source": "https://www.gg.go.kr/contents/contents.do?ciIdx=1472&menuId=3302",
           "verification": {
-            "status": "확인완료",
+            "status": "사업별 확인 필요",
             "date": "2026-10-24",
             "method": "정부·교육청 공식 안내 검토(실제 접수 별도)",
             "by": "자료 관리자",
-            "next": "2026-11-01"
+            "next": "2026-12-24"
           },
           "contacts": [],
           "rounds": []
@@ -8434,8 +11655,8 @@ window.WELFARE_DATA = {
           "target": "스토킹·교제폭력 관련 위기를 겪는 도민",
           "description": "피해자 안전주거·긴급지원과 심리·법률 연계 안내.",
           "method": "현재 안전과 연락 방식 확인, 전문센터 1551-9050 문의",
-          "operation": "공식 안내에서 서비스 존재 확인·개별 접수는 재확인",
-          "editedOn": "2026-10-24",
+          "operation": "2026-11-24 재점검: 공식 페이지 본문 확인 불충분(마주봄센터 안내 제목만 확인). 연계 전 담당기관에 직접 확인.",
+          "editedOn": "2026-11-24",
           "tags": {
             "target": [
               "청소년",
@@ -8460,11 +11681,11 @@ window.WELFARE_DATA = {
           "localAvailable": "확인 필요",
           "source": "https://www.gg.go.kr/contents/contents.do?ciIdx=1472&menuId=3302",
           "verification": {
-            "status": "확인완료",
+            "status": "사업별 확인 필요",
             "date": "2026-10-24",
             "method": "정부·교육청 공식 안내 검토(실제 접수 별도)",
             "by": "자료 관리자",
-            "next": "2026-11-01"
+            "next": "2026-12-24"
           },
           "contacts": [],
           "rounds": []
@@ -9524,7 +12745,7 @@ window.WELFARE_DATA = {
       "phone": "",
       "source": "https://www.bokjiro.go.kr/ssis-tbu/",
       "scope": "전국 공공",
-      "reviewed": "2026-10-22",
+      "reviewed": "2026-11-24",
       "status": "운영중",
       "jurisdiction": "사업별 관할·접수기준 확인",
       "services": [
@@ -9562,6 +12783,2363 @@ window.WELFARE_DATA = {
             "method": "공식 기관·지자체 사업안내 검토",
             "by": "자료 관리자",
             "next": ""
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00000086",
+          "name": "(북한이탈주민) 탈북청소년 교육지원",
+          "category": "보건·의료",
+          "target": "다문화·탈북민 등(세부 자격은 공식 안내 확인)",
+          "description": "탈북청소년의 학교생활 적응 지원을 통해 대한민국의 건강한 구성원으로 자립할 수 있도록 지원합니다.",
+          "method": "담당: 통일부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청소년",
+              "다문화"
+            ],
+            "need": [
+              "의료·건강",
+              "교육",
+              "고용·자립"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00000086&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00000086) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003268",
+          "name": "가정위탁아동 상해보험료 지원",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "가정위탁아동에 대해 상해보험을 가입하여 아동의 보호를 증진하고 위탁가정의 심리적, 경제적 부담을 완화합니다.",
+          "method": "담당: 보건복지부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "아동",
+              "가족·한부모"
+            ],
+            "need": [
+              "소득·생계",
+              "의료·건강",
+              "정신건강",
+              "가족지원"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003268&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00003268) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00001072",
+          "name": "가정폭력·성폭력 등 폭력 피해자 무료법률지원",
+          "category": "법률·금융",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "가정폭력 및 성폭력, 스토킹, 교제폭력 피해자 대상 무료법률지원을 통해 권익을 보호합니다.",
+          "method": "담당: 성평등가족부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "법률·금융",
+              "안전·권리보호"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001072&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00001072) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00001077",
+          "name": "가정폭력상담소 운영지원",
+          "category": "보건·의료",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "가정폭력 스토킹, 교제폭력의 피해자를 상담하고 임시보호하며, 의료기관, 법률기관, 피해자 보호시설로 인도합니다.",
+          "method": "담당: 성평등가족부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "의료·건강",
+              "정신건강",
+              "법률·금융",
+              "안전·권리보호"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001077&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00001077) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00001105",
+          "name": "가정폭력피해자 치료회복 프로그램 및 의료비지원",
+          "category": "보건·의료",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "가정폭력피해자 등의 정신적, 육체적 회복을 위한 프로그램을 제공하고 의료비를 지원합니다.",
+          "method": "담당: 성평등가족부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "위기가구",
+              "질환"
+            ],
+            "need": [
+              "의료·건강",
+              "정신건강",
+              "안전·권리보호"
+            ],
+            "form": [
+              "현금",
+              "서비스 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001105&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00001105) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00001089",
+          "name": "교육급여(맞춤형 급여)",
+          "category": "경제·긴급",
+          "target": "저소득 등(세부 자격은 공식 안내 확인)",
+          "description": "생계유지 능력이 없거나 생활이 어려운 자에게 필요한 교육급여를 지급하여 빈곤층 교육비 부담을 경감하고 실질적인 교육기회를 보장합니다.",
+          "method": "담당: 교육부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "교육"
+            ],
+            "form": [
+              "현금",
+              "서비스 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001089&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00001089) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003229",
+          "name": "긴급복지 사회복지시설이용지원",
+          "category": "경제·긴급",
+          "target": "저소득 등(세부 자격은 공식 안내 확인)",
+          "description": "생계곤란 등의 위기상황에 처하여 도움이 필요한 사람을 일시적으로 신속하게 지원함으로써 이들이 위기상황에서 벗어나도록 합니다.",
+          "method": "담당: 보건복지부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "돌봄",
+              "안전·권리보호"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003229&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00003229) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00001162",
+          "name": "긴급복지 연료비 및 전기요금",
+          "category": "경제·긴급",
+          "target": "저소득 등(세부 자격은 공식 안내 확인)",
+          "description": "긴급복지 주지원(생계지원, 주거지원)을 받는 가구 중 위기상황을 극복하기 위해 연료비나 전기요금 지원이 필요한 경우 부가적으로 지원합니다.",
+          "method": "담당: 보건복지부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "주거",
+              "안전·권리보호"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001162&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00001162) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00001160",
+          "name": "노숙자 등 알코올중독자 사례관리 사업",
+          "category": "보건·의료",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "중독관리통합지원센터를 통해 알코올 사용장애가 있는 노숙인 등의 자활을 위한 상담, 치료, 재활 지원 서비스를 제공합니다.",
+          "method": "담당: 보건복지부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "위기가구",
+              "장애인",
+              "질환"
+            ],
+            "need": [
+              "의료·건강",
+              "정신건강"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001160&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00001160) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00001060",
+          "name": "대학생 근로장학금 지원",
+          "category": "교육·청소년",
+          "target": "다문화·탈북민, 다자녀, 보훈대상자, 장애인, 저소득 등(세부 자격은 공식 안내 확인)",
+          "description": "저소득층 대학생에게 근로 기회를 제공하고 그에 따른 대가(장학금)를 지급하여 안정적인 학업 여건을 조성합니다.",
+          "method": "담당: 교육부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청소년",
+              "청년",
+              "다문화",
+              "위기가구",
+              "장애인"
+            ],
+            "need": [
+              "교육"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001060&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00001060) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00005031",
+          "name": "발달장애인 긴급돌봄사업",
+          "category": "정신건강",
+          "target": "장애인 등(세부 자격은 공식 안내 확인)",
+          "description": "보호자의 긴급한 상황(입원, 경조사, 심리적 소진 등)으로 긴급돌봄이 필요한 발달장애인에게 일시적 돌봄을 지원합니다.",
+          "method": "담당: 보건복지부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2023-03-29). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "위기가구",
+              "장애인"
+            ],
+            "need": [
+              "정신건강",
+              "돌봄",
+              "안전·권리보호"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005031&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00005031) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00000064",
+          "name": "발달장애인 부모상담지원사업",
+          "category": "보건·의료",
+          "target": "장애인 등(세부 자격은 공식 안내 확인)",
+          "description": "발달장애인 부모에게 발달장애인의 양육과 부양에 따른 심리적 부담 완화 및 가족기능 향상 도모를 위한 전문 심리상담을 지원합니다.",
+          "method": "담당: 보건복지부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "가족·한부모",
+              "장애인"
+            ],
+            "need": [
+              "의료·건강",
+              "정신건강",
+              "돌봄",
+              "가족지원"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00000064&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00000064) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003275",
+          "name": "범죄피해자에 대한 경제적 지원 사업",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "범죄피해자자에 대해 치료, 생계비, 학자금, 긴급생활안정비, 장례비 지급 등을 통해 범죄피해자의 피해회복 및 재활에 기여합니다.",
+          "method": "담당: 대검찰청. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "위기가구",
+              "질환"
+            ],
+            "need": [
+              "소득·생계",
+              "의료·건강",
+              "정신건강",
+              "교육"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003275&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00003275) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00006311",
+          "name": "법문화교육(교육센터)",
+          "category": "교육·청소년",
+          "target": "다문화·탈북민, 장애인 등(세부 자격은 공식 안내 확인)",
+          "description": "다문화가족, 북한이탈주민, 장애인, 농업인, 청소년 등에 맞춤형, 체험형 법교육 프로그램을 진행합니다.",
+          "method": "담당: 법무부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-06-08). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청소년",
+              "가족·한부모",
+              "다문화",
+              "장애인"
+            ],
+            "need": [
+              "교육",
+              "법률·금융",
+              "가족지원"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006311&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00006311) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00001132",
+          "name": "생계급여(맞춤형 급여)",
+          "category": "경제·긴급",
+          "target": "저소득 등(세부 자격은 공식 안내 확인)",
+          "description": "생활이 어려운 사람에게 필요한 급여를 실시하여 최저생활을 보장하고 자활을 돕습니다.",
+          "method": "담당: 보건복지부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001132&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00001132) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00001076",
+          "name": "서민금융 활성화 지원(햇살론youth 보증사업)",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "금융취약계층인 대학생, 청년의 금융애로를 해소하여 학업 및 취업에 전념, 향후 제도권 금융으로 안착할 수 있도록 지원합니다.",
+          "method": "담당: 금융위원회. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청소년",
+              "청년"
+            ],
+            "need": [
+              "소득·생계",
+              "교육",
+              "고용·자립",
+              "법률·금융"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001076&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00001076) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00006312",
+          "name": "성매매 방지 및 피해자 지원",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "성매매피해자 지원기관(90개소)을 통해 상담, 의료, 법률, 직업훈련 등을 피해회복 및 자립 자활 등 통합적 지원을 통하여 성매매로의 재유입 방지 및 사회복귀를 지원합니다.",
+          "method": "담당: 성평등가족부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-06-08). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "의료·건강",
+              "정신건강",
+              "고용·자립"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006312&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00006312) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00001139",
+          "name": "성매매 피해아동청소년 통합지원",
+          "category": "돌봄·생활",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "성매매 피해아동 청소년에게 피해를 입은 때부터 성인이 될 때까지 종합서비스를 제공하여 청소년의 원활한 사회복귀를 지원합니다.",
+          "method": "담당: 성평등가족부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년"
+            ],
+            "need": [
+              "돌봄",
+              "안전·권리보호"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001139&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00001139) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00006302",
+          "name": "성착취 피해 아동·청소년 퇴소자립지원수당",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "미성년 성착취 피해자에게 ‘퇴소 자립지원수당’을 지원, 성매매 재유입 방지 및 안정적 사회복귀 등 성공적 자립을 지원합니다.",
+          "method": "담당: 성평등가족부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-06-05). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년",
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "고용·자립",
+              "법률·금융",
+              "안전·권리보호"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006302&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00006302) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00001166",
+          "name": "성폭력피해자 지원사업",
+          "category": "주거",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "심리, 정서, 신체적으로 위기상태에 있는 성폭력 피해자에게 상담, 의료, 법률, 보호, 숙식제공 등의 서비스를 제공하여 피해 회복을 지원합니다.",
+          "method": "담당: 성평등가족부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "주거",
+              "의료·건강",
+              "정신건강",
+              "돌봄"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001166&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00001166) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00000076",
+          "name": "스포츠강좌이용권",
+          "category": "경제·긴급",
+          "target": "저소득, 한부모·조손 등(세부 자격은 공식 안내 확인)",
+          "description": "저소득층 유청소년에게 지속적인 스포츠 활동 기회를 보장하여 체력향상과 건전한 여가활동을 지원합니다.",
+          "method": "담당: 문화체육관광부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청소년",
+              "가족·한부모",
+              "위기가구"
+            ],
+            "need": [],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00000076&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00000076) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00001146",
+          "name": "시설 퇴소청소년 자립지원수당 지급",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "청소년쉼터 퇴소 및 청소년자립지원관 사례관리 중 또는 사례관리가 종료된 청소년에게 자립지원수당을 지급하여 안정적인 자립기반 마련을 지원합니다.",
+          "method": "담당: 성평등가족부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청소년"
+            ],
+            "need": [
+              "소득·생계",
+              "주거",
+              "돌봄",
+              "고용·자립"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001146&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00001146) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00006237",
+          "name": "안부살핌 우편서비스 사업",
+          "category": "안전·권리보호",
+          "target": "장애인, 저소득, 한부모·조손 등(세부 자격은 공식 안내 확인)",
+          "description": "1인 가구 증가, 사회적 관계망 약화 등 사회적 고립가구에 대한 선제적 발굴을 통한 신속한 대응과 지원으로 촘촘한 복지안전망을 구축하고자 합니다.",
+          "method": "담당: 행정안전부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-04-02). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "가족·한부모",
+              "위기가구",
+              "장애인"
+            ],
+            "need": [
+              "안전·권리보호"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006237&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00006237) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00001084",
+          "name": "여성긴급전화 1366센터 운영 지원",
+          "category": "보건·의료",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "가정폭력 성폭력 스토킹 등 폭력 피해자에 대해 신고접수 및 긴급상담, 관련 기관 및 시설과의 연계, 피해자에 대해 긴급구조를 지원합니다.",
+          "method": "담당: 성평등가족부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "의료·건강",
+              "정신건강",
+              "법률·금융",
+              "안전·권리보호"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001084&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00001084) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00006246",
+          "name": "우수고등학교 해외유학 장학금(드림장학금)",
+          "category": "경제·긴급",
+          "target": "저소득 등(세부 자격은 공식 안내 확인)",
+          "description": "학업에 대한 의지와 열정이 있는 저소득층 우수 고등학생에게 해외유학 기회를 제공하여 글로벌 인재로의 성장을 지원합니다.",
+          "method": "담당: 교육부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-04-10). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청소년",
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "교육",
+              "법률·금융"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006246&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00006246) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00006301",
+          "name": "위기청년(가족돌봄, 고립은둔) 전담 지원사업",
+          "category": "돌봄·생활",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "청년들에게 공정한 출발 기회 제공하고, 위기청년 조기 발굴 및 회복과 자립을 지원합니다.",
+          "method": "담당: 보건복지부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-06-05). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청년",
+              "가족·한부모",
+              "위기가구"
+            ],
+            "need": [
+              "돌봄",
+              "고용·자립",
+              "안전·권리보호",
+              "가족지원"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006301&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00006301) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00001114",
+          "name": "이주배경 청소년 지원",
+          "category": "정신건강",
+          "target": "다문화·탈북민 등(세부 자격은 공식 안내 확인)",
+          "description": "다문화가족의 청소년과 국내로 이주해 온 청소년들이 우리 사회에 잘 적응할 수 있도록 상담과 진로지원 프로그램 등을 실시합니다.",
+          "method": "담당: 성평등가족부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청소년",
+              "가족·한부모",
+              "다문화"
+            ],
+            "need": [
+              "정신건강",
+              "가족지원"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001114&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00001114) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00005411",
+          "name": "일상돌봄 서비스 사업",
+          "category": "보건·의료",
+          "target": "한부모·조손 등(세부 자격은 공식 안내 확인)",
+          "description": "일상생활에 돌봄이 필요한 중장년과 가족돌봄청년에게 일상생활의 어려움을 해소할 수 있도록 맞춤형 사회서비스를 통합 제공합니다.",
+          "method": "담당: 보건복지부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2024-01-05). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청년",
+              "가족·한부모"
+            ],
+            "need": [
+              "의료·건강",
+              "정신건강",
+              "돌봄",
+              "가족지원"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005411&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00005411) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003270",
+          "name": "입양·가정위탁아동 심리치료 지원",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "국내입양, 가정위탁아동 중 과잉행동장애(ADHD), 정서불안장애 등으로 인해 상담, 치료가 필요한 아동의 심리정서 검사, 치료비를 지원합니다.",
+          "method": "담당: 보건복지부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "아동",
+              "가족·한부모",
+              "장애인",
+              "질환"
+            ],
+            "need": [
+              "소득·생계",
+              "의료·건강",
+              "정신건강",
+              "법률·금융"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003270&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00003270) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00006307",
+          "name": "자립지원 전담기관 운영",
+          "category": "돌봄·생활",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "자립준비청년의 안정적인 자립 지원을 위해 자립준비청년대상 사후관리 및 자립지원 통합서비스 제공, 자립 교육을 지원합니다.",
+          "method": "담당: 보건복지부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-06-08). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청년"
+            ],
+            "need": [
+              "돌봄",
+              "교육",
+              "고용·자립"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006307&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00006307) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00000100",
+          "name": "자산형성지원사업(희망저축계좌Ⅰ, Ⅱ)",
+          "category": "경제·긴급",
+          "target": "저소득 등(세부 자격은 공식 안내 확인)",
+          "description": "희망저축계좌를 통해 일하는 생계 의료 주거 교육급여 수급가구 및 차상위계층이 자활에 필요한 자산을 형성할 수 있도록 지원합니다.",
+          "method": "담당: 보건복지부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "주거",
+              "의료·건강",
+              "교육"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00000100&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00000100) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00006331",
+          "name": "자살예방센터 운영",
+          "category": "보건·의료",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "지역별 자살의 특성과 욕구에 적합한 서비스가 제공될 수 있도록 지역 내 유관기관 간 연계, 서비스 체계 구축 마련, 고위험군 발굴 개입 사후관리 등을 통해 자살예방을 도모합니다.",
+          "method": "담당: 보건복지부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-06-22). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [],
+            "need": [
+              "의료·건강",
+              "정신건강",
+              "안전·권리보호"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006331&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00006331) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00004669",
+          "name": "재외국민긴급지원비",
+          "category": "교육·청소년",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "해외에서의 사건, 사고로부터 재외국민을 긴급히 보호할 필요가 있는 경우, 영사조력 과정의 비용을 지원합니다.",
+          "method": "담당: 외교부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2022-06-07). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "다문화",
+              "위기가구"
+            ],
+            "need": [
+              "교육",
+              "안전·권리보호"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00004669&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00004669) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00006316",
+          "name": "전문기술인재장학금",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "취업역량 개발노력이 우수한 전문대 학생이 안정적으로 학업 및 자기개발에 정진할 수 있도록 지원합니다.",
+          "method": "담당: 교육부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-06-10). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청소년"
+            ],
+            "need": [
+              "소득·생계",
+              "교육",
+              "고용·자립",
+              "법률·금융"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006316&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00006316) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00005567",
+          "name": "정신건강 심리상담 바우처사업",
+          "category": "보건·의료",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "우울 불안 등 정서적 어려움으로 인해 심리상담이 필요한 국민에게 전문적인 심리상담 서비스를 제공합니다.",
+          "method": "담당: 보건복지부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2024-06-26). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [],
+            "need": [
+              "의료·건강",
+              "정신건강"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005567&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00005567) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003169",
+          "name": "정신건강복지센터 운영",
+          "category": "보건·의료",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "일반인은 물론 아동&middot;청소년에게 발생할 수 있는 정신건강문제의 예방, 조기발견 및 상담, 치료, 재활을 통해 사회복귀를 도모합니다.",
+          "method": "담당: 보건복지부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년",
+              "질환"
+            ],
+            "need": [
+              "의료·건강",
+              "정신건강"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003169&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00003169) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00000896",
+          "name": "중독관리통합지원센터 지원",
+          "category": "보건·의료",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "중독관리통합지원센터를 설치 운영하여 통합적인 문제 음주자 및 알코올 등 중독자 관리체계를 구축하고, 중독자 조기발견 상담 치료 재활 및 사회로의 복귀를 지원합니다.",
+          "method": "담당: 보건복지부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "질환"
+            ],
+            "need": [
+              "의료·건강",
+              "정신건강"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00000896&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00000896) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00001141",
+          "name": "지역사회 청소년통합지원체계(청소년안전망)",
+          "category": "보건·의료",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "학업중단, 가출, 인터넷 중독 등 위기에 처한 청소년의 건강한 성장과 복지증진을 위해 상담 보호 교육 자립 등 맞춤형 서비스를 제공합니다.",
+          "method": "담당: 성평등가족부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청소년",
+              "위기가구",
+              "질환"
+            ],
+            "need": [
+              "의료·건강",
+              "정신건강",
+              "돌봄",
+              "교육"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001141&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00001141) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00001070",
+          "name": "척수장애인재활훈련지원",
+          "category": "보건·의료",
+          "target": "장애인 등(세부 자격은 공식 안내 확인)",
+          "description": "척수장애인에게 사회 심리 재활, 동료 상담가 파견, 지역사회 복귀훈련 등 재활프로그램을 지원합니다.",
+          "method": "담당: 보건복지부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "장애인",
+              "질환"
+            ],
+            "need": [
+              "의료·건강",
+              "정신건강"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001070&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00001070) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00001178",
+          "name": "청소년 발달장애인 방과후활동서비스",
+          "category": "돌봄·생활",
+          "target": "장애인 등(세부 자격은 공식 안내 확인)",
+          "description": "만 6세 이상~만 18세 미만의 청소년 발달장애인이 방과후에도 돌봄을 지원받을 수 있도록 방과후활동 이용권을 지급합니다.",
+          "method": "담당: 보건복지부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청소년",
+              "장애인"
+            ],
+            "need": [
+              "돌봄"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001178&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00001178) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003254",
+          "name": "청소년방과후아카데미운영지원",
+          "category": "보건·의료",
+          "target": "다문화·탈북민, 다자녀, 장애인, 저소득, 한부모·조손 등(세부 자격은 공식 안내 확인)",
+          "description": "방과후 돌봄이 필요한 취약계층 청소년에게 체험활동, 학습지원, 급식, 상담 등 종합서비스 제공을 통한 건강한 성장과 자립을 지원합니다.",
+          "method": "담당: 성평등가족부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청소년",
+              "가족·한부모",
+              "다문화",
+              "위기가구",
+              "장애인"
+            ],
+            "need": [
+              "의료·건강",
+              "정신건강",
+              "돌봄",
+              "교육"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003254&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00003254) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00000751",
+          "name": "청소년복지시설 운영 지원",
+          "category": "정신건강",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "가정 밖 청소년을 보호하고 상담, 교육문화활동 지원을 통해 비행, 탈선을 예방하여 가정복귀와 사회적응을 돕습니다.",
+          "method": "담당: 성평등가족부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청소년"
+            ],
+            "need": [
+              "정신건강",
+              "돌봄",
+              "교육"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00000751&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00000751) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00005023",
+          "name": "청소년부모 아동양육비 지원사업",
+          "category": "돌봄·생활",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "저소득 청소년부모 가구에 아동양육비를 지원하여 자녀양육 부담을 경감하고 생활의 안정을 도모합니다.",
+          "method": "담당: 성평등가족부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2023-03-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년",
+              "위기가구"
+            ],
+            "need": [
+              "돌봄"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005023&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00005023) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003246",
+          "name": "청소년산모 임신·출산 의료비 지원",
+          "category": "보건·의료",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "청소년산모에게 임신 및 출산에 필요한 의료비를 지원하여 청소년산모와 태아의 건강증진을 돕습니다.",
+          "method": "담당: 보건복지부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "영유아",
+              "청소년",
+              "질환"
+            ],
+            "need": [
+              "의료·건강"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003246&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00003246) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003204",
+          "name": "청소년상담1388 온라인상담",
+          "category": "보건·의료",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "청소년이 언제 어디서나 편리하게 이용할 수 있는 사이버 상담 제공으로 폭력, 중독, 자살, 우울 등 청소년 문제 해결을 지원합니다.",
+          "method": "담당: 성평등가족부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청소년",
+              "질환"
+            ],
+            "need": [
+              "의료·건강",
+              "정신건강",
+              "돌봄",
+              "안전·권리보호"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003204&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00003204) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003236",
+          "name": "청소년상담1388 전화상담",
+          "category": "보건·의료",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "365일 24시간 연중 상시 이용가능한 비대면 청소년상담채널 운영으로 청소년 고민해소 지원 및 위기청소년을 조기발견합니다.",
+          "method": "담당: 성평등가족부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청소년",
+              "위기가구"
+            ],
+            "need": [
+              "의료·건강",
+              "정신건강",
+              "돌봄",
+              "안전·권리보호"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003236&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00003236) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00004650",
+          "name": "청소년성문화센터설치운영",
+          "category": "교육·청소년",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "아동ㆍ청소년이 다양한 도구와 매체를 활용하여 자기 주도적으로 학습할 수 있는 상설 성교육 공간을 구축, 운영합니다.",
+          "method": "담당: 성평등가족부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-04). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년"
+            ],
+            "need": [
+              "교육"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00004650&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00004650) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003185",
+          "name": "청소년치료재활센터 운영",
+          "category": "보건·의료",
+          "target": "저소득, 한부모·조손 등(세부 자격은 공식 안내 확인)",
+          "description": "정서 행동에 어려움을 겪는 만 9~18세 청소년을 대상으로 종합적 전문적 치유재활 서비스를 제공하는 거주형 기숙치유시설을 운영하여 청소년의 일상생활 영위 및 건강한 성장을 지원합니다.",
+          "method": "담당: 성평등가족부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청소년",
+              "가족·한부모",
+              "위기가구",
+              "질환"
+            ],
+            "need": [
+              "의료·건강",
+              "정신건강",
+              "돌봄",
+              "교육"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003185&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00003185) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00000078",
+          "name": "청소년특별지원",
+          "category": "보건·의료",
+          "target": "저소득 등(세부 자격은 공식 안내 확인)",
+          "description": "사회 경제적으로 어려움을 겪는 위기청소년에게 생활비 치료비 학업지원비 심리검사 상담비 등 지원으로 건강한 성장 지원합니다.",
+          "method": "담당: 성평등가족부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청소년",
+              "위기가구",
+              "질환"
+            ],
+            "need": [
+              "의료·건강",
+              "정신건강",
+              "교육",
+              "고용·자립"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00000078&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00000078) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00001109",
+          "name": "청소년한부모 아동양육 및 자립지원",
+          "category": "돌봄·생활",
+          "target": "한부모·조손 등(세부 자격은 공식 안내 확인)",
+          "description": "청소년한부모 가정의 자녀 양육환경을 개선하고 자립기반 마련을 지원합니다.",
+          "method": "담당: 성평등가족부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년",
+              "가족·한부모"
+            ],
+            "need": [
+              "돌봄",
+              "교육",
+              "고용·자립",
+              "가족지원"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001109&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00001109) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00001101",
+          "name": "폭력피해자 주거지원 사업",
+          "category": "주거",
+          "target": "장애인 등(세부 자격은 공식 안내 확인)",
+          "description": "가정폭력, 성폭력 등 폭력피해자들의 자립을 지원하고 사회 적응 여건을 조성하고자, 폭력 피해여성과 그 가족들이 공동으로 생활할 수 있는 주거 공간을 제공합니다.",
+          "method": "담당: 성평등가족부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "가족·한부모",
+              "위기가구",
+              "장애인"
+            ],
+            "need": [
+              "주거",
+              "고용·자립",
+              "안전·권리보호",
+              "가족지원"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001101&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00001101) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00000948",
+          "name": "학교 밖 청소년 지원",
+          "category": "보건·의료",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "학교 밖 청소년의 개인적 수요와 특성을 고려한 상담, 교육, 직업체험 및 취업, 자립지원 프로그램을 제공하여 건강한 사회구성원으로 성장하도록 지원합니다.",
+          "method": "담당: 성평등가족부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청소년"
+            ],
+            "need": [
+              "의료·건강",
+              "정신건강",
+              "교육",
+              "고용·자립"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00000948&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00000948) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00001180",
+          "name": "학대피해아동 쉼터 설치 및 운영",
+          "category": "주거",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "학대피해아동에게 보호와 치료, 양육서비스 등을 제공함으로써 심신의 회복과 원가정 복귀를 지원합니다.",
+          "method": "담당: 보건복지부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "아동",
+              "질환"
+            ],
+            "need": [
+              "주거",
+              "의료·건강",
+              "정신건강",
+              "돌봄"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001180&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00001180) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00006284",
+          "name": "한부모가족 공동 생활가정형(매입임대) 주거지원",
+          "category": "경제·긴급",
+          "target": "한부모·조손 등(세부 자격은 공식 안내 확인)",
+          "description": "저소득 무주택 한부모가족의 주거로 인한 심리적 경제적 부담을 덜고 저렴한 월세로 자립을 준비할 수 있도록 지원합니다.",
+          "method": "담당: 성평등가족부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2026-05-27). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "가족·한부모",
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "주거",
+              "정신건강",
+              "고용·자립"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00006284&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00006284) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00001112",
+          "name": "긴급복지 교육지원",
+          "category": "경제·긴급",
+          "target": "저소득 등(세부 자격은 공식 안내 확인)",
+          "description": "생계곤란 등의 위기상황에 처하여 도움이 필요한 긴급복지(생계지원, 주거지원, 사회복지시설 이용지원)를 받는 대상자 중 부가지원인 교육지원이 필요하다고 인정되는 초･중･고등학교 입학생 또는 재학생을 지원합니다.",
+          "method": "담당: 보건복지부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청소년",
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "주거",
+              "교육",
+              "안전·권리보호"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001112&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00001112) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003180",
+          "name": "긴급복지 생계지원",
+          "category": "경제·긴급",
+          "target": "저소득 등(세부 자격은 공식 안내 확인)",
+          "description": "생계곤란 등의 위기상황에 처하여 도움이 필요한 사람을 일시적으로 신속하게 지원함으로써 위기상황에서 벗어나도록 합니다.",
+          "method": "담당: 보건복지부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "안전·권리보호"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003180&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00003180) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003179",
+          "name": "긴급복지 의료지원",
+          "category": "보건·의료",
+          "target": "저소득 등(세부 자격은 공식 안내 확인)",
+          "description": "수술 또는 입원이 필요한 중한 질병 또는 부상으로 당해 의료비를 감당하기 곤란한 사람에게 의료비 및 약제비를 지원함으로써 위기상황에서 벗어날 수 있도록 합니다.",
+          "method": "담당: 보건복지부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "위기가구",
+              "질환"
+            ],
+            "need": [
+              "의료·건강",
+              "안전·권리보호"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003179&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00003179) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00000892",
+          "name": "긴급복지 장제비지원",
+          "category": "경제·긴급",
+          "target": "저소득 등(세부 자격은 공식 안내 확인)",
+          "description": "생계곤란 등의 위기상황에 처하여 도움이 필요해 긴급복지 주지원(생계, 의료, 주거, 사회복지시설 이용지원)을 받는 긴급지원대상자(가구구성원 포함)가 사망한 경우 장제에 필요한 비용을 지원합니다.",
+          "method": "담당: 보건복지부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "주거",
+              "의료·건강",
+              "안전·권리보호"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00000892&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00000892) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00000917",
+          "name": "긴급복지 주거지원",
+          "category": "경제·긴급",
+          "target": "저소득 등(세부 자격은 공식 안내 확인)",
+          "description": "생계곤란 등의 위기상황에 처하여 도움이 필요한 경우 일시적으로 신속하게 지원함으로써 위기상황에서 벗어날 수 있도록 지원합니다.",
+          "method": "담당: 보건복지부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "주거",
+              "안전·권리보호"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00000917&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00000917) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003178",
+          "name": "긴급복지 해산비지원",
+          "category": "경제·긴급",
+          "target": "저소득 등(세부 자격은 공식 안내 확인)",
+          "description": "생계곤란 등의 위기상황에 처하여 도움이 필요한 긴급복지 주지원(생계,주거,의료,시설이용) 중인 대상자(가구구구성원 포함) 중 조산(助産) 및 분만 후의 필요한 조치와 보호를 위해 해산비를 지원합니다.",
+          "method": "담당: 보건복지부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "위기가구"
+            ],
+            "need": [
+              "소득·생계",
+              "주거",
+              "의료·건강",
+              "안전·권리보호"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003178&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00003178) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00001175",
+          "name": "자립준비청년 자립수당 지급",
+          "category": "경제·긴급",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "자립준비청년(보호종료아동)에게 자립수당을 지급하여 보호종료 후 경제적 부담을 완화하고 복지향상을 통해 안정적 사회정착 및 성공적 자립을 지원합니다.",
+          "method": "담당: 보건복지부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "아동",
+              "청년"
+            ],
+            "need": [
+              "소득·생계",
+              "고용·자립"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001175&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00001175) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00005445",
+          "name": "자립준비청년(보호종료아동) 자립정착금 지원",
+          "category": "돌봄·생활",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "아동복지시설 및 가정위탁보호아동이 퇴소 또는 위탁종료 시 경제적 지원을 통해 안정적인 사회정착을 도모합니다.",
+          "method": "담당: 보건복지부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2024-05-21). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "아동",
+              "청년",
+              "가족·한부모"
+            ],
+            "need": [
+              "돌봄",
+              "고용·자립",
+              "가족지원"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00005445&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00005445) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003247",
+          "name": "재난적의료비 지원 사업",
+          "category": "보건·의료",
+          "target": "저소득 등(세부 자격은 공식 안내 확인)",
+          "description": "질병 부상 등으로 가구의 부담능력을 넘어서는 과도한 의료비로 인한 경제적 부담을 겪는 가구에 의료비를 지원합니다.",
+          "method": "담당: 보건복지부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "위기가구",
+              "질환"
+            ],
+            "need": [
+              "의료·건강"
+            ],
+            "form": [
+              "현금"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003247&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00003247) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00003200",
+          "name": "청소년동반자프로그램 운영",
+          "category": "보건·의료",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "위기 청소년을 대상으로 전문가가 찾아가서 심층상담을 하고, 청소년 동반자 프로그램을 통해 심리적 정서적 지지를 얻을 수 있도록 지원합니다.",
+          "method": "담당: 성평등가족부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [
+              "청소년",
+              "위기가구"
+            ],
+            "need": [
+              "의료·건강",
+              "정신건강",
+              "돌봄",
+              "안전·권리보호"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003200&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00003200) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        },
+        {
+          "id": "SVC-SSIS-WLF00001172",
+          "name": "취업취약계층 고용지원 사업",
+          "category": "정신건강",
+          "target": "세부 자격은 복지로 상세 안내 확인",
+          "description": "취업에 어려움을 겪는 취약계층에게 전문심리상담과 집단상담, 취업특강 등 구직자 취업역량강화 프로그램을 제공하여 자신감 회복, 직업선택, 구직기술 향상 등을 효과적으로 지원합니다.",
+          "method": "담당: 고용노동부. 세부 신청 절차는 복지로 상세 안내 확인.",
+          "operation": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 등록정보 확인(2026-11-24, 원문 최종수정 2021-09-03). 현재 접수·예산·선정은 담당부서 확인.",
+          "editedOn": "2026-11-24",
+          "tags": {
+            "target": [],
+            "need": [
+              "정신건강",
+              "교육",
+              "고용·자립"
+            ],
+            "form": [],
+            "intake": []
+          },
+          "operationType": "확인 필요",
+          "localAvailable": "확인 필요",
+          "source": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001172&wlfareInfoReldBztpCd=01",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "공공데이터포털 한국사회보장정보원 중앙부처복지서비스 API 등록정보(WLF00001172) 대조; 실제 접수·예산·선정 미확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
           },
           "contacts": [],
           "rounds": []
@@ -12113,7 +17691,7 @@ window.WELFARE_DATA = {
       "phone": "031-377-4329",
       "source": "https://goehs.kr/goehs/cm/cntnts/cntntsView.do?cntntsId=2150&mi=18070",
       "scope": "오산시",
-      "reviewed": "2026-10-24",
+      "reviewed": "2026-11-24",
       "status": "운영중",
       "jurisdiction": "화성·오산 지역 / 학교급별 접수 절차 확인",
       "services": [
@@ -12125,7 +17703,7 @@ window.WELFARE_DATA = {
           "description": "특수교육대상자 진단평가 및 선정·배치 절차 안내. 교육적 필요와 자격은 별도 심사.",
           "method": "학교·보호자와 교육지원청 접수절차 확인",
           "operation": "공식 안내에서 서비스 존재 확인·개별 접수는 재확인",
-          "editedOn": "2026-10-24",
+          "editedOn": "2026-11-24",
           "tags": {
             "target": [
               "아동",
@@ -12149,10 +17727,10 @@ window.WELFARE_DATA = {
           "source": "https://goehs.kr/goehs/cm/cntnts/cntntsView.do?cntntsId=2150&mi=18070",
           "verification": {
             "status": "확인완료",
-            "date": "2026-10-24",
-            "method": "정부·교육청 공식 안내 검토(실제 접수 별도)",
+            "date": "2026-11-24",
+            "method": "2026-11-24 화성오산교육지원청 공식 안내 재열람(진단·평가 절차, 2027학년도 계획 게시 확인)",
             "by": "자료 관리자",
-            "next": "2026-11-01"
+            "next": "2027-02-24"
           },
           "contacts": [],
           "rounds": []
@@ -12165,7 +17743,7 @@ window.WELFARE_DATA = {
           "description": "보조공학기기 대여, 특수교육 관련 치료지원 정보. 지원 대상·범위·대여 가능 여부 확인.",
           "method": "센터에서 실제 지원요건 및 이용가능한 서비스 문의",
           "operation": "공식 안내에서 서비스 존재 확인·개별 접수는 재확인",
-          "editedOn": "2026-10-24",
+          "editedOn": "2026-11-24",
           "tags": {
             "target": [
               "아동",
@@ -12189,10 +17767,10 @@ window.WELFARE_DATA = {
           "source": "https://seoyeon-h.goehs.kr/goehs/co/cp/pageView.do?mi=18069",
           "verification": {
             "status": "확인완료",
-            "date": "2026-10-24",
-            "method": "정부·교육청 공식 안내 검토(실제 접수 별도)",
+            "date": "2026-11-24",
+            "method": "2026-11-24 화성오산 특수교육지원센터 공식 안내 재열람(보조공학기기·치료지원 안내, 031-377-4329)",
             "by": "자료 관리자",
-            "next": "2026-11-01"
+            "next": "2027-02-24"
           },
           "contacts": [],
           "rounds": []
@@ -12204,8 +17782,8 @@ window.WELFARE_DATA = {
           "target": "특수교육대상 학생·학교",
           "description": "순회교육·개별화교육 및 특수학급 협력적 수업지원 업무 안내.",
           "method": "학교·교육지원청에서 의뢰·배정 절차 확인",
-          "operation": "공식 안내에서 서비스 존재 확인·개별 접수는 재확인",
-          "editedOn": "2026-10-24",
+          "operation": "2026-11-24 재점검: 공식 페이지가 업무분장표뿐이라 서비스 안내 근거로 부족. 연계 전 담당기관에 직접 확인.",
+          "editedOn": "2026-11-24",
           "tags": {
             "target": [
               "아동",
@@ -12227,11 +17805,11 @@ window.WELFARE_DATA = {
           "localAvailable": "확인 필요",
           "source": "https://goehs.kr/goehs/jo/jobshare/selectJobShareView.do?deptNm=%EC%B4%88%EB%93%B1%EA%B5%90%EC%9C%A1%EC%A7%80%EC%9B%90%EA%B3%BC&mi=18196",
           "verification": {
-            "status": "확인완료",
+            "status": "사업별 확인 필요",
             "date": "2026-10-24",
             "method": "정부·교육청 공식 안내 검토(실제 접수 별도)",
             "by": "자료 관리자",
-            "next": "2026-11-01"
+            "next": "2026-12-24"
           },
           "contacts": [],
           "rounds": []
@@ -12266,7 +17844,7 @@ window.WELFARE_DATA = {
       "phone": "031-1396",
       "source": "https://www.goe.go.kr/goe/na/ntt/selectNttInfo.do?nttSn=2341259",
       "scope": "경기도",
-      "reviewed": "2026-10-24",
+      "reviewed": "2026-11-24",
       "status": "운영중",
       "jurisdiction": "경기도 학생 / 학교·교육지원청별 접수 확인",
       "services": [
@@ -12277,8 +17855,8 @@ window.WELFARE_DATA = {
           "target": "학업중단 위험이 있는 경기도 중·고교 학생",
           "description": "학교·지역 연계 학업중단 예방과 2026 대안교육 위탁기관 운영 안내. 재적학교 학적 관리.",
           "method": "재적학교와 위탁기관 사전협의·학교 추천 필요",
-          "operation": "공식 안내에서 서비스 존재 확인·개별 접수는 재확인",
-          "editedOn": "2026-10-24",
+          "operation": "2026-11-24 재점검: 공식 페이지 본문이 열리지 않음(메뉴만 확인). 연계 전 담당기관에 직접 확인.",
+          "editedOn": "2026-11-24",
           "tags": {
             "target": [
               "청소년"
@@ -12299,11 +17877,11 @@ window.WELFARE_DATA = {
           "localAvailable": "확인 필요",
           "source": "https://goe.go.kr/goe/cm/cntnts/cntntsView.do?cntntsId=1112&mi=10153",
           "verification": {
-            "status": "확인완료",
+            "status": "사업별 확인 필요",
             "date": "2026-10-24",
             "method": "정부·교육청 공식 안내 검토(실제 접수 별도)",
             "by": "자료 관리자",
-            "next": "2026-11-01"
+            "next": "2026-12-24"
           },
           "contacts": [],
           "rounds": []
@@ -12315,8 +17893,8 @@ window.WELFARE_DATA = {
           "target": "학업중단 숙려에 참여하는 학생",
           "description": "학교 내 대안교실 및 온라인 이음교실을 통한 학습·상담·관계회복 지원 안내.",
           "method": "학교별 숙려제·온라인 과정 신청 대상 및 개설 확인",
-          "operation": "공식 안내에서 서비스 존재 확인·개별 접수는 재확인",
-          "editedOn": "2026-10-24",
+          "operation": "2026-11-24 재점검: 등록된 원문 주소가 다른 공지(수능부정행위신고센터)로 바뀜, 출처 재지정 필요. 연계 전 담당기관에 직접 확인.",
+          "editedOn": "2026-11-24",
           "tags": {
             "target": [
               "청소년"
@@ -12337,11 +17915,11 @@ window.WELFARE_DATA = {
           "localAvailable": "확인 필요",
           "source": "https://www.goe.go.kr/goe/na/ntt/selectNttInfo.do?nttSn=2341259",
           "verification": {
-            "status": "확인완료",
+            "status": "사업별 확인 필요",
             "date": "2026-10-24",
             "method": "정부·교육청 공식 안내 검토(실제 접수 별도)",
             "by": "자료 관리자",
-            "next": "2026-11-01"
+            "next": "2026-12-24"
           },
           "contacts": [],
           "rounds": []
@@ -12353,8 +17931,8 @@ window.WELFARE_DATA = {
           "target": "학습·정서·돌봄 등 복합적 어려움의 학생",
           "description": "2026 학생맞춤통합지원 체계에 따른 학교-교육지원청-지역기관 협력 정책 안내.",
           "method": "재적학교 학생지원 담당자와 관할 교육지원청 문의",
-          "operation": "공식 안내에서 서비스 존재 확인·개별 접수는 재확인",
-          "editedOn": "2026-10-24",
+          "operation": "2026-11-24 재점검: 교육부 원문 서버 오류로 재열람 실패. 연계 전 담당기관에 직접 확인.",
+          "editedOn": "2026-11-24",
           "tags": {
             "target": [
               "아동",
@@ -12377,11 +17955,11 @@ window.WELFARE_DATA = {
           "localAvailable": "확인 필요",
           "source": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=294&boardSeq=105348&lev=0",
           "verification": {
-            "status": "확인완료",
+            "status": "사업별 확인 필요",
             "date": "2026-10-24",
             "method": "정부·교육청 공식 안내 검토(실제 접수 별도)",
             "by": "자료 관리자",
-            "next": "2026-11-01"
+            "next": "2026-12-24"
           },
           "contacts": [],
           "rounds": []
@@ -12416,7 +17994,7 @@ window.WELFARE_DATA = {
       "phone": "031-333-1740",
       "source": "https://youth.go.kr/youth/youth/contents/emtGhvrHlForm.yt",
       "scope": "경기도",
-      "reviewed": "2026-10-24",
+      "reviewed": "2026-11-24",
       "status": "운영중",
       "jurisdiction": "전국 대상 모집 / 경기도 용인 소재",
       "services": [
@@ -12427,8 +18005,8 @@ window.WELFARE_DATA = {
           "target": "정서·행동에 어려움이 있는 만 9~18세 청소년(심사 필요)",
           "description": "거주형 상담·치료·보호를 제공하는 전문 치유과정. 모집·비용·입교 심사 확인.",
           "method": "공식 누리집·1388 통해 모집·신청·입교심사 확인",
-          "operation": "공식 안내에서 서비스 존재 확인·개별 접수는 재확인",
-          "editedOn": "2026-10-24",
+          "operation": "2026년 과정 신청은 모두 마감(2026-11-24 확인). 2027년 모집 공고 게시 후 다시 확인. 상담 1388·051-662-3100.",
+          "editedOn": "2026-11-24",
           "tags": {
             "target": [
               "청소년"
@@ -12452,11 +18030,11 @@ window.WELFARE_DATA = {
           "localAvailable": "확인 필요",
           "source": "https://www.kyci.or.kr/news/2025_12/notice03.asp",
           "verification": {
-            "status": "확인완료",
-            "date": "2026-10-24",
-            "method": "정부·교육청 공식 안내 검토(실제 접수 별도)",
+            "status": "사업별 확인 필요",
+            "date": "2026-11-24",
+            "method": "2026-11-24 국립중앙청소년디딤센터 공식 공지 재열람: 2026년 과정 신청 모두 마감(최종 2026.9.21.), 2027년 모집 공고 미게시",
             "by": "자료 관리자",
-            "next": "2026-11-01"
+            "next": "2027-01-31"
           },
           "contacts": [],
           "rounds": []
@@ -12468,8 +18046,8 @@ window.WELFARE_DATA = {
           "target": "입교심사를 거친 치유과정 청소년",
           "description": "입교 과정에서 대안교육·학습권·진로탐색·자립 활동 병행.",
           "method": "입교 과정별 교육·자립지원 범위 확인",
-          "operation": "공식 안내에서 서비스 존재 확인·개별 접수는 재확인",
-          "editedOn": "2026-10-24",
+          "operation": "2026-11-24 재점검: 청소년 포털 원문 자동 열람 차단으로 재열람 실패. 연계 전 담당기관에 직접 확인.",
+          "editedOn": "2026-11-24",
           "tags": {
             "target": [
               "청소년"
@@ -12492,11 +18070,11 @@ window.WELFARE_DATA = {
           "localAvailable": "확인 필요",
           "source": "https://youth.go.kr/youth/youth/contents/emtGhvrHlForm.yt",
           "verification": {
-            "status": "확인완료",
+            "status": "사업별 확인 필요",
             "date": "2026-10-24",
             "method": "정부·교육청 공식 안내 검토(실제 접수 별도)",
             "by": "자료 관리자",
-            "next": "2026-11-01"
+            "next": "2026-12-24"
           },
           "contacts": [],
           "rounds": []
@@ -13965,7 +19543,7 @@ window.WELFARE_DATA = {
       "phone": "02-331-7000",
       "source": "https://love.holt.or.kr/support/자립지원/",
       "scope": "전국 민간",
-      "reviewed": "2026-11-02",
+      "reviewed": "2026-11-24",
       "status": "미확인",
       "jurisdiction": "",
       "services": [
@@ -13977,7 +19555,7 @@ window.WELFARE_DATA = {
           "description": "시설청소년 진로·정서·경제 역량지원, 자립준비청년 취·창업 기술교육, 대학생활 지원과 자조모임·상담·교육 사업 운영. 회차별 조건과 신청 여부는 별도 확인.",
           "method": "공식 홈페이지 참여/신청 → 지원사업(https://love.holt.or.kr/join/support/)에서 해당 회차의 대상·신청방법 확인. 현재 모집 여부 별도 확인.",
           "operation": "공식 사업안내 확인. 현재 접수·예산·선정은 담당기관 확인.",
-          "editedOn": "2026-11-02",
+          "editedOn": "2026-11-24",
           "tags": {
             "target": [
               "청소년",
@@ -13997,10 +19575,10 @@ window.WELFARE_DATA = {
           "source": "https://love.holt.or.kr/support/자립지원/",
           "verification": {
             "status": "사업별 확인 필요",
-            "date": "2026-11-02",
-            "method": "공식 사업안내 원문 직접 확인; 개별 모집·접수·선정 미확인",
+            "date": "2026-11-24",
+            "method": "2026-11-24 홀트아동복지회 공식 지원사업 안내 재열람(사업 게시 유지, 모집기간 표기 없음)",
             "by": "자료 관리자",
-            "next": "2026-11-16"
+            "next": "2027-02-24"
           },
           "contacts": [],
           "rounds": []
@@ -14013,7 +19591,7 @@ window.WELFARE_DATA = {
           "description": "365베이비케어키트의 영유아 양육물품과 365키즈키트의 학령기 교육물품, 맘마미아 이유식 지원사업 운영. 세부 연령·소득·회차·중복지원 조건은 개별 공고 확인.",
           "method": "공식 홈페이지 참여/신청 → 지원사업(https://love.holt.or.kr/join/support/)에서 해당 회차의 대상·신청방법 확인. 현재 모집 여부 별도 확인.",
           "operation": "공식 사업안내 확인. 현재 접수·예산·선정은 담당기관 확인.",
-          "editedOn": "2026-11-02",
+          "editedOn": "2026-11-24",
           "tags": {
             "target": [
               "영유아",
@@ -14035,10 +19613,10 @@ window.WELFARE_DATA = {
           "source": "https://love.holt.or.kr/support/양육지원/",
           "verification": {
             "status": "사업별 확인 필요",
-            "date": "2026-11-02",
-            "method": "공식 사업안내 원문 직접 확인; 개별 모집·접수·선정 미확인",
+            "date": "2026-11-24",
+            "method": "2026-11-24 홀트아동복지회 공식 지원사업 안내 재열람(사업 게시 유지, 모집기간 표기 없음)",
             "by": "자료 관리자",
-            "next": "2026-11-16"
+            "next": "2027-02-24"
           },
           "contacts": [],
           "rounds": []
@@ -14051,7 +19629,7 @@ window.WELFARE_DATA = {
           "description": "위기 미혼모와 아기의 의료·양육·생계·주거·심리상담 지원사업 운영. 지원한도·심사요건과 현재 접수는 담당기관 확인.",
           "method": "공식 홈페이지 참여/신청 → 지원사업(https://love.holt.or.kr/join/support/)에서 해당 회차의 대상·신청방법 확인. 현재 모집 여부 별도 확인.",
           "operation": "공식 사업안내 확인. 현재 접수·예산·선정은 담당기관 확인.",
-          "editedOn": "2026-11-02",
+          "editedOn": "2026-11-24",
           "tags": {
             "target": [
               "영유아",
@@ -14074,10 +19652,10 @@ window.WELFARE_DATA = {
           "source": "https://love.holt.or.kr/support/양육지원/",
           "verification": {
             "status": "사업별 확인 필요",
-            "date": "2026-11-02",
-            "method": "공식 사업안내 원문 직접 확인; 개별 모집·접수·선정 미확인",
+            "date": "2026-11-24",
+            "method": "2026-11-24 홀트아동복지회 공식 지원사업 안내 재열람(사업 게시 유지, 모집기간 표기 없음)",
             "by": "자료 관리자",
-            "next": "2026-11-16"
+            "next": "2027-02-24"
           },
           "contacts": [],
           "rounds": []

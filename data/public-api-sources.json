@@ -459,6 +459,40 @@
       },
       "note": "서비스 주소 https://apis.data.go.kr/1383000/YouthActivInfoPublicSrvc. 상세 getOrganProgrmInfo는 확인, 목록 오퍼레이션 이름은 미확인. 주소 필드로 오산 필터 예정. 2026-11-24 시험: getOrganProgrmList·getOrganProgrmInfo 403, getPblcOrganProgrmList 400.",
       "required": false
+    },
+    {
+      "id": "gg-police-fire",
+      "name": "경기도_소방_경찰_지구대_치안센터 현황",
+      "page": "https://www.data.go.kr/data/15057118/openapi.do",
+      "kind": "facility",
+      "enabled": false,
+      "endpointChecked": false,
+      "keyEnv": "GG_OPENAPI_KEY",
+      "keyParam": "KEY",
+      "endpoint": "",
+      "format": "xml",
+      "itemPath": "row",
+      "pageParam": "pIndex",
+      "sizeParam": "pSize",
+      "pageSize": 100,
+      "maxPages": 5,
+      "params": {},
+      "regionRuns": [
+        {
+          "region": "osan",
+          "params": {
+            "SIGUN_NM": "오산시"
+          }
+        }
+      ],
+      "fields": {
+        "name": "",
+        "address": "",
+        "phone": "",
+        "kind": ""
+      },
+      "note": "data.go.kr에는 LINK(경기데이터드림 제공)로만 등록됨. 경기데이터드림 인증키(GG_OPENAPI_KEY)와 서비스 주소(openapi.gg.go.kr/…)를 받은 뒤 시험 호출로 항목 이름을 채우고 켠다. 소방서·경찰서·지구대·파출소·치안센터 포함(설명 기준).",
+      "required": false
     }
   ],
   "areaTextFields": [

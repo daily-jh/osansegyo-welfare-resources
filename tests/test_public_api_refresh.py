@@ -57,7 +57,7 @@ class PublicApiRefresh(unittest.TestCase):
         names = {r['name']: r for r in payload['items']}
         self.assertEqual(names['청소년 심리상담']['change'], '기존과 일치')
         self.assertEqual(names['청소년 심리상담']['match_id'], 'SVC-00023')
-        self.assertEqual(names['오산시 청소년 교통비 지원']['change'], '신규 후보')
+        self.assertIn(names['오산시 청소년 교통비 지원']['change'], ['신규 후보', '비슷한 항목 있음'])  # 실제 DB에 경기도 교통비 사업이 들어와 비슷한 항목으로 잡힐 수 있음
         self.assertIn('경기도 청년 마음건강 지원', names)
         self.assertNotIn('수원시 출산축하금', names)          # 시군구 사업은 경기도 수집에서 제외
         self.assertIn('자립준비청년 자립수당', names)
@@ -146,6 +146,16 @@ class PublicApiRefresh(unittest.TestCase):
             p.probe(['https://example.invalid/x?Q0=a'], secret, fetcher=lambda s, prm, k: ('echo ' + k + ' ' + s['endpoint']).encode())
         self.assertNotIn(secret, buf.getvalue())
         self.assertIn('example.invalid', buf.getvalue())
+
+    def test_probe_uses_gg_key_for_gyeonggi_data_dream(self):
+        import contextlib, io
+        seen = []
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            p.probe(['https://openapi.gg.go.kr/Sample?SIGUN_NM=x'], 'DATA-KEY', gg_key='GG-KEY',
+                    fetcher=lambda s, prm, k: seen.append((s['keyParam'], k, prm.get('pIndex'))) or b'ok GG-KEY')
+        self.assertEqual(seen, [('KEY', 'GG-KEY', '1')])
+        self.assertNotIn('GG-KEY', buf.getvalue())
 
     def test_matching_levels(self):
         rows = [{'서비스명': '경기도형 긴급복지(무한돌봄)'}, {'서비스명': '자립준비청년 지원'}, {'서비스명': '긴급복지지원 상담'}]

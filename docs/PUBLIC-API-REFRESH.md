@@ -17,12 +17,17 @@
 | 비밀값 이름 | 어디서 받나 | 쓰는 곳 |
 |---|---|---|
 | `DATA_GO_KR_KEY` | 공공데이터포털 마이페이지의 일반 인증키(Decoding 값). 아래 API를 각각 활용신청해야 같은 키로 호출됩니다. | 지자체복지서비스, 중앙부처복지서비스, 청소년상담복지센터, 청소년 쉼터, 사회복지시설 정보, 온통청년 청년센터 |
-| `GG_OPENAPI_KEY` (선택) | 경기데이터드림 인증키 | 경기도 데이터를 경기데이터드림에서 받을 때만 |
+| `GG_OPENAPI_KEY` (선택) | 경기데이터드림(data.gg.go.kr) 회원가입 후 인증키 발급 | 경기도_소방_경찰_지구대_치안센터 현황처럼 공공데이터포털에 'LINK'로만 올라온 경기도 자료. 호출 인자 이름이 `KEY`라 `keyParam: "KEY"`로 적어 둠 |
 
 또 저장소 Settings → Actions → General에서 "Allow GitHub Actions to create and approve pull requests"를 켜야 자동 PR이 열립니다.
 
 ## 새 API 켜기
 `data/public-api-sources.json`에서 해당 항목의 `endpoint`(호출 주소)와 `fields`(응답 항목 이름)를 Swagger 문서대로 채우고 `enabled`를 `true`로 바꿉니다. 오프라인 시험은 `python -m unittest discover -s tests -p 'test_public_api_refresh.py'`입니다.
+
+시험 호출(Actions 실행 화면의 probe 칸)에 `openapi.gg.go.kr/…` 주소를 넣으면 경기데이터드림 키(`KEY`, `pIndex`, `pSize`)로 부릅니다.
+
+## API 등록정보로 DB에 넣은 세부 사업
+2026-11-24 수집분 중 지자체·중앙부처 복지서비스는 사람이 대조한 뒤 서비스 ID `SVC-SSIS-<복지로 서비스ID>`로 넣었습니다(오산시청 22, 경기도청 61, 복지로 65). 모두 '사업별 확인 필요'이며 다음 점검일은 2027-02-24입니다. 같은 ID라 다음 수집부터는 '기존과 일치'로 잡힙니다.
 
 ## 지키는 원칙
 - 인증키는 화면·파일·오류 문구에 남기지 않습니다(오류 문구에서 가림 처리).
