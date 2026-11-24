@@ -34,4 +34,5 @@ for(const c of cases){
 }
 const zero=SL.build(payload({answers:Array(25).fill(0),explicit:[],followups:{},narrative:''}));
 assert.equal(zero.layer,0,'S-5');assert.equal(zero.supports.length,0,'S-5');
+const ep=SL.eduPage(payload(cases[37]));assert.ok(ep.includes('교육지원청 학생맞춤통합지원센터 연계')&&ep.includes('센터에 보낼 요지'),'education office page');assert.ok(!/<script/i.test(ep));
 console.log('PASS oy-school-link layers',layers.join('/'));

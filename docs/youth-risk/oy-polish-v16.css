@@ -67,3 +67,67 @@
 .oysl-muted{display:block;margin-top:8px;font-size:12.5px;color:#5b6b7d;line-height:1.55}
 @media (max-width:760px){.oysl{padding:16px}.oysl-steps{grid-template-columns:minmax(0,1fr)}.oysl-t thead{display:none}.oysl-t,.oysl-t tbody,.oysl-t tr,.oysl-t td{display:block;width:100%}.oysl-t tr{border:1px solid #dbe5ef;border-radius:12px;margin:8px 0;padding:6px 0;background:#fff}.oysl-t td{border:0;padding:4px 12px}.oysl-t td::before{content:attr(data-l);display:inline-block;min-width:64px;margin-right:6px;font-size:12px;font-weight:700;color:#617387}.oysl-t td:first-child{font-weight:700}}
 @media print{.oysl{break-inside:avoid;background:#fff}}
+/* 2026-11-25 메뉴 5단계 재구성: 01 선별평가 · 02 결과해석 · 03 지역자원연계(핵심) · 04 기관별 개입방안(학교·교육지원청·복지관·기관) · 05 최종보고서 / 추가자료.
+   번호와 이름을 두 줄로 나눠 구분하고, 04는 세 기관 탭을 한 상자에 묶는다. */
+#assessmentFlow .flow-nav.oy-nav5{display:grid!important;grid-template-columns:.9fr 1.2fr 1.1fr 2.6fr .9fr .9fr;gap:10px;align-items:stretch;margin:8px 0 18px}
+#assessmentFlow .oy-nav5>button,#assessmentFlow .oy-nav5 .oy-nav-group{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:2px;min-height:76px;padding:10px 14px!important;border:1px solid #d3deea!important;border-radius:16px!important;background:#fff!important;color:#16273a!important;text-align:left;box-shadow:none}
+#assessmentFlow .oy-nav5>button b,#assessmentFlow .oy-nav5 .oy-nav-group>p b{font-size:12px;font-weight:800;letter-spacing:.08em;color:#1765bd}
+#assessmentFlow .oy-nav5>button span,#assessmentFlow .oy-nav5 .oy-nav-group>p span{font-size:16px;font-weight:800;line-height:1.3;letter-spacing:-.01em}
+#assessmentFlow .oy-nav5>button small{font-size:12px;font-weight:600;color:#5b6b7d;line-height:1.35}
+#assessmentFlow .oy-nav5>button[aria-current=step]{background:#1d5fae!important;border-color:#1d5fae!important;color:#fff!important}
+#assessmentFlow .oy-nav5>button[aria-current=step] b,#assessmentFlow .oy-nav5>button[aria-current=step] small{color:#dbe8f7}
+#assessmentFlow .oy-nav5>button:disabled{background:#f3f6f9!important;color:#6a7b8e!important;border-color:#e1e8ef!important}
+#assessmentFlow .oy-nav5>button:disabled b{color:#8796a8}
+/* 03 지역자원연계: 핵심 단계라 주홍 테두리와 배지로 구분 */
+#assessmentFlow .oy-nav5>button.oy-nav-key:not(:disabled){border:2px solid #c8553d!important;background:#fff8f5!important}
+#assessmentFlow .oy-nav5>button.oy-nav-key:not(:disabled) small{color:#b0412b;font-weight:800}
+#assessmentFlow .oy-nav5>button.oy-nav-key[aria-current=step]{background:#c8553d!important;border-color:#c8553d!important}
+#assessmentFlow .oy-nav5>button.oy-nav-key[aria-current=step] small,#assessmentFlow .oy-nav5>button.oy-nav-key[aria-current=step] b{color:#fde7e1}
+/* 04 기관별 개입방안: 제목 + 세 탭 */
+#assessmentFlow .oy-nav5 .oy-nav-group{padding:10px 12px!important;background:#f7fafd!important}
+#assessmentFlow .oy-nav5 .oy-nav-group.on{border:2px solid #1d5fae!important;background:#eef5fd!important}
+#assessmentFlow .oy-nav5 .oy-nav-group>p{margin:0 0 6px;display:flex;gap:8px;align-items:baseline}
+#assessmentFlow .oy-nav-sub{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;width:100%}
+#assessmentFlow .oy-nav-sub button{min-width:0!important;width:100%!important;max-width:none!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-height:36px!important;padding:6px 6px!important;border:1px solid #cbd8e6!important;border-radius:10px!important;background:#fff!important;color:#16273a!important;font-size:13.5px!important;font-weight:700;line-height:1.25}
+#assessmentFlow .oy-nav-sub button[aria-current=step]{background:#1d5fae!important;border-color:#1d5fae!important;color:#fff!important}
+#assessmentFlow .oy-nav-sub button:disabled{background:#f0f3f7!important;color:#7a8a9c!important;border-color:#e1e8ef!important}
+#assessmentFlow .oy-nav-sub [data-oy-step].oy1-other::before{display:none}
+#assessmentFlow .oy-nav5>[data-oy-lib]{border-style:dashed!important;background:#f2f9f6!important}
+#assessmentFlow .oy-nav5>[data-oy-lib] b{color:#2f7a5c}
+#assessmentFlow .oy-nav5>[data-oy-lib][aria-current=step]{background:#2f7a5c!important;border-color:#2f7a5c!important;color:#fff!important}
+#assessmentFlow .oy-nav5>[data-oy-lib][aria-current=step] b,#assessmentFlow .oy-nav5>[data-oy-lib][aria-current=step] small{color:#e2f3ec}
+#assessmentFlow .flow-nav.oy-nav5:has(.oy1-other){margin-top:16px;row-gap:16px}
+@media (max-width:1100px){#assessmentFlow .flow-nav.oy-nav5{grid-template-columns:repeat(3,minmax(0,1fr))}#assessmentFlow .oy-nav5 .oy-nav-group{grid-column:1/-1}}
+@media (max-width:700px){#assessmentFlow .flow-nav.oy-nav5{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}#assessmentFlow .oy-nav5>button,#assessmentFlow .oy-nav5 .oy-nav-group{min-height:64px;padding:8px 12px!important}#assessmentFlow .oy-nav5>button span,#assessmentFlow .oy-nav5 .oy-nav-group>p span{font-size:15px}#assessmentFlow .oy-nav5>button:nth-child(3){grid-column:1/-1}}
+/* 교육지원청 화면 */
+#assessmentFlow #eduArea:not([hidden]){display:block;padding:28px 32px 36px;border:1px solid #dbe5ef;border-radius:20px;background:#fff}
+@media (max-width:760px){#assessmentFlow #eduArea:not([hidden]){padding:20px 16px;border-radius:16px}}
+.oysl-pre{white-space:pre-wrap;word-break:keep-all;overflow-wrap:anywhere;margin:12px 0;padding:14px 16px;border-radius:12px;background:#fff;border:1px solid #dbe5ef;font:14px/1.65 inherit;font-family:inherit}
+.oysl-contacts ul{margin:10px 0;padding-left:18px;font-size:14.5px;line-height:1.75}
+.oysl-line{margin:14px 0;padding:12px 16px;border-radius:12px;background:#f2f7fd;border:1px solid #d6e4f3;font-size:14.5px;line-height:1.6}
+.oysl-line b{margin-right:6px;color:#1765bd}
+/* 03 지역자원연계 · 공공 지원사업 연결(oy-public-benefits-v1) */
+.oypb{margin:18px 0 26px;padding:20px 22px;border:1px solid #d6e4d3;border-radius:18px;background:#f8fcf6;color:#16273a}
+.oypb header h3{margin:4px 0 6px;font-size:1.3rem;line-height:1.35;letter-spacing:-.02em}
+.oypb header p{margin:0;font-size:15px;line-height:1.6;color:#34465a}
+.oypb-k{font-size:13px;font-weight:700;letter-spacing:.04em;color:#2f6b2a}
+.oypb-desks{margin:14px 0 6px;padding:12px 14px;border-radius:14px;background:#fff;border:1px solid #dbe8d6}
+.oypb-desks>b{display:block;font-size:14px;color:#2f6b2a;margin-bottom:6px}
+.oypb-desks ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.oypb-desks li{display:grid;grid-template-columns:minmax(0,15em) minmax(0,1fr);gap:10px;font-size:14px;line-height:1.5}
+.oypb-desks li span{color:#3f5165}
+.oypb-group h4{margin:16px 0 6px;font-size:15px;color:#12263f}
+.oypb-group ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.oypb-item{padding:10px 14px;border:1px solid #e1e9df;border-radius:12px;background:#fff}
+.oypb-name{font-size:15px;line-height:1.45}
+.oypb-name a{font-size:13px;margin-left:6px;color:#1765bd;white-space:nowrap}
+.oypb-chain{margin:6px 0 2px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px}
+.oypb-chain span{font-weight:700;color:#2f6b2a}
+.oypb-chain em{font-style:normal;padding:2px 8px;border-radius:999px;background:#eef6ea;color:#24451f}
+.oypb-meta,.oypb-note{margin:4px 0 0;font-size:13px;line-height:1.55;color:#4a5b6d}
+.oypb-more{margin:12px 0 0}
+.oypb-more summary{cursor:pointer;font-weight:700;color:#2f6b2a;font-size:14px}
+.oypb-empty,.oypb-foot{margin:10px 0 0;font-size:13px;line-height:1.55;color:#556678}
+@media (max-width:700px){.oypb{padding:16px}.oypb-desks li{grid-template-columns:1fr;gap:2px}}
+@media print{.oypb{break-inside:avoid-page}}
+.oypb-desks li strong i{font-style:normal;white-space:nowrap;font-weight:600;color:#2f6b2a}

@@ -200,7 +200,7 @@ function lawSvg(stepNow){
   return s+'</svg>';
 }
 
-// ---------- 03 학교 지원 ----------
+// ---------- 04 학교 지원 ----------
 function safetyBanner(K){
   if(K.urgent)return `<div class="oyp-alert" role="note"><b>안전 확인이 먼저입니다</b><span>안전 문항(1·2·7·25)에 응답이 있습니다. 이 자료를 채우기 전에 오늘 안에 학생 안전을 확인하고, 학대가 의심되면 신고(112) 절차를 따릅니다.</span></div>`;
   if(K.safetyOpen)return `<div class="oyp-alert" role="note"><b>안전 문항이 미상입니다</b><span>미상은 0점이 아닙니다. 안전 문항을 먼저 확인해 판정을 확정합니다.</span></div>`;
@@ -261,8 +261,8 @@ ${tbl(['담당','할 일','기한','확인'],[...roleT.items.slice(0,1).map(t=>[
   const edu=K.find(/교육청/).filter(r=>/학생맞춤/.test(r.svc)).slice(0,1);
   const E3=sheet('E-3','교육지원청 의뢰 요지','교육복지사용 · 학생맞춤통합지원센터에 지원을 요청할 때',`
 ${draft(fh('1. 의뢰 사유')+bl((K.high.slice(0,3).map(x=>x.topic).join(', ')||'여러 영역의 어려움')+'이 함께 나타남'+(K.pats.length?'. '+K.pats.map(x=>x.name).join(', ')+'으로 해석됨.':'.'))+fh('2. 학교 조치')+bl('(학교에서 한 지원을 적습니다)')+fh('3. 요청')+bl('주관 제안: '+(cw.lead||'협의')+'. 협의 시점: '+(cw.level&&cw.level.meeting||''))+fh('4. 동의와 첨부')+bl('학생·보호자 동의서, 교사 의견서(T-3). 서술기록 원문과 문항별 응답은 첨부하지 않음.'))}
-${fig(ecoSvg(K),'학교 안팎 지원 지도: Ct를 가운데 두고 지금의 관계와 02 지도가 고른 후보를 그렸습니다. '+ecoLegend)}
-${H('02 지도가 고른 지역 후보',K.src('지도'))}<ul class="oyp-res">${[...edu,...K.mapRes.slice(0,4)].map(r=>`<li><b>${esc(r.org)}</b> · ${esc(r.svc)} ${K.verTag(r.ver)}</li>`).join('')||'<li>지도에서 후보를 고르지 못했습니다. 02 지역자원 연계에서 직접 찾아 주세요.</li>'}</ul>`,{tone:'school'});
+${fig(ecoSvg(K),'학교 안팎 지원 지도: Ct를 가운데 두고 지금의 관계와 03 지도가 고른 후보를 그렸습니다. '+ecoLegend)}
+${H('03 지도가 고른 지역 후보',K.src('지도'))}<ul class="oyp-res">${[...edu,...K.mapRes.slice(0,4)].map(r=>`<li><b>${esc(r.org)}</b> · ${esc(r.svc)} ${K.verTag(r.ver)}</li>`).join('')||'<li>지도에서 후보를 고르지 못했습니다. 03 지역자원연계에서 직접 찾아 주세요.</li>'}</ul>`,{tone:'school'});
   return {packs:[{id:'teacher',label:'담임교사',sheets:[['T-1','학생 이해 한 장',T1],['T-2','2주 관찰 기록지',T2],['T-3','지원 요청 교사 의견서',T3]]},{id:'edu',label:'교육복지사',sheets:[['E-1','선정 검토서',E1],['E-2','협의회 안건·회의록',E2],['E-3','교육지원청 의뢰 요지',E3]]}]};
 }
 
@@ -289,7 +289,7 @@ ${tbl(['준거','이 사례','근거','판단'],`
 <div class="oyp-decide" data-radio><b>판정</b>${['위기','집중','일반','단순 연계','비해당'].map(x=>box(x===pick,x)).join(' ')}<span class="oyp-note">제안: ${esc(lvl.name||'')}${multi?'':sel&&sel.status==='review'?' · 통합사례관리 선정 여부는 사례회의에서 결정':' · 선정 기준(2개 이상 기관) 미충족이면 단순 연계로 검토'}${narrCue?' · 조건: '+esc(narrCue)+' 단서가 확인되면 집중·보호경로로 재판정':''}</span></div>`,{tone:'agency',banner});
   const okText={self:'위험행동·물질 사용 없음',family:'보호자 위해 보고 없음',school:'또래 안전 유지',community:'강요·착취 없음'};
   const A1=sheet('A-1','욕구 사정 요약','사회복지관 · 생태체계로 본 위험과 보호',`
-${fig(ecoSvg(K),'생태도: Ct를 가운데 두고 가족·학교·또래와의 관계, 02 지도가 고른 연결 후보를 그렸습니다. '+ecoLegend)}
+${fig(ecoSvg(K),'생태도: Ct를 가운데 두고 가족·학교·또래와의 관계, 03 지도가 고른 연결 후보를 그렸습니다. '+ecoLegend)}
 ${H('위험요인과 보호요인',K.src('척도','서술','지도'))}
 ${tbl(['체계','위험요인','보호요인','연결할 자원'],(cw.ecology||[]).map(x=>`<tr><th>${esc(x.name)}</th><td>${esc(x.hard.join(', ')||'—')}</td><td>${esc(x.ok.length?okText[x.id]||x.ok.slice(0,2).join(', ')+' 보고 없음':'—')}${x.unk&&x.unk.length?' · 미상 '+x.unk.length:''}</td><td>${esc(x.res.slice(0,3).join(', '))}</td></tr>`).join(''))}
 ${fig(profileSvg(K),'영역 프로파일. 높이는 영역 안 가장 높은 문항 점수입니다.')}`,{tone:'agency',banner});
@@ -322,7 +322,7 @@ ${H('5. 회의 권고')}${wr(2,'회의 권고')}`,{tone:'agency'});
   const A4=sheet('A-4','서비스제공계획 및 점검표(초안)','사회복지관 · 목표와 기관은 시스템이 채우고 날짜·담당은 회의에서',`
 <p class="oyp-goal"><b>장기목표(6개월)</b> ${line(24,'장기목표')} <b>단기목표(3개월)</b> ${esc((cw.goals||[]).map(g=>g.topic).slice(0,2).join(', ')||'면담 뒤 정함')} 완화 ${K.src('해석')}</p>
 ${tbl(['개입목표','서비스명','대상','우선','시기','시작일','종료일','횟수','제공기관','담당자','점검방법','이행'],planRows+`<tr><td colspan="12">${wr(1,'추가 서비스','추가할 서비스를 적습니다')}</td></tr>`,'oyp-plan12')}
-<p class="oyp-hint">제공기관은 02 지도의 후보이며 대부분 확인 전입니다. 이용 가능 여부와 빈자리를 문의한 뒤 확정합니다. ${K.src('지도')}</p>
+<p class="oyp-hint">제공기관은 03 지도의 후보이며 대부분 확인 전입니다. 이용 가능 여부와 빈자리를 문의한 뒤 확정합니다. ${K.src('지도')}</p>
 ${H('변경 내역·사유')}${wr(1,'변경 내역·사유','')}
 <div class="oyp-sign"><span>위 계획에 동의합니다.</span><span>Ct ${line(5,'학생 서명')} (서명)</span><span>보호자 ${line(5,'보호자 서명')} (서명)</span><span>담당자 ${line(5,'담당자 서명')} (서명)</span></div>`,{tone:'agency',land:true});
 
@@ -339,7 +339,7 @@ ${H('변경 내역·사유')}${wr(1,'변경 내역·사유','')}
   const C0=sheet('C-0','아동·가족 기관 중 어디에 연결할까','아동·가족 기관 공통 · 이 사례에 맞는 기관과 순서',`
 ${tbl(['기관','하는 일','이 사례에서','판단','시트'],FIT.map(r=>`<tr><th>${r[0]}</th><td>${r[1]}</td><td>${esc(r[2])}</td><td><span class="oyp-pill ${st[r[3]]}">${r[4]}</span></td><td><span class="oyp-code sm">${r[5]}</span></td></tr>`).join(''))}
 ${H('연결 순서(제안)')}<ol class="oyp-steps3"><li><b>이번 주</b>${esc(firstStep)}</li><li><b>2주 안</b>${fam.hard.length?'가족센터를 통해 보호자 상담 제안, 가구 상황 확인':'학생과 보호자에게 원하는 도움 확인'}</li><li><b>확인 결과에 따라</b>${abuseNarr.length||abuse>=1?'학대 의심이 남으면 신고, 이후 아동보호전문기관과 사례관리 역할 조정':'4주 뒤 관찰 결과로 연계 범위 조정'}</li></ol>
-<p class="oyp-hint">대상 연령·선정 기준은 기관과 해마다 다르므로 문의로 확인합니다. 기관 목록은 02 지도와 자원 DB에서 가져왔고 대부분 확인 전입니다. ${K.src('지도')}</p>`,{tone:'agency',banner});
+<p class="oyp-hint">대상 연령·선정 기준은 기관과 해마다 다르므로 문의로 확인합니다. 기관 목록은 03 지도와 자원 DB에서 가져왔고 대부분 확인 전입니다. ${K.src('지도')}</p>`,{tone:'agency',banner});
   const resLi=list=>`<ul class="oyp-res">${list.map(r=>`<li><b>${esc(r.org)}</b> · ${esc(r.svc)} ${K.verTag(r.ver)}${r.how?'<br><span class="oyp-muted">'+esc(r.how)+'</span>':''}</li>`).join('')||'<li>자원 DB에서 찾지 못했습니다.</li>'}</ul>`;
   const wk=[1,2,3,4];
   const obsC=[...(care>=1?[['석식 이용 일수','식사·돌봄']]:[]),...(care>=1?[['귀가 뒤 혼자 있는 시간','돌봄 공백']]:[]),...K.high.filter(x=>OBS[x.n]&&![16,17,18].includes(x.n)).slice(0,3).map(x=>[OBS[x.n],x.topic]),['활동 중 기분과 참여','강점 유지']];
@@ -416,15 +416,15 @@ function printPack(doc,pack){
   const w=doc.defaultView;if(w){w.addEventListener('afterprint',done);try{w.print()}catch(_){done()}}
 }
 
-/* 03 학교 지원(stage 6)은 자체 영역에, 04 기관 자료는 journey-v88의 탭 안에 그린다. */
+/* 04 학교 지원(stage 6)은 자체 영역에, 04 기관 자료는 journey-v88의 탭 안에 그린다. */
 function mountStage(e){
   const st=e&&e.detail;const area=root.document&&root.document.getElementById('schoolArea');if(!area)return;
   const on=!!(st&&st.ready&&st.payload&&st.stage===6);area.hidden=!on;if(!on)return;
   const key=st.payload.flowRevision+'|'+(st.payload.caseContext||'').length;
   if(area.dataset.oypKey===key)return;area.dataset.oypKey=key;
-  area.innerHTML='<div class="oyp-stagehead"><span class="oyp-eyebrow">03 학교 지원</span><h2>담임교사와 교육복지사가 바로 쓰는 자료</h2><p>척도 판정·해석지·서술 분석·지역자원 지도를 학생맞춤통합지원 절차에 맞춰 정리했습니다.</p></div>'+(()=>{try{return OD().strip(OD().forPayload(st.payload),{audience:'school'})}catch(_){return ''}})()
-    /* 2026-11-24 학맞통 연계: 판정 띠 바로 아래에 학교 안 → 교육지원청 센터 → 지역기관 경로를 한 장으로. */
-    +(()=>{try{const L=root.OYSchoolLink;return L?L.html(L.build(st.payload)):''}catch(_){return ''}})()+render('school',st.payload);
+  area.innerHTML='<div class="oyp-stagehead"><span class="oyp-eyebrow">04 기관별 개입방안 · 학교</span><h2>담임교사와 교육복지사가 바로 쓰는 자료</h2><p>척도 판정·해석지·서술 분석·지역자원 지도를 학생맞춤통합지원 절차에 맞춰 정리했습니다.</p></div>'+(()=>{try{return OD().strip(OD().forPayload(st.payload),{audience:'school'})}catch(_){return ''}})()
+    /* 2026-11-25 메뉴 개편: 학맞통 세 층 경로 카드는 04 기관별 개입방안 · 교육지원청 탭(#eduArea)으로 옮기고, 여기서는 한 줄 안내만. */
+    +(()=>{try{const L=root.OYSchoolLink;if(!L)return '';const m=L.build(st.payload);return '<p class="oysl-line"><b>학맞통 연계</b> '+m.head.replace(/[<>&]/g,'')+' · 단계별 담당과 센터 요청은 옆 「교육지원청」 탭에 있습니다.</p>'}catch(_){return ''}})()+render('school',st.payload);
   area.querySelectorAll('[data-oyd]').forEach(el=>{el.__payload=st.payload});
 }
 const api=Object.freeze({VERSION,OBS,render,sheetCodes,analyze,bind,printPack});

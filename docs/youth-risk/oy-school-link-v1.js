@@ -70,7 +70,7 @@ function build(p,given){
   :'2점 이상 영역이 없어 지금은 관찰을 이어 가고, 변화가 보이면 다시 평가합니다.';
  const materials=[
   ['기초학력진단검사 결과','학교 보유 자료 · 이 시스템에는 없음'],
-  ['담임·교과교사 의견','03 학교 지원 T-3 교사 의견서로 정리'],
+  ['담임·교과교사 의견','04 학교 지원 T-3 교사 의견서로 정리'],
   ['보호자 상담 결과',abuse?'보호자가 학대 의심 대상이면 상담·동의 요청 전에 아동보호 절차를 먼저 확인':'보호자 상담 뒤 적음'],
   ['OY-RALS 결과','참고 자료 · 선정 기준을 대신하지 않음']
  ];
@@ -98,6 +98,28 @@ function text(m){
   ...(m.reasons.length?['교육지원청 센터 요청 사유: '+m.reasons.join(' · ')]:[]),
   ...m.supports.map(s=>'- '+s.area+': '+s.kind+' / 학교 안 '+s.school+' / 학교 밖 '+s.outside),m.consent].join('\n');
 }
-const api=Object.freeze({VERSION,SUPPORT,build,html,text});
-if(node)module.exports=api;else root.OYSchoolLink=api;
+/* 04 기관별 개입방안 · 교육지원청(stage 8). 연락처는 복지자원 DB(window.WELFARE_DATA)에서 읽고, DB에 없는 센터 번호는 만들지 않는다. */
+const EDU_ORGS=[['ORG-N24-HOWEE','위기상담·심리검사·치료 연계'],['ORG-Y22-SPEC','특수교육 진단·선정배치·치료지원'],['ORG-Y22-EDU','학업중단 예방·대안교육 위탁']];
+function contacts(){let D=root.WELFARE_DATA;try{D=D||root.document.getElementById('assessmentFrame').contentWindow.WELFARE_DATA}catch(_){}const orgs=D&&Array.isArray(D.organizations)?D.organizations:[];
+ return EDU_ORGS.map(([id,use])=>{const o=orgs.find(x=>x.id===id);return o?{name:o.name,use,phone:o.phone||'',site:o.site||''}:null}).filter(Boolean);}
+function eduPage(p){
+ const m=build(p),c=contacts();
+ return '<div class="oyp-stagehead"><span class="oyp-eyebrow">04 기관별 개입방안 · 교육지원청</span><h2>교육지원청 학생맞춤통합지원센터 연계</h2><p>학교만으로 어려운 사안(가정 내 학대, 의료적 개입, 지역사회 돌봄 연계 등)은 학교가 교육지원청 학생맞춤통합지원센터에 심층 진단과 자원 연계를 요청합니다. 2026년부터 학교가 교육(지원)청에 요청하는 창구가 이 센터로 모였습니다.</p></div>'
+  +html(m)
+  +'<section class="oysl oysl-req" aria-label="센터 요청 요지"><header><span class="oysl-k">요청 준비</span><h3>센터에 보낼 요지(초안)</h3><p>학생 이름·서술 원문은 넣지 않았습니다. 학교 담당자가 고쳐서 학교 공문·내부 절차로 보냅니다.</p></header>'
+  +'<pre class="oysl-pre" id="oyslReq">'+esc(text(m))+'</pre><button type="button" class="flow-btn" data-oysl-copy>요지 복사</button> <span class="oysl-muted" role="status" id="oyslCopyStatus"></span></section>'
+  +'<section class="oysl oysl-contacts" aria-label="교육지원청 연락처"><header><span class="oysl-k">화성오산교육지원청 · 복지자원 DB</span><h3>함께 쓰는 교육지원청 창구</h3></header><ul>'
+  +c.map(x=>'<li><b>'+esc(x.name)+'</b> · '+esc(x.use)+(x.phone?' · <a href="tel:'+esc(x.phone.replace(/[^0-9]/g,''))+'">'+esc(x.phone)+'</a>':'')+(x.site?' · <a href="'+esc(x.site)+'" target="_blank" rel="noopener">누리집</a>':'')+'</li>').join('')
+  +'</ul><p class="oysl-muted">학생맞춤통합지원센터의 전용 전화번호는 아직 복지자원 DB에서 확인되지 않았습니다. 학교 학맞통 담당자를 거쳐 화성오산교육지원청에 요청합니다.</p></section>';
+}
+function mount(e){
+ const st=e&&e.detail,area=root.document&&root.document.getElementById('eduArea');if(!area)return;
+ const on=!!(st&&st.ready&&st.payload&&st.stage===8);area.hidden=!on;if(!on)return;
+ const key=(st.payload.flowRevision||'')+'|'+JSON.stringify(st.payload.answers);if(area.dataset.key===key)return;area.dataset.key=key;
+ try{area.innerHTML=eduPage(st.payload)}catch(err){area.innerHTML='<p role="alert">교육지원청 연계 화면을 만들지 못했습니다. 판정 값은 그대로입니다.</p>'}
+}
+const api=Object.freeze({VERSION,SUPPORT,build,html,text,eduPage});
+if(node)module.exports=api;else{root.OYSchoolLink=api;if(root.document){root.addEventListener('oy-journey-view',mount);
+ root.document.addEventListener('click',ev=>{const b=ev.target.closest&&ev.target.closest('[data-oysl-copy]');if(!b)return;const t=root.document.getElementById('oyslReq'),s=root.document.getElementById('oyslCopyStatus');
+  try{root.navigator.clipboard.writeText(t.textContent).then(()=>{if(s)s.textContent='복사했습니다.'},()=>{if(s)s.textContent='복사하지 못했습니다. 글을 직접 선택해 복사해 주세요.'})}catch(_){if(s)s.textContent='복사하지 못했습니다. 글을 직접 선택해 복사해 주세요.'}});}}
 })(typeof window!=='undefined'?window:globalThis);

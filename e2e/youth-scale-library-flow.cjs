@@ -43,7 +43,8 @@ async function run(browser,width){
  await page.screenshot({path:path.join(out,'library-'+width+'.png'),fullPage:true});
  const [dl]=await Promise.all([page.waitForEvent('download'),page.locator('[data-osl-csv]').click()]);
  assert.match(dl.suggestedFilename(),/\.csv$/);
- await page.locator('[data-oy-step="1"]').click();
+ // 2026-11-25 메뉴 개편: 평가 전 입력 화면은 01 선별평가(data-oy-step 0)로 돌아간다.
+ await page.locator('[data-oy-step="0"]').click();
  await page.waitForFunction(()=>!document.body.classList.contains('oy-lib-open')&&!document.getElementById('assessmentArea').hidden);
  assert.equal(await page.locator('#scaleLibraryArea').isVisible(),false);
  assert.equal(await frame.locator('#qi0 input[type="radio"][value="1"]').isChecked(),true,'answers kept after visiting 06');
