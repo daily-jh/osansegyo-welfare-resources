@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'">
+<title>자원 공백 지도 | 오산 복지자원</title>
+<meta name="description" content="욕구영역과 대상별로 오산·경기·전국 복지서비스가 얼마나 등록되어 있는지 한눈에 보고, 오산에 빈 곳을 찾습니다.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<style>
+:root{--ink:#1f2f3f;--muted:#566779;--line:#d8e0ea;--paper:#fff;--bg:#f5f7fb;--brand:#174d81;--brand-soft:#e7eef8;--accent:#c4552b;--accent-soft:#fdeee6;--warn:#8a5a1c;--warn-soft:#fff4dc;
+font-family:system-ui,'Malgun Gothic',sans-serif;color:var(--ink);background:var(--bg)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg)}header,main,footer{max-width:1180px;margin:auto;padding:22px 24px}a{color:#17599a}
+header{display:flex;justify-content:space-between;gap:14px;align-items:center;flex-wrap:wrap}header>a{text-decoration:none;font-weight:700}header nav{display:flex;gap:14px;flex-wrap:wrap;font-size:14px}
+.hero{padding:32px;border-radius:24px;background:var(--brand-soft)}.hero h1{font-size:clamp(27px,4vw,40px);margin:8px 0;letter-spacing:-.02em}.hero p{max-width:760px;line-height:1.7;margin:8px 0}
+.pill{font-size:12px;color:#194e7c;background:#e9f3fa;border-radius:99px;padding:5px 10px;display:inline-block}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:10px;margin:20px 0}
+.tile{background:var(--paper);border-radius:16px;padding:16px 18px}.tile span{display:block;font-size:13px;color:var(--muted)}.tile b{font-size:28px;font-variant-numeric:tabular-nums}.tile small{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+.tile.osan b{color:#a2421b}.tile.none b{color:#5b6775}
+.panel{background:var(--paper);border-radius:18px;padding:20px 22px;margin:16px 0}.panel h2{font-size:20px;margin:2px 0 8px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin:6px 0 12px}.legend span{display:inline-flex;align-items:center;gap:6px}.legend i{width:14px;height:14px;border-radius:4px;display:inline-block;border:1px solid #c9d3de}
+.wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:12px}
+table{border-collapse:separate;border-spacing:0;font-size:13px;min-width:860px;width:100%}
+th,td{padding:0;border-bottom:1px solid #edf1f5;text-align:center}thead th{position:sticky;top:0;background:#f3f6fa;font-weight:700;padding:9px 4px;font-size:12px;white-space:nowrap}
+tbody th{position:sticky;left:0;background:#fff;text-align:left;padding:8px 10px;white-space:nowrap;font-size:13px;z-index:1;border-right:1px solid #edf1f5}
+td button{all:unset;box-sizing:border-box;display:block;width:100%;min-height:46px;padding:6px 4px;cursor:pointer;line-height:1.25}
+td button b{display:block;font-size:16px;font-variant-numeric:tabular-nums}td button small{display:block;font-size:10.5px;color:#4d5d6d;white-space:nowrap}
+td button:focus-visible{outline:3px solid #d77537;outline-offset:-3px}td button[aria-pressed="true"]{box-shadow:inset 0 0 0 3px var(--brand)}
+.c-none{background:repeating-linear-gradient(135deg,#f4f6f8 0 6px,#e9edf1 6px 12px);color:#6a7683}
+.c-osan-none{background:#fbd9c9}.c-thin{background:#fff0cc}.c-ok1{background:#dfeaf6}.c-ok2{background:#bfd4ec}.c-ok3{background:#93b6dc}
+.gaplist{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:8px;list-style:none;padding:0;margin:8px 0 0}
+.gaplist button{all:unset;box-sizing:border-box;display:block;width:100%;border:1px solid #f0cbb9;background:#fff8f4;border-radius:12px;padding:10px 12px;cursor:pointer;line-height:1.5}
+.gaplist button:focus-visible{outline:3px solid #d77537}.gaplist b{color:#8f3412}.gaplist small{display:block;color:var(--muted)}
+#detail{scroll-margin-top:12px}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:10px;margin-top:10px}
+.card{border:1px solid var(--line);border-radius:14px;padding:12px 14px;min-width:0}.card h3{font-size:15px;margin:6px 0 4px;overflow-wrap:anywhere}.card p{font-size:13px;margin:4px 0;line-height:1.55;overflow-wrap:anywhere}
+.tag{font-size:12px;border-radius:99px;padding:3px 8px;display:inline-block;margin:0 4px 4px 0;background:#eef3f8;color:#2b4b6b}.tag.ok{background:#e3f3ec;color:#17694f}.tag.warn{background:var(--warn-soft);color:var(--warn)}
+.note{background:#fff;border-left:4px solid #376aa2;padding:16px 20px;margin:20px 0;line-height:1.7;font-size:14px;border-radius:0 12px 12px 0}
+button.text{all:unset;cursor:pointer;color:#17599a;text-decoration:underline;font-size:14px}
+footer{font-size:13px;color:#56677a}
+@media(max-width:560px){header,main,footer{padding:14px 16px}.hero{padding:22px 18px}.panel{padding:16px}}
+@media print{header,footer,.no-print{display:none!important}body{background:#fff}.wrap{overflow:visible;border:0}table{min-width:0;font-size:9px}td button small{font-size:7px}.panel{break-inside:avoid}}
+</style>
+<script defer src="assets/data.js"></script>
+<script defer src="assets/welfare-tools-model.js?v=20261124-t1"></script>
+<script defer src="assets/resource-gaps.js?v=20261124-t1"></script>
+</head><body>
+<header><a href="./">← 오산 복지자원 찾기</a><nav><a href="benefit-check.html">복지혜택 자가점검</a><a href="service-guide.html">필요한 도움으로 찾기</a></nav></header>
+<main>
+<section class="hero"><span class="pill">실무자용 · 자원 공백 지도</span><h1>오산에 어떤 자원이 비어 있는지 봅니다.</h1><p>욕구영역(세로)과 대상(가로)이 만나는 칸마다 이 사이트에 등록된 서비스 수를 오산·경기·전국으로 나눠 셉니다. 경기·전국에는 있는데 오산에는 없는 칸이 지역 자원 발굴·제안이 필요한 곳입니다.</p><p>등록 자료 기준의 빈칸입니다. 실제로 지역에 자원이 없다는 뜻이 아니라, 아직 찾지 못했거나 등록하지 않았을 수 있습니다.</p></section>
+<div class="tiles" id="tiles"></div>
+<section class="panel" aria-labelledby="mapTitle"><h2 id="mapTitle">욕구영역 × 대상</h2><p class="legend" aria-label="색 설명"><span><i class="c-osan-none"></i>오산 없음(경기·전국만)</span><span><i class="c-thin"></i>오산 1개</span><span><i class="c-ok2"></i>오산 2개 이상(진할수록 많음)</span><span><i class="c-none"></i>등록 서비스 없음</span></p>
+<p class="legend">칸의 큰 숫자는 오산 서비스 수, 아래 작은 글씨는 경기·전국 수입니다. 칸을 누르면 아래에 서비스 목록이 열립니다.</p>
+<div class="wrap" tabindex="0" role="region" aria-label="욕구영역과 대상별 서비스 수 표, 옆으로 밀어서 봅니다"><table id="matrix"></table></div></section>
+<section class="panel" aria-labelledby="gapTitle"><h2 id="gapTitle">오산에 비어 있는 칸</h2><p class="legend">경기·전국 서비스가 많은 순서입니다. 지역 기관과 함께 확인하거나 새 자원으로 제안할 후보입니다.</p><ul class="gaplist" id="gaps"></ul></section>
+<section class="panel" id="detail" aria-live="polite" hidden></section>
+<section class="note"><strong>읽는 법과 한계</strong><p>한 서비스가 여러 영역·대상에 해당하면 여러 칸에 함께 셉니다. 대상이 적혀 있지 않은 서비스(대상 미분류)는 칸에 넣지 않고 영역 이름 옆에 따로 표시합니다. '공식 안내 확인' 서비스 수는 칸을 눌렀을 때 함께 보입니다.</p><p>공공데이터 API로 새로 들어오는 후보는 사람이 공식 안내를 확인한 뒤에만 이 지도에 반영됩니다.</p></section>
+</main>
+<footer>기획·편집·웹사이트 제작: 오산세교종합사회복지관 김지훈 팀장 · © 2026 김지훈 · <a href="usage-terms.html">이용조건</a> · <a href="data-guide.html">수록 기준</a></footer>
+</body></html>
