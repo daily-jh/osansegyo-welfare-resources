@@ -167,7 +167,7 @@
       "page": "https://www.data.go.kr/data/15108347/openapi.do",
       "kind": "service",
       "enabled": true,
-      "endpointChecked": false,
+      "endpointChecked": true,
       "keyEnv": "DATA_GO_KR_KEY",
       "endpoint": "https://apis.data.go.kr/B554287/LocalGovernmentWelfareInformations/LcgvWelfarelist",
       "format": "xml",
@@ -223,7 +223,7 @@
       "page": "https://www.data.go.kr/data/15090532/openapi.do",
       "kind": "service",
       "enabled": true,
-      "endpointChecked": false,
+      "endpointChecked": true,
       "keyEnv": "DATA_GO_KR_KEY",
       "endpoint": "https://apis.data.go.kr/B554287/NationalWelfareInformationsV001/NationalWelfarelistV001",
       "format": "xml",
@@ -396,7 +396,7 @@
       "page": "https://www.data.go.kr/data/15000563/openapi.do",
       "kind": "facility",
       "enabled": true,
-      "endpointChecked": false,
+      "endpointChecked": true,
       "keyEnv": "DATA_GO_KR_KEY",
       "endpoint": "https://apis.data.go.kr/B552657/ErmctInfoInqireService/getEgytListInfoInqire",
       "format": "xml",
@@ -422,7 +422,7 @@
         "phone": "dutyTel1",
         "kind": "dutyEmclsName"
       },
-      "note": "요청변수 Q0(시도)·Q1(시군구), 응답 dutyName·dutyAddr·dutyTel1·dutyTel3(응급실). 페이지 명세 확인. 목록 오퍼레이션 이름은 첫 실행에서 확인.",
+      "note": "2026-11-24 실제 호출 확인(오산한국병원 지역응급의료센터 1건). 응답 dutyName·dutyAddr·dutyTel1·dutyTel3(응급실).",
       "required": false
     },
     {
@@ -457,7 +457,7 @@
         "phone": "tel",
         "updated": "sdate"
       },
-      "note": "서비스 주소 https://apis.data.go.kr/1383000/YouthActivInfoPublicSrvc. 상세 getOrganProgrmInfo는 확인, 목록 오퍼레이션 이름은 미확인. 주소 필드로 오산 필터 예정.",
+      "note": "서비스 주소 https://apis.data.go.kr/1383000/YouthActivInfoPublicSrvc. 상세 getOrganProgrmInfo는 확인, 목록 오퍼레이션 이름은 미확인. 주소 필드로 오산 필터 예정. 2026-11-24 시험: getOrganProgrmList·getOrganProgrmInfo 403, getPblcOrganProgrmList 400.",
       "required": false
     }
   ],

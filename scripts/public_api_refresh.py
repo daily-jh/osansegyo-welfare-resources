@@ -50,13 +50,23 @@ def redact(text, secrets):
 
 # ---------- fetching and parsing ----------
 
-def fetch_live(source, params, key, timeout=30):
+def fetch_live(source, params, key, timeout=30, attempts=3, wait=5):
+    import time, urllib.error
     query = dict(params)
     query['serviceKey'] = key
     url = source['endpoint'] + '?' + urllib.parse.urlencode(query)
     req = urllib.request.Request(url, headers={'User-Agent': 'welfare-resource-refresh/1.0', 'Accept': '*/*'})
-    with urllib.request.urlopen(req, timeout=timeout) as res:
-        return res.read()
+    for n in range(attempts):
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as res:
+                return res.read()
+        except urllib.error.HTTPError as exc:
+            if exc.code < 500 or n == attempts - 1:
+                raise                                   # 4xx는 주소·권한 문제라 다시 해도 같음
+        except (urllib.error.URLError, TimeoutError, OSError):
+            if n == attempts - 1:
+                raise                                   # 접속 시간 초과 등은 잠깐 뒤 다시 시도
+        time.sleep(wait * (n + 1))
 
 
 def fetch_fixture(directory, source, region, page):
