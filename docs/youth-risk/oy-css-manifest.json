@@ -37,7 +37,7 @@
   "oy-dataviz-v15.css",
   "oy-polish-v16.css",
   "oy-entry-layout-v1.css",
-  "oy-entry-popups-v1.css",
-  "../assets/public-facilities.css"
+  "../assets/public-facilities.css",
+  "oy-entry-popups-v1.css"
  ]
 }

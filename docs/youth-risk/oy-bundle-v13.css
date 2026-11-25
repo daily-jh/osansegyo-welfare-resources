@@ -1,4 +1,4 @@
-/* OY-RALS 메인 화면 CSS 묶음 v13 · 원본 37개 · sha 84893df2f089 · 직접 고치지 말고 원본을 고친 뒤 node scripts/build-youth-css.cjs */
+/* OY-RALS 메인 화면 CSS 묶음 v13 · 원본 37개 · sha 6338513be042 · 직접 고치지 말고 원본을 고친 뒤 node scripts/build-youth-css.cjs */
 /* ==== flow.css ==== */
 @font-face{font-family:SUIT;src:url(fonts/SUIT-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}*{box-sizing:border-box}body{margin:0;background:#f1f5fa;color:#263f57;font-family:SUIT,"Malgun Gothic",sans-serif}.flow-wrap{max-width:1240px;width:calc(100% - 32px);margin:auto}.flow-header{background:#fff;border-bottom:1px solid #dce5ef;padding:24px 0}.flow-header p{font-size:12px;letter-spacing:.12em;color:#5f7c99;margin:0 0 8px}.flow-header h1{font-size:28px;margin:0 0 8px}.flow-header small{font-size:15px;color:#56718b}.flow-nav{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 10px}.flow-nav button,.flow-btn{font:inherit;cursor:pointer;border:1px solid #cadbea;background:#fff;color:#315776;border-radius:22px;padding:12px 18px;font-weight:700}.flow-nav button[aria-current=step]{background:#305e89;color:white;border-color:#305e89}.flow-nav button:disabled{color:#8b9aaa;background:#eaf0f5;cursor:default}#flowStatus{font-size:14px;line-height:1.7;color:#57708a}#stepTitle{font-size:23px;margin:24px 0 16px}.flow-frame{display:block;width:100%;height:1000px;border:0;background:#f1f5fa;overflow:hidden}.flow-frame[hidden]{display:none}.flow-bottom{display:flex;justify-content:space-between;gap:12px;margin:24px 0 40px}.flow-primary{background:#305e89;color:white;border-color:#305e89}.flow-result-tabs{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}.flow-result-tabs [aria-pressed=true]{background:#dceafa}.flow-focus{border:1px solid #d6e2ef;background:#fff;border-radius:22px;padding:20px;margin:20px 0}.flow-focus h3{margin:0 0 8px;font-size:18px}.flow-focus p{font-size:14px;line-height:1.7;color:#587189}#focusChoices{display:flex;gap:12px;flex-wrap:wrap}#focusChoices label{padding:10px 13px;background:#f0f5fb;border-radius:16px;display:flex;gap:8px;align-items:center;font-size:14px}#recordVersion{font:inherit;padding:10px;border:1px solid #c2d5e7;border-radius:12px}footer.flow-footer{padding:25px 0;border-top:1px solid #d7e2ed;font-size:13px;line-height:1.8;color:#587087}footer.flow-footer a{color:inherit}button:focus-visible,a:focus-visible{outline:3px solid #94bce5;outline-offset:3px}@media(max-width:650px){.flow-wrap{width:calc(100% - 20px)}.flow-header h1{font-size:24px}.flow-nav{display:grid;grid-template-columns:1fr 1fr}.flow-nav button{padding:11px 8px;font-size:13px}.flow-bottom button{font-size:14px;padding:12px}.flow-focus{padding:16px}}@media print{.flow-header,.flow-nav,.flow-bottom,.flow-footer{display:none}}
 
@@ -2458,6 +2458,34 @@ body.oy-lib-open #assessmentFlow>:not(.flow-nav):not(#scaleLibraryArea),body.oy-
 }
 @media(max-width:360px){#oyRoleStart .oy-role-list{grid-template-columns:1fr}}
 
+/* ==== ../assets/public-facilities.css ==== */
+/* 공공데이터 기관 목록 공통 모양(public-facilities.js). 오산 = 주홍, 경기 = 남색 작은 표지. */
+.pf{margin:12px 0 0}
+.pf-title{font-size:18px;margin:4px 0 6px;word-break:keep-all}
+.pf-intro{font-size:14px;line-height:1.65;color:#465769;margin:0 0 10px}
+.pf-group{border:1px solid #d8e0ea;border-radius:14px;padding:12px 14px;margin:10px 0;background:#fff}
+.pf-group h4,.oypf-link h4{font-size:15.5px;margin:2px 0 8px;word-break:keep-all;letter-spacing:-.01em}
+.pf-group h4 small,.oypf-link h4 small{font-weight:600;font-size:12.5px;color:#5a6b7d;margin-left:4px}
+ul.pf,.pf-group ul{list-style:none;padding:0;margin:6px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:8px}
+.pf-item{border:1px solid #e3e9f0;border-radius:12px;padding:10px 12px;min-width:0;background:#fbfcfe;line-height:1.5}
+.pf-item.pf-osan{border-color:#f0cbb9;background:#fffaf6}
+.pf-top{display:flex;flex-wrap:wrap;gap:4px 6px;align-items:baseline}
+.pf-top strong{font-size:14.5px;overflow-wrap:anywhere;margin-right:2px}
+.pf-kind,.pf-here,.pf-near,.pf-db{font-size:11.5px;border-radius:99px;padding:2px 7px;white-space:nowrap}
+.pf-kind{background:#eef3f8;color:#2b4b6b}.pf-here{background:#fbe2d5;color:#8f3412}.pf-near{background:#e3ebf6;color:#174d81}
+.pf-db{background:#e3f3ec;color:#17694f;text-decoration:none}.pf-db:hover{text-decoration:underline}
+.pf-addr,.pf-meta,.pf-sum{font-size:13px;margin:3px 0 0;color:#405062;overflow-wrap:anywhere}
+.pf-meta a{color:#17599a}
+.pf-none{font-size:13px;color:#8a5a1c;background:#fff4dc;border-radius:8px;padding:6px 10px;margin:4px 0 6px}
+.pf-more{font-size:13px;margin:8px 0 0}
+.pf-foot{font-size:12.5px;color:#5a6b7d;margin:10px 0 0;line-height:1.6}
+.oypf{margin:18px 0 26px;padding:20px 22px;border:1px solid #d3dfee;border-radius:18px;background:#f7faff;color:#16273a}
+.oypf header h3{margin:4px 0 6px;font-size:1.3rem;line-height:1.35;letter-spacing:-.02em}
+.oypf header p{margin:0;font-size:15px;line-height:1.6;color:#34465a}
+.oypf-link{margin:14px 0 0;padding:12px 0 0;border-top:1px solid #dfe7f1}
+@media(max-width:560px){.oypf{padding:16px 14px}.pf-group{padding:10px 12px}}
+@media print{.pf-item{break-inside:avoid}.pf-db,.pf-more{display:none}}
+
 /* ==== oy-entry-popups-v1.css ==== */
 /* OY-RALS 첫 화면 2차 배치와 창(팝업) — 2026-11-12. oy-entry-layout-v1.css 뒤에 읽는다.
    평가 시작까지의 길이를 줄인다: 5단계 안내는 한 줄 띠(누르면 창), 역할 소개 두 칸은 낮게, 휴대폰은 그림 대신 시작 단추가 먼저.
@@ -2519,31 +2547,3 @@ body.oy-lib-open #assessmentFlow>:not(.flow-nav):not(#scaleLibraryArea),body.oy-
 }
 @media print{.oy-pop{display:none!important}}
 @media(prefers-reduced-motion:reduce){#howItWorks.oy-steps-strip article{transition:none}}
-
-/* ==== ../assets/public-facilities.css ==== */
-/* 공공데이터 기관 목록 공통 모양(public-facilities.js). 오산 = 주홍, 경기 = 남색 작은 표지. */
-.pf{margin:12px 0 0}
-.pf-title{font-size:18px;margin:4px 0 6px;word-break:keep-all}
-.pf-intro{font-size:14px;line-height:1.65;color:#465769;margin:0 0 10px}
-.pf-group{border:1px solid #d8e0ea;border-radius:14px;padding:12px 14px;margin:10px 0;background:#fff}
-.pf-group h4,.oypf-link h4{font-size:15.5px;margin:2px 0 8px;word-break:keep-all;letter-spacing:-.01em}
-.pf-group h4 small,.oypf-link h4 small{font-weight:600;font-size:12.5px;color:#5a6b7d;margin-left:4px}
-ul.pf,.pf-group ul{list-style:none;padding:0;margin:6px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:8px}
-.pf-item{border:1px solid #e3e9f0;border-radius:12px;padding:10px 12px;min-width:0;background:#fbfcfe;line-height:1.5}
-.pf-item.pf-osan{border-color:#f0cbb9;background:#fffaf6}
-.pf-top{display:flex;flex-wrap:wrap;gap:4px 6px;align-items:baseline}
-.pf-top strong{font-size:14.5px;overflow-wrap:anywhere;margin-right:2px}
-.pf-kind,.pf-here,.pf-near,.pf-db{font-size:11.5px;border-radius:99px;padding:2px 7px;white-space:nowrap}
-.pf-kind{background:#eef3f8;color:#2b4b6b}.pf-here{background:#fbe2d5;color:#8f3412}.pf-near{background:#e3ebf6;color:#174d81}
-.pf-db{background:#e3f3ec;color:#17694f;text-decoration:none}.pf-db:hover{text-decoration:underline}
-.pf-addr,.pf-meta,.pf-sum{font-size:13px;margin:3px 0 0;color:#405062;overflow-wrap:anywhere}
-.pf-meta a{color:#17599a}
-.pf-none{font-size:13px;color:#8a5a1c;background:#fff4dc;border-radius:8px;padding:6px 10px;margin:4px 0 6px}
-.pf-more{font-size:13px;margin:8px 0 0}
-.pf-foot{font-size:12.5px;color:#5a6b7d;margin:10px 0 0;line-height:1.6}
-.oypf{margin:18px 0 26px;padding:20px 22px;border:1px solid #d3dfee;border-radius:18px;background:#f7faff;color:#16273a}
-.oypf header h3{margin:4px 0 6px;font-size:1.3rem;line-height:1.35;letter-spacing:-.02em}
-.oypf header p{margin:0;font-size:15px;line-height:1.6;color:#34465a}
-.oypf-link{margin:14px 0 0;padding:12px 0 0;border-top:1px solid #dfe7f1}
-@media(max-width:560px){.oypf{padding:16px 14px}.pf-group{padding:10px 12px}}
-@media print{.pf-item{break-inside:avoid}.pf-db,.pf-more{display:none}}
