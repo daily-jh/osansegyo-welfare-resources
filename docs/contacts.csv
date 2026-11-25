@@ -147,3 +147,8 @@ CON-SVC-00031,service,SVC-00031,건강증진과 지역보건팀,031-8036-6684,,,
 CON-SVC-00031B,service,SVC-00031,건강증진과 지역보건팀,031-8036-6683,,,,방문건강관리(서동·오산동·청호동 법정동)·통합돌봄 연계,https://www.osan.go.kr/search/search.jsp,2026-11-25,경기도 오산시 경기동로 59,공공·지도,https://www.osan1365.or.kr/board/board.php?orderby=DESC&p=2&table=mn01_04_02,2026-10-23
 CON-SVC-CARE26-012,service,SVC-CARE26-012,건강증진과 지역보건팀,031-8036-6081,,,,AI·IoT 기반 어르신 건강관리사업 운영·통합돌봄(보건·의료)·보건소 협력체계,https://www.osan.go.kr/search/search.jsp,2026-11-25,경기도 오산시 경기동로 59,공공·지도,https://www.osan1365.or.kr/board/board.php?orderby=DESC&p=2&table=mn01_04_02,2026-10-23
 CON-N25-SWFCOURT,organization,ORG-N25-SWFCOURT,,,,,,대표전화,,,,미확인,,
+CON-R25-GGSELDER,organization,ORG-R25-GGSELDER,,031-268-1389,,,,대표전화,https://gg1389.or.kr/about/?act=sub4_1,2026-11-25,"경기도 수원시 팔달구 인계로101번길 1, 노인회관 4층",공식,https://gg1389.or.kr/about/?act=sub4_1,2026-11-25
+CON-R25-GMIS,organization,ORG-R25-GMIS,,031-853-9347,,,,대표전화,https://gmis.or.kr/,2026-11-25,"경기도 의정부시 추동로 140, 2층",공식,https://gmis.or.kr/,2026-11-25
+CON-R25-MOELPT,organization,ORG-R25-MOELPT,,031-646-1129,,,,대표전화,https://www.moel.go.kr/local/pyeongtaek/introduce/direction/list.do,2026-11-25,경기도 평택시 고덕중앙5길 72(고덕동 1907-5),공식,https://www.moel.go.kr/local/pyeongtaek/introduce/direction/list.do,2026-11-25
+CON-R25-SWGYDREAM,organization,ORG-R25-SWGYDREAM,,031-247-1324,,,,대표전화,https://www.suwon.go.kr/sw-www/sw-suwonmigrant/sw-suwonmigrant-03/sw-suwonmigrant-03-01.jsp,2026-11-25,,미확인,,
+CON-R25-JARIPON,organization,ORG-R25-JARIPON,,1855-2455,,,평일 09~18시,대표전화,https://housing.gg.go.kr/html/51503.do,2026-11-25,,미확인,,

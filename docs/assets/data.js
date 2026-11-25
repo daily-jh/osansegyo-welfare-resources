@@ -19466,7 +19466,7 @@ window.WELFARE_DATA = {
       "tierCity": "",
       "reviewed": "2026-10-26",
       "status": "미확인",
-      "jurisdiction": "전국 / 오산 관할 노인보호전문기관 확인 필요",
+      "jurisdiction": "전국 / 오산 관할은 경기남부노인보호전문기관(031-268-1389)",
       "services": [
         {
           "id": "SVC-Z26-009",
@@ -20940,6 +20940,390 @@ window.WELFARE_DATA = {
       "addressStatus": "미확인",
       "addressCheckedOn": "",
       "addressNote": "주소·소년부 접수 전화는 법원 누리집에서 확인 필요"
+    },
+    {
+      "id": "ORG-R25-GGSELDER",
+      "name": "경기남부노인보호전문기관",
+      "level": "경기도",
+      "kind": "노인보호전문기관",
+      "summary": "노인학대 신고 접수·현장조사·학대피해노인 사례관리와 일시보호(쉼터) 연계, 노인학대예방교육을 맡는 경기도사회서비스원 노인보호전문기관. 오산시를 관할한다.",
+      "site": "https://gg1389.or.kr/",
+      "phone": "031-268-1389",
+      "source": "https://gg1389.or.kr/about/?act=sub4_1",
+      "scope": "경기도",
+      "tier": "gyeonggi",
+      "tierCity": "",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "수원·화성·안산·평택·오산·안성",
+      "services": [
+        {
+          "id": "SVC-R25-001",
+          "name": "노인학대 신고·상담·사례관리",
+          "category": "안전·권리보호",
+          "target": "학대 의심·피해 노인과 가족, 신고의무자",
+          "description": "노인학대 신고 접수, 응급성 판단과 현장조사(필요 시 경찰·119 동행), 학대피해노인 사례관리, 쉼터 일시보호 연계, 정신건강·법률 기관 연계.",
+          "method": "24시간 노인학대 신고전화 1577-1389 또는 기관 전화. 응급 위험은 112.",
+          "operation": "경기도사회서비스원 노인보호전문기관 누리집 관할지역·기관소개 열람(오산 관할 명시)(2026-11-25). 실제 접수·대상은 기관 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "노인",
+              "위기가구"
+            ],
+            "need": [
+              "안전·권리보호",
+              "사례관리"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화",
+              "직접 방문"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "가능",
+          "source": "https://gg1389.or.kr/about/?act=sub4_1",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "경기도사회서비스원 노인보호전문기관 누리집 관할지역·기관소개 열람(오산 관할 명시)",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-R25-GGSELDER",
+        "owner_type": "organization",
+        "owner_id": "ORG-R25-GGSELDER",
+        "dept": "",
+        "phone": "031-268-1389",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://gg1389.or.kr/about/?act=sub4_1",
+        "verified_on": "2026-11-25"
+      },
+      "address": "경기도 수원시 팔달구 인계로101번길 1, 노인회관 4층",
+      "addressSource": "https://gg1389.or.kr/about/?act=sub4_1",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-11-25",
+      "addressNote": "기관 누리집 기관소개(2026-11-25 열람)"
+    },
+    {
+      "id": "ORG-R25-GMIS",
+      "name": "경기도이민사회통합지원센터",
+      "level": "경기도",
+      "kind": "이주민 지원 광역기관",
+      "summary": "경기도 이주민 정책·통번역 인력 양성과 이주민 고충 상담을 맡는 광역 기관. 경기도 이주민 포털 SOS 상담에서 주간 전화는 이 센터(1661-0222), 야간은 다누리콜센터(1577-1366)로 연결된다.",
+      "site": "https://gmis.or.kr/",
+      "phone": "031-853-9347",
+      "source": "https://gmis.or.kr/",
+      "scope": "경기도",
+      "tier": "gyeonggi",
+      "tierCity": "",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "경기도",
+      "services": [
+        {
+          "id": "SVC-R25-002",
+          "name": "이주민 고충 전화상담(경기도 이주민 SOS)",
+          "category": "법률·금융",
+          "target": "경기도 거주 이주민·외국인 주민",
+          "description": "노동(임금 체불·부당 해고·산재·퇴직금), 체류·비자, 임대차·사기 피해·이혼·가정폭력·의료 지원 등 생활·법률 고충 상담. 무료, 비밀 보장.",
+          "method": "주간 1661-0222(경기도이민사회통합지원센터), 야간 1577-1366(다누리콜센터). 온라인 답변은 경기도 이주민 포털 로그인 필요.",
+          "operation": "경기도 이주민 포털 SOS 직원상담 안내 열람(2026-11-25). 실제 접수·대상은 기관 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "다문화"
+            ],
+            "need": [
+              "법률·금융",
+              "안전·권리보호",
+              "고용·자립"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": [
+              "전화",
+              "온라인"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "가능",
+          "source": "https://www.gg.go.kr/gmigrant/hmpg/info/help/bordSosMain.do",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "경기도 이주민 포털 SOS 직원상담 안내 열람",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-R25-GMIS",
+        "owner_type": "organization",
+        "owner_id": "ORG-R25-GMIS",
+        "dept": "",
+        "phone": "031-853-9347",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://gmis.or.kr/",
+        "verified_on": "2026-11-25"
+      },
+      "address": "경기도 의정부시 추동로 140, 2층",
+      "addressSource": "https://gmis.or.kr/",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-11-25",
+      "addressNote": "센터 누리집 하단 주소(2026-11-25 열람)"
+    },
+    {
+      "id": "ORG-R25-MOELPT",
+      "name": "고용노동부 평택지청",
+      "level": "경기도",
+      "kind": "고용노동 지방관서",
+      "summary": "경기지방고용노동청 소속 지청. 고용노동부 관할관서 안내표에서 오산고용센터(관할 경기도 오산시)가 평택지청 아래에 표시된다. 임금체불·근로감독 등 노동 사건의 오산 관할 여부는 지청에 확인 필요.",
+      "site": "https://www.moel.go.kr/local/pyeongtaek/",
+      "phone": "031-646-1129",
+      "source": "https://www.moel.go.kr/local/pyeongtaek/introduce/direction/list.do",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "평택시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "오산고용센터 상급 지청(고용센터 관할표 기준) / 근로감독 관할 확인 필요",
+      "services": [
+        {
+          "id": "SVC-R25-003",
+          "name": "노동 민원 상담(임금체불·근로조건)",
+          "category": "고용·자립",
+          "target": "오산 지역 노동자·사업주",
+          "description": "임금체불 진정, 근로조건 상담, 고용보험 등 노동 민원. 오산 사건의 접수 관할은 지청에 확인.",
+          "method": "고용노동부 대표전화 1350(평일 09~18시) 또는 지청 031-646-1129.",
+          "operation": "고용노동부 관할관서 찾기(경기)·평택지청 찾아오시는 길 열람(2026-11-25). 실제 접수·대상은 기관 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "청년",
+              "중장년",
+              "다문화"
+            ],
+            "need": [
+              "고용·자립",
+              "법률·금융"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화",
+              "직접 방문",
+              "온라인"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.moel.go.kr/minwon/rigion/rigion_C2.do",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "고용노동부 관할관서 찾기(경기)·평택지청 찾아오시는 길 열람",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-R25-MOELPT",
+        "owner_type": "organization",
+        "owner_id": "ORG-R25-MOELPT",
+        "dept": "",
+        "phone": "031-646-1129",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.moel.go.kr/local/pyeongtaek/introduce/direction/list.do",
+        "verified_on": "2026-11-25"
+      },
+      "address": "경기도 평택시 고덕중앙5길 72(고덕동 1907-5)",
+      "addressSource": "https://www.moel.go.kr/local/pyeongtaek/introduce/direction/list.do",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-11-25",
+      "addressNote": "지청 누리집 찾아오시는 길(2026-11-25 열람)"
+    },
+    {
+      "id": "ORG-R25-SWGYDREAM",
+      "name": "수원시 글로벌청소년드림센터",
+      "level": "경기도",
+      "kind": "이주배경 청소년 지원기관",
+      "summary": "이주배경·중도입국 청소년을 위한 한국어 교육, 통번역, 대안학교·학적 취득, 진로·심리·진학 상담을 하는 수원시 기관. 오산 거주 청소년의 이용 가능 여부는 확인 필요.",
+      "site": "",
+      "phone": "031-247-1324",
+      "source": "https://www.suwon.go.kr/sw-www/sw-suwonmigrant/sw-suwonmigrant-03/sw-suwonmigrant-03-01.jsp",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "수원시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "수원시(오산 거주 청소년 이용 여부 확인 필요)",
+      "services": [
+        {
+          "id": "SVC-R25-004",
+          "name": "이주배경·중도입국 청소년 교육·상담",
+          "category": "교육",
+          "target": "이주배경 청소년, 중도입국 청소년",
+          "description": "한국어 교육, 통번역, 취업교육, 대안학교, 학적 취득, 진로체험, 청소년 심리·진학 상담.",
+          "method": "기관 전화로 이용 대상·거주지 조건 문의.",
+          "operation": "수원시 이주민 종합포털 편의지도 열람(2026-11-25). 실제 접수·대상은 기관 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "청소년",
+              "다문화"
+            ],
+            "need": [
+              "교육",
+              "정신건강",
+              "고용·자립"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공",
+              "시설 이용"
+            ],
+            "intake": [
+              "전화",
+              "직접 방문"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.suwon.go.kr/sw-www/sw-suwonmigrant/sw-suwonmigrant-03/sw-suwonmigrant-03-01.jsp",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "수원시 이주민 종합포털 편의지도 열람",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-R25-SWGYDREAM",
+        "owner_type": "organization",
+        "owner_id": "ORG-R25-SWGYDREAM",
+        "dept": "",
+        "phone": "031-247-1324",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.suwon.go.kr/sw-www/sw-suwonmigrant/sw-suwonmigrant-03/sw-suwonmigrant-03-01.jsp",
+        "verified_on": "2026-11-25"
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "수원시 이주민 편의지도에는 팔달구 화서동으로만 표시"
+    },
+    {
+      "id": "ORG-R25-JARIPON",
+      "name": "자립준비청년 상담센터(자립정보ON)",
+      "level": "민간",
+      "kind": "전국 공공 상담창구",
+      "summary": "보호종료를 앞둔 아동과 자립준비청년에게 소득·주거·생활·심리정서·멘토링·금융·진학·취업 정보를 안내하는 상담 창구. 보호종료 경험이 있는 또래 상담사가 공공·민간 서비스를 맞춤 안내한다.",
+      "site": "https://jaripon.ncrc.or.kr",
+      "phone": "1855-2455",
+      "source": "https://housing.gg.go.kr/html/51503.do",
+      "scope": "전국 공공",
+      "tier": "national-public",
+      "tierCity": "",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "전국 / 경기도는 자립지원전담기관 희망너울과 함께 확인",
+      "services": [
+        {
+          "id": "SVC-R25-005",
+          "name": "자립준비청년 전화·카카오톡 상담",
+          "category": "고용·자립",
+          "target": "보호종료 예정 아동, 아동양육시설·공동생활가정·가정위탁에서 보호종료된 자립준비청년",
+          "description": "소득, 주거, 생활, 심리정서, 멘토링, 금융, 진학, 취업 등 자립 정보 상담과 공공·민간 서비스 안내.",
+          "method": "전화 1855-2455(평일 09~18시), 카카오톡 채널 1:1 상담, 자립정보ON 누리집.",
+          "operation": "경기주거복지포털 자립준비청년 지원 안내 열람(2026-11-25). 실제 접수·대상은 기관 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "청소년",
+              "청년"
+            ],
+            "need": [
+              "고용·자립",
+              "주거",
+              "정신건강"
+            ],
+            "form": [
+              "상담",
+              "정보 제공"
+            ],
+            "intake": [
+              "전화",
+              "온라인"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "가능",
+          "source": "https://housing.gg.go.kr/html/51503.do",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "경기주거복지포털 자립준비청년 지원 안내 열람",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-R25-JARIPON",
+        "owner_type": "organization",
+        "owner_id": "ORG-R25-JARIPON",
+        "dept": "",
+        "phone": "1855-2455",
+        "fax": "",
+        "email": "",
+        "hours": "평일 09~18시",
+        "note": "대표전화",
+        "source_url": "https://housing.gg.go.kr/html/51503.do",
+        "verified_on": "2026-11-25"
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": ""
     }
   ]
 };
