@@ -53,6 +53,8 @@ jobs:
         run: node e2e/youth-final-report-flow.cjs
       - name: Public-data facility block on 03 and 05
         run: node e2e/youth-public-facilities-flow.cjs
+      - name: Outside-Osan residence shows that city's agencies first and Osan ones as grey references
+        run: node e2e/youth-outside-region-flow.cjs
       - name: Choose a grade beside the name and read it in the scale report and 05 without changing decisions
         run: node e2e/youth-grade-lens-flow.cjs
       - name: Open 06 scale library before evaluation, fold cards, filter by grade and return with answers kept

@@ -38,7 +38,7 @@ function analyze(payload){
   t('five',()=>FIVE().analyze(p));
   t('map',()=>{const m=M();const ctx=m.context(p);const ranked=m.rank(ctx.domains||m.domains(p)).filter(x=>x.peak>=2);const res=[],seen=new Set();
     for(const dm of ranked)for(const g of (m.groupedCandidates(p,dm)||[]).slice(0,3)){const r=g.primary;if(!r)continue;const k=r.기관명+'|'+r.서비스명;if(seen.has(k))continue;seen.add(k);
-      res.push({domain:dm.label,org:r.기관명,type:r.기관유형||'',svc:r.서비스명||'',how:r['신청·연계방법']||'',ver:(r.verification&&r.verification.status)||'미확인',dept:r.contactDept||''});}
+      res.push({domain:dm.label,role:g.regionRole||'',tag:g.regionTag||'',org:r.기관명,type:r.기관유형||'',svc:r.서비스명||'',how:r['신청·연계방법']||'',ver:(r.verification&&r.verification.status)||'미확인',dept:r.contactDept||''});}
     return res;});
   const rows=Array.isArray(p.resources)?p.resources:[];
   out.find=re=>rows.filter(r=>re.test((r.기관명||'')+' '+(r.서비스명||''))).map(r=>({org:r.기관명,svc:r.서비스명||'',how:r['신청·연계방법']||'',ver:(r.verification&&r.verification.status)||'미확인'}));
@@ -145,7 +145,7 @@ function ecoNodes(K){
     {t:'학교 · 담임',s:sch.hard.length?'어려움 '+sch.hard.length+'개':'어려움 보고 없음',type:sch.hard.length?'stress':'strong',lab:sch.hard[0]||'버팀목',ic:'school'},
     {t:'또래 · 활동',s:peerOk?peerOk.label+' 유지':'확인 필요',type:peerOk?'strong':'pot',lab:peerOk?'지지':'확인',ic:'peers'}];
   const icFor=r=>/행정복지|주민센터/.test(r.org)?'gov':/아동|드림|지역아동/.test(r.org)?'heart':'center';
-  const seen=new Set();for(const r of K.mapRes){if(N.length>=6)break;if(seen.has(r.org))continue;seen.add(r.org);N.push({t:r.org.replace(/^오산시\s*/,''),s:r.svc,type:'pot',lab:r.domain.split('·')[0],ic:icFor(r)});}
+  const seen=new Set();for(const r of K.mapRes){if(N.length>=6)break;if(seen.has(r.org))continue;seen.add(r.org);N.push({t:r.org.replace(/^오산시\s*/,'')+(r.role==='osan-ref'?'(오산·참고)':''),s:r.svc,type:'pot',lab:r.domain.split('·')[0],ic:icFor(r)});}
   if(com.hard.length&&N.length<6)N.push({t:'지역사회',s:'자원 미연결',type:'pot',lab:com.hard[0],ic:'gov'});
   return N;
 }
@@ -262,7 +262,7 @@ ${tbl(['담당','할 일','기한','확인'],[...roleT.items.slice(0,1).map(t=>[
   const E3=sheet('E-3','교육지원청 의뢰 요지','교육복지사용 · 학생맞춤통합지원센터에 지원을 요청할 때',`
 ${draft(fh('1. 의뢰 사유')+bl((K.high.slice(0,3).map(x=>x.topic).join(', ')||'여러 영역의 어려움')+'이 함께 나타남'+(K.pats.length?'. '+K.pats.map(x=>x.name).join(', ')+'으로 해석됨.':'.'))+fh('2. 학교 조치')+bl('(학교에서 한 지원을 적습니다)')+fh('3. 요청')+bl('주관 제안: '+(cw.lead||'협의')+'. 협의 시점: '+(cw.level&&cw.level.meeting||''))+fh('4. 동의와 첨부')+bl('학생·보호자 동의서, 교사 의견서(T-3). 서술기록 원문과 문항별 응답은 첨부하지 않음.'))}
 ${fig(ecoSvg(K),'학교 안팎 지원 지도: Ct를 가운데 두고 지금의 관계와 03 지도가 고른 후보를 그렸습니다. '+ecoLegend)}
-${H('03 지도가 고른 지역 후보',K.src('지도'))}<ul class="oyp-res">${[...edu,...K.mapRes.slice(0,4)].map(r=>`<li><b>${esc(r.org)}</b> · ${esc(r.svc)} ${K.verTag(r.ver)}</li>`).join('')||'<li>지도에서 후보를 고르지 못했습니다. 03 지역자원연계에서 직접 찾아 주세요.</li>'}</ul>`,{tone:'school'});
+${H('03 지도가 고른 지역 후보',K.src('지도'))}<ul class="oyp-res">${[...edu,...K.mapRes.slice(0,4)].map(r=>`<li${r.role==='osan-ref'?' class="region-ref"':''}>${r.tag?`<span class="region-tag ${esc(r.role)}">${esc(r.tag)}</span>`:''}<b>${esc(r.org)}</b> · ${esc(r.svc)} ${K.verTag(r.ver)}</li>`).join('')||'<li>지도에서 후보를 고르지 못했습니다. 03 지역자원연계에서 직접 찾아 주세요.</li>'}</ul>`,{tone:'school'});
   return {packs:[{id:'teacher',label:'담임교사',sheets:[['T-1','학생 이해 한 장',T1],['T-2','2주 관찰 기록지',T2],['T-3','지원 요청 교사 의견서',T3]]},{id:'edu',label:'교육복지사',sheets:[['E-1','선정 검토서',E1],['E-2','협의회 안건·회의록',E2],['E-3','교육지원청 의뢰 요지',E3]]}]};
 }
 
@@ -340,7 +340,7 @@ ${H('변경 내역·사유')}${wr(1,'변경 내역·사유','')}
 ${tbl(['기관','하는 일','이 사례에서','판단','시트'],FIT.map(r=>`<tr><th>${r[0]}</th><td>${r[1]}</td><td>${esc(r[2])}</td><td><span class="oyp-pill ${st[r[3]]}">${r[4]}</span></td><td><span class="oyp-code sm">${r[5]}</span></td></tr>`).join(''))}
 ${H('연결 순서(제안)')}<ol class="oyp-steps3"><li><b>이번 주</b>${esc(firstStep)}</li><li><b>2주 안</b>${fam.hard.length?'가족센터를 통해 보호자 상담 제안, 가구 상황 확인':'학생과 보호자에게 원하는 도움 확인'}</li><li><b>확인 결과에 따라</b>${abuseNarr.length||abuse>=1?'학대 의심이 남으면 신고, 이후 아동보호전문기관과 사례관리 역할 조정':'4주 뒤 관찰 결과로 연계 범위 조정'}</li></ol>
 <p class="oyp-hint">대상 연령·선정 기준은 기관과 해마다 다르므로 문의로 확인합니다. 기관 목록은 03 지도와 자원 DB에서 가져왔고 대부분 확인 전입니다. ${K.src('지도')}</p>`,{tone:'agency',banner});
-  const resLi=list=>`<ul class="oyp-res">${list.map(r=>`<li><b>${esc(r.org)}</b> · ${esc(r.svc)} ${K.verTag(r.ver)}${r.how?'<br><span class="oyp-muted">'+esc(r.how)+'</span>':''}</li>`).join('')||'<li>자원 DB에서 찾지 못했습니다.</li>'}</ul>`;
+  const resLi=list=>`<ul class="oyp-res">${list.map(r=>`<li${r.role==='osan-ref'?' class="region-ref"':''}>${r.tag?`<span class="region-tag ${esc(r.role)}">${esc(r.tag)}</span>`:''}<b>${esc(r.org)}</b> · ${esc(r.svc)} ${K.verTag(r.ver)}${r.how?'<br><span class="oyp-muted">'+esc(r.how)+'</span>':''}</li>`).join('')||'<li>자원 DB에서 찾지 못했습니다.</li>'}</ul>`;
   const wk=[1,2,3,4];
   const obsC=[...(care>=1?[['석식 이용 일수','식사·돌봄']]:[]),...(care>=1?[['귀가 뒤 혼자 있는 시간','돌봄 공백']]:[]),...K.high.filter(x=>OBS[x.n]&&![16,17,18].includes(x.n)).slice(0,3).map(x=>[OBS[x.n],x.topic]),['활동 중 기분과 참여','강점 유지']];
   const C1=sheet('C-1','이용 연계·관찰 기록지','지역아동센터 · 받는 정보와 매주 볼 것',`

@@ -71,7 +71,20 @@ var order=profile?profile[3]:extra?(/병원/.test(row['기관명'])?4:5):3;if(ro
 var label=safety?'안전과 전문지원 먼저':critical?'생활·건강부터 살피기':max>=3?'생활의 어려움부터 돕기':max>=2?'반복되는 어려움 돕기':'관찰·상담 문의';var reason=profile?profile[4]:'학생에게 필요한 도움을 이 사업에서 받을 수 있는지 상담해 보세요';if(decision.integrated&&/사례관리|청소년안전망|지역전문기관/.test(row['서비스명']))reason+=' · 여러 어려움을 함께 도울 방법을 문의해 보세요';var condition=extra?extra.condition:profile?profile[5]:/장애|발달/.test(t)?'연령·진단·등록·서비스 필요 등 실제 대상 조건 문의':'실제 대상·관할·비용·운영·접수 조건 문의';return {evidence,max,safety,critical,order,fit,label,reason,condition:[condition,...caseChecks(p,evidence)].join(' · ')}}
 // 지역 범주 5단계(2026-11-25): 같은 연계 순위 안에서는 오산시 → 인근 시 → 경기도 → 전국 공공 → 전국 민간. 안전·위기 우선(order)은 그대로 먼저 본다.
 var REGION_ORDER=['osan','near','gyeonggi','national-public','national-private'];
-function regionRank(row,city){if(city&&row&&row.regionTier==='near'&&row.regionCity===city)return -1;var k=REGION_ORDER.indexOf(row&&row.regionTier);if(k>=0)return k;var l=row&&row['범주'];return l==='오산시'?0:l==='경기도'?2:3}
+function regionRank(row,city,outside){if(city&&row&&row.regionTier==='near'&&row.regionCity===city)return -1;if(outside&&isOsanRow(row))return 8;var k=REGION_ORDER.indexOf(row&&row.regionTier);if(k>=0)return k;var l=row&&row['범주'];return l==='오산시'?0:l==='경기도'?2:3}
+function isOsanRow(row){return !!row&&(row.regionTier==='osan'||!row.regionTier&&row['범주']==='오산시'||/^오산/.test(String(row['기관명']||'').trim()))}
+// 타권역(수원·화성·평택·기타) 거주일 때 각 후보 기관의 표시 역할: local=그 시 기관, osan-ref=오산 기관(참고·회색), shared=경기·전국 기관.
+function regionRole(row,profile){if(!outsideOsan(profile))return '';var city=nearCity(profile);if(city&&row&&row.regionTier==='near'&&row.regionCity===city)return 'local';return isOsanRow(row)?'osan-ref':'shared'}
+function regionTag(row,profile){var role=regionRole(row,profile);return role==='local'?nearCity(profile)+' 기관':role==='osan-ref'?'오산 기관(참고)':''}
+// 타권역 안내: 그 시 기관을 먼저 보여 주고, 같은 역할 기관을 찾지 못한 오산 기관은 예시로 이름만 들어 그 지역 안의 같은 역할 기관에 문의하도록 안내한다.
+function outsideNotice(profile,groups){if(!outsideOsan(profile))return null;var city=nearCity(profile),place=city||'거주 지역',list=groups||[];
+ var local=list.filter(g=>regionRole(g.primary,profile)==='local'),covered=new Set(local.map(g=>g.primary&&g.primary.profileName).filter(Boolean));
+ var refs=Array.from(new Set(list.filter(g=>regionRole(g.primary,profile)==='osan-ref'&&!covered.has(g.name)).map(g=>g.name))).sort((x,y)=>Number(!/^오산시/.test(x))-Number(!/^오산시/.test(y)));
+ var lead=city?(local.length?city+' 기관 '+local.length+'곳을 먼저 보여 드립니다.':city+'에서 같은 역할로 확인한 기관이 아직 없습니다.'):'오산 밖 지역은 기관 목록이 없어 오산 기관을 예시로만 보여 드립니다.';
+ var ex=refs.length?'회색으로 표시한 '+refs.slice(0,4).join(', ')+(refs.length>4?' 등':'')+'은 오산의 예시입니다. '+place+' 안에서 같은 역할을 하는 기관에 문의해 주세요.':'';
+ return {place,city,local:local.length,examples:refs,text:(lead+' '+ex).trim()}}
+// 타권역이면 그 시 기관 → 경기·전국 기관 → 오산 기관(참고) 순으로 보여 준다(같은 묶음 안 순서는 그대로).
+function orderForRegion(groups,profile){if(!outsideOsan(profile))return groups;var w={local:0,shared:1,'osan-ref':2};return groups.map((g,i)=>[g,i]).sort((a,b)=>(w[regionRole(a[0].primary,profile)]||0)-(w[regionRole(b[0].primary,profile)]||0)||a[1]-b[1]).map(x=>x[0])}
 function identity(value){return String(value||'').normalize('NFKC').replace(/\s+/g,'').toLowerCase()}
 // Administrative dong is explicitly selected, never inferred from a street or legal dong.
 // 인근 시 거주를 고르면, 오산 연계 경로의 기관과 같은 역할을 하는 그 시 기관을 같은 근거(문항)로 함께 후보에 올린다.
@@ -108,7 +121,7 @@ function routingResources(resources,profile){
 function groupedCandidates(p,d){
  if(!d.sum)return [];
  var economic=[19,20,21].some(n=>p.answers[n-1]>0),blocked=/주민조직화|자원개발|아이리더|인재양성|예방 및 유관기관 협력|배움터 교육지원|발달장애인 평생교육|직업지원|노인·장애인 공적돌봄|한부모·다문화|아이돌봄서비스/;
- var allowed=new Set(p.routes[d.i].map(identity)),city=p.student?nearCity(student(p)):'';
+ var allowed=new Set(p.routes[d.i].map(identity)),city=p.student?nearCity(student(p)):'',outside=p.student?outsideOsan(student(p)):false;
   // 공공 API로 들어온 행정 사업(SVC-SSIS-*)은 아동·청소년·한부모 대상일 때만 연계 후보로 씀(이재민·보훈 등 제외).
  var rows=routingResources(p.resources,p.student?student(p):undefined).filter(r=>(allowed.has(identity(r['기관명']))||allowed.has(identity(r.profileName))||additional(p,d,r))&&typeof r['서비스명']==='string'&&r['서비스명'].trim()&&!blocked.test(r['서비스명'])&&!(/^SVC-SSIS-/.test(r.serviceId||'')&&!/아동|청소년|학생|한부모/.test((r['지원대상']||'')+' '+(r['서비스명']||'')))&&(!/장학|교육지원 공모/.test(r['서비스명'])||economic));
  var seen=new Set();
@@ -121,15 +134,17 @@ function groupedCandidates(p,d){
   if(additional(p,d,r))return true;
   return prof?prof[2].some(n=>d.numbers.includes(n)&&p.answers[n-1]>0):describe(p,d,r).fit>0;
  });
- rows.sort((a,b)=>{var x=describe(p,d,a),y=describe(p,d,b);return x.order-y.order||regionRank(a,city)-regionRank(b,city)||Number(y.safety)-Number(x.safety)||Number(y.critical)-Number(x.critical)||y.max-x.max||y.evidence.length-x.evidence.length||y.fit-x.fit});
+ rows.sort((a,b)=>{var x=describe(p,d,a),y=describe(p,d,b);return x.order-y.order||regionRank(a,city,outside)-regionRank(b,city,outside)||Number(y.safety)-Number(x.safety)||Number(y.critical)-Number(x.critical)||y.max-x.max||y.evidence.length-x.evidence.length||y.fit-x.fit});
  // Group AFTER ranking, BEFORE any display limit. The best matching role stays first;
  // other eligible services remain attached to that institution, never separate cards.
  var groups=new Map();
- rows.forEach(row=>{var key=identity(row['기관명']);if(!groups.has(key))groups.set(key,{name:row['기관명'].trim(),primary:row,services:[]});groups.get(key).services.push(row)});
- return Array.from(groups.values()).slice(0,10);
+ rows.forEach(row=>{var key=identity(row['기관명']);if(!groups.has(key))groups.set(key,{name:row['기관명'].trim(),primary:row,services:[]});var gs=groups.get(key).services;if(!(row.regionTier==='near'&&row.serviceId&&gs.some(x=>x.serviceId===row.serviceId)))gs.push(row)});
+ var sp=p.student?student(p):null;
+ return orderForRegion(Array.from(groups.values()).map(g=>Object.assign(g,{regionRole:regionRole(g.primary,sp),regionTag:regionTag(g.primary,sp)})),sp).slice(0,10);
 }
 function candidates(p,d){return groupedCandidates(p,d).map(group=>group.primary)}
-function referrals(p){var groups=new Map();rank(domains(p)).filter(d=>d.sum>0).forEach(d=>groupedCandidates(p,d).forEach(g=>{var key=g.primary.orgId||identity(g.name);if(!groups.has(key))groups.set(key,{name:g.name,primary:g.primary,services:[],domainIds:[]});var v=groups.get(key);v.domainIds.push(d.i);g.services.forEach(r=>{if(!v.services.some(s=>(s.serviceId||s['서비스명'])===(r.serviceId||r['서비스명'])))v.services.push(r)})}));return Array.from(groups.values())}
+function referrals(p){var sp=p.student?student(p):null;return orderForRegion(referralsRaw(p),sp).map(g=>Object.assign(g,{regionRole:regionRole(g.primary,sp),regionTag:regionTag(g.primary,sp)}))}
+function referralsRaw(p){var groups=new Map();rank(domains(p)).filter(d=>d.sum>0).forEach(d=>groupedCandidates(p,d).forEach(g=>{var key=g.primary.orgId||identity(g.name);if(!groups.has(key))groups.set(key,{name:g.name,primary:g.primary,services:[],domainIds:[]});var v=groups.get(key);v.domainIds.push(d.i);g.services.forEach(r=>{if(!v.services.some(s=>(s.serviceId||s['서비스명'])===(r.serviceId||r['서비스명'])))v.services.push(r)})}));return Array.from(groups.values())}
 // Read-only view of the role profile a row was matched by; used to explain recommendations.
 function profileFor(row){var x=profiles.find(x=>x[0]===(row.profileName||row['기관명'])&&x[1]===(row.profileService||row['서비스명']));return x?{name:x[0],service:x[1],items:x[2].slice(),rank:x[3],reason:x[4],condition:x[5]}:null}
 // 정신건강의학과 진료 후보에는 진료비 지원·응급 경로를 함께 붙인다(묶음 안내, 점수·판정·순위와 무관).
@@ -137,5 +152,5 @@ function companion(row){var kind=String(row&&row['기관유형']||''),name=Strin
  if(/정신건강 의료기관|정신건강의학과/.test(kind)||/정신건강의학과/.test(name))return '진료비가 걱정되면 「경기도 청(소)년 마인드케어 외래진료비 지원」(만 15~34세, 오산시정신건강복지센터 문의)과 학교 Wee의 학생마음바우처를 함께 확인합니다. 자해·자살 위험이 지금 있으면 진료 예약보다 119·가까운 응급실이 먼저입니다.';
  if(/마인드케어/.test(name))return '지원 대상이면 오산 정신건강의학과 진료기관(지역자원 연계 지도의 정신건강 영역)과 묶어 안내합니다. 진료기관의 초진 예약 가능 여부는 따로 확인합니다.';
  return ''}
-var api={regionRank,nearCity,outsideOsan,NEAR_CITIES,counterparts,companion,profileFor,additional,caseChecks,welfareZones,welfareZone,welfareZoneText,dongs,student,referrals,routingResources,labels,validate,domains,rank,candidates,groupedCandidates,context,describe};if(typeof module!=='undefined')module.exports=api;else root.YouthMap=api;
+var api={orderForRegion,regionRole,regionTag,outsideNotice,isOsanRow,regionRank,nearCity,outsideOsan,NEAR_CITIES,counterparts,companion,profileFor,additional,caseChecks,welfareZones,welfareZone,welfareZoneText,dongs,student,referrals,routingResources,labels,validate,domains,rank,candidates,groupedCandidates,context,describe};if(typeof module!=='undefined')module.exports=api;else root.YouthMap=api;
 })(typeof window!=='undefined'?window:globalThis);
