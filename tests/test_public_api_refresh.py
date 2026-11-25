@@ -177,6 +177,44 @@ class PublicApiRefresh(unittest.TestCase):
         self.assertEqual(row['match_id'], '6dff4fa866')
         self.assertIn('전화', row['field_diffs'])
 
+    def test_odcloud_resolves_latest_release_path(self):
+        doc = {'host': 'api.odcloud.kr', 'basePath': '/api', 'paths': {
+            '/1/v1/uddi:old': {'get': {'summary': '쉼터 현황_20230930'}},
+            '/1/v1/uddi:new': {'get': {'summary': '쉼터 현황_20260904'}},
+            '/1/v1/uddi:mid': {'get': {'summary': '쉼터 현황_20250331'}}}}
+        src = {'odcloud': '1/v1', 'endpoint': 'https://api.odcloud.kr/api/1/v1/uddi:saved'}
+        self.assertEqual(p.resolve_odcloud(src, getter=lambda u: json.dumps(doc).encode()), 'https://api.odcloud.kr/api/1/v1/uddi:new')
+        def boom(u):
+            raise OSError('down')
+        self.assertEqual(p.resolve_odcloud(src, getter=boom), src['endpoint'])   # 안내를 못 읽으면 저장된 주소
+
+    def test_odcloud_facilities_osan_and_gyeonggi_without_overlap(self):
+        cfg = copy.deepcopy(self.config)
+        src = next(s for s in cfg['sources'] if s['id'] == 'kyci-safetynet-center')
+        cfg['sources'] = [src]
+        rows = [
+            {'기관명': '오산시청소년상담복지센터', '기관분류': '청소년상담복지센터', '주소': '경기도 오산시 오산로 1', '자세한주소': '3층',
+             '전화번호': '031-000-0000', '주중근무시작': '09:00', '주중근무종료': '18:00'},
+            {'기관명': '부천시 일시청소년쉼터', '기관분류': '청소년쉼터', '주소': '경기도 부천시 길주로 1', '자세한주소': '비어있음',
+             '전화번호': '032-000-0000', '주중근무시작': '00:00', '주중근무종료': '24:00'},
+            {'기관명': '서울시청소년상담복지센터', '기관분류': '청소년상담복지센터', '주소': '서울특별시 중구', '전화번호': '02'},
+        ]
+        raw = json.dumps({'totalCount': 3, 'data': rows}, ensure_ascii=False).encode('utf-8')
+        self.write('kyci-safetynet-center-osan-p1.json', raw)
+        self.write('kyci-safetynet-center-gyeonggi-p1.json', raw)
+        status, payload, failures = p.run(cfg, self.tmp, NOW, fixtures=self.fx, env={})
+        fac = payload['_facilities']
+        self.assertEqual(len(fac['groups']), 1)
+        items = fac['groups'][0]['items']
+        self.assertEqual([(i['region'], i['name']) for i in items],
+                         [('osan', '오산시청소년상담복지센터'), ('gyeonggi', '부천시 일시청소년쉼터')])  # 오산은 한 번만, 띄어 쓴 시 이름도 남김
+        self.assertEqual(items[0]['address'], '경기도 오산시 오산로 1 3층')
+        self.assertEqual(items[0]['hours'], '09:00~18:00')
+        self.assertEqual(items[1]['address'], '경기도 부천시 길주로 1')          # '비어있음'은 버림
+        p.write_outputs(self.tmp, status, payload)
+        self.assertTrue((self.tmp / 'docs/public-api/facilities.json').exists())
+        self.assertNotIn('_facilities', json.loads((self.tmp / 'docs/public-api/candidates.json').read_text(encoding='utf-8')))
+
     def test_probe_redacts_key(self):
         import contextlib, io
         secret = 'PROBE-SECRET-1'

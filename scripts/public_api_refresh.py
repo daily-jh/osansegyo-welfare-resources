@@ -70,6 +70,31 @@ def fetch_live(source, params, key, timeout=30, attempts=3, wait=5):
         time.sleep(wait * (n + 1))
 
 
+def resolve_odcloud(source, getter=None):
+    """공공데이터포털 파일데이터(odcloud)는 해마다 새 판이 새 경로(uddi)로 올라온다.
+    안내 문서(키 없음)에서 이름 끝 날짜가 가장 늦은 경로를 골라 호출 주소를 만든다. 실패하면 저장된 주소를 쓴다."""
+    ns = source.get('odcloud')
+    if not ns:
+        return source['endpoint']
+    url = f'https://infuser.odcloud.kr/oas/docs?namespace={ns}'
+    try:
+        if getter:
+            raw = getter(url)
+        else:
+            req = urllib.request.Request(url, headers={'User-Agent': 'welfare-resource-refresh/1.0'})
+            with urllib.request.urlopen(req, timeout=30) as res:
+                raw = res.read()
+        doc = json.loads(raw)
+        paths = [(re.findall(r'(\d{8})', (ops.get('get') or {}).get('summary', '')) or ['0'])[-1] + '|' + path
+                 for path, ops in (doc.get('paths') or {}).items()]
+        if not paths:
+            return source['endpoint']
+        latest = sorted(paths)[-1].split('|', 1)[1]
+        return 'https://' + doc.get('host', 'api.odcloud.kr') + doc.get('basePath', '/api') + latest
+    except Exception:  # noqa: BLE001 - 안내 문서를 못 읽어도 저장된 주소로 계속
+        return source['endpoint']
+
+
 def fetch_fixture(directory, source, region, page):
     path = Path(directory) / f"{source['id']}-{region}-p{page}.{source['format']}"
     if not path.exists():
@@ -133,7 +158,19 @@ def areas_for(text, config):
 
 def normalise(item, source, region):
     f = source['fields']
-    get = lambda k: str(item.get(f.get(k) or '', '') or '').strip()
+
+    def get(k):
+        spec = f.get(k)
+        if isinstance(spec, dict):                     # 여러 칸을 이어 붙임: {"keys": [..], "sep": "~"}
+            parts = [str(item.get(x, '') or '').strip() for x in spec.get('keys', [])]
+            parts = [v for v in parts if v and v not in ('비어있음', '미확인')]
+            return spec.get('sep', ' ').join(parts)
+        if isinstance(spec, list):
+            return get_join(spec)
+        return str(item.get(spec or '', '') or '').strip()
+
+    def get_join(keys):
+        return ' '.join(v for v in (str(item.get(x, '') or '').strip() for x in keys) if v)
     rec = {k: get(k) for k in ('id', 'name', 'summary', 'org', 'sido', 'sigungu', 'target', 'theme',
                                'method', 'updated', 'link', 'address', 'phone', 'hours', 'site', 'kind')}
     rec['source'] = source['id']
@@ -146,13 +183,18 @@ def keep(rec, run, source, config):
     rule = run.get('keepWhen')
     if rule and item_field(rec, rule['field']) not in rule['in']:
         return False
+    if run.get('nameRe') and not re.search(run['nameRe'], rec.get('name', '')):
+        return False                                   # 병·의원 전체 목록에서 필요한 진료 분야만 남김
     if source['kind'] == 'facility' and region.get('addressWords'):
         if not any(w in rec.get('address', '') for w in region['addressWords']):
             return False
-    if region.get('excludeOrgPattern') and re.match(region['excludeOrgPattern'], rec.get('org', '')):
-        return False                                   # 경기도 수집에 섞인 시·군 사업
-    if region.get('excludeNamePattern') and re.match(region['excludeNamePattern'], rec.get('name', '')):
-        return False
+        if run['region'] != 'osan' and any(w in rec.get('address', '') for w in config['regions']['osan']['addressWords']):
+            return False                               # 오산 기관은 오산 수집에서만 셈(경기 수집과 겹치지 않게)
+    if source['kind'] == 'service':
+        if region.get('excludeOrgPattern') and re.match(region['excludeOrgPattern'], rec.get('org', '')):
+            return False                               # 경기도 수집에 섞인 시·군 사업
+        if region.get('excludeNamePattern') and re.match(region['excludeNamePattern'], rec.get('name', '')):
+            return False
     fields = config.get('areaTextFields', ['name', 'summary', 'target'])
     rec['areas'] = areas_for(' '.join(rec.get(k, '') for k in fields), config)
     if region.get('areas') is not None:               # 지역별로 보는 영역을 좁힘(national: 청소년 대표 영역, national-care: 돌봄통합)
@@ -220,11 +262,13 @@ def compare(records, db):
     out = []
     for rec in records:
         row = {k: '' for k in OUT_COLUMNS}
+        row['kind_of_source'] = rec['kind_of_source']
         row.update(source=rec['source'], region=rec['region'], area='|'.join(rec.get('areas', [])),
                    name=rec['name'], org=rec.get('org', ''), summary=rec.get('summary', '')[:300],
                    target=rec.get('target', ''), theme=rec.get('theme', ''), method=rec.get('method', ''),
                    address=rec.get('address', ''), phone=rec.get('phone', ''), updated=rec.get('updated', ''),
-                   link=rec.get('link', ''), api_id=rec.get('id', ''))
+                   link=rec.get('link', ''), api_id=rec.get('id', ''), kind=rec.get('kind', ''),
+                   hours=rec.get('hours', ''), sigungu=rec.get('sigungu', ''), site=rec.get('site', ''))
         if rec['kind_of_source'] == 'service':
             hit, sc = best(rec['name'], services, '서비스명', NEAR_RATIO)
             if hit and sc >= MATCH_RATIO:
@@ -251,7 +295,7 @@ def compare(records, db):
 
 # ---------- run ----------
 
-def run(config, root, now, fixtures=None, env=os.environ, fetcher=None):
+def run(config, root, now, fixtures=None, env=os.environ, fetcher=None, odcloud_getter=None):
     status_path = root / 'docs/public-api/status.json'
     cand_path = root / 'docs/public-api/candidates.json'
     status = json.loads(status_path.read_text(encoding='utf-8')) if status_path.exists() else {'schemaVersion': 1, 'runs': {}}
@@ -274,6 +318,9 @@ def run(config, root, now, fixtures=None, env=os.environ, fetcher=None):
                     raise ValueError(f"인증키 없음({source['keyEnv']} 비밀값 미등록)")
                 if not source.get('endpoint'):
                     raise ValueError('호출 주소 미설정')
+                if source.get('odcloud') and not fixtures and not source.get('_resolved'):
+                    source = dict(source, endpoint=resolve_odcloud(source, odcloud_getter), _resolved=True)
+                    state['endpoint'] = source['endpoint'].rsplit('/api/', 1)[-1]
                 items = []
                 for page in range(1, source['maxPages'] + 1):
                     params = dict(source.get('params', {}))
@@ -315,12 +362,38 @@ def run(config, root, now, fixtures=None, env=os.environ, fetcher=None):
     payload = {'schemaVersion': 1, 'generatedAt': now, 'regions': region_of, 'summary': summary,
                'note': '변경 후보 목록. 원본 DB에 반영하려면 사람이 공식 안내를 확인한 뒤 data/*.csv를 직접 고친다.',
                'items': items}
+    payload['_facilities'] = facilities(config, items, now)
     return status, payload, failures
+
+
+def facilities(config, items, now):
+    """기관 목록형 공공데이터를 화면에서 바로 쓰도록 데이터별로 묶는다(docs/public-api/facilities.json).
+    원문 그대로이며 운영 여부는 확인 전이다. 기존 DB에 같은 기관이 있으면 match_id로 잇는다."""
+    meta = {s['id']: s for s in config['sources'] if s['kind'] == 'facility'}
+    groups = {}
+    for r in items:
+        src = meta.get(r.get('source'))
+        if not src or r.get('kind_of_source', 'facility') != 'facility':
+            continue
+        g = groups.setdefault(src['id'], {'id': src['id'], 'name': src['name'], 'label': src.get('label', src['name']),
+                                          'uses': src.get('uses', []), 'page': src.get('page', ''), 'items': []})
+        g['items'].append({k: r.get(k, '') for k in ('name', 'kind', 'org', 'address', 'phone', 'hours', 'site', 'summary',
+                                                      'target', 'region', 'change', 'match_id', 'match_name')})
+    for g in groups.values():
+        g['items'].sort(key=lambda x: (x['region'] != 'osan', x['name']))
+    order = [s['id'] for s in config['sources']]
+    return {'schemaVersion': 1, 'generatedAt': now,
+            'note': '공공데이터포털 기관 목록 원문(오산·경기). 운영 여부·연락처는 이용 전 기관에 확인. match_id가 있으면 복지자원 DB의 같은 기관.',
+            'groups': sorted(groups.values(), key=lambda g: order.index(g['id']))}
 
 
 def write_outputs(root, status, payload):
     out = root / 'docs/public-api'
     out.mkdir(parents=True, exist_ok=True)
+    payload = dict(payload)
+    fac = payload.pop('_facilities', None)
+    if fac is not None:
+        (out / 'facilities.json').write_text(json.dumps(fac, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
     (out / 'status.json').write_text(json.dumps(status, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     (out / 'candidates.json').write_text(json.dumps(payload, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     s = io.StringIO(newline='')

@@ -10,6 +10,10 @@ on:
         description: '호출 주소 시험(공백 구분, 비우면 생략)'
         type: string
         default: ''
+      show_facilities:
+        description: '수집한 기관 목록(facilities.json)을 기록에 출력'
+        type: boolean
+        default: false
       inspect:
         description: '안내·호출 주소 살펴보기(odcloud 안내 포함, 공백 구분)'
         type: string
@@ -58,6 +62,9 @@ jobs:
         run: python scripts/public_api_refresh.py --discover "$DISCOVER"
       - name: Collect public APIs (writes docs/public-api only)
         run: python scripts/public_api_refresh.py --summary public-api-summary.md
+      - name: Print facilities (optional)
+        if: inputs.show_facilities
+        run: python -c "import json;print('FACILITIES_JSON '+json.dumps(json.load(open('docs/public-api/facilities.json',encoding='utf-8')),ensure_ascii=False,separators=(',',':')))"
       - name: Job summary
         if: always()
         run: '[ -f public-api-summary.md ] && cat public-api-summary.md >> "$GITHUB_STEP_SUMMARY" || true'

@@ -676,6 +676,560 @@
       },
       "note": "전국 단위 지역아동센터 API를 공공데이터포털에서 찾지 못함. 경기데이터드림 키와 서비스 주소를 받은 뒤 켠다.",
       "required": false
+    },
+    {
+      "id": "kyci-safetynet-center",
+      "name": "한국청소년상담복지개발원_청소년안전망 센터 정보",
+      "label": "청소년안전망 센터(상담복지센터·꿈드림·쉼터)",
+      "page": "https://www.data.go.kr/data/15154140/fileData.do",
+      "kind": "facility",
+      "enabled": true,
+      "endpointChecked": true,
+      "keyEnv": "DATA_GO_KR_KEY",
+      "odcloud": "15154140/v1",
+      "endpoint": "https://api.odcloud.kr/api/15154140/v1/uddi:98e56bc0-fa43-4eaa-a3ff-bf451b5bdb2e",
+      "format": "json",
+      "itemPath": "data",
+      "pageParam": "page",
+      "sizeParam": "perPage",
+      "pageSize": 1000,
+      "maxPages": 3,
+      "params": {
+        "returnType": "JSON"
+      },
+      "regionRuns": [
+        {
+          "region": "osan",
+          "params": {}
+        },
+        {
+          "region": "gyeonggi",
+          "params": {}
+        }
+      ],
+      "fields": {
+        "name": "기관명",
+        "kind": "기관분류",
+        "address": {
+          "keys": [
+            "주소",
+            "자세한주소"
+          ],
+          "sep": " "
+        },
+        "phone": "전화번호",
+        "hours": {
+          "keys": [
+            "주중근무시작",
+            "주중근무종료"
+          ],
+          "sep": "~"
+        }
+      },
+      "uses": [
+        "youth",
+        "shelter",
+        "school",
+        "independence"
+      ],
+      "note": "2026-11-25 실제 호출 확인(전국 602, 오산 2). 운영시간·전문인력 수 포함.",
+      "required": false
+    },
+    {
+      "id": "mohw-mind-voucher",
+      "name": "보건복지부_전국민마음투자 바우처 제공기관 목록",
+      "label": "전국민 마음투자 바우처 제공기관",
+      "page": "https://www.data.go.kr/data/15138301/fileData.do",
+      "kind": "facility",
+      "enabled": true,
+      "endpointChecked": true,
+      "keyEnv": "DATA_GO_KR_KEY",
+      "odcloud": "15138301/v1",
+      "endpoint": "https://api.odcloud.kr/api/15138301/v1/uddi:864ba1e8-1c80-4293-bddd-9b7dfa4d0453",
+      "format": "json",
+      "itemPath": "data",
+      "pageParam": "page",
+      "sizeParam": "perPage",
+      "pageSize": 1000,
+      "maxPages": 3,
+      "params": {
+        "returnType": "JSON"
+      },
+      "regionRuns": [
+        {
+          "region": "osan",
+          "params": {}
+        }
+      ],
+      "fields": {
+        "name": "제공기관명",
+        "address": "주소",
+        "sigungu": "시군구명"
+      },
+      "uses": [
+        "mental"
+      ],
+      "note": "2026-11-25 확인(전국 1,053, 오산시 주소 4). 화성시 '오산동' 주소는 오산시 아님.",
+      "required": false
+    },
+    {
+      "id": "mogef-youth-shelter",
+      "name": "성평등가족부_청소년쉼터 현황",
+      "label": "청소년쉼터(경기)",
+      "page": "https://www.data.go.kr/data/3084536/fileData.do",
+      "kind": "facility",
+      "enabled": true,
+      "endpointChecked": true,
+      "keyEnv": "DATA_GO_KR_KEY",
+      "odcloud": "3084536/v1",
+      "endpoint": "https://api.odcloud.kr/api/3084536/v1/uddi:547b101c-3a9c-4bca-a297-fd23aaf9fc9a",
+      "format": "json",
+      "itemPath": "data",
+      "pageParam": "page",
+      "sizeParam": "perPage",
+      "pageSize": 1000,
+      "maxPages": 3,
+      "params": {
+        "returnType": "JSON"
+      },
+      "regionRuns": [
+        {
+          "region": "gyeonggi",
+          "params": {}
+        }
+      ],
+      "fields": {
+        "name": "시설명",
+        "kind": "시설유형",
+        "address": {
+          "keys": [
+            "시도",
+            "시군구",
+            "시설주소"
+          ],
+          "sep": " "
+        },
+        "phone": "대표전화"
+      },
+      "uses": [
+        "shelter"
+      ],
+      "note": "2026-11-25 확인(전국 139, 오산 0). 오산에 쉼터가 없어 경기 쉼터를 가까운 순으로 안내.",
+      "required": false
+    },
+    {
+      "id": "knise-special-ed-center",
+      "name": "교육부 국립특수교육원_특수교육지원센터현황",
+      "label": "특수교육지원센터",
+      "page": "https://www.data.go.kr/data/15052681/fileData.do",
+      "kind": "facility",
+      "enabled": true,
+      "endpointChecked": true,
+      "keyEnv": "DATA_GO_KR_KEY",
+      "odcloud": "15052681/v1",
+      "endpoint": "https://api.odcloud.kr/api/15052681/v1/uddi:65f3aac9-9976-429e-ac86-94e93a06ddcb",
+      "format": "json",
+      "itemPath": "data",
+      "pageParam": "page",
+      "sizeParam": "perPage",
+      "pageSize": 1000,
+      "maxPages": 3,
+      "params": {
+        "returnType": "JSON"
+      },
+      "regionRuns": [
+        {
+          "region": "osan",
+          "params": {}
+        }
+      ],
+      "fields": {
+        "name": "센터명",
+        "address": "기관주소",
+        "phone": "전화번호",
+        "org": "교육청",
+        "site": "누리집주소"
+      },
+      "uses": [
+        "school"
+      ],
+      "note": "2026-11-25 확인(전국 197, 오산 1: 화성오산특수교육지원센터).",
+      "required": false
+    },
+    {
+      "id": "mcst-public-library",
+      "name": "문화체육관광부_전국공공도서관정보",
+      "label": "공공도서관",
+      "page": "https://www.data.go.kr/data/15072611/fileData.do",
+      "kind": "facility",
+      "enabled": true,
+      "endpointChecked": true,
+      "keyEnv": "DATA_GO_KR_KEY",
+      "odcloud": "15072611/v1",
+      "endpoint": "https://api.odcloud.kr/api/15072611/v1/uddi:4e0d4d95-76e2-4a03-9886-ba11052ac3fb",
+      "format": "json",
+      "itemPath": "data",
+      "pageParam": "page",
+      "sizeParam": "perPage",
+      "pageSize": 1000,
+      "maxPages": 3,
+      "params": {
+        "returnType": "JSON"
+      },
+      "regionRuns": [
+        {
+          "region": "osan",
+          "params": {}
+        }
+      ],
+      "fields": {
+        "name": "도서관명",
+        "address": {
+          "keys": [
+            "행정구역",
+            "시군구"
+          ],
+          "sep": " "
+        },
+        "sigungu": "시군구"
+      },
+      "uses": [
+        "school",
+        "independence"
+      ],
+      "note": "2026-11-25 확인(2024 기준 오산 7). 주소 칸이 없어 시군구로 거름.",
+      "required": false
+    },
+    {
+      "id": "knpa-police-station",
+      "name": "경찰청_전국 경찰서 명칭 및 주소",
+      "label": "경찰서",
+      "page": "https://www.data.go.kr/data/15124966/fileData.do",
+      "kind": "facility",
+      "enabled": true,
+      "endpointChecked": true,
+      "keyEnv": "DATA_GO_KR_KEY",
+      "odcloud": "15124966/v1",
+      "endpoint": "https://api.odcloud.kr/api/15124966/v1/uddi:345a2432-5fee-4c49-a353-80b62496a43b",
+      "format": "json",
+      "itemPath": "data",
+      "pageParam": "page",
+      "sizeParam": "perPage",
+      "pageSize": 1000,
+      "maxPages": 3,
+      "params": {
+        "returnType": "JSON"
+      },
+      "regionRuns": [
+        {
+          "region": "osan",
+          "params": {}
+        }
+      ],
+      "fields": {
+        "name": "경찰서명칭",
+        "address": "경찰서주소",
+        "org": "시도경찰청"
+      },
+      "uses": [
+        "abuse",
+        "crisis"
+      ],
+      "note": "2026-11-25 확인(오산경찰서 1). 지구대·파출소는 이 데이터에 없음.",
+      "required": false
+    },
+    {
+      "id": "moj-probation-office",
+      "name": "법무부_전국보호관찰소위치데이터",
+      "label": "보호관찰소(경기)",
+      "page": "https://www.data.go.kr/data/15060340/fileData.do",
+      "kind": "facility",
+      "enabled": true,
+      "endpointChecked": true,
+      "keyEnv": "DATA_GO_KR_KEY",
+      "odcloud": "15060340/v1",
+      "endpoint": "https://api.odcloud.kr/api/15060340/v1/uddi:272a2ab6-c39a-46b5-960f-a724464fe150",
+      "format": "json",
+      "itemPath": "data",
+      "pageParam": "page",
+      "sizeParam": "perPage",
+      "pageSize": 1000,
+      "maxPages": 3,
+      "params": {
+        "returnType": "JSON"
+      },
+      "regionRuns": [
+        {
+          "region": "gyeonggi",
+          "params": {}
+        }
+      ],
+      "fields": {
+        "name": "기관명",
+        "address": "기관주소"
+      },
+      "uses": [
+        "youth"
+      ],
+      "note": "2026-11-25 확인(전국 58, 오산 0, 2020년 자료).",
+      "required": false
+    },
+    {
+      "id": "mois-disaster-psych",
+      "name": "행정안전부_재난심리회복지원센터 현황",
+      "label": "재난심리회복지원센터(경기)",
+      "page": "https://www.data.go.kr/data/15130798/fileData.do",
+      "kind": "facility",
+      "enabled": true,
+      "endpointChecked": true,
+      "keyEnv": "DATA_GO_KR_KEY",
+      "odcloud": "15130798/v1",
+      "endpoint": "https://api.odcloud.kr/api/15130798/v1/uddi:e4b4cfe4-0cb3-49fd-8a05-e5360ae45b7c",
+      "format": "json",
+      "itemPath": "data",
+      "pageParam": "page",
+      "sizeParam": "perPage",
+      "pageSize": 1000,
+      "maxPages": 3,
+      "params": {
+        "returnType": "JSON"
+      },
+      "regionRuns": [
+        {
+          "region": "gyeonggi",
+          "params": {}
+        }
+      ],
+      "fields": {
+        "name": "센터명",
+        "address": "주소",
+        "phone": "전화번호"
+      },
+      "uses": [
+        "mental",
+        "crisis",
+        "care"
+      ],
+      "note": "2026-11-25 확인(시도별 17곳).",
+      "required": false
+    },
+    {
+      "id": "goe-school-link-partners",
+      "name": "경기도교육청_학생맞춤통합지원 관련 지역유관기관 목록",
+      "label": "학생맞춤통합지원 지역유관기관(경기도교육청)",
+      "page": "https://www.data.go.kr/data/15161886/fileData.do",
+      "kind": "facility",
+      "enabled": true,
+      "endpointChecked": true,
+      "keyEnv": "DATA_GO_KR_KEY",
+      "odcloud": "15161886/v1",
+      "endpoint": "https://api.odcloud.kr/api/15161886/v1/uddi:5c422bcd-5589-4967-847b-a9cae98cc8bb",
+      "format": "json",
+      "itemPath": "data",
+      "pageParam": "page",
+      "sizeParam": "perPage",
+      "pageSize": 1000,
+      "maxPages": 3,
+      "params": {
+        "returnType": "JSON"
+      },
+      "regionRuns": [
+        {
+          "region": "osan",
+          "params": {}
+        }
+      ],
+      "fields": {
+        "name": "기관명",
+        "kind": "기관구분",
+        "address": "도로명 주소",
+        "summary": "사업내용",
+        "target": "지원대상",
+        "theme": "지원유형",
+        "site": "홈페이지 링크",
+        "sigungu": "시군구"
+      },
+      "uses": [
+        "school",
+        "youth"
+      ],
+      "note": "2026-11-25 확인(경기 1,621, 오산 0). 오산 기관이 올라오면 학맞통 연계에 씀.",
+      "required": false
+    },
+    {
+      "id": "std-local-child-center",
+      "name": "전국지역아동센터표준데이터",
+      "label": "지역아동센터",
+      "page": "https://www.data.go.kr/data/15013118/standard.do",
+      "kind": "facility",
+      "enabled": true,
+      "endpointChecked": true,
+      "keyEnv": "DATA_GO_KR_KEY",
+      "endpoint": "https://api.data.go.kr/openapi/tn_pubr_public_local_child_center_api",
+      "format": "json",
+      "itemPath": "item",
+      "pageParam": "pageNo",
+      "sizeParam": "numOfRows",
+      "pageSize": 1000,
+      "maxPages": 10,
+      "params": {
+        "type": "json"
+      },
+      "regionRuns": [
+        {
+          "region": "osan",
+          "params": {
+            "ctpvNm": "경기도",
+            "sggNm": "오산시"
+          }
+        }
+      ],
+      "fields": {
+        "name": "cntrNm",
+        "address": "lctnRoadNm",
+        "phone": "telno",
+        "kind": "operInstType",
+        "sigungu": "sggNm",
+        "summary": {
+          "keys": [
+            "pscpCnt",
+            "nowNope"
+          ],
+          "sep": "/"
+        },
+        "updated": "dataCrtrYmd"
+      },
+      "uses": [
+        "youth",
+        "school",
+        "independence"
+      ],
+      "note": "2026-11-25 실제 호출 확인. 대표자 이름(rprsvNm)은 받지 않음. summary는 정원/현원.",
+      "required": false
+    },
+    {
+      "id": "std-teen-training-fclt",
+      "name": "전국청소년수련시설표준데이터",
+      "label": "청소년수련시설(문화의집·수련관)",
+      "page": "https://www.data.go.kr/data/15013107/standard.do",
+      "kind": "facility",
+      "enabled": true,
+      "endpointChecked": true,
+      "keyEnv": "DATA_GO_KR_KEY",
+      "endpoint": "https://api.data.go.kr/openapi/tn_pubr_public_teen_training_fclt_api",
+      "format": "json",
+      "itemPath": "item",
+      "pageParam": "pageNo",
+      "sizeParam": "numOfRows",
+      "pageSize": 1000,
+      "maxPages": 5,
+      "params": {
+        "type": "json"
+      },
+      "regionRuns": [
+        {
+          "region": "osan",
+          "params": {
+            "ctpvNm": "경기도",
+            "sggNm": "오산시"
+          }
+        }
+      ],
+      "fields": {
+        "name": "fcltNm",
+        "address": "lctnRoadNm",
+        "phone": "telno",
+        "org": "operGrpNm",
+        "summary": "mainFclt",
+        "sigungu": "sggNm",
+        "updated": "dataCrtrYmd"
+      },
+      "uses": [
+        "youth",
+        "school"
+      ],
+      "note": "2026-11-25 실제 호출 확인.",
+      "required": false
+    },
+    {
+      "id": "mogef-sunflower-center",
+      "name": "성평등가족부_해바라기센터 정보",
+      "label": "해바라기센터(성폭력·가정폭력 피해 통합지원)",
+      "page": "https://www.data.go.kr/",
+      "kind": "facility",
+      "enabled": true,
+      "endpointChecked": true,
+      "keyEnv": "DATA_GO_KR_KEY",
+      "endpoint": "https://apis.data.go.kr/1383000/gmis/sfCnterServiceV2/getSfCnterListV2",
+      "format": "json",
+      "itemPath": "item",
+      "pageParam": "pageNo",
+      "sizeParam": "numOfRows",
+      "pageSize": 100,
+      "maxPages": 2,
+      "params": {
+        "type": "json"
+      },
+      "regionRuns": [
+        {
+          "region": "gyeonggi",
+          "params": {}
+        }
+      ],
+      "fields": {
+        "name": "cnterNm",
+        "kind": "fcltTypeNm",
+        "address": "roadNmAddr",
+        "phone": "rprsTelno",
+        "site": "hmpgAddr"
+      },
+      "uses": [
+        "abuse"
+      ],
+      "note": "2026-11-25 실제 호출 확인(전국 40). 오산 없음, 경기 센터 안내.",
+      "required": false
+    },
+    {
+      "id": "nmc-hospital-osan",
+      "name": "국립중앙의료원_전국 병·의원 찾기 서비스",
+      "label": "정신건강의학과·소아청소년 의원(오산)",
+      "page": "https://www.data.go.kr/data/15000736/openapi.do",
+      "kind": "facility",
+      "enabled": true,
+      "endpointChecked": true,
+      "keyEnv": "DATA_GO_KR_KEY",
+      "endpoint": "https://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncListInfoInqire",
+      "format": "json",
+      "itemPath": "item",
+      "pageParam": "pageNo",
+      "sizeParam": "numOfRows",
+      "pageSize": 500,
+      "maxPages": 10,
+      "params": {
+        "_type": "json"
+      },
+      "regionRuns": [
+        {
+          "region": "osan",
+          "params": {
+            "Q0": "경기도",
+            "Q1": "오산시"
+          },
+          "nameRe": "정신|마음|심리|소아청소년|소아과"
+        }
+      ],
+      "fields": {
+        "name": "dutyName",
+        "kind": "dutyDivNam",
+        "address": "dutyAddr",
+        "phone": "dutyTel1",
+        "summary": "dutyEtc"
+      },
+      "uses": [
+        "mental"
+      ],
+      "note": "2026-11-25 실제 호출 확인. 심평원 진료과목 조회가 오류 99일 때도 정신건강의학과 의원을 이름으로 거름.",
+      "required": false
     }
   ],
   "areaTextFields": [
