@@ -388,6 +388,74 @@ def discover(tokens, fetcher=None):
     return 0
 
 
+def inspect(urls, key, getter=None):
+    """받은 주소를 종류별로 살펴 본다(DB·결과 파일 안 건드림).
+    - infuser.odcloud.kr/oas/docs?namespace=..: 안내(JSON)에서 호출 경로·항목 이름을 읽고, 각 경로를 불러
+      전체 건수·오산 건수·오산 첫 건을 보여 준다.
+    - apis.data.go.kr / api.data.go.kr: 그대로(또는 흔한 오퍼레이션 이름을 붙여) 불러 앞부분을 보여 준다."""
+    import urllib.error
+    def get(url):
+        if getter:
+            return getter(url)
+        req = urllib.request.Request(url, headers={'User-Agent': 'welfare-resource-refresh/1.0', 'Accept': 'application/json,*/*'})
+        try:
+            with urllib.request.urlopen(req, timeout=40) as res:
+                return res.status, res.read()
+        except urllib.error.HTTPError as exc:
+            return exc.code, exc.read()
+    qkey = urllib.parse.quote(key, safe='')
+    def show(text, n=700):
+        return redact(text, [key]).replace('\n', ' ')[:n]
+    for url in urls:
+        print('\n### ' + url)
+        try:
+            if 'infuser.odcloud.kr' in url:
+                code, raw = get(url)
+                doc = json.loads(raw)
+                print('제목:', (doc.get('info') or {}).get('title'), '|', (doc.get('info') or {}).get('description', '')[:200])
+                base = 'https://' + doc.get('host', 'api.odcloud.kr') + doc.get('basePath', '/api')
+                for path, ops in (doc.get('paths') or {}).items():
+                    op = ops.get('get') or {}
+                    print('- 경로', path, '|', op.get('summary', ''))
+                    rows, total, page = [], None, 1
+                    while page <= 30:
+                        code, raw = get(f'{base}{path}?page={page}&perPage=1000&returnType=JSON&serviceKey={qkey}')
+                        if code != 200:
+                            print('  호출', code, show(raw.decode('utf-8', 'replace'), 300)); break
+                        data = json.loads(raw)
+                        total = data.get('totalCount')
+                        batch = data.get('data') or []
+                        rows += batch
+                        if not batch or len(rows) >= (total or 0):
+                            break
+                        page += 1
+                    if not rows:
+                        continue
+                    osan = [r for r in rows if '오산' in json.dumps(r, ensure_ascii=False)]
+                    print(f'  전체 {total} | 받은 {len(rows)} | 오산 포함 {len(osan)}')
+                    print('  항목:', ', '.join(rows[0].keys()))
+                    for r in osan[:3] or rows[:1]:
+                        print('  예:', show(json.dumps(r, ensure_ascii=False), 500))
+            else:
+                base, _, query = url.partition('?')
+                tries = [base]
+                if 'apis.data.go.kr' in base:
+                    tail = base.rstrip('/').rsplit('/', 1)[-1]
+                    stem = re.sub(r'(Service)?(V\d+)?$', '', tail)
+                    tries += [f'{base}/{op}' for op in dict.fromkeys([
+                        f'get{stem[0].upper()}{stem[1:]}List', f'get{stem[0].upper()}{stem[1:]}ListV2', 'getList', 'getInfoList'])]
+                for t in tries:
+                    sep = '&' if query else ''
+                    q = query + sep + f'serviceKey={qkey}&pageNo=1&numOfRows=3&type=json&_type=json&returnType=json'
+                    code, raw = get(t + '?' + q)
+                    print(f'- {t.replace(base, "") or "(주소 그대로)"} → {code}:', show(raw.decode('utf-8', 'replace'), 500))
+                    if code == 200 and b'<cmmMsgHeader>' not in raw and b'API not found' not in raw:
+                        break
+        except Exception as exc:  # noqa: BLE001
+            print(f'{type(exc).__name__}:', show(str(exc), 300))
+    return 0
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument('--fixtures')
@@ -396,8 +464,11 @@ def main(argv=None):
     ap.add_argument('--summary')
     ap.add_argument('--discover', help='공백으로 구분한 공공데이터포털 번호·경기데이터드림 infId의 안내 페이지에서 서비스 주소를 찾음')
     ap.add_argument('--probe', help='공백으로 구분한 호출 주소들을 시험 호출해 응답 앞부분만 보여 줌(DB·결과 파일 안 건드림)')
+    ap.add_argument('--inspect', help='공백으로 구분한 안내·호출 주소를 살펴 경로·항목·오산 건수를 보여 줌(DB·결과 파일 안 건드림)')
     args = ap.parse_args(argv)
     config = json.loads((ROOT / 'data/public-api-sources.json').read_text(encoding='utf-8'))
+    if args.inspect:
+        return inspect(args.inspect.split(), os.environ.get('DATA_GO_KR_KEY', ''))
     if args.discover:
         return discover(args.discover.split())
     if args.probe:

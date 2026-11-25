@@ -10,6 +10,10 @@ on:
         description: '호출 주소 시험(공백 구분, 비우면 생략)'
         type: string
         default: ''
+      inspect:
+        description: '안내·호출 주소 살펴보기(odcloud 안내 포함, 공백 구분)'
+        type: string
+        default: ''
       discover:
         description: '경기데이터드림 서비스 주소 찾기(공공데이터포털 번호·infId, 공백 구분)'
         type: string
@@ -42,6 +46,11 @@ jobs:
         env:
           PROBE: ${{ inputs.probe }}
         run: python scripts/public_api_refresh.py --probe "$PROBE"
+      - name: Inspect endpoints (optional)
+        if: inputs.inspect != ''
+        env:
+          INSPECT: ${{ inputs.inspect }}
+        run: python scripts/public_api_refresh.py --inspect "$INSPECT"
       - name: Discover Gyeonggi service names (optional)
         if: inputs.discover != ''
         env:
