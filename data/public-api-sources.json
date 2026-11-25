@@ -9,7 +9,25 @@
       "sggNm": "오산시",
       "addressWords": [
         "오산시"
-      ]
+      ],
+      "tier": "osan"
+    },
+    "near": {
+      "label": "인근 시(수원·화성·평택)",
+      "required": false,
+      "ctpvNm": "경기도",
+      "cities": [
+        "수원시",
+        "화성시",
+        "평택시"
+      ],
+      "addressWords": [
+        "수원시",
+        "화성시",
+        "평택시"
+      ],
+      "note": "지역 범주 5단계의 두 번째(2026-11-25). 오산 생활권·관할로 이어진 시. 기관형 자료만 모으며, 그 시 주민 전용 사업(지자체복지서비스 시 사업)은 오산 주민이 이용할 수 없어 모으지 않는다. 경기 수집 결과 중 이 시 주소도 '인근 시'로 나눈다.",
+      "tier": "near"
     },
     "gyeonggi": {
       "label": "경기도",
@@ -24,7 +42,8 @@
       "excludeWords": [
         "종사자",
         "장기근속"
-      ]
+      ],
+      "tier": "gyeonggi"
     },
     "national": {
       "label": "전국(대표 영역만)",
@@ -59,7 +78,8 @@
         "independence",
         "addiction",
         "crisis"
-      ]
+      ],
+      "tier": "national-public"
     },
     "national-care": {
       "label": "전국(돌봄통합 영역만)",
@@ -90,7 +110,8 @@
         "자동차사고",
         "산재근로자"
       ],
-      "note": "「의료·요양 등 지역 돌봄의 통합지원에 관한 법률」(2026.3.27 시행) 서비스 영역 후보. 노인·장애인 대상 사업을 포함하므로 national과 따로 둔다."
+      "note": "「의료·요양 등 지역 돌봄의 통합지원에 관한 법률」(2026.3.27 시행) 서비스 영역 후보. 노인·장애인 대상 사업을 포함하므로 national과 따로 둔다.",
+      "tier": "national-public"
     }
   },
   "representativeAreas": [
@@ -289,7 +310,7 @@
         "updated": "lastModYmd",
         "link": "servDtlLink"
       },
-      "note": "목록 요청변수 ctpvNm·sggNm은 공공데이터포털 페이지에서 확인. 오퍼레이션 이름(LcgvWelfarelist)은 첫 실행에서 확인.",
+      "note": "목록 요청변수 ctpvNm·sggNm은 공공데이터포털 페이지에서 확인. 오퍼레이션 이름(LcgvWelfarelist)은 첫 실행에서 확인. 2026-11-25: 인근 시 시 사업은 그 시 주민 전용이라 모으지 않음(오산 주민 이용 불가).",
       "required": true
     },
     {
@@ -492,6 +513,37 @@
             "Q0": "경기도",
             "Q1": "오산시"
           }
+        },
+        {
+          "region": "near",
+          "key": "near-suwon",
+          "params": {
+            "Q0": "경기도",
+            "Q1": "수원시"
+          }
+        },
+        {
+          "region": "near",
+          "key": "near-hwaseong",
+          "params": {
+            "Q0": "경기도",
+            "Q1": "화성시"
+          }
+        },
+        {
+          "region": "near",
+          "key": "near-pyeongtaek",
+          "params": {
+            "Q0": "경기도",
+            "Q1": "평택시"
+          }
+        },
+        {
+          "region": "gyeonggi",
+          "params": {
+            "Q0": "경기도"
+          },
+          "kindRe": "권역"
         }
       ],
       "fields": {
@@ -501,8 +553,9 @@
         "phone": "dutyTel1",
         "kind": "dutyEmclsName"
       },
-      "note": "2026-11-24 실제 호출 확인(오산한국병원 지역응급의료센터 1건). 응답 dutyName·dutyAddr·dutyTel1·dutyTel3(응급실).",
-      "required": false
+      "note": "2026-11-24 실제 호출 확인(오산한국병원 지역응급의료센터 1건). 응답 dutyName·dutyAddr·dutyTel1·dutyTel3(응급실). 2026-11-25 범주 확대: 인근 시 3곳(시 이름으로 호출, 첫 실행에서 결과 확인)과 경기도 권역응급의료센터·권역외상센터만(kindRe 권역).",
+      "required": false,
+      "label": "응급의료기관(오산·인근 시·경기 권역)"
     },
     {
       "id": "hira-mental-clinic",
@@ -759,6 +812,10 @@
         {
           "region": "osan",
           "params": {}
+        },
+        {
+          "region": "near",
+          "params": {}
         }
       ],
       "fields": {
@@ -769,7 +826,7 @@
       "uses": [
         "mental"
       ],
-      "note": "2026-11-25 확인(전국 1,053, 오산시 주소 4). 화성시 '오산동' 주소는 오산시 아님.",
+      "note": "2026-11-25 확인(전국 1,053, 오산시 주소 4). 화성시 '오산동' 주소는 오산시 아님. 2026-11-25 범주 확대: 같은 목록에서 인근 시(수원·화성·평택) 주소도 남김.",
       "required": false
     },
     {
@@ -1046,7 +1103,7 @@
         "school",
         "youth"
       ],
-      "note": "2026-11-25 확인(경기 1,621, 오산 0). 오산 기관이 올라오면 학맞통 연계에 씀.",
+      "note": "2026-11-25 확인(경기 1,621, 오산 0). 오산 기관이 올라오면 학맞통 연계에 씀. 2026-11-25 범주 확대 시험 실행: 인근 시 주소 209곳은 수원·평택 교육지원청 지역기관(지역아동센터 97 등)이고 화성(화성오산교육지원청)은 0건이라 오산 학생 연계에 맞지 않아 인근 시 수집은 넣지 않음.",
       "required": false
     },
     {
@@ -1185,7 +1242,7 @@
     {
       "id": "nmc-hospital-osan",
       "name": "국립중앙의료원_전국 병·의원 찾기 서비스",
-      "label": "정신건강의학과·소아청소년 의원(오산)",
+      "label": "정신건강의학과·소아청소년 의원(오산·인근 시)",
       "page": "https://www.data.go.kr/data/15000736/openapi.do",
       "kind": "facility",
       "enabled": true,
@@ -1209,6 +1266,33 @@
             "Q1": "오산시"
           },
           "nameRe": "정신|마음|심리|소아청소년|소아과"
+        },
+        {
+          "region": "near",
+          "key": "near-suwon",
+          "params": {
+            "Q0": "경기도",
+            "Q1": "수원시"
+          },
+          "nameRe": "정신건강의학과|정신과|마음"
+        },
+        {
+          "region": "near",
+          "key": "near-hwaseong",
+          "params": {
+            "Q0": "경기도",
+            "Q1": "화성시"
+          },
+          "nameRe": "정신건강의학과|정신과|마음"
+        },
+        {
+          "region": "near",
+          "key": "near-pyeongtaek",
+          "params": {
+            "Q0": "경기도",
+            "Q1": "평택시"
+          },
+          "nameRe": "정신건강의학과|정신과|마음"
         }
       ],
       "fields": {
@@ -1221,7 +1305,7 @@
       "uses": [
         "mental"
       ],
-      "note": "2026-11-25 실제 호출 확인. 심평원 진료과목 조회가 오류 99일 때도 정신건강의학과 의원을 이름으로 거름.",
+      "note": "2026-11-25 실제 호출 확인. 심평원 진료과목 조회가 오류 99일 때도 정신건강의학과 의원을 이름으로 거름. 2026-11-25 범주 확대: 인근 시는 정신건강의학과 이름만 남김(소아과 제외). 시 이름 호출은 첫 실행에서 확인.",
       "required": false
     },
     {
@@ -1268,5 +1352,30 @@
     "name",
     "summary",
     "target"
-  ]
+  ],
+  "regionTiers": {
+    "note": "복지자원 지역 범주 5단계. 화면·정렬 순서도 이와 같다. 전국 민간은 공공 API 수집 대상이 아니다(민간 기관은 사람이 공식 안내로 확인).",
+    "order": [
+      {
+        "id": "osan",
+        "label": "오산시"
+      },
+      {
+        "id": "near",
+        "label": "인근 시"
+      },
+      {
+        "id": "gyeonggi",
+        "label": "경기도(광역·거점)"
+      },
+      {
+        "id": "national-public",
+        "label": "전국 공공"
+      },
+      {
+        "id": "national-private",
+        "label": "전국 민간"
+      }
+    ]
+  }
 }

@@ -85,13 +85,13 @@
     const rows = M.matchResources(service, W, { dedupeOrg: true });
     if (!rows.length) return `<p class="muted">DB에 등록된 연결 기관이 아직 없습니다. <a href="${esc(safeUrl(service.source))}" target="_blank" rel="noopener noreferrer">공식 안내 ↗</a>로 확인하세요.</p>`;
     const shown = rows.slice(0, limit || 4);
-    return `<ul class="res">${shown.map(r => `<li><span class="lv lv-${r.level === '오산시' ? 'osan' : 'other'}">${esc(r.level === '민간' ? '전국' : r.level)}</span><a href="../#org=${encodeURIComponent(r.orgId)}">${esc(r.org)}</a><small>${esc(r.service)}</small>${r.phone ? `<a class="tel" href="${telHref(r.phone)}">${esc(r.phone)}</a>` : ''}</li>`).join('')}</ul>${rows.length > shown.length ? `<p class="muted">외 ${rows.length - shown.length}곳은 돌봄 자원 지도에서 볼 수 있습니다.</p>` : ''}`;
+    return `<ul class="res">${shown.map(r => `<li><span class="lv lv-${r.level === '오산시' ? 'osan' : 'other'}">${esc(r.scope && r.scope !== r.level ? r.scope : (r.level === '민간' ? '전국' : r.level))}</span><a href="../#org=${encodeURIComponent(r.orgId)}">${esc(r.org)}</a><small>${esc(r.service)}</small>${r.phone ? `<a class="tel" href="${telHref(r.phone)}">${esc(r.phone)}</a>` : ''}</li>`).join('')}</ul>${rows.length > shown.length ? `<p class="muted">외 ${rows.length - shown.length}곳은 돌봄 자원 지도에서 볼 수 있습니다.</p>` : ''}`;
   }
 
   function windowsList() {
     if (!W) return '';
     const rows = M.matchResources({ match: '통합돌봄 신청|통합판정조사' }, W, { dedupeOrg: true });
-    return `<ul class="res windows">${rows.map(r => `<li><span class="lv lv-${r.level === '오산시' ? 'osan' : 'other'}">${esc(r.level === '민간' ? '전국' : r.level)}</span><a href="../#org=${encodeURIComponent(r.orgId)}">${esc(r.org)}</a>${r.phone ? `<a class="tel" href="${telHref(r.phone)}">${esc(r.phone)}</a>` : ''}</li>`).join('')}</ul>`;
+    return `<ul class="res windows">${rows.map(r => `<li><span class="lv lv-${r.level === '오산시' ? 'osan' : 'other'}">${esc(r.scope && r.scope !== r.level ? r.scope : (r.level === '민간' ? '전국' : r.level))}</span><a href="../#org=${encodeURIComponent(r.orgId)}">${esc(r.org)}</a>${r.phone ? `<a class="tel" href="${telHref(r.phone)}">${esc(r.phone)}</a>` : ''}</li>`).join('')}</ul>`;
   }
 
   function renderCheckResult(r) {

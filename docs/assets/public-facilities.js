@@ -4,7 +4,7 @@
    · 개인정보를 받지도 보내지도 않는다. 같은 누리집의 JSON 파일 하나만 읽는다. */
 (function(root){'use strict';
 const node=typeof module!=='undefined'&&module.exports;
-const VERSION='1.0.0-20261125';
+const VERSION='1.1.0-20261125-tier5';
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 /* 복지자원 DB 욕구영역(taxonomy.need) → 수집 설정의 uses(대표 영역) */
@@ -21,8 +21,12 @@ const USE_LABEL={mental:'정신건강',youth:'위기청소년·상담',shelter:'
 
 /* 오산에서 가까운 경기 시·군 순서(대중교통·생활권 기준의 대략적 순서). 오산 기관은 늘 맨 앞. */
 const NEAR=['화성','평택','수원','용인','안성','의왕','군포','안산','안양','성남','광명','부천','시흥','이천','광주','하남','과천'];
+/* 지역 범주 5단계(2026-11-25): 공공데이터 기관은 소재지로 오산 / 인근 시(수원·화성·평택) / 경기로 나눈다. */
+const NEAR_CITY=['수원','화성','평택'];
+function place(i){if(i.region==='osan')return 'osan';if(i.region==='near')return 'near';const a=String(i.address||'');return NEAR_CITY.some(c=>a.includes(c+'시'))?'near':'gyeonggi'}
+function cityOf(i){return String(i.city||(NEAR_CITY.find(c=>String(i.address||'').includes(c+'시'))||'')).replace(/시$/,'')}
 function nearRank(i){if(i.region==='osan')return -1;const a=String(i.address||'')+' '+String(i.name||'');const k=NEAR.findIndex(c=>a.includes(c));return k<0?99:k}
-function nearFirst(items){return items.map((x,n)=>[x,n]).sort((a,b)=>nearRank(a[0])-nearRank(b[0])||a[1]-b[1]).map(z=>z[0])}
+function nearFirst(items){const t={osan:0,near:1,gyeonggi:2};return items.map((x,n)=>[x,n]).sort((a,b)=>t[place(a[0])]-t[place(b[0])]||nearRank(a[0])-nearRank(b[0])||a[1]-b[1]).map(z=>z[0])}
 
 let cache=null;
 function load(url){
@@ -37,8 +41,8 @@ function byUses(d,uses,opt){opt=opt||{};const want=new Set(uses||[]);
  return groups(d).filter(g=>(g.uses||[]).some(u=>want.has(u))&&!(opt.adult&&YOUTH_ONLY.has(g.id)))}
 function forNeed(d,need,target){const uses=NEED_USES[need]||[];if(!uses.length)return [];
  return byUses(d,uses,{adult:target&&!YOUTH_TARGETS.test(target)})}
-function counts(d){const gs=groups(d);let osan=0,gg=0;for(const g of gs)for(const i of g.items)(i.region==='osan'?osan++:gg++);
- return {groups:gs.length,osan,gyeonggi:gg,total:osan+gg,date:d&&d.generatedAt?String(d.generatedAt).slice(0,10):''}}
+function counts(d){const gs=groups(d);let osan=0,near=0,gg=0;for(const g of gs)for(const i of g.items){const p=place(i);p==='osan'?osan++:p==='near'?near++:gg++}
+ return {groups:gs.length,osan,near,gyeonggi:gg,total:osan+near+gg,date:d&&d.generatedAt?String(d.generatedAt).slice(0,10):''}}
 
 function tel(p){const t=String(p||'').replace(/[^\d-]/g,'');return t.length>=7?t:''}
 function phoneText(p){const raw=String(p||'').trim();if(/^\d{9,11}$/.test(raw)){return raw.replace(/^(02)(\d{3,4})(\d{4})$/,'$1-$2-$3').replace(/^(0\d{2})(\d{3,4})(\d{4})$/,'$1-$2-$3')}return raw}
@@ -46,15 +50,15 @@ function site(u){const s=String(u||'').trim();if(!s)return '';const full=/^https
 function item(i,opt){opt=opt||{};const ph=phoneText(i.phone);const t=tel(ph);const w=site(i.site);
  const db=i.match_id?'<a class="pf-db" href="'+esc(opt.dbLink?opt.dbLink(i.match_id):'./#org='+encodeURIComponent(i.match_id))+'">복지자원 DB에 있음</a>':'';
  return '<li class="pf-item'+(i.region==='osan'?' pf-osan':'')+'"><div class="pf-top"><strong>'+esc(i.name)+'</strong>'
-  +(i.kind&&!/^\d/.test(i.kind)?'<span class="pf-kind">'+esc(i.kind)+'</span>':'')+(i.region==='osan'?'<span class="pf-here">오산</span>':'<span class="pf-near">경기</span>')+db+'</div>'
+  +(i.kind&&!/^\d/.test(i.kind)?'<span class="pf-kind">'+esc(i.kind)+'</span>':'')+(place(i)==='osan'?'<span class="pf-here">오산</span>':place(i)==='near'?'<span class="pf-near pf-city">인근 시 · '+esc(cityOf(i))+'</span>':'<span class="pf-near">경기</span>')+db+'</div>'
   +(i.address?'<p class="pf-addr">'+esc(i.address)+'</p>':'')
   +'<p class="pf-meta">'+(ph?(t?'<a href="tel:'+esc(t)+'">'+esc(ph)+'</a>':esc(ph)):'')+(i.hours?(ph?' · ':'')+'평일 '+esc(i.hours):'')
   +(w?((ph||i.hours)?' · ':'')+'<a href="'+esc(w)+'" target="_blank" rel="noopener noreferrer">누리집 ↗</a>':'')+'</p>'
   +(opt.summary&&i.summary?'<p class="pf-sum">'+esc(String(i.summary).slice(0,140))+'</p>':'')+'</li>'}
 function group(g,opt){opt=opt||{};const osan=g.items.filter(i=>i.region==='osan'),near=nearFirst(g.items.filter(i=>i.region!=='osan'));
- const limit=opt.limit||6;const list=(osan.length?osan.concat(opt.all?near:[]):near).slice(0,limit);const more=g.items.length-list.length;
- return '<section class="pf-group" data-pf="'+esc(g.id)+'"><h4>'+esc(g.label||g.name)+' <small>오산 '+osan.length+(near.length?' · 경기 '+near.length:'')+'</small></h4>'
-  +(osan.length?'':'<p class="pf-none">오산 안에는 없습니다. 가까운 경기 기관을 함께 봅니다.</p>')
+ const nb=near.filter(i=>place(i)==='near').length;const limit=opt.limit||6;const list=(osan.length?osan.concat(opt.all?near:[]):near).slice(0,limit);const more=g.items.length-list.length;
+ return '<section class="pf-group" data-pf="'+esc(g.id)+'"><h4>'+esc(g.label||g.name)+' <small>오산 '+osan.length+(nb?' · 인근 시 '+nb:'')+(near.length-nb?' · 경기 '+(near.length-nb):'')+'</small></h4>'
+  +(osan.length?'':'<p class="pf-none">오산 안에는 없습니다. '+(nb?'인근 시(수원·화성·평택)부터':'가까운 경기 기관을')+' 함께 봅니다.</p>')
   +'<ul>'+list.map(i=>item(i,opt)).join('')+'</ul>'
   +(more>0&&opt.moreLink!==false?'<p class="pf-more"><a href="'+esc((opt.base||'')+'public-facilities.html#'+g.id)+'">'+more+'곳 더 보기 →</a></p>':'')+'</section>'}
 function foot(d){const c=counts(d);return '<p class="pf-foot">출처: 공공데이터포털 기관 목록(원문 그대로, '+esc(c.date||'수집일 확인 중')+' 수집). 운영 여부·연락처는 이용 전 기관에 확인하세요.</p>'}
@@ -62,6 +66,6 @@ function html(gs,d,opt){opt=opt||{};if(!gs||!gs.length)return '';
  return '<div class="pf">'+(opt.title?'<h3 class="pf-title">'+esc(opt.title)+'</h3>':'')+(opt.intro?'<p class="pf-intro">'+esc(opt.intro)+'</p>':'')
   +gs.map(g=>group(g,opt)).join('')+foot(d)+'</div>'}
 
-const api={version:VERSION,NEED_USES,USE_LABEL,YOUTH_ONLY,data:null,load,groups,byUses,forNeed,counts,html,group,item,phoneText,nearFirst};
+const api={version:VERSION,place,cityOf,NEED_USES,USE_LABEL,YOUTH_ONLY,data:null,load,groups,byUses,forNeed,counts,html,group,item,phoneText,nearFirst};
 if(node)module.exports=api;else root.PublicFacilities=api;
 })(typeof window!=='undefined'?window:globalThis);

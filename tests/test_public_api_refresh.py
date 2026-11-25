@@ -215,6 +215,43 @@ class PublicApiRefresh(unittest.TestCase):
         self.assertTrue((self.tmp / 'docs/public-api/facilities.json').exists())
         self.assertNotIn('_facilities', json.loads((self.tmp / 'docs/public-api/candidates.json').read_text(encoding='utf-8')))
 
+    def test_near_cities_split_from_gyeonggi_and_deduplicated(self):
+        """지역 범주 5단계: 경기 목록 속 수원·화성·평택 주소는 '인근 시'로, 시별 수집과 겹치면 한 번만."""
+        cfg = copy.deepcopy(self.config)
+        src = next(s for s in cfg['sources'] if s['id'] == 'kyci-safetynet-center')
+        src['regionRuns'] = [{'region': 'gyeonggi', 'params': {}}, {'region': 'near', 'key': 'near-suwon', 'params': {}}]
+        cfg['sources'] = [src]
+        rows = [
+            {'기관명': '수원시청소년상담복지센터', '기관분류': '청소년상담복지센터', '주소': '경기도 수원시 팔달구 1', '전화번호': '031-1'},
+            {'기관명': '평택시청소년쉼터', '기관분류': '청소년쉼터', '주소': '경기도 평택시 1', '전화번호': '031-2'},
+            {'기관명': '부천시청소년쉼터', '기관분류': '청소년쉼터', '주소': '경기도 부천시 1', '전화번호': '032-1'},
+            {'기관명': '오산시청소년상담복지센터', '기관분류': '청소년상담복지센터', '주소': '경기도 오산시 1', '전화번호': '031-0'},
+        ]
+        raw = json.dumps({'totalCount': 4, 'data': rows}, ensure_ascii=False).encode('utf-8')
+        self.write('kyci-safetynet-center-gyeonggi-p1.json', raw)
+        self.write('kyci-safetynet-center-near-suwon-p1.json', raw)
+        status, payload, failures = p.run(cfg, self.tmp, NOW, fixtures=self.fx, env={})
+        self.assertIn('kyci-safetynet-center:near-suwon', status['runs'])
+        items = payload['_facilities']['groups'][0]['items']
+        self.assertEqual([(i['region'], i['city'], i['name']) for i in items],
+                         [('near', '수원시', '수원시청소년상담복지센터'), ('near', '평택시', '평택시청소년쉼터'), ('gyeonggi', '', '부천시청소년쉼터')])
+        self.assertTrue(all(r['run'] for r in payload['items']))
+        # 다음 실행에서 경기 수집만 실패해도, 경기 수집으로 받은 인근 시 항목은 한 번만 이어받음
+        p.write_outputs(self.tmp, status, payload)
+        (self.fx / 'kyci-safetynet-center-gyeonggi-p1.json').unlink()
+        status2, payload2, _ = p.run(cfg, self.tmp, NOW, fixtures=self.fx, env={})
+        names = [i['name'] for i in payload2['_facilities']['groups'][0]['items']]
+        self.assertEqual(sorted(names), sorted(set(names)))
+
+    def test_region_config_has_five_tiers(self):
+        order = [t['id'] for t in self.config['regionTiers']['order']]
+        self.assertEqual(order, ['osan', 'near', 'gyeonggi', 'national-public', 'national-private'])
+        self.assertEqual(self.config['regions']['near']['cities'], ['수원시', '화성시', '평택시'])
+        keys = [p.run_key(s, r) for s in self.config['sources'] for r in s['regionRuns']]
+        self.assertEqual(len(keys), len(set(keys)), '수집 이름이 겹치지 않음')
+        ssis = next(s for s in self.config['sources'] if s['id'] == 'ssis-local')
+        self.assertNotIn('near', [r['region'] for r in ssis['regionRuns']])   # 다른 시 주민 전용 사업은 모으지 않음
+
     def test_probe_redacts_key(self):
         import contextlib, io
         secret = 'PROBE-SECRET-1'

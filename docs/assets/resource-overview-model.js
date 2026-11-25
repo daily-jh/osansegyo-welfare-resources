@@ -1,7 +1,9 @@
 /* © 2026 김지훈. 영역별 연결도는 공개 기관·서비스 검색용 분류만 사용합니다. */
 (function (root) {
   'use strict';
-  const SCOPES = ['오산시', '경기도', '민간', '전체'];
+  const SCOPES = ['오산시', '인근 시', '경기도', '민간', '전체'];
+  // 지역 범주 5단계: 인근 시는 원본 범주 '경기도' 안에서 data/region-tiers.csv로 나뉜 기관. '민간'은 전국 공공·민간을 함께 본다.
+  const inScope = (org, scope) => scope === '전체' || (scope === '민간' ? org.level === '민간' : (org.scope || org.level) === scope);
   const norm = value => String(value || '').normalize('NFKC').replace(/\s+/g, '').toLocaleLowerCase('ko');
   const eligible = org => org && !['중단', '폐지'].includes(org.status)
     && Array.isArray(org.services) && org.services.length > 0;
@@ -16,7 +18,7 @@
     const other = new Map();
     let count = 0;
     for (const org of data.organizations) {
-      if (!eligible(org) || (scope !== '전체' && org.level !== scope)) continue;
+      if (!eligible(org) || !inScope(org, scope)) continue;
       if (words && !norm(org.name).includes(words)) continue;
       count += 1;
       const membership = new Set();
@@ -25,7 +27,7 @@
           if (groups.has(need)) membership.add(need);
         }
       }
-      const brief = {id: org.id, name: org.name, level: org.level};
+      const brief = {id: org.id, name: org.name, level: org.level, scope: org.scope || org.level};
       if (!membership.size) other.set(org.id, brief);
       else for (const name of membership) groups.get(name).set(org.id, brief);
     }

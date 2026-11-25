@@ -37,6 +37,7 @@ jobs:
           node tests/resource-expansion.cjs
           node tests/resource-overview.cjs
           node tests/home-tools-v8.cjs
+          node tests/region-tiers.cjs
           node tests/resource-correction.cjs
           node tests/home-layout-v9.cjs
           node --check docs/care/care-app.js

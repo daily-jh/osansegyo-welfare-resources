@@ -24,7 +24,7 @@ ROOT = Path(__file__).resolve().parent.parent
 KST = dt.timezone(dt.timedelta(hours=9))
 OUT_COLUMNS = ['change', 'source', 'region', 'area', 'name', 'org', 'match_kind', 'match_id', 'match_name',
                'field_diffs', 'summary', 'target', 'theme', 'method', 'address', 'phone', 'updated', 'link',
-               'api_id']
+               'api_id', 'city', 'run']
 MATCH_RATIO = 0.86
 
 
@@ -178,6 +178,19 @@ def normalise(item, source, region):
     return rec
 
 
+def near_city(address, config):
+    """주소가 인근 시(수원·화성·평택 등, regions.near.cities)에 있으면 그 시 이름. 없으면 ''."""
+    for city in config['regions'].get('near', {}).get('cities', []):
+        if city in (address or ''):
+            return city
+    return ''
+
+
+def run_key(source, regionrun):
+    """수집 한 번의 이름. 같은 지역(region)을 시별로 여러 번 부를 때는 key로 나눈다(예: near-suwon)."""
+    return f"{source['id']}:{regionrun.get('key', regionrun['region'])}"
+
+
 def keep(rec, run, source, config):
     region = config['regions'][run['region']]
     rule = run.get('keepWhen')
@@ -185,11 +198,18 @@ def keep(rec, run, source, config):
         return False
     if run.get('nameRe') and not re.search(run['nameRe'], rec.get('name', '')):
         return False                                   # 병·의원 전체 목록에서 필요한 진료 분야만 남김
+    if run.get('kindRe') and not re.search(run['kindRe'], rec.get('kind', '')):
+        return False                                   # 경기도 거점만(예: 권역응급의료센터)
     if source['kind'] == 'facility' and region.get('addressWords'):
         if not any(w in rec.get('address', '') for w in region['addressWords']):
             return False
         if run['region'] != 'osan' and any(w in rec.get('address', '') for w in config['regions']['osan']['addressWords']):
             return False                               # 오산 기관은 오산 수집에서만 셈(경기 수집과 겹치지 않게)
+        city = near_city(rec.get('address', ''), config)
+        if run['region'] == 'near' and not city:
+            return False
+        if city and run['region'] in ('gyeonggi', 'near'):
+            rec['region'], rec['city'] = 'near', city   # 지역 범주 5단계: 경기 목록 속 인근 시 기관은 '인근 시'로 나눔
     if source['kind'] == 'service':
         if region.get('excludeOrgPattern') and re.match(region['excludeOrgPattern'], rec.get('org', '')):
             return False                               # 경기도 수집에 섞인 시·군 사업
@@ -268,7 +288,8 @@ def compare(records, db):
                    target=rec.get('target', ''), theme=rec.get('theme', ''), method=rec.get('method', ''),
                    address=rec.get('address', ''), phone=rec.get('phone', ''), updated=rec.get('updated', ''),
                    link=rec.get('link', ''), api_id=rec.get('id', ''), kind=rec.get('kind', ''),
-                   hours=rec.get('hours', ''), sigungu=rec.get('sigungu', ''), site=rec.get('site', ''))
+                   hours=rec.get('hours', ''), sigungu=rec.get('sigungu', ''), site=rec.get('site', ''),
+                   city=rec.get('city', ''), run=rec.get('run', ''))
         if rec['kind_of_source'] == 'service':
             hit, sc = best(rec['name'], services, '서비스명', NEAR_RATIO)
             if hit and sc >= MATCH_RATIO:
@@ -309,7 +330,7 @@ def run(config, root, now, fixtures=None, env=os.environ, fetcher=None, odcloud_
             continue
         key = env.get(source['keyEnv'], '')
         for regionrun in source['regionRuns']:
-            run_id = f"{source['id']}:{regionrun['region']}"
+            run_id = run_key(source, regionrun)
             state = status['runs'].setdefault(run_id, {})
             state.update(lastAttemptAt=now, source=source['name'], region=config['regions'][regionrun['region']]['label'],
                          required=bool(source.get('required') and config['regions'][regionrun['region']].get('required')))
@@ -327,7 +348,7 @@ def run(config, root, now, fixtures=None, env=os.environ, fetcher=None, odcloud_
                     params.update(regionrun.get('params', {}))
                     params[source['pageParam']] = page
                     params[source['sizeParam']] = source['pageSize']
-                    raw = fetch_fixture(fixtures, source, regionrun['region'], page) if fixtures else (fetcher or fetch_live)(source, params, key)
+                    raw = fetch_fixture(fixtures, source, regionrun.get('key', regionrun['region']), page) if fixtures else (fetcher or fetch_live)(source, params, key)
                     if raw is None:
                         break
                     batch, total = parse(raw, source['format'], source['itemPath'])
@@ -341,6 +362,7 @@ def run(config, root, now, fixtures=None, env=os.environ, fetcher=None, odcloud_
                     rec = normalise(item, source, regionrun['region'])
                     if keep(rec, regionrun, source, config):
                         rec['kind_of_source'] = source['kind']
+                        rec['run'] = run_id
                         recs.append(rec)
                 fresh.extend(compare(recs, db))
                 state.update(lastSuccessAt=now, lastError='', received=len(items), kept=len(recs))
@@ -350,10 +372,20 @@ def run(config, root, now, fixtures=None, env=os.environ, fetcher=None, odcloud_
                 if state['required']:
                     failures.append(run_id)
     # keep earlier candidates of runs that failed this time
-    carried = [r for r in kept_prev if f"{r['source']}:{r['region']}" not in done_runs]
+    carried = [r for r in kept_prev if (r.get('run') or f"{r['source']}:{r['region']}") not in done_runs]
     region_of = {k: v['label'] for k, v in config['regions'].items()}
     for r in carried:
         r.setdefault('region', '')
+    # 같은 기관이 시별 수집과 경기 수집(또는 지난 결과)에 함께 잡히면 한 번만: 이번 결과 먼저, 오산 → 인근 시 → 경기 순
+    rank = {'osan': 0, 'near': 1}
+    seen, uniq = set(), []
+    for n, r in sorted(enumerate(fresh + carried), key=lambda x: (x[0] >= len(fresh), rank.get(x[1]['region'], 2), x[0])):
+        k = (r['source'], norm(r['name']), norm(r.get('address', ''))[:16]) if r.get('kind_of_source', 'facility') == 'facility' and r.get('address') else ('row', n)
+        if k in seen:
+            continue
+        seen.add(k)
+        uniq.append(r)
+    fresh, carried = uniq, []
     order = {'정보 다름': 0, '신규 후보': 1, '비슷한 항목 있음': 2, '기존과 일치': 3}
     items = sorted(carried + fresh, key=lambda r: (order.get(r['change'], 9), r['region'], r['source'], r['name']))
     status['generatedAt'] = now
@@ -378,12 +410,13 @@ def facilities(config, items, now):
         g = groups.setdefault(src['id'], {'id': src['id'], 'name': src['name'], 'label': src.get('label', src['name']),
                                           'uses': src.get('uses', []), 'page': src.get('page', ''), 'items': []})
         g['items'].append({k: r.get(k, '') for k in ('name', 'kind', 'org', 'address', 'phone', 'hours', 'site', 'summary',
-                                                      'target', 'region', 'change', 'match_id', 'match_name')})
+                                                      'target', 'region', 'city', 'change', 'match_id', 'match_name')})
+    rank = {'osan': 0, 'near': 1, 'gyeonggi': 2}
     for g in groups.values():
-        g['items'].sort(key=lambda x: (x['region'] != 'osan', x['name']))
+        g['items'].sort(key=lambda x: (rank.get(x['region'], 3), x['name']))
     order = [s['id'] for s in config['sources']]
     return {'schemaVersion': 1, 'generatedAt': now,
-            'note': '공공데이터포털 기관 목록 원문(오산·경기). 운영 여부·연락처는 이용 전 기관에 확인. match_id가 있으면 복지자원 DB의 같은 기관.',
+            'note': '공공데이터포털 기관 목록 원문(오산·인근 시·경기). 운영 여부·연락처는 이용 전 기관에 확인. match_id가 있으면 복지자원 DB의 같은 기관.',
             'groups': sorted(groups.values(), key=lambda g: order.index(g['id']))}
 
 

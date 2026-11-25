@@ -13,7 +13,7 @@ for(const [field,values] of [['need',D.taxonomy.need],['target',D.taxonomy.targe
  const select=$(field);for(const v of values){const opt=document.createElement('option');opt.value=v;opt.textContent=v;select.appendChild(opt)}
 }
 // 자가점검·공백 지도에서 넘어온 분류만 미리 고른다(분류표에 있는 값만 허용, 개인 정보는 받지 않음).
-try{const q=new URLSearchParams(location.search);for(const [field,values] of [['need',D.taxonomy.need],['target',D.taxonomy.target]]){const v=q.get(field);if(v&&values.includes(v))$(field).value=v}const sc=q.get('scope');if(sc&&['오산시','경기도','민간'].includes(sc))$('scope').value=sc}catch(_){}
+try{const q=new URLSearchParams(location.search);for(const [field,values] of [['need',D.taxonomy.need],['target',D.taxonomy.target]]){const v=q.get(field);if(v&&values.includes(v))$(field).value=v}const sc=q.get('scope');if(sc&&['오산시','인근 시','경기도','전국 공공','전국 민간','민간'].includes(sc))$('scope').value=sc}catch(_){}
 const filters=()=>({need:$('need').value,target:$('target').value,form:$('form').value,scope:$('scope').value,keyword:$('keyword').value});
 function details(entry){
  const {o,s}=entry,ev=E[s.id],v=s.verification||{},route=M.route(o,s,ev),source=safe(ev?.sourceUrl)||safe(s.source);

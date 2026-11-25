@@ -5,11 +5,15 @@
  const norm=x=>String(x??'').normalize('NFKC').toLocaleLowerCase('ko').replace(/\s+/g,' ').trim();
  const tags=(s,kind)=>Array.isArray(s?.tags?.[kind])?s.tags[kind]:[];
  const shared=(a,b)=>a.some(x=>b.includes(x));
+ // 지역 범주 5단계(오산시·인근 시·경기도·전국 공공·전국 민간). 예전 주소의 scope=민간은 전국 공공·민간 모두로 읽는다.
+ const TIER_ORDER=['osan','near','gyeonggi','national-public','national-private'];
+ const tierRank=o=>{const k=TIER_ORDER.indexOf(o&&o.tier);return k<0?(o&&o.level==='오산시'?0:o&&o.level==='경기도'?2:3):k};
+ const inScope=(o,sc)=>sc==='민간'?o.level==='민간':(o.scope||o.level)===sc;
  const text=({o,s})=>[o.name,o.kind,s.name,s.category,s.description,s.target,s.method,...Object.values(s.tags||{}).flat()].join(' ');
  function matches(entry,f){
   const {o,s}=entry;
   if(['중단','폐지'].includes(o.status))return false;
-  if(f.scope&&o.level!==f.scope)return false;
+  if(f.scope&&!inScope(o,f.scope))return false;
   for(const [field,k] of [['need','need'],['target','target'],['form','form']])if(f[field]&&!tags(s,k).includes(f[field]))return false;
   const q=norm(f.keyword);return !q||norm(text(entry)).includes(q);
  }
@@ -49,14 +53,14 @@
     return true;
   }).map(e=>{
     const n=tags(e.s,'need'),t=tags(e.s,'target'),k=tags(e.s,'form');
-    const score=(e.o.level==='오산시'?5:e.o.level==='경기도'?3:1)+
+    const score=[5,4,3,1,1][tierRank(e.o)]+
       (shared(sourceNeeds,n)?7:0)+(f.target&&t.includes(f.target)?4:0)+
       (sourceTarget.length&&shared(sourceTarget,t)?2:0)+(shared(sourceForm,k)?1:0)+
       (e.o.phone||e.o.contact?.phone?1:0);
     return {entry:e,score,targetUnspecified:!t.length,reason:'같은 지원영역('+sourceNeeds.filter(x=>n.includes(x)).join('·')+') 대체 문의 후보'};
   }).sort((a,b)=>b.score-a.score||a.entry.s.name.localeCompare(b.entry.s.name,'ko')).slice(0,limit);
  }
- const api={norm,tags,matches,sourceState,intakeState,route,alternatives};
+ const api={norm,tags,tierRank,inScope,matches,sourceState,intakeState,route,alternatives};
  if(typeof module!=='undefined'&&module.exports)module.exports=api;
  else root.ResourceServiceGuideModel=api;
 })(typeof window!=='undefined'?window:globalThis);

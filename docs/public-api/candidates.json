@@ -3,6 +3,7 @@
   "generatedAt": "2026-11-25T14:15:51+09:00",
   "regions": {
     "osan": "경기도 오산시",
+    "near": "인근 시(수원·화성·평택)",
     "gyeonggi": "경기도",
     "national": "전국(대표 영역만)",
     "national-care": "전국(돌봄통합 영역만)"
@@ -39,12 +40,14 @@
       "kind": "청소년상담복지센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "정보 다름",
       "source": "kyci-safetynet-center",
-      "region": "gyeonggi",
+      "region": "near",
       "area": "youth|school",
       "name": "경기도학교밖청소년지원센터",
       "org": "",
@@ -65,7 +68,9 @@
       "kind": "학교밖청소년지원센터",
       "hours": "9:00~18:00",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": "수원시"
     },
     {
       "change": "정보 다름",
@@ -91,7 +96,9 @@
       "kind": "청소년상담복지센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "정보 다름",
@@ -117,7 +124,9 @@
       "kind": "청소년상담복지센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "정보 다름",
@@ -143,7 +152,9 @@
       "kind": "청소년상담복지센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "정보 다름",
@@ -169,7 +180,9 @@
       "kind": "청소년상담복지센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "정보 다름",
@@ -195,7 +208,9 @@
       "kind": "청소년상담복지센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "정보 다름",
@@ -221,7 +236,9 @@
       "kind": "청소년상담복지센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "정보 다름",
@@ -247,7 +264,9 @@
       "kind": "청소년상담복지센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "정보 다름",
@@ -273,7 +292,9 @@
       "kind": "청소년상담복지센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "정보 다름",
@@ -299,12 +320,14 @@
       "kind": "청소년상담복지센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "정보 다름",
       "source": "kyci-safetynet-center",
-      "region": "gyeonggi",
+      "region": "near",
       "area": "youth",
       "name": "수원시청소년상담복지센터",
       "org": "",
@@ -325,7 +348,9 @@
       "kind": "청소년상담복지센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": "수원시"
     },
     {
       "change": "정보 다름",
@@ -351,7 +376,9 @@
       "kind": "청소년상담복지센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "정보 다름",
@@ -377,7 +404,9 @@
       "kind": "청소년상담복지센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "정보 다름",
@@ -403,7 +432,9 @@
       "kind": "청소년상담복지센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "정보 다름",
@@ -429,7 +460,9 @@
       "kind": "청소년상담복지센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "정보 다름",
@@ -455,7 +488,9 @@
       "kind": "청소년상담복지센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "정보 다름",
@@ -481,7 +516,9 @@
       "kind": "청소년상담복지센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "정보 다름",
@@ -507,7 +544,9 @@
       "kind": "청소년상담복지센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "정보 다름",
@@ -533,7 +572,9 @@
       "kind": "청소년상담복지센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "정보 다름",
@@ -559,7 +600,9 @@
       "kind": "청소년상담복지센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "정보 다름",
@@ -585,7 +628,9 @@
       "kind": "청소년상담복지센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "정보 다름",
@@ -611,7 +656,9 @@
       "kind": "청소년상담복지센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "정보 다름",
@@ -637,12 +684,14 @@
       "kind": "청소년상담복지센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "정보 다름",
       "source": "kyci-safetynet-center",
-      "region": "gyeonggi",
+      "region": "near",
       "area": "youth",
       "name": "평택시청소년상담복지센터",
       "org": "",
@@ -663,7 +712,9 @@
       "kind": "청소년상담복지센터",
       "hours": "9:00~20:00",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": "평택시"
     },
     {
       "change": "정보 다름",
@@ -689,7 +740,9 @@
       "kind": "청소년상담복지센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "정보 다름",
@@ -715,12 +768,14 @@
       "kind": "청소년상담복지센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "정보 다름",
       "source": "kyci-safetynet-center",
-      "region": "gyeonggi",
+      "region": "near",
       "area": "youth",
       "name": "화성시청소년상담복지센터",
       "org": "",
@@ -741,7 +796,9 @@
       "kind": "청소년상담복지센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": "화성시"
     },
     {
       "change": "정보 다름",
@@ -767,7 +824,9 @@
       "kind": "위기지원형",
       "hours": "",
       "sigungu": "",
-      "site": "www.ggwsunflower.or.kr"
+      "site": "www.ggwsunflower.or.kr",
+      "run": "mogef-sunflower-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "정보 다름",
@@ -793,7 +852,9 @@
       "kind": "통합형",
       "hours": "",
       "sigungu": "",
-      "site": "www.gcsunflower.or.kr"
+      "site": "www.gcsunflower.or.kr",
+      "run": "mogef-sunflower-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "정보 다름",
@@ -819,7 +880,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "knpa-police-station:osan",
+      "city": ""
     },
     {
       "change": "정보 다름",
@@ -845,7 +908,9 @@
       "kind": "학교밖청소년지원센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:osan",
+      "city": ""
     },
     {
       "change": "정보 다름",
@@ -871,7 +936,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "mcst-public-library:osan",
+      "city": ""
     },
     {
       "change": "정보 다름",
@@ -897,7 +964,9 @@
       "kind": "개인",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "std-local-child-center:osan",
+      "city": ""
     },
     {
       "change": "정보 다름",
@@ -923,7 +992,9 @@
       "kind": "사회적협동조합",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "std-local-child-center:osan",
+      "city": ""
     },
     {
       "change": "정보 다름",
@@ -949,7 +1020,9 @@
       "kind": "법인",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "std-local-child-center:osan",
+      "city": ""
     },
     {
       "change": "정보 다름",
@@ -975,7 +1048,9 @@
       "kind": "사회적협동조합",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "std-local-child-center:osan",
+      "city": ""
     },
     {
       "change": "정보 다름",
@@ -1001,7 +1076,9 @@
       "kind": "사회적협동조합",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "std-local-child-center:osan",
+      "city": ""
     },
     {
       "change": "정보 다름",
@@ -1027,7 +1104,9 @@
       "kind": "법인",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "std-local-child-center:osan",
+      "city": ""
     },
     {
       "change": "정보 다름",
@@ -1053,7 +1132,9 @@
       "kind": "개인",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "std-local-child-center:osan",
+      "city": ""
     },
     {
       "change": "정보 다름",
@@ -1079,7 +1160,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "std-teen-training-fclt:osan",
+      "city": ""
     },
     {
       "change": "정보 다름",
@@ -1105,7 +1188,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "std-teen-training-fclt:osan",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -1131,7 +1216,9 @@
       "kind": "학교밖청소년지원센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -1157,7 +1244,9 @@
       "kind": "청소년쉼터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -1183,7 +1272,9 @@
       "kind": "학교밖청소년지원센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -1209,7 +1300,9 @@
       "kind": "학교밖청소년지원센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -1235,7 +1328,9 @@
       "kind": "학교밖청소년지원센터",
       "hours": "9:00~20:00",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -1261,7 +1356,9 @@
       "kind": "학교밖청소년지원센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -1287,7 +1384,9 @@
       "kind": "청소년쉼터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -1313,7 +1412,9 @@
       "kind": "청소년쉼터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -1339,7 +1440,9 @@
       "kind": "학교밖청소년지원센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -1365,7 +1468,9 @@
       "kind": "청소년쉼터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -1391,7 +1496,9 @@
       "kind": "학교밖청소년지원센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -1417,7 +1524,9 @@
       "kind": "청소년쉼터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -1443,7 +1552,9 @@
       "kind": "학교밖청소년지원센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -1469,7 +1580,9 @@
       "kind": "청소년쉼터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -1495,7 +1608,9 @@
       "kind": "청소년상담복지센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -1521,7 +1636,9 @@
       "kind": "학교밖청소년지원센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -1547,7 +1664,9 @@
       "kind": "청소년상담복지센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -1573,7 +1692,9 @@
       "kind": "학교밖청소년지원센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -1599,7 +1720,9 @@
       "kind": "청소년쉼터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -1625,7 +1748,9 @@
       "kind": "학교밖청소년지원센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -1651,7 +1776,9 @@
       "kind": "청소년쉼터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -1677,7 +1804,9 @@
       "kind": "청소년쉼터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -1703,7 +1832,9 @@
       "kind": "청소년쉼터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -1729,7 +1860,9 @@
       "kind": "청소년쉼터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -1755,7 +1888,9 @@
       "kind": "청소년쉼터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -1781,7 +1916,9 @@
       "kind": "청소년쉼터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -1807,12 +1944,14 @@
       "kind": "학교밖청소년지원센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
       "source": "kyci-safetynet-center",
-      "region": "gyeonggi",
+      "region": "near",
       "area": "youth|shelter",
       "name": "수원남자단기청소년쉼터(청소년달보듬터)",
       "org": "",
@@ -1833,12 +1972,14 @@
       "kind": "청소년쉼터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": "수원시"
     },
     {
       "change": "신규 후보",
       "source": "kyci-safetynet-center",
-      "region": "gyeonggi",
+      "region": "near",
       "area": "youth|school",
       "name": "수원시학교밖청소년지원센터",
       "org": "",
@@ -1859,12 +2000,14 @@
       "kind": "학교밖청소년지원센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": "수원시"
     },
     {
       "change": "신규 후보",
       "source": "kyci-safetynet-center",
-      "region": "gyeonggi",
+      "region": "near",
       "area": "youth|shelter",
       "name": "수원여자단기청소년쉼터",
       "org": "",
@@ -1885,7 +2028,9 @@
       "kind": "청소년쉼터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": "수원시"
     },
     {
       "change": "신규 후보",
@@ -1911,7 +2056,9 @@
       "kind": "청소년쉼터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -1937,7 +2084,9 @@
       "kind": "청소년쉼터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -1963,7 +2112,9 @@
       "kind": "청소년상담복지센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -1989,7 +2140,9 @@
       "kind": "학교밖청소년지원센터",
       "hours": "9:00~18:00",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -2015,7 +2168,9 @@
       "kind": "청소년쉼터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -2041,7 +2196,9 @@
       "kind": "청소년쉼터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -2067,7 +2224,9 @@
       "kind": "학교밖청소년지원센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -2093,7 +2252,9 @@
       "kind": "학교밖청소년지원센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -2119,7 +2280,9 @@
       "kind": "청소년쉼터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -2145,7 +2308,9 @@
       "kind": "청소년쉼터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -2171,7 +2336,9 @@
       "kind": "청소년쉼터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -2197,7 +2364,9 @@
       "kind": "학교밖청소년지원센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -2223,7 +2392,9 @@
       "kind": "학교밖청소년지원센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -2249,7 +2420,9 @@
       "kind": "학교밖청소년지원센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -2275,7 +2448,9 @@
       "kind": "학교밖청소년지원센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -2301,7 +2476,9 @@
       "kind": "학교밖청소년지원센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -2327,7 +2504,9 @@
       "kind": "청소년쉼터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -2353,7 +2532,9 @@
       "kind": "학교밖청소년지원센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -2379,7 +2560,9 @@
       "kind": "청소년쉼터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -2405,7 +2588,9 @@
       "kind": "학교밖청소년지원센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -2431,7 +2616,9 @@
       "kind": "청소년쉼터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -2457,7 +2644,9 @@
       "kind": "청소년쉼터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -2483,7 +2672,9 @@
       "kind": "청소년쉼터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -2509,7 +2700,9 @@
       "kind": "청소년상담복지센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -2535,7 +2728,9 @@
       "kind": "학교밖청소년지원센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -2561,7 +2756,9 @@
       "kind": "청소년쉼터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -2587,7 +2784,9 @@
       "kind": "학교밖청소년지원센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -2613,7 +2812,9 @@
       "kind": "청소년쉼터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -2639,12 +2840,14 @@
       "kind": "학교밖청소년지원센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
       "source": "kyci-safetynet-center",
-      "region": "gyeonggi",
+      "region": "near",
       "area": "youth|school",
       "name": "평택시학교밖청소년지원센터",
       "org": "",
@@ -2665,12 +2868,14 @@
       "kind": "학교밖청소년지원센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": "평택시"
     },
     {
       "change": "신규 후보",
       "source": "kyci-safetynet-center",
-      "region": "gyeonggi",
+      "region": "near",
       "area": "youth|shelter",
       "name": "평택여자단기청소년쉼터",
       "org": "",
@@ -2691,7 +2896,9 @@
       "kind": "청소년쉼터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": "평택시"
     },
     {
       "change": "신규 후보",
@@ -2717,7 +2924,9 @@
       "kind": "학교밖청소년지원센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -2743,7 +2952,9 @@
       "kind": "청소년쉼터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -2769,12 +2980,14 @@
       "kind": "학교밖청소년지원센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
       "source": "kyci-safetynet-center",
-      "region": "gyeonggi",
+      "region": "near",
       "area": "youth|shelter",
       "name": "화성시여자단기청소년쉼터",
       "org": "",
@@ -2795,12 +3008,14 @@
       "kind": "청소년쉼터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": "화성시"
     },
     {
       "change": "신규 후보",
       "source": "kyci-safetynet-center",
-      "region": "gyeonggi",
+      "region": "near",
       "area": "youth|school",
       "name": "화성시학교밖청소년지원센터",
       "org": "",
@@ -2821,7 +3036,9 @@
       "kind": "학교밖청소년지원센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": "화성시"
     },
     {
       "change": "신규 후보",
@@ -2847,7 +3064,9 @@
       "kind": "위기지원형",
       "hours": "",
       "sigungu": "",
-      "site": "www.ggnonestop.or.kr"
+      "site": "www.ggnonestop.or.kr",
+      "run": "mogef-sunflower-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -2873,7 +3092,9 @@
       "kind": "통합형",
       "hours": "",
       "sigungu": "",
-      "site": "www.gnwsunflower.or.kr"
+      "site": "www.gnwsunflower.or.kr",
+      "run": "mogef-sunflower-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -2899,7 +3120,9 @@
       "kind": "비숙박형",
       "hours": "",
       "sigungu": "",
-      "site": "http://www.stand1824.kr/"
+      "site": "http://www.stand1824.kr/",
+      "run": "mogef-youth-indep-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -2925,7 +3148,9 @@
       "kind": "비숙박형",
       "hours": "",
       "sigungu": "",
-      "site": "http://www.stand1318.com/"
+      "site": "http://www.stand1318.com/",
+      "run": "mogef-youth-indep-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -2951,7 +3176,9 @@
       "kind": "숙박형",
       "hours": "",
       "sigungu": "",
-      "site": "http://www.jaripon.com/"
+      "site": "http://www.jaripon.com/",
+      "run": "mogef-youth-indep-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -2977,7 +3204,9 @@
       "kind": "중장기쉼터(여자)",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "mogef-youth-shelter:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -3003,7 +3232,9 @@
       "kind": "중장기쉼터(남자)",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "mogef-youth-shelter:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -3029,7 +3260,9 @@
       "kind": "단기쉼터(여자)",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "mogef-youth-shelter:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -3055,7 +3288,9 @@
       "kind": "중장기쉼터(남자)",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "mogef-youth-shelter:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -3081,7 +3316,9 @@
       "kind": "일시쉼터(이동형)",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "mogef-youth-shelter:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -3107,7 +3344,9 @@
       "kind": "일시쉼터(고정형)",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "mogef-youth-shelter:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -3133,7 +3372,9 @@
       "kind": "일시쉼터(고정형)",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "mogef-youth-shelter:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -3159,7 +3400,9 @@
       "kind": "단기쉼터(여자)",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "mogef-youth-shelter:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -3185,7 +3428,9 @@
       "kind": "단기쉼터(남자)",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "mogef-youth-shelter:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -3211,7 +3456,9 @@
       "kind": "중장기쉼터(남자)",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "mogef-youth-shelter:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -3237,7 +3484,9 @@
       "kind": "단기쉼터(여자)",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "mogef-youth-shelter:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -3263,7 +3512,9 @@
       "kind": "중장기쉼터(여자)",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "mogef-youth-shelter:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -3289,12 +3540,14 @@
       "kind": "일시쉼터(고정형)",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "mogef-youth-shelter:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
       "source": "mogef-youth-shelter",
-      "region": "gyeonggi",
+      "region": "near",
       "area": "youth|shelter",
       "name": "수원남자단기청소년쉼터(청소년달보듬터)",
       "org": "",
@@ -3315,12 +3568,14 @@
       "kind": "단기쉼터(남자)",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "mogef-youth-shelter:gyeonggi",
+      "city": "수원시"
     },
     {
       "change": "신규 후보",
       "source": "mogef-youth-shelter",
-      "region": "gyeonggi",
+      "region": "near",
       "area": "youth|shelter",
       "name": "수원여자단기청소년쉼터",
       "org": "",
@@ -3341,7 +3596,9 @@
       "kind": "단기쉼터(여자)",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "mogef-youth-shelter:gyeonggi",
+      "city": "수원시"
     },
     {
       "change": "신규 후보",
@@ -3367,7 +3624,9 @@
       "kind": "단기쉼터(남자)",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "mogef-youth-shelter:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -3393,7 +3652,9 @@
       "kind": "단기쉼터(여자)",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "mogef-youth-shelter:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -3419,7 +3680,9 @@
       "kind": "단기쉼터(남자)",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "mogef-youth-shelter:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -3445,7 +3708,9 @@
       "kind": "단기쉼터(여자)",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "mogef-youth-shelter:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -3471,7 +3736,9 @@
       "kind": "단기쉼터(남자)",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "mogef-youth-shelter:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -3497,7 +3764,9 @@
       "kind": "중장기쉼터(여자)",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "mogef-youth-shelter:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -3523,7 +3792,9 @@
       "kind": "일시쉼터(고정형)",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "mogef-youth-shelter:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -3549,7 +3820,9 @@
       "kind": "단기쉼터(남자)",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "mogef-youth-shelter:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -3575,7 +3848,9 @@
       "kind": "중장기쉼터(여자)",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "mogef-youth-shelter:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -3601,7 +3876,9 @@
       "kind": "단기쉼터(남자)",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "mogef-youth-shelter:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -3627,7 +3904,9 @@
       "kind": "단기쉼터(여자)",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "mogef-youth-shelter:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -3653,7 +3932,9 @@
       "kind": "일시쉼터(이동형)",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "mogef-youth-shelter:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -3679,7 +3960,9 @@
       "kind": "단기쉼터(여자)",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "mogef-youth-shelter:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -3705,12 +3988,14 @@
       "kind": "단기쉼터(여자)",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "mogef-youth-shelter:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
       "source": "mogef-youth-shelter",
-      "region": "gyeonggi",
+      "region": "near",
       "area": "youth|shelter",
       "name": "평택남자단기청소년쉼터(청울터)",
       "org": "",
@@ -3731,12 +4016,14 @@
       "kind": "단기쉼터(남자)",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "mogef-youth-shelter:gyeonggi",
+      "city": "평택시"
     },
     {
       "change": "신규 후보",
       "source": "mogef-youth-shelter",
-      "region": "gyeonggi",
+      "region": "near",
       "area": "youth|shelter",
       "name": "평택여자단기청소년쉼터",
       "org": "",
@@ -3757,7 +4044,9 @@
       "kind": "단기쉼터(여자)",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "mogef-youth-shelter:gyeonggi",
+      "city": "평택시"
     },
     {
       "change": "신규 후보",
@@ -3783,12 +4072,14 @@
       "kind": "중장기쉼터(남자)",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "mogef-youth-shelter:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
       "source": "mogef-youth-shelter",
-      "region": "gyeonggi",
+      "region": "near",
       "area": "youth|shelter",
       "name": "화성시여자단기청소년쉼터",
       "org": "",
@@ -3809,12 +4100,14 @@
       "kind": "단기쉼터(여자)",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "mogef-youth-shelter:gyeonggi",
+      "city": "화성시"
     },
     {
       "change": "신규 후보",
       "source": "mois-disaster-psych",
-      "region": "gyeonggi",
+      "region": "near",
       "area": "mental",
       "name": "경기 재난심리회복지원센터",
       "org": "",
@@ -3835,12 +4128,14 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "mois-disaster-psych:gyeonggi",
+      "city": "수원시"
     },
     {
       "change": "신규 후보",
       "source": "moj-probation-office",
-      "region": "gyeonggi",
+      "region": "near",
       "area": "",
       "name": "수원보호관찰소",
       "org": "",
@@ -3861,7 +4156,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "moj-probation-office:gyeonggi",
+      "city": "수원시"
     },
     {
       "change": "신규 후보",
@@ -3887,7 +4184,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "moj-probation-office:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -3913,7 +4212,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "moj-probation-office:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -3939,7 +4240,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "moj-probation-office:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -3965,12 +4268,14 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "moj-probation-office:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
       "source": "moj-probation-office",
-      "region": "gyeonggi",
+      "region": "near",
       "area": "",
       "name": "수원보호관찰소평택지소",
       "org": "",
@@ -3991,7 +4296,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "moj-probation-office:gyeonggi",
+      "city": "평택시"
     },
     {
       "change": "신규 후보",
@@ -4017,7 +4324,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "moj-probation-office:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -4043,7 +4352,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "moj-probation-office:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -4069,7 +4380,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "moj-probation-office:gyeonggi",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -4095,7 +4408,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national-care",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -4121,7 +4436,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national-care",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -4147,7 +4464,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national-care",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -4173,7 +4492,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national-care",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -4199,7 +4520,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national-care",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -4225,7 +4548,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national-care",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -4251,7 +4576,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national-care",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -4277,7 +4604,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national-care",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -4303,7 +4632,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national-care",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -4329,7 +4660,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national-care",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -4355,7 +4688,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national-care",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -4381,7 +4716,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national-care",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -4407,7 +4744,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national-care",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -4433,7 +4772,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national-care",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -4459,7 +4800,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national-care",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -4485,7 +4828,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national-care",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -4511,7 +4856,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national-care",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -4537,7 +4884,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "mcst-public-library:osan",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -4563,7 +4912,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "mcst-public-library:osan",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -4589,7 +4940,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "mcst-public-library:osan",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -4615,7 +4968,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "mcst-public-library:osan",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -4641,7 +4996,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "mcst-public-library:osan",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -4667,7 +5024,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "mcst-public-library:osan",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -4693,7 +5052,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "경기도 오산시",
-      "site": ""
+      "site": "",
+      "run": "mohw-mind-voucher:osan",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -4719,7 +5080,9 @@
       "kind": "의원",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "nmc-hospital-osan:osan",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -4745,7 +5108,9 @@
       "kind": "의원",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "nmc-hospital-osan:osan",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -4771,7 +5136,9 @@
       "kind": "의원",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "nmc-hospital-osan:osan",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -4797,7 +5164,9 @@
       "kind": "의원",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "nmc-hospital-osan:osan",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -4823,7 +5192,9 @@
       "kind": "의원",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "nmc-hospital-osan:osan",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -4849,7 +5220,9 @@
       "kind": "의원",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "nmc-hospital-osan:osan",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -4875,7 +5248,9 @@
       "kind": "의원",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "nmc-hospital-osan:osan",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -4901,7 +5276,9 @@
       "kind": "의원",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "nmc-hospital-osan:osan",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -4927,7 +5304,9 @@
       "kind": "치과의원",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "nmc-hospital-osan:osan",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -4953,7 +5332,9 @@
       "kind": "법인",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "std-local-child-center:osan",
+      "city": ""
     },
     {
       "change": "신규 후보",
@@ -4979,12 +5360,14 @@
       "kind": "",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "std-teen-training-fclt:osan",
+      "city": ""
     },
     {
       "change": "기존과 일치",
       "source": "kyci-safetynet-center",
-      "region": "gyeonggi",
+      "region": "near",
       "area": "youth",
       "name": "경기도청소년상담복지센터",
       "org": "",
@@ -5005,12 +5388,14 @@
       "kind": "청소년상담복지센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:gyeonggi",
+      "city": "수원시"
     },
     {
       "change": "기존과 일치",
       "source": "mogef-sunflower-center",
-      "region": "gyeonggi",
+      "region": "near",
       "area": "abuse",
       "name": "경기남부해바라기센터(통합)",
       "org": "",
@@ -5031,7 +5416,9 @@
       "kind": "통합형",
       "hours": "",
       "sigungu": "",
-      "site": "www.ggsunflower.or.kr"
+      "site": "www.ggsunflower.or.kr",
+      "run": "mogef-sunflower-center:gyeonggi",
+      "city": "수원시"
     },
     {
       "change": "기존과 일치",
@@ -5057,7 +5444,9 @@
       "kind": "아동형",
       "hours": "",
       "sigungu": "",
-      "site": "www.sunflower1375.or.kr"
+      "site": "www.sunflower1375.or.kr",
+      "run": "mogef-sunflower-center:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -5083,7 +5472,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -5109,7 +5500,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -5135,7 +5528,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -5161,7 +5556,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -5187,7 +5584,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -5213,7 +5612,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -5239,7 +5640,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -5265,7 +5668,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -5291,7 +5696,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -5317,7 +5724,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -5343,7 +5752,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -5369,7 +5780,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -5395,7 +5808,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -5421,7 +5836,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -5447,7 +5864,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -5473,7 +5892,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -5499,7 +5920,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -5525,7 +5948,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -5551,7 +5976,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -5577,7 +6004,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -5603,7 +6032,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -5629,7 +6060,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -5655,7 +6088,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -5681,7 +6116,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -5707,7 +6144,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -5733,7 +6172,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -5759,7 +6200,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -5785,7 +6228,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -5811,7 +6256,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -5837,7 +6284,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -5863,7 +6312,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -5889,7 +6340,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -5915,7 +6368,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -5941,7 +6396,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -5967,7 +6424,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -5993,7 +6452,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6019,7 +6480,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6045,7 +6508,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6071,7 +6536,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6097,7 +6564,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6123,7 +6592,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6149,7 +6620,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6175,7 +6648,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6201,7 +6676,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6227,7 +6704,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6253,7 +6732,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6279,7 +6760,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6305,7 +6788,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6331,7 +6816,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6357,7 +6844,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6383,7 +6872,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6409,7 +6900,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6435,7 +6928,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6461,7 +6956,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6487,7 +6984,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6513,7 +7012,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6539,7 +7040,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6565,7 +7068,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6591,7 +7096,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6617,7 +7124,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6643,7 +7152,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6669,7 +7180,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6695,7 +7208,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:gyeonggi",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6721,7 +7236,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6747,7 +7264,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6773,7 +7292,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6799,7 +7320,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6825,7 +7348,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6851,7 +7376,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6877,7 +7404,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6903,7 +7432,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6929,7 +7460,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6955,7 +7488,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -6981,7 +7516,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7007,7 +7544,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7033,7 +7572,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7059,7 +7600,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7085,7 +7628,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7111,7 +7656,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7137,7 +7684,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7163,7 +7712,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7189,7 +7740,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7215,7 +7768,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7241,7 +7796,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7267,7 +7824,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7293,7 +7852,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7319,7 +7880,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7345,7 +7908,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7371,7 +7936,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7397,7 +7964,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7423,7 +7992,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7449,7 +8020,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7475,7 +8048,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7501,7 +8076,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7527,7 +8104,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7553,7 +8132,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7579,7 +8160,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7605,7 +8188,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7631,7 +8216,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7657,7 +8244,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7683,7 +8272,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7709,7 +8300,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7735,7 +8328,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7761,7 +8356,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7787,7 +8384,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7813,7 +8412,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7839,7 +8440,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7865,7 +8468,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7891,7 +8496,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7917,7 +8524,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7943,7 +8552,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7969,7 +8580,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -7995,7 +8608,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8021,7 +8636,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8047,7 +8664,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8073,7 +8692,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8099,7 +8720,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8125,7 +8748,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8151,7 +8776,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8177,7 +8804,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8203,7 +8832,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8229,7 +8860,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8255,7 +8888,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8281,7 +8916,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8307,7 +8944,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8333,7 +8972,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8359,7 +9000,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8385,7 +9028,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8411,7 +9056,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8437,7 +9084,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8463,7 +9112,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national-care",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8489,7 +9140,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national-care",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8515,7 +9168,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national-care",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8541,7 +9196,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "ssis-national:national-care",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8567,7 +9224,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "",
-      "site": "www.goehs.kr"
+      "site": "www.goehs.kr",
+      "run": "knise-special-ed-center:osan",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8593,7 +9252,9 @@
       "kind": "청소년상담복지센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "kyci-safetynet-center:osan",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8619,7 +9280,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "경기도 오산시",
-      "site": ""
+      "site": "",
+      "run": "mohw-mind-voucher:osan",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8645,7 +9308,9 @@
       "kind": "지역응급의료센터",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "nmc-emergency:osan",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8671,7 +9336,9 @@
       "kind": "의원",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "nmc-hospital-osan:osan",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8697,7 +9364,9 @@
       "kind": "의원",
       "hours": "",
       "sigungu": "",
-      "site": ""
+      "site": "",
+      "run": "nmc-hospital-osan:osan",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8723,7 +9392,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:osan",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8749,7 +9420,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:osan",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8775,7 +9448,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:osan",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8801,7 +9476,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:osan",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8827,7 +9504,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:osan",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8853,7 +9532,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:osan",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8879,7 +9560,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:osan",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8905,7 +9588,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:osan",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8931,7 +9616,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:osan",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8957,7 +9644,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:osan",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -8983,7 +9672,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:osan",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -9009,7 +9700,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:osan",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -9035,7 +9728,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:osan",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -9061,7 +9756,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:osan",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -9087,7 +9784,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:osan",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -9113,7 +9812,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:osan",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -9139,7 +9840,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:osan",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -9165,7 +9868,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:osan",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -9191,7 +9896,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:osan",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -9217,7 +9924,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:osan",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -9243,7 +9952,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:osan",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -9269,7 +9980,9 @@
       "kind": "",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "ssis-local:osan",
+      "city": ""
     },
     {
       "change": "기존과 일치",
@@ -9295,7 +10008,9 @@
       "kind": "법인",
       "hours": "",
       "sigungu": "오산시",
-      "site": ""
+      "site": "",
+      "run": "std-local-child-center:osan",
+      "city": ""
     }
   ]
 }

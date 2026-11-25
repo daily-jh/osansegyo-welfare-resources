@@ -14,7 +14,9 @@ assert.ok(D.groups.length >= 8, '기관 목록 묶음 8종 이상');
 for (const g of D.groups) {
   assert.ok(facilityIds.has(g.id), '설정에 없는 묶음: ' + g.id);
   for (const i of g.items) {
-    assert.ok(['osan', 'gyeonggi'].includes(i.region), g.id + ' 지역');
+    assert.ok(['osan', 'near', 'gyeonggi'].includes(i.region), g.id + ' 지역');
+    if (i.region === 'near') assert.ok(/수원시|화성시|평택시/.test(i.address) && /^(수원시|화성시|평택시)$/.test(i.city), g.id + ' 인근 시 주소: ' + i.address);
+    if (i.region === 'gyeonggi') assert.ok(!/수원시|화성시|평택시/.test(i.address), g.id + ' 인근 시 기관이 경기로 남음: ' + i.name);
     assert.ok(i.name, g.id + ' 이름 없음');
     assert.ok(!('rprsvNm' in i) && !JSON.stringify(i).includes('rprsvNm'), '대표자 이름을 싣지 않음');
     if (i.region === 'osan') assert.ok(/오산시/.test(i.address), g.id + ' 오산 주소: ' + i.address);

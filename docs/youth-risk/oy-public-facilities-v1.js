@@ -38,18 +38,18 @@ function build(p,opt){opt=opt||{};const P=PF(),B=PB();const d=opt.data||(P&&P.da
  const links=[];
  for(const r of RULES){const g=byId[r.src];if(!g)continue;const why=r.why(x);if(!why||!why.length)continue;
   const items=P.nearFirst(g.items.filter(i=>(!r.kind||r.kind.test(i.kind||''))&&(!r.name||r.name.test(i.name||''))));if(!items.length)continue;
-  const osan=items.filter(i=>i.region==='osan');
-  links.push({id:r.src,label:r.label,why:[...new Set(why)].slice(0,3),note:r.note||'',items:(osan.length?osan:items).slice(0,4),osan:osan.length,total:items.length})}
+  const osan=items.filter(i=>i.region==='osan'),nearN=items.filter(i=>P.place&&P.place(i)==='near').length;
+  links.push({id:r.src,label:r.label,why:[...new Set(why)].slice(0,3),note:r.note||'',items:(osan.length?osan:items).slice(0,4),osan:osan.length,near:nearN,total:items.length})}
  return {version:VERSION,ready:true,links,date:d.generatedAt?String(d.generatedAt).slice(0,10):''}}
 
 const SHOW=3;
 function html(m){if(!m||!m.ready||!m.links.length)return '';const P=PF();
  return '<section class="oypf" aria-label="공공데이터 기관 연결"><header><span class="oypb-k">공공데이터 기관 목록 · '+esc(m.date)+' 수집</span>'
-  +'<h3>응답과 이어지는 오산·경기 기관 '+m.links.length+'종</h3><p>공공데이터포털의 기관 목록 원문입니다. 운영 여부와 연락처는 <b>연계 전 전화로 확인</b>합니다.</p></header>'
-  +m.links.map((l,k)=>(k===SHOW?'<details class="oypb-more"><summary>나머지 '+(m.links.length-SHOW)+'종 더 보기</summary>':'')+'<div class="oypf-link"><h4>'+esc(l.label)+' <small>'+(l.osan?'오산 '+l.osan+'곳':'오산 없음 · 경기 '+l.total+'곳')+'</small></h4>'
+  +'<h3>응답과 이어지는 오산·인근 시·경기 기관 '+m.links.length+'종</h3><p>공공데이터포털의 기관 목록 원문입니다. 운영 여부와 연락처는 <b>연계 전 전화로 확인</b>합니다.</p></header>'
+  +m.links.map((l,k)=>(k===SHOW?'<details class="oypb-more"><summary>나머지 '+(m.links.length-SHOW)+'종 더 보기</summary>':'')+'<div class="oypf-link"><h4>'+esc(l.label)+' <small>'+(l.osan?'오산 '+l.osan+'곳':'오산 없음 · '+(l.near?'인근 시 '+l.near+'곳 · ':'')+'경기 '+(l.total-(l.near||0))+'곳')+'</small></h4>'
    +'<p class="oypb-chain"><span>연결 고리</span>'+l.why.map(w=>'<em>'+esc(w)+'</em>').join('')+'</p>'
    +'<ul class="pf">'+l.items.map(i=>P.item(i,{dbLink:id=>'../#org='+encodeURIComponent(id)})).join('')+'</ul>'
-   +(l.total>l.items.length?'<p class="pf-more"><a href="../public-facilities.html#'+esc(l.id)+'" target="_blank" rel="noopener">경기 포함 전체 '+l.total+'곳 보기 ↗</a></p>':'')
+   +(l.total>l.items.length?'<p class="pf-more"><a href="../public-facilities.html#'+esc(l.id)+'" target="_blank" rel="noopener">인근 시·경기 포함 전체 '+l.total+'곳 보기 ↗</a></p>':'')
    +(l.note?'<p class="oypb-note">'+esc(l.note)+'</p>':'')+'</div>').join('')+(m.links.length>SHOW?'</details>':'')
   +'<p class="oypb-foot">출처: 공공데이터포털 기관 목록(청소년안전망·성평등가족부·보건복지부·국립특수교육원·경찰청·문화체육관광부·국립중앙의료원 등). 기관 등록정보이며 개인 사례 자료가 아님.</p></section>'}
 
