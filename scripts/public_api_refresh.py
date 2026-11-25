@@ -443,10 +443,15 @@ def inspect(urls, key, getter=None):
                     tail = base.rstrip('/').rsplit('/', 1)[-1]
                     stem = re.sub(r'(Service)?(V\d+)?$', '', tail)
                     tries += [f'{base}/{op}' for op in dict.fromkeys([
-                        f'get{stem[0].upper()}{stem[1:]}List', f'get{stem[0].upper()}{stem[1:]}ListV2', 'getList', 'getInfoList'])]
+                        f'get{stem[0].upper()}{stem[1:]}List', f'get{stem[0].upper()}{stem[1:]}ListV2',
+                        f'get{stem[0].upper()}{stem[1:]}', f'get{stem[0].upper()}{stem[1:]}Info',
+                        f'get{stem[0].upper()}{stem[1:]}InfoV2', 'getList', 'getInfoList'])]
+                extra = {'pageNo': '1', 'numOfRows': '3', 'type': 'json'}
+                if 'apis.data.go.kr' in base:
+                    extra.update({'_type': 'json', 'returnType': 'json'})
+                extra.update(dict(urllib.parse.parse_qsl(query)))
                 for t in tries:
-                    sep = '&' if query else ''
-                    q = query + sep + f'serviceKey={qkey}&pageNo=1&numOfRows=3&type=json&_type=json&returnType=json'
+                    q = urllib.parse.urlencode(extra) + f'&serviceKey={qkey}'
                     code, raw = get(t + '?' + q)
                     print(f'- {t.replace(base, "") or "(주소 그대로)"} → {code}:', show(raw.decode('utf-8', 'replace'), 500))
                     if code == 200 and b'<cmmMsgHeader>' not in raw and b'API not found' not in raw:
