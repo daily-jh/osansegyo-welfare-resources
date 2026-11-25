@@ -20,6 +20,7 @@
     { id: 'd2', domain: 'daily', text: '끼니를 자주 거르거나 최근 몸무게가 많이 줄었습니다.' },
     { id: 'd3', domain: 'daily', text: '혼자 살거나 낮에 혼자 있어 위급할 때 알릴 사람이 없습니다.', flag: 'alone' },
     { id: 'd4', domain: 'daily', text: '휠체어·보행기 같은 보조기기가 필요합니다.' },
+    { id: 'd5', domain: 'daily', text: '누군가의 도움 없이는 집 밖을 걸어 다니기 어렵습니다.', flag: 'outdoor' },
     { id: 'o1', domain: 'housing', text: '문턱·계단·미끄러운 욕실 때문에 집 안에서 넘어질 위험이 있습니다.' },
     { id: 'o2', domain: 'housing', text: '냉난방·위생 등 집 상태가 건강을 해치거나, 살 곳이 불안정합니다.' },
     { id: 'f1', domain: 'family', text: '돌보는 가족이 지쳤거나, 돌봐 줄 가족이 없거나 돌보기 어렵습니다.', flag: 'carerGap' }
@@ -27,18 +28,25 @@
 
   const ltcOptions = [
     { id: 'grade', label: '등급 있음(1~5등급·인지지원등급)' },
-    { id: 'outside', label: '등급외 판정을 받음' },
-    { id: 'rejected', label: '신청했으나 기각됨' },
+    { id: 'outside', label: '등급외 판정을 받음(A·B)' },
+    { id: 'rejected', label: '신청했으나 기각·각하됨' },
+    { id: 'pending', label: '등급판정 신청 중' },
     { id: 'none', label: '신청한 적 없음·모름' }
+  ];
+  /* 개인별지원계획서(별지 제2호서식) 대상자 유형의 노인맞춤돌봄서비스 칸 */
+  const oacOptions = [
+    { id: 'none', label: '이용 안 함·모름' },
+    { id: 'general', label: '일반돌봄군' },
+    { id: 'intensive', label: '중점돌봄군' }
   ];
 
   /* 질문·장기요양 상태별로 먼저 볼 서비스 id(care-data.js services) */
   const suggest = {
     h1: ['H1', 'H2', 'D4'], h2: ['H5', 'D7', 'O3'], h3: ['H4', 'H3', 'H8'],
     p1: ['P2', 'H6', 'F1'], p2: ['P3', 'D9'], p3: ['P5', 'P1', 'O1'],
-    l2: ['L1', 'L2', 'D6'], d1: ['D1', 'D7'], d2: ['D3', 'P1'], d3: ['D2', 'D9', 'D1'], d4: ['D5'],
+    l2: ['L1', 'L2', 'D6'], d1: ['D1', 'D7'], d2: ['D3', 'P1'], d3: ['D2', 'D9', 'D1'], d4: ['D5'], d5: ['D4', 'D5', 'H1'],
     o1: ['O1'], o2: ['O2', 'D10'], f1: ['F3', 'D7', 'L2'],
-    ltc_grade: ['L2', 'H2'], ltc_outside: ['D1', 'P1'], ltc_rejected: ['D1', 'D7'], ltc_none: []
+    ltc_grade: ['L2', 'H2'], ltc_outside: ['D1', 'P1'], ltc_rejected: ['D1', 'D7'], ltc_pending: ['D7'], ltc_none: []
   };
 
   function evaluate(input) {
@@ -46,6 +54,7 @@
     const yes = new Set((a.yes || []).filter(id => questions.some(q => q.id === id)));
     const ltc = ltcOptions.some(o => o.id === a.ltc) ? a.ltc : 'none';
     const age65 = a.age === '65+';
+    const oac = oacOptions.some(o => o.id === a.oac) ? a.oac : 'none';
     const severe = a.disability === 'severe';
     const anyDisability = severe || a.disability === 'mild';
 
@@ -75,6 +84,7 @@
     if (age65 && flags.ltcGrade) priority.push('장기요양 재가급여자(1~5등급·인지지원등급)');
     if (age65 && flags.ltcOutside) priority.push('장기요양 등급외자');
     if (age65 && flags.discharge) priority.push('퇴원환자 등 입원·입소 경계에 있는 어르신');
+    if (age65 && oac === 'intensive') priority.push('노인맞춤돌봄서비스 중점돌봄군');
     if (severe && (yes.has('h1') || yes.has('h3') || yes.has('l2'))) priority.push('의료 필요도가 높은 중증장애인(시범)');
 
     /* 직권 신청 경로(법 제10조 ②, 시행령 제4조: 장기요양 신청 기각, 긴급복지지원법 위기상황 등) — 본인 동의 필요 */
@@ -117,6 +127,7 @@
     questions.forEach(q => { if (yes.has(q.id)) (suggest[q.id] || []).forEach(push); });
     (suggest['ltc_' + ltc] || []).forEach(push);
     if (ltc === 'none' && yes.has('l2') && age65) push('L1');
+    if (oac === 'none' && age65 && (yes.has('d1') || yes.has('d3'))) push('D1');
 
     const applicant = {
       self: '본인이 주소지 행정복지센터나 건보공단 지사에 신청합니다(방문·우편·팩스).',
@@ -124,7 +135,7 @@
       agency: '복지부장관이 인정한 기관의 담당자는 본인이나 가족의 동의를 받은 뒤 신청합니다. 동의를 받기 어렵고 위기상황이면 행정복지센터에 직권 신청을 요청하세요.'
     }[a.who] || '';
 
-    return { level, headline, note, scope, flags, priority, exOfficio, agencyApply, preExamWaived, domains: domainsHit, serviceIds: ids, applicant };
+    return { level, headline, note, scope, flags, priority, exOfficio, agencyApply, oac, yesIds: [...yes], preExamWaived, domains: domainsHit, serviceIds: ids, applicant };
   }
 
   /* 개인별지원계획 초안: 모니터링 날짜(첫 회의 + 1개월, 이후 3개월마다 1년), 연계 점검 */
@@ -160,13 +171,14 @@
     });
     if (noProvider.length) warnings.push(`제공 주체가 빈 줄: ${noProvider.join(', ')}번`);
     if (noAmount.length) warnings.push(`수량·주기나 제공 기간이 빈 줄: ${noAmount.join(', ')}번(법 제13조 ① 제1호)`);
-    if (!p.consent) warnings.push('본인(또는 가족) 의견 진술과 정보 제공 동의를 확인했는지 표시해 주세요(법 제13조 ②, 제23조).');
+    if (!p.consent) warnings.push('본인 동의 및 보호자 설명을 실시했는지 표시해 주세요(별지 제2호서식, 법 제13조 ②, 제23조).');
+    if (!String(p.goal1 || '').trim()) warnings.push('서비스 제공목표 1순위를 적어 주세요(별지 제2호서식).');
     const monitor = [];
     if (p.meeting) {
       monitor.push({ label: '첫 모니터링(1개월 안)', date: addMonths(p.meeting, 1) });
       [4, 7, 10, 13].forEach((n, i) => monitor.push({ label: `정기 모니터링 ${i + 1}회`, date: addMonths(p.meeting, n) }));
     }
-    return { count: rows.length, domains: [...domains], providers: providers.size, warnings, monitor };
+    return { count: rows.length, domains: [...domains], providers: providers.size, warnings, monitor, nextReview: monitor.length ? monitor[0].date : '' };
   }
 
   const CHILD_ONLY = ['영유아', '아동', '청소년'];
@@ -215,5 +227,5 @@
     return items.filter(r => String(r.area || '').split('|').includes('care') && r.change !== '기존과 일치');
   }
 
-  return { questions, ltcOptions, suggest, evaluate, planReview, addMonths, matchResources, coverage, careCandidates };
+  return { questions, ltcOptions, oacOptions, suggest, evaluate, planReview, addMonths, matchResources, coverage, careCandidates };
 });

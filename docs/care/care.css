@@ -229,3 +229,16 @@ body{font-family:'SUIT','SUIT Variable',system-ui,-apple-system,'Apple SD Gothic
 }
 @media (prefers-reduced-motion:reduce){.tabs a{transition:none}.tabs a:hover{transform:none}}
 @media (max-width:540px){body:has(#check:not([hidden])) .tu-sos{bottom:112px}}
+
+/* 2026-11-25 별지 서식 3종 */
+.forms-box{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.form-card{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--navy);border-radius:var(--radius);padding:18px 20px;min-width:0}
+.form-card:nth-child(1){border-top-color:var(--care)}.form-card:nth-child(2){border-top-color:var(--d-daily)}
+.fc-no{font-size:12px;font-weight:800;color:var(--muted);margin:0}.form-card h3{margin:2px 0 4px;font-size:19px}.form-card p{margin:0 0 8px;font-size:15px}
+.goals{display:grid;gap:8px}.goals label{display:grid;grid-template-columns:60px minmax(0,1fr);align-items:center;gap:8px;font-weight:700;font-size:14px}
+.flow{display:flex;flex-wrap:wrap;gap:6px;list-style:none;padding:0;margin:8px 0;counter-reset:f}
+.flow li{counter-increment:f;background:var(--care-soft);color:#1a4d40;border-radius:999px;padding:6px 12px;font-size:14px;font-weight:700}
+.flow li::before{content:counter(f) ". "}
+.doc-k{font-weight:800;margin:10px 0 2px!important;color:var(--care)}
+@media (max-width:860px){.forms-box{grid-template-columns:1fr}}
+@media print{.p-check{font-size:9.5pt;line-height:1.7}.p-goals{margin:0;padding-left:18pt}.print-area h2 small{font-weight:400;font-size:9pt}}
