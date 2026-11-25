@@ -30,6 +30,11 @@ cases.forEach((c,i)=>{
     assert.ok(m.hard.length<=3,c.id+' at most three hard areas');
     /* 2026-11-16 읽는 순서 검수: 02 칸에서 판정 근거로 가는 단추가 있고, 01 근거가 번호뿐이면 문항 이름이 붙는다. */
     assert.match(h,/data-oy1-why/,c.id+' 02 links to the decision basis');
+    /* 2026-11-25 여섯 칸: 03 척도 · 04 서술기록 · 05 통합 사정 · 06 역할. 05 값은 판정 사슬 ④⑤와 같다. */
+    assert.equal((h.match(/data-oy1-card="/g)||[]).length,6,c.id+' six cards');
+    if(!R.levelOpen)assert.equal(m.integ.level,R.level.name,c.id+' 05 level equals the chain');
+    assert.ok(m.integ.sel.startsWith(R.selection.label||''),c.id+' 05 selection equals the chain');
+    assert.equal(m.narr.present,!!c.narrative,c.id+' 04 narrative presence');
     if(/^\d+번(·\d+번)* 응답$/.test(m.k.safety.why))R.safetyPos.forEach(n=>assert.ok(h.includes(n+'번 '+IK.item(n).topic),c.id+' safety item '+n+' named'));
     if(role==='teacher'){assert.ok(m.steps.some(s=>/전달/.test(s)),c.id+' teacher hands over');if(R.urgent)assert.match(m.steps[0],/알립니다/,c.id+' teacher tells first when unsafe');}
     fragments(c.narrative).forEach(f=>{assert.ok(!h.includes(f)&&!t.includes(f),c.id+' narrative fragment leaked: '+f)});

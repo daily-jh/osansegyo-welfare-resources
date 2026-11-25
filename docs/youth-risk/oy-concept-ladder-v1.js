@@ -8,15 +8,15 @@ const VERSION='1.1.0-20261111';
 // Five life themes over the ten CORE domains (domain index order follows K.DOMAIN_NAMES).
 const THEMES=[
  {key:'safe',title:'다치지 않고 지내기',term:'보호·안전',domains:[0,1,9],
-  deck:'집, 학교, 온라인에서 누군가에게 다치거나 위협받지 않는지 보는 주제입니다.'},
+  deck:'가정·학교·온라인 장면의 학대, 학교폭력, 디지털 위해 노출을 사정하는 영역입니다.'},
  {key:'mind',title:'마음과 행동',term:'정서·행동: 내재화·외현화',domains:[2,4],
-  deck:'마음이 얼마나 힘든지, 그 힘듦이 어떤 행동으로 나타나는지 보는 주제입니다.'},
+  deck:'정서적 고통(내재화)과 행동 문제(외현화)의 수준과 상호작용을 사정하는 영역입니다.'},
  {key:'school',title:'학교와 배움',term:'학교 적응·학습 접근성',domains:[3,5],
-  deck:'학교에 오고, 배우고, 학교에 마음을 두고 있는지 보는 주제입니다.'},
+  deck:'출결, 학업 수행, 학교 소속감과 학습 접근성 장벽을 사정하는 영역입니다.'},
  {key:'home',title:'집과 생활',term:'가족 기능·생활 기반',domains:[6,7],
-  deck:'돌봄과 가족 관계, 그리고 먹고 머무는 생활의 바탕을 보는 주제입니다.'},
+  deck:'양육·돌봄 기능, 가족 관계, 주거·경제 등 생활 기반을 사정하는 영역입니다.'},
  {key:'ties',title:'기댈 사람과 자리',term:'사회적 지지체계',domains:[8],
-  deck:'믿고 도움을 청할 어른과 마음 붙일 활동이 있는지 보는 주제입니다.'}
+  deck:'신뢰 성인, 또래 관계, 참여 활동 등 사회적 지지체계를 사정하는 영역입니다.'}
 ];
 const THEME_OF_DOMAIN=[];THEMES.forEach((t,i)=>t.domains.forEach(d=>{THEME_OF_DOMAIN[d]=i}));
 
