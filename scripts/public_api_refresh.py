@@ -157,9 +157,10 @@ def keep(rec, run, source, config):
     rec['areas'] = areas_for(' '.join(rec.get(k, '') for k in fields), config)
     if region.get('areas') is not None:               # 지역별로 보는 영역을 좁힘(national: 청소년 대표 영역, national-care: 돌봄통합)
         rec['areas'] = [a for a in rec['areas'] if a in region['areas']]
-    if region.get('representativeOnly'):
-        if not rec['areas'] or any(w in rec.get('name', '') for w in region.get('excludeWords', [])):
-            return False
+    if any(w in rec.get('name', '') for w in region.get('excludeWords', [])):
+        return False                                   # 종사자 대상·산업 지원 등 주민 서비스가 아닌 사업(2026-11-25 재실행에서 확인)
+    if region.get('representativeOnly') and not rec['areas']:
+        return False
     return bool(rec.get('name'))
 
 

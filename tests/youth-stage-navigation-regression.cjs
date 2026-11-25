@@ -61,7 +61,7 @@ assert.equal(nodes.get('nextStep').textContent,'05 최종 보고서로 →');
 steps.get(7).onclick();
 assert.equal(events.at(-1).detail.stage,7,'Final report opens as its own step');
 assert.equal(nodes.get('stepTitle').textContent,'최종 보고서 · A4 2쪽');
-assert.match(nodes.get('previousStep').textContent,/04 기관 사례관리/);
+assert.match(nodes.get('previousStep').textContent,/04 기관별 개입방안/);
 nodes.get('previousStep').onclick();
 assert.equal(events.at(-1).detail.stage,3,'Back from 05 goes to 04 agency case management');
 assert.ok(/data-oy-step="7"[^>]*><b>05<\/b><span>최종보고서/.test(html),'05 final report step in navigation');

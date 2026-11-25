@@ -7,8 +7,9 @@
 <meta name="description" content="욕구영역과 대상별로 오산·경기·전국 복지서비스가 얼마나 등록되어 있는지 한눈에 보고, 오산에 빈 곳을 찾습니다.">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <style>
+@font-face{font-family:'SUIT';src:url('youth-risk/fonts/SUIT-Variable.woff2') format('woff2');font-weight:100 900;font-display:swap}
 :root{--ink:#1f2f3f;--muted:#566779;--line:#d8e0ea;--paper:#fff;--bg:#f5f7fb;--brand:#174d81;--brand-soft:#e7eef8;--accent:#c4552b;--accent-soft:#fdeee6;--warn:#8a5a1c;--warn-soft:#fff4dc;
-font-family:system-ui,'Malgun Gothic',sans-serif;color:var(--ink);background:var(--bg)}
+font-family:'SUIT',system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:var(--ink);background:var(--bg)}
 *{box-sizing:border-box}body{margin:0;background:var(--bg)}header,main,footer{max-width:1180px;margin:auto;padding:22px 24px}a{color:#17599a}
 header{display:flex;justify-content:space-between;gap:14px;align-items:center;flex-wrap:wrap}header>a{text-decoration:none;font-weight:700}header nav{display:flex;gap:14px;flex-wrap:wrap;font-size:14px}
 .hero{padding:32px;border-radius:24px;background:var(--brand-soft)}.hero h1{font-size:clamp(27px,4vw,40px);margin:8px 0;letter-spacing:-.02em}.hero p{max-width:760px;line-height:1.7;margin:8px 0}
@@ -38,12 +39,13 @@ button.text{all:unset;cursor:pointer;color:#17599a;text-decoration:underline;fon
 footer{font-size:13px;color:#56677a}
 @media(max-width:560px){header,main,footer{padding:14px 16px}.hero{padding:22px 18px}.panel{padding:16px}}
 @media print{header,footer,.no-print{display:none!important}body{background:#fff}.wrap{overflow:visible;border:0}table{min-width:0;font-size:9px}td button small{font-size:7px}.panel{break-inside:avoid}}
+.hero h1,h2,h3{word-break:keep-all}header nav a[aria-current="page"]{color:#16273a;text-decoration:underline;text-underline-offset:5px}
 </style>
 <script defer src="assets/data.js"></script>
 <script defer src="assets/welfare-tools-model.js?v=20261124-t1"></script>
 <script defer src="assets/resource-gaps.js?v=20261124-t1"></script>
 </head><body>
-<header><a href="./">← 오산 복지자원 찾기</a><nav><a href="benefit-check.html">복지혜택 자가점검</a><a href="service-guide.html">필요한 도움으로 찾기</a></nav></header>
+<header><a href="./">← 오산 복지자원 찾기</a><nav aria-label="사이트 메뉴"><a href="./#searchArea">자원 찾기</a><a href="service-guide.html">필요한 도움으로 찾기</a><a href="benefit-check.html">복지혜택 자가점검</a><a href="care/">통합돌봄 길잡이</a><a href="resource-gaps.html" aria-current="page">자원 공백 지도</a></nav></header>
 <main>
 <section class="hero"><span class="pill">실무자용 · 자원 공백 지도</span><h1>오산에 어떤 자원이 비어 있는지 봅니다.</h1><p>욕구영역(세로)과 대상(가로)이 만나는 칸마다 이 사이트에 등록된 서비스 수를 오산·경기·전국으로 나눠 셉니다. 경기·전국에는 있는데 오산에는 없는 칸이 지역 자원 발굴·제안이 필요한 곳입니다.</p><p>등록 자료 기준의 빈칸입니다. 실제로 지역에 자원이 없다는 뜻이 아니라, 아직 찾지 못했거나 등록하지 않았을 수 있습니다.</p></section>
 <div class="tiles" id="tiles"></div>

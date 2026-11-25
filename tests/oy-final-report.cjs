@@ -53,4 +53,13 @@ assert.ok(FR.sheetsHtml(k0).includes('실무자 의견')&&FR.text(p0,{opinion:op
 assert.ok(!FR.sheetsHtml(FR.model(p0)).includes('class="xop'),'no opinion block when empty');
 assert.deepEqual(k0.cells,FR.model(p0).cells,'opinion never changes the decision');
 assert.ok(FR.readHtml(k0).includes('ofr-mob'),'mobile reading layout');
+/* 2026-11-25 전체 검수: 05에는 04 교육지원청(학맞통 연계 층)과 03 공공 지원사업 연결이 같은 값으로 들어간다(TXT에도). */
+{const SL=require(path.join(SRC,'oy-school-link-v1.js')),PB=require(path.join(SRC,'oy-public-benefits-v1.js'));let sl=0,pb=0;
+ cases.forEach((c,i)=>{const p=payload(c,i),R=OD.resolve(p),k=FR.model(p,{date:'2026-11-25'}),s=SL.build(p,R),b=PB.build(p),t=FR.text(p,{date:'2026-11-25'});
+  assert.equal(k.links.school?k.links.school.layer:0,s.layer,c.id+' 05 school layer equals 04 교육지원청');
+  assert.equal(k.links.benefits?k.links.benefits.n:0,b.items.length,c.id+' 05 public benefits equal 03');
+  if(s.layer){sl++;assert.ok(t.includes('[학맞통 연계'),c.id+' TXT school link')}
+  if(b.items.length){pb++;assert.ok(t.includes('[공공 지원사업'),c.id+' TXT public benefits');assert.ok(!/(\d{3,4}) \1(?!\d)/.test(t.split('[공공 지원사업')[1].split('\n')[0]),c.id+' desk phone not doubled')}
+ });
+ assert.ok(sl>50&&pb>50,'links appear in most synthetic cases '+sl+'/'+pb);}
 console.log('PASS final report: 100 synthetic cases, decision equals screen with and without narrative, narrative excluded from output,',narr,'narrative cases,',withRes,'with resources');

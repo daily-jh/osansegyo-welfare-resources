@@ -4,7 +4,10 @@
    서버는 기존 이용현황 Worker의 /feedback 경로. 학생을 알아볼 수 있는 정보는 보내기 전에 화면에서 먼저 막고, 서버도 같은 규칙으로 거절한다.
    Worker에 의견 기능이 아직 배포되지 않았으면 '준비 중'으로 보이고 보내기를 막는다. */
 (function(root){'use strict';
-const AREAS=['01 선별평가','03 지역자원연계','04 학교 지원','04 기관 사례관리','05 최종 보고서','추가 자료 · 척도 자료실','전체·기타'];
+const AREAS=['01 선별평가','02 결과해석','03 지역자원연계','04 학교','04 교육지원청','04 복지관·기관','05 최종보고서','추가자료 · 척도 자료실','전체·기타'];
+/* 2026-11-25 전체 검수: 상단 메뉴 5단계(11-24)로 화면 이름을 바꾸면서 의견 서버(Worker)의 허용 목록은 옛 이름 그대로라 03·04 학교·척도 자료실 의견이 400으로 막혔다.
+   서버를 새로 배포하기 전에도 보내지도록, 400이면 옛 이름으로 한 번 더 보내고 본문 첫 줄에 새 화면 이름을 남긴다. */
+const LEGACY_AREA={'02 결과해석':'01 선별평가','03 지역자원연계':'02 지역자원 연계','04 학교':'03 학교 지원','04 교육지원청':'03 학교 지원','04 복지관·기관':'04 기관 사례관리','05 최종보고서':'05 최종 보고서','추가자료 · 척도 자료실':'06 척도 자료실'};
 const ROLES=[['','선택 안 함'],['교사','교사'],['교육복지사·상담교사','교육복지사·상담교사'],['사회복지사','사회복지사'],['행정복지센터','행정복지센터'],['기타','기타']];
 const FACES=[['😞','아쉬워요'],['🙁','조금 아쉬워요'],['😐','보통이에요'],['🙂','좋아요'],['😍','아주 좋아요']];
 const EXPERT_ROLES=[['교육복지사','교육복지사·상담교사'],['학맞통 지원팀','기타'],['담임교사','교사'],['복지관·Wee 실무자','사회복지사'],['기타','기타']];
@@ -73,7 +76,9 @@ function mount(){
   if(!$('oyfbOk').checked){st.textContent='개인정보 확인 항목을 선택해 주세요.';$('oyfbOk').focus();return}
   const msg={kind:kind==='expert'?'report':kind,area:kind==='report'?$('oyfbArea').value:'전체·기타',role:kind==='expert'?(EXPERT_ROLES.find(r=>r[0]===$('oyfbExRole').value)||['','기타'])[1]:$('oyfbRole').value,body};if(kind==='review')msg.rating=+(box.querySelector('input[name="oyfbRate"]:checked')?.value||4);
   $('oyfbSend').disabled=true;st.textContent='보내는 중입니다.';
-  try{const r=await fetch(base()+'/feedback',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(msg),credentials:'omit',referrerPolicy:'no-referrer'});
+  const post=m=>fetch(base()+'/feedback',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(m),credentials:'omit',referrerPolicy:'no-referrer'});
+  try{let r=await post(msg);
+   if(r.status===400&&LEGACY_AREA[msg.area]){const tag='[화면: '+msg.area+'] ',m2={...msg,area:LEGACY_AREA[msg.area],body:(tag+msg.body).length<=1000?tag+msg.body:msg.body};r=await post(m2);}
    if(r.status===201){$('oyfbBody').value='';box.querySelectorAll('[data-oyfb-pick]').forEach(b=>b.setAttribute('aria-pressed','false'));$('oyfbOk').checked=false;$('oyfbCount').textContent='0 / 1000자';if(kind==='expert')box.querySelectorAll('.oyfb-expert input[type=radio]').forEach(i=>{i.checked=false});st.textContent=kind==='report'?'보냈습니다. 확인 후 고치겠습니다.':kind==='expert'?'검토지를 받았습니다. 정식 운영 전 반영 결과와 함께 돌려드리겠습니다.':'보냈습니다. 확인 후 공개됩니다.'}
    else if(r.status===422){const j=await r.json().catch(()=>({}));st.textContent=((j.found||[]).join('·')||'개인정보')+'로 보이는 내용이 있어 받지 않았습니다. 지우고 다시 보내 주세요.'}
    else if(r.status===429)st.textContent='오늘 보낼 수 있는 의견 수를 넘었습니다. 내일 다시 보내 주세요.';
@@ -94,6 +99,6 @@ async function load(){const list=document.getElementById('oyfbList');if(!list)re
   if(!j||!Array.isArray(j.reviews))throw Error('not ready');ready=true;const st=document.getElementById('oyfbStatus');if(st&&/준비/.test(st.textContent))st.textContent='';
   list.innerHTML=j.reviews.length?'<ul class="oyfb-reviews">'+j.reviews.map(v=>'<li><div class="oyfb-meta"><span class="oyfb-stars">'+esc((r=>FACES[r-1][0]+' '+r+'점 '+FACES[r-1][1])(Math.min(5,Math.max(1,+v.rating||4))))+'</span>'+(v.role?'<span>'+esc(v.role)+'</span>':'')+'<time>'+esc(v.day)+'</time></div><p>'+esc(v.body)+'</p></li>').join('')+'</ul>':'<p class="oyfb-muted">아직 공개된 후기가 없습니다. 첫 후기를 남겨 주세요.</p>';
  }catch(_){ready=false;list.innerHTML='<p class="oyfb-muted">의견 창구를 준비하고 있습니다. 곧 열립니다.</p>';const st=document.getElementById('oyfbStatus');if(st&&!st.textContent)st.textContent='의견 창구를 준비하고 있습니다. 곧 열립니다.'}}
-root.OYFeedback={piiFound,AREAS,EXPERT_HEAD,reload:load,open:openFold};
+root.OYFeedback={piiFound,AREAS,LEGACY_AREA,EXPERT_HEAD,reload:load,open:openFold};
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
 })(window);
