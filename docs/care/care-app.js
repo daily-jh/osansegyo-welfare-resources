@@ -290,6 +290,12 @@
         ? `<ul class="res">${list.slice(0, 30).map(r => `<li><span class="lv lv-other">${esc(r.change)}</span>${safeUrl(r.link) ? `<a href="${esc(safeUrl(r.link))}" target="_blank" rel="noopener noreferrer">${esc(r.name)} ↗</a>` : esc(r.name)}<small>${esc(r.org || '')}</small></li>`).join('')}</ul>`
         : '<p class="muted">아직 수집된 돌봄 후보가 없습니다. 다음 주 월요일 수집부터 이곳에 나타납니다.</p>';
     }).catch(() => { $('#apiCandidates').innerHTML = '<p class="muted">수집 결과를 불러오지 못했습니다.</p>'; });
+    const PF = window.PublicFacilities;
+    if (PF) PF.load('../public-api/facilities.json').then(d => {
+      const box = $('#publicFacilities');
+      const gs = d ? PF.byUses(d, ['care', 'mental'], { adult: true }) : [];
+      box.innerHTML = gs.length ? PF.html(gs, d, { limit: 4, base: '../', dbLink: id => '../#org=' + encodeURIComponent(id) }) : '<p class="muted">아직 수집된 기관 목록이 없습니다.</p>';
+    });
   }
 
   /* ---------- 공통 ---------- */
