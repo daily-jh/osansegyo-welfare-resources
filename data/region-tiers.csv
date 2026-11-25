@@ -5,3 +5,33 @@
 ORG-N25-SWFCOURT,인근 시,수원시,수원가정법원 관할(수원·오산·용인·화성 본원) 기관으로 오산이 관할에 포함,,2026-11-25
 ORG-R25-MOELPT,인근 시,평택시,고용노동부 관할관서 안내표에서 오산고용센터가 평택지청 소속으로 표시됨. 소재지 평택,https://www.moel.go.kr/local/pyeongtaek/introduce/direction/list.do,2026-11-25
 ORG-R25-SWGYDREAM,인근 시,수원시,이주배경 청소년 전문 지원이 오산 안에 없어 가까운 수원 기관을 함께 안내(소재지 수원),https://www.suwon.go.kr/sw-www/sw-suwonmigrant/sw-suwonmigrant-03/sw-suwonmigrant-03-01.jsp,2026-11-25
+ORG-NC25-SWMHADULT,인근 시,수원시,보건복지부 기초정신건강복지센터 목록에 수원시 소재로 수록된 정신건강복지센터. 소재 도시 기준 인근 시,https://www.mohw.go.kr/menu.es?mid=a10706040300,2026-11-25
+ORG-NC25-SWMHYOUTH,인근 시,수원시,보건복지부 기초정신건강복지센터 목록에 수원시 소재로 수록된 정신건강복지센터. 소재 도시 기준 인근 시,https://www.mohw.go.kr/menu.es?mid=a10706040300,2026-11-25
+ORG-NC25-SWMHSENIOR,인근 시,수원시,보건복지부 기초정신건강복지센터 목록에 수원시 소재로 수록된 정신건강복지센터. 소재 도시 기준 인근 시,https://www.mohw.go.kr/menu.es?mid=a10706040300,2026-11-25
+ORG-NC25-SWMHHAPPY,인근 시,수원시,보건복지부 기초정신건강복지센터 목록에 수원시 소재로 수록된 정신건강복지센터. 소재 도시 기준 인근 시,https://www.mohw.go.kr/menu.es?mid=a10706040300,2026-11-25
+ORG-NC25-HSMH,인근 시,화성시,보건복지부 기초정신건강복지센터 목록에 화성시 소재로 수록된 정신건강복지센터. 소재 도시 기준 인근 시,https://www.mohw.go.kr/menu.es?mid=a10706040300,2026-11-25
+ORG-NC25-HSMHYOUTH,인근 시,화성시,보건복지부 기초정신건강복지센터 목록에 화성시 소재로 수록된 정신건강복지센터. 소재 도시 기준 인근 시,https://www.mohw.go.kr/menu.es?mid=a10706040300,2026-11-25
+ORG-NC25-PTMH,인근 시,평택시,보건복지부 기초정신건강복지센터 목록에 평택시 소재로 수록된 정신건강복지센터. 소재 도시 기준 인근 시,https://www.mohw.go.kr/menu.es?mid=a10706040300,2026-11-25
+ORG-NC25-SWYCC,인근 시,수원시,한국청소년상담복지개발원 청소년안전망 센터 현황(공공데이터포털)에 수원시 소재로 수록된 청소년상담복지센터. 소재 도시 기준 인근 시,https://www.data.go.kr/data/15154140/fileData.do,2026-11-25
+ORG-NC25-SWDREAM,인근 시,수원시,한국청소년상담복지개발원 청소년안전망 센터 현황(공공데이터포털)에 수원시 소재로 수록된 학교밖청소년지원센터. 소재 도시 기준 인근 시,https://www.data.go.kr/data/15154140/fileData.do,2026-11-25
+ORG-NC25-HSYCC,인근 시,화성시,한국청소년상담복지개발원 청소년안전망 센터 현황(공공데이터포털)에 화성시 소재로 수록된 청소년상담복지센터. 소재 도시 기준 인근 시,https://www.data.go.kr/data/15154140/fileData.do,2026-11-25
+ORG-NC25-HSDREAM,인근 시,화성시,한국청소년상담복지개발원 청소년안전망 센터 현황(공공데이터포털)에 화성시 소재로 수록된 학교밖청소년지원센터. 소재 도시 기준 인근 시,https://www.data.go.kr/data/15154140/fileData.do,2026-11-25
+ORG-NC25-PTYCC,인근 시,평택시,한국청소년상담복지개발원 청소년안전망 센터 현황(공공데이터포털)에 평택시 소재로 수록된 청소년상담복지센터. 소재 도시 기준 인근 시,https://www.data.go.kr/data/15154140/fileData.do,2026-11-25
+ORG-NC25-PTDREAM,인근 시,평택시,한국청소년상담복지개발원 청소년안전망 센터 현황(공공데이터포털)에 평택시 소재로 수록된 학교밖청소년지원센터. 소재 도시 기준 인근 시,https://www.data.go.kr/data/15154140/fileData.do,2026-11-25
+ORG-NC25-SWSHM,인근 시,수원시,여성가족부 청소년쉼터 현황(공공데이터포털)에 수원시 소재로 수록된 청소년쉼터. 소재 도시 기준 인근 시,https://www.data.go.kr/data/3084536/fileData.do,2026-11-25
+ORG-NC25-SWSHF,인근 시,수원시,여성가족부 청소년쉼터 현황(공공데이터포털)에 수원시 소재로 수록된 청소년쉼터. 소재 도시 기준 인근 시,https://www.data.go.kr/data/3084536/fileData.do,2026-11-25
+ORG-NC25-PTSHM,인근 시,평택시,여성가족부 청소년쉼터 현황(공공데이터포털)에 평택시 소재로 수록된 청소년쉼터. 소재 도시 기준 인근 시,https://www.data.go.kr/data/3084536/fileData.do,2026-11-25
+ORG-NC25-PTSHF,인근 시,평택시,여성가족부 청소년쉼터 현황(공공데이터포털)에 평택시 소재로 수록된 청소년쉼터. 소재 도시 기준 인근 시,https://www.data.go.kr/data/3084536/fileData.do,2026-11-25
+ORG-NC25-HSSHF,인근 시,화성시,여성가족부 청소년쉼터 현황(공공데이터포털)에 화성시 소재로 수록된 청소년쉼터. 소재 도시 기준 인근 시,https://www.data.go.kr/data/3084536/fileData.do,2026-11-25
+ORG-NC25-ERSTV,인근 시,수원시,국립중앙의료원 전국 응급의료기관 정보(공공데이터포털)에 수원시 소재로 수록된 응급의료기관. 소재 도시 기준 인근 시,https://www.data.go.kr/data/15000563/openapi.do,2026-11-25
+ORG-NC25-ERDSW,인근 시,수원시,국립중앙의료원 전국 응급의료기관 정보(공공데이터포털)에 수원시 소재로 수록된 응급의료기관. 소재 도시 기준 인근 시,https://www.data.go.kr/data/15000563/openapi.do,2026-11-25
+ORG-NC25-ERWILLS,인근 시,수원시,국립중앙의료원 전국 응급의료기관 정보(공공데이터포털)에 수원시 소재로 수록된 응급의료기관. 소재 도시 기준 인근 시,https://www.data.go.kr/data/15000563/openapi.do,2026-11-25
+ORG-NC25-ERDUKSAN,인근 시,수원시,국립중앙의료원 전국 응급의료기관 정보(공공데이터포털)에 수원시 소재로 수록된 응급의료기관. 소재 도시 기준 인근 시,https://www.data.go.kr/data/15000563/openapi.do,2026-11-25
+ORG-NC25-ERHWAHONG,인근 시,수원시,국립중앙의료원 전국 응급의료기관 정보(공공데이터포털)에 수원시 소재로 수록된 응급의료기관. 소재 도시 기준 인근 시,https://www.data.go.kr/data/15000563/openapi.do,2026-11-25
+ORG-NC25-ERGOODM,인근 시,평택시,국립중앙의료원 전국 응급의료기관 정보(공공데이터포털)에 평택시 소재로 수록된 응급의료기관. 소재 도시 기준 인근 시,https://www.data.go.kr/data/15000563/openapi.do,2026-11-25
+ORG-NC25-ERPTSM,인근 시,평택시,국립중앙의료원 전국 응급의료기관 정보(공공데이터포털)에 평택시 소재로 수록된 응급의료기관. 소재 도시 기준 인근 시,https://www.data.go.kr/data/15000563/openapi.do,2026-11-25
+ORG-NC25-ERPARK,인근 시,평택시,국립중앙의료원 전국 응급의료기관 정보(공공데이터포털)에 평택시 소재로 수록된 응급의료기관. 소재 도시 기준 인근 시,https://www.data.go.kr/data/15000563/openapi.do,2026-11-25
+ORG-NC25-ERPAKAE,인근 시,평택시,국립중앙의료원 전국 응급의료기관 정보(공공데이터포털)에 평택시 소재로 수록된 응급의료기관. 소재 도시 기준 인근 시,https://www.data.go.kr/data/15000563/openapi.do,2026-11-25
+ORG-NC25-ERWONK,인근 시,화성시,국립중앙의료원 전국 응급의료기관 정보(공공데이터포털)에 화성시 소재로 수록된 응급의료기관. 소재 도시 기준 인근 시,https://www.data.go.kr/data/15000563/openapi.do,2026-11-25
+ORG-NC25-ERHSCJ,인근 시,화성시,국립중앙의료원 전국 응급의료기관 정보(공공데이터포털)에 화성시 소재로 수록된 응급의료기관. 소재 도시 기준 인근 시,https://www.data.go.kr/data/15000563/openapi.do,2026-11-25
+ORG-NC25-SWPROB,인근 시,수원시,법무부 보호관찰소 현황(공공데이터포털)에 수원시 소재로 수록된 보호관찰소. 소재 도시 기준 인근 시,https://www.data.go.kr/data/15060340/fileData.do,2026-11-25

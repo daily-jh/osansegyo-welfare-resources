@@ -3,14 +3,18 @@ var Criteria=typeof module!=='undefined'?require('./criteria.js'):root.YouthCrit
 var Weight=typeof module!=='undefined'?require('./weight-model.js'):root.YouthWeightModel;
 var sizes=[2,3,3,3,2,2,3,3,2,2],labels=['보호·안전','또래 안전','정서·정신건강','학습·출결','행동·건강','교육 접근성','가족·돌봄','경제·주거','관계·지지','디지털 안전'];
 var tokens=[['학대','보호','사례'],['청소년','상담','학교','Wee'],['정신','상담','청소년','Wee'],['학습','교육','장학','청소년'],['건강','상담','청소년'],['장애','발달','교육','돌봄'],['가족','상담','돌봄','생활','사례'],['생활','복지','주거','사례','지원'],['청소년','상담','관계','활동'],['청소년','상담','보호','온라인']];
-function validate(p){return !!p&&Array.isArray(p.answers)&&p.answers.length===25&&Array.from(p.answers).every(v=>(v==='unknown'||Number.isInteger(v)&&v>=0&&v<=4))&&Array.isArray(p.domains)&&p.domains.length===10&&p.domains.every((d,i)=>d&&typeof d.name==='string'&&Array.isArray(d.items)&&d.items.length===sizes[i]&&d.items.every(q=>typeof q==='string'))&&Array.isArray(p.routes)&&p.routes.length===10&&p.routes.every(r=>Array.isArray(r)&&r.every(x=>typeof x==='string'))&&Array.isArray(p.resources)&&p.resources.every(r=>r&&typeof r==='object')&&(!p.student||(typeof p.student==='object'&&!Array.isArray(p.student)&&['남','여','미확인','응답하지 않음'].includes(p.student.gender)&&['',...dongs,'오산시 외'].includes(p.student.dong)))&&(!p.followups||(typeof p.followups==='object'&&!Array.isArray(p.followups)&&Object.keys(p.followups).every(k=>['4','5','12','13'].includes(k)&&['yes','no','unknown'].includes(p.followups[k]))))&&Array.isArray(p.explicit)&&p.explicit.every(x=>typeof x==='string')}
+function validate(p){return !!p&&Array.isArray(p.answers)&&p.answers.length===25&&Array.from(p.answers).every(v=>(v==='unknown'||Number.isInteger(v)&&v>=0&&v<=4))&&Array.isArray(p.domains)&&p.domains.length===10&&p.domains.every((d,i)=>d&&typeof d.name==='string'&&Array.isArray(d.items)&&d.items.length===sizes[i]&&d.items.every(q=>typeof q==='string'))&&Array.isArray(p.routes)&&p.routes.length===10&&p.routes.every(r=>Array.isArray(r)&&r.every(x=>typeof x==='string'))&&Array.isArray(p.resources)&&p.resources.every(r=>r&&typeof r==='object')&&(!p.student||(typeof p.student==='object'&&!Array.isArray(p.student)&&['남','여','미확인','응답하지 않음'].includes(p.student.gender)&&['',...dongs,...OUTSIDE].includes(p.student.dong)))&&(!p.followups||(typeof p.followups==='object'&&!Array.isArray(p.followups)&&Object.keys(p.followups).every(k=>['4','5','12','13'].includes(k)&&['yes','no','unknown'].includes(p.followups[k]))))&&Array.isArray(p.explicit)&&p.explicit.every(x=>typeof x==='string')}
 var dongs=['중앙동','대원1동','대원2동','남촌동','신장1동','신장2동','세마동','초평동'];
-function student(p){var v=p&&p.student||{};return {gender:['남','여','미확인','응답하지 않음'].includes(v.gender)?v.gender:'미확인',dong:dongs.includes(v.dong)||v.dong==='오산시 외'?v.dong:'',grade:/^(초[1-6]|중[1-3]|고[1-3])$/.test(v.grade)?v.grade:''}}
+// 거주 지역(2026-11-25): 오산 8개 동 + 인근 시(수원·화성·평택) + 기타('오산시 외' 값 그대로). 점수·판정에는 쓰지 않고 연계 기관 순서에만 쓴다.
+var NEAR_CITIES=['수원시','화성시','평택시'],OUTSIDE=NEAR_CITIES.concat(['오산시 외']);
+function nearCity(profile){var d=profile&&profile.dong;return NEAR_CITIES.includes(d)?d:''}
+function outsideOsan(profile){return OUTSIDE.includes(profile&&profile.dong)}
+function student(p){var v=p&&p.student||{};return {gender:['남','여','미확인','응답하지 않음'].includes(v.gender)?v.gender:'미확인',dong:dongs.includes(v.dong)||OUTSIDE.includes(v.dong)?v.dong:'',grade:/^(초[1-6]|중[1-3]|고[1-3])$/.test(v.grade)?v.grade:''}}
 // Service territories supplied by the project owner on 2026-10-23.
 var welfareZones=[{number:1,name:'오산세교종합사회복지관',orgId:'b45bc16582',dongs:['신장1동','신장2동','세마동']},{number:2,name:'오산종합사회복지관',orgId:'36cf6918f3',dongs:['남촌동','중앙동']},{number:3,name:'오산남부종합사회복지관',orgId:'2097512abd',dongs:['대원1동','대원2동','초평동']}];
 function welfareZone(profile){return welfareZones.find(z=>z.dongs.includes(profile&&profile.dong))||null}
-function welfareZoneText(profile){var z=welfareZone(profile);return z?z.number+'권역 · '+z.name+' ('+z.dongs.join('·')+')':profile&&profile.dong==='오산시 외'?'오산시 외 · 거주지 종합사회복지관 별도 확인':'복지관 권역 미확인 · 행정동 선택 후 연결'}
-function welfareResources(resources,profile){if(!profile)return resources;var selected=welfareZone(profile),outside=profile&&profile.dong==='오산시 외';return resources.filter(r=>{var z=welfareZones.find(z=>z.orgId===r.orgId||z.name===r['기관명']);return !z||!outside&&(!selected||z.number===selected.number)}).map(r=>{var z=welfareZones.find(z=>z.orgId===r.orgId||z.name===r['기관명']);if(!z)return r;var aliases={'통합사례관리':'사례관리 및 서비스 연계','사례관리':'사례관리 및 서비스 연계','가족·아동청소년 프로그램':'가족기능 강화','아동·가족서비스':'가족기능 강화','지역사회보호·나눔':'지역사회 돌봄 및 주민지원'};return Object.assign({},r,{profileName:'오산세교종합사회복지관',profileService:aliases[r['서비스명']]||r['서비스명'],welfareZone:z.number,routingReason:(selected?profile.dong+' → ':'거주 행정동 확인 필요 · ')+z.number+'권역 '+z.name+' · 담당 동: '+z.dongs.join('·')+' · 개별 사업 대상·접수 및 기존 담당기관은 별도 협의'})})}
+function welfareZoneText(profile){var z=welfareZone(profile);return z?z.number+'권역 · '+z.name+' ('+z.dongs.join('·')+')':nearCity(profile)?nearCity(profile)+' 거주 · '+nearCity(profile)+' 같은 역할 기관을 먼저 보여 주고, 오산 기관은 이용 가능 여부 확인':profile&&profile.dong==='오산시 외'?'오산시 외(기타 지역) · 거주지 종합사회복지관 별도 확인':'복지관 권역 미확인 · 행정동 선택 후 연결'}
+function welfareResources(resources,profile){if(!profile)return resources;var selected=welfareZone(profile),outside=outsideOsan(profile);return resources.filter(r=>{var z=welfareZones.find(z=>z.orgId===r.orgId||z.name===r['기관명']);return !z||!outside&&(!selected||z.number===selected.number)}).map(r=>{var z=welfareZones.find(z=>z.orgId===r.orgId||z.name===r['기관명']);if(!z)return r;var aliases={'통합사례관리':'사례관리 및 서비스 연계','사례관리':'사례관리 및 서비스 연계','가족·아동청소년 프로그램':'가족기능 강화','아동·가족서비스':'가족기능 강화','지역사회보호·나눔':'지역사회 돌봄 및 주민지원'};return Object.assign({},r,{profileName:'오산세교종합사회복지관',profileService:aliases[r['서비스명']]||r['서비스명'],welfareZone:z.number,routingReason:(selected?profile.dong+' → ':'거주 행정동 확인 필요 · ')+z.number+'권역 '+z.name+' · 담당 동: '+z.dongs.join('·')+' · 개별 사업 대상·접수 및 기존 담당기관은 별도 협의'})})}
 function context(p){return Criteria.evaluate(p.answers,sizes,p.explicit.length>0,p.followups)}
 function domains(p){var decision=context(p),off=0;return p.domains.map((d,i)=>{var values=p.answers.slice(off,off+sizes[i]),numbers=values.map((v,k)=>off+k+1);off+=sizes[i];var known=values.filter(v=>typeof v==='number'),unknown=values.length-known.length;var sum=known.reduce((a,b)=>a+b,0);return {i,name:d.name,label:labels[i],values,numbers,sum,unknown,known:known.length,mean:unknown?null:sum/sizes[i],peak:Math.max(0,...known),critical:numbers.some(n=>decision.critical.includes(n)),concentrated:decision.substantial.includes(i),safetyUnknown:numbers.some(n=>decision.safetyUnknown.includes(n)),safetyCheckPending:numbers.some(n=>decision.pendingChecks.includes(n)),weightedStrength:Weight.domainStrength(p.answers,i).mean,safety:numbers.some(n=>[1,2,7,25].includes(n)&&p.answers[n-1]>0)}})}
 function rank(ds){return ds.slice().sort((a,b)=>Number(b.safety)-Number(a.safety)||Number(b.safetyUnknown)-Number(a.safetyUnknown)||Number(b.safetyCheckPending)-Number(a.safetyCheckPending)||Number(b.critical)-Number(a.critical)||b.peak-a.peak||Number(b.concentrated)-Number(a.concentrated)||(b.weightedStrength||0)-(a.weightedStrength||0)||(b.mean||0)-(a.mean||0)||a.i-b.i)}
@@ -67,16 +71,30 @@ var order=profile?profile[3]:extra?(/병원/.test(row['기관명'])?4:5):3;if(ro
 var label=safety?'안전과 전문지원 먼저':critical?'생활·건강부터 살피기':max>=3?'생활의 어려움부터 돕기':max>=2?'반복되는 어려움 돕기':'관찰·상담 문의';var reason=profile?profile[4]:'학생에게 필요한 도움을 이 사업에서 받을 수 있는지 상담해 보세요';if(decision.integrated&&/사례관리|청소년안전망|지역전문기관/.test(row['서비스명']))reason+=' · 여러 어려움을 함께 도울 방법을 문의해 보세요';var condition=extra?extra.condition:profile?profile[5]:/장애|발달/.test(t)?'연령·진단·등록·서비스 필요 등 실제 대상 조건 문의':'실제 대상·관할·비용·운영·접수 조건 문의';return {evidence,max,safety,critical,order,fit,label,reason,condition:[condition,...caseChecks(p,evidence)].join(' · ')}}
 // 지역 범주 5단계(2026-11-25): 같은 연계 순위 안에서는 오산시 → 인근 시 → 경기도 → 전국 공공 → 전국 민간. 안전·위기 우선(order)은 그대로 먼저 본다.
 var REGION_ORDER=['osan','near','gyeonggi','national-public','national-private'];
-function regionRank(row){var k=REGION_ORDER.indexOf(row&&row.regionTier);if(k>=0)return k;var l=row&&row['범주'];return l==='오산시'?0:l==='경기도'?2:3}
+function regionRank(row,city){if(city&&row&&row.regionTier==='near'&&row.regionCity===city)return -1;var k=REGION_ORDER.indexOf(row&&row.regionTier);if(k>=0)return k;var l=row&&row['범주'];return l==='오산시'?0:l==='경기도'?2:3}
 function identity(value){return String(value||'').normalize('NFKC').replace(/\s+/g,'').toLowerCase()}
 // Administrative dong is explicitly selected, never inferred from a street or legal dong.
+// 인근 시 거주를 고르면, 오산 연계 경로의 기관과 같은 역할을 하는 그 시 기관을 같은 근거(문항)로 함께 후보에 올린다.
+// 기관 이름·연락처는 그 시 기관 것 그대로, 근거 문항은 오산 기관의 연계 프로필(profiles)을 빌린다.
+var COUNTERPART={'오산시정신건강복지센터':'정신건강복지센터','오산시청소년상담복지센터':'청소년상담복지센터','오산시아동보호전문기관':'아동보호전문기관','오산시가족센터':'가족센터'};
+function counterparts(resources,city){
+ if(!NEAR_CITIES.includes(city))return resources;
+ var add=[];
+ resources.forEach(r=>{var kind=COUNTERPART[r['기관명']];if(!kind)return;
+  var pool=resources.filter(x=>x.regionTier==='near'&&x.regionCity===city&&x['기관유형']===kind&&!/노인/.test(x['기관명']||''));
+  if(pool.some(x=>/아동청소년/.test(x['기관명'])))pool=pool.filter(x=>/아동청소년/.test(x['기관명']));
+  var seen=new Set();
+  pool.forEach(x=>{if(seen.has(x['기관명']))return;seen.add(x['기관명']);add.push(Object.assign({},x,{profileName:r['기관명'],profileService:r['서비스명'],routingReason:city+' 거주 선택 → '+city+'에서 '+r['기관명']+'와 같은 역할을 하는 기관 · 실제 관할·이용 조건은 기관 확인'}))});
+ });
+ return resources.concat(add);
+}
 function routingResources(resources,profile){
  resources=welfareResources(resources,profile).filter(r=>!/통합돌봄 신청|통합판정조사/.test(r['서비스명']||'')); // 노인·장애인 대상 통합돌봄 창구는 청소년 연계 후보에서 제외(돌봄 길잡이 docs/care 전용)
  var dongs=resources.filter(r=>/^오산시 (중앙동|대원[12]동|남촌동|신장[12]동|세마동|초평동) 행정복지센터$/.test(r['기관명']||''));
  if(!dongs.length)return resources;
  var selected=student({student:profile}).dong;
- if(selected&&selected!=='오산시 외')return resources.filter(r=>!dongs.includes(r)||r['기관명']==='오산시 '+selected+' 행정복지센터').map(r=>dongs.includes(r)?Object.assign({},r,{profileName:'오산시 동 행정복지센터',routingReason:selected+' 행정동 선택에 따른 관할 상담창구 · 실제 주민등록·거주 관할은 접수 시 확인'}):r);
- if(selected==='오산시 외')return resources.filter(r=>!dongs.includes(r)&&r['기관명']!=='오산시 동 행정복지센터');
+ if(selected&&!OUTSIDE.includes(selected))return resources.filter(r=>!dongs.includes(r)||r['기관명']==='오산시 '+selected+' 행정복지센터').map(r=>dongs.includes(r)?Object.assign({},r,{profileName:'오산시 동 행정복지센터',routingReason:selected+' 행정동 선택에 따른 관할 상담창구 · 실제 주민등록·거주 관할은 접수 시 확인'}):r);
+ if(OUTSIDE.includes(selected))return counterparts(resources.filter(r=>!dongs.includes(r)&&r['기관명']!=='오산시 동 행정복지센터'),selected);
  var options=Array.from(new Set(dongs.map(r=>r['기관명']))).sort(),services=new Map();
  dongs.forEach(r=>{if(!services.has(r['서비스명']))services.set(r['서비스명'],Object.assign({},r,{
   '기관명':'오산시 동 행정복지센터','대표전화':'',contactDept:'',address:'',addressNote:'',addressStatus:'미확인',addressSource:'',addressCheckedOn:'',contacts:[],orgId:'',serviceId:'','기관소개':'거주지 관할 동을 먼저 확인해 8개 동 중 해당 창구로 연결합니다.',
@@ -90,12 +108,12 @@ function routingResources(resources,profile){
 function groupedCandidates(p,d){
  if(!d.sum)return [];
  var economic=[19,20,21].some(n=>p.answers[n-1]>0),blocked=/주민조직화|자원개발|아이리더|인재양성|예방 및 유관기관 협력|배움터 교육지원|발달장애인 평생교육|직업지원|노인·장애인 공적돌봄|한부모·다문화|아이돌봄서비스/;
- var allowed=new Set(p.routes[d.i].map(identity));
+ var allowed=new Set(p.routes[d.i].map(identity)),city=p.student?nearCity(student(p)):'';
   // 공공 API로 들어온 행정 사업(SVC-SSIS-*)은 아동·청소년·한부모 대상일 때만 연계 후보로 씀(이재민·보훈 등 제외).
  var rows=routingResources(p.resources,p.student?student(p):undefined).filter(r=>(allowed.has(identity(r['기관명']))||allowed.has(identity(r.profileName))||additional(p,d,r))&&typeof r['서비스명']==='string'&&r['서비스명'].trim()&&!blocked.test(r['서비스명'])&&!(/^SVC-SSIS-/.test(r.serviceId||'')&&!/아동|청소년|학생|한부모/.test((r['지원대상']||'')+' '+(r['서비스명']||'')))&&(!/장학|교육지원 공모/.test(r['서비스명'])||economic));
  var seen=new Set();
  rows=rows.filter(r=>{
-  var key=identity(r['기관명'])+'|'+identity(r['서비스명']);if(seen.has(key))return false;seen.add(key);
+  var key=identity(r['기관명'])+'|'+identity(r['서비스명'])+(r.regionTier==='near'&&r.profileService?'|'+identity(r.profileService):'');if(seen.has(key))return false;seen.add(key);
   var prof=profiles.find(x=>x[0]===(r.profileName||r['기관명'])&&x[1]===(r.profileService||r['서비스명']));
   if(/성인|노인|청년/.test(r['지원대상']||'')&&!/아동|청소년|중고생/.test(r['지원대상']||''))return false;
   // Item 14 measures an education-environment barrier, not disability eligibility.
@@ -103,7 +121,7 @@ function groupedCandidates(p,d){
   if(additional(p,d,r))return true;
   return prof?prof[2].some(n=>d.numbers.includes(n)&&p.answers[n-1]>0):describe(p,d,r).fit>0;
  });
- rows.sort((a,b)=>{var x=describe(p,d,a),y=describe(p,d,b);return x.order-y.order||regionRank(a)-regionRank(b)||Number(y.safety)-Number(x.safety)||Number(y.critical)-Number(x.critical)||y.max-x.max||y.evidence.length-x.evidence.length||y.fit-x.fit});
+ rows.sort((a,b)=>{var x=describe(p,d,a),y=describe(p,d,b);return x.order-y.order||regionRank(a,city)-regionRank(b,city)||Number(y.safety)-Number(x.safety)||Number(y.critical)-Number(x.critical)||y.max-x.max||y.evidence.length-x.evidence.length||y.fit-x.fit});
  // Group AFTER ranking, BEFORE any display limit. The best matching role stays first;
  // other eligible services remain attached to that institution, never separate cards.
  var groups=new Map();
@@ -119,5 +137,5 @@ function companion(row){var kind=String(row&&row['기관유형']||''),name=Strin
  if(/정신건강 의료기관|정신건강의학과/.test(kind)||/정신건강의학과/.test(name))return '진료비가 걱정되면 「경기도 청(소)년 마인드케어 외래진료비 지원」(만 15~34세, 오산시정신건강복지센터 문의)과 학교 Wee의 학생마음바우처를 함께 확인합니다. 자해·자살 위험이 지금 있으면 진료 예약보다 119·가까운 응급실이 먼저입니다.';
  if(/마인드케어/.test(name))return '지원 대상이면 오산 정신건강의학과 진료기관(지역자원 연계 지도의 정신건강 영역)과 묶어 안내합니다. 진료기관의 초진 예약 가능 여부는 따로 확인합니다.';
  return ''}
-var api={regionRank,companion,profileFor,additional,caseChecks,welfareZones,welfareZone,welfareZoneText,dongs,student,referrals,routingResources,labels,validate,domains,rank,candidates,groupedCandidates,context,describe};if(typeof module!=='undefined')module.exports=api;else root.YouthMap=api;
+var api={regionRank,nearCity,outsideOsan,NEAR_CITIES,counterparts,companion,profileFor,additional,caseChecks,welfareZones,welfareZone,welfareZoneText,dongs,student,referrals,routingResources,labels,validate,domains,rank,candidates,groupedCandidates,context,describe};if(typeof module!=='undefined')module.exports=api;else root.YouthMap=api;
 })(typeof window!=='undefined'?window:globalThis);
