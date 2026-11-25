@@ -51,8 +51,14 @@ let v = M.planReview({ rows: [{ service: 'D1', provider: '오산노인종합복�
 assert.equal(v.providers, 2); assert.deepEqual(v.domains.sort(), ['daily', 'prevent']);
 assert.ok(v.warnings.some(w => w.includes('연계 방법')), '2개 기관이면 연계 방법 필요');
 assert.equal(v.monitor[0].date, '2027-01-01'); assert.equal(v.monitor.length, 5);
-v = M.planReview({ rows: [{ service: 'D1', provider: 'A', amount: '1', period: '1' }, { service: 'P1', provider: 'B', amount: '1', period: '1' }], linkage: '월 1회 공유', consent: true }, C.services);
+v = M.planReview({ rows: [{ service: 'D1', provider: 'A', amount: '1', period: '1' }, { service: 'P1', provider: 'B', amount: '1', period: '1' }], linkage: '월 1회 공유', consent: true, goal1: '혼자 식사를 챙긴다' }, C.services);
 assert.equal(v.warnings.length, 0);
+assert.ok(M.planReview({ rows: [], consent: true }, C.services).warnings.some(w => w.includes('제공목표 1순위')), '별지 제2호 제공목표');
+// 별지 서식(개정 2026. 3. 20.)
+assert.equal(C.forms.apply.no, '별지 제1호서식'); assert.equal(C.forms.apply.period, '5일'); assert.equal(C.forms.plan.name, '개인별지원계획서');
+for (const k of ['self', 'family', 'agency']) assert.ok(C.forms.apply.docs[k].length >= 1, '신청인별 제출서류 ' + k);
+r = M.evaluate({ age: '65+', oac: 'intensive', ltc: 'pending', yes: ['d5', 'h1'] });
+assert.ok(r.priority.some(p => p.includes('중점돌봄군'))); assert.ok(r.serviceIds.includes('D4'), '실외 보행 어려움 → 이동 지원');
 v = M.planReview({ rows: [{ service: 'D1', provider: 'A', amount: '1', period: '1' }], consent: true }, C.services);
 assert.ok(v.warnings.some(w => w.includes('한 영역')));
 
