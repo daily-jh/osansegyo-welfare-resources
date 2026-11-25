@@ -359,15 +359,47 @@ def probe(urls, key, fetcher=None, gg_key=''):
     return 0
 
 
+def discover(tokens, fetcher=None):
+    """공개 안내 페이지(키 없음)에서 경기데이터드림 서비스 주소(openapi.gg.go.kr/<이름>)를 찾아 보여 준다.
+    숫자는 공공데이터포털 데이터 번호, 그 밖은 경기데이터드림 infId로 본다. DB·결과 파일은 건드리지 않는다."""
+    import urllib.error
+    def get(url):
+        if fetcher:
+            return fetcher(url)
+        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (welfare-resource-refresh/1.0)', 'Accept': 'text/html,*/*'})
+        with urllib.request.urlopen(req, timeout=30) as res:
+            return res.read().decode('utf-8', 'replace')
+    for tok in tokens:
+        urls = ([f'https://www.data.go.kr/data/{tok}/openapi.do'] if tok.isdigit() else
+                [f'https://data.gg.go.kr/portal/data/service/selectServicePage.do?infId={tok}&infSeq=1',
+                 f'https://data.gg.go.kr/portal/data/service/selectAPIServicePage.do?infId={tok}&infSeq=3'])
+        for url in urls:
+            print('### ' + url)
+            try:
+                html = get(url)
+            except Exception as exc:  # noqa: BLE001
+                print(f'{type(exc).__name__}: {exc}')
+                continue
+            names = sorted(set(re.findall(r'openapi\.gg\.go\.kr/([A-Za-z0-9_]+)', html)))
+            infids = sorted(set(re.findall(r'infId=([A-Z0-9]{16,})', html)))
+            print('서비스 이름:', ', '.join(names) or '없음', '| infId:', ', '.join(infids[:5]) or '없음')
+            cols = sorted(set(re.findall(r'\b([A-Z][A-Z0-9]*_[A-Z0-9_]{2,})\b', html)))
+            print('항목 이름 후보:', ', '.join(cols[:60]) or '없음')
+    return 0
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument('--fixtures')
     ap.add_argument('--strict', action='store_true')
     ap.add_argument('--now')
     ap.add_argument('--summary')
+    ap.add_argument('--discover', help='공백으로 구분한 공공데이터포털 번호·경기데이터드림 infId의 안내 페이지에서 서비스 주소를 찾음')
     ap.add_argument('--probe', help='공백으로 구분한 호출 주소들을 시험 호출해 응답 앞부분만 보여 줌(DB·결과 파일 안 건드림)')
     args = ap.parse_args(argv)
     config = json.loads((ROOT / 'data/public-api-sources.json').read_text(encoding='utf-8'))
+    if args.discover:
+        return discover(args.discover.split())
     if args.probe:
         return probe(args.probe.split(), os.environ.get('DATA_GO_KR_KEY', ''), gg_key=os.environ.get('GG_OPENAPI_KEY', ''))
     now = args.now or dt.datetime.now(KST).isoformat(timespec='seconds')

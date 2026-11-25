@@ -10,6 +10,10 @@ on:
         description: '호출 주소 시험(공백 구분, 비우면 생략)'
         type: string
         default: ''
+      discover:
+        description: '경기데이터드림 서비스 주소 찾기(공공데이터포털 번호·infId, 공백 구분)'
+        type: string
+        default: ''
   schedule:
     # Weekly Monday 06:00 KST (Sunday 21:00 UTC). GitHub may delay scheduled runs.
     - cron: '0 21 * * 0'
@@ -38,6 +42,11 @@ jobs:
         env:
           PROBE: ${{ inputs.probe }}
         run: python scripts/public_api_refresh.py --probe "$PROBE"
+      - name: Discover Gyeonggi service names (optional)
+        if: inputs.discover != ''
+        env:
+          DISCOVER: ${{ inputs.discover }}
+        run: python scripts/public_api_refresh.py --discover "$DISCOVER"
       - name: Collect public APIs (writes docs/public-api only)
         run: python scripts/public_api_refresh.py --summary public-api-summary.md
       - name: Job summary
