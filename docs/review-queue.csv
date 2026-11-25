@@ -433,3 +433,38 @@ ORG-R25-GMIS,SVC-R25-002,경기도,경기도이민사회통합지원센터,이�
 ORG-R25-MOELPT,SVC-R25-003,경기도,고용노동부 평택지청,노동 민원 상담(임금체불·근로조건),실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.moel.go.kr/minwon/rigion/rigion_C2.do
 ORG-R25-SWGYDREAM,SVC-R25-004,경기도,수원시 글로벌청소년드림센터,이주배경·중도입국 청소년 교육·상담,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.suwon.go.kr/sw-www/sw-suwonmigrant/sw-suwonmigrant-03/sw-suwonmigrant-03-01.jsp
 ORG-R25-JARIPON,SVC-R25-005,민간,자립준비청년 상담센터(자립정보ON),자립준비청년 전화·카카오톡 상담,실제 운영·접수 검증 필요,https://housing.gg.go.kr/html/51503.do
+ORG-NC25-SWMHADULT,SVC-NC25-001,경기도,수원시정신건강복지센터(성인),정신건강 상담·사례관리,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.mohw.go.kr/menu.es?mid=a10706040300
+ORG-NC25-SWMHYOUTH,SVC-NC25-002,경기도,수원시아동청소년정신건강복지센터,정신건강 상담·사례관리,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.mohw.go.kr/menu.es?mid=a10706040300
+ORG-NC25-SWMHSENIOR,SVC-NC25-003,경기도,수원시노인정신건강복지센터,정신건강 상담·사례관리,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.mohw.go.kr/menu.es?mid=a10706040300
+ORG-NC25-SWMHHAPPY,SVC-NC25-004,경기도,수원시행복정신건강복지센터,정신건강 상담·사례관리,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.mohw.go.kr/menu.es?mid=a10706040300
+ORG-NC25-HSMH,SVC-NC25-005,경기도,화성시정신건강복지센터,정신건강 상담·사례관리,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.mohw.go.kr/menu.es?mid=a10706040300
+ORG-NC25-HSMHYOUTH,SVC-NC25-006,경기도,화성시아동청소년정신건강복지센터,정신건강 상담·사례관리,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.mohw.go.kr/menu.es?mid=a10706040300
+ORG-NC25-PTMH,SVC-NC25-007,경기도,평택시정신건강복지센터,정신건강 상담·사례관리,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.mohw.go.kr/menu.es?mid=a10706040300
+ORG-NC25-SWYCC,SVC-NC25-008,경기도,수원시청소년상담복지센터,청소년 상담·위기 개입,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.data.go.kr/data/15154140/fileData.do
+ORG-NC25-SWDREAM,SVC-NC25-009,경기도,수원시학교밖청소년지원센터,학교 밖 청소년 지원(꿈드림),실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.data.go.kr/data/15154140/fileData.do
+ORG-NC25-HSYCC,SVC-NC25-010,경기도,화성시청소년상담복지센터,청소년 상담·위기 개입,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.data.go.kr/data/15154140/fileData.do
+ORG-NC25-HSDREAM,SVC-NC25-011,경기도,화성시학교밖청소년지원센터,학교 밖 청소년 지원(꿈드림),실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.data.go.kr/data/15154140/fileData.do
+ORG-NC25-PTYCC,SVC-NC25-012,경기도,평택시청소년상담복지센터,청소년 상담·위기 개입,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.data.go.kr/data/15154140/fileData.do
+ORG-NC25-PTDREAM,SVC-NC25-013,경기도,평택시학교밖청소년지원센터,학교 밖 청소년 지원(꿈드림),실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.data.go.kr/data/15154140/fileData.do
+ORG-NC25-SWSHM,SVC-NC25-014,경기도,수원남자단기청소년쉼터(청소년달보듬터),가정 밖 청소년 단기 보호,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.data.go.kr/data/3084536/fileData.do
+ORG-NC25-SWSHF,SVC-NC25-015,경기도,수원여자단기청소년쉼터,가정 밖 청소년 단기 보호,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.data.go.kr/data/3084536/fileData.do
+ORG-NC25-PTSHM,SVC-NC25-016,경기도,평택남자단기청소년쉼터(청울터),가정 밖 청소년 단기 보호,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.data.go.kr/data/3084536/fileData.do
+ORG-NC25-PTSHF,SVC-NC25-017,경기도,평택여자단기청소년쉼터,가정 밖 청소년 단기 보호,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.data.go.kr/data/3084536/fileData.do
+ORG-NC25-HSSHF,SVC-NC25-018,경기도,화성시여자단기청소년쉼터,가정 밖 청소년 단기 보호,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.data.go.kr/data/3084536/fileData.do
+ORG-NC25-ERSTV,SVC-NC25-019,경기도,가톨릭대학교 성빈센트병원,응급실 진료,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.data.go.kr/data/15000563/openapi.do
+ORG-NC25-ERDSW,SVC-NC25-020,경기도,동수원병원,응급실 진료,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.data.go.kr/data/15000563/openapi.do
+ORG-NC25-ERWILLS,SVC-NC25-021,경기도,윌스기념병원,응급실 진료,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.data.go.kr/data/15000563/openapi.do
+ORG-NC25-ERDUKSAN,SVC-NC25-022,경기도,수원덕산병원,응급실 진료,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.data.go.kr/data/15000563/openapi.do
+ORG-NC25-ERHWAHONG,SVC-NC25-023,경기도,화홍병원,응급실 진료,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.data.go.kr/data/15000563/openapi.do
+ORG-NC25-ERGOODM,SVC-NC25-024,경기도,굿모닝병원,응급실 진료,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.data.go.kr/data/15000563/openapi.do
+ORG-NC25-ERPTSM,SVC-NC25-025,경기도,평택성모병원,응급실 진료,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.data.go.kr/data/15000563/openapi.do
+ORG-NC25-ERPARK,SVC-NC25-026,경기도,박병원,응급실 진료,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.data.go.kr/data/15000563/openapi.do
+ORG-NC25-ERPAKAE,SVC-NC25-027,경기도,박애병원,응급실 진료,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.data.go.kr/data/15000563/openapi.do
+ORG-NC25-ERWONK,SVC-NC25-028,경기도,원광종합병원,응급실 진료,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.data.go.kr/data/15000563/openapi.do
+ORG-NC25-ERHSCJ,SVC-NC25-029,경기도,화성중앙종합병원,응급실 진료,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.data.go.kr/data/15000563/openapi.do
+ORG-NC25-SWPROB,SVC-NC25-030,경기도,수원보호관찰소,보호관찰 대상 청소년·성인 상담,대표전화 미기재 / 실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.data.go.kr/data/15060340/fileData.do
+ORG-NC25-GGDREAM,SVC-NC25-031,경기도,경기도학교밖청소년지원센터,경기도 학교 밖 청소년 광역 지원,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.data.go.kr/data/15154140/fileData.do
+ORG-NC25-GGDISPSY,SVC-NC25-032,경기도,경기 재난심리회복지원센터,재난 경험자 심리 상담,실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://www.data.go.kr/data/15130798/fileData.do
+ORG-NC25-SWCPA,SVC-NC25-033,경기도,수원아동보호전문기관,피해아동 보호·가족 사례관리,대표전화 미기재 / 실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://kyeonggi.com/article/20250101580309
+ORG-NC25-HSCPA,SVC-NC25-034,경기도,화성시아동보호전문기관,피해아동 보호·가족 사례관리,대표전화 미기재 / 실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://hwaseong.goodneighbors.kr/
+ORG-NC25-PTCPA,SVC-NC25-035,경기도,경기평택아동보호전문기관,피해아동 보호·가족 사례관리,대표전화 미기재 / 실제 운영·접수 검증 필요 / 오산 접수 가능 여부 확인,https://kyeonggi.com/article/201509130675962

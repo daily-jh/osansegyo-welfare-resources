@@ -21324,6 +21324,2671 @@ window.WELFARE_DATA = {
       "addressStatus": "미확인",
       "addressCheckedOn": "",
       "addressNote": ""
+    },
+    {
+      "id": "ORG-NC25-SWMHADULT",
+      "name": "수원시정신건강복지센터(성인)",
+      "level": "경기도",
+      "kind": "정신건강복지센터",
+      "summary": "수원시 주민의 정신건강 상담·사례관리·위기 지원을 맡는 기초정신건강복지센터(성인). 오산 거주자는 오산시정신건강복지센터가 먼저이며, 이 센터는 수원시 거주·전입 예정이거나 생활권이 수원시인 경우 함께 확인.",
+      "site": "",
+      "phone": "031-247-0888",
+      "source": "https://www.mohw.go.kr/menu.es?mid=a10706040300",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "수원시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "수원시 주민 대상(오산 거주자 이용 여부 확인 필요)",
+      "services": [
+        {
+          "id": "SVC-NC25-001",
+          "name": "정신건강 상담·사례관리",
+          "category": "정신건강",
+          "target": "{city} 주민(성인)",
+          "description": "정신건강 상담, 사례관리, 위기 개입 연계. 대상 연령·거주지 조건과 접수 방법은 센터에 확인.",
+          "method": "센터 전화 상담 후 안내. 위기 상황은 정신건강 위기상담 1577-0199·109.",
+          "operation": "보건복지부 기초정신건강복지센터 목록 확인(2026-11-25). 실제 접수·대상은 기관 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "중장년",
+              "청년",
+              "질환"
+            ],
+            "need": [
+              "정신건강",
+              "사례관리"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화",
+              "직접 방문"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.mohw.go.kr/menu.es?mid=a10706040300",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "보건복지부 기초정신건강복지센터 목록 대조",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-SWMHADULT",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-SWMHADULT",
+        "dept": "",
+        "phone": "031-247-0888",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.mohw.go.kr/menu.es?mid=a10706040300",
+        "verified_on": "2026-11-25"
+      },
+      "address": "경기도 수원시 팔달구 매산로 89, 2층",
+      "addressSource": "https://www.mohw.go.kr/menu.es?mid=a10706040300",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-11-25",
+      "addressNote": "보건복지부 기초정신건강복지센터 목록 2026-11-25 기준 수록 주소"
+    },
+    {
+      "id": "ORG-NC25-SWMHYOUTH",
+      "name": "수원시아동청소년정신건강복지센터",
+      "level": "경기도",
+      "kind": "정신건강복지센터",
+      "summary": "수원시 주민의 정신건강 상담·사례관리·위기 지원을 맡는 기초정신건강복지센터(아동청소년). 오산 거주자는 오산시정신건강복지센터가 먼저이며, 이 센터는 수원시 거주·전입 예정이거나 생활권이 수원시인 경우 함께 확인.",
+      "site": "",
+      "phone": "031-242-5737",
+      "source": "https://www.mohw.go.kr/menu.es?mid=a10706040300",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "수원시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "수원시 주민 대상(오산 거주자 이용 여부 확인 필요)",
+      "services": [
+        {
+          "id": "SVC-NC25-002",
+          "name": "정신건강 상담·사례관리",
+          "category": "정신건강",
+          "target": "{city} 주민(아동청소년)",
+          "description": "정신건강 상담, 사례관리, 위기 개입 연계. 대상 연령·거주지 조건과 접수 방법은 센터에 확인.",
+          "method": "센터 전화 상담 후 안내. 위기 상황은 정신건강 위기상담 1577-0199·109.",
+          "operation": "보건복지부 기초정신건강복지센터 목록 확인(2026-11-25). 실제 접수·대상은 기관 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년"
+            ],
+            "need": [
+              "정신건강",
+              "사례관리"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화",
+              "직접 방문"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.mohw.go.kr/menu.es?mid=a10706040300",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "보건복지부 기초정신건강복지센터 목록 대조",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-SWMHYOUTH",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-SWMHYOUTH",
+        "dept": "",
+        "phone": "031-242-5737",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.mohw.go.kr/menu.es?mid=a10706040300",
+        "verified_on": "2026-11-25"
+      },
+      "address": "경기도 수원시 팔달구 동말로47번길 17",
+      "addressSource": "https://www.mohw.go.kr/menu.es?mid=a10706040300",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-11-25",
+      "addressNote": "보건복지부 기초정신건강복지센터 목록 2026-11-25 기준 수록 주소"
+    },
+    {
+      "id": "ORG-NC25-SWMHSENIOR",
+      "name": "수원시노인정신건강복지센터",
+      "level": "경기도",
+      "kind": "정신건강복지센터",
+      "summary": "수원시 주민의 정신건강 상담·사례관리·위기 지원을 맡는 기초정신건강복지센터(노인). 오산 거주자는 오산시정신건강복지센터가 먼저이며, 이 센터는 수원시 거주·전입 예정이거나 생활권이 수원시인 경우 함께 확인.",
+      "site": "",
+      "phone": "031-273-7511",
+      "source": "https://www.mohw.go.kr/menu.es?mid=a10706040300",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "수원시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "수원시 주민 대상(오산 거주자 이용 여부 확인 필요)",
+      "services": [
+        {
+          "id": "SVC-NC25-003",
+          "name": "정신건강 상담·사례관리",
+          "category": "정신건강",
+          "target": "{city} 주민(노인)",
+          "description": "정신건강 상담, 사례관리, 위기 개입 연계. 대상 연령·거주지 조건과 접수 방법은 센터에 확인.",
+          "method": "센터 전화 상담 후 안내. 위기 상황은 정신건강 위기상담 1577-0199·109.",
+          "operation": "보건복지부 기초정신건강복지센터 목록 확인(2026-11-25). 실제 접수·대상은 기관 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "노인"
+            ],
+            "need": [
+              "정신건강",
+              "사례관리"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화",
+              "직접 방문"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.mohw.go.kr/menu.es?mid=a10706040300",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "보건복지부 기초정신건강복지센터 목록 대조",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-SWMHSENIOR",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-SWMHSENIOR",
+        "dept": "",
+        "phone": "031-273-7511",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.mohw.go.kr/menu.es?mid=a10706040300",
+        "verified_on": "2026-11-25"
+      },
+      "address": "경기도 수원시 영통구 영통로 396, 영통구보건소 4층",
+      "addressSource": "https://www.mohw.go.kr/menu.es?mid=a10706040300",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-11-25",
+      "addressNote": "보건복지부 기초정신건강복지센터 목록 2026-11-25 기준 수록 주소"
+    },
+    {
+      "id": "ORG-NC25-SWMHHAPPY",
+      "name": "수원시행복정신건강복지센터",
+      "level": "경기도",
+      "kind": "정신건강복지센터",
+      "summary": "수원시 주민의 정신건강 상담·사례관리·위기 지원을 맡는 기초정신건강복지센터(보건복지부 목록 표기 행복). 오산 거주자는 오산시정신건강복지센터가 먼저이며, 이 센터는 수원시 거주·전입 예정이거나 생활권이 수원시인 경우 함께 확인.",
+      "site": "",
+      "phone": "031-253-5737",
+      "source": "https://www.mohw.go.kr/menu.es?mid=a10706040300",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "수원시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "수원시 주민 대상(오산 거주자 이용 여부 확인 필요)",
+      "services": [
+        {
+          "id": "SVC-NC25-004",
+          "name": "정신건강 상담·사례관리",
+          "category": "정신건강",
+          "target": "{city} 주민(보건복지부 목록 표기 행복)",
+          "description": "정신건강 상담, 사례관리, 위기 개입 연계. 대상 연령·거주지 조건과 접수 방법은 센터에 확인.",
+          "method": "센터 전화 상담 후 안내. 위기 상황은 정신건강 위기상담 1577-0199·109.",
+          "operation": "보건복지부 기초정신건강복지센터 목록 확인(2026-11-25). 실제 접수·대상은 기관 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "청년",
+              "중장년",
+              "질환"
+            ],
+            "need": [
+              "정신건강",
+              "사례관리"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화",
+              "직접 방문"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.mohw.go.kr/menu.es?mid=a10706040300",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "보건복지부 기초정신건강복지센터 목록 대조",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-SWMHHAPPY",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-SWMHHAPPY",
+        "dept": "",
+        "phone": "031-253-5737",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.mohw.go.kr/menu.es?mid=a10706040300",
+        "verified_on": "2026-11-25"
+      },
+      "address": "경기도 수원시 장안구 송원로 101, 장안구청 1층",
+      "addressSource": "https://www.mohw.go.kr/menu.es?mid=a10706040300",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-11-25",
+      "addressNote": "보건복지부 기초정신건강복지센터 목록 2026-11-25 기준 수록 주소"
+    },
+    {
+      "id": "ORG-NC25-HSMH",
+      "name": "화성시정신건강복지센터",
+      "level": "경기도",
+      "kind": "정신건강복지센터",
+      "summary": "화성시 주민의 정신건강 상담·사례관리·위기 지원을 맡는 기초정신건강복지센터(성인). 오산 거주자는 오산시정신건강복지센터가 먼저이며, 이 센터는 화성시 거주·전입 예정이거나 생활권이 화성시인 경우 함께 확인.",
+      "site": "",
+      "phone": "031-352-0175",
+      "source": "https://www.mohw.go.kr/menu.es?mid=a10706040300",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "화성시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "화성시 주민 대상(오산 거주자 이용 여부 확인 필요)",
+      "services": [
+        {
+          "id": "SVC-NC25-005",
+          "name": "정신건강 상담·사례관리",
+          "category": "정신건강",
+          "target": "{city} 주민(성인)",
+          "description": "정신건강 상담, 사례관리, 위기 개입 연계. 대상 연령·거주지 조건과 접수 방법은 센터에 확인.",
+          "method": "센터 전화 상담 후 안내. 위기 상황은 정신건강 위기상담 1577-0199·109.",
+          "operation": "보건복지부 기초정신건강복지센터 목록 확인(2026-11-25). 실제 접수·대상은 기관 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "청년",
+              "중장년",
+              "질환"
+            ],
+            "need": [
+              "정신건강",
+              "사례관리"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화",
+              "직접 방문"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.mohw.go.kr/menu.es?mid=a10706040300",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "보건복지부 기초정신건강복지센터 목록 대조",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-HSMH",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-HSMH",
+        "dept": "",
+        "phone": "031-352-0175",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.mohw.go.kr/menu.es?mid=a10706040300",
+        "verified_on": "2026-11-25"
+      },
+      "address": "경기도 화성시 향남읍 향남로 470, 실내체육관 1층",
+      "addressSource": "https://www.mohw.go.kr/menu.es?mid=a10706040300",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-11-25",
+      "addressNote": "보건복지부 기초정신건강복지센터 목록 2026-11-25 기준 수록 주소"
+    },
+    {
+      "id": "ORG-NC25-HSMHYOUTH",
+      "name": "화성시아동청소년정신건강복지센터",
+      "level": "경기도",
+      "kind": "정신건강복지센터",
+      "summary": "화성시 주민의 정신건강 상담·사례관리·위기 지원을 맡는 기초정신건강복지센터(아동청소년). 오산 거주자는 오산시정신건강복지센터가 먼저이며, 이 센터는 화성시 거주·전입 예정이거나 생활권이 화성시인 경우 함께 확인.",
+      "site": "",
+      "phone": "031-305-1010",
+      "source": "https://www.mohw.go.kr/menu.es?mid=a10706040300",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "화성시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "화성시 주민 대상(오산 거주자 이용 여부 확인 필요)",
+      "services": [
+        {
+          "id": "SVC-NC25-006",
+          "name": "정신건강 상담·사례관리",
+          "category": "정신건강",
+          "target": "{city} 주민(아동청소년)",
+          "description": "정신건강 상담, 사례관리, 위기 개입 연계. 대상 연령·거주지 조건과 접수 방법은 센터에 확인.",
+          "method": "센터 전화 상담 후 안내. 위기 상황은 정신건강 위기상담 1577-0199·109.",
+          "operation": "보건복지부 기초정신건강복지센터 목록 확인(2026-11-25). 실제 접수·대상은 기관 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년"
+            ],
+            "need": [
+              "정신건강",
+              "사례관리"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화",
+              "직접 방문"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.mohw.go.kr/menu.es?mid=a10706040300",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "보건복지부 기초정신건강복지센터 목록 대조",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-HSMHYOUTH",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-HSMHYOUTH",
+        "dept": "",
+        "phone": "031-305-1010",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.mohw.go.kr/menu.es?mid=a10706040300",
+        "verified_on": "2026-11-25"
+      },
+      "address": "경기도 화성시 봉담읍 효행로 212, 1층",
+      "addressSource": "https://www.mohw.go.kr/menu.es?mid=a10706040300",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-11-25",
+      "addressNote": "보건복지부 기초정신건강복지센터 목록 2026-11-25 기준 수록 주소"
+    },
+    {
+      "id": "ORG-NC25-PTMH",
+      "name": "평택시정신건강복지센터",
+      "level": "경기도",
+      "kind": "정신건강복지센터",
+      "summary": "평택시 주민의 정신건강 상담·사례관리·위기 지원을 맡는 기초정신건강복지센터(직영). 오산 거주자는 오산시정신건강복지센터가 먼저이며, 이 센터는 평택시 거주·전입 예정이거나 생활권이 평택시인 경우 함께 확인.",
+      "site": "",
+      "phone": "031-658-9818",
+      "source": "https://www.mohw.go.kr/menu.es?mid=a10706040300",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "평택시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "평택시 주민 대상(오산 거주자 이용 여부 확인 필요)",
+      "services": [
+        {
+          "id": "SVC-NC25-007",
+          "name": "정신건강 상담·사례관리",
+          "category": "정신건강",
+          "target": "{city} 주민(직영)",
+          "description": "정신건강 상담, 사례관리, 위기 개입 연계. 대상 연령·거주지 조건과 접수 방법은 센터에 확인.",
+          "method": "센터 전화 상담 후 안내. 위기 상황은 정신건강 위기상담 1577-0199·109.",
+          "operation": "보건복지부 기초정신건강복지센터 목록 확인(2026-11-25). 실제 접수·대상은 기관 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "청년",
+              "중장년",
+              "질환",
+              "청소년"
+            ],
+            "need": [
+              "정신건강",
+              "사례관리"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화",
+              "직접 방문"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.mohw.go.kr/menu.es?mid=a10706040300",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "보건복지부 기초정신건강복지센터 목록 대조",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-PTMH",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-PTMH",
+        "dept": "",
+        "phone": "031-658-9818",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.mohw.go.kr/menu.es?mid=a10706040300",
+        "verified_on": "2026-11-25"
+      },
+      "address": "경기도 평택시 평택5로, 평택시보건소 A동 2층",
+      "addressSource": "https://www.mohw.go.kr/menu.es?mid=a10706040300",
+      "addressStatus": "공식",
+      "addressCheckedOn": "2026-11-25",
+      "addressNote": "보건복지부 기초정신건강복지센터 목록 2026-11-25 기준 수록 주소"
+    },
+    {
+      "id": "ORG-NC25-SWYCC",
+      "name": "수원시청소년상담복지센터",
+      "level": "경기도",
+      "kind": "청소년상담복지센터",
+      "summary": "수원시의 청소년상담복지센터(청소년안전망 중심기관). 오산 청소년의 생활권·학교가 수원시이거나 전입 예정일 때 함께 확인.",
+      "site": "",
+      "phone": "031-218-0444",
+      "source": "https://www.data.go.kr/data/15154140/fileData.do",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "수원시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "수원시 주민 대상(오산 거주자 이용 여부 확인 필요)",
+      "services": [
+        {
+          "id": "SVC-NC25-008",
+          "name": "청소년 상담·위기 개입",
+          "category": "정신건강",
+          "target": "9~24세 청소년과 보호자",
+          "description": "개인·가족 상담, 심리검사, 위기 청소년 긴급 개입과 청소년안전망 연계. 수원시 거주 여부 등 이용 조건은 센터에 확인. 오산 청소년은 오산시청소년상담복지센터가 먼저.",
+          "method": "센터 전화 또는 청소년상담 1388.",
+          "operation": "한국청소년상담복지개발원 청소년안전망 센터 현황(공공데이터포털) 확인(2026-11-25). 실제 접수·대상은 기관 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "청소년",
+              "가족·한부모"
+            ],
+            "need": [
+              "정신건강",
+              "안전·권리보호",
+              "사례관리"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화",
+              "직접 방문",
+              "협력기관 추천"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.data.go.kr/data/15154140/fileData.do",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "한국청소년상담복지개발원 청소년안전망 센터 현황(공공데이터포털) 대조",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-SWYCC",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-SWYCC",
+        "dept": "",
+        "phone": "031-218-0444",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.data.go.kr/data/15154140/fileData.do",
+        "verified_on": "2026-11-25"
+      },
+      "address": "경기도 수원시 팔달구 권광로 293, 수원시청소년재단 희망등대센터 3층",
+      "addressSource": "https://www.data.go.kr/data/15154140/fileData.do",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-11-25",
+      "addressNote": "한국청소년상담복지개발원 청소년안전망 센터 현황(공공데이터포털) 2026-11-25 기준 수록 주소"
+    },
+    {
+      "id": "ORG-NC25-SWDREAM",
+      "name": "수원시학교밖청소년지원센터",
+      "level": "경기도",
+      "kind": "학교밖청소년지원센터",
+      "summary": "수원시의 학교밖청소년지원센터 꿈드림. 오산 청소년의 생활권이 수원시이거나 전입 예정일 때 함께 확인.",
+      "site": "",
+      "phone": "031-236-1317",
+      "source": "https://www.data.go.kr/data/15154140/fileData.do",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "수원시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "수원시 주민 대상(오산 거주자 이용 여부 확인 필요)",
+      "services": [
+        {
+          "id": "SVC-NC25-009",
+          "name": "학교 밖 청소년 지원(꿈드림)",
+          "category": "교육",
+          "target": "학교 밖 청소년(9~24세)",
+          "description": "상담, 학업 복귀·검정고시, 직업체험·자립 지원. 수원시 거주 여부 등 이용 조건은 센터에 확인. 오산 청소년은 오산시학교밖청소년지원센터 꿈드림이 먼저.",
+          "method": "센터 전화 또는 꿈드림 누리집.",
+          "operation": "한국청소년상담복지개발원 청소년안전망 센터 현황(공공데이터포털) 확인(2026-11-25). 실제 접수·대상은 기관 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "청소년"
+            ],
+            "need": [
+              "교육",
+              "고용·자립"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화",
+              "직접 방문",
+              "온라인"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.data.go.kr/data/15154140/fileData.do",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "한국청소년상담복지개발원 청소년안전망 센터 현황(공공데이터포털) 대조",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-SWDREAM",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-SWDREAM",
+        "dept": "",
+        "phone": "031-236-1317",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.data.go.kr/data/15154140/fileData.do",
+        "verified_on": "2026-11-25"
+      },
+      "address": "경기도 수원시 팔달구 권광로 293",
+      "addressSource": "https://www.data.go.kr/data/15154140/fileData.do",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-11-25",
+      "addressNote": "한국청소년상담복지개발원 청소년안전망 센터 현황(공공데이터포털) 2026-11-25 기준 수록 주소"
+    },
+    {
+      "id": "ORG-NC25-HSYCC",
+      "name": "화성시청소년상담복지센터",
+      "level": "경기도",
+      "kind": "청소년상담복지센터",
+      "summary": "화성시의 청소년상담복지센터(청소년안전망 중심기관). 오산 청소년의 생활권·학교가 화성시이거나 전입 예정일 때 함께 확인.",
+      "site": "",
+      "phone": "031-225-1318",
+      "source": "https://www.data.go.kr/data/15154140/fileData.do",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "화성시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "화성시 주민 대상(오산 거주자 이용 여부 확인 필요)",
+      "services": [
+        {
+          "id": "SVC-NC25-010",
+          "name": "청소년 상담·위기 개입",
+          "category": "정신건강",
+          "target": "9~24세 청소년과 보호자",
+          "description": "개인·가족 상담, 심리검사, 위기 청소년 긴급 개입과 청소년안전망 연계. 화성시 거주 여부 등 이용 조건은 센터에 확인. 오산 청소년은 오산시청소년상담복지센터가 먼저.",
+          "method": "센터 전화 또는 청소년상담 1388.",
+          "operation": "한국청소년상담복지개발원 청소년안전망 센터 현황(공공데이터포털) 확인(2026-11-25). 실제 접수·대상은 기관 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "청소년",
+              "가족·한부모"
+            ],
+            "need": [
+              "정신건강",
+              "안전·권리보호",
+              "사례관리"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화",
+              "직접 방문",
+              "협력기관 추천"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.data.go.kr/data/15154140/fileData.do",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "한국청소년상담복지개발원 청소년안전망 센터 현황(공공데이터포털) 대조",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-HSYCC",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-HSYCC",
+        "dept": "",
+        "phone": "031-225-1318",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.data.go.kr/data/15154140/fileData.do",
+        "verified_on": "2026-11-25"
+      },
+      "address": "경기도 화성시 태안로 145(병점동), 유앤아이센터 2층",
+      "addressSource": "https://www.data.go.kr/data/15154140/fileData.do",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-11-25",
+      "addressNote": "한국청소년상담복지개발원 청소년안전망 센터 현황(공공데이터포털) 2026-11-25 기준 수록 주소"
+    },
+    {
+      "id": "ORG-NC25-HSDREAM",
+      "name": "화성시학교밖청소년지원센터",
+      "level": "경기도",
+      "kind": "학교밖청소년지원센터",
+      "summary": "화성시의 학교밖청소년지원센터 꿈드림. 오산 청소년의 생활권이 화성시이거나 전입 예정일 때 함께 확인.",
+      "site": "",
+      "phone": "031-278-0179",
+      "source": "https://www.data.go.kr/data/15154140/fileData.do",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "화성시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "화성시 주민 대상(오산 거주자 이용 여부 확인 필요)",
+      "services": [
+        {
+          "id": "SVC-NC25-011",
+          "name": "학교 밖 청소년 지원(꿈드림)",
+          "category": "교육",
+          "target": "학교 밖 청소년(9~24세)",
+          "description": "상담, 학업 복귀·검정고시, 직업체험·자립 지원. 화성시 거주 여부 등 이용 조건은 센터에 확인. 오산 청소년은 오산시학교밖청소년지원센터 꿈드림이 먼저.",
+          "method": "센터 전화 또는 꿈드림 누리집.",
+          "operation": "한국청소년상담복지개발원 청소년안전망 센터 현황(공공데이터포털) 확인(2026-11-25). 실제 접수·대상은 기관 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "청소년"
+            ],
+            "need": [
+              "교육",
+              "고용·자립"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화",
+              "직접 방문",
+              "온라인"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.data.go.kr/data/15154140/fileData.do",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "한국청소년상담복지개발원 청소년안전망 센터 현황(공공데이터포털) 대조",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-HSDREAM",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-HSDREAM",
+        "dept": "",
+        "phone": "031-278-0179",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.data.go.kr/data/15154140/fileData.do",
+        "verified_on": "2026-11-25"
+      },
+      "address": "경기도 화성시 봉담읍 효행로 212, 2층",
+      "addressSource": "https://www.data.go.kr/data/15154140/fileData.do",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-11-25",
+      "addressNote": "한국청소년상담복지개발원 청소년안전망 센터 현황(공공데이터포털) 2026-11-25 기준 수록 주소"
+    },
+    {
+      "id": "ORG-NC25-PTYCC",
+      "name": "평택시청소년상담복지센터",
+      "level": "경기도",
+      "kind": "청소년상담복지센터",
+      "summary": "평택시의 청소년상담복지센터(청소년안전망 중심기관). 오산 청소년의 생활권·학교가 평택시이거나 전입 예정일 때 함께 확인.",
+      "site": "",
+      "phone": "031-656-1383",
+      "source": "https://www.data.go.kr/data/15154140/fileData.do",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "평택시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "평택시 주민 대상(오산 거주자 이용 여부 확인 필요)",
+      "services": [
+        {
+          "id": "SVC-NC25-012",
+          "name": "청소년 상담·위기 개입",
+          "category": "정신건강",
+          "target": "9~24세 청소년과 보호자",
+          "description": "개인·가족 상담, 심리검사, 위기 청소년 긴급 개입과 청소년안전망 연계. 평택시 거주 여부 등 이용 조건은 센터에 확인. 오산 청소년은 오산시청소년상담복지센터가 먼저.",
+          "method": "센터 전화 또는 청소년상담 1388.",
+          "operation": "한국청소년상담복지개발원 청소년안전망 센터 현황(공공데이터포털) 확인(2026-11-25). 실제 접수·대상은 기관 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "청소년",
+              "가족·한부모"
+            ],
+            "need": [
+              "정신건강",
+              "안전·권리보호",
+              "사례관리"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화",
+              "직접 방문",
+              "협력기관 추천"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.data.go.kr/data/15154140/fileData.do",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "한국청소년상담복지개발원 청소년안전망 센터 현황(공공데이터포털) 대조",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-PTYCC",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-PTYCC",
+        "dept": "",
+        "phone": "031-656-1383",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.data.go.kr/data/15154140/fileData.do",
+        "verified_on": "2026-11-25"
+      },
+      "address": "경기도 평택시 평남로 616, 청소년문화센터 4층",
+      "addressSource": "https://www.data.go.kr/data/15154140/fileData.do",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-11-25",
+      "addressNote": "한국청소년상담복지개발원 청소년안전망 센터 현황(공공데이터포털) 2026-11-25 기준 수록 주소"
+    },
+    {
+      "id": "ORG-NC25-PTDREAM",
+      "name": "평택시학교밖청소년지원센터",
+      "level": "경기도",
+      "kind": "학교밖청소년지원센터",
+      "summary": "평택시의 학교밖청소년지원센터 꿈드림. 오산 청소년의 생활권이 평택시이거나 전입 예정일 때 함께 확인.",
+      "site": "",
+      "phone": "070-4159-5482",
+      "source": "https://www.data.go.kr/data/15154140/fileData.do",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "평택시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "평택시 주민 대상(오산 거주자 이용 여부 확인 필요)",
+      "services": [
+        {
+          "id": "SVC-NC25-013",
+          "name": "학교 밖 청소년 지원(꿈드림)",
+          "category": "교육",
+          "target": "학교 밖 청소년(9~24세)",
+          "description": "상담, 학업 복귀·검정고시, 직업체험·자립 지원. 평택시 거주 여부 등 이용 조건은 센터에 확인. 오산 청소년은 오산시학교밖청소년지원센터 꿈드림이 먼저.",
+          "method": "센터 전화 또는 꿈드림 누리집.",
+          "operation": "한국청소년상담복지개발원 청소년안전망 센터 현황(공공데이터포털) 확인(2026-11-25). 실제 접수·대상은 기관 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "청소년"
+            ],
+            "need": [
+              "교육",
+              "고용·자립"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화",
+              "직접 방문",
+              "온라인"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.data.go.kr/data/15154140/fileData.do",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "한국청소년상담복지개발원 청소년안전망 센터 현황(공공데이터포털) 대조",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-PTDREAM",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-PTDREAM",
+        "dept": "",
+        "phone": "070-4159-5482",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.data.go.kr/data/15154140/fileData.do",
+        "verified_on": "2026-11-25"
+      },
+      "address": "경기도 평택시 평남로 616, 청소년문화센터 2층",
+      "addressSource": "https://www.data.go.kr/data/15154140/fileData.do",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-11-25",
+      "addressNote": "한국청소년상담복지개발원 청소년안전망 센터 현황(공공데이터포털) 2026-11-25 기준 수록 주소"
+    },
+    {
+      "id": "ORG-NC25-SWSHM",
+      "name": "수원남자단기청소년쉼터(청소년달보듬터)",
+      "level": "경기도",
+      "kind": "청소년쉼터",
+      "summary": "가정 밖 청소년(남자)의 일시 보호·숙식·상담을 하는 단기 청소년쉼터. 오산 안에서 맞는 쉼터를 찾기 어려울 때 가까운 쉼터로 확인. 입소 가능 여부·정원은 쉼터에 먼저 전화.",
+      "site": "",
+      "phone": "031-216-8353",
+      "source": "https://www.data.go.kr/data/3084536/fileData.do",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "수원시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "수원시 주민 대상(오산 거주자 이용 여부 확인 필요)",
+      "services": [
+        {
+          "id": "SVC-NC25-014",
+          "name": "가정 밖 청소년 단기 보호",
+          "category": "안전·권리보호",
+          "target": "가정 밖 청소년(남자)",
+          "description": "일시·단기 숙식 보호, 상담, 귀가·자립 지원 연계. 입소 기준·잔여 정원은 쉼터 확인.",
+          "method": "쉼터 전화 또는 청소년상담 1388로 연계.",
+          "operation": "여성가족부 청소년쉼터 현황(공공데이터포털) 확인(2026-11-25). 실제 접수·대상은 기관 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "청소년",
+              "위기가구"
+            ],
+            "need": [
+              "안전·권리보호",
+              "주거",
+              "정신건강"
+            ],
+            "form": [
+              "시설 이용",
+              "상담"
+            ],
+            "intake": [
+              "전화",
+              "협력기관 추천"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.data.go.kr/data/3084536/fileData.do",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "여성가족부 청소년쉼터 현황(공공데이터포털) 대조",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-SWSHM",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-SWSHM",
+        "dept": "",
+        "phone": "031-216-8353",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.data.go.kr/data/3084536/fileData.do",
+        "verified_on": "2026-11-25"
+      },
+      "address": "경기도 수원시 권선구 경수대로 261(세류동), 리치타워 3층",
+      "addressSource": "https://www.data.go.kr/data/3084536/fileData.do",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-11-25",
+      "addressNote": "여성가족부 청소년쉼터 현황(공공데이터포털) 2026-11-25 기준 수록 주소"
+    },
+    {
+      "id": "ORG-NC25-SWSHF",
+      "name": "수원여자단기청소년쉼터",
+      "level": "경기도",
+      "kind": "청소년쉼터",
+      "summary": "가정 밖 청소년(여자)의 일시 보호·숙식·상담을 하는 단기 청소년쉼터. 오산 안에서 맞는 쉼터를 찾기 어려울 때 가까운 쉼터로 확인. 입소 가능 여부·정원은 쉼터에 먼저 전화.",
+      "site": "",
+      "phone": "031-232-7982",
+      "source": "https://www.data.go.kr/data/3084536/fileData.do",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "수원시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "수원시 주민 대상(오산 거주자 이용 여부 확인 필요)",
+      "services": [
+        {
+          "id": "SVC-NC25-015",
+          "name": "가정 밖 청소년 단기 보호",
+          "category": "안전·권리보호",
+          "target": "가정 밖 청소년(여자)",
+          "description": "일시·단기 숙식 보호, 상담, 귀가·자립 지원 연계. 입소 기준·잔여 정원은 쉼터 확인.",
+          "method": "쉼터 전화 또는 청소년상담 1388로 연계.",
+          "operation": "여성가족부 청소년쉼터 현황(공공데이터포털) 확인(2026-11-25). 실제 접수·대상은 기관 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "청소년",
+              "위기가구"
+            ],
+            "need": [
+              "안전·권리보호",
+              "주거",
+              "정신건강"
+            ],
+            "form": [
+              "시설 이용",
+              "상담"
+            ],
+            "intake": [
+              "전화",
+              "협력기관 추천"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.data.go.kr/data/3084536/fileData.do",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "여성가족부 청소년쉼터 현황(공공데이터포털) 대조",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-SWSHF",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-SWSHF",
+        "dept": "",
+        "phone": "031-232-7982",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.data.go.kr/data/3084536/fileData.do",
+        "verified_on": "2026-11-25"
+      },
+      "address": "경기도 수원시 팔달구 행궁로 77, 송산빌딩 3층",
+      "addressSource": "https://www.data.go.kr/data/3084536/fileData.do",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-11-25",
+      "addressNote": "여성가족부 청소년쉼터 현황(공공데이터포털) 2026-11-25 기준 수록 주소"
+    },
+    {
+      "id": "ORG-NC25-PTSHM",
+      "name": "평택남자단기청소년쉼터(청울터)",
+      "level": "경기도",
+      "kind": "청소년쉼터",
+      "summary": "가정 밖 청소년(남자)의 일시 보호·숙식·상담을 하는 단기 청소년쉼터. 오산 안에서 맞는 쉼터를 찾기 어려울 때 가까운 쉼터로 확인. 입소 가능 여부·정원은 쉼터에 먼저 전화.",
+      "site": "",
+      "phone": "031-615-4630",
+      "source": "https://www.data.go.kr/data/3084536/fileData.do",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "평택시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "평택시 주민 대상(오산 거주자 이용 여부 확인 필요)",
+      "services": [
+        {
+          "id": "SVC-NC25-016",
+          "name": "가정 밖 청소년 단기 보호",
+          "category": "안전·권리보호",
+          "target": "가정 밖 청소년(남자)",
+          "description": "일시·단기 숙식 보호, 상담, 귀가·자립 지원 연계. 입소 기준·잔여 정원은 쉼터 확인.",
+          "method": "쉼터 전화 또는 청소년상담 1388로 연계.",
+          "operation": "여성가족부 청소년쉼터 현황(공공데이터포털) 확인(2026-11-25). 실제 접수·대상은 기관 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "청소년",
+              "위기가구"
+            ],
+            "need": [
+              "안전·권리보호",
+              "주거",
+              "정신건강"
+            ],
+            "form": [
+              "시설 이용",
+              "상담"
+            ],
+            "intake": [
+              "전화",
+              "협력기관 추천"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.data.go.kr/data/3084536/fileData.do",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "여성가족부 청소년쉼터 현황(공공데이터포털) 대조",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-PTSHM",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-PTSHM",
+        "dept": "",
+        "phone": "031-615-4630",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.data.go.kr/data/3084536/fileData.do",
+        "verified_on": "2026-11-25"
+      },
+      "address": "경기도 평택시 현신6길 61, 301~303호",
+      "addressSource": "https://www.data.go.kr/data/3084536/fileData.do",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-11-25",
+      "addressNote": "여성가족부 청소년쉼터 현황(공공데이터포털) 2026-11-25 기준 수록 주소"
+    },
+    {
+      "id": "ORG-NC25-PTSHF",
+      "name": "평택여자단기청소년쉼터",
+      "level": "경기도",
+      "kind": "청소년쉼터",
+      "summary": "가정 밖 청소년(여자)의 일시 보호·숙식·상담을 하는 단기 청소년쉼터. 오산 안에서 맞는 쉼터를 찾기 어려울 때 가까운 쉼터로 확인. 입소 가능 여부·정원은 쉼터에 먼저 전화.",
+      "site": "",
+      "phone": "031-652-1384",
+      "source": "https://www.data.go.kr/data/3084536/fileData.do",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "평택시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "평택시 주민 대상(오산 거주자 이용 여부 확인 필요)",
+      "services": [
+        {
+          "id": "SVC-NC25-017",
+          "name": "가정 밖 청소년 단기 보호",
+          "category": "안전·권리보호",
+          "target": "가정 밖 청소년(여자)",
+          "description": "일시·단기 숙식 보호, 상담, 귀가·자립 지원 연계. 입소 기준·잔여 정원은 쉼터 확인.",
+          "method": "쉼터 전화 또는 청소년상담 1388로 연계.",
+          "operation": "여성가족부 청소년쉼터 현황(공공데이터포털) 확인(2026-11-25). 실제 접수·대상은 기관 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "청소년",
+              "위기가구"
+            ],
+            "need": [
+              "안전·권리보호",
+              "주거",
+              "정신건강"
+            ],
+            "form": [
+              "시설 이용",
+              "상담"
+            ],
+            "intake": [
+              "전화",
+              "협력기관 추천"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.data.go.kr/data/3084536/fileData.do",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "여성가족부 청소년쉼터 현황(공공데이터포털) 대조",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-PTSHF",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-PTSHF",
+        "dept": "",
+        "phone": "031-652-1384",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.data.go.kr/data/3084536/fileData.do",
+        "verified_on": "2026-11-25"
+      },
+      "address": "경기도 평택시 매봉산4길 26(비전동)",
+      "addressSource": "https://www.data.go.kr/data/3084536/fileData.do",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-11-25",
+      "addressNote": "여성가족부 청소년쉼터 현황(공공데이터포털) 2026-11-25 기준 수록 주소"
+    },
+    {
+      "id": "ORG-NC25-HSSHF",
+      "name": "화성시여자단기청소년쉼터",
+      "level": "경기도",
+      "kind": "청소년쉼터",
+      "summary": "가정 밖 청소년(여자)의 일시 보호·숙식·상담을 하는 단기 청소년쉼터. 오산 안에서 맞는 쉼터를 찾기 어려울 때 가까운 쉼터로 확인. 입소 가능 여부·정원은 쉼터에 먼저 전화.",
+      "site": "",
+      "phone": "031-227-7935",
+      "source": "https://www.data.go.kr/data/3084536/fileData.do",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "화성시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "화성시 주민 대상(오산 거주자 이용 여부 확인 필요)",
+      "services": [
+        {
+          "id": "SVC-NC25-018",
+          "name": "가정 밖 청소년 단기 보호",
+          "category": "안전·권리보호",
+          "target": "가정 밖 청소년(여자)",
+          "description": "일시·단기 숙식 보호, 상담, 귀가·자립 지원 연계. 입소 기준·잔여 정원은 쉼터 확인.",
+          "method": "쉼터 전화 또는 청소년상담 1388로 연계.",
+          "operation": "여성가족부 청소년쉼터 현황(공공데이터포털) 확인(2026-11-25). 실제 접수·대상은 기관 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "청소년",
+              "위기가구"
+            ],
+            "need": [
+              "안전·권리보호",
+              "주거",
+              "정신건강"
+            ],
+            "form": [
+              "시설 이용",
+              "상담"
+            ],
+            "intake": [
+              "전화",
+              "협력기관 추천"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.data.go.kr/data/3084536/fileData.do",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "여성가족부 청소년쉼터 현황(공공데이터포털) 대조",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-HSSHF",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-HSSHF",
+        "dept": "",
+        "phone": "031-227-7935",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.data.go.kr/data/3084536/fileData.do",
+        "verified_on": "2026-11-25"
+      },
+      "address": "경기도 화성시 봉담읍 매봉로 478, 대호프라자 303호",
+      "addressSource": "https://www.data.go.kr/data/3084536/fileData.do",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-11-25",
+      "addressNote": "여성가족부 청소년쉼터 현황(공공데이터포털) 2026-11-25 기준 수록 주소"
+    },
+    {
+      "id": "ORG-NC25-ERSTV",
+      "name": "가톨릭대학교 성빈센트병원",
+      "level": "경기도",
+      "kind": "응급의료기관",
+      "summary": "국립중앙의료원 응급의료기관 목록의 지역응급의료센터. 오산과 가까운 수원시 응급실. 실제 수용 가능 여부는 119·병원에 확인. 공공데이터 전화 표기는 031-1577-8588.",
+      "site": "",
+      "phone": "1577-8588",
+      "source": "https://www.data.go.kr/data/15000563/openapi.do",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "수원시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "수원시 주민 대상(오산 거주자 이용 여부 확인 필요)",
+      "services": [
+        {
+          "id": "SVC-NC25-019",
+          "name": "응급실 진료",
+          "category": "의료·건강",
+          "target": "응급 진료가 필요한 사람",
+          "description": "지역응급의료센터 응급실. 이 목록은 응급 수용을 보장하지 않음. 생명이 위급하면 119.",
+          "method": "응급 상황은 119. 병원 대표전화로 진료과 문의.",
+          "operation": "국립중앙의료원 전국 응급의료기관 정보(공공데이터포털) 확인(2026-11-25). 실제 접수·대상은 기관 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "질환",
+              "위기가구"
+            ],
+            "need": [
+              "의료·건강"
+            ],
+            "form": [
+              "서비스 제공",
+              "시설 이용"
+            ],
+            "intake": [
+              "직접 방문",
+              "전화"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.data.go.kr/data/15000563/openapi.do",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "국립중앙의료원 전국 응급의료기관 정보(공공데이터포털) 대조",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-ERSTV",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-ERSTV",
+        "dept": "",
+        "phone": "1577-8588",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.data.go.kr/data/15000563/openapi.do",
+        "verified_on": "2026-11-25"
+      },
+      "address": "경기도 수원시 팔달구 중부대로 93(지동)",
+      "addressSource": "https://www.data.go.kr/data/15000563/openapi.do",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-11-25",
+      "addressNote": "국립중앙의료원 전국 응급의료기관 정보(공공데이터포털) 2026-11-25 기준 수록 주소"
+    },
+    {
+      "id": "ORG-NC25-ERDSW",
+      "name": "동수원병원",
+      "level": "경기도",
+      "kind": "응급의료기관",
+      "summary": "국립중앙의료원 응급의료기관 목록의 지역응급의료센터. 오산과 가까운 수원시 응급실. 실제 수용 가능 여부는 119·병원에 확인.",
+      "site": "",
+      "phone": "031-210-0114",
+      "source": "https://www.data.go.kr/data/15000563/openapi.do",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "수원시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "수원시 주민 대상(오산 거주자 이용 여부 확인 필요)",
+      "services": [
+        {
+          "id": "SVC-NC25-020",
+          "name": "응급실 진료",
+          "category": "의료·건강",
+          "target": "응급 진료가 필요한 사람",
+          "description": "지역응급의료센터 응급실. 이 목록은 응급 수용을 보장하지 않음. 생명이 위급하면 119.",
+          "method": "응급 상황은 119. 병원 대표전화로 진료과 문의.",
+          "operation": "국립중앙의료원 전국 응급의료기관 정보(공공데이터포털) 확인(2026-11-25). 실제 접수·대상은 기관 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "질환",
+              "위기가구"
+            ],
+            "need": [
+              "의료·건강"
+            ],
+            "form": [
+              "서비스 제공",
+              "시설 이용"
+            ],
+            "intake": [
+              "직접 방문",
+              "전화"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.data.go.kr/data/15000563/openapi.do",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "국립중앙의료원 전국 응급의료기관 정보(공공데이터포털) 대조",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-ERDSW",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-ERDSW",
+        "dept": "",
+        "phone": "031-210-0114",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.data.go.kr/data/15000563/openapi.do",
+        "verified_on": "2026-11-25"
+      },
+      "address": "경기도 수원시 팔달구 중부대로 165(우만동)",
+      "addressSource": "https://www.data.go.kr/data/15000563/openapi.do",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-11-25",
+      "addressNote": "국립중앙의료원 전국 응급의료기관 정보(공공데이터포털) 2026-11-25 기준 수록 주소"
+    },
+    {
+      "id": "ORG-NC25-ERWILLS",
+      "name": "윌스기념병원",
+      "level": "경기도",
+      "kind": "응급의료기관",
+      "summary": "국립중앙의료원 응급의료기관 목록의 지역응급의료센터. 오산과 가까운 수원시 응급실. 실제 수용 가능 여부는 119·병원에 확인.",
+      "site": "",
+      "phone": "031-223-2233",
+      "source": "https://www.data.go.kr/data/15000563/openapi.do",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "수원시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "수원시 주민 대상(오산 거주자 이용 여부 확인 필요)",
+      "services": [
+        {
+          "id": "SVC-NC25-021",
+          "name": "응급실 진료",
+          "category": "의료·건강",
+          "target": "응급 진료가 필요한 사람",
+          "description": "지역응급의료센터 응급실. 이 목록은 응급 수용을 보장하지 않음. 생명이 위급하면 119.",
+          "method": "응급 상황은 119. 병원 대표전화로 진료과 문의.",
+          "operation": "국립중앙의료원 전국 응급의료기관 정보(공공데이터포털) 확인(2026-11-25). 실제 접수·대상은 기관 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "질환",
+              "위기가구"
+            ],
+            "need": [
+              "의료·건강"
+            ],
+            "form": [
+              "서비스 제공",
+              "시설 이용"
+            ],
+            "intake": [
+              "직접 방문",
+              "전화"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.data.go.kr/data/15000563/openapi.do",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "국립중앙의료원 전국 응급의료기관 정보(공공데이터포털) 대조",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-ERWILLS",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-ERWILLS",
+        "dept": "",
+        "phone": "031-223-2233",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.data.go.kr/data/15000563/openapi.do",
+        "verified_on": "2026-11-25"
+      },
+      "address": "경기도 수원시 팔달구 경수대로 437(인계동)",
+      "addressSource": "https://www.data.go.kr/data/15000563/openapi.do",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-11-25",
+      "addressNote": "국립중앙의료원 전국 응급의료기관 정보(공공데이터포털) 2026-11-25 기준 수록 주소"
+    },
+    {
+      "id": "ORG-NC25-ERDUKSAN",
+      "name": "수원덕산병원",
+      "level": "경기도",
+      "kind": "응급의료기관",
+      "summary": "국립중앙의료원 응급의료기관 목록의 지역응급의료센터. 오산과 가까운 수원시 응급실. 실제 수용 가능 여부는 119·병원에 확인.",
+      "site": "",
+      "phone": "031-686-2000",
+      "source": "https://www.data.go.kr/data/15000563/openapi.do",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "수원시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "수원시 주민 대상(오산 거주자 이용 여부 확인 필요)",
+      "services": [
+        {
+          "id": "SVC-NC25-022",
+          "name": "응급실 진료",
+          "category": "의료·건강",
+          "target": "응급 진료가 필요한 사람",
+          "description": "지역응급의료센터 응급실. 이 목록은 응급 수용을 보장하지 않음. 생명이 위급하면 119.",
+          "method": "응급 상황은 119. 병원 대표전화로 진료과 문의.",
+          "operation": "국립중앙의료원 전국 응급의료기관 정보(공공데이터포털) 확인(2026-11-25). 실제 접수·대상은 기관 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "질환",
+              "위기가구"
+            ],
+            "need": [
+              "의료·건강"
+            ],
+            "form": [
+              "서비스 제공",
+              "시설 이용"
+            ],
+            "intake": [
+              "직접 방문",
+              "전화"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.data.go.kr/data/15000563/openapi.do",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "국립중앙의료원 전국 응급의료기관 정보(공공데이터포털) 대조",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-ERDUKSAN",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-ERDUKSAN",
+        "dept": "",
+        "phone": "031-686-2000",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.data.go.kr/data/15000563/openapi.do",
+        "verified_on": "2026-11-25"
+      },
+      "address": "경기도 수원시 권선구 서부로 1674(고색동)",
+      "addressSource": "https://www.data.go.kr/data/15000563/openapi.do",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-11-25",
+      "addressNote": "국립중앙의료원 전국 응급의료기관 정보(공공데이터포털) 2026-11-25 기준 수록 주소"
+    },
+    {
+      "id": "ORG-NC25-ERHWAHONG",
+      "name": "화홍병원",
+      "level": "경기도",
+      "kind": "응급의료기관",
+      "summary": "국립중앙의료원 응급의료기관 목록의 지역응급의료센터. 오산과 가까운 수원시 응급실. 실제 수용 가능 여부는 119·병원에 확인.",
+      "site": "",
+      "phone": "031-278-0119",
+      "source": "https://www.data.go.kr/data/15000563/openapi.do",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "수원시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "수원시 주민 대상(오산 거주자 이용 여부 확인 필요)",
+      "services": [
+        {
+          "id": "SVC-NC25-023",
+          "name": "응급실 진료",
+          "category": "의료·건강",
+          "target": "응급 진료가 필요한 사람",
+          "description": "지역응급의료센터 응급실. 이 목록은 응급 수용을 보장하지 않음. 생명이 위급하면 119.",
+          "method": "응급 상황은 119. 병원 대표전화로 진료과 문의.",
+          "operation": "국립중앙의료원 전국 응급의료기관 정보(공공데이터포털) 확인(2026-11-25). 실제 접수·대상은 기관 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "질환",
+              "위기가구"
+            ],
+            "need": [
+              "의료·건강"
+            ],
+            "form": [
+              "서비스 제공",
+              "시설 이용"
+            ],
+            "intake": [
+              "직접 방문",
+              "전화"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.data.go.kr/data/15000563/openapi.do",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "국립중앙의료원 전국 응급의료기관 정보(공공데이터포털) 대조",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-ERHWAHONG",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-ERHWAHONG",
+        "dept": "",
+        "phone": "031-278-0119",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.data.go.kr/data/15000563/openapi.do",
+        "verified_on": "2026-11-25"
+      },
+      "address": "경기도 수원시 권선구 호매실로90번길 98(호매실동)",
+      "addressSource": "https://www.data.go.kr/data/15000563/openapi.do",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-11-25",
+      "addressNote": "국립중앙의료원 전국 응급의료기관 정보(공공데이터포털) 2026-11-25 기준 수록 주소"
+    },
+    {
+      "id": "ORG-NC25-ERGOODM",
+      "name": "굿모닝병원",
+      "level": "경기도",
+      "kind": "응급의료기관",
+      "summary": "국립중앙의료원 응급의료기관 목록의 지역응급의료센터. 오산과 가까운 평택시 응급실. 실제 수용 가능 여부는 119·병원에 확인.",
+      "site": "",
+      "phone": "031-5182-7700",
+      "source": "https://www.data.go.kr/data/15000563/openapi.do",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "평택시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "평택시 주민 대상(오산 거주자 이용 여부 확인 필요)",
+      "services": [
+        {
+          "id": "SVC-NC25-024",
+          "name": "응급실 진료",
+          "category": "의료·건강",
+          "target": "응급 진료가 필요한 사람",
+          "description": "지역응급의료센터 응급실. 이 목록은 응급 수용을 보장하지 않음. 생명이 위급하면 119.",
+          "method": "응급 상황은 119. 병원 대표전화로 진료과 문의.",
+          "operation": "국립중앙의료원 전국 응급의료기관 정보(공공데이터포털) 확인(2026-11-25). 실제 접수·대상은 기관 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "질환",
+              "위기가구"
+            ],
+            "need": [
+              "의료·건강"
+            ],
+            "form": [
+              "서비스 제공",
+              "시설 이용"
+            ],
+            "intake": [
+              "직접 방문",
+              "전화"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.data.go.kr/data/15000563/openapi.do",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "국립중앙의료원 전국 응급의료기관 정보(공공데이터포털) 대조",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-ERGOODM",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-ERGOODM",
+        "dept": "",
+        "phone": "031-5182-7700",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.data.go.kr/data/15000563/openapi.do",
+        "verified_on": "2026-11-25"
+      },
+      "address": "경기도 평택시 중앙로 338(합정동)",
+      "addressSource": "https://www.data.go.kr/data/15000563/openapi.do",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-11-25",
+      "addressNote": "국립중앙의료원 전국 응급의료기관 정보(공공데이터포털) 2026-11-25 기준 수록 주소"
+    },
+    {
+      "id": "ORG-NC25-ERPTSM",
+      "name": "평택성모병원",
+      "level": "경기도",
+      "kind": "응급의료기관",
+      "summary": "국립중앙의료원 응급의료기관 목록의 지역응급의료센터. 오산과 가까운 평택시 응급실. 실제 수용 가능 여부는 119·병원에 확인. 공공데이터 전화 표기는 031-1800-8800.",
+      "site": "",
+      "phone": "1800-8800",
+      "source": "https://www.data.go.kr/data/15000563/openapi.do",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "평택시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "평택시 주민 대상(오산 거주자 이용 여부 확인 필요)",
+      "services": [
+        {
+          "id": "SVC-NC25-025",
+          "name": "응급실 진료",
+          "category": "의료·건강",
+          "target": "응급 진료가 필요한 사람",
+          "description": "지역응급의료센터 응급실. 이 목록은 응급 수용을 보장하지 않음. 생명이 위급하면 119.",
+          "method": "응급 상황은 119. 병원 대표전화로 진료과 문의.",
+          "operation": "국립중앙의료원 전국 응급의료기관 정보(공공데이터포털) 확인(2026-11-25). 실제 접수·대상은 기관 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "질환",
+              "위기가구"
+            ],
+            "need": [
+              "의료·건강"
+            ],
+            "form": [
+              "서비스 제공",
+              "시설 이용"
+            ],
+            "intake": [
+              "직접 방문",
+              "전화"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.data.go.kr/data/15000563/openapi.do",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "국립중앙의료원 전국 응급의료기관 정보(공공데이터포털) 대조",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-ERPTSM",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-ERPTSM",
+        "dept": "",
+        "phone": "1800-8800",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.data.go.kr/data/15000563/openapi.do",
+        "verified_on": "2026-11-25"
+      },
+      "address": "경기도 평택시 평택로 284(세교동)",
+      "addressSource": "https://www.data.go.kr/data/15000563/openapi.do",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-11-25",
+      "addressNote": "국립중앙의료원 전국 응급의료기관 정보(공공데이터포털) 2026-11-25 기준 수록 주소"
+    },
+    {
+      "id": "ORG-NC25-ERPARK",
+      "name": "박병원",
+      "level": "경기도",
+      "kind": "응급의료기관",
+      "summary": "국립중앙의료원 응급의료기관 목록의 지역응급의료기관. 오산과 가까운 평택시 응급실. 실제 수용 가능 여부는 119·병원에 확인.",
+      "site": "",
+      "phone": "031-666-2600",
+      "source": "https://www.data.go.kr/data/15000563/openapi.do",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "평택시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "평택시 주민 대상(오산 거주자 이용 여부 확인 필요)",
+      "services": [
+        {
+          "id": "SVC-NC25-026",
+          "name": "응급실 진료",
+          "category": "의료·건강",
+          "target": "응급 진료가 필요한 사람",
+          "description": "지역응급의료기관 응급실. 이 목록은 응급 수용을 보장하지 않음. 생명이 위급하면 119.",
+          "method": "응급 상황은 119. 병원 대표전화로 진료과 문의.",
+          "operation": "국립중앙의료원 전국 응급의료기관 정보(공공데이터포털) 확인(2026-11-25). 실제 접수·대상은 기관 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "질환",
+              "위기가구"
+            ],
+            "need": [
+              "의료·건강"
+            ],
+            "form": [
+              "서비스 제공",
+              "시설 이용"
+            ],
+            "intake": [
+              "직접 방문",
+              "전화"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.data.go.kr/data/15000563/openapi.do",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "국립중앙의료원 전국 응급의료기관 정보(공공데이터포털) 대조",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-ERPARK",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-ERPARK",
+        "dept": "",
+        "phone": "031-666-2600",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.data.go.kr/data/15000563/openapi.do",
+        "verified_on": "2026-11-25"
+      },
+      "address": "경기도 평택시 송탄로 33(장당동)",
+      "addressSource": "https://www.data.go.kr/data/15000563/openapi.do",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-11-25",
+      "addressNote": "국립중앙의료원 전국 응급의료기관 정보(공공데이터포털) 2026-11-25 기준 수록 주소"
+    },
+    {
+      "id": "ORG-NC25-ERPAKAE",
+      "name": "박애병원",
+      "level": "경기도",
+      "kind": "응급의료기관",
+      "summary": "국립중앙의료원 응급의료기관 목록의 지역응급의료기관. 오산과 가까운 평택시 응급실. 실제 수용 가능 여부는 119·병원에 확인.",
+      "site": "",
+      "phone": "031-652-2121",
+      "source": "https://www.data.go.kr/data/15000563/openapi.do",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "평택시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "평택시 주민 대상(오산 거주자 이용 여부 확인 필요)",
+      "services": [
+        {
+          "id": "SVC-NC25-027",
+          "name": "응급실 진료",
+          "category": "의료·건강",
+          "target": "응급 진료가 필요한 사람",
+          "description": "지역응급의료기관 응급실. 이 목록은 응급 수용을 보장하지 않음. 생명이 위급하면 119.",
+          "method": "응급 상황은 119. 병원 대표전화로 진료과 문의.",
+          "operation": "국립중앙의료원 전국 응급의료기관 정보(공공데이터포털) 확인(2026-11-25). 실제 접수·대상은 기관 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "질환",
+              "위기가구"
+            ],
+            "need": [
+              "의료·건강"
+            ],
+            "form": [
+              "서비스 제공",
+              "시설 이용"
+            ],
+            "intake": [
+              "직접 방문",
+              "전화"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.data.go.kr/data/15000563/openapi.do",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "국립중앙의료원 전국 응급의료기관 정보(공공데이터포털) 대조",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-ERPAKAE",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-ERPAKAE",
+        "dept": "",
+        "phone": "031-652-2121",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.data.go.kr/data/15000563/openapi.do",
+        "verified_on": "2026-11-25"
+      },
+      "address": "경기도 평택시 평택2로20번길 3(평택동)",
+      "addressSource": "https://www.data.go.kr/data/15000563/openapi.do",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-11-25",
+      "addressNote": "국립중앙의료원 전국 응급의료기관 정보(공공데이터포털) 2026-11-25 기준 수록 주소"
+    },
+    {
+      "id": "ORG-NC25-ERWONK",
+      "name": "원광종합병원",
+      "level": "경기도",
+      "kind": "응급의료기관",
+      "summary": "국립중앙의료원 응급의료기관 목록의 지역응급의료기관. 오산과 가까운 화성시 응급실. 실제 수용 가능 여부는 119·병원에 확인.",
+      "site": "",
+      "phone": "031-8077-7200",
+      "source": "https://www.data.go.kr/data/15000563/openapi.do",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "화성시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "화성시 주민 대상(오산 거주자 이용 여부 확인 필요)",
+      "services": [
+        {
+          "id": "SVC-NC25-028",
+          "name": "응급실 진료",
+          "category": "의료·건강",
+          "target": "응급 진료가 필요한 사람",
+          "description": "지역응급의료기관 응급실. 이 목록은 응급 수용을 보장하지 않음. 생명이 위급하면 119.",
+          "method": "응급 상황은 119. 병원 대표전화로 진료과 문의.",
+          "operation": "국립중앙의료원 전국 응급의료기관 정보(공공데이터포털) 확인(2026-11-25). 실제 접수·대상은 기관 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "질환",
+              "위기가구"
+            ],
+            "need": [
+              "의료·건강"
+            ],
+            "form": [
+              "서비스 제공",
+              "시설 이용"
+            ],
+            "intake": [
+              "직접 방문",
+              "전화"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.data.go.kr/data/15000563/openapi.do",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "국립중앙의료원 전국 응급의료기관 정보(공공데이터포털) 대조",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-ERWONK",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-ERWONK",
+        "dept": "",
+        "phone": "031-8077-7200",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.data.go.kr/data/15000563/openapi.do",
+        "verified_on": "2026-11-25"
+      },
+      "address": "경기도 화성시 화산북로 21(송산동, 병점)",
+      "addressSource": "https://www.data.go.kr/data/15000563/openapi.do",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-11-25",
+      "addressNote": "국립중앙의료원 전국 응급의료기관 정보(공공데이터포털) 2026-11-25 기준 수록 주소"
+    },
+    {
+      "id": "ORG-NC25-ERHSCJ",
+      "name": "화성중앙종합병원",
+      "level": "경기도",
+      "kind": "응급의료기관",
+      "summary": "국립중앙의료원 응급의료기관 목록의 지역응급의료기관. 오산과 가까운 화성시 응급실. 실제 수용 가능 여부는 119·병원에 확인.",
+      "site": "",
+      "phone": "031-352-8114",
+      "source": "https://www.data.go.kr/data/15000563/openapi.do",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "화성시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "화성시 주민 대상(오산 거주자 이용 여부 확인 필요)",
+      "services": [
+        {
+          "id": "SVC-NC25-029",
+          "name": "응급실 진료",
+          "category": "의료·건강",
+          "target": "응급 진료가 필요한 사람",
+          "description": "지역응급의료기관 응급실. 이 목록은 응급 수용을 보장하지 않음. 생명이 위급하면 119.",
+          "method": "응급 상황은 119. 병원 대표전화로 진료과 문의.",
+          "operation": "국립중앙의료원 전국 응급의료기관 정보(공공데이터포털) 확인(2026-11-25). 실제 접수·대상은 기관 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "질환",
+              "위기가구"
+            ],
+            "need": [
+              "의료·건강"
+            ],
+            "form": [
+              "서비스 제공",
+              "시설 이용"
+            ],
+            "intake": [
+              "직접 방문",
+              "전화"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.data.go.kr/data/15000563/openapi.do",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "국립중앙의료원 전국 응급의료기관 정보(공공데이터포털) 대조",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-ERHSCJ",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-ERHSCJ",
+        "dept": "",
+        "phone": "031-352-8114",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.data.go.kr/data/15000563/openapi.do",
+        "verified_on": "2026-11-25"
+      },
+      "address": "경기도 화성시 향남읍 발안로 5",
+      "addressSource": "https://www.data.go.kr/data/15000563/openapi.do",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-11-25",
+      "addressNote": "국립중앙의료원 전국 응급의료기관 정보(공공데이터포털) 2026-11-25 기준 수록 주소"
+    },
+    {
+      "id": "ORG-NC25-SWPROB",
+      "name": "수원보호관찰소",
+      "level": "경기도",
+      "kind": "보호관찰소",
+      "summary": "법무부 소속 보호관찰소. 보호관찰·사회봉사·수강명령을 집행. 오산 거주 대상자의 관할 여부는 아직 공식 자료로 확인하지 못해 확인 필요.",
+      "site": "",
+      "phone": "",
+      "source": "https://www.data.go.kr/data/15060340/fileData.do",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "수원시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "수원시 주민 대상(오산 거주자 이용 여부 확인 필요)",
+      "services": [
+        {
+          "id": "SVC-NC25-030",
+          "name": "보호관찰 대상 청소년·성인 상담",
+          "category": "안전·권리보호",
+          "target": "보호관찰·사회봉사·수강명령 대상자와 가족",
+          "description": "보호관찰 집행과 관련 상담. 오산 관할 여부와 연락처는 기관 확인 필요.",
+          "method": "법무부 대표전화 1588-1100 또는 보호관찰소 문의.",
+          "operation": "법무부 보호관찰소 현황(공공데이터포털) 확인(2026-11-25). 실제 접수·대상은 기관 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "청소년",
+              "청년",
+              "중장년"
+            ],
+            "need": [
+              "안전·권리보호",
+              "법률·금융"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": [
+              "전화",
+              "직접 방문"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.data.go.kr/data/15060340/fileData.do",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "법무부 보호관찰소 현황(공공데이터포털) 대조",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-SWPROB",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-SWPROB",
+        "dept": "",
+        "phone": "",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.data.go.kr/data/15060340/fileData.do",
+        "verified_on": "2026-11-25"
+      },
+      "address": "경기도 수원시 팔달구 중부대로143번길 102",
+      "addressSource": "https://www.data.go.kr/data/15060340/fileData.do",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-11-25",
+      "addressNote": "법무부 보호관찰소 현황(공공데이터포털) 2026-11-25 기준 수록 주소"
+    },
+    {
+      "id": "ORG-NC25-GGDREAM",
+      "name": "경기도학교밖청소년지원센터",
+      "level": "경기도",
+      "kind": "학교밖청소년지원센터",
+      "summary": "경기도 광역 학교밖청소년지원센터(꿈드림). 시·군 꿈드림을 지원하고 광역 프로그램을 운영.",
+      "site": "",
+      "phone": "031-253-1519",
+      "source": "https://www.data.go.kr/data/15154140/fileData.do",
+      "scope": "경기도",
+      "tier": "gyeonggi",
+      "tierCity": "",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "경기도 광역",
+      "services": [
+        {
+          "id": "SVC-NC25-031",
+          "name": "경기도 학교 밖 청소년 광역 지원",
+          "category": "교육",
+          "target": "경기도 학교 밖 청소년",
+          "description": "광역 프로그램과 시·군 꿈드림 연계. 개별 지원은 오산시학교밖청소년지원센터 꿈드림이 먼저.",
+          "method": "센터 전화 또는 꿈드림 누리집.",
+          "operation": "한국청소년상담복지개발원 청소년안전망 센터 현황(공공데이터포털) 확인(2026-11-25). 실제 접수·대상은 기관 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "청소년",
+              "기관·실무자"
+            ],
+            "need": [
+              "교육",
+              "고용·자립"
+            ],
+            "form": [
+              "상담",
+              "정보 제공"
+            ],
+            "intake": [
+              "전화",
+              "온라인"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.data.go.kr/data/15154140/fileData.do",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "한국청소년상담복지개발원 청소년안전망 센터 현황(공공데이터포털) 대조",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-GGDREAM",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-GGDREAM",
+        "dept": "",
+        "phone": "031-253-1519",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.data.go.kr/data/15154140/fileData.do",
+        "verified_on": "2026-11-25"
+      },
+      "address": "경기도 수원시 영통구 광교로 156(이의동), 광교비즈니스센터 105호",
+      "addressSource": "https://www.data.go.kr/data/15154140/fileData.do",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-11-25",
+      "addressNote": "한국청소년상담복지개발원 청소년안전망 센터 현황(공공데이터포털) 2026-11-25 기준 수록 주소"
+    },
+    {
+      "id": "ORG-NC25-GGDISPSY",
+      "name": "경기 재난심리회복지원센터",
+      "level": "경기도",
+      "kind": "재난심리지원",
+      "summary": "행정안전부 재난심리회복지원센터의 경기 센터(대한적십자사 경기지사 운영). 재난·사고 경험자의 심리 회복을 돕는다.",
+      "site": "",
+      "phone": "031-230-1624",
+      "source": "https://www.data.go.kr/data/15130798/fileData.do",
+      "scope": "경기도",
+      "tier": "gyeonggi",
+      "tierCity": "",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "경기도 광역",
+      "services": [
+        {
+          "id": "SVC-NC25-032",
+          "name": "재난 경험자 심리 상담",
+          "category": "정신건강",
+          "target": "재난·사고를 겪은 주민",
+          "description": "재난 경험자 심리 상담·회복 지원. 대상 재난 범위와 이용 방법은 센터에 확인.",
+          "method": "센터 전화로 상담 신청.",
+          "operation": "행정안전부 재난심리회복지원센터 현황(공공데이터포털) 확인(2026-11-25). 실제 접수·대상은 기관 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "위기가구",
+              "중장년",
+              "청소년"
+            ],
+            "need": [
+              "정신건강"
+            ],
+            "form": [
+              "상담"
+            ],
+            "intake": [
+              "전화"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://www.data.go.kr/data/15130798/fileData.do",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "행정안전부 재난심리회복지원센터 현황(공공데이터포털) 대조",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-GGDISPSY",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-GGDISPSY",
+        "dept": "",
+        "phone": "031-230-1624",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://www.data.go.kr/data/15130798/fileData.do",
+        "verified_on": "2026-11-25"
+      },
+      "address": "경기도 수원시 권선구 권광로 129, 대한적십자사 경기지사",
+      "addressSource": "https://www.data.go.kr/data/15130798/fileData.do",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-11-25",
+      "addressNote": "행정안전부 재난심리회복지원센터 현황(공공데이터포털) 2026-11-25 기준 수록 주소"
+    },
+    {
+      "id": "ORG-NC25-SWCPA",
+      "name": "수원아동보호전문기관",
+      "level": "경기도",
+      "kind": "아동보호전문기관",
+      "summary": "수원특례시를 관할하는 아동보호전문기관(경기일보 2025-01-01 기관장 기고). 주소·전화는 아직 공식 목록으로 확인하지 못함.",
+      "site": "",
+      "phone": "",
+      "source": "https://kyeonggi.com/article/20250101580309",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "수원시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "수원시(경기일보 2025-01-01 기준)",
+      "services": [
+        {
+          "id": "SVC-NC25-033",
+          "name": "피해아동 보호·가족 사례관리",
+          "category": "안전·권리보호",
+          "target": "학대 피해 아동과 가족",
+          "description": "아동학대 사례의 현장 조사 협력, 피해아동 보호·상담, 가족 사례관리. 수원시 거주 아동이 대상인지와 연락처는 기관 확인 필요.",
+          "method": "아동학대 신고는 112. 기관 전화는 확인 필요.",
+          "operation": "경기일보 2025-01-01 「우리 동네 아동보호전문기관 찾기」. 주소·전화·현재 관할 미확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년",
+              "가족·한부모"
+            ],
+            "need": [
+              "안전·권리보호",
+              "사례관리"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화",
+              "협력기관 추천"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://kyeonggi.com/article/20250101580309",
+          "verification": {
+            "status": "미확인",
+            "date": "2026-11-25",
+            "method": "경기일보 2025-01-01 「우리 동네 아동보호전문기관 찾기」 확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-SWCPA",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-SWCPA",
+        "dept": "",
+        "phone": "",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://kyeonggi.com/article/20250101580309",
+        "verified_on": "2026-11-25"
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "경기일보 2025-01-01 「우리 동네 아동보호전문기관 찾기」로 존재만 확인"
+    },
+    {
+      "id": "ORG-NC25-HSCPA",
+      "name": "화성시아동보호전문기관",
+      "level": "경기도",
+      "kind": "아동보호전문기관",
+      "summary": "화성시 아동보호전문기관(기관 누리집 hwaseong.goodneighbors.kr). 관할·주소·전화는 아직 공식 목록으로 확인하지 못함.",
+      "site": "",
+      "phone": "",
+      "source": "https://hwaseong.goodneighbors.kr/",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "화성시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "화성시(관할 확인 필요)",
+      "services": [
+        {
+          "id": "SVC-NC25-034",
+          "name": "피해아동 보호·가족 사례관리",
+          "category": "안전·권리보호",
+          "target": "학대 피해 아동과 가족",
+          "description": "아동학대 사례의 현장 조사 협력, 피해아동 보호·상담, 가족 사례관리. 화성시 거주 아동이 대상인지와 연락처는 기관 확인 필요.",
+          "method": "아동학대 신고는 112. 기관 전화는 확인 필요.",
+          "operation": "기관 누리집 주소(본문 열람 못 함). 주소·전화·현재 관할 미확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년",
+              "가족·한부모"
+            ],
+            "need": [
+              "안전·권리보호",
+              "사례관리"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화",
+              "협력기관 추천"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://hwaseong.goodneighbors.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "2026-11-25",
+            "method": "기관 누리집 주소(본문 열람 못 함) 확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-HSCPA",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-HSCPA",
+        "dept": "",
+        "phone": "",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://hwaseong.goodneighbors.kr/",
+        "verified_on": "2026-11-25"
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "기관 누리집 주소(본문 열람 못 함)로 존재만 확인"
+    },
+    {
+      "id": "ORG-NC25-PTCPA",
+      "name": "경기평택아동보호전문기관",
+      "level": "경기도",
+      "kind": "아동보호전문기관",
+      "summary": "2015-07-01 문을 연 평택·안성 관할 아동보호전문기관(사회복지법인 동방사회복지회 위탁, 경기일보 2015-09-13). 현재 관할·연락처는 확인 필요.",
+      "site": "",
+      "phone": "",
+      "source": "https://kyeonggi.com/article/201509130675962",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "평택시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "평택시·안성시(2015-09-13 기사 기준)",
+      "services": [
+        {
+          "id": "SVC-NC25-035",
+          "name": "피해아동 보호·가족 사례관리",
+          "category": "안전·권리보호",
+          "target": "학대 피해 아동과 가족",
+          "description": "아동학대 사례의 현장 조사 협력, 피해아동 보호·상담, 가족 사례관리. 평택시 거주 아동이 대상인지와 연락처는 기관 확인 필요.",
+          "method": "아동학대 신고는 112. 기관 전화는 확인 필요.",
+          "operation": "경기일보 2015-09-13 「경기평택아동보호전문기관 개관」. 주소·전화·현재 관할 미확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년",
+              "가족·한부모"
+            ],
+            "need": [
+              "안전·권리보호",
+              "사례관리"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화",
+              "협력기관 추천"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://kyeonggi.com/article/201509130675962",
+          "verification": {
+            "status": "미확인",
+            "date": "2026-11-25",
+            "method": "경기일보 2015-09-13 「경기평택아동보호전문기관 개관」 확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-PTCPA",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-PTCPA",
+        "dept": "",
+        "phone": "",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://kyeonggi.com/article/201509130675962",
+        "verified_on": "2026-11-25"
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "경기일보 2015-09-13 「경기평택아동보호전문기관 개관」로 존재만 확인"
     }
   ]
 };
