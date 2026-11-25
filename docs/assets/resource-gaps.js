@@ -29,7 +29,11 @@ function open(need,target){
  box.hidden=false;
  box.innerHTML='<h2>'+esc(need)+' × '+esc(target)+'</h2><p class="legend">등록 서비스 '+list.length+'개 · 오산 '+osan+'개 · 공식 안내 확인 '+confirmed+'개'+(osan?'':' · 오산 서비스가 없어 경기·전국 서비스를 대신 안내하거나 지역 자원 발굴이 필요합니다.')+'</p>'+
   (list.length?'<div class="cards">'+list.map(card).join('')+'</div>':'<p>등록된 서비스가 없습니다. 실제 자원을 알고 계시면 메인 화면의 「자료 갱신·오류 제보」로 알려 주세요.</p>')+
+  '<div id="pfBox"></div>'+
   '<p class="no-print"><a href="service-guide.html?need='+encodeURIComponent(need)+'&amp;target='+encodeURIComponent(target)+'">필요한 도움으로 찾기에서 이어 보기 →</a> · <button class="text" type="button" id="closeDetail">닫기</button></p>';
+ const P=window.PublicFacilities;
+ if(P)P.load('public-api/facilities.json').then(d=>{const box2=$('pfBox');if(!box2||!d)return;const gs=P.forNeed(d,need,target);
+  box2.innerHTML=P.html(gs,d,{title:'공공데이터 기관 목록에서 함께 볼 곳',intro:osan?'등록 서비스 밖에서 공공데이터로 확인되는 기관입니다.':'오산에 등록 서비스가 없는 칸입니다. 공공데이터로 확인되는 오산·가까운 경기 기관을 대신 안내할 수 있습니다.',limit:4})});
  $('closeDetail').addEventListener('click',()=>{box.hidden=true;document.querySelectorAll('#matrix button').forEach(b=>b.setAttribute('aria-pressed','false'))});
  box.scrollIntoView({behavior:'smooth',block:'start'});
 }

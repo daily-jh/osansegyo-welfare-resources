@@ -20,12 +20,12 @@
 <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
 <link rel="preload" href="../youth-risk/fonts/SUIT-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../assets/tools-ui-v1.css?v=20261125-u1">
-<link rel="stylesheet" href="care.css?v=20261125-c6">
+<link rel="stylesheet" href="care.css?v=20261125-c6"><link rel="stylesheet" href="../assets/public-facilities.css?v=20261125-pf1">
 <script defer src="../assets/data.js?v=20261125-care3"></script>
 <script defer src="../assets/tools-ui-v1.js?v=20261125-u1"></script>
 <script defer src="care-data.js?v=20261125-c6"></script>
 <script defer src="care-model.js?v=20261125-c6"></script>
-<script defer src="care-app.js?v=20261125-c6"></script>
+<script defer src="../assets/public-facilities.js?v=20261125-pf1"></script><script defer src="care-app.js?v=20261125-pf1"></script>
 </head>
 <body>
 <a class="skip" href="#main">본문으로 건너뛰기</a>
@@ -154,6 +154,8 @@
       <div id="mapDomains" class="map-domains"></div>
       <div class="panel-head"><h2>공공 API가 찾은 돌봄 후보</h2><p>매주 월요일 공공데이터포털에서 돌봄통합 영역 사업을 모아, DB에 없는 것만 보여 줍니다. 담당자가 공식 안내를 확인한 뒤 DB에 넣습니다.</p></div>
       <div id="apiCandidates" class="api-list"></div>
+      <div class="panel-head"><h2>공공데이터 기관 목록에서 함께 볼 곳</h2><p>마음투자 바우처 제공기관·정신건강의학과 의원·재난심리회복지원센터처럼 돌봄과 함께 쓰는 기관을 공공데이터포털 원문으로 보여 줍니다. 운영 여부는 이용 전에 확인합니다. <a href="../public-facilities.html">전체 목록 보기 →</a></p></div>
+      <div id="publicFacilities" class="api-list"></div>
     </section>
   </div>
 
