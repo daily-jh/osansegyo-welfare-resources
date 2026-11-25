@@ -23758,6 +23758,237 @@ window.WELFARE_DATA = {
       "addressStatus": "공공·지도",
       "addressCheckedOn": "2026-11-25",
       "addressNote": "행정안전부 재난심리회복지원센터 현황(공공데이터포털) 2026-11-25 기준 수록 주소"
+    },
+    {
+      "id": "ORG-NC25-SWCPA",
+      "name": "수원아동보호전문기관",
+      "level": "경기도",
+      "kind": "아동보호전문기관",
+      "summary": "수원특례시를 관할하는 아동보호전문기관(경기일보 2025-01-01 기관장 기고). 주소·전화는 아직 공식 목록으로 확인하지 못함.",
+      "site": "",
+      "phone": "",
+      "source": "https://kyeonggi.com/article/20250101580309",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "수원시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "수원시(경기일보 2025-01-01 기준)",
+      "services": [
+        {
+          "id": "SVC-NC25-033",
+          "name": "피해아동 보호·가족 사례관리",
+          "category": "안전·권리보호",
+          "target": "학대 피해 아동과 가족",
+          "description": "아동학대 사례의 현장 조사 협력, 피해아동 보호·상담, 가족 사례관리. 수원시 거주 아동이 대상인지와 연락처는 기관 확인 필요.",
+          "method": "아동학대 신고는 112. 기관 전화는 확인 필요.",
+          "operation": "경기일보 2025-01-01 「우리 동네 아동보호전문기관 찾기」. 주소·전화·현재 관할 미확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년",
+              "가족·한부모"
+            ],
+            "need": [
+              "안전·권리보호",
+              "사례관리"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화",
+              "협력기관 추천"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://kyeonggi.com/article/20250101580309",
+          "verification": {
+            "status": "미확인",
+            "date": "2026-11-25",
+            "method": "경기일보 2025-01-01 「우리 동네 아동보호전문기관 찾기」 확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-SWCPA",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-SWCPA",
+        "dept": "",
+        "phone": "",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://kyeonggi.com/article/20250101580309",
+        "verified_on": "2026-11-25"
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "경기일보 2025-01-01 「우리 동네 아동보호전문기관 찾기」로 존재만 확인"
+    },
+    {
+      "id": "ORG-NC25-HSCPA",
+      "name": "화성시아동보호전문기관",
+      "level": "경기도",
+      "kind": "아동보호전문기관",
+      "summary": "화성시 아동보호전문기관(기관 누리집 hwaseong.goodneighbors.kr). 관할·주소·전화는 아직 공식 목록으로 확인하지 못함.",
+      "site": "",
+      "phone": "",
+      "source": "https://hwaseong.goodneighbors.kr/",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "화성시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "화성시(관할 확인 필요)",
+      "services": [
+        {
+          "id": "SVC-NC25-034",
+          "name": "피해아동 보호·가족 사례관리",
+          "category": "안전·권리보호",
+          "target": "학대 피해 아동과 가족",
+          "description": "아동학대 사례의 현장 조사 협력, 피해아동 보호·상담, 가족 사례관리. 화성시 거주 아동이 대상인지와 연락처는 기관 확인 필요.",
+          "method": "아동학대 신고는 112. 기관 전화는 확인 필요.",
+          "operation": "기관 누리집 주소(본문 열람 못 함). 주소·전화·현재 관할 미확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년",
+              "가족·한부모"
+            ],
+            "need": [
+              "안전·권리보호",
+              "사례관리"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화",
+              "협력기관 추천"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://hwaseong.goodneighbors.kr/",
+          "verification": {
+            "status": "미확인",
+            "date": "2026-11-25",
+            "method": "기관 누리집 주소(본문 열람 못 함) 확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-HSCPA",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-HSCPA",
+        "dept": "",
+        "phone": "",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://hwaseong.goodneighbors.kr/",
+        "verified_on": "2026-11-25"
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "기관 누리집 주소(본문 열람 못 함)로 존재만 확인"
+    },
+    {
+      "id": "ORG-NC25-PTCPA",
+      "name": "경기평택아동보호전문기관",
+      "level": "경기도",
+      "kind": "아동보호전문기관",
+      "summary": "2015-07-01 문을 연 평택·안성 관할 아동보호전문기관(사회복지법인 동방사회복지회 위탁, 경기일보 2015-09-13). 현재 관할·연락처는 확인 필요.",
+      "site": "",
+      "phone": "",
+      "source": "https://kyeonggi.com/article/201509130675962",
+      "scope": "인근 시",
+      "tier": "near",
+      "tierCity": "평택시",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "평택시·안성시(2015-09-13 기사 기준)",
+      "services": [
+        {
+          "id": "SVC-NC25-035",
+          "name": "피해아동 보호·가족 사례관리",
+          "category": "안전·권리보호",
+          "target": "학대 피해 아동과 가족",
+          "description": "아동학대 사례의 현장 조사 협력, 피해아동 보호·상담, 가족 사례관리. 평택시 거주 아동이 대상인지와 연락처는 기관 확인 필요.",
+          "method": "아동학대 신고는 112. 기관 전화는 확인 필요.",
+          "operation": "경기일보 2015-09-13 「경기평택아동보호전문기관 개관」. 주소·전화·현재 관할 미확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년",
+              "가족·한부모"
+            ],
+            "need": [
+              "안전·권리보호",
+              "사례관리"
+            ],
+            "form": [
+              "상담",
+              "서비스 제공"
+            ],
+            "intake": [
+              "전화",
+              "협력기관 추천"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "확인 필요",
+          "source": "https://kyeonggi.com/article/201509130675962",
+          "verification": {
+            "status": "미확인",
+            "date": "2026-11-25",
+            "method": "경기일보 2015-09-13 「경기평택아동보호전문기관 개관」 확인",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-NC25-PTCPA",
+        "owner_type": "organization",
+        "owner_id": "ORG-NC25-PTCPA",
+        "dept": "",
+        "phone": "",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "https://kyeonggi.com/article/201509130675962",
+        "verified_on": "2026-11-25"
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "경기일보 2015-09-13 「경기평택아동보호전문기관 개관」로 존재만 확인"
     }
   ]
 };

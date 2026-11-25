@@ -21,6 +21,8 @@ for(const [city,e] of Object.entries(expect)){
   assert.ok(!yc.some(n=>other.some(c=>n.startsWith(c))),city+'에 다른 시 기관이 섞임');
   assert.match(M.welfareZoneText({dong:city}),new RegExp(city+' 거주'));
 }
+// 학대 문항은 그 시 아동보호전문기관이 오산 기관보다 앞선다.
+for(const [city,name] of [['수원시','수원아동보호전문기관'],['화성시','화성시아동보호전문기관'],['평택시','경기평택아동보호전문기관']]){const n=names(make(city,[1,2]));assert.ok(n.indexOf(name)>=0&&n.indexOf(name)<n.indexOf('오산시아동보호전문기관'),city+' 아동보호: '+n.join(','))}
 // 오산 행정동·기타 지역은 인근 시 기관을 끼워 넣지 않는다.
 for(const dong of ['','신장1동','오산시 외'])assert.ok(!names(make(dong,[6,8,3,4])).some(n=>/^(수원시|화성시|평택시)/.test(n)),dong+'에 인근 시 기관이 끼어듦');
 assert.equal(M.student({student:{dong:'수원시'}}).dong,'수원시');assert.equal(M.student({student:{dong:'서울시'}}).dong,'');
