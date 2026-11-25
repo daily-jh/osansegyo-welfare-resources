@@ -47,16 +47,18 @@ function deepReport(kind,p){const M=window.OYDeepInterpretation;if(!M||!p)return
 // so the paged report, the numbers and the raw scores follow one another instead of standing apart.
 const SCORE_PARTS=[['read','해석지 읽기','해석지'],['numbers','숫자로 보기 · 통합지원 5단계와 지표','숫자로 보기'],['raw','원점수 · 25문항 응답','원점수']];
 const INTEGRATED_PARTS=[['opinion','통합 사정의견서','사정의견서'],['raw','단계 지표와 분석 근거','근거 자료']];
-function partRoute(parts){return '<ol class="j88-route" aria-label="이 탭의 읽는 순서">'+parts.map((p,i)=>'<li><button type="button" data-j88-part="'+p[0]+'"><b>'+(i+1)+'</b><span>'+esc(p[2])+'</span></button></li>').join('')+'</ol>';}
-function partHead(parts,id,deck,note){const i=parts.findIndex(p=>p[0]===id);return '<header class="j88-part" id="j88-part-'+id+'"><p class="j88-part-no">'+(i+1)+' / '+parts.length+'</p><h3>'+esc(parts[i][1])+(note?' <small>'+esc(note)+'</small>':'')+'</h3>'+(deck?'<p>'+esc(deck)+'</p>':'')+'</header>';}
+// 2026-11-25: 탭 안 순서 번호도 한 장의 칸 번호를 이어 받는다(03-1 해석지 · 03-2 숫자 · 03-3 원점수).
+const TAB_NO={score:'03',narrative:'04',integrated:'05'};
+function partRoute(parts,no){return '<ol class="j88-route" aria-label="이 탭의 읽는 순서">'+parts.map((p,i)=>'<li><button type="button" data-j88-part="'+p[0]+'"><b>'+(no?no+'-':'')+(i+1)+'</b><span>'+esc(p[2])+'</span></button></li>').join('')+'</ol>';}
+function partHead(parts,id,deck,note,no){const i=parts.findIndex(p=>p[0]===id);return '<header class="j88-part" id="j88-part-'+id+'"><p class="j88-part-no">'+(no?no+'-'+(i+1):(i+1)+' / '+parts.length)+'</p><h3>'+esc(parts[i][1])+(note?' <small>'+esc(note)+'</small>':'')+'</h3>'+(deck?'<p>'+esc(deck)+'</p>':'')+'</header>';}
 function resultScorePage(a){
  const d=a.decision;
  return '<section class="j88-result-pane j88-flow" aria-label="척도 해석"><p class="j88-view-note">25문항 응답만으로 읽은 해석입니다. 서술기록까지 합친 개입 수준과 계획은 통합 사정의견에서 정합니다.</p>'
- +partRoute(SCORE_PARTS)
- +partHead(SCORE_PARTS,'read','생활 주제별로 나눈 해석지입니다. 장을 넘기며 읽고, 마지막 장에서 숫자로 이어집니다.')
+ +partRoute(SCORE_PARTS,'03')
+ +partHead(SCORE_PARTS,'read','생활 영역별로 구성한 척도 해석지입니다. 아래 넘김 막대(‹ ›)나 좌우 밀기로 장을 넘기고, 마지막 장에서 지표로 이어집니다.',null,'03')
  +scalePages(state.payload)
- +partHead(SCORE_PARTS,'numbers','10개 영역을 그래프로 봅니다. 단계 판정은 위 판정 근거 ③에 한 번만 둡니다.','개발형 보조지표')+'<div id="oy-index-visual-slot"></div>'
- +partHead(SCORE_PARTS,'raw','CORE 원점수와 문항별 응답입니다. 필요할 때 펼쳐 확인합니다.')
+ +partHead(SCORE_PARTS,'numbers','10개 영역을 그래프로 봅니다. 단계 판정은 위 판정 근거 ③에 한 번만 둡니다.','개발형 보조지표','03')+'<div id="oy-index-visual-slot"></div>'
+ +partHead(SCORE_PARTS,'raw','CORE 원점수와 문항별 응답입니다. 필요할 때 펼쳐 확인합니다.',null,'03')
  +'<details class="j88-raw-accordion"><summary>원점수 · 25문항 상세 결과 펼치기</summary><div class="j88-metrics"><article><small>CORE 원점수</small><strong>'+esc(d.incomplete?'판정 보류':d.knownTotal+' / 100')+'</strong><span>미상 '+d.unknownItems.length+'개는 0점 처리하지 않습니다.</span></article>'
  +'<article><small>확인한 문항</small><strong>'+d.knownCount+' / 25</strong><span>미상·응답별 확인 상태 구분</span></article>'
  +'<article><small>3~4점 응답</small><strong>'+a.high.length+'개</strong><span>높은 개별 응답만 집계</span></article></div>'
@@ -107,8 +109,8 @@ function stageFold(a){
 }
 function resultIntegratedPage(a){
  return '<section class="j88-result-pane j88-flow"><p class="j88-view-note">척도 응답과 서술기록을 함께 본 의견서입니다. 단계는 위 판정 근거 ③과 같은 값입니다.</p>'
- +partRoute(INTEGRATED_PARTS)
- +partHead(INTEGRATED_PARTS,'opinion','개입 수준, 주관기관, 개입계획을 정리한 의견서입니다.')
+ +partRoute(INTEGRATED_PARTS,'05')
+ +partHead(INTEGRATED_PARTS,'opinion','개입 수준, 주관기관, 개입계획을 정리한 의견서입니다.',null,'05')
  +narrReport('integratedHtml',state.payload)
  +partHead(INTEGRATED_PARTS,'raw','서술까지 반영한 단계 지표와 이전 모델의 원자료입니다. 검토할 때만 펼칩니다.')
  /* 2026-11-16 디자인 고도화: 단계가 판정 띠·시스템 분석 결과·통합지원 단계로 세 번 펼쳐져 있던 것을 한 줄 요약 + 접기로 줄인다.
@@ -130,8 +132,16 @@ function resultViews(a){
  const note='<p class="j88-view-note"><b>판정 근거</b> · 위 한 장의 결론이 어떤 순서로 정해졌는지입니다. 칸을 누르면 기준 → 이 사례 → 결과가 펼쳐집니다. 아래 세 탭은 이 판정을 풀어 쓴 자료이며, CORE 원점수와 공식 안전판정은 어느 탭에서도 바뀌지 않습니다.</p>';
  return (strip?(resultTab==='score'?'<div class="j88-basis" id="j88-basis">'+note+strip+'</div>'
   :'<details class="j88-basis j88-basis-fold" id="j88-basis"><summary><b>판정 근거</b><span>'+esc(basisLine())+'</span><small>펼치기</small></summary>'+note+strip+'</details>'):'')
- +'<nav class="j88-tabs j88-result-tabs" aria-label="척도 평가 결과별 분석">'+menu.map(([id,label,sub])=>'<button type="button" data-j88-result-tab="'+id+'" aria-pressed="'+(id===resultTab)+'"><strong>'+label+'</strong><small>'+sub+'</small></button>').join('')+'</nav>'
- +(resultTab==='score'?resultScorePage(a):resultTab==='narrative'?resultNarrativePage(a):resultIntegratedPage(a));
+ +'<nav class="j88-tabs j88-result-tabs" aria-label="척도 평가 결과별 분석">'+menu.map(([id,label,sub])=>'<button type="button" data-j88-result-tab="'+id+'" aria-pressed="'+(id===resultTab)+'"><strong><i class="j88-tab-no">'+TAB_NO[id]+'</i>'+label+'</strong><small>'+sub+'</small></button>').join('')+'</nav>'
+ +(resultTab==='score'?resultScorePage(a):resultTab==='narrative'?resultNarrativePage(a):resultIntegratedPage(a))
+ +nextTab(resultTab);
+}
+/* 2026-11-25 넘김 방향: 탭 끝에서 다음 번호로 이어 간다(03 → 04 → 05 → 한 장의 06). 위로 다시 올라가 탭을 찾지 않아도 된다. */
+function nextTab(id){
+ const N={score:['narrative','04','서술기록 분석'],narrative:['integrated','05','통합 사정의견'],integrated:['role','06','역할 및 지원사항']}[id],P={narrative:['score','03','척도 해석'],integrated:['narrative','04','서술기록 분석']}[id];
+ if(!N)return '';
+ return '<nav class="j88-nexttab" aria-label="다음 분석으로">'+(P?'<button type="button" class="j88-nt-prev" data-j88-next="'+P[0]+'"><span>이전 · '+P[1]+'</span><b>'+esc(P[2])+'</b></button>':'<span></span>')
+  +'<button type="button" class="j88-nt-next" data-j88-next="'+N[0]+'"><span>다음 · '+N[1]+'</span><b>'+esc(N[2])+'</b><i aria-hidden="true">'+(N[0]==='role'?'↑':'→')+'</i></button></nav>';
 }
 
 function caseJudgment(a){
@@ -187,6 +197,7 @@ function renderContent(){if(!state?.ready||!state.payload||state.stage===1||stat
  box.querySelectorAll('[data-draft]').forEach(el=>{const remember=()=>{drafts[el.dataset.draft]=el.value;invalidate();};el.addEventListener('input',remember);if(el.tagName==='SELECT')el.addEventListener('change',remember);});
  box.querySelectorAll('[data-j88-tab]').forEach(b=>b.onclick=()=>{tab=b.dataset.j88Tab;render();box.querySelector('[data-j88-tab][aria-pressed="true"]').focus({preventScroll:true});});
  box.querySelectorAll('[data-j88-result-tab]').forEach(b=>b.onclick=()=>{resultTab=b.dataset.j88ResultTab;render();window.OYStageInsights?.render(state);box.querySelector('.j88-result-pane')?.classList.add('j88-enter');box.querySelector('[data-j88-result-tab][aria-pressed="true"]')?.focus({preventScroll:true});});
+ box.querySelectorAll('[data-j88-next]').forEach(b=>b.onclick=()=>{const to=b.dataset.j88Next;if(to==='role'){const c=document.querySelector('#oyOnePage [data-oy1-card="6"]');if(c){c.scrollIntoView({behavior:'smooth',block:'center'});c.classList.remove('oy1-flash');void c.offsetWidth;c.classList.add('oy1-flash');}return;}resultTab=to;render();window.OYStageInsights?.render(state);box.querySelector('.j88-result-pane')?.classList.add('j88-enter');const t=box.querySelector('.j88-result-tabs');t&&t.scrollIntoView({behavior:'smooth',block:'start'});box.querySelector('[data-j88-result-tab][aria-pressed="true"]')?.focus({preventScroll:true});});
  box.querySelectorAll('[data-j88-part]').forEach(b=>b.onclick=()=>box.querySelector('#j88-part-'+b.dataset.j88Part)?.scrollIntoView({behavior:'smooth',block:'start'}));
  box.querySelector('[data-j88-lab]')?.addEventListener('click',()=>{const lab=window.open('cie-lab-v32/?from=assessment','_blank');if(!lab){alert('팝업이 차단되었습니다. 브라우저에서 새 창을 허용해 주세요.');return;}const answers=state.payload.answers.slice();const followups={...state.payload.followups};const explicit=Array.isArray(state.payload.explicit)?state.payload.explicit.slice():[];const handler=e=>{if(e.origin!==location.origin||e.source!==lab||e.data?.type!=='oy-cie-lab-ready')return;window.removeEventListener('message',handler);lab.postMessage({type:'oy-cie-assessment-handoff',answers,followups,explicit},location.origin);};window.addEventListener('message',handler);});
  box.querySelector('[data-j88-research]')?.addEventListener('click',()=>{const tools=box.querySelector('.j88-tools');tools.open=true;tools.scrollIntoView({behavior:'smooth',block:'nearest'});$('j88-format').value='서비스계획서';$('j88-instructions').value='OY-CIE 연구 작업실: 근거 문항별 가설과 반증 질문을 제시하고, 학생 희망·강점·기존 지원·접근 장벽을 대조한 뒤 우선순위 3개, 안전 조치, 단기 1~2주 및 중장기 1~3개월 목표, 담당·기준선·측정 지표·점검일을 제안하세요. 미확인 사실을 확정하지 말고 대안 가설과 추가 질문을 포함하세요.';invalidate();});

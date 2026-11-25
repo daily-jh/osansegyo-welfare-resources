@@ -19,10 +19,28 @@
 @media (prefers-reduced-motion:reduce){.oy1-pick.oy1-pick-open button{animation:none}}
 @media print{.oy1-pick,.oy1-role{display:none!important}}
 /* 네 질문: 가는 세로선으로 나눈 네 단, 큰 명조 번호 */
-.oy1-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-bottom:1px solid var(--oy1-rule)}
+.oy1-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-bottom:1px solid var(--oy1-rule)}
+/* 2026-11-25 여섯 칸: 3단 2줄(결론 01·02 + 근거 03 / 근거 04·05 + 실행 06). 둘째 줄은 가는 선으로 나눈다. */
+.oy1-q:nth-child(3n+1){border-left:0;padding-left:0}
+.oy1-q:nth-child(3n){padding-right:0}
+.oy1-q:nth-child(n+4){border-top:1px solid var(--oy-line)}
+.oy1-q h4 em{display:inline-block;margin-right:6px;padding:0 6px;border-radius:4px;background:var(--oy-data-soft,#eef4fb);color:var(--oy-data-ink,#16467a);font-style:normal;font-size:.68rem;font-weight:800;letter-spacing:.04em;vertical-align:1px}
+.oy1-int{background:linear-gradient(180deg,var(--oy-data-soft,#eef4fb),transparent 70%)}
+.oy1-v-s{font-size:1.08rem}
+.oy1-open{color:var(--oy-check-ink)}
+.oy1-dl{margin:6px 0 0;display:grid;gap:5px;font-size:.84rem;line-height:1.5}
+.oy1-dl div{display:grid;grid-template-columns:7.4em minmax(0,1fr);gap:8px}
+.oy1-dl dt{color:var(--oy-muted);font-weight:600}
+.oy1-dl dd{margin:0;font-weight:600}
+/* 보는 방법: 읽는 순서 세 칸 */
+.oy1-how{margin:14px 0 0;padding:10px 0 12px;border-bottom:1px solid var(--oy-line);display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;align-items:center}
+.oy1-how-k{font-size:.74rem;font-weight:800;letter-spacing:.06em;color:var(--oy1-rule)}
+.oy1-how ol{display:flex;flex-wrap:wrap;gap:6px 0;margin:0;padding:0;list-style:none;font-size:.85rem;font-weight:700}
+.oy1-how li{display:inline-flex;align-items:center;gap:6px}
+.oy1-how li+li::before{content:"→";margin:0 10px;color:var(--oy-muted);font-weight:400}
+.oy1-how li span{padding:1px 7px;border-radius:4px;background:var(--oy-data-soft,#eef4fb);color:var(--oy-data-ink,#16467a);font-size:.7rem;font-weight:800}
+.oy1-how p{grid-column:2;margin:0;font-size:.78rem;color:var(--oy-muted)}
 .oy1-q{min-width:0;padding:16px 18px 18px;border:0;border-left:1px solid var(--oy-line);border-top:3px solid transparent;border-radius:0;background:transparent}
-.oy1-q:first-child{border-left:0;padding-left:0}
-.oy1-q:last-child{padding-right:0}
 .oy1-q h4{display:block;margin:0 0 10px;font-size:.8rem;font-weight:700;color:var(--oy-muted);letter-spacing:.02em}
 .oy1-q h4 i{display:block;margin-bottom:2px;font-family:var(--oy1-serif);font-style:normal;font-weight:800;font-size:2rem;line-height:1;color:var(--oy-data)}
 .oy1-v{margin:0 0 4px;font-family:var(--oy1-serif);font-size:1.25rem;font-weight:800;line-height:1.35}
@@ -70,7 +88,7 @@
 .oy1-tgrid{column-count:2;column-gap:36px;column-rule:1px solid var(--oy-line);padding-top:6px;counter-reset:oy1n}
 .oy1-t{break-inside:avoid;margin:0;padding:12px 0 14px;border:0;border-bottom:1px dotted #c9cfd8;border-radius:0;background:transparent}
 .oy1-t h4{margin:0 0 6px;font-family:var(--oy1-serif);font-size:1.02rem;font-weight:800;color:var(--oy-ink)}
-.oy1-t h4::before{counter-increment:oy1n;content:counter(oy1n,decimal-leading-zero);margin-right:8px;font-family:system-ui,sans-serif;font-size:.7rem;font-weight:800;color:var(--oy-data);vertical-align:2px}
+.oy1-t h4::before{counter-increment:oy1n;content:counter(oy1n,upper-alpha);margin-right:8px;font-family:system-ui,sans-serif;font-size:.7rem;font-weight:800;color:var(--oy-data);vertical-align:2px}
 /* 다단 안에서 목록 기호가 잘리는 브라우저가 있어 기호를 직접 그린다 */
 .oy1-t ul{margin:0;padding:0;list-style:none;display:grid;gap:4px;font-size:.9rem;line-height:1.55}
 .oy1-t li{position:relative;padding-left:1em}
@@ -135,8 +153,9 @@
 .flow-nav:has(.oy1-other){margin-top:12px;row-gap:16px}
 @media (max-width:900px){
   .oy1-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .oy1-q:nth-child(3){border-left:0;padding-left:0}
-  .oy1-q:nth-child(2){padding-right:0}
+  .oy1-q:nth-child(n){border-left:1px solid var(--oy-line);padding:16px 18px 18px}
+  .oy1-q:nth-child(odd){border-left:0;padding-left:0}
+  .oy1-q:nth-child(even){padding-right:0}
   .oy1-q:nth-child(n+3){border-top:1px solid var(--oy-line)}
   .oy1-q.oy1-r,.oy1-q.oy1-c{border-top-width:3px}
 }
@@ -147,6 +166,10 @@
   .oy1-grid{grid-template-columns:minmax(0,1fr)}
   .oy1-q,.oy1-q:nth-child(n){border-left:0;padding:14px 0;border-top:1px solid var(--oy-line)}
   .oy1-q:first-child{border-top:0}
+  .oy1-how{grid-template-columns:minmax(0,1fr)}
+  .oy1-how ol{display:grid;gap:4px}
+  .oy1-how li+li::before{display:none}
+  .oy1-how p{grid-column:1}
   .oy1-q.oy1-r,.oy1-q.oy1-c{border-top:3px solid}
   .oy1-q.oy1-r{border-top-color:var(--oy-risk)}.oy1-q.oy1-c{border-top-color:var(--oy-check)}
   .oy1-tgrid{column-count:1}
@@ -162,11 +185,28 @@
   body.oy1-printing>*:not(#oy1-print-root){display:none!important}
   /* fitA4가 사례마다 zoom을 덮어써 A4 한 장에 맞춘다 */
   body.oy1-printing #oy1-print-root{display:block;padding:0;box-shadow:none;zoom:.74}
-  body.oy1-printing .oy1-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
-  body.oy1-printing .oy1-q:nth-child(n){border-left:1px solid var(--oy-line);padding:12px 12px 14px;border-top-width:3px}
-  body.oy1-printing .oy1-q:first-child{border-left:0;padding-left:0}
+  body.oy1-printing .oy1-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  body.oy1-printing .oy1-q:nth-child(n){border-left:1px solid var(--oy-line);padding:12px 12px 14px}
+  body.oy1-printing .oy1-q:nth-child(3n+1){border-left:0;padding-left:0}
+  body.oy1-printing .oy1-q:nth-child(n+4){border-top:1px solid var(--oy-line)}
   body.oy1-printing .oy1-tgrid{column-count:2}
   body.oy1-printing .oy1-t,body.oy1-printing .oy1-end{break-inside:avoid}
   body.oy1-printing .oy1-care,body.oy1-printing .oy1-q,body.oy1-printing .oy1-tier li{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   @page{size:A4;margin:14mm}
 }
+/* 2026-11-25 번호 이음: 「자세히 보기」 결과 탭이 한 장의 칸 번호(03·04·05)를 그대로 달고, 탭 끝에 이전·다음 넘김을 둔다. */
+.j88-result-tabs .j88-tab-no{display:inline-block;margin-right:8px;font-style:normal;font-weight:800;font-size:.85em;opacity:.7}
+.j88-nexttab{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:10px;margin:26px 0 6px}
+.j88-nexttab button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-height:64px;padding:12px 18px;border:1px solid #d0dce8;border-radius:14px;background:#fff;color:#1d2530;font:inherit;text-align:left;cursor:pointer;position:relative}
+.j88-nexttab button span{font-size:.78rem;font-weight:700;color:#5b6878}
+.j88-nexttab button b{font-size:1.05rem}
+.j88-nexttab .j88-nt-next{align-items:flex-start;padding-right:52px;border-color:#215b9a;background:#215b9a;color:#fff}
+.j88-nexttab .j88-nt-next span{color:#dbe7f5}
+.j88-nexttab .j88-nt-next i{position:absolute;right:18px;top:50%;transform:translateY(-50%);font-style:normal;font-size:1.4rem}
+.j88-nexttab button:focus-visible{outline:3px solid var(--oy-data,#215b9a);outline-offset:2px}
+@media (max-width:640px){.j88-nexttab{grid-template-columns:minmax(0,1fr)}.j88-nexttab>span:empty{display:none}.j88-nexttab .j88-nt-next{order:-1}}
+@media print{.j88-nexttab{display:none}}
+.oy1-q.oy1-flash{animation:oy1-flash 1.6s ease-out 1}
+@keyframes oy1-flash{0%,30%{background:var(--oy-data-soft,#eef4fb);box-shadow:inset 0 0 0 2px var(--oy-data,#215b9a)}100%{background:transparent;box-shadow:none}}
+@media (prefers-reduced-motion:reduce){.oy1-q.oy1-flash{animation:none}}
+#journey88 .j88-route b{width:auto;min-width:24px;padding:0 8px;border-radius:12px;white-space:nowrap}

@@ -372,25 +372,25 @@ function themeBody(r,t,L,fig){
  const reads=t.detail.reduce((a,d)=>a.concat(d.readings),[]).slice(0,4);
  const signs=[];items.forEach(n=>{const d=K.item(n).d.split(/,\s*/)[0];if(signs.indexOf(d)<0&&signs.length<5)signs.push(d)});
  let h='<ol class="odi-ladder">';
- h+='<li class="odi-rung" data-rung="1"><h4>쉽게 말하면 <small>누구나</small></h4>'
+ h+='<li class="odi-rung" data-rung="1"><h4>응답 소견 <small>문항 반응 해석</small></h4>'
   +(reads.length?'<ul>'+reads.map(x=>'<li><strong>'+esc(x.topic)+'</strong> '+esc(x.text)+'</li>').join('')+'</ul>':'<p>이 주제에서는 어려움이 가볍게 보고되었습니다.</p>')
   +t.detail.reduce((a,d)=>a+d.notes.map(n=>'<p class="odi-muted">'+esc(n)+'</p>').join(''),'')
-  +(signs.length?'<p class="odi-muted">학교와 집에서는 이런 모습으로 보입니다.</p><div class="odi-signchips">'+signs.map(x=>'<span>'+esc(x)+'</span>').join('')+'</div>':'')+'</li>';
+  +(signs.length?'<p class="odi-muted">관찰 지표(학교·가정 장면)</p><div class="odi-signchips">'+signs.map(x=>'<span>'+esc(x)+'</span>').join('')+'</div>':'')+'</li>';
  if(pats.length){
-  h+='<li class="odi-rung" data-rung="2"><h4>함께 보면 좋은 것 <small>실무</small></h4><p class="odi-muted">이 주제의 어려움은 혼자 움직이지 않습니다. 아래 짝을 한 번에 다루면 지원이 덜 겉돕니다.</p>'
+  h+='<li class="odi-rung" data-rung="2"><h4>공존 문제·교차 패턴 <small>동반 개입 대상</small></h4><p class="odi-muted">이 영역의 문제는 단독으로 유지되지 않습니다. 아래 공존 문제를 하나의 개입 단위로 묶어 다룹니다.</p>'
    +pats.map(p=>{
     const others=[];p.items.forEach(n=>{const i=L.THEME_OF_DOMAIN[K.DOMAIN_OF[n-1]];if(i!==undefined&&i!==t.i&&others.indexOf(L.THEMES[i].title)<0)others.push(L.THEMES[i].title)});
     const c=L.concept(p.id);
-    return '<div class="odi-pair"><p class="odi-plain">'+esc(c?c.plain:p.name)+'</p><p class="odi-with">'+p.items.map(n=>'<span class="odi-chip">'+esc(topic(n))+'</span>').join('<span aria-hidden="true">+</span>')+(others.length?'<span class="odi-muted"> · 이어진 주제: '+esc(others.join(', '))+'</span>':'')+'</p><p>'+esc(p.loop)+'</p><p class="odi-signs"><strong>일상에서</strong> '+esc(p.sign)+'</p></div>'}).join('')+'</li>';
-  h+='<li class="odi-rung" data-rung="3"><h4>전문 개념으로 <small>사례관리자·슈퍼바이저</small></h4>'
-   +pats.map(p=>{const c=L.concept(p.id);return '<div class="odi-term">'+(c?'<span class="odi-from">'+esc(c.plain)+' →</span><p class="odi-termname">'+esc(c.term)+' <span class="odi-muted">· '+esc(p.name)+'</span></p><p>'+esc(c.why)+'</p>':'<p class="odi-termname">'+esc(p.name)+'</p><p>'+esc(p.loop)+'</p>')+'<p class="odi-advice"><strong>자문 포인트</strong> '+esc(p.advice)+'</p></div>'}).join('')+'</li>';
+    return '<div class="odi-pair"><p class="odi-plain">'+esc(c?c.term:p.name)+'</p><p class="odi-with">'+p.items.map(n=>'<span class="odi-chip">'+esc(topic(n))+'</span>').join('<span aria-hidden="true">+</span>')+(others.length?'<span class="odi-muted"> · 연관 영역: '+esc(others.join(', '))+'</span>':'')+'</p><p>'+esc(p.loop)+'</p><p class="odi-signs"><strong>관찰 지표</strong> '+esc(p.sign)+'</p></div>'}).join('')+'</li>';
+  h+='<li class="odi-rung" data-rung="3"><h4>사례개념화 <small>유지 기제·자문 포인트</small></h4>'
+   +pats.map(p=>{const c=L.concept(p.id);return '<div class="odi-term">'+(c?'<p class="odi-termname">'+esc(c.term)+' <span class="odi-muted">· '+esc(p.name)+'</span></p><p>'+esc(c.why)+'</p>':'<p class="odi-termname">'+esc(p.name)+'</p><p>'+esc(p.loop)+'</p>')+'<p class="odi-advice"><strong>자문 포인트</strong> '+esc(p.advice)+'</p></div>'}).join('')+'</li>';
  }
  const firsts=[];pats.forEach(p=>{if(firsts.indexOf(p.first)<0&&firsts.length<2)firsts.push(p.first)});
  if(!firsts.length&&items.length)firsts.push(K.item(items[0]).e);
  const qs=(pats.length?pats.slice(0,2).map(p=>p.q):items.slice(0,2).map(n=>K.item(n).q));
  const re=r.reassess.filter(x=>t.domains.indexOf(K.DOMAIN_OF[x.n-1])>=0).slice(0,3);
  const res=[];items.forEach(n=>K.item(n).res.split(/,\s*/).forEach(x=>{if(res.indexOf(x)<0&&res.length<5)res.push(x)}));
- h+='<li class="odi-rung" data-rung="4"><h4>그래서 이번 주에 <small>모두</small></h4><dl class="odi-todo">'
+ h+='<li class="odi-rung" data-rung="4"><h4>단기 개입계획 <small>1주 이내</small></h4><dl class="odi-todo">'
   +(firsts.length?'<div><dt>'+nm('먼저 할 일','초기 개입')+'</dt><dd>'+firsts.map(esc).join('<br>')+'</dd></div>':'')
   +(qs.length?'<div><dt>'+nm('학생에게 물어볼 말','면담 질문')+'</dt><dd>'+qs.map(q=>'“'+esc(q)+'”').join('<br>')+'</dd></div>':'')
   +(res.length?'<div><dt>'+nm('연계 자원 유형','자원 연계')+'</dt><dd>'+esc(res.join(' · '))+'</dd></div>':'')
@@ -399,8 +399,8 @@ function themeBody(r,t,L,fig){
  if(fig)h+=fig.api.part(fig.f,'domains',{only:t.names,title:'이 주제의 구간 위치',desc:'이 주제에 속한 영역이 척도 범위의 어느 구간에 놓이는지 봅니다.'});
  return h;
 }
-// Plain word first, professional term after it in brackets: the same pair the glossary lists.
-const nm=(plain,term)=>esc(plain)+' <span class="odi-paren">('+esc(term)+')</span>';
+// 2026-11-25 지훈: 해석지 제목은 실무 전문용어로 쓴다. 현장 표현(plain)은 전문가 노트의 용어 대조표에만 남긴다.
+const nm=(plain,term)=>esc(term);
 function page(key,title,deck,inner,opts){
  const o=opts||{};
  return '<section class="odi-page odi-page-'+key+'" data-page="'+key+'" aria-label="'+esc(title)+'">'
@@ -416,21 +416,21 @@ function pagedHtml(r,body,head,glance,L){
  let cover=head+glance;
  if(r.critical.list.length||r.critical.pending.length)cover+=sec('critical',['먼저 안전부터','위기 사정'],body.critical());
  cover+=sec('understanding',['이 아이 이야기','사례개념화'],'<p class="odi-lead">'+esc(rest||r.understanding)+'</p>');
- if(r.grade)cover+=sec('grade',['학년으로 읽기 · '+r.grade.label,'발달단계 관점'],body.grade());
+ if(r.grade)cover+=sec('grade',['학년으로 읽기','발달단계 관점 · '+r.grade.label],body.grade());
  if(fig)cover+='<div class="odi-sec odi-figsec">'+fig.api.part(fig.f,'total')+'</div>';
  cover+='<section class="odi-sec odi-s-patterns"><h3>'+nm('함께 움직이는 어려움','교차 패턴·문제 유지 순환')+'</h3>'
-  +'<p class="odi-muted">원은 생활 주제, 굵은 선은 두 주제의 어려움이 서로를 붙잡고 있다는 뜻입니다. 선이 많이 모이는 곳이 이 사례의 중심입니다.</p>'
+  +'<p class="odi-muted">노드는 생활 영역, 굵은 선은 두 영역 문제의 상호 유지 관계입니다. 연결이 집중된 노드가 이 사례의 핵심 유지 기제입니다.</p>'
   +'<div class="odi-map">'+linkMap(S)
-  +(S.edges.length?'<ul class="odi-links">'+S.edges.slice(0,6).map(e=>{const c=L.concept(e.p.id);return '<li><strong>'+esc(topic(e.p.items[0]))+' ↔ '+esc(topic(e.p.items[1]))+'</strong>'+esc(c?c.plain:e.p.loop.split(/(?<=다\.)\s/)[0])+'<br><span class="odi-pname">'+esc(c?c.term:e.p.name)+'</span></li>'}).join('')+'</ul>'
+  +(S.edges.length?'<ul class="odi-links">'+S.edges.slice(0,6).map(e=>{const c=L.concept(e.p.id);return '<li><strong>'+esc(topic(e.p.items[0]))+' ↔ '+esc(topic(e.p.items[1]))+'</strong>'+esc(c?c.term:e.p.name)+'<br><span class="odi-pname">'+esc(e.p.name)+'</span></li>'}).join('')+'</ul>'
    :'')
   // A pattern whose two items sit in one theme draws no line; the dashed ring marks it, and it is named here.
   +(()=>{const inner=r.patterns.active.filter(p=>!S.edges.some(e=>e.p===p));
-   if(!inner.length)return S.edges.length?'':'<p class="odi-muted">두 주제에 걸쳐 함께 움직이는 어려움은 나타나지 않았습니다. 주제별로 따로 읽어도 됩니다.</p>';
-   return (S.edges.length?'':'<p class="odi-muted">두 주제에 걸친 고리는 없고, 점선 원은 한 주제 안에서 함께 움직이는 어려움입니다.</p>')
-    +'<ul class="odi-links odi-links-inner">'+inner.slice(0,4).map(p=>{const c=L.concept(p.id);return '<li><strong>'+esc(topic(p.items[0]))+' ↔ '+esc(topic(p.items[1]))+'</strong>'+esc(c?c.plain:p.loop.split(/(?<=다\.)\s/)[0])+'<br><span class="odi-pname">'+esc(c?c.term:p.name)+'</span></li>'}).join('')+'</ul>';})()+'</div>'
-  +(r.patterns.pending.length?'<p class="odi-muted"><strong>미상 때문에 판단을 보류한 패턴</strong> '+esc(r.patterns.pending.map(p=>p.name).join(' · '))+'</p>':'')
+   if(!inner.length)return S.edges.length?'':'<p class="odi-muted">영역 간 교차 패턴은 나타나지 않았습니다. 영역별로 독립 해석합니다.</p>';
+   return (S.edges.length?'':'<p class="odi-muted">영역 간 교차 패턴은 없고, 점선 원은 한 영역 안의 공존 문제입니다.</p>')
+    +'<ul class="odi-links odi-links-inner">'+inner.slice(0,4).map(p=>{const c=L.concept(p.id);return '<li><strong>'+esc(topic(p.items[0]))+' ↔ '+esc(topic(p.items[1]))+'</strong>'+esc(c?c.term:p.name)+'<br><span class="odi-pname">'+esc(p.name)+'</span></li>'}).join('')+'</ul>';})()+'</div>'
+  +(r.patterns.pending.length?'<p class="odi-muted"><strong>미상 문항으로 판정 보류한 패턴</strong> '+esc(r.patterns.pending.map(p=>p.name).join(' · '))+'</p>':'')
   +'</section><nav class="odi-toc" aria-label="차례"></nav>';
- pages.push(page('cover','사례 개요와 안전 확인','지금 안전한지, 무엇이 가장 어려운지, 어떤 어려움이 함께 움직이는지를 한 장에 모았습니다.',cover,{titleHtml:nm('사례 개요와 안전 확인','사례 요약·위기 사정')}));
+ pages.push(page('cover','사례 요약·위기 사정','현재 위기 수준, 주요 욕구, 영역 간 교차 패턴을 한 장에 요약합니다.',cover,{titleHtml:nm('사례 개요와 안전 확인','사례 요약·위기 사정')}));
  // 2. One page per life theme that this response actually raises.
  const act=S.T.filter(t=>t.active).sort((a,b)=>(b.safety.length?1:0)-(a.safety.length?1:0)||b.peak-a.peak||(b.own.length+b.linked.length)-(a.own.length+a.linked.length));
  act.forEach(t=>{
@@ -443,19 +443,19 @@ function pagedHtml(r,body,head,glance,L){
  // 3. What is holding, 4. the figures and terms behind it all.
  let str=sec('strengths',['잘 버티고 있는 부분','강점·보호요인'],body.strengths());
  const quiet=S.T.filter(t=>!t.active);
- if(quiet.length)str+='<p class="odi-muted">어려움이 두드러지지 않은 생활 주제: '+esc(quiet.map(t=>t.title).join(', '))+'</p>';
+ if(quiet.length)str+='<p class="odi-muted">특이 소견 없는 영역: '+esc(quiet.map(t=>t.title).join(', '))+'</p>';
  str+=sec('questions',['면담에서 묻기','면담 확인 질문'],body.questions());
  if(fig)str+='<div class="odi-sec odi-figsec">'+fig.api.part(fig.f,'safety')+'</div>';
  // The casework level, plan, ecology and agenda are judged with the narrative in 통합 사정의견, not on the scale pages.
- str+='<p class="odi-next"><strong>다음 읽을 곳</strong> 사례관리 수준, 단계별 개입계획, 생태체계, 사례회의 안건은 서술기록까지 합쳐 통합 사정의견에서 정합니다.</p>';
- pages.push(page('strengths','잘 버티고 있는 부분','지원을 시작할 발판입니다. 어려움보다 먼저 이 부분을 학생에게 말해 주면 대화가 쉬워집니다.',str,{titleHtml:nm('잘 버티고 있는 부분','강점·보호요인')}));
- let pro='<section class="odi-sec odi-s-gloss"><h3>쉬운 말 ↔ 전문 용어</h3><p class="odi-muted">이 해석지에서 같은 내용을 부르는 두 가지 이름입니다.</p><div class="odi-table"><table><thead><tr><th scope="col">쉬운 말</th><th scope="col">전문 용어</th><th scope="col">뜻</th></tr></thead><tbody>'
-  +L.GLOSSARY.map(g=>'<tr><th scope="row">'+esc(g.plain)+'</th><td class="odi-termcell">'+esc(g.term)+'</td><td>'+esc(g.text)+'</td></tr>').join('')+'</tbody></table></div></section>';
+ str+='<p class="odi-next"><strong>연계 문서</strong> 사례관리 수준, 단계별 개입계획, 생태체계 사정, 사례회의 안건은 서술기록을 합친 통합 사정의견에서 확정합니다.</p>';
+ pages.push(page('strengths','강점·보호요인','개입의 출발점이 되는 개인·환경 자원입니다. 강점 관점 면담의 도입부에서 먼저 다룹니다.',str,{titleHtml:nm('잘 버티고 있는 부분','강점·보호요인')}));
+ let pro='<section class="odi-sec odi-s-gloss"><h3>용어 대조표</h3><p class="odi-muted">해석지의 전문 용어와 학생·보호자 면담에서 쓸 현장 표현입니다.</p><div class="odi-table"><table><thead><tr><th scope="col">전문 용어</th><th scope="col">현장 표현</th><th scope="col">정의</th></tr></thead><tbody>'
+  +L.GLOSSARY.map(g=>'<tr><th scope="row" class="odi-termcell">'+esc(g.term)+'</th><td>'+esc(g.plain)+'</td><td>'+esc(g.text)+'</td></tr>').join('')+'</tbody></table></div></section>';
  pro+=sec('code',['응답의 모양','응답 프로파일 유형'],body.code())+sec('profile',['영역별 높낮이','영역별 프로파일'],body.profile());
  if(fig)pro+='<div class="odi-sec odi-figsec">'+['domains','axes','dist','map','eco'].map(k=>fig.api.part(fig.f,k)).join('')+fig.api.noticeHtml(fig.f)+'</div>';
  pro+=sec('consult',['전문가 의견','슈퍼비전·자문'],body.consult())+sec('reassess',['다시 볼 기준','재사정 지표'],body.reassess())+sec('validity',['응답을 믿고 읽어도 되나','응답 타당도 점검'],body.validity());
  pro+=evidenceHtml(r)+appendixHtml(r);
- pages.push(page('expert','전문가 노트','슈퍼비전과 기록에 쓰는 도식, 용어, 원자료입니다.',pro,{titleHtml:nm('전문가 노트','슈퍼비전·기록 자료')}));
+ pages.push(page('expert','슈퍼비전·기록 자료','슈퍼비전과 사례기록에 쓰는 도식, 용어 대조표, 원자료입니다.',pro,{titleHtml:nm('전문가 노트','슈퍼비전·기록 자료')}));
  return '<article class="oy-deep-report odi-paged" data-report-version="'+VERSION+'" data-pages="'+pages.length+'"><div class="odi-pagetrack">'+pages.join('')+'</div>'
   +'<footer class="odi-notice"><h3>해석 안내</h3><p>'+esc(r.notice)+'</p></footer></article>';
 }
@@ -473,7 +473,7 @@ function html(r){
   code:()=>'<p class="odi-pattern-name">'+esc(r.code.name)+'</p><p>'+esc(r.code.text)+'</p>',
   profile:()=>'<ul class="odi-bars">'+r.profile.map(d=>'<li class="odi-l'+(d.peak??'u')+'"><span class="odi-bar-name">'+esc(d.name)+'</span><span class="odi-track" aria-hidden="true"><i style="width:'+(d.mean===null?0:Math.max(4,d.mean/4*100))+'%"></i></span><span class="odi-bar-val">'+esc(d.label)+'</span></li>').join('')+'</ul><dl class="odi-axes">'+r.axes.map(a=>'<div><dt>'+esc(a.name)+'</dt><dd>'+esc(a.text)+'</dd></div>').join('')+'</dl>',
   detail:()=>r.detail.length?r.detail.map(d=>'<div class="odi-domain odi-l'+(d.peak??'u')+'"><h4>'+esc(d.name)+'<span class="odi-tag">'+esc(d.label)+'</span></h4><p>'+esc(d.lead)+'</p>'+(d.readings.length?ul(d.readings.map(x=>'<strong>'+esc(x.topic)+'</strong> '+esc(x.text))):'')+d.notes.map(t=>'<p class="odi-muted">'+esc(t)+'</p>').join('')+(d.signs.length?'<p class="odi-signs"><strong>일상에서 보이는 모습</strong> '+esc(d.signs.join(' · '))+'</p>':'')+'</div>').join(''):'<p>어려움이 보고된 영역이 없습니다.</p>',
-  patterns:()=>{const a=r.patterns.active;return (a.length?a.slice(0,3).map(p=>'<div class="odi-card"><h4>'+esc(p.name)+'</h4><p>'+esc(p.loop)+'</p><p><strong>일상에서</strong> '+esc(p.sign)+'</p><p class="odi-act"><strong>첫 개입</strong> '+esc(p.first)+'</p><p class="odi-advice"><strong>자문 포인트</strong> '+esc(p.advice)+'</p></div>').join('')+(a.length>3?'<p><strong>함께 나타난 다른 패턴</strong> '+esc(a.slice(3).map(p=>p.name).join(' · '))+'</p>':''):'<p>두 가지 이상의 어려움이 맞물린 패턴은 나타나지 않았습니다.</p>')+(r.patterns.pending.length?'<p class="odi-muted"><strong>미상 때문에 판단을 보류한 패턴</strong> '+esc(r.patterns.pending.map(p=>p.name).join(' · '))+'</p>':'')},
+  patterns:()=>{const a=r.patterns.active;return (a.length?a.slice(0,3).map(p=>'<div class="odi-card"><h4>'+esc(p.name)+'</h4><p>'+esc(p.loop)+'</p><p><strong>관찰 지표</strong> '+esc(p.sign)+'</p><p class="odi-act"><strong>첫 개입</strong> '+esc(p.first)+'</p><p class="odi-advice"><strong>자문 포인트</strong> '+esc(p.advice)+'</p></div>').join('')+(a.length>3?'<p><strong>함께 나타난 다른 패턴</strong> '+esc(a.slice(3).map(p=>p.name).join(' · '))+'</p>':''):'<p>두 가지 이상의 어려움이 맞물린 패턴은 나타나지 않았습니다.</p>')+(r.patterns.pending.length?'<p class="odi-muted"><strong>미상 문항으로 판정 보류한 패턴</strong> '+esc(r.patterns.pending.map(p=>p.name).join(' · '))+'</p>':'')},
   strengths:()=>r.strengths.length?ul(r.strengths.map(x=>'<strong>'+esc(x.label)+'</strong> '+esc(x.text))):'<p>'+(r.critical.list.some(x=>x.kind==='안전'||x.kind==='긴급')?'안전 신호가 있어 응답 점수만으로 강점을 짐작하지 않습니다. 강점은 안전을 확인한 뒤 면담에서 학생이 잘하는 것과 좋아하는 것을 직접 물어 찾습니다.':'모든 영역에서 일부 어려움이 보고되어, 강점은 면담에서 학생이 잘하는 것과 좋아하는 것을 직접 물어 찾습니다.')+'</p>',
   roles:()=>r.roles.length?'<div class="odi-roles">'+r.roles.map(x=>'<div><h4>'+esc(x.role)+'</h4>'+ul(x.items.map(esc))+'</div>').join('')+'</div>':'<p>학생과 정기적으로 안부를 나누고 다음 확인 시점을 정합니다.</p>',
   questions:()=>'<h4 class="odi-sub">학생의 목소리</h4><ol class="odi-q">'+r.casework.voice.map(q=>'<li>“'+esc(q)+'”</li>').join('')+'</ol>'+(r.questions.length?'<h4 class="odi-sub">어려움을 구체화하는 질문</h4><ol class="odi-q">'+r.questions.map(x=>'<li><span>'+esc(x.about)+'</span>“'+esc(x.q)+'”</li>').join('')+'</ol>':''),

@@ -95,8 +95,10 @@ check('a high carer-harm answer with family stress draws a line, and a same-them
  const h=D.html(D.build({answers:a,explicit:[],followups:{}}));
  assert.ok(/class="odi-link"|<line[^>]+odi-edge|stroke-width="[3-9]/.test(h)||/odi-links"><li><strong>보호자에 의한 위해 ↔ 가족관계/.test(h),'cross-theme link listed');
  const solo=D.html(D.build({answers:at({10:2,14:3}),explicit:[],followups:{}}));
- assert.ok(/점선 원은 한 주제 안에서/.test(solo)&&!/나타나지 않았습니다/.test(solo),'same-theme pattern is not reported as none');
- assert.ok(/이 아이 이야기 <span class="odi-paren">\(사례개념화\)<\/span>/.test(h),'plain word with the term in brackets');
+ assert.ok(/점선 원은 한 영역 안의 공존 문제/.test(solo)&&!/나타나지 않았습니다/.test(solo),'same-theme pattern is not reported as none');
+ /* 2026-11-25 지훈: 해석지 제목은 전문용어로만 쓴다(현장 표현은 전문가 노트 용어 대조표에 남김). */
+ assert.ok(/<h3>사례개념화<\/h3>/.test(h)&&!/이 아이 이야기 <span/.test(h),'professional term as the heading');
+ assert.ok(/용어 대조표/.test(h),'glossary keeps the field wording');
 });
 
 check('a safety 1-point answer with other items unknown never lowers the level below the answered pattern (2026-10-28 rule)',()=>{

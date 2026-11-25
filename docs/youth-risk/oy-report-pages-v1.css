@@ -51,6 +51,10 @@
 /* pager chrome, added by oy-report-pages-v1.js */
 .odi-pager{position:sticky;top:0;z-index:6;display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:10px 0;margin-bottom:4px;background:color-mix(in srgb,#fff 92%,transparent);backdrop-filter:saturate(1.4) blur(12px);-webkit-backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--odi-line)}
 @supports not (background:color-mix(in srgb,#fff 92%,transparent)){.odi-pager{background:#fff}}
+/* 2026-11-25 아래쪽 넘김 막대: 해석지를 읽는 동안 화면 아래에 붙어 있고, 해석지가 끝나면 함께 지나간다. */
+.odi-pager.odi-pager-bottom{top:auto;bottom:0;margin:10px 0 0;padding:10px 0 calc(10px + env(safe-area-inset-bottom,0px));border-bottom:0;border-top:1px solid var(--odi-line);box-shadow:0 -6px 16px -10px rgba(20,40,70,.25)}
+.odi-pager-bottom .odi-dots{margin:0 0 6px}
+.odi-pager-bottom .odi-pager-where{display:flex;flex-direction:column-reverse}
 .odi-pager-btn{width:44px;height:44px;border-radius:50%;border:1px solid var(--odi-line);background:#fff;color:var(--odi-accent);font-size:20px;line-height:1;cursor:pointer;display:grid;place-items:center}
 .odi-pager-btn:disabled{color:#b9c4d0;cursor:default}
 .odi-pager-where{min-width:0}

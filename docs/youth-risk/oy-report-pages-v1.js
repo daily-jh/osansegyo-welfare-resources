@@ -21,11 +21,12 @@ function setup(article){
  });
 
  const bar=document.createElement('nav');
- bar.className='odi-pager';bar.setAttribute('aria-label','해석지 페이지 이동');
+ bar.className='odi-pager odi-pager-bottom';bar.setAttribute('aria-label','해석지 페이지 이동');
  bar.innerHTML='<button type="button" class="odi-pager-btn" data-odi-prev aria-label="이전 장">‹</button>'
   +'<div class="odi-pager-where"><b aria-live="polite"></b><div class="odi-dots" role="tablist"></div></div>'
   +'<button type="button" class="odi-pager-btn" data-odi-next aria-label="다음 장">›</button>';
- article.insertBefore(bar,track);
+ // 2026-11-25: 넘김 막대는 해석지 아래쪽에 붙어 따라온다(읽기가 끝나는 곳·휴대폰 엄지 위치). 위에는 차례만 둔다.
+ track.after(bar);
  const prev=bar.querySelector('[data-odi-prev]'),next=bar.querySelector('[data-odi-next]');
  const where=bar.querySelector('b'),dots=bar.querySelector('.odi-dots');
  pages.forEach((p,i)=>{
@@ -85,7 +86,7 @@ function setup(article){
  // After a flip the reader starts at the top of the new page, wherever they pressed from.
  function toTop(){
   const r=track.getBoundingClientRect();
-  const room=bar.offsetHeight+8;
+  const room=12;
   if(r.top>=room-2&&r.top<window.innerHeight*0.5)return;
   track.style.scrollMarginTop=room+'px';
   track.scrollIntoView({block:'start',behavior:'auto'});
