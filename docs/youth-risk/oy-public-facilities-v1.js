@@ -12,12 +12,16 @@ const PF=()=>node?require('../assets/public-facilities.js'):root.PublicFacilitie
 const PB=()=>node?require('./oy-public-benefits-v1.js'):root.OYPublicBenefits;
 
 /* 규칙(안전 → 머물 곳 → 상담·마음 → 학습·참여 순): src = 수집 데이터 id, name = 기관 이름에 들어 있어야 하는 말, kind = 기관분류에 들어 있어야 하는 말(없으면 전체), why(x) = 연결 고리(없으면 보이지 않음) */
+/* 공공데이터가 아닌 고정 안내(법원 누리집 확인 2026-11-25). 복지자원 DB의 ORG-N25-SWFCOURT와 같은 기관. */
+const STATIC={'_juvenile-notice':{id:'_juvenile-notice',items:[{name:'수원가정법원 소년부',kind:'소년보호 통고',org:'',address:'오산시 관할 가정법원(주소·접수 창구는 누리집 확인)',phone:'',site:'https://swfamily.scourt.go.kr/swfamily/intro/intro_02/task_info_02/index.html',region:'gyeonggi',match_id:'ORG-N25-SWFCOURT'}]}};
 const RULES=[
  {src:'mogef-sunflower-center',label:'해바라기센터(경기)',why:x=>x.at(25,1).concat(x.at(1,2)),note:'성폭력·가정폭력 피해 의료·상담·수사 지원(24시간). 신고 의무 절차를 먼저 따릅니다.'},
  {src:'knpa-police-station',label:'관할 경찰서',why:x=>x.any([[4,3],[5,3],[25,2]]),note:'긴급하면 112. 학교폭력은 117.'},
  {src:'kyci-safetynet-center',kind:/상담복지센터/,label:'청소년상담복지센터(청소년안전망)',why:x=>x.tier>=2?['지원 우선순위 '+x.tier+'단계'].concat(x.any([[3,2],[6,2],[17,2],[23,2]])).slice(0,3):x.any([[3,2],[6,2],[17,2],[23,2]]),note:'운영시간은 원문 기준. 1388은 24시간입니다.'},
  {src:'kyci-safetynet-center',kind:/학교밖/,label:'학교밖청소년지원센터(꿈드림)',why:x=>x.any([[9,3],[11,3]]).concat(x.say('학교밖')),note:'학업중단 숙려 단계부터 함께 볼 수 있습니다.'},
  {src:'mogef-youth-shelter',label:'청소년쉼터(경기, 가까운 순)',why:x=>x.at(20,2).concat(x.say('가출')),note:'오산에는 쉼터가 없습니다. 입소는 1388·오산시청소년상담복지센터를 거쳐 묻고, 일시·단기·중장기 유형을 확인합니다.'},
+ {src:'mogef-youth-indep-center',label:'청소년자립지원관(경기)',why:x=>(x.hh('시설보호')||x.hh('가정위탁')||x.at(20,3).length)&&x.gradeIn(/^고[1-3]$/)?x.hhWhy('시설보호').concat(x.hhWhy('가정위탁'),x.at(20,3),x.gradeWhy()):[],note:'쉼터·시설 퇴소 뒤 자립을 준비하는 청소년(만 24세까지)의 주거·자립 지원. 오산에는 없어 경기 기관을 안내합니다.'},
+ {src:'_juvenile-notice',label:'소년보호 통고제도(수원가정법원)',why:x=>{const w=x.any([[12,3],[13,3]]);return x.tier>=3&&w.length?w.concat(x.say('가출')).slice(0,3):[]},note:'보호자·학교장·사회복지시설의 장이 경찰을 거치지 않고 가정법원 소년부에 직접 알려 조사·상담·보호처분 절차를 시작하는 제도입니다. 처벌이 아니라 보호 절차이며, 학교폭력은 심의위원회 절차, 긴급한 피해는 112 신고가 먼저입니다.'},
  {src:'mohw-mind-voucher',label:'전국민 마음투자 바우처 제공기관(오산)',why:x=>x.any([[6,2],[8,2]]),note:'바우처 대상·의뢰서는 정신건강복지센터·행정복지센터에서 확인합니다.'},
  {src:'nmc-hospital-osan',name:/정신|마음|심리/,label:'정신건강의학과 의원(오산)',why:x=>x.any([[6,3],[7,2],[8,3]]),note:'현재 자해·자살 위험이 있으면 예약보다 응급 대응이 먼저입니다.'},
  {src:'knise-special-ed-center',label:'특수교육지원센터',why:x=>x.any([[14,2],[15,2]]),note:'진단·평가 의뢰와 순회교육 문의. 학교 특수교육 담당과 함께 연결합니다.'},
@@ -30,7 +34,7 @@ const RULES=[
 function build(p,opt){opt=opt||{};const P=PF(),B=PB();const d=opt.data||(P&&P.data);
  const empty={version:VERSION,ready:false,links:[],date:''};
  if(!P||!B||!d||!p||!Array.isArray(p.answers))return empty;
- const x=B.context(p);const byId={};for(const g of P.groups(d))byId[g.id]=g;
+ const x=B.context(p);const byId=Object.assign({},STATIC);for(const g of P.groups(d))byId[g.id]=g;
  const links=[];
  for(const r of RULES){const g=byId[r.src];if(!g)continue;const why=r.why(x);if(!why||!why.length)continue;
   const items=P.nearFirst(g.items.filter(i=>(!r.kind||r.kind.test(i.kind||''))&&(!r.name||r.name.test(i.name||''))));if(!items.length)continue;

@@ -1223,6 +1223,45 @@
       ],
       "note": "2026-11-25 실제 호출 확인. 심평원 진료과목 조회가 오류 99일 때도 정신건강의학과 의원을 이름으로 거름.",
       "required": false
+    },
+    {
+      "id": "mogef-youth-indep-center",
+      "name": "성평등가족부_청소년자립지원관 정보",
+      "label": "청소년자립지원관(경기)",
+      "page": "https://www.data.go.kr/",
+      "kind": "facility",
+      "enabled": true,
+      "endpointChecked": true,
+      "keyEnv": "DATA_GO_KR_KEY",
+      "endpoint": "https://apis.data.go.kr/1383000/gmis/youthIndeSprtInstService/getTsgmYouthIndeSprtInstList",
+      "format": "json",
+      "itemPath": "item",
+      "pageParam": "pageNo",
+      "sizeParam": "numOfRows",
+      "pageSize": 100,
+      "maxPages": 2,
+      "params": {
+        "type": "json"
+      },
+      "regionRuns": [
+        {
+          "region": "gyeonggi",
+          "params": {}
+        }
+      ],
+      "fields": {
+        "name": "fcltNm",
+        "kind": "fcltTypeNm",
+        "address": "roadNmAddr",
+        "phone": "rprsTelno",
+        "site": "hmpgAddr"
+      },
+      "uses": [
+        "independence",
+        "shelter"
+      ],
+      "note": "2026-11-25 실제 호출 확인(전국 13, 경기 3, 오산 없음). 상세기능 getTsgmYouthIndeSprtInstList(지훈 캡처).",
+      "required": false
     }
   ],
   "areaTextFields": [

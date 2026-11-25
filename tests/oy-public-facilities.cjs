@@ -22,7 +22,7 @@ for (const g of D.groups) {
   }
 }
 const ids = new Set(D.groups.map(g => g.id));
-for (const id of F.RULES.map(r => r.src)) assert.ok(facilityIds.has(id), '규칙의 데이터 id가 설정에 있음: ' + id);
+for (const id of F.RULES.map(r => r.src).filter(id => !id.startsWith('_'))) assert.ok(facilityIds.has(id), '규칙의 데이터 id가 설정에 있음: ' + id);
 
 // 2. 연결 규칙: 점수 0이면 아무것도 잇지 않음, 미상(null)은 0으로 보지 않고 무시
 const zero = F.build({ answers: Array(25).fill(0) }, { data: D });
@@ -58,6 +58,30 @@ assert.ok(/연계 전 전화로 확인/.test(html) && /출처: 공공데이터�
 if (m.links.length > 3) assert.ok(/<details class="oypb-more">/.test(html), '3종 넘으면 접기');
 const t = F.text(m);
 assert.ok(t.startsWith('[공공데이터 기관 · 연계 전 확인]'));
+
+// 4-1. 소년보호 통고(고정 안내): 지원 우선순위 3단계 이상 + 12·13번 3점 이상일 때만, 서술 '가출'만으로는 띄우지 않음.
+//      청소년자립지원관: 시설보호·가정위탁 서술 + 고등학생일 때만(데이터가 수집되어 있으면).
+{
+  global.window = globalThis;
+  const SRC = path.join(ROOT, 'docs/youth-risk');
+  const app = fs.readFileSync(path.join(SRC, 'app.js'), 'utf8');
+  const grab = name => { const s = app.indexOf('var ' + name + '=['); let i = app.indexOf('[', s), d = 0, j = i; for (; j < app.length; j++) { const c = app[j]; if (c === '[') d++; else if (c === ']') { d--; if (!d) break } } return JSON.parse(app.slice(i, j + 1)) };
+  const domains = grab('domains'), routes = grab('routes');
+  const pay = (answers, ctx, grade) => ({ type: 'youth-support-data-v1', answers, domains: domains.map(d => ({ name: d.name, items: d.items.slice(), hints: d.hints.slice() })), routes, resources: [], explicit: [], followups: {}, caseContext: ctx, student: { gender: '미확인', grade, dong: '' } });
+  const hi = Array(25).fill(1); hi[11] = 3; hi[12] = 3; hi[19] = 3; hi[2] = 3; hi[3] = 3;
+  const lo = Array(25).fill(0); lo[11] = 1;
+  const ctx = '고2 학생, 아동양육시설에서 생활함. 최근 가출 반복';
+  const withIndep = Object.assign({}, D, { groups: D.groups.filter(g => g.id !== 'mogef-youth-indep-center').concat([{ id: 'mogef-youth-indep-center', label: '청소년자립지원관', uses: ['independence'], items: [{ name: '가상 자립지원관', address: '경기도 화성시 가상로 1', region: 'gyeonggi' }] }]) });
+  const H = F.build(pay(hi, ctx, '고2'), { data: withIndep });
+  const notice = H.links.find(l => l.id === '_juvenile-notice');
+  assert.ok(notice && notice.why.some(w => w.startsWith('12번')), '3단계 이상 + 12번 3점 → 통고제도 안내');
+  assert.ok(notice.items[0].match_id === 'ORG-N25-SWFCOURT' && /보호 절차/.test(notice.note), '통고는 복지자원 DB 기관과 잇고 보호 절차임을 밝힘');
+  assert.ok(H.links.some(l => l.id === 'mogef-youth-indep-center'), '시설보호 서술 + 고2 → 청소년자립지원관');
+  const L = F.build(pay(lo, ctx, '고2'), { data: withIndep });
+  assert.ok(!L.links.some(l => l.id === '_juvenile-notice'), '서술 가출만으로는 통고 안내 없음');
+  const M1 = F.build(pay(hi, ctx, '중1'), { data: withIndep });
+  assert.ok(!M1.links.some(l => l.id === 'mogef-youth-indep-center'), '중학생에게는 자립지원관 안내 없음');
+}
 
 // 5. 공통 모듈: 성인 대상 칸에는 청소년 전용 목록을 넣지 않음, 근처 순 정렬
 for (const g of P.forNeed(D, '정신건강', '노인')) assert.ok(!P.YOUTH_ONLY.has(g.id), '노인 칸에 청소년 전용 목록: ' + g.id);

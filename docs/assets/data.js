@@ -20276,12 +20276,12 @@ window.WELFARE_DATA = {
       "name": "오산경찰서",
       "level": "오산시",
       "kind": "경찰",
-      "summary": "학교폭력·가출·아동학대·성폭력 등 청소년 안전 사안 신고·수사와 학교전담경찰관 운영. 오산시 청소년 생명지킴 지역안전망 협의회 참여기관(2026년 보도). 긴급 상황은 112.",
+      "summary": "학교폭력·가출·아동학대·성폭력 등 청소년 안전 사안 신고·수사와 학교전담경찰관 운영. 오산시 청소년 생명지킴 지역안전망 협의회 참여기관(2026년 보도). 학대예방경찰관이 오산시 아동학대 대응 정보연계 실무협의체·통합사례회의에 참여(2026년 9월 보도). 긴급 상황은 112.",
       "site": "",
       "phone": "",
       "source": "https://www.metroseoul.co.kr/article/20261019500514",
       "scope": "오산시",
-      "reviewed": "2026-11-24",
+      "reviewed": "2026-11-25",
       "status": "미확인",
       "jurisdiction": "오산시",
       "services": [
@@ -20324,6 +20324,45 @@ window.WELFARE_DATA = {
           },
           "contacts": [],
           "rounds": []
+        },
+        {
+          "id": "SVC-N25-002",
+          "name": "폭력 피해 아동·청소년 긴급 지원(경찰청·대한적십자사·LG)",
+          "category": "안전·권리보호",
+          "target": "범죄·폭력 피해로 생활이 어려운 아동·청소년",
+          "description": "경찰이 범죄 피해 아동·청소년을 발굴하면 대한적십자사가 맞춤형 회복 프로그램을 제공(LG 성금). 2026년 6월 26일 협약 후 1년간 운영.",
+          "method": "개인 신청 창구는 보도에 없음. 사건을 맡은 경찰(학대예방경찰관·학교전담경찰관·피해자보호관)에게 연계 가능 여부를 문의.",
+          "operation": "언론 보도(2026-06-26)만 확인. 지원 기준·금액은 경찰서 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년"
+            ],
+            "need": [
+              "안전·권리보호",
+              "소득·생계"
+            ],
+            "form": [
+              "현금",
+              "서비스 제공"
+            ],
+            "intake": [
+              "협력기관 추천"
+            ]
+          },
+          "operationType": "시즌",
+          "localAvailable": "확인 필요",
+          "source": "https://www.asiae.co.kr/article/2026062523102940607",
+          "verification": {
+            "status": "미확인",
+            "date": "",
+            "method": "",
+            "by": "",
+            "next": "2026-12-26"
+          },
+          "contacts": [],
+          "rounds": []
         }
       ],
       "contact": {
@@ -20339,11 +20378,11 @@ window.WELFARE_DATA = {
         "source_url": "",
         "verified_on": ""
       },
-      "address": "",
-      "addressSource": "",
-      "addressStatus": "미확인",
-      "addressCheckedOn": "",
-      "addressNote": "주소·부서 직통번호는 경찰청 공식 안내로 확인 필요"
+      "address": "경기도 오산시 동부대로 596",
+      "addressSource": "https://www.data.go.kr/data/15124966/fileData.do",
+      "addressStatus": "공공·지도",
+      "addressCheckedOn": "2026-11-25",
+      "addressNote": "경찰청_전국 경찰서 명칭 및 주소(공공데이터포털, 2023-06-27 기준). 지구대·파출소 목록과 부서 직통번호는 경찰청 공식 안내로 확인 필요"
     },
     {
       "id": "ORG-N24-CCCITY",
@@ -20534,6 +20573,78 @@ window.WELFARE_DATA = {
       "addressStatus": "미확인",
       "addressCheckedOn": "",
       "addressNote": "주소지 관할 지사는 1577-1000 또는 누리집 지사 찾기로 확인"
+    },
+    {
+      "id": "ORG-N25-SWFCOURT",
+      "name": "수원가정법원 소년부",
+      "level": "경기도",
+      "kind": "법원",
+      "summary": "19세 미만 소년의 보호사건(소년보호재판)을 맡는 가정법원. 오산시 소년보호 사건 관할. 보호자·학교장·사회복지시설의 장 등이 수사기관을 거치지 않고 직접 통고할 수 있음.",
+      "site": "https://swfamily.scourt.go.kr/",
+      "phone": "",
+      "source": "https://swfamily.scourt.go.kr/swfamily/intro/intro_02/task_info_02/index.html",
+      "scope": "경기도",
+      "reviewed": "2026-11-25",
+      "status": "미확인",
+      "jurisdiction": "수원·오산·용인·화성(본원)",
+      "services": [
+        {
+          "id": "SVC-N25-001",
+          "name": "소년보호 통고제도(보호자·학교장·사회복지시설장 직접 통고)",
+          "category": "법률·금융",
+          "target": "비행·위기 행동이 반복되는 10세 이상 19세 미만 소년과 보호자",
+          "description": "보호자, 학교장, 사회복지시설의 장, 보호관찰소장 등이 경찰·검찰을 거치지 않고 가정법원 소년부에 소년보호재판 절차를 시작해 달라고 알림. 법원 조사관이 행동·환경을 조사하고 필요하면 정신건강의학과 의사·심리학자·사회복지사 등 전문가 진단을 받음. 보조인이 없으면 국선보조인을 선정(국가 부담). 보호처분은 보호자 감호 위탁, 수강명령, 사회봉사명령, 보호관찰(상담 조건 포함), 시설·병원 위탁 등. 처벌이 아니라 보호·교육 절차.",
+          "method": "통고서(소년·보호자 인적사항, 통고자, 통고 사유: 날짜별 행동과 그동안의 지도·상담 결과)를 서면으로 내거나 법원에 출석해 말로 통고. 학교폭력은 학교폭력대책심의위원회 절차, 긴급한 피해는 112 신고가 먼저.",
+          "operation": "수원가정법원 소년재판 업무안내 열람(2026-11-25). 접수 창구·전화는 법원 확인.",
+          "editedOn": "2026-11-25",
+          "tags": {
+            "target": [
+              "아동",
+              "청소년"
+            ],
+            "need": [
+              "법률·금융",
+              "안전·권리보호"
+            ],
+            "form": [
+              "서비스 제공"
+            ],
+            "intake": [
+              "직접 방문"
+            ]
+          },
+          "operationType": "상시",
+          "localAvailable": "가능",
+          "source": "https://swfamily.scourt.go.kr/swfamily/intro/intro_02/task_info_02/index.html",
+          "verification": {
+            "status": "사업별 확인 필요",
+            "date": "2026-11-25",
+            "method": "법원 누리집 업무안내 열람",
+            "by": "자료 관리자",
+            "next": "2027-02-24"
+          },
+          "contacts": [],
+          "rounds": []
+        }
+      ],
+      "contact": {
+        "contact_id": "CON-N25-SWFCOURT",
+        "owner_type": "organization",
+        "owner_id": "ORG-N25-SWFCOURT",
+        "dept": "",
+        "phone": "",
+        "fax": "",
+        "email": "",
+        "hours": "",
+        "note": "대표전화",
+        "source_url": "",
+        "verified_on": ""
+      },
+      "address": "",
+      "addressSource": "",
+      "addressStatus": "미확인",
+      "addressCheckedOn": "",
+      "addressNote": "주소·소년부 접수 전화는 법원 누리집에서 확인 필요"
     }
   ]
 };
