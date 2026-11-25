@@ -20,7 +20,7 @@ $('gaps').innerHTML=osanGaps.length?osanGaps.map(c=>'<li><button type="button" d
 function card(e){
  const c=e.checked,phone=e.o.phone||(e.o.contact&&e.o.contact.phone)||'';
  const when=c.status==='확인완료'&&c.date?'<span class="tag ok">공식 안내 확인 '+esc(c.date)+'</span>':c.date?'<span class="tag">기관 안내 확인 '+esc(c.date)+'</span>':'<span class="tag warn">확인일 없음</span>';
- return '<article class="card"><span class="tag">'+esc(W.LEVEL_LABEL[e.level])+'</span>'+when+'<h3>'+esc(e.s.name)+'</h3><p><b>'+esc(e.o.name)+'</b>'+(phone?' · '+esc(phone):'')+'</p>'+(e.s.target?'<p>대상: '+esc(e.s.target)+'</p>':'')+'<p><a href="./#org='+encodeURIComponent(e.o.id)+'">상세정보 ↗</a></p></article>';
+ return '<article class="card"><span class="tag">'+esc(W.tierLabel(e))+'</span>'+when+'<h3>'+esc(e.s.name)+'</h3><p><b>'+esc(e.o.name)+'</b>'+(phone?' · '+esc(phone):'')+'</p>'+(e.s.target?'<p>대상: '+esc(e.s.target)+'</p>':'')+'<p><a href="./#org='+encodeURIComponent(e.o.id)+'">상세정보 ↗</a></p></article>';
 }
 function open(need,target){
  const list=W.cellServices(D,need,target),box=$('detail'),confirmed=list.filter(e=>e.checked.status==='확인완료').length;

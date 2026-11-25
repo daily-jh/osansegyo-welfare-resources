@@ -11,7 +11,7 @@ ul.pf,.pf-group ul{list-style:none;padding:0;margin:6px 0 0;display:grid;grid-te
 .pf-top{display:flex;flex-wrap:wrap;gap:4px 6px;align-items:baseline}
 .pf-top strong{font-size:14.5px;overflow-wrap:anywhere;margin-right:2px}
 .pf-kind,.pf-here,.pf-near,.pf-db{font-size:11.5px;border-radius:99px;padding:2px 7px;white-space:nowrap}
-.pf-kind{background:#eef3f8;color:#2b4b6b}.pf-here{background:#fbe2d5;color:#8f3412}.pf-near{background:#e3ebf6;color:#174d81}
+.pf-kind{background:#eef3f8;color:#2b4b6b}.pf-here{background:#fbe2d5;color:#8f3412}.pf-near{background:#e3ebf6;color:#174d81}.pf-near.pf-city{background:#ecebf7;color:#46467a}
 .pf-db{background:#e3f3ec;color:#17694f;text-decoration:none}.pf-db:hover{text-decoration:underline}
 .pf-addr,.pf-meta,.pf-sum{font-size:13px;margin:3px 0 0;color:#405062;overflow-wrap:anywhere}
 .pf-meta a{color:#17599a}

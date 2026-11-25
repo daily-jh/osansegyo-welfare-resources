@@ -4,6 +4,7 @@ const D=context.window.WELFARE_DATA,html=fs.readFileSync('docs/index.html','utf8
 // 7. 화면 범주: 원본 '민간'은 유지하고 전국 공공·전국 민간으로만 나눈다.
 for(const o of D.organizations){
   if(o.level==='민간')assert.equal(o.scope,o.kind.includes('공공')?'전국 공공':'전국 민간',o.name);
+  else if(o.tier==='near')assert.ok(o.level==='경기도'&&['수원시','화성시','평택시'].includes(o.tierCity),o.name);
   else assert.equal(o.scope,o.level,o.name);
 }
 for(const scope of new Set(D.organizations.map(o=>o.scope)))assert.ok(html.includes(`data-level="${scope}"`),'region tab for '+scope);
@@ -25,5 +26,6 @@ assert.ok(html.includes('쉬운 말로 찾는 방법')&&html.includes('assets/ho
 assert.ok(!html.includes('data-report-download')&&!html.includes('report-download.js'),'research report menu removed from main page');
 assert.ok(html.indexOf('class="help-now')>html.indexOf('id="maintenanceTitle"')&&html.indexOf('class="help-now')<html.indexOf('</main>'),'call strip sits at the bottom of main');
 assert.ok(html.includes('id="statLevels"')&&app.includes("$('#statLevels')"),'category count follows region tabs');
-assert.equal(new Set(D.organizations.map(o=>o.scope)).size,4);
+assert.equal(new Set(D.organizations.map(o=>o.scope)).size,5);
+assert.equal(JSON.stringify(D.tiers.map(t=>t.label)),JSON.stringify(['오산시','인근 시','경기도','전국 공공','전국 민간']));
 console.log(JSON.stringify({scopes:[...new Set(D.organizations.map(o=>o.scope))],strip:numbers,allDay:allDay.map(o=>o.name)}));

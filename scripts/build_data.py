@@ -7,6 +7,12 @@ ROOT = Path(__file__).resolve().parent.parent
 FIELDS = ['범주','기관명','기관유형','기관소개','홈페이지','대표전화','근거URL','서비스명','지원분야','지원대상','주요내용','신청·연계방법','운영확인','최종검토일']
 ORG_FIELDS = ['org_id','범주','기관명','기관유형','기관소개','홈페이지','근거URL','address','jurisdiction','status','address_source_url','address_status','address_checked_on','address_note']
 VERIFY = ['미확인','확인완료','사업별 확인 필요','모집시기 확인']
+# 지역 범주 5단계(2026-11-25 4차 고도화). 화면·정렬은 이 순서를 따른다. 원본 '범주'(오산시/경기도/민간)는 호환을 위해 그대로 둔다.
+TIERS = [('osan','오산시'),('near','인근 시'),('gyeonggi','경기도'),('national-public','전국 공공'),('national-private','전국 민간')]
+TIER_LABEL = dict(TIERS)
+NEAR_CITIES = ['수원시','화성시','평택시']
+# 원본 범주에서 넘어갈 수 있는 지역 범주(경기도로 적힌 기관만 인근 시로 옮길 수 있음)
+TIER_FROM = {'오산시':{'osan'},'경기도':{'gyeonggi','near'},'민간':{'national-public','national-private'}}
 
 def read_table(name, required):
     with (ROOT/'data'/name).open(encoding='utf-8-sig', newline='') as f:
@@ -93,17 +99,38 @@ def load():
         safe_url(r['source_url'])
     return orgs,sorted(services,key=lambda s:int(s['row_order'])),contacts,rounds,taxonomy
 
-def scope(o):
-    """화면 범주. 원본 범주코드 '민간'은 청소년 도구 호환을 위해 유지하고, 기관유형에 '공공'이 있으면 전국 공공으로 나눈다."""
-    if o['범주']!='민간': return o['범주']
-    return '전국 공공' if '공공' in o['기관유형'] else '전국 민간'
+def load_tiers(om):
+    """data/region-tiers.csv: 원본 범주만으로 정할 수 없는 기관(인근 시 등)의 지역 범주. 없는 기관은 원본 범주로 정한다."""
+    rows=read_table('region-tiers.csv',['org_id','region_tier','region_city','basis','source_url','checked_on'])
+    by={}
+    for r in rows:
+        if r['org_id'] not in om or r['org_id'] in by: raise ValueError(f"region-tiers: unknown/duplicate org {r['org_id']}")
+        key=next((k for k,v in TIERS if v==r['region_tier']),None)
+        if not key or key not in TIER_FROM[om[r['org_id']]['범주']]: raise ValueError(f"region-tiers: invalid tier for {r['org_id']}")
+        if (key=='near')!=(r['region_city'] in NEAR_CITIES): raise ValueError(f"region-tiers: near tier needs one of {NEAR_CITIES}")
+        if not r['basis']: raise ValueError('region-tiers: basis required')
+        date(r['checked_on']); safe_url(r['source_url'])
+        by[r['org_id']]=(key,r['region_city'])
+    return by
+
+def tier(o, tiers):
+    """지역 범주 키와 인근 시 이름. 원본 '민간'은 기관유형에 '공공'이 있으면 전국 공공, 아니면 전국 민간."""
+    if o['org_id'] in tiers: return tiers[o['org_id']]
+    if o['범주']=='오산시': return ('osan','')
+    if o['범주']=='경기도': return ('gyeonggi','')
+    return ('national-public' if '공공' in o['기관유형'] else 'national-private','')
+
+def scope(o, tiers={}):
+    """화면 범주(지역 범주 5단계의 이름)."""
+    return TIER_LABEL[tier(o,tiers)[0]]
 
 def generate():
     orgs,services,contacts,rounds,taxonomy=load()
+    tiers=load_tiers({o['org_id']:o for o in orgs})
     phone={c['owner_id']:c['phone'] for c in contacts if c['owner_type']=='organization' and c['note']=='대표전화'}
     om={o['org_id']:o for o in orgs}; grouped={}; flat=[]
     for o in orgs:
-        grouped[o['org_id']]={'id':o['org_id'],'name':o['기관명'],'level':o['범주'],'kind':o['기관유형'],'summary':o['기관소개'],'site':o['홈페이지'],'phone':phone.get(o['org_id'],''),'source':o['근거URL'],'scope':scope(o),'reviewed':'','status':o['status'],'jurisdiction':o['jurisdiction'],'services':[]}
+        grouped[o['org_id']]={'id':o['org_id'],'name':o['기관명'],'level':o['범주'],'kind':o['기관유형'],'summary':o['기관소개'],'site':o['홈페이지'],'phone':phone.get(o['org_id'],''),'source':o['근거URL'],'scope':scope(o,tiers),'tier':tier(o,tiers)[0],'tierCity':tier(o,tiers)[1],'reviewed':'','status':o['status'],'jurisdiction':o['jurisdiction'],'services':[]}
         grouped[o['org_id']]['contact']=next((c for c in contacts if c['owner_type']=='organization' and c['owner_id']==o['org_id'] and c['note']=='대표전화'),{})
         grouped[o['org_id']].update({'address':o['address'],'addressSource':o['address_source_url'],'addressStatus':o['address_status'],'addressCheckedOn':o['address_checked_on'],'addressNote':o['address_note']})
     for s in services:
@@ -112,7 +139,8 @@ def generate():
         g['reviewed']=max(g['reviewed'],s['최종검토일'])
         v={'status':s['verification_status'],'date':s['verified_on'],'method':s['verification_method'],'by':s['verified_by'],'next':s['next_check_on']}
         g['services'].append({'id':s['service_id'],'name':s['서비스명'],'category':s['지원분야'],'target':s['지원대상'],'description':s['주요내용'],'method':s['신청·연계방법'],'operation':s['운영확인'],'editedOn':s['최종검토일'],'tags':{axis:s[k].split('|') if s[k] else [] for axis,k in [('target','tags_target'),('need','tags_need'),('form','tags_form'),('intake','intake_channels')]},'operationType':s['operation_type'],'localAvailable':s['local_available'],'source':s['source_url'],'verification':v,'contacts':[c for c in contacts if c['owner_type']=='service' and c['owner_id']==s['service_id']],'rounds':[r for r in rounds if r['service_id']==s['service_id']]})
-    output={'date':max((s['최종검토일'] for s in services),default='미확인'),'schemaVersion':2,'note':'기존 자료 정리일이며, 기관·사업별 실제 운영 확인일과 다릅니다. 연계 전 최신 공식 공고를 확인해 주세요.','taxonomy':taxonomy,'organizations':list(grouped.values())}
+    output={'date':max((s['최종검토일'] for s in services),default='미확인'),'schemaVersion':2,
+            'tiers':[{'id':k,'label':v,**({'cities':NEAR_CITIES} if k=='near' else {})} for k,v in TIERS],'note':'기존 자료 정리일이며, 기관·사업별 실제 운영 확인일과 다릅니다. 연계 전 최신 공식 공고를 확인해 주세요.','taxonomy':taxonomy,'organizations':list(grouped.values())}
     data=('/* © 2026 오산세교종합사회복지관 김지훈 팀장. All rights reserved. */\nwindow.WELFARE_DATA = '+json.dumps(output,ensure_ascii=False,indent=2)+';\n').encode('utf-8')
     html=(ROOT/'docs/index.html').read_text(encoding='utf-8')
     for id_,value in [('statOrgs',str(len(orgs))),('statServices',str(len(services))),('statDate',output['date'].replace('-','. ')+'.')]:

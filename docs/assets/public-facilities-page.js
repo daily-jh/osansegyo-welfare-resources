@@ -13,7 +13,7 @@ function render(){
  if(location.hash&&!render.jumped){const el=document.querySelector('[data-pf="'+CSS.escape(location.hash.slice(1))+'"]');if(el){render.jumped=true;el.scrollIntoView({block:'start'})}}
 }
 P.load('public-api/facilities.json').then(d=>{D=d;const c=P.counts(d);
- $('tiles').innerHTML=[['','데이터 종류',c.groups+'종','공공데이터포털'],['osan','오산 기관',c.osan+'곳','주소가 오산시'],['','가까운 경기 기관',c.gyeonggi+'곳','오산에 없는 유형 위주'],['','수집일',c.date||'-','매주 월요일']]
+ $('tiles').innerHTML=[['','데이터 종류',c.groups+'종','공공데이터포털'],['osan','오산 기관',c.osan+'곳','주소가 오산시'],['near','인근 시 기관',c.near+'곳','수원·화성·평택'],['','경기 기관',c.gyeonggi+'곳','오산에 없는 유형 위주'],['','수집일',c.date||'-','매주 월요일']]
   .map(t=>'<div class="tile '+t[0]+'"><span>'+t[1]+'</span><b>'+esc(t[2])+'</b><small>'+esc(t[3])+'</small></div>').join('');
  const used=new Set();for(const g of P.groups(d))for(const u of g.uses||[])used.add(u);
  $('filters').innerHTML='<button type="button" data-use="" aria-pressed="true">전체</button>'+Object.keys(P.USE_LABEL).filter(u=>used.has(u)).map(u=>'<button type="button" data-use="'+u+'" aria-pressed="false">'+esc(P.USE_LABEL[u])+'</button>').join('');

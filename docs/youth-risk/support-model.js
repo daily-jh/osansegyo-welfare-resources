@@ -65,6 +65,9 @@ function caseChecks(p,numbers){var a=p.answers,ns=numbers||a.map((v,i)=>v>0?i+1:
 function describe(p,d,row){var a=p.answers,decision=context(p),profile=profiles.find(x=>x[0]===(row.profileName||row['기관명'])&&x[1]===(row.profileService||row['서비스명'])),extra=additional(p,d,row),evidence=extra?extra.items:d.numbers.filter(n=>a[n-1]>0);if(profile)evidence=evidence.filter(n=>profile[2].includes(n));var max=Math.max(0,...evidence.map(n=>a[n-1])),safety=evidence.some(n=>[1,2,7,25].includes(n)),critical=evidence.some(n=>decision.critical.includes(n));var t=[row['서비스명'],row['지원분야'],row['주요내용']].join(' '),fit=tokens[d.i].filter(k=>t.includes(k)).length;
 var order=profile?profile[3]:extra?(/병원/.test(row['기관명'])?4:5):3;if(row['기관명']==='오산시정신건강복지센터'&&!safety&&max<3)order=2;if(extra&&(row['기관명']==='스마트쉼센터'||/마약상담 1342/.test(row['기관명']))&&max>=3)order=2;if(row['서비스명']==='긴급복지지원 상담'&&!critical)order=3;if(row['서비스명']==='청소년안전망·청소년동반자 연계'&&((decision.integrated&&!d.critical&&!d.safety)||(d.i===9&&d.safety)))order=0;if(row['서비스명']==='위기학생 지역전문기관 연계'&&(decision.integrated&&!d.critical&&!d.safety))order=0;
 var label=safety?'안전과 전문지원 먼저':critical?'생활·건강부터 살피기':max>=3?'생활의 어려움부터 돕기':max>=2?'반복되는 어려움 돕기':'관찰·상담 문의';var reason=profile?profile[4]:'학생에게 필요한 도움을 이 사업에서 받을 수 있는지 상담해 보세요';if(decision.integrated&&/사례관리|청소년안전망|지역전문기관/.test(row['서비스명']))reason+=' · 여러 어려움을 함께 도울 방법을 문의해 보세요';var condition=extra?extra.condition:profile?profile[5]:/장애|발달/.test(t)?'연령·진단·등록·서비스 필요 등 실제 대상 조건 문의':'실제 대상·관할·비용·운영·접수 조건 문의';return {evidence,max,safety,critical,order,fit,label,reason,condition:[condition,...caseChecks(p,evidence)].join(' · ')}}
+// 지역 범주 5단계(2026-11-25): 같은 연계 순위 안에서는 오산시 → 인근 시 → 경기도 → 전국 공공 → 전국 민간. 안전·위기 우선(order)은 그대로 먼저 본다.
+var REGION_ORDER=['osan','near','gyeonggi','national-public','national-private'];
+function regionRank(row){var k=REGION_ORDER.indexOf(row&&row.regionTier);if(k>=0)return k;var l=row&&row['범주'];return l==='오산시'?0:l==='경기도'?2:3}
 function identity(value){return String(value||'').normalize('NFKC').replace(/\s+/g,'').toLowerCase()}
 // Administrative dong is explicitly selected, never inferred from a street or legal dong.
 function routingResources(resources,profile){
@@ -100,7 +103,7 @@ function groupedCandidates(p,d){
   if(additional(p,d,r))return true;
   return prof?prof[2].some(n=>d.numbers.includes(n)&&p.answers[n-1]>0):describe(p,d,r).fit>0;
  });
- rows.sort((a,b)=>{var x=describe(p,d,a),y=describe(p,d,b);return x.order-y.order||Number(y.safety)-Number(x.safety)||Number(y.critical)-Number(x.critical)||y.max-x.max||y.evidence.length-x.evidence.length||y.fit-x.fit});
+ rows.sort((a,b)=>{var x=describe(p,d,a),y=describe(p,d,b);return x.order-y.order||regionRank(a)-regionRank(b)||Number(y.safety)-Number(x.safety)||Number(y.critical)-Number(x.critical)||y.max-x.max||y.evidence.length-x.evidence.length||y.fit-x.fit});
  // Group AFTER ranking, BEFORE any display limit. The best matching role stays first;
  // other eligible services remain attached to that institution, never separate cards.
  var groups=new Map();
@@ -116,5 +119,5 @@ function companion(row){var kind=String(row&&row['기관유형']||''),name=Strin
  if(/정신건강 의료기관|정신건강의학과/.test(kind)||/정신건강의학과/.test(name))return '진료비가 걱정되면 「경기도 청(소)년 마인드케어 외래진료비 지원」(만 15~34세, 오산시정신건강복지센터 문의)과 학교 Wee의 학생마음바우처를 함께 확인합니다. 자해·자살 위험이 지금 있으면 진료 예약보다 119·가까운 응급실이 먼저입니다.';
  if(/마인드케어/.test(name))return '지원 대상이면 오산 정신건강의학과 진료기관(지역자원 연계 지도의 정신건강 영역)과 묶어 안내합니다. 진료기관의 초진 예약 가능 여부는 따로 확인합니다.';
  return ''}
-var api={companion,profileFor,additional,caseChecks,welfareZones,welfareZone,welfareZoneText,dongs,student,referrals,routingResources,labels,validate,domains,rank,candidates,groupedCandidates,context,describe};if(typeof module!=='undefined')module.exports=api;else root.YouthMap=api;
+var api={regionRank,companion,profileFor,additional,caseChecks,welfareZones,welfareZone,welfareZoneText,dongs,student,referrals,routingResources,labels,validate,domains,rank,candidates,groupedCandidates,context,describe};if(typeof module!=='undefined')module.exports=api;else root.YouthMap=api;
 })(typeof window!=='undefined'?window:globalThis);

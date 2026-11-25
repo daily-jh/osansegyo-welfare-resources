@@ -5,6 +5,11 @@
 (function(root){'use strict';
 const LEVELS=['오산시','경기도','민간'];
 const LEVEL_LABEL={'오산시':'오산','경기도':'경기','민간':'전국'};
+// 지역 범주 5단계(2026-11-25). level(원본 3범주)은 칸 집계 호환용, 정렬·표시는 tier를 쓴다.
+const TIERS=['osan','near','gyeonggi','national-public','national-private'];
+const TIER_LABEL={osan:'오산',near:'인근 시',gyeonggi:'경기','national-public':'전국 공공','national-private':'전국 민간'};
+function tierOf(o){return TIERS.includes(o&&o.tier)?o.tier:o&&o.level==='오산시'?'osan':o&&o.level==='경기도'?'gyeonggi':'national-private'}
+function tierLabel(e){const o=e&&e.o||e,t=tierOf(o);return TIER_LABEL[t]+(t==='near'&&o.tierCity?'·'+o.tierCity.replace(/시$/,''):'')}
 // 쉬운 말 상황 → 분류표 욕구영역. 안전 상황은 결과 맨 위에 긴급 연락처를 먼저 보여준다.
 const SITUATIONS=[
  {id:'safety',need:'안전·권리보호',q:'폭력·학대·위협 때문에 안전이 걱정돼요',urgent:true},
@@ -39,10 +44,10 @@ function targetFit(s,target){
  if(t.includes(target))return 'exact';
  return t.length?null:'open';
 }
-const rankLevel=l=>l==='오산시'?0:l==='경기도'?1:2;
+const rankTier=e=>TIERS.indexOf(tierOf(e.o));
 const rankStatus=x=>x==='확인완료'?0:x==='사업별 확인 필요'?1:2;
 function sortEntries(a,b){
- return (a.fit==='exact'?0:1)-(b.fit==='exact'?0:1)||rankLevel(a.level)-rankLevel(b.level)||rankStatus(a.checked.status)-rankStatus(b.checked.status)||(b.checked.date||b.checked.reviewed).localeCompare(a.checked.date||a.checked.reviewed)||a.s.name.localeCompare(b.s.name,'ko');
+ return (a.fit==='exact'?0:1)-(b.fit==='exact'?0:1)||rankTier(a)-rankTier(b)||rankStatus(a.checked.status)-rankStatus(b.checked.status)||(b.checked.date||b.checked.reviewed).localeCompare(a.checked.date||a.checked.reviewed)||a.s.name.localeCompare(b.s.name,'ko');
 }
 function selfCheck(data,input){
  const target=input&&input.target||'',ids=(input&&input.situations)||[],perGroup=(input&&input.perGroup)||5;
@@ -81,6 +86,6 @@ function gapMatrix(data){
 function cellServices(data,need,target){
  return entries(data).filter(e=>tags(e.s,'need').includes(need)&&tags(e.s,'target').includes(target)).map(e=>({...e,level:level(e.o),checked:checked(e.o,e.s),fit:'exact'})).sort(sortEntries);
 }
-const api=Object.freeze({LEVELS,LEVEL_LABEL,SITUATIONS,entries,checked,targetFit,selfCheck,targets,needs,gapMatrix,cellServices});
+const api=Object.freeze({LEVELS,LEVEL_LABEL,TIERS,TIER_LABEL,tierOf,tierLabel,SITUATIONS,entries,checked,targetFit,selfCheck,targets,needs,gapMatrix,cellServices});
 if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.WelfareTools=api;
 })(typeof window!=='undefined'?window:globalThis);

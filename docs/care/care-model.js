@@ -198,11 +198,14 @@
         if (t.length && t.every(v => CHILD_ONLY.includes(v))) return;   // 아동·청소년만 대상인 사업은 돌봄통합 후보에서 뺀다
         const text = `${org.name} ${s.name}`;                            // 설명문까지 보면 엉뚱한 사업이 섞여 이름만 본다
         if (ex && ex.test(text)) return;
-        if (re.test(text)) out.push({ orgId: org.id, org: org.name, level: org.level, phone: org.phone || '', service: s.name, serviceId: s.id, status: (s.verification && s.verification.status) || '' });
+        if (re.test(text)) out.push({ orgId: org.id, org: org.name, level: org.level, scope: org.scope || org.level, tier: org.tier || '', phone: org.phone || '', service: s.name, serviceId: s.id, status: (s.verification && s.verification.status) || '' });
       });
     });
-    const rank = { '오산시': 0, '경기도': 1, '전국 공공': 2, '민간': 3 };
-    out.sort((x, y) => (rank[x.level] ?? 9) - (rank[y.level] ?? 9) || x.org.localeCompare(y.org, 'ko'));
+    // 지역 범주 5단계: 오산시 → 인근 시 → 경기도 → 전국 공공 → 전국 민간(tier가 없으면 원본 범주로)
+    const rank = { osan: 0, near: 1, gyeonggi: 2, 'national-public': 3, 'national-private': 4 };
+    const lv = { '오산시': 0, '경기도': 2, '민간': 3 };
+    const r = x => rank[x.tier] ?? lv[x.level] ?? 9;
+    out.sort((x, y) => r(x) - r(y) || x.org.localeCompare(y.org, 'ko'));
     if (o.dedupeOrg) {
       const seen = new Set();
       return out.filter(r => (seen.has(r.orgId) ? false : seen.add(r.orgId)));

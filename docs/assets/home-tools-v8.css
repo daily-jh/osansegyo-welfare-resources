@@ -37,6 +37,7 @@
 
 /* 카드 표시: 범주 라벨과 24시간 칩은 기존 type-label 모양을 따른다 */
 .region-label.national{color:#2f5f8a}
+.region-label.near{background:#f1f1f8;color:#5a5a8c}
 .allday-label{display:inline-flex;align-items:center;margin-left:6px;padding:2px 8px;border-radius:6px;background:var(--ed-accent-soft,#e8f1fc);color:var(--ed-accent,#1765bd);font-size:var(--ads-caption,13px);font-weight:700}
 
 @media (max-width:900px){

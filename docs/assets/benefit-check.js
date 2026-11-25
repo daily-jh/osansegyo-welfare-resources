@@ -49,14 +49,14 @@ const whenTag=c=>c.status==='확인완료'&&c.date?'<span class="tag ok">공식 
 let shown=[];
 function card(e){
  const i=shown.push(e)-1,phone=phoneOf(e);
- return '<article class="card tu-lift"><p><span class="tag">'+esc(W.LEVEL_LABEL[e.level])+'</span>'+(e.fit==='open'?'<span class="tag warn">대상 미분류</span>':'')+whenTag(e.checked)+'</p>'+
+ return '<article class="card tu-lift"><p><span class="tag">'+esc(W.tierLabel(e))+'</span>'+(e.fit==='open'?'<span class="tag warn">대상 미분류</span>':'')+whenTag(e.checked)+'</p>'+
   '<h3>'+esc(e.s.name)+'</h3><p><b>'+esc(e.o.name)+'</b>'+(phone?' · <a href="tel:'+esc(phone.replace(/[^0-9]/g,''))+'">'+esc(phone)+'</a>':'')+'</p>'+
   '<button type="button" class="card-open tu-press" data-card="'+i+'" aria-haspopup="dialog">자세히 <span aria-hidden="true">→</span></button></article>';
 }
 function openCard(e){
  const phone=phoneOf(e),s=e.s,cand=[s.source,e.o.site,e.o.source].find(u=>/^https:\/\/[^\s"'<>@]+$/.test(u||'')),url=cand||'';
  const rows=[['기관',esc(e.o.name)],['전화',phone?'<a href="tel:'+esc(phone.replace(/[^0-9]/g,''))+'">'+esc(phone)+'</a>':'기관 안내 확인'],['대상',esc(s.target||'자료에 적혀 있지 않음 · 기관에 문의')],['내용',esc(s.description||'')],['신청',esc(s.method||'기관에 문의')],['확인',whenTag(e.checked)]].filter(r=>r[1]);
- UI.open({kicker:W.LEVEL_LABEL[e.level]+' · '+(e.fit==='open'?'대상 미분류':'대상 일치'),title:s.name,
+ UI.open({kicker:W.tierLabel(e)+' · '+(e.fit==='open'?'대상 미분류':'대상 일치'),title:s.name,
   html:'<dl class="dl">'+rows.map(r=>'<dt>'+r[0]+'</dt><dd>'+r[1]+'</dd>').join('')+'</dl><p class="muted">받을 수 있는지는 기관이 소득·재산·나이 같은 조건으로 확인합니다. 운영이나 접수 여부가 바뀌었을 수 있으니 이용 전 전화로 확인해 주세요.</p>',
   foot:(url?'<a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">공식 안내 ↗</a>':'')+'<a href="./#org='+encodeURIComponent(e.o.id)+'">기관 전체 정보</a><button type="button" class="tu-primary" data-close>닫기</button>'});
 }
