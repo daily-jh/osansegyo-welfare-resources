@@ -2,27 +2,222 @@
   "schemaVersion": 1,
   "runs": {
     "ssis-local:osan": {
-      "lastAttemptAt": "2026-11-24T21:00:00+09:00",
+      "lastAttemptAt": "2026-11-25T14:15:51+09:00",
       "source": "한국사회보장정보원_지자체복지서비스",
       "region": "경기도 오산시",
       "required": true,
-      "lastError": "ValueError: 인증키 없음(DATA_GO_KR_KEY 비밀값 미등록)"
+      "lastError": "",
+      "lastSuccessAt": "2026-11-25T14:15:51+09:00",
+      "received": 22,
+      "kept": 22
     },
     "ssis-local:gyeonggi": {
-      "lastAttemptAt": "2026-11-24T21:00:00+09:00",
+      "lastAttemptAt": "2026-11-25T14:15:51+09:00",
       "source": "한국사회보장정보원_지자체복지서비스",
       "region": "경기도",
       "required": false,
-      "lastError": "ValueError: 인증키 없음(DATA_GO_KR_KEY 비밀값 미등록)"
+      "lastError": "",
+      "lastSuccessAt": "2026-11-25T14:15:51+09:00",
+      "received": 694,
+      "kept": 63
     },
     "ssis-national:national": {
-      "lastAttemptAt": "2026-11-24T21:00:00+09:00",
+      "lastAttemptAt": "2026-11-25T14:15:51+09:00",
       "source": "한국사회보장정보원_중앙부처복지서비스",
       "region": "전국(대표 영역만)",
       "required": false,
-      "lastError": "ValueError: 인증키 없음(DATA_GO_KR_KEY 비밀값 미등록)"
+      "lastError": "",
+      "lastSuccessAt": "2026-11-25T14:15:51+09:00",
+      "received": 461,
+      "kept": 67
+    },
+    "ssis-national:national-care": {
+      "lastAttemptAt": "2026-11-25T14:15:51+09:00",
+      "source": "한국사회보장정보원_중앙부처복지서비스",
+      "region": "전국(돌봄통합 영역만)",
+      "required": false,
+      "lastSuccessAt": "2026-11-25T14:15:51+09:00",
+      "lastError": "",
+      "received": 461,
+      "kept": 21
+    },
+    "nmc-emergency:osan": {
+      "lastAttemptAt": "2026-11-25T14:15:51+09:00",
+      "source": "국립중앙의료원_전국 응급의료기관 정보 조회 서비스",
+      "region": "경기도 오산시",
+      "required": false,
+      "lastSuccessAt": "2026-11-25T14:15:51+09:00",
+      "lastError": "",
+      "received": 1,
+      "kept": 1
+    },
+    "hira-mental-clinic:osan": {
+      "lastAttemptAt": "2026-11-25T14:15:51+09:00",
+      "source": "건강보험심사평가원_병원정보서비스(정신건강의학과)",
+      "region": "경기도 오산시",
+      "required": false,
+      "lastError": "ValueError: API 오류 코드 99"
+    },
+    "kyci-safetynet-center:osan": {
+      "lastAttemptAt": "2026-11-25T14:15:51+09:00",
+      "source": "한국청소년상담복지개발원_청소년안전망 센터 정보",
+      "region": "경기도 오산시",
+      "required": false,
+      "endpoint": "15154140/v1/uddi:98e56bc0-fa43-4eaa-a3ff-bf451b5bdb2e",
+      "lastSuccessAt": "2026-11-25T14:15:51+09:00",
+      "lastError": "",
+      "received": 602,
+      "kept": 2
+    },
+    "kyci-safetynet-center:gyeonggi": {
+      "lastAttemptAt": "2026-11-25T14:15:51+09:00",
+      "source": "한국청소년상담복지개발원_청소년안전망 센터 정보",
+      "region": "경기도",
+      "required": false,
+      "lastSuccessAt": "2026-11-25T14:15:51+09:00",
+      "lastError": "",
+      "received": 602,
+      "kept": 95
+    },
+    "mohw-mind-voucher:osan": {
+      "lastAttemptAt": "2026-11-25T14:15:51+09:00",
+      "source": "보건복지부_전국민마음투자 바우처 제공기관 목록",
+      "region": "경기도 오산시",
+      "required": false,
+      "endpoint": "15138301/v1/uddi:864ba1e8-1c80-4293-bddd-9b7dfa4d0453",
+      "lastSuccessAt": "2026-11-25T14:15:51+09:00",
+      "lastError": "",
+      "received": 1053,
+      "kept": 2
+    },
+    "mogef-youth-shelter:gyeonggi": {
+      "lastAttemptAt": "2026-11-25T14:15:51+09:00",
+      "source": "성평등가족부_청소년쉼터 현황",
+      "region": "경기도",
+      "required": false,
+      "endpoint": "3084536/v1/uddi:547b101c-3a9c-4bca-a297-fd23aaf9fc9a",
+      "lastSuccessAt": "2026-11-25T14:15:51+09:00",
+      "lastError": "",
+      "received": 139,
+      "kept": 33
+    },
+    "knise-special-ed-center:osan": {
+      "lastAttemptAt": "2026-11-25T14:15:51+09:00",
+      "source": "교육부 국립특수교육원_특수교육지원센터현황",
+      "region": "경기도 오산시",
+      "required": false,
+      "endpoint": "15052681/v1/uddi:65f3aac9-9976-429e-ac86-94e93a06ddcb",
+      "lastSuccessAt": "2026-11-25T14:15:51+09:00",
+      "lastError": "",
+      "received": 197,
+      "kept": 1
+    },
+    "mcst-public-library:osan": {
+      "lastAttemptAt": "2026-11-25T14:15:51+09:00",
+      "source": "문화체육관광부_전국공공도서관정보",
+      "region": "경기도 오산시",
+      "required": false,
+      "endpoint": "15072611/v1/uddi:4e0d4d95-76e2-4a03-9886-ba11052ac3fb",
+      "lastSuccessAt": "2026-11-25T14:15:51+09:00",
+      "lastError": "",
+      "received": 1296,
+      "kept": 7
+    },
+    "knpa-police-station:osan": {
+      "lastAttemptAt": "2026-11-25T14:15:51+09:00",
+      "source": "경찰청_전국 경찰서 명칭 및 주소",
+      "region": "경기도 오산시",
+      "required": false,
+      "endpoint": "15124966/v1/uddi:345a2432-5fee-4c49-a353-80b62496a43b",
+      "lastSuccessAt": "2026-11-25T14:15:51+09:00",
+      "lastError": "",
+      "received": 259,
+      "kept": 1
+    },
+    "moj-probation-office:gyeonggi": {
+      "lastAttemptAt": "2026-11-25T14:15:51+09:00",
+      "source": "법무부_전국보호관찰소위치데이터",
+      "region": "경기도",
+      "required": false,
+      "endpoint": "15060340/v1/uddi:272a2ab6-c39a-46b5-960f-a724464fe150",
+      "lastSuccessAt": "2026-11-25T14:15:51+09:00",
+      "lastError": "",
+      "received": 58,
+      "kept": 9
+    },
+    "mois-disaster-psych:gyeonggi": {
+      "lastAttemptAt": "2026-11-25T14:15:51+09:00",
+      "source": "행정안전부_재난심리회복지원센터 현황",
+      "region": "경기도",
+      "required": false,
+      "endpoint": "15130798/v1/uddi:e4b4cfe4-0cb3-49fd-8a05-e5360ae45b7c",
+      "lastSuccessAt": "2026-11-25T14:15:51+09:00",
+      "lastError": "",
+      "received": 17,
+      "kept": 1
+    },
+    "goe-school-link-partners:osan": {
+      "lastAttemptAt": "2026-11-25T14:15:51+09:00",
+      "source": "경기도교육청_학생맞춤통합지원 관련 지역유관기관 목록",
+      "region": "경기도 오산시",
+      "required": false,
+      "endpoint": "15161886/v1/uddi:5c422bcd-5589-4967-847b-a9cae98cc8bb",
+      "lastSuccessAt": "2026-11-25T14:15:51+09:00",
+      "lastError": "",
+      "received": 1621,
+      "kept": 0
+    },
+    "std-local-child-center:osan": {
+      "lastAttemptAt": "2026-11-25T14:15:51+09:00",
+      "source": "전국지역아동센터표준데이터",
+      "region": "경기도 오산시",
+      "required": false,
+      "lastSuccessAt": "2026-11-25T14:15:51+09:00",
+      "lastError": "",
+      "received": 9,
+      "kept": 9
+    },
+    "std-teen-training-fclt:osan": {
+      "lastAttemptAt": "2026-11-25T14:15:51+09:00",
+      "source": "전국청소년수련시설표준데이터",
+      "region": "경기도 오산시",
+      "required": false,
+      "lastSuccessAt": "2026-11-25T14:15:51+09:00",
+      "lastError": "",
+      "received": 3,
+      "kept": 3
+    },
+    "mogef-sunflower-center:gyeonggi": {
+      "lastAttemptAt": "2026-11-25T14:15:51+09:00",
+      "source": "성평등가족부_해바라기센터 정보",
+      "region": "경기도",
+      "required": false,
+      "lastSuccessAt": "2026-11-25T14:15:51+09:00",
+      "lastError": "",
+      "received": 40,
+      "kept": 6
+    },
+    "nmc-hospital-osan:osan": {
+      "lastAttemptAt": "2026-11-25T14:15:51+09:00",
+      "source": "국립중앙의료원_전국 병·의원 찾기 서비스",
+      "region": "경기도 오산시",
+      "required": false,
+      "lastSuccessAt": "2026-11-25T14:15:51+09:00",
+      "lastError": "",
+      "received": 263,
+      "kept": 11
+    },
+    "mogef-youth-indep-center:gyeonggi": {
+      "lastAttemptAt": "2026-11-25T14:15:51+09:00",
+      "source": "성평등가족부_청소년자립지원관 정보",
+      "region": "경기도",
+      "required": false,
+      "lastSuccessAt": "2026-11-25T14:15:51+09:00",
+      "lastError": "",
+      "received": 13,
+      "kept": 3
     }
   },
-  "generatedAt": "2026-11-24T21:00:00+09:00",
+  "generatedAt": "2026-11-25T14:15:51+09:00",
   "note": "공공 API 수집 기록. 성공은 응답을 받았다는 뜻이며 서비스 운영·자격을 확인했다는 뜻이 아님."
 }
