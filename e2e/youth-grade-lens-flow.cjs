@@ -52,14 +52,14 @@ async function run(browser,width,grade){
  try{
   const none=await run(browser,1280,'');
   const g=await run(browser,1280,'중1');
-  assert.ok(!none.scale.includes('학년으로 읽기'),'no grade, no grade block');
-  assert.ok(g.scale.includes('학년으로 읽기')&&g.scale.includes('중학교 전환기'),'① shows the grade reading');
+  assert.ok(!none.scale.includes('발달단계 관점'),'no grade, no grade block');
+  assert.ok(g.scale.includes('발달단계 관점')&&g.scale.includes('중학교 전환기'),'① shows the grade reading');
   assert.deepEqual(g.chain,none.chain,'decision chain unchanged by the grade');
   assert.ok(g.rep.text.includes('중학교 1학년'),'05 names the grade');
   g.rep.over.forEach((o,i)=>assert.ok(o<=1,'sheet '+(i+1)+' overflows by '+o+'px'));
   console.log('PASS grade lens 1280px: beside the name, ① reading, same decisions, 05 fits');
   const m=await run(browser,390,'고3');
-  assert.ok(m.scale.includes('학년으로 읽기'),'phone ① shows the grade reading');
+  assert.ok(m.scale.includes('발달단계 관점'),'phone ① shows the grade reading');
   console.log('PASS grade lens 390px: stacked fields, no horizontal scroll, ① reading');
  }finally{await browser.close()}
 })().catch(e=>{console.error(e);process.exit(1)});
