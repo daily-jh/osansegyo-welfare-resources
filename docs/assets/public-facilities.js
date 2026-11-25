@@ -14,7 +14,7 @@ const NEED_USES={
 };
 /* 청소년·아동만 대상으로 하는 데이터(성인 대상 칸에는 보이지 않게) */
 const YOUTH_ONLY=new Set(['kyci-safetynet-center','mogef-youth-shelter','knise-special-ed-center','std-local-child-center',
- 'std-teen-training-fclt','goe-school-link-partners','moj-probation-office']);
+ 'std-teen-training-fclt','goe-school-link-partners','moj-probation-office','mogef-youth-indep-center']);
 const YOUTH_TARGETS=/아동|청소년|영유아|가족|위기가구|장애인/;
 const USE_LABEL={mental:'정신건강',youth:'위기청소년·상담',shelter:'쉼터·보호',abuse:'폭력·성폭력 피해',school:'학업·학교',
  independence:'자립·배움터',addiction:'중독',crisis:'긴급·안전',care:'돌봄통합'};
