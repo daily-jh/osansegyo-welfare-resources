@@ -37,12 +37,13 @@ function srcNote(list){return '<p class="xsrc"><small>'+esc(srcText(list))+'</sm
 /* 복지자원 찾기의 영역별 상위 후보(지역자원 연계 지도와 같은 순위). */
 function resources(p){
   const M=YM();if(!M||!Array.isArray(p.resources)||!p.resources.length||!Array.isArray(p.domains))return [];
-  const out=[],seen=new Set();
-  try{M.rank(M.domains(p)).filter(x=>x.sum>0).forEach(dm=>(M.groupedCandidates(p,dm)||[]).slice(0,2).forEach(g=>{const r=g.primary;if(!r)return;const key=g.name+'|'+r['서비스명'];if(seen.has(key))return;seen.add(key);
+  const out=[],seen=new Set(),gs=[];
+  try{M.rank(M.domains(p)).filter(x=>x.sum>0).forEach(dm=>(M.groupedCandidates(p,dm)||[]).slice(0,2).forEach(g=>{const r=g.primary;if(!r)return;gs.push(g);const key=g.name+'|'+r['서비스명'];if(seen.has(key))return;seen.add(key);
     let cond='';try{cond=String(M.describe(p,dm,r).condition||'').split(' · ')[0]}catch(_){}
     const v=r.verification||{},date=/^\d{4}-\d{2}-\d{2}$/.test(v.date||'')?v.date:'';
-    out.push({domain:dm.name,name:g.name,service:r['서비스명']||'',cond,checked:date?(v.status==='확인완료'?'공식 안내 확인 ':'기관 안내 확인 ')+date:'확인일 없음 · 이용 전 문의',source:sourceHost(r['근거URL']||r['홈페이지']||''),directoryDate:r.directoryDate||''});}));}catch(_){}
-  return out.slice(0,6);
+    out.push({domain:dm.name,name:g.name,role:g.regionRole||'',tag:g.regionTag||'',service:r['서비스명']||'',cond,checked:date?(v.status==='확인완료'?'공식 안내 확인 ':'기관 안내 확인 ')+date:'확인일 없음 · 이용 전 문의',source:sourceHost(r['근거URL']||r['홈페이지']||''),directoryDate:r.directoryDate||''});}));}catch(_){}
+  const res=out.slice(0,6);try{const sp=p.student?M.student(p):null,n=M.outsideNotice&&M.outsideNotice(sp,gs);res.notice=n?n.place+' 거주 · '+n.text:''}catch(_){res.notice=''}
+  return res;
 }
 
 /* 보고서 내용 한 벌. inc=false면 서술 원문·인용·서술 분석 문장(조정 이유·기록 보완·이야기)을 넣지 않는다. */
@@ -177,7 +178,7 @@ function extras(k){
   if(k.strengths.length)X.push(['strength','<h3 class="xh">강점 · 지원의 발판</h3><ul class="xcols">'+k.strengths.slice(0,4).map(s=>'<li><b>'+esc(s.label)+'</b> '+esc(s.text)+'</li>').join('')+'</ul>']);
   if(k.family)X.push(['family','<h3 class="xh">보호자와 함께하기</h3><p>'+esc(k.family)+'</p>']);
   X.push(['rhythm','<h3 class="xh">접촉·회의·재사정 주기</h3><ul class="xrow"><li><b>접촉</b>'+esc(k.level.contact||'—')+'</li><li><b>회의</b>'+esc(k.level.meeting||'—')+'</li><li><b>재사정</b>'+esc(k.level.review||'—')+'</li></ul>']);
-  if(k.resources.length)X.push(['res','<h3 class="xh">연계 자원 후보 <span>03 지역자원연계와 같은 순위 · 접수 조건은 기관에 확인</span></h3><div class="tw"><table><thead><tr><th>영역</th><th>기관</th><th>서비스</th><th>확인할 것</th></tr></thead><tbody>'+k.resources.slice(0,5).map(r=>'<tr><td>'+esc(r.domain)+'</td><td><b>'+esc(orgShort(r.name))+'</b></td><td>'+esc(r.service)+'</td><td>'+esc(r.cond)+(r.checked?'<br><small>'+esc(r.checked)+'</small>':'')+'</td></tr>').join('')+'</tbody></table></div>'+srcNote(k.resources)]);
+  if(k.resources.length)X.push(['res','<h3 class="xh">연계 자원 후보 <span>03 지역자원연계와 같은 순위 · 접수 조건은 기관에 확인</span></h3><div class="tw"><table><thead><tr><th>영역</th><th>기관</th><th>서비스</th><th>확인할 것</th></tr></thead><tbody>'+k.resources.slice(0,5).map(r=>'<tr'+(r.role==='osan-ref'?' class="region-ref"':'')+'><td>'+esc(r.domain)+'</td><td>'+(r.tag?'<span class="region-tag '+esc(r.role)+'">'+esc(r.tag)+'</span>':'')+'<b>'+esc(orgShort(r.name))+'</b></td><td>'+esc(r.service)+'</td><td>'+esc(r.cond)+(r.checked?'<br><small>'+esc(r.checked)+'</small>':'')+'</td></tr>').join('')+'</tbody></table></div>'+(k.resources.notice?'<p class="region-notice" role="note">'+esc(k.resources.notice)+'</p>':'')+srcNote(k.resources)]);
   const lk=k.links||{};
   if(lk.school||lk.benefits||lk.facilities)X.push(['links','<h3 class="xh">학교·공공 지원 연결 <span>04 교육지원청 · 03 공공 지원사업과 같은 값 · 판정 불변</span></h3><ul class="xcols">'+
     (lk.school?'<li><b>학맞통 연계 '+lk.school.layer+'층</b> '+esc(lk.school.head)+(lk.school.reasons.length?' · 센터 요청 사유: '+esc(lk.school.reasons.join(', ')):'')+'</li>':'')+
@@ -241,7 +242,7 @@ function text(p,opt){
   if(k.questions.length){L.push('','[다음 면담에서 물을 것]');k.questions.forEach(q=>L.push('- '+q.q));}
   if(k.leadText)L.push('','[통합 사정의견]',k.leadText+(k.adjust?' '+k.adjust:''));
   if(k.grade){L.push('','[학년으로 읽기 · 판정 불변] '+k.grade.label+' · '+k.grade.band,k.grade.summary);if(k.grade.transition)L.push(k.grade.transition);k.grade.readings.forEach(x=>L.push('- '+x.domain+': '+x.text));L.push('근거: '+k.grade.sources.map(s=>'['+s.id+'] '+s.short).join(' · '));}
-  if(k.resources.length){L.push('','[연계 자원 후보 · 접수 조건은 기관에 확인]');k.resources.forEach(r=>L.push('- '+r.domain+' · '+r.name+' · '+r.service+(r.cond?' · '+r.cond:'')+(r.checked?' · '+r.checked:'')));L.push(srcText(k.resources));}
+  if(k.resources.length){L.push('','[연계 자원 후보 · 접수 조건은 기관에 확인]');if(k.resources.notice)L.push(k.resources.notice);k.resources.forEach(r=>L.push('- '+r.domain+' · '+r.name+(r.tag?' ['+r.tag+']':'')+' · '+r.service+(r.cond?' · '+r.cond:'')+(r.checked?' · '+r.checked:'')));L.push(srcText(k.resources));}
   const lk=k.links||{};
   if(lk.school)L.push('','[학맞통 연계 · 04 교육지원청과 같음] '+lk.school.layer+'층 · '+lk.school.head+(lk.school.reasons.length?' · 센터 요청 사유: '+lk.school.reasons.join(', '):''));
   if(lk.facilities)L.push('','[공공데이터 기관 · 03과 같음 · 연계 전 확인] '+lk.facilities.n+'종: '+lk.facilities.names.join(' · ')+(lk.facilities.n>4?' 외':''));

@@ -28,3 +28,12 @@ for(const dong of ['','신장1동','오산시 외'])assert.ok(!names(make(dong,[
 assert.equal(M.student({student:{dong:'수원시'}}).dong,'수원시');assert.equal(M.student({student:{dong:'서울시'}}).dong,'');
 assert.ok(M.validate(make('평택시',[6])));
 console.log('PASS: 수원·화성·평택 거주 선택 시 같은 역할 기관 우선, 판정 불변, 오산·기타 지역은 기존 그대로');
+// 타권역 표시(2026-11-25): 그 시 기관 → 경기·전국 → 오산 기관(참고) 순, 오산 기관은 osan-ref 표지, 안내 문구에 예시 기관 이름.
+{const p=make('수원시',[1,6,8,17,19]),g=M.referrals(p),roles=g.map(x=>x.regionRole),s=M.student(p);
+ const w={local:0,shared:1,'osan-ref':2};for(let i=1;i<roles.length;i++)assert.ok(w[roles[i-1]]<=w[roles[i]],'순서: '+roles.join(','));
+ assert.ok(g.filter(x=>/^오산/.test(x.name)).every(x=>x.regionRole==='osan-ref'&&x.regionTag==='오산 기관(참고)'));
+ assert.ok(g.some(x=>x.regionRole==='local'&&x.regionTag==='수원시 기관'));
+ const n=M.outsideNotice(s,g);assert.match(n.text,/수원시 안에서 같은 역할을 하는 기관에 문의/);assert.ok(n.examples.length&&!n.examples.includes('오산시정신건강복지센터'),'같은 역할 기관이 있는 오산 기관은 예시에서 뺌');
+ const o=make('오산시 외',[6,8]),go=M.referrals(o);assert.ok(go.every(x=>x.regionRole!=='local'));assert.match(M.outsideNotice(M.student(o),go).text,/거주 지역 안에서/);
+ const q=make('신장1동',[6,8]);assert.ok(M.referrals(q).every(x=>!x.regionRole));assert.equal(M.outsideNotice(M.student(q),M.referrals(q)),null);}
+console.log('PASS: 타권역 표시 역할·순서·안내 문구');
