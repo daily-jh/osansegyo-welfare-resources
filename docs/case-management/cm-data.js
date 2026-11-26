@@ -1,10 +1,25 @@
 /* © 2026 오산세교종합사회복지관 김지훈 팀장.
-   세교 사례관리 시스템 시연판 데이터 (2026-11-26).
-   - 아래 사례는 전부 지어낸 가상 사례다. 실존 인물·기관 기록과 관계없다.
-   - 위기도척도 문항·판정 기준·구간은 기관 양식 원문이 없으므로 만들지 않는다("원문 필요").
-   - 서식 원본·내부 매뉴얼·지식카드 원문은 싣지 않는다. 구조만 쓴다. */
+   세교 사례관리 시스템 시연판 데이터 v0.2 (2026-11-26).
+   - 전부 새로 지어낸 합성 자료다. 실존 인물·실제 사례·기관 내부 시트·노션 기록을 복사하거나 가명화한 것이 아니다.
+   - 위기도 문항 문구는 원문 확인 전이라 싣지 않는다. 사업명·기관명은 시연용 예시다.
+   - 실제 실적·사업계획 수치는 싣지 않는다. */
 (function () {
   'use strict';
+  const asOf = '2026-11-26';
+
+  const staff = [
+    { id: 'S1', name: '사례관리자 가', role: '사례관리자' },
+    { id: 'S2', name: '사례관리자 나', role: '사례관리자' },
+    { id: 'S3', name: '인테이크 다', role: '인테이크' },
+    { id: 'S4', name: '전직원 라', role: '전직원 발굴' }
+  ];
+
+  const roles = [
+    { id: 'manager', label: '사례관리자', note: '배정된 사례만 열람·기록' },
+    { id: 'lead', label: '팀장', note: '팀 범위 검토·판정 확정' },
+    { id: 'intake', label: '인테이크', note: '접수·초기상담 범위' },
+    { id: 'accounting', label: '회계 담당', note: '상담 내용 기본 비노출' }
+  ];
 
   const hotlines = [
     { num: '119', label: '화재·구급', tel: '119' },
@@ -13,134 +28,178 @@
     { num: '129', label: '보건복지상담센터', tel: '129' }
   ];
 
-  // 연계 상태는 서로 다른 단계다. 추천했다고 문의한 것이 아니고, 접수됐다고 이용한 것이 아니다.
-  const linkStates = ['추천', '문의', '접수', '이용', '성과 확인'];
+  const N = null;
+  // 사례 회차. 이름 대신 시연 코드와 가명 이니셜만 쓴다.
+  const cases = [
+    { id: 'DEMO-0001', who: '가상 A', age: '70대', hh: '독거', type: '단순', state: 'simple_active', staff: 'S4', dong: '세교 권역(가상)', received: '2026-09-29', scenario: 'A', next: '안부 전화', nextDue: '2026-11-28', problem: '건강', risk: null, safety: null, docs: { report: '해당 없음', plan: '해당 없음' } },
+    { id: 'DEMO-0002', who: '가상 B', age: '40대', hh: '한부모', type: '일반', state: 'plan_pending', staff: 'S1', dong: '세교 권역(가상)', received: '2026-08-18', scenario: 'B', prevType: '단순', converted: { on: '2026-11-12', by: '판정회의 MTG-DEMO-11', from: '단순', to: '일반' }, next: '서비스계획 합의', nextDue: '2026-11-27', problem: '경제', risk: [1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 2, 1, 1, 1], safety: null, docs: { report: '확정', plan: '초안' } },
+    { id: 'DEMO-0003', who: '가상 C', age: '60대', hh: '독거', type: '집중', state: 'active', staff: 'S1', dong: '세교 권역(가상)', received: '2026-09-02', scenario: 'E', next: '11월 점검 회의 결과 반영', nextDue: '2026-12-02', problem: '건강', risk: [1, 1, 2, 1, 2, 1, 1, 1, 1, 0, 1, 1, 1, 2, 1, 1], safety: null, docs: { report: '확정', plan: '확정' }, detail: true },
+    { id: 'DEMO-0004', who: '가상 D', age: '50대', hh: '부부중심', type: '일반', state: 'assessment_pending', staff: 'S2', dong: '세교 권역(가상)', received: '2026-11-03', scenario: 'C', next: '경제·건강 미확인 문항 확인', nextDue: '2026-11-27', problem: '부채', risk: [1, 0, N, 1, 2, N, 1, 0, 0, 0, N, 1, 2, 2, N, 2], safety: null, docs: { report: '초안', plan: '없음' } },
+    { id: 'DEMO-0005', who: '가상 E', age: '30대', hh: '기타', type: '일반', state: 'decision_pending', staff: 'S2', dong: '세교 권역(가상)', received: '2026-11-10', scenario: 'D', next: '안전 확인 후 판정회의 상정', nextDue: '2026-11-26', problem: '정신건강', risk: [0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0], safety: { state: '확인 필요', text: '상담 중 안전 관련 진술(가상). 점수와 별개로 기관 안전 대응 절차 진행.', by: '사례관리자 나', at: '2026-11-24' }, docs: { report: '초안', plan: '없음' } },
+    { id: 'DEMO-0006', who: '가상 F', age: '80대', hh: '노인부부', type: '단순', state: 'simple_active', staff: 'S1', dong: '세교 권역(가상)', received: '2026-10-21', scenario: 'F', next: '에너지 지원 결과 안내', nextDue: '2026-12-05', problem: '주거', risk: null, safety: null, docs: { report: '해당 없음', plan: '해당 없음' } },
+    { id: 'DEMO-0007', who: '가상 G', age: '60대', hh: '독거', type: '일반', state: 'closed', staff: 'S2', dong: '세교 권역(가상)', received: '2025-11-04', closedOn: '2026-06-30', scenario: 'G', next: '—', nextDue: null, problem: '경제', risk: null, safety: null, docs: { report: '확정', plan: '확정' } },
+    { id: 'DEMO-0008', who: '가상 G', age: '60대', hh: '독거', type: '미정', state: 'intake_done', staff: 'S3', dong: '세교 권역(가상)', received: '2026-11-20', scenario: 'G', prior: 'DEMO-0007', next: '재접수 초기상담 결과 보고', nextDue: '2026-11-27', problem: '주거', risk: null, safety: null, docs: { report: '없음', plan: '없음' } }
+  ];
 
-  const steps = [
+  const intakes = [
+    { id: 'INT-DEMO-001', caseId: 'DEMO-0001', received: '2026-09-29', route: '전직원 발굴', problem: '건강', staff: 'S4', state: '단순관리 전환' },
+    { id: 'INT-DEMO-002', caseId: 'DEMO-0002', received: '2026-08-18', route: '본인/가족', problem: '경제', staff: 'S3', state: '사례관리 전환' },
+    { id: 'INT-DEMO-003', caseId: 'DEMO-0003', received: '2026-09-02', route: '좋은이웃들', problem: '건강', staff: 'S3', state: '사례관리 전환' },
+    { id: 'INT-DEMO-004', caseId: 'DEMO-0004', received: '2026-11-03', route: '타기관', problem: '부채', staff: 'S3', state: '사례관리 전환' },
+    { id: 'INT-DEMO-005', caseId: 'DEMO-0005', received: '2026-11-10', route: '읍면동', problem: '정신건강', staff: 'S3', state: '사례관리 전환' },
+    { id: 'INT-DEMO-006', caseId: 'DEMO-0006', received: '2026-10-21', route: '전직원 발굴', problem: '주거', staff: 'S1', state: '단순관리 전환' },
+    { id: 'INT-DEMO-008', caseId: 'DEMO-0008', received: '2026-11-20', route: '본인/가족', problem: '주거', staff: 'S3', state: '초기상담 완료', note: '종결 사례 DEMO-0007 재접수(새 회차)' },
+    { id: 'INT-DEMO-011', caseId: null, received: '2026-11-24', route: '좋은이웃들', problem: '돌봄', staff: null, state: '배정 대기' },
+    { id: 'INT-DEMO-012', caseId: null, received: '2026-11-25', route: '타기관', problem: '경제', staff: null, state: '배정 대기' }
+  ];
+
+  // 접촉(상담) 기록. result: completed / failed(연락 실패) / cancelled / planned
+  const contacts = [
+    { id: 'C-01', caseId: 'DEMO-0001', date: '2026-10-02', mode: '전화', result: 'completed', staff: 'S4', text: '병원 이용 어려움 진술. 방문건강 안내.' },
+    { id: 'C-02', caseId: 'DEMO-0001', date: '2026-11-20', mode: '전화', result: 'failed', staff: 'S4', text: '연락 안 됨.' },
+    { id: 'C-03', caseId: 'DEMO-0002', date: '2026-10-15', mode: '내방', result: 'completed', staff: 'S1', text: '생활비 부담과 자녀 돌봄 어려움 진술.' },
+    { id: 'C-04', caseId: 'DEMO-0002', date: '2026-11-18', mode: '방문', result: 'completed', staff: 'S1', text: '판정 결과 안내, 계획 초안 의견 들음.' },
+    { id: 'C-05', caseId: 'DEMO-0003', date: '2026-09-12', mode: '전화', result: 'completed', staff: 'S1', text: '밑반찬 첫 배달 받았다고 함. 맛이 짜다고 말함.' },
+    { id: 'C-06', caseId: 'DEMO-0003', date: '2026-10-07', mode: '방문', result: 'completed', staff: 'S1', text: '약 봉투 정리표를 함께 만듦. 하루 두 끼 먹는 날이 늘었다고 말함.' },
+    { id: 'C-07', caseId: 'DEMO-0003', date: '2026-11-04', mode: '방문', result: 'completed', staff: 'S1', text: '점검 상담. 같은 방문에서 밑반찬 전달.' },
+    { id: 'C-08', caseId: 'DEMO-0003', date: '2026-11-19', mode: '전화', result: 'cancelled', staff: 'S1', text: '당사자 병원 일정으로 취소.' },
+    { id: 'C-09', caseId: 'DEMO-0004', date: '2026-11-06', mode: '내방', result: 'completed', staff: 'S2', text: '부채 상환 부담 진술. 금액은 서류 확인 전.' },
+    { id: 'C-10', caseId: 'DEMO-0005', date: '2026-11-24', mode: '방문', result: 'completed', staff: 'S2', text: '안전 관련 진술(가상). 기관 절차에 따라 팀장 보고.' },
+    { id: 'C-11', caseId: 'DEMO-0006', date: '2026-10-23', mode: '방문', result: 'completed', staff: 'S1', text: '난방 어려움 진술. 에너지 지원 시연사업 신청 안내.' },
+    { id: 'C-12', caseId: 'DEMO-0008', date: '2026-11-21', mode: '내방', result: 'completed', staff: 'S3', text: '재접수 초기상담. 이전 종결 이후 주거 문제 새로 생김.' }
+  ];
+
+  // 서비스 제공(상담과 별도 집계). 같은 방문(C-07)에서 상담과 전달이 함께 있어도 각각 한 번씩만 센다.
+  const services = [
+    { id: 'V-01', caseId: 'DEMO-0003', contactId: null, date: '2026-09-12', kind: '밑반찬 전달', qty: 1, unit: '회', status: 'provided', staff: 'S1' },
+    { id: 'V-02', caseId: 'DEMO-0003', contactId: 'C-07', date: '2026-11-04', kind: '밑반찬 전달', qty: 1, unit: '회', status: 'provided', staff: 'S1' },
+    { id: 'V-03', caseId: 'DEMO-0003', contactId: null, date: '2026-10-21', kind: '병원 동행', qty: 1, unit: '회', status: 'provided', staff: 'S1' },
+    { id: 'V-04', caseId: 'DEMO-0006', contactId: null, date: '2026-11-25', kind: '난방 물품 전달', qty: 1, unit: '가구', status: 'planned', staff: 'S1' }
+  ];
+
+  // 기관 연계. 단계: 후보 → 당사자 검토 → 동의 확인 → 의뢰 → 접수 확인 → 수락 → 이용 → 결과 점검
+  const referralStages = ['후보', '당사자 검토', '동의 확인', '의뢰', '접수 확인', '수락', '이용', '결과 점검'];
+  const referrals = [
+    { id: 'R-01', caseId: 'DEMO-0001', date: '2026-10-02', need: '병원 이용', org: '보건소 방문건강관리(예시)', stage: '의뢰', staff: 'S4', checked: '2026-10-02' },
+    { id: 'R-02', caseId: 'DEMO-0003', date: '2026-09-10', need: '식사 지원', org: '밑반찬 지원 사업(예시)', stage: '이용', staff: 'S1', checked: '2026-11-04' },
+    { id: 'R-03', caseId: 'DEMO-0003', date: '2026-09-16', need: '건강관리', org: '보건소 방문건강관리(예시)', stage: '이용', staff: 'S1', checked: '2026-10-07' },
+    { id: 'R-04', caseId: 'DEMO-0003', date: '2026-11-04', need: '의료비 부담', org: '의료비 지원 제도(예시)', stage: '당사자 검토', staff: 'S1', checked: '2026-11-04' },
+    { id: 'R-05', caseId: 'DEMO-0004', date: '2026-11-06', need: '부채 상담', org: '금융복지 상담 창구(예시)', stage: '후보', staff: 'S2', checked: '2026-11-06' },
+    { id: 'R-06', caseId: 'DEMO-0002', date: '2026-11-18', need: '아동 돌봄', org: '지역아동센터(예시)', stage: '동의 확인', staff: 'S1', checked: '2026-11-18' }
+  ];
+
+  const meetings = [
     {
-      id: 1, short: '접수·초기상담', title: '접수·초기상담',
-      doc: '초기상담지',
-      purpose: '발굴 경로와 첫 안전 확인, 정보 제공 동의 범위를 먼저 남기고 초기상담을 기록합니다.',
-      fields: ['발굴 경로(자체 발굴·의뢰·내방)', '첫 안전 확인 결과와 확인한 사람', '정보 제공·활용 동의 범위와 일자', '주 호소와 당사자가 바라는 것', '사례관리 진행 여부 의견'],
-      human: ['동의 범위는 당사자에게 직접 설명하고 확인한 것만 기록', '안전 위험이 보이면 이 단계를 멈추고 신고·응급 연결']
+      id: 'MTG-DEMO-11', type: '판정회의', date: '2026-11-12', status: '완료', attendees: '팀장, 사례관리자 가, 사례관리자 나, 외부 자문 1(역할로만 표기)',
+      agendas: [
+        { caseId: 'DEMO-0002', item: '단순 → 일반 전환 판정', draft: '일반 사례로 전환 검토 요청', decision: '일반 사례로 전환. 서비스계획 2주 안에 수립.', owner: '사례관리자 가', due: '2026-11-26', state: '결정' },
+        { caseId: 'DEMO-0003', item: '집중 사례 점검', draft: '목표 1·2 유지, 의료비 연계 검토', decision: '목표 유지. 의료비 지원은 경제사정 뒤 결정.', owner: '사례관리자 가', due: '2026-12-02', state: '결정' }
+      ]
     },
     {
-      id: 2, short: '사정', title: '사정',
-      doc: '사례보고서',
-      purpose: '위기도척도와 영역별 사정, 경제사정, 가계도·생태도로 욕구와 강점을 함께 정리합니다.',
-      fields: ['위기도척도 16문항(척도 모듈, 공식 계산은 조회 전용)', '영역별 사정: 건강·경제·주거·관계·일상생활 등', '강점과 자원(당사자·가족·이웃)', '가계도·생태도: 관계마다 확인 상태와 정보원'],
-      human: ['미상 문항을 0점으로 처리하지 않음', '총점으로 개별 어려움을 가리지 않음', '진술·관찰·사정 의견을 나눠 적음']
-    },
-    {
-      id: 3, short: '연계 맵', title: '지원연계 맵',
-      doc: '—',
-      purpose: '욕구마다 근거, 이미 받고 있는 지원, 기관 후보, 문의 내용, 담당과 다음 확인일을 한 줄로 잇습니다.',
-      fields: ['욕구와 근거(어느 사정 기록에서 나왔는지)', '이미 이용 중인 기관을 먼저', '기관 후보와 문의할 내용', '담당·다음 확인일', '상태: 추천 / 문의 / 접수 / 이용 / 성과 확인'],
-      human: ['추천만 한 것을 "연계 완료"로 적지 않음', '기관 정보는 복지자원 찾기 DB와 공식 안내로 다시 확인']
-    },
-    {
-      id: 4, short: '판정·회의', title: '사례판정·사례회의',
-      doc: '사례회의록',
-      purpose: '판정은 여러 축으로 보고, 회의에서 정한 것과 아직 정하지 못한 것을 나눠 남깁니다.',
-      fields: ['판정 근거(사정 기록 연결)', '회의 참석 범위(이름 대신 역할)', '회의의 권고 = 회의 결과', '결정 사항 / 미결 사항', '다음 회의 또는 점검 시점'],
-      human: ['회의록 확정은 팀장 권한(권한표 초안)', '회의에서 정하지 않은 것을 계획에 넣지 않음']
-    },
-    {
-      id: 5, short: '계획', title: '서비스계획',
-      doc: '서비스계획서',
-      purpose: '목표마다 기대하는 변화(Outcome)와 구체적인 개입(Action)을 짝지어, 담당·일정·측정 방법을 붙입니다.',
-      fields: ['목표 = Outcome + Action', '근거가 된 회의 결정', '담당과 일정', '기준선과 측정 단위', '당사자 동의와 의견'],
-      human: ['측정 방법 없는 목표는 "확인 필요"로 표시', '당사자 의견을 함께 적음']
-    },
-    {
-      id: 6, short: '개입·점검', title: '개입·점검',
-      doc: '과정기록지 · 점검보고서',
-      purpose: '상담·방문·기관 협의를 과정기록으로 남기고, 점검 때 목표 달성 정도와 재사정 결과로 계획을 조정합니다.',
-      fields: ['과정기록: 일시, 접촉 대상, 방식, 내용, 다음 할 일', '점검 개요 → 점검 내용 → 서비스 제공 경과 → 점검 결과 사정 → 향후 계획 → 종합의견', '연도별 점검총괄표 자동 집계'],
-      human: ['확정한 기록은 직접 고치지 않고 사유를 남겨 정정', '기록 없는 개입을 보고서에 쓰지 않음']
-    },
-    {
-      id: 7, short: '종결·이관', title: '종결·이관·사후관리',
-      doc: '점검보고서(종결)',
-      purpose: '종결 판단 근거와 남은 위험요인을 적고, 이관이면 받을 기관·사유·인계 내용·동의를 남깁니다.',
-      fields: ['종결 판단 근거', '잔여 위험요인과 대응', '이관 기관·사유·인계 내용·동의', '사후 연락 동의와 시점'],
-      human: ['종결·이관 결정은 팀장 권한(권한표 초안)', '이관 단계의 위치는 아직 결정 전']
+      id: 'MTG-DEMO-12', type: '판정회의', date: '2026-12-03', status: '예정', attendees: '예정',
+      agendas: [
+        { caseId: 'DEMO-0004', item: '신규 판정', draft: '일반 사례 선정(안). 위기도 미확인 문항 확인 후 상정.', decision: null, owner: '사례관리자 나', due: null, state: '안건 초안' },
+        { caseId: 'DEMO-0005', item: '신규 판정', draft: '안전 확인 결과와 함께 상정(안).', decision: null, owner: '사례관리자 나', due: null, state: '안건 초안' },
+        { caseId: 'DEMO-0008', item: '재접수 사례 검토', draft: '이전 종결 회차와 비교한 새 욕구 보고(안).', decision: null, owner: '인테이크 다', due: null, state: '안건 초안' }
+      ]
     }
   ];
 
-  // ---- 가상 사례 (지어낸 자료) ----
-  const sample = {
-    code: '가상-2026-001',
-    who: '가상 대상자 A · 60대 · 1인 가구',
-    note: '시연용으로 지어낸 사례입니다. 실존 인물과 관계없습니다.',
+  // 지원사업 트랙(시연용 가상 사업). 신청·기관 판정·주관기관 선정·지급 요청·지급 확인을 나눈다.
+  const programStages = ['신청 접수', '기관 판정', '주관기관 결과', '지급 요청', '지급 확인'];
+  const programs = [
+    { id: 'PT-DEMO-01', caseId: 'DEMO-0006', program: '겨울 에너지 지원(시연 사업)', applicant: '세대주(가상)', beneficiary: '가구', stage: '주관기관 결과', result: '선정', amount: '시연 금액', evidence: '동의서 확인', staff: 'S1' },
+    { id: 'PT-DEMO-02', caseId: 'DEMO-0002', program: '긴급 생계 지원(시연 사업)', applicant: '당사자(가상)', beneficiary: '당사자', stage: '기관 판정', result: '검토 중', amount: '—', evidence: '증빙 확인 필요', staff: 'S1' }
+  ];
+
+  // 대표 사례 DEMO-0003 상세(사례파일)
+  const detail = {
     intake: {
-      route: '이웃 주민 의뢰(가상)',
-      date: '2026년 9월 2일(수) 10:00 ~ 10:40',
-      safety: { state: '확인', text: '첫 방문 때 자해·학대 위험 표현 없음. 담당자 확인.' },
-      consent: { state: '확인', text: '기관 내부 사례관리와 연계 기관 문의에 한해 동의(가상).' },
-      want: '“병원 다니는 게 너무 힘들고, 혼자 밥 챙기기가 어려워요.”(진술)',
-      opinion: '건강 관리와 식사 지원 욕구가 뚜렷해 사례관리 진행 의견.'
+      date: '2026-09-02', route: '좋은이웃들(가상)',
+      sections: [
+        ['가정환경', '1인 가구. 자녀와 연락이 뜸하다고 말함(자녀 쪽 설명은 듣지 못함).'],
+        ['건강사항', '무릎 통증으로 외출이 어렵다고 말함. 약 봉투가 여러 병원 것으로 섞여 있음(관찰).'],
+        ['경제사항', '수입 → 지출 → 부채 → 재산 → 기타 순서로 확인. 의료비 지출 부담 진술, 금액은 미확인.'],
+        ['주거환경', '임대 주택(가상). 계단이 많아 이동 어려움.'],
+        ['사회심리 및 관계', '이웃과 안부를 주고받음. 고립감 호소는 없음.'],
+        ['주요 문제 및 욕구', '“병원 다니는 게 힘들고, 혼자 밥 챙기기가 어려워요.”(진술)'],
+        ['강점 및 자원', '이웃 지지, 복지관 프로그램 참여 경험.'],
+        ['상담자 종합의견', '건강 관리와 식사 지원 욕구가 뚜렷함. 경제 상황은 추가 확인 필요함.'],
+        ['결과 및 향후계획', '사례관리 진행 의견. 사정 후 판정회의 상정.']
+      ]
     },
-    assess: {
-      scale: { id: 'OSAN-SEGYO-CRISIS-16', items: 16, max: 32, answered: 0 },
-      domains: [
-        { area: '건강', kind: '진술', text: '무릎 통증으로 외출이 어렵다고 말함.', state: '확인' },
-        { area: '건강', kind: '관찰', text: '약 봉투가 여러 병원 것으로 섞여 있음.', state: '확인' },
-        { area: '경제', kind: '사정', text: '고정 수입 외 의료비 지출 부담. 금액은 미확인.', state: '미확인' },
-        { area: '일상생활', kind: '진술', text: '하루 한 끼만 먹는 날이 많다고 말함.', state: '확인' },
-        { area: '관계', kind: '진술', text: '자녀와 연락이 뜸하다고 말함. 자녀 쪽 설명은 듣지 못함.', state: '상충' }
-      ],
-      strengths: ['이웃 주민과 안부를 주고받음', '복지관 프로그램 참여 경험 있음(가상)']
-    },
-    links: [
-      { need: '병원 동행·약 정리', basis: '사정: 건강(관찰)', existing: '없음', candidate: '보건소 방문건강관리(후보)', ask: '방문 가능 여부와 대기 기간', owner: '사례담당', next: '9월 16일', state: '문의' },
-      { need: '식사 지원', basis: '사정: 일상생활(진술)', existing: '없음', candidate: '밑반찬 지원 사업(후보)', ask: '대상 기준과 배달 요일', owner: '사례담당', next: '9월 12일', state: '이용' },
-      { need: '의료비 부담', basis: '사정: 경제(미확인)', existing: '없음', candidate: '긴급지원·의료비 지원 제도(후보)', ask: '소득 확인 뒤 신청 가능 여부', owner: '사례담당', next: '경제사정 후', state: '추천' }
+    economy: [
+      { item: '수입', value: null, period: '월', note: '미확인(0원 아님)' },
+      { item: '지출', value: null, period: '월', note: '의료비 부담 진술' },
+      { item: '부채', value: null, period: '원금', note: '없다고 진술, 서류 확인 전' },
+      { item: '재산', value: null, period: '—', note: '미확인' },
+      { item: '기타', value: null, period: '—', note: '—' }
     ],
-    meeting: {
-      date: '2026년 9월 9일(수) 15:00 ~ 15:40',
-      who: '사례담당, 팀장, 간호 자문(역할로만 표기)',
-      decided: ['사례관리 대상으로 진행', '식사 지원 먼저 연결', '병원 동행은 방문건강관리 문의 결과를 보고 결정'],
-      pending: ['의료비 지원 신청 여부(경제사정 뒤 결정)', '자녀 연락 시도 여부(당사자 의사 재확인)'],
-      state: '확정'
-    },
+    domains: [
+      { area: '안전', text: '현재 안전 위험 진술 없음.', kind: '관찰', state: '확인' },
+      { area: '건강', text: '무릎 통증, 여러 병원 약 복용.', kind: '진술·관찰', state: '확인' },
+      { area: '일상', text: '하루 한 끼만 먹는 날이 많다고 말함.', kind: '진술', state: '확인' },
+      { area: '가족', text: '자녀와 연락이 뜸함. 자녀 쪽 설명은 없음.', kind: '진술', state: '상충' },
+      { area: '사회', text: '이웃 지지 있음.', kind: '진술', state: '확인' },
+      { area: '경제', text: '의료비 부담. 금액 미확인.', kind: '사정', state: '미확인' },
+      { area: '교육', text: '해당 없음.', kind: '—', state: '해당 없음' },
+      { area: '고용', text: '해당 없음.', kind: '—', state: '해당 없음' },
+      { area: '환경', text: '계단 많은 주거.', kind: '관찰', state: '확인' },
+      { area: '권익', text: '의료비 지원 제도 이용 여부 미확인.', kind: '사정', state: '미확인' }
+    ],
+    eco: [
+      { label: '이웃 주민', kind: 'current', note: '안부' },
+      { label: '밑반찬 지원', kind: 'current', note: '주 2회' },
+      { label: '방문건강관리', kind: 'current', note: '월 1회' },
+      { label: '자녀', kind: 'weak', note: '연락 뜸함(미확인)' },
+      { label: '의료비 지원', kind: 'candidate', note: '연계 후보' },
+      { label: '복지관 프로그램', kind: 'past', note: '과거 이용' }
+    ],
     plan: [
-      { goal: 1, outcome: '하루 두 끼 이상 먹는 날이 늘어난다', action: '주 2회 밑반찬 지원 연결, 격주 식사 확인 전화', basis: '식사 지원 먼저 연결', measure: '주간 식사 횟수(당사자 진술)', owner: '사례담당', due: '2026년 12월' },
-      { goal: 2, outcome: '병원 진료와 약 복용을 스스로 정리한다', action: '방문건강관리 문의, 약 봉투 정리표 함께 만들기', basis: '병원 동행은 방문건강관리 문의 결과를 보고 결정', measure: '정리표 사용 여부', owner: '사례담당', due: '2026년 11월' },
-      { goal: 3, outcome: '자녀와 연락이 이어진다', action: '자녀에게 연락해 상황을 알림', basis: '', measure: '', owner: '사례담당', due: '2026년 12월' }
+      { goal: 1, outcome: '하루 두 끼 이상 먹는 날이 늘어난다', action: '주 2회 밑반찬 지원 연결, 격주 식사 확인 전화', basis: '식사 지원 먼저 연결', measure: '주간 식사 횟수(당사자 진술)', owner: '사례관리자 가', due: '2026-12' },
+      { goal: 2, outcome: '병원 진료와 약 복용을 스스로 정리한다', action: '방문건강관리 연결, 약 봉투 정리표 함께 만들기', basis: '병원 동행은 방문건강관리 문의 결과를 보고 결정', measure: '정리표 사용 여부', owner: '사례관리자 가', due: '2026-11' },
+      { goal: 3, outcome: '자녀와 연락이 이어진다', action: '자녀에게 연락해 상황을 알림', basis: '', measure: '', owner: '사례관리자 가', due: '2026-12' }
     ],
-    records: [
-      { date: '2026년 9월 12일(토) 11:00 ~ 11:20', who: 'Ct(가상 대상자 A)', how: '전화', text: '밑반찬 첫 배달 받았다고 함. 맛이 짜다고 말함.', next: '사업 담당에 간 조절 가능 여부 문의' },
-      { date: '2026년 9월 16일(수) 14:00 ~ 14:30', who: '보건소 방문건강관리 담당(가상)', how: '기관 협의', text: '방문 가능, 대기 약 3주 안내받음.', next: '10월 초 첫 방문 일정 확인' },
-      { date: '2026년 10월 7일(수) 10:00 ~ 10:50', who: 'Ct(가상 대상자 A)', how: '가정방문', text: '약 봉투 정리표를 함께 만듦. 식사는 하루 두 끼 먹는 날이 늘었다고 말함.', next: '11월 점검' }
+    meetingDecided: ['사례관리 대상으로 진행', '식사 지원 먼저 연결', '병원 동행은 방문건강관리 문의 결과를 보고 결정'],
+    meetingPending: ['의료비 지원 신청 여부(경제사정 뒤 결정)', '자녀 연락 시도 여부(당사자 의사 재확인)'],
+    review: { date: '2026-11-04', progress: ['밑반찬 지원 주 2회 이용', '방문건강관리 10월 첫 방문', '병원 동행 3회 진행'], result: '식사 횟수 늘었다는 진술. 약 정리표 사용 중.', next: '경제사정 마무리 후 의료비 지원 결정' },
+    closure: { residual: ['무릎 통증으로 외출 어려움 지속', '의료비 부담 미해결'], follow: '사후 연락 동의 여부 미확인' },
+    documents: [
+      { name: '초기상담지', ver: '공통 예시(미승인)', state: '확정', at: '2026-09-02' },
+      { name: '사례보고서(판정용)', ver: '공통 예시(미승인)', state: '확정', at: '2026-09-08' },
+      { name: '위기도 평가표(별첨)', ver: '척도 v-시연', state: '확정', at: '2026-09-08' },
+      { name: '사례회의록', ver: '공통 예시(미승인)', state: '확정', at: '2026-09-09' },
+      { name: '서비스계획서', ver: '공통 예시(미승인)', state: '확정', at: '2026-09-10' },
+      { name: '점검보고서', ver: '공통 예시(미승인)', state: '검토 요청', at: '2026-11-04' }
     ],
-    review: {
-      date: '2026년 11월 4일',
-      progress: ['밑반찬 지원 9월부터 주 2회 이용', '방문건강관리 10월 첫 방문', '병원 동행 3회 진행'],
-      result: '식사 횟수 늘었다는 진술. 약 정리표 사용 중.',
-      next: '경제사정 마무리 후 의료비 지원 결정'
-    },
-    closure: {
-      state: '진행 중',
-      reason: '아직 종결 검토 전(가상).',
-      residual: ['무릎 통증으로 외출 어려움 지속', '의료비 부담 미해결'],
-      transfer: '이관 기록(받을 기관·사유·인계 내용·동의)을 어느 단계에 둘지 결정 필요',
-      follow: '사후 연락 동의 여부 미확인'
-    }
+    history: [
+      { at: '2026-11-04 16:20', who: '사례관리자 가', what: '점검보고서 초안 작성 → 검토 요청' },
+      { at: '2026-10-08 09:10', who: '사례관리자 가', what: '과정기록 정정(사유: 방문 시각 오기). 원 기록 보존' },
+      { at: '2026-09-10 17:00', who: '사례관리자 가', what: '서비스계획서 v1 확정(당사자 합의일 2026-09-10)' },
+      { at: '2026-09-09 16:00', who: '팀장', what: '사례회의록 확정' },
+      { at: '2026-09-08 11:30', who: '사례관리자 가', what: '위기도 16문항 확정(미확인 0)' }
+    ]
   };
 
-  const roles = [
-    ['담당 사례 열람', '●', '●', '', '', ''],
-    ['팀 전체 사례 열람', '', '●', '', '', ''],
-    ['연락처 등 마스킹 해제 열람', '●', '●', '', '', ''],
-    ['접수·사정·과정기록 작성', '●', '●', '', '', ''],
-    ['과정기록·척도 확정', '●', '●', '', '', ''],
-    ['회의록 확정', '', '●', '', '', ''],
-    ['종결·이관 결정', '', '●', '', '', ''],
-    ['연계 요청받은 범위 열람', '', '', '●', '', ''],
-    ['감사기록 열람', '', '', '', '●', '●'],
-    ['설정·사용자 관리', '', '', '', '●', '']
+  const features = [
+    ['F01', '업무 홈·내 할 일', 'P0', '시연'], ['F02', '발굴·접수', 'P0', '시연'], ['F03', '초기상담', 'P0', '시연'],
+    ['F04', '당사자·가구·사례 원장', 'P0', '시연'], ['F05', '단순사례 관리', 'P0', '시연'], ['F06', '욕구·강점·위기도', 'P0', '시연(문항 원문 필요)'],
+    ['F07', '사례보고서·가계도·생태도', 'P0', '일부 시연'], ['F08', '회의·판정·슈퍼비전', 'P0', '시연'], ['F09', '서비스계획·합의', 'P0', '시연'],
+    ['F10', '상담·과정기록·녹취', 'P0~P1', '기록 시연, 녹취·AI 비활성'], ['F11', '자원 검색·의뢰·기관 협업', 'P1', '시연'], ['F12', '공모·긴급지원·후원금품', 'P1', '시연'],
+    ['F13', '서비스 점검·재사정', 'P0', '시연'], ['F14', '종결·이관·사후관리', 'P0', '시연'], ['F15', '문서·증빙·내보내기', 'P0~P1', '목록만, 출력 비활성'],
+    ['F16', '실적·팀 운영', 'P0', '가상 집계'], ['F17', 'AI·Notion·Google·외부 연동', 'P1~P2', '전부 비활성'], ['F18', '관리자·권한·감사·검수', 'P0', '표시만']
   ];
 
-  window.CM = { hotlines, linkStates, steps, sample, roles };
+  const integrations = [
+    ['Google Sheets', '비활성', '읽기 전용 → 스테이징 → 승인된 제한 쓰기. 시연판에서는 연결하지 않음'],
+    ['Notion·TASK', '비활성', '업무 ID·비식별 제목·기한만 검토. 시연판에서는 연결하지 않음'],
+    ['AI 초안(녹취 → 양식)', '비활성', '기관 승인 공급자·비식별화·사람 확정 후에만'],
+    ['복지자원 찾기 DB', '링크만', '같은 저장소의 공개 자원 화면으로 이동'],
+    ['OY-RALS 청소년 평가', '링크만', '척도 분리. 점수를 가져오거나 환산하지 않음'],
+    ['OW-DMS 후원관리', '비활성', '서비스 제공 참조 ID·수량만 공유하는 계약 설계 단계'],
+    ['희망이음·엔컴', '비활성', '공식 인터페이스 확인 전 직접 제출·자동 로그인 금지']
+  ];
+
+  window.CM = { asOf, staff, roles, hotlines, cases, intakes, contacts, services, referralStages, referrals, meetings, programStages, programs, detail, features, integrations };
 })();
