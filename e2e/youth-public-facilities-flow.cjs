@@ -1,7 +1,7 @@
 'use strict';
 /* Real clicks in Chromium with a synthetic case (not a real student): 03 지역자원연계 no longer carries the public-API
    blocks (공공 지원사업·공공데이터 기관; removed 2026-11-26 as they duplicated the map), the map itself still renders,
-   05 final report (phone reading view) still carries the facility block, A4 sheets still fit, no side scroll. */
+   05 final report no longer carries them either, A4 sheets still fit, no side scroll. */
 const assert=require('node:assert/strict');
 const fs=require('node:fs'),path=require('node:path');
 const {chromium}=require('playwright');
@@ -33,9 +33,9 @@ const answers=Array(25).fill(0);answers[5]=3;answers[19]=2;answers[13]=2;answers
   await page.waitForFunction(()=>document.getElementById('finalReportArea')?.hidden===false&&document.querySelector('#finalReportArea .ofr-rep'),{timeout:20000});
   const rep=await page.evaluate(()=>{const reps=[...document.querySelectorAll('#finalReportArea .ofr-sheet .ofr-rep')];const mob=document.querySelector('#finalReportArea .ofr-mob');return {over:reps.map(r=>r.scrollHeight-r.clientHeight),text:mob?mob.innerText:''}});
   // A4 sheets keep extra blocks only while space is left; the phone reading view always carries them.
-  if(width===390)assert.match(rep.text,/공공데이터 기관 \d+종/,'05 carries the same facility block');
+  if(width===390){assert.ok(rep.text.length>200,'05 phone reading view rendered');assert.doesNotMatch(rep.text,/공공데이터 기관|공공 지원사업/,'05 has no public-API blocks')}
   if(width===1280)rep.over.forEach((o,i)=>assert.ok(o<=1,'sheet '+(i+1)+' overflows by '+o+'px'));
   assert.deepEqual(errors,[]);
-  console.log('PASS public facilities '+width+'px: 03 without API blocks ('+Math.round(block.h)+'px), 05 checked');
+  console.log('PASS public facilities '+width+'px: 03 without API blocks ('+Math.round(block.h)+'px), 05 without API blocks');
   await page.close()}
  await browser.close()})().catch(e=>{console.error(e);process.exit(1)});

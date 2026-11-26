@@ -53,13 +53,14 @@ assert.ok(FR.sheetsHtml(k0).includes('실무자 의견')&&FR.text(p0,{opinion:op
 assert.ok(!FR.sheetsHtml(FR.model(p0)).includes('class="xop'),'no opinion block when empty');
 assert.deepEqual(k0.cells,FR.model(p0).cells,'opinion never changes the decision');
 assert.ok(FR.readHtml(k0).includes('ofr-mob'),'mobile reading layout');
-/* 2026-11-25 전체 검수: 05에는 04 교육지원청(학맞통 연계 층)과 03 공공 지원사업 연결이 같은 값으로 들어간다(TXT에도). */
-{const SL=require(path.join(SRC,'oy-school-link-v1.js')),PB=require(path.join(SRC,'oy-public-benefits-v1.js'));let sl=0,pb=0;
- cases.forEach((c,i)=>{const p=payload(c,i),R=OD.resolve(p),k=FR.model(p,{date:'2026-11-25'}),s=SL.build(p,R),b=PB.build(p),t=FR.text(p,{date:'2026-11-25'});
+/* 05에는 04 교육지원청(학맞통 연계 층)이 같은 값으로 들어간다(TXT에도).
+   2026-11-26 지훈: 공공 API 블록(공공 지원사업·공공데이터 기관)은 03 지도와 겹쳐 03·05 모두에서 뺐다. 다시 붙지 않게 확인한다. */
+{const SL=require(path.join(SRC,'oy-school-link-v1.js'));let sl=0;
+ cases.forEach((c,i)=>{const p=payload(c,i),R=OD.resolve(p),k=FR.model(p,{date:'2026-11-25'}),s=SL.build(p,R),t=FR.text(p,{date:'2026-11-25'}),h=FR.readHtml(k);
   assert.equal(k.links.school?k.links.school.layer:0,s.layer,c.id+' 05 school layer equals 04 교육지원청');
-  assert.equal(k.links.benefits?k.links.benefits.n:0,b.items.length,c.id+' 05 public benefits equal 03');
+  assert.ok(!('benefits' in k.links)&&!('facilities' in k.links),c.id+' 05 has no public-API links');
+  assert.ok(!/공공 지원사업|공공데이터 기관/.test(t+h),c.id+' 05 text/html without public-API blocks');
   if(s.layer){sl++;assert.ok(t.includes('[학맞통 연계'),c.id+' TXT school link')}
-  if(b.items.length){pb++;assert.ok(t.includes('[공공 지원사업'),c.id+' TXT public benefits');assert.ok(!/(\d{3,4}) \1(?!\d)/.test(t.split('[공공 지원사업')[1].split('\n')[0]),c.id+' desk phone not doubled')}
  });
- assert.ok(sl>50&&pb>50,'links appear in most synthetic cases '+sl+'/'+pb);}
+ assert.ok(sl>50,'school links appear in most synthetic cases '+sl);}
 console.log('PASS final report: 100 synthetic cases, decision equals screen with and without narrative, narrative excluded from output,',narr,'narrative cases,',withRes,'with resources');
