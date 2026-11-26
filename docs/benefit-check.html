@@ -12,10 +12,12 @@
 <link rel="preload" href="youth-risk/fonts/SUIT-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/tools-ui-v1.css?v=20261125-u1">
 <link rel="stylesheet" href="assets/benefit-check.css?v=20261125-b2">
+<link rel="stylesheet" href="assets/residence-v1.css?v=20261126-dong1">
 <script defer src="assets/data.js"></script>
 <script defer src="assets/tools-ui-v1.js?v=20261125-u1"></script>
-<script defer src="assets/welfare-tools-model.js?v=20261125-tier5"></script>
-<script defer src="assets/benefit-check.js?v=20261125-tier5"></script>
+<script defer src="assets/residence-v1.js?v=20261126-dong1"></script>
+<script defer src="assets/welfare-tools-model.js?v=20261126-dong1"></script>
+<script defer src="assets/benefit-check.js?v=20261126-dong1"></script>
 </head><body>
 <a class="skip" href="#checkForm">자가점검으로 건너뛰기</a>
 <header class="top"><div class="wrap top-in">
@@ -35,7 +37,8 @@
 <form id="checkForm" novalidate>
   <fieldset class="step-card"><legend><span class="step-no">01</span>누구를 위한 도움인가요?</legend><p class="hint">한 가지만 고릅니다. 잘 모르겠으면 '고르지 않음'으로 두세요.</p><div class="chips" id="targets"></div></fieldset>
   <fieldset class="step-card"><legend><span class="step-no">02</span>요즘 어떤 일이 어려운가요?</legend><p class="hint">해당하는 것을 모두 고르세요. 이름·주소·상담 내용은 적지 않습니다.</p><div class="sits" id="situations"></div></fieldset>
-  <div class="check-bar"><p class="tu-progress" aria-live="polite"><span>대상 <b id="pickTarget">고르지 않음</b></span><span>어려운 일 <span class="tu-count" id="pickCount">0</span>개</span></p>
+  <fieldset class="step-card"><legend><span class="step-no">03</span>어디에 사시나요? <small class="opt">선택</small></legend><label class="dong-field" for="dongSelect"><span class="visually-hidden">사는 동</span><select id="dongSelect" name="dong"></select><small>고르면 관할 동 행정복지센터와 권역 복지관을 먼저 보여 줍니다. 수원·화성·평택이면 그 시 기관을 먼저, 오산 기관은 참고로 둡니다. 저장하지 않습니다.</small></label></fieldset>
+  <div class="check-bar"><p class="tu-progress" aria-live="polite"><span>대상 <b id="pickTarget">고르지 않음</b></span><span>사는 곳 <b id="pickDong">고르지 않음</b></span><span>어려운 일 <span class="tu-count" id="pickCount">0</span>개</span></p>
     <div class="go"><button id="run" class="btn primary tu-shine tu-press" type="submit">문의할 곳 보기</button><button id="reset" class="btn ghost tu-press" type="button">처음부터</button><button id="print" class="btn ghost tu-press" type="button" disabled>상담 준비 메모 인쇄</button></div></div>
 </form>
 <p id="status" role="status" aria-live="polite">자료를 불러오고 있습니다.</p>

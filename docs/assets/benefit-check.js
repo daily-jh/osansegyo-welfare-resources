@@ -2,7 +2,7 @@
 (function(){'use strict';
 const $=id=>document.getElementById(id);
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const D=window.WELFARE_DATA,W=window.WelfareTools;
+const D=window.WELFARE_DATA,W=window.WelfareTools,RES=window.Residence||null;
 const UI=window.ToolsUI||{open(){},enter(){},done(){},bump(el,n){if(el)el.textContent=n},sos(){}};
 const URGENT=[['112','경찰','폭력·학대·실종'],['119','구급','지금 다치거나 위험할 때'],['109','자살예방 상담','24시간'],['1388','청소년 상담','24시간'],['1366','여성긴급전화','가정·교제·성폭력'],['129','보건복지상담','긴급복지'],['1577-1389','노인학대','신고·상담'],['1644-8295','장애인학대','신고·상담']];
 UI.sos(URGENT);
@@ -36,8 +36,12 @@ document.querySelector('.know').addEventListener('click',e=>{if(e.target.closest
 $('targets').innerHTML='<label><input type="radio" name="target" value="" checked><span>고르지 않음</span></label>'+W.targets(D).map(t=>'<label><input type="radio" name="target" value="'+esc(t)+'"><span>'+esc(t)+'</span></label>').join('');
 $('situations').innerHTML=W.SITUATIONS.map(s=>'<label'+(s.urgent?' class="safe"':'')+'><input type="checkbox" name="sit" value="'+esc(s.id)+'"><span>'+esc(s.q)+'<small class="need">'+esc(s.need)+'</small></span></label>').join('');
 $('status').textContent='대상과 어려운 일을 고른 뒤 「문의할 곳 보기」를 눌러 주세요. 자료 기준일 '+(D.date||'');
-const picked=()=>({target:(document.querySelector('input[name="target"]:checked')||{}).value||'',situations:[...document.querySelectorAll('input[name="sit"]:checked')].map(x=>x.value)});
-function updatePick(){const q=picked();$('pickTarget').textContent=q.target||'고르지 않음';UI.bump($('pickCount'),q.situations.length)}
+// 사는 동(2026-11-26): OY-RALS와 같은 거주 지역 규칙(residence-v1.js). 메인에서 ?dong= 으로 넘어오면 그대로 고른 상태로 시작한다(저장하지 않음).
+const dongSel=$('dongSelect');
+if(dongSel){if(RES)dongSel.innerHTML=RES.optionsHTML(RES.fromURL(),'고르지 않음 · 오산 전체');else dongSel.closest('fieldset').hidden=true}
+const picked=()=>({target:(document.querySelector('input[name="target"]:checked')||{}).value||'',situations:[...document.querySelectorAll('input[name="sit"]:checked')].map(x=>x.value),dong:RES&&dongSel?RES.valid(dongSel.value):''});
+function updatePick(){const q=picked();$('pickTarget').textContent=q.target||'고르지 않음';if($('pickDong'))$('pickDong').textContent=q.dong?(RES.zoneText(q.dong).split(' · ')[0]):'고르지 않음';UI.bump($('pickCount'),q.situations.length)}
+updatePick();
 $('checkForm').addEventListener('change',updatePick);
 
 function bar(by,total){
@@ -48,8 +52,8 @@ const phoneOf=e=>e.o.phone||(e.o.contact&&e.o.contact.phone)||'';
 const whenTag=c=>c.status==='확인완료'&&c.date?'<span class="tag ok">공식 안내 확인 '+esc(c.date)+'</span>':c.date?'<span class="tag">기관 안내 확인 '+esc(c.date)+'</span>':'<span class="tag warn">확인일 없음 · 이용 전 문의</span>';
 let shown=[];
 function card(e){
- const i=shown.push(e)-1,phone=phoneOf(e);
- return '<article class="card tu-lift"><p><span class="tag">'+esc(W.tierLabel(e))+'</span>'+(e.fit==='open'?'<span class="tag warn">대상 미분류</span>':'')+whenTag(e.checked)+'</p>'+
+ const i=shown.push(e)-1,phone=phoneOf(e),ref=e.role==='osan-ref'||e.role==='near-ref';
+ return '<article class="card tu-lift'+(ref?' res-ref':e.role==='mine'||e.role==='local'?' res-mine':'')+'"><p>'+(RES&&e.role?RES.tagHTML(e.o,picked().dong):'')+'<span class="tag">'+esc(W.tierLabel(e))+'</span>'+(e.fit==='open'?'<span class="tag warn">대상 미분류</span>':'')+whenTag(e.checked)+'</p>'+
   '<h3>'+esc(e.s.name)+'</h3><p><b>'+esc(e.o.name)+'</b>'+(phone?' · <a href="tel:'+esc(phone.replace(/[^0-9]/g,''))+'">'+esc(phone)+'</a>':'')+'</p>'+
   '<button type="button" class="card-open tu-press" data-card="'+i+'" aria-haspopup="dialog">자세히 <span aria-hidden="true">→</span></button></article>';
 }
@@ -70,7 +74,13 @@ function draw(){
  if(r.urgent)html.push('<section class="urgent" aria-labelledby="urgentTitle"><h2 id="urgentTitle">지금 위험하면 먼저 전화하세요</h2><ul>'+URGENT.slice(0,6).map(x=>'<li><a href="tel:'+x[0].replace(/[^0-9]/g,'')+'"><b>'+x[0]+'</b>'+esc(x[1])+' · '+esc(x[2])+'</a></li>').join('')+'</ul></section>');
  html.push('<div class="summary"><div><b>'+r.groups.length+'</b><span>살펴본 어려움</span></div><div><b>'+osan+'</b><span>오산 서비스</span></div><div><b>'+total+'</b><span>관련 서비스 전체</span></div><div><b>'+gaps+'</b><span>오산 자료가 없는 영역</span></div></div>');
  const desks=r.firstDesk;
- html.push('<section class="first"><h2>어디에 물을지 모르겠다면</h2><p>사는 곳의 <b>동 행정복지센터</b>에서 기초생활보장·긴급복지·바우처 등 공공 지원을 한 번에 상담합니다'+(desks.length?' (오산시 대표 <a href="tel:'+esc(desks[0].phone.replace(/[^0-9]/g,''))+'">'+esc(desks[0].phone)+'</a>)':'')+'. 전화 상담은 <a href="tel:129">보건복지상담센터 129</a>, 온라인 신청과 모의계산은 <a href="https://www.bokjiro.go.kr/" target="_blank" rel="noopener noreferrer">복지로 ↗</a>에서 할 수 있습니다.</p>'+(q.situations.length>=3||q.situations.includes('many')?'<p>어려움이 여러 가지라면 <b>복지관 통합사례관리</b>에서 한꺼번에 상의할 수 있습니다. 여러 기관이 함께 돕는 방식입니다.</p>':'')+(q.situations.includes('care')||['노인','장애인'].includes(r.target)?'<p>어르신이나 장애가 있는 분의 병원·요양·돌봄이 함께 필요하면 <a href="care/">통합돌봄 길잡이</a>에서 신청 방법을 확인하세요.</p>':'')+'</section>');
+ if(r.notice&&RES)html.push(RES.noticeHTML(r.notice));
+ const tel=p=>'<a href="tel:'+esc(String(p).replace(/[^0-9]/g,''))+'">'+esc(p)+'</a>';
+ // 사는 동을 골랐으면 그 동 창구와 권역 복지관을 바로 적고, 오산 밖이면 그 지역 행정복지센터를 안내한다.
+ const deskLine=r.dong&&RES&&RES.isDong(r.dong)?'<b>'+esc(r.dong)+' 행정복지센터</b>'+(desks[0]?' ('+tel(desks[0].phone)+', 시청 대표번호에서 동으로 연결)':'')+'에서 기초생활보장·긴급복지·바우처 등 공공 지원을 한 번에 상담합니다':
+  r.dong&&RES?'<b>'+esc(RES.nearCity(r.dong)||'사는 지역')+'의 동 행정복지센터</b>(주민센터)에서 기초생활보장·긴급복지·바우처 등 공공 지원을 한 번에 상담합니다. 오산 행정복지센터는 오산 주민 창구라 뺐습니다':
+  '사는 곳의 <b>동 행정복지센터</b>에서 기초생활보장·긴급복지·바우처 등 공공 지원을 한 번에 상담합니다'+(desks.length?' (오산시 대표 '+tel(desks[0].phone)+')':'');
+ html.push('<section class="first"><h2>어디에 물을지 모르겠다면</h2><p>'+deskLine+'. 전화 상담은 <a href="tel:129">보건복지상담센터 129</a>, 온라인 신청과 모의계산은 <a href="https://www.bokjiro.go.kr/" target="_blank" rel="noopener noreferrer">복지로 ↗</a>에서 할 수 있습니다.</p>'+(q.situations.length>=3||q.situations.includes('many')?'<p>어려움이 여러 가지라면 '+(r.zone?'<b>'+r.zone.number+'권역 '+esc(r.zone.name)+'</b>'+(r.zone.phone?' ('+tel(r.zone.phone)+')':'')+'의 <b>통합사례관리</b>':'<b>복지관 통합사례관리</b>')+'에서 한꺼번에 상의할 수 있습니다. 여러 기관이 함께 돕는 방식입니다.</p>':'')+(q.situations.includes('care')||['노인','장애인'].includes(r.target)?'<p>어르신이나 장애가 있는 분의 병원·요양·돌봄이 함께 필요하면 <a href="'+esc(RES?RES.withDong('care/',r.dong):'care/')+'">통합돌봄 길잡이</a>에서 신청 방법을 확인하세요.</p>':'')+'</section>');
  for(const g of r.groups){
   const more='service-guide.html?need='+encodeURIComponent(g.need)+(r.target?'&amp;target='+encodeURIComponent(r.target):'');
   html.push('<section class="group" aria-labelledby="g-'+g.id+'"><span class="pill">'+esc(g.need)+'</span><h2 id="g-'+g.id+'">'+esc(g.q)+'</h2><p class="meta">관련 서비스 '+g.total+'개'+(r.target?' · '+esc(r.target)+' 대상과 대상 미분류 포함':'')+'</p>'+bar(g.byLevel,g.total)+
@@ -81,11 +91,12 @@ function draw(){
  $('result').innerHTML=html.join('');
  UI.enter($('result'));UI.done($('run'));
  $('status').textContent='문의할 곳 후보를 '+r.groups.length+'개 영역으로 정리했습니다. 자격 판정이 아니며 이용 전 기관에 확인해 주세요.';
- $('printMeta').textContent='대상: '+(r.target||'고르지 않음')+' · 어려운 일: '+r.groups.map(g=>g.need).join(', ')+' · 자료 기준일 '+(D.date||'')+' · 자격 판정 아님';
+ $('printMeta').textContent='대상: '+(r.target||'고르지 않음')+(r.dong?' · 사는 곳: '+r.dong:'')+' · 어려운 일: '+r.groups.map(g=>g.need).join(', ')+' · 자료 기준일 '+(D.date||'')+' · 자격 판정 아님';
  $('print').disabled=false;
  $('status').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
 }
 $('checkForm').addEventListener('submit',e=>{e.preventDefault();draw()});
+if(dongSel)dongSel.addEventListener('change',()=>{if($('result').innerHTML)draw()});
 $('reset').addEventListener('click',()=>{$('checkForm').reset();$('result').innerHTML='';shown=[];$('print').disabled=true;$('run').classList.remove('tu-done');updatePick();$('status').textContent='처음부터 다시 고를 수 있습니다.'});
 $('print').addEventListener('click',()=>window.print());
 updatePick();

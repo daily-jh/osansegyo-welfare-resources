@@ -1,0 +1,26 @@
+/* 사는 동(행정동) 공통 표시 v1 (2026-11-26) — 메인 복지자원 찾기·통합돌봄 길잡이·복지혜택 자가점검.
+   색과 회색 점선 '오산 기관(참고)'는 OY-RALS region-ref-v1.css와 같은 값을 쓴다. */
+.dong-pick{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 4px 0 12px;border:1px solid #d5dde8;border-radius:999px;background:#fff;font-size:14px;font-weight:700;color:#173e69}
+.dong-pick select{min-height:32px!important;border:0!important;background-color:transparent;padding:0 26px 0 4px!important;font:inherit;font-weight:600;color:#1f2a37;border-radius:999px!important;cursor:pointer}
+.dong-pick.on{border-color:#2f6fb5;background:#e8f1fc}
+.dong-pick:focus-within{outline:2px solid #2f6fb5;outline-offset:2px}
+.dong-field{display:grid;gap:6px;margin:0}
+.dong-field .visually-hidden{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+legend .opt{margin-left:6px;font-size:13px;font-weight:600;color:#5b6573}
+.dong-field>span{font-weight:800;color:#173e69}
+.dong-field select{min-height:44px;max-width:360px;padding:0 32px 0 12px;border:1px solid #c9d3df;border-radius:10px;background-color:#fff;font:inherit;font-size:16px}
+.dong-field small{color:#5b6573;font-size:13px;line-height:1.5}
+.res-tag{display:inline-block;margin-right:6px;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:800;line-height:1.5;vertical-align:middle;letter-spacing:0;white-space:nowrap}
+.res-tag.res-mine{background:#e3eefc;color:#134a86}
+.res-tag.res-local{background:#e3f4ec;color:#0d6446}
+.res-tag.res-osan-ref,.res-tag.res-other,.res-tag.res-near-ref{background:#e6e9ee;color:#46515f}
+.res-ref:not(.res-tag){opacity:.72;filter:grayscale(1);background:#f4f5f7!important;border-style:dashed!important}
+.res-ref:not(.res-tag):hover,.res-ref:not(.res-tag):focus-within{opacity:1}
+.res-mine:not(.res-tag){box-shadow:inset 3px 0 0 #2f6fb5}
+li.res-mine{box-shadow:none;border-left:3px solid #2f6fb5;padding-left:8px}
+.res-notice{margin:12px 0 16px;padding:14px 16px;border-radius:12px;background:#eef6ff;border:1px solid #cfe0f4;color:#22405f;font-size:15px;line-height:1.6}
+.res-notice b{display:block;margin-bottom:4px;color:#173e69}
+.dong-notice{grid-column:1/-1}
+.dong-notice .res-notice{margin:4px 0 14px}
+@media (max-width:700px){.res-notice{font-size:14px;padding:12px 14px}.dong-field select{max-width:none;width:100%}}
+@media print{.res-ref:not(.res-tag){opacity:1;filter:none;background:#fff!important}.res-tag.res-osan-ref,.res-tag.res-other,.res-tag.res-near-ref{border:1px solid #888}.dong-pick{display:none}}

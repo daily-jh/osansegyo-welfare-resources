@@ -14,6 +14,11 @@
   const svcOf = id => C.services.find(s => s.id === id);
   const telHref = n => 'tel:' + String(n).replace(/[^0-9]/g, '');
   let lastCheck = null;
+  /* 사는 동(2026-11-26): OY-RALS와 같은 거주 지역 규칙(../assets/residence-v1.js). 주소의 ?dong= 로만 넘겨받고 저장하지 않는다. */
+  const RES = window.Residence || null;
+  const dongNow = () => (RES && $('#dongSelect') ? RES.valid($('#dongSelect').value) : '');
+  const rowTag = r => (r.role && RES ? `<span class="res-tag res-${r.role}">${esc(r.tag)}</span>` : '');
+  const rowCls = r => (r.role === 'osan-ref' || r.role === 'near-ref' ? ' class="res-ref"' : r.role === 'mine' || r.role === 'local' ? ' class="res-mine"' : '');
 
   if (!C || !M) { document.body.insertAdjacentHTML('afterbegin', '<p class="load-error">화면 자료를 불러오지 못했습니다. 새로고침해 주세요.</p>'); return; }
 
@@ -61,6 +66,8 @@
       return `<div class="q-group d-${d.id}"><h3>${esc(d.label)}</h3>${qs.map(q => `<label class="q"><input type="checkbox" name="yes" value="${q.id}"><span>${esc(q.text)}</span></label>`).join('')}</div>`;
     });
     $('#questionList').innerHTML = groups.join('');
+    const ds = $('#dongSelect');
+    if (ds) { if (RES) ds.innerHTML = RES.optionsHTML(RES.fromURL(), '고르지 않음 · 오산 전체'); else ds.closest('.dong-line').hidden = true; }
   }
 
   function updatePick() {
@@ -82,18 +89,29 @@
 
   function resourceList(service, limit) {
     if (!W) return '<p class="muted">복지자원 DB를 불러오지 못했습니다.</p>';
-    const rows = M.matchResources(service, W, { dedupeOrg: true });
+    const rows = M.matchResources(service, W, { dedupeOrg: true, dong: dongNow() });
     if (!rows.length) return `<p class="muted">DB에 등록된 연결 기관이 아직 없습니다. <a href="${esc(safeUrl(service.source))}" target="_blank" rel="noopener noreferrer">공식 안내 ↗</a>로 확인하세요.</p>`;
     const shown = rows.slice(0, limit || 4);
-    return `<ul class="res">${shown.map(r => `<li><span class="lv lv-${r.level === '오산시' ? 'osan' : 'other'}">${esc(r.scope && r.scope !== r.level ? r.scope : (r.level === '민간' ? '전국' : r.level))}</span><a href="../#org=${encodeURIComponent(r.orgId)}">${esc(r.org)}</a><small>${esc(r.service)}</small>${r.phone ? `<a class="tel" href="${telHref(r.phone)}">${esc(r.phone)}</a>` : ''}</li>`).join('')}</ul>${rows.length > shown.length ? `<p class="muted">외 ${rows.length - shown.length}곳은 돌봄 자원 지도에서 볼 수 있습니다.</p>` : ''}`;
+    return `<ul class="res">${shown.map(r => `<li${rowCls(r)}>${rowTag(r)}<span class="lv lv-${r.level === '오산시' ? 'osan' : 'other'}">${esc(r.scope && r.scope !== r.level ? r.scope : (r.level === '민간' ? '전국' : r.level))}</span><a href="../#org=${encodeURIComponent(r.orgId)}">${esc(r.org)}</a><small>${esc(r.service)}</small>${r.phone ? `<a class="tel" href="${telHref(r.phone)}">${esc(r.phone)}</a>` : ''}</li>`).join('')}</ul>${rows.length > shown.length ? `<p class="muted">외 ${rows.length - shown.length}곳은 돌봄 자원 지도에서 볼 수 있습니다.</p>` : ''}`;
   }
 
   function windowsList() {
     if (!W) return '';
-    const rows = M.matchResources({ match: '통합돌봄 신청|통합판정조사' }, W, { dedupeOrg: true });
-    return `<ul class="res windows">${rows.map(r => `<li><span class="lv lv-${r.level === '오산시' ? 'osan' : 'other'}">${esc(r.scope && r.scope !== r.level ? r.scope : (r.level === '민간' ? '전국' : r.level))}</span><a href="../#org=${encodeURIComponent(r.orgId)}">${esc(r.org)}</a>${r.phone ? `<a class="tel" href="${telHref(r.phone)}">${esc(r.phone)}</a>` : ''}</li>`).join('')}</ul>`;
+    const rows = M.matchResources({ match: '통합돌봄 신청|통합판정조사' }, W, { dedupeOrg: true, dong: dongNow() });
+    return `<ul class="res windows">${rows.map(r => `<li${rowCls(r)}>${rowTag(r)}<span class="lv lv-${r.level === '오산시' ? 'osan' : 'other'}">${esc(r.scope && r.scope !== r.level ? r.scope : (r.level === '민간' ? '전국' : r.level))}</span><a href="../#org=${encodeURIComponent(r.orgId)}">${esc(r.org)}</a>${r.phone ? `<a class="tel" href="${telHref(r.phone)}">${esc(r.phone)}</a>` : ''}</li>`).join('')}</ul>`;
   }
 
+  function noticeBox() {
+    const dong = dongNow(); if (!dong || !RES) return '';
+    const shown = (lastCheck ? lastCheck.serviceIds : []).map(svcOf).filter(Boolean).flatMap(s => M.matchResources(s, W, { dedupeOrg: true, dong }).slice(0, 4));
+    return RES.noticeHTML(RES.notice(dong, shown));
+  }
+  function windowsTitle() { const d = dongNow(); return d && RES && RES.isDong(d) ? `${d} 신청 창구` : d && RES ? `${esc(RES.nearCity(d) || '사는 지역')} 신청 창구` : '오산 신청 창구'; }
+  function windowsNote() {
+    const d = dongNow();
+    if (d && RES && RES.isOutside(d)) return `통합돌봄은 주소지 시·군·구가 맡습니다. ${esc(RES.nearCity(d) || '사는 지역')}의 동 행정복지센터(주민센터) 또는 국민건강보험공단 지사(1577-1000)에 신청하세요. 오산 행정복지센터는 오산 주민 창구라 뺐습니다.`;
+    return `${d ? esc(d) + ' 행정복지센터(관할)' : '주소지 행정복지센터'} 또는 국민건강보험공단 지사(1577-1000). 사전조사는 접수 5일 이내에 합니다.`;
+  }
   function renderCheckResult(r) {
     const box = $('#checkResult');
     const hot = C.hotlines.slice(0, 3).map(h => `<a class="hot" href="tel:${esc(h.tel)}"><b>${esc(h.num)}</b> ${esc(h.label)}</a>`).join('');
@@ -115,11 +133,12 @@
         ${r.applicant ? `<div><h4>신청 방법</h4><p>${esc(r.applicant)}</p><p class="muted">별지 제1호서식 「통합지원 신청서」 · 처리기간 5일 · 수수료 없음</p></div>` : ''}
         ${C.forms && C.forms.apply.docs[readWho()] ? `<div><h4>신청할 때 낼 서류</h4><ul>${C.forms.apply.docs[readWho()].map(d => `<li>${esc(d)}</li>`).join('')}</ul><p class="muted">신청서 뒤쪽 「신청인 제출서류」 기준. <button type="button" class="link-btn" data-open="apply">신청서 항목 보기</button></p></div>` : ''}
       </div>
-      ${(r.level === 'apply' || r.level === 'emergency' || r.level === 'single') ? `<div class="windows-box"><h4>오산 신청 창구</h4><p class="muted">주소지 행정복지센터 또는 국민건강보험공단 지사(1577-1000). 사전조사는 접수 5일 이내에 합니다.</p>${windowsList()}${C.osan ? `<p class="muted">기관 연계·사업 문의: ${esc(C.osan.dept)} <a href="${telHref(C.osan.phone)}">${esc(C.osan.phone)}</a> (팀장, 업무 총괄)</p>` : ''}</div>` : ''}
+      ${noticeBox()}
+      ${(r.level === 'apply' || r.level === 'emergency' || r.level === 'single') ? `<div class="windows-box"><h4>${windowsTitle()}</h4><p class="muted">${windowsNote()}</p>${windowsList()}${C.osan ? `<p class="muted">기관 연계·사업 문의: ${esc(C.osan.dept)} <a href="${telHref(C.osan.phone)}">${esc(C.osan.phone)}</a> (팀장, 업무 총괄)</p>` : ''}</div>` : ''}
       ${services.length ? `<h4 class="svc-title">먼저 살펴볼 서비스 ${Math.min(services.length, 6)}가지</h4><p class="muted">카드의 버튼을 누르면 오산·경기·전국 연결 기관이 창으로 열립니다.</p><div class="svc-grid tu-stagger">${services.slice(0, 6).map(svcCard).join('')}</div>${services.length > 6 ? `<details class="more-svc"><summary>함께 검토할 서비스 ${services.length - 6}가지 더 보기</summary><div class="svc-grid">${services.slice(6).map(svcCard).join('')}</div></details>` : ''}` : ''}
       <div class="form-actions"><a class="btn primary" href="#plan" id="toPlan">이 결과로 지원계획 초안 쓰기 (실무자)</a><button type="button" class="btn ghost" id="printCheck">결과 인쇄</button></div>`;
     function svcCard(s) {
-      const n = W ? M.matchResources(s, W, { dedupeOrg: true }) : [];
+      const n = W ? M.matchResources(s, W, { dedupeOrg: true, dong: dongNow() }) : [];
       const osanN = n.filter(r => r.level === '오산시').length;
       return `<article class="svc d-${s.domain} tu-lift"><p class="svc-meta"><span>${esc(domainOf(s.domain).label)}</span><span class="ch ch-${s.channel}">${esc(C.channels[s.channel].short)}</span></p><h5>${esc(s.name)}</h5><p>${esc(s.what)}</p><button type="button" class="svc-open tu-press" data-svc="${esc(s.id)}" aria-haspopup="dialog">${n.length ? `연결 기관 ${n.length}곳${osanN ? ` · 오산 ${osanN}` : ''}` : '공식 안내 확인'} <span aria-hidden="true">→</span></button></article>`;
     }
@@ -127,7 +146,7 @@
     UI.enter(box);
     $('#printCheck').addEventListener('click', () => printHtml(checkPrintHtml(r, services)));
     $('#toPlan').addEventListener('click', () => { fillPlanFromCheck(); });
-    box.addEventListener('click', e => { const b = e.target.closest('[data-svc]'); if (b) openService(b.dataset.svc); if (e.target.closest('[data-open="apply"]')) openApply(); });
+    box.onclick = e => { const b = e.target.closest('[data-svc]'); if (b) openService(b.dataset.svc); if (e.target.closest('[data-open="apply"]')) openApply(); }; // 다시 그릴 때(사는 동 변경) 클릭이 겹쳐 붙지 않게 한 번만 건다
     box.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
@@ -178,7 +197,7 @@
       <p><b>대상 범위</b> ${esc(r.scope.label)}</p>
       ${r.priority.length ? `<p><b>우선지원 단서</b> ${r.priority.map(esc).join(', ')}</p>` : ''}
       ${r.exOfficio.length ? `<p><b>직권 신청 요청 가능</b> ${r.exOfficio.map(esc).join(', ')}</p>` : ''}
-      <p><b>신청</b> 주소지 행정복지센터 또는 국민건강보험공단 지사(1577-1000). ${esc(r.applicant)}</p>
+      <p><b>신청</b> ${windowsNote().replace(/ 사전조사는.*$/, '')} ${esc(r.applicant)}</p>${dongNow() ? `<p><b>사는 곳</b> ${esc(RES.zoneText(dongNow()))}</p>` : ''}
       <h2>먼저 살펴볼 서비스</h2><ol>${services.map(s => `<li><b>${esc(s.name)}</b> (${esc(domainOf(s.domain).label)} · ${esc(C.channels[s.channel].short)}) ${esc(s.what)}</li>`).join('')}</ol>`;
   }
 
@@ -193,9 +212,11 @@
   function suggestProvider(serviceId) {
     const s = svcOf(serviceId);
     if (!s || !W) return '';
-    const m = M.matchResources(s, W, { dedupeOrg: true });
+    const dong = dongNow(), m = M.matchResources(s, W, { dedupeOrg: true, dong });
+    // 사는 동을 골랐으면 내 동 창구·그 시 기관을 먼저, 타지역 거주면 오산 기관은 제공 주체로 미리 채우지 않는다.
+    const first = dong ? m.find(r => r.role === 'mine' || r.role === 'local') || (RES && RES.isOutside(dong) ? m.find(r => r.role === 'shared') : null) : null;
     const osan = m.find(r => r.level === '오산시');
-    return (osan || m[0] || {}).org || '';
+    return (first || (dong && RES && RES.isOutside(dong) ? null : osan) || m[0] || {}).org || '';
   }
   function addRow(serviceId) {
     const s = svcOf(serviceId);
@@ -317,6 +338,7 @@
     $('#checkForm').addEventListener('submit', e => { e.preventDefault(); lastCheck = M.evaluate(readCheck()); UI.done($('#runCheck')); renderCheckResult(lastCheck); });
     $('#checkForm').addEventListener('reset', () => { lastCheck = null; $('#checkResult').hidden = true; $('#checkResult').innerHTML = ''; $('#runCheck').classList.remove('tu-done'); setTimeout(updatePick, 0); });
     $('#checkForm').addEventListener('change', updatePick);
+    $('#dongSelect')?.addEventListener('change', () => { if (lastCheck && !$('#checkResult').hidden) renderCheckResult(lastCheck); });
     updatePick();
     $('#heroStart').addEventListener('click', () => UI.done($('#heroStart')));
     $('#openHow').addEventListener('click', openHow);
