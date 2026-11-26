@@ -32,8 +32,9 @@
   <script defer src="assets/data.js?v=20261125-near2"></script>
   <script defer src="assets/search-model.js?v=20261126-fast1"></script>
   <script defer src="assets/program-feed.js?v=20261126-fast1"></script>
-  <script defer src="assets/app.js?v=20261126-fast1"></script><script defer src="assets/resource-correction.js?v=20261111-res1"></script>
-<link rel="stylesheet" href="assets/apple-hig-refinement.css?v=20261025-hig3"><link rel="stylesheet" href="assets/apple-design-skill-v4.css?v=20261025-hig4"><link rel="stylesheet" href="assets/apple-design-v6.css?v=20261117-hm1"><link rel="stylesheet" href="assets/editorial-v7.css?v=20261117-hm1"><link rel="stylesheet" href="assets/home-tools-v8.css?v=20261125-tier5b"><link rel="stylesheet" href="assets/home-layout-v9.css?v=20261125-near2"></head>
+  <script defer src="assets/residence-v1.js?v=20261126-dong1"></script>
+  <script defer src="assets/app.js?v=20261126-dong1"></script><script defer src="assets/resource-correction.js?v=20261111-res1"></script>
+<link rel="stylesheet" href="assets/apple-hig-refinement.css?v=20261025-hig3"><link rel="stylesheet" href="assets/apple-design-skill-v4.css?v=20261025-hig4"><link rel="stylesheet" href="assets/apple-design-v6.css?v=20261117-hm1"><link rel="stylesheet" href="assets/editorial-v7.css?v=20261117-hm1"><link rel="stylesheet" href="assets/home-tools-v8.css?v=20261125-tier5b"><link rel="stylesheet" href="assets/home-layout-v9.css?v=20261125-near2"></head><link rel="stylesheet" href="assets/residence-v1.css?v=20261126-dong1">
 <body>
   <a href="#heroSearch" class="skip-link">검색창으로 건너뛰기</a>
   <header class="site-header">
@@ -69,7 +70,7 @@
         <div class="quick-row"><span>빠른 검색</span><div id="quickTags" class="quick-tags"></div></div>
       </div>
 
-          <div class="hero-actions"><a href="benefit-check.html" class="hero-text-link">복지혜택 자가점검 <span aria-hidden="true">→</span></a><a href="service-guide.html" class="hero-text-link">필요한 도움으로 찾기 <span aria-hidden="true">→</span></a><a href="resource-map.html" class="hero-text-link">영역별 한눈에 보기 <span aria-hidden="true">→</span></a><a href="care/" class="hero-text-link">통합돌봄 길잡이 <span aria-hidden="true">→</span></a></div>
+          <div class="hero-actions"><a href="benefit-check.html" data-dong-link="benefit-check.html" class="hero-text-link">복지혜택 자가점검 <span aria-hidden="true">→</span></a><a href="service-guide.html" class="hero-text-link">필요한 도움으로 찾기 <span aria-hidden="true">→</span></a><a href="resource-map.html" class="hero-text-link">영역별 한눈에 보기 <span aria-hidden="true">→</span></a><a href="care/" data-dong-link="care/" class="hero-text-link">통합돌봄 길잡이 <span aria-hidden="true">→</span></a></div>
         </div>
         <div class="hero-bento" aria-label="자료 현황과 바로 찾기">
           <div class="stat"><div class="stat-icon navy" aria-hidden="true"><svg class="ads-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 20.5h16M6 20.5V5.5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v15M15 9.5h3a1 1 0 0 1 1 1v10"/><path d="M9 8h3M9 11.5h3M9 15h3"/></svg></div><div><div class="stat-label">등록 기관·체계</div><strong id="statOrgs">174</strong><span class="stat-unit">개</span></div></div>
@@ -78,8 +79,8 @@
         <div class="stat stat-date"><div class="stat-label">기존 자료 정리일</div><strong id="statDate">2026. 11. 25.</strong><small>기관·사업별 의뢰창구와 공식 안내 확인</small></div>
           <div class="bento-needs" id="needBento" aria-label="많이 찾는 욕구 영역"></div>
           <a class="bento-youth" href="youth-risk/"><b>청소년 위기평가 시작</b><small>평가 결과에 맞는 기관을 연결지도로 보여 줍니다</small><span class="bento-go" aria-hidden="true">↗</span></a>
-          <a class="bento-youth bento-benefit" href="benefit-check.html"><b>복지혜택 자가점검</b><small>대상과 어려움을 고르면 오산·경기·전국에서 먼저 문의할 곳을 보여 줍니다 · 자격 판정 아님</small><span class="bento-go" aria-hidden="true">→</span></a>
-          <a class="bento-youth bento-care" href="care/"><b>오산 통합돌봄 길잡이</b><small>돌봄통합지원법(2026.3 시행) · 내 상황 미리 살펴보기, 신청할 때 챙길 것, 지원계획 초안과 오산 돌봄 자원</small><span class="bento-go" aria-hidden="true">→</span></a>
+          <a class="bento-youth bento-benefit" href="benefit-check.html" data-dong-link="benefit-check.html"><b>복지혜택 자가점검</b><small>대상과 어려움을 고르면 오산·경기·전국에서 먼저 문의할 곳을 보여 줍니다 · 자격 판정 아님</small><span class="bento-go" aria-hidden="true">→</span></a>
+          <a class="bento-youth bento-care" href="care/" data-dong-link="care/"><b>오산 통합돌봄 길잡이</b><small>돌봄통합지원법(2026.3 시행) · 내 상황 미리 살펴보기, 신청할 때 챙길 것, 지원계획 초안과 오산 돌봄 자원</small><span class="bento-go" aria-hidden="true">→</span></a>
         </div>
       </div>
     </section>
@@ -108,8 +109,9 @@
         </aside>
         <div class="finder-main">
           <div class="finder-bar"><button type="button" class="filter-open" id="openFilters" aria-haspopup="dialog">조건 설정<b id="filterCount" hidden></b></button><div class="results-toolbar"><div class="results-count"><span class="results-dot"></span><strong id="resultCount">0</strong>개 기관을 찾았습니다 <span id="serviceResultCount" class="result-subcount"></span></div>
-        <div class="toolbar-actions"><label class="favorite-toggle allday-toggle"><input id="allDayOnly" type="checkbox"/><span>24시간 창구만</span></label><label class="favorite-toggle"><input id="favoritesOnly" type="checkbox"/><span>즐겨찾기만</span></label><select id="sortSelect" aria-label="정렬 기준"><option value="relevance">기본 정렬·검색 관련도</option><option value="name">기관명 가나다순</option><option value="services">조건 일치 서비스 많은 순</option></select></div></div></div>
+        <div class="toolbar-actions"><label class="dong-pick" title="사는 동을 고르면 관할 행정복지센터·권역 복지관을 먼저 보여 줍니다(저장하지 않음)"><span>사는 곳</span><select id="dongSelect" aria-label="사는 곳(행정동)"></select></label><label class="favorite-toggle allday-toggle"><input id="allDayOnly" type="checkbox"/><span>24시간 창구만</span></label><label class="favorite-toggle"><input id="favoritesOnly" type="checkbox"/><span>즐겨찾기만</span></label><select id="sortSelect" aria-label="정렬 기준"><option value="relevance">기본 정렬·검색 관련도</option><option value="name">기관명 가나다순</option><option value="services">조건 일치 서비스 많은 순</option></select></div></div></div>
           <div id="activeChips" class="active-chips" aria-label="적용된 조건"></div>
+          <div id="dongNotice" class="dong-notice" hidden></div>
           <p id="loadStatus" class="load-status" role="status">검색 화면을 불러오고 있습니다. 계속 표시되면 새로고침하거나 <a href="resources.csv" download>전체 자원 CSV를 내려받아</a> 확인해 주세요.</p>
       <noscript><p class="load-status">검색에는 JavaScript가 필요합니다. <a href="resources.csv" download>전체 자원 CSV 내려받기</a>로 자료를 확인할 수 있습니다.</p></noscript>
           <div id="resultGrid" class="results-grid" aria-live="polite"></div>

@@ -20,12 +20,13 @@
 <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
 <link rel="preload" href="../youth-risk/fonts/SUIT-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../assets/tools-ui-v1.css?v=20261125-u1">
-<link rel="stylesheet" href="care.css?v=20261125-c6"><link rel="stylesheet" href="../assets/public-facilities.css?v=20261125-tier5">
+<link rel="stylesheet" href="care.css?v=20261125-c6"><link rel="stylesheet" href="../assets/public-facilities.css?v=20261125-tier5"><link rel="stylesheet" href="../assets/residence-v1.css?v=20261126-dong1">
 <script defer src="../assets/data.js?v=20261125-near2"></script>
 <script defer src="../assets/tools-ui-v1.js?v=20261125-u1"></script>
 <script defer src="care-data.js?v=20261125-c6"></script>
-<script defer src="care-model.js?v=20261125-tier5"></script>
-<script defer src="../assets/public-facilities.js?v=20261125-tier5"></script><script defer src="care-app.js?v=20261125-tier5"></script>
+<script defer src="../assets/residence-v1.js?v=20261126-dong1"></script>
+<script defer src="care-model.js?v=20261126-dong1"></script>
+<script defer src="../assets/public-facilities.js?v=20261125-tier5"></script><script defer src="care-app.js?v=20261126-dong1"></script>
 </head>
 <body>
 <a class="skip" href="#main">본문으로 건너뛰기</a>
@@ -102,6 +103,10 @@
           <label class="select-line">노인맞춤돌봄서비스
             <select name="oac" id="oacSelect"></select>
           </label>
+          <label class="select-line dong-line">사는 동 <small class="opt">선택</small>
+            <select name="dong" id="dongSelect" aria-describedby="dongHelp"></select>
+          </label>
+          <p class="muted dong-help" id="dongHelp">고르면 관할 동 행정복지센터와 권역 복지관을 먼저 보여 줍니다. 수원·화성·평택이면 그 시 기관을 먼저, 오산 기관은 참고로 둡니다. 저장하지 않습니다.</p>
           <label class="emergency-line"><input type="checkbox" name="emergency"> 지금 생명·안전이 위험합니다(쓰러짐, 학대, 극단적 생각, 연락 두절 등)</label>
         </fieldset>
         <fieldset>

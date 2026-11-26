@@ -42,6 +42,7 @@ jobs:
           node tests/resource-correction.cjs
           node tests/home-layout-v9.cjs
           node tests/search-speed.cjs
+          node tests/residence-parity.cjs
           node --check docs/care/care-app.js
           node tests/care-integration.cjs
           node --check docs/case-management/cm-app.js

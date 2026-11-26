@@ -93,9 +93,10 @@ assert.deepStrictEqual(near.map(i => i.address), ['경기도 오산시', '경기
 assert.strictEqual(P.phoneText('0312161117'), '031-216-1117');
 assert.ok(!/javascript:/i.test(P.item({ name: 'x', site: 'javascript:alert(1)', region: 'osan', address: '경기도 오산시' })), '누리집 주소 안전');
 
-// 6. 화면 연결: 03(journey-v88)·05 보고서·자원 공백 지도·통합돌봄·전체 목록 화면
+// 6. 화면 연결: 05 보고서·자원 공백 지도·통합돌봄·전체 목록 화면
 const read = f => fs.readFileSync(path.join(ROOT, f), 'utf8');
-assert.ok(/publicFacilities\(\)/.test(read('docs/youth-risk/journey-v88.js')));
+// 2026-11-26: 03 자원연계 지도 아래 공공 API 블록은 지도와 겹쳐 뺐다(지훈). 다시 붙지 않게 확인한다.
+assert.ok(!/OYPublicFacilities|OYPublicBenefits/.test(read('docs/youth-risk/journey-v88.js')), '03 지도 아래 공공 API 블록 제거');
 assert.ok(/oy-public-facilities-v1\.js/.test(read('docs/youth-risk/index.html')) && /assets\/public-facilities\.js/.test(read('docs/youth-risk/index.html')));
 assert.ok(/OYPublicFacilities/.test(read('docs/youth-risk/oy-final-report-v1.js')));
 assert.ok(/public-facilities\.js/.test(read('docs/resource-gaps.html')) && /PublicFacilities/.test(read('docs/assets/resource-gaps.js')));

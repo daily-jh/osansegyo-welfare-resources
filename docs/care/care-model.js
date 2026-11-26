@@ -182,6 +182,9 @@
   }
 
   const CHILD_ONLY = ['영유아', '아동', '청소년'];
+  function residence() {
+    try { return typeof module === 'object' && module.exports ? require('../assets/residence-v1.js') : (typeof self !== 'undefined' && self.Residence) || null; } catch (_) { return null; }
+  }
 
   /* 복지자원 DB(WELFARE_DATA)에서 서비스별 연결 후보 찾기. 중단·폐지 기관은 뺀다. */
   function matchResources(service, data, opts) {
@@ -198,7 +201,7 @@
         if (t.length && t.every(v => CHILD_ONLY.includes(v))) return;   // 아동·청소년만 대상인 사업은 돌봄통합 후보에서 뺀다
         const text = `${org.name} ${s.name}`;                            // 설명문까지 보면 엉뚱한 사업이 섞여 이름만 본다
         if (ex && ex.test(text)) return;
-        if (re.test(text)) out.push({ orgId: org.id, org: org.name, level: org.level, scope: org.scope || org.level, tier: org.tier || '', phone: org.phone || '', service: s.name, serviceId: s.id, status: (s.verification && s.verification.status) || '' });
+        if (re.test(text)) out.push({ orgId: org.id, org: org.name, level: org.level, scope: org.scope || org.level, tier: org.tier || '', tierCity: org.tierCity || '', phone: org.phone || '', service: s.name, serviceId: s.id, status: (s.verification && s.verification.status) || '' });
       });
     });
     // 지역 범주 5단계: 오산시 → 인근 시 → 경기도 → 전국 공공 → 전국 민간(tier가 없으면 원본 범주로)
@@ -206,11 +209,16 @@
     const lv = { '오산시': 0, '경기도': 2, '민간': 3 };
     const r = x => rank[x.tier] ?? lv[x.level] ?? 9;
     out.sort((x, y) => r(x) - r(y) || x.org.localeCompare(y.org, 'ko'));
+    /* 사는 동(2026-11-26): OY-RALS와 같은 거주 지역 규칙(residence-v1.js). 다른 동 행정복지센터·다른 권역 복지관은 빼고,
+       내 동 창구·그 시 기관을 앞에, 타지역 거주면 오산 기관을 맨 뒤 '오산 기관(참고)'로 둔다. 동을 고르지 않으면 지금과 같다. */
+    const RES = residence(), dong = RES ? RES.valid(o.dong) : '';
+    let list = out;
+    if (dong) list = RES.apply(out, dong).map(x => Object.assign({}, x, { role: RES.role(x, dong), tag: RES.tag(x, dong) }));
     if (o.dedupeOrg) {
       const seen = new Set();
-      return out.filter(r => (seen.has(r.orgId) ? false : seen.add(r.orgId)));
+      return list.filter(r => (seen.has(r.orgId) ? false : seen.add(r.orgId)));
     }
-    return out;
+    return list;
   }
 
   /* 자원 지도: 영역 × 범주별 연결 후보 수, 오산 공백 */

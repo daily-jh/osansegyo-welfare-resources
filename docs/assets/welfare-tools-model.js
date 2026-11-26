@@ -4,6 +4,8 @@
  * - 입력값(대상·상황)은 저장하거나 외부로 보내지 않습니다. */
 (function(root){'use strict';
 const LEVELS=['오산시','경기도','민간'];
+// 사는 동(2026-11-26): OY-RALS와 같은 거주 지역 규칙(residence-v1.js). 없으면(자원 공백 지도 등) 동 없이 지금처럼 동작한다.
+const R=(()=>{try{return typeof module!=='undefined'&&module.exports?require('./residence-v1.js'):root.Residence||null}catch(_){return null}})();
 const LEVEL_LABEL={'오산시':'오산','경기도':'경기','민간':'전국'};
 // 지역 범주 5단계(2026-11-25). level(원본 3범주)은 칸 집계 호환용, 정렬·표시는 tier를 쓴다.
 const TIERS=['osan','near','gyeonggi','national-public','national-private'];
@@ -47,20 +49,27 @@ function targetFit(s,target){
 const rankTier=e=>TIERS.indexOf(tierOf(e.o));
 const rankStatus=x=>x==='확인완료'?0:x==='사업별 확인 필요'?1:2;
 function sortEntries(a,b){
- return (a.fit==='exact'?0:1)-(b.fit==='exact'?0:1)||rankTier(a)-rankTier(b)||rankStatus(a.checked.status)-rankStatus(b.checked.status)||(b.checked.date||b.checked.reviewed).localeCompare(a.checked.date||a.checked.reviewed)||a.s.name.localeCompare(b.s.name,'ko');
+ // 내 동 관할 창구(그 동 행정복지센터·권역 복지관)는 대상 분류와 상관없이 맨 앞(관할 창구가 먼저 받는 구조).
+ return (a.role==='mine'?0:1)-(b.role==='mine'?0:1)||(a.fit==='exact'?0:1)-(b.fit==='exact'?0:1)||(a.rk??rankTier(a))-(b.rk??rankTier(b))||rankStatus(a.checked.status)-rankStatus(b.checked.status)||(b.checked.date||b.checked.reviewed).localeCompare(a.checked.date||a.checked.reviewed)||a.s.name.localeCompare(b.s.name,'ko');
 }
 function selfCheck(data,input){
- const target=input&&input.target||'',ids=(input&&input.situations)||[],perGroup=(input&&input.perGroup)||5;
+ const target=input&&input.target||'',ids=(input&&input.situations)||[],perGroup=(input&&input.perGroup)||5,dong=R?R.valid(input&&input.dong):'';
  const chosen=SITUATIONS.filter(x=>ids.includes(x.id)),all=entries(data);
+ // 사는 동을 고르면 다른 동 행정복지센터·다른 권역 복지관은 빼고, 내 동 창구·그 시 기관을 앞에, 타지역이면 오산 기관을 뒤(참고)에 둔다.
+ const roleOf=e=>dong?R.role(e.o,dong):'';
  const groups=chosen.map(sit=>{
-  const list=all.filter(e=>tags(e.s,'need').includes(sit.need)).map(e=>({...e,fit:targetFit(e.s,target),level:level(e.o),checked:checked(e.o,e.s)})).filter(e=>e.fit).sort(sortEntries);
+  const list=all.filter(e=>tags(e.s,'need').includes(sit.need)).map(e=>{const role=roleOf(e);return {...e,fit:targetFit(e.s,target),level:level(e.o),checked:checked(e.o,e.s),role,rk:dong?R.rank(e.o,dong):undefined}}).filter(e=>e.fit&&e.role!=='other').sort(sortEntries);
   const byLevel=Object.fromEntries(LEVELS.map(l=>[l,list.filter(e=>e.level===l).length]));
   const seen=new Set(),top=[];
   for(const e of list){if(seen.has(e.o.id))continue;seen.add(e.o.id);top.push(e);if(top.length>=perGroup)break}
-  return {id:sit.id,need:sit.need,q:sit.q,urgent:!!sit.urgent,total:list.length,byLevel,items:top,osanGap:byLevel['오산시']===0};
+  return {id:sit.id,need:sit.need,q:sit.q,urgent:!!sit.urgent,total:list.length,byLevel,items:top,osanGap:byLevel['오산시']===0,local:dong?list.filter(e=>e.role==='mine'||e.role==='local').length:0};
  });
- const firstDesk=(data&&data.organizations||[]).filter(o=>/행정복지센터$/.test(o.name)&&o.phone&&o.level==='오산시').map(o=>({name:o.name,phone:o.phone,site:o.site||''}));
- return {target,urgent:groups.some(g=>g.urgent),groups,firstDesk};
+ const orgs=(data&&data.organizations||[]).filter(o=>!['중단','폐지'].includes(o.status));
+ let firstDesk=orgs.filter(o=>/행정복지센터$/.test(o.name)&&o.phone&&o.level==='오산시').map(o=>({name:o.name,phone:o.phone,site:o.site||'',id:o.id}));
+ if(dong)firstDesk=R.isDong(dong)?firstDesk.filter(d=>R.centerDong(d)===dong):[];
+ const zone=dong&&R.isDong(dong)?R.zone(dong):null,zoneOrg=zone?orgs.find(o=>o.id===zone.orgId)||null:null;
+ const shown=groups.flatMap(g=>g.items.map(e=>e.o));
+ return {target,dong,urgent:groups.some(g=>g.urgent),groups,firstDesk,zone:zone?{number:zone.number,name:zone.name,id:zoneOrg?zoneOrg.id:zone.orgId,phone:zoneOrg?zoneOrg.phone||'':''}:null,notice:dong?R.notice(dong,shown):null};
 }
 function targets(data){return ((data&&data.taxonomy&&data.taxonomy.target)||[]).filter(t=>t!==PRACTITIONER)}
 function needs(data){return (data&&data.taxonomy&&data.taxonomy.need)||[]}

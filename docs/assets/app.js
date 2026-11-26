@@ -1,10 +1,10 @@
 /* © 2026 오산세교종합사회복지관 김지훈 팀장. All rights reserved. */
 (() => {
   'use strict';
-  const $=s=>document.querySelector(s), model=window.ResourceSearch, data=window.WELFARE_DATA;
+  const $=s=>document.querySelector(s), model=window.ResourceSearch, data=window.WELFARE_DATA, RES=window.Residence||null;
   if(!model||!data||!Array.isArray(data.organizations)){const status=$('#loadStatus');if(status){status.hidden=false;status.textContent='복지자원 데이터를 불러오지 못했습니다. 새로고침 후 다시 시도해 주세요.'}return;}
   const all=data.organizations, selected=new Set(), STORE='osansegyo_resource_favorites_v1';
-  const defaults={level:'전체',need:'',audience:'',keyword:'',kind:'',form:'',intake:'',local:'',operation:'',verified:'',application:'',onlyFavorites:false,allDay:false,sort:'relevance'};
+  const defaults={level:'전체',need:'',audience:'',keyword:'',kind:'',form:'',intake:'',local:'',operation:'',verified:'',application:'',onlyFavorites:false,allDay:false,sort:'relevance',dong:''};
   const state={...defaults,limit:8,opened:new Set()};
   let favorites=new Set();
   try{const a=JSON.parse(localStorage.getItem(STORE)||'[]');if(Array.isArray(a))favorites=new Set(a.filter(id=>typeof id==='string'&&all.some(o=>o.id===id)).slice(0,all.length))}catch{}
@@ -20,14 +20,22 @@
   const hoursOf=o=>[o.contact?.hours,...o.services.flatMap(s=>(s.contacts||[]).map(c=>c.hours))].filter(Boolean).join(' · ');
   const allDay=o=>/24\s*시간/.test(hoursOf(o));
   const live=o=>!['중단','폐지'].includes(o.status);
-  const matched=(o,st=state)=>live(o)&&(st.level==='전체'||(o.scope||o.level)===st.level)&&(!st.allDay||allDay(o))&&(!st.kind||o.kind===st.kind)&&(!st.onlyFavorites||favorites.has(o.id))&&o.services.some(x=>model.matchesService(o,x,st));
+  /* 사는 동(2026-11-26, residence-v1.js · OY-RALS와 같은 규칙): 다른 동 행정복지센터·다른 권역 복지관은 뺀다.
+     단, 검색어가 그 기관 이름을 가리키면(예: '중앙동 행정복지센터') 회색으로 남긴다. 기관별 역할은 동마다 한 번만 계산한다(입력 속도 유지). */
+  const roleCache=new Map();
+  const roleOf=(o,dong)=>{if(!RES||!dong)return '';let m=roleCache.get(dong);if(!m){m=new Map();roleCache.set(dong,m)}if(!m.has(o.id))m.set(o.id,RES.role(o,dong));return m.get(o.id)};
+  const nameHit=(o,kw)=>{const q=model.norm(kw);return !!q&&model.norm(o.name).includes(q)};
+  const inArea=(o,st)=>!st.dong||roleOf(o,st.dong)!=='other'||nameHit(o,st.keyword);
+  const matched=(o,st=state)=>live(o)&&inArea(o,st)&&(st.level==='전체'||(o.scope||o.level)===st.level)&&(!st.allDay||allDay(o))&&(!st.kind||o.kind===st.kind)&&(!st.onlyFavorites||favorites.has(o.id))&&o.services.some(x=>model.matchesService(o,x,st));
   // 조건 하나를 바꿨을 때 몇 곳이 남는지(필터 옆 숫자·0곳 조건 막기, 2026-11-12)
   const countWith=patch=>{const st={...state,...patch};return all.reduce((n,o)=>n+(matched(o,st)?1:0),0)};
   function rank(o){const q=model.norm(state.keyword);if(!q)return 0;const name=model.norm(o.name);return name===q?8:name.includes(q)?5:services(o).filter(s=>model.queryMatch(s.name,state.keyword)).length*3}
   // 지역 범주 5단계: 오산시 → 인근 시 → 경기도 → 전국 공공 → 전국 민간(기본 정렬·검색 모두 오산 우선, 같은 범주 안에서는 관련도·원래 순서)
-  const TIER_ORDER=['osan','near','gyeonggi','national-public','national-private'],tierRank=o=>{const k=TIER_ORDER.indexOf(o.tier);return k<0?({오산시:0,경기도:2}[o.level]??3):k};
+  const TIER_ORDER=['osan','near','gyeonggi','national-public','national-private'],baseTier=o=>{const k=TIER_ORDER.indexOf(o.tier);return k<0?({오산시:0,경기도:2}[o.level]??3):k};
+  // 사는 동을 고르면 내 동 창구·그 시 기관이 맨 앞(-1), 타지역 거주일 때 오산 기관은 맨 뒤(8). 고르지 않으면 지금과 같다.
+  const tierRank=o=>{if(!state.dong||!RES)return baseTier(o);const r=roleOf(o,state.dong);return r==='mine'||r==='local'?-1:r==='near-ref'?7:r==='osan-ref'?8:r==='other'?9:baseTier(o)};
   function visible(){const list=all.filter(o=>matched(o));if(state.sort==='name')list.sort((a,b)=>a.name.localeCompare(b.name,'ko'));else if(state.sort==='services')list.sort((a,b)=>services(b).length-services(a).length||a.name.localeCompare(b.name,'ko'));else if(state.keyword)list.sort((a,b)=>tierRank(a)-tierRank(b)||rank(b)-rank(a)||a.name.localeCompare(b.name,'ko'));else list.sort((a,b)=>tierRank(a)-tierRank(b));return list}
-  const filtered=()=>Object.keys(defaults).some(k=>!['sort','onlyFavorites','allDay','level','kind'].includes(k)&&state[k]!==defaults[k]);
+  const filtered=()=>Object.keys(defaults).some(k=>!['sort','onlyFavorites','allDay','level','kind','dong'].includes(k)&&state[k]!==defaults[k]);
   function contactHTML(o){
     const c=o.contact||{}, phone=o.phone||'', fax=c.fax||'', email=c.email||'';
     const number=phone.split(/[~\/,]/)[0].replace(/[^0-9+]/g,'');
@@ -54,7 +62,8 @@
   }
   function card(o){const svcs=services(o), fav=favorites.has(o.id), cls={오산시:'osan','인근 시':'near',경기도:'gyeonggi','전국 공공':'national',민간:'private','전국 민간':'private'}[o.scope||o.level];
     const tel=(o.phone||'').split(/[~\/,]/)[0].replace(/[^0-9+]/g,'');
-    return `<article class="org-card" id="org-${esc(o.id)}"><div class="org-upper"><div class="org-type"><span class="region-label ${cls}">${esc((o.scope||(o.level==='민간'?'전국 공공·민간':o.level))+(o.tierCity?' · '+o.tierCity.replace(/시$/,''):''))}</span><span class="type-label">${esc(o.kind)}</span>${allDay(o)?'<span class="allday-label">24시간</span>':''}</div><button class="star-button ${fav?'active':''}" data-action="favorite" data-id="${o.id}" type="button" aria-label="${esc(o.name)} 즐겨찾기 ${fav?'해제':'추가'}" aria-pressed="${fav}"><svg class="ads-icon" viewBox="0 0 24 24" width="20" height="20" fill="${fav?'currentColor':'none'}" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 3.6 2.6 5.3 5.8.8-4.2 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.2-4.1 5.8-.8z"/></svg></button></div><h3 class="org-name"><button type="button" class="org-name-open" data-action="open" data-id="${o.id}" aria-haspopup="dialog">${esc(o.name)}</button></h3><p class="org-summary">${esc(o.summary)}</p><div class="tag-cloud">${svcs.slice(0,4).map(s=>`<span class="service-tag">${esc(s.name)}</span>`).join('')}${svcs.length>4?`<span class="service-tag">+${svcs.length-4}개</span>`:''}</div><div class="card-footer"><span class="service-total">${filtered()?'조건 일치':'등록'} 서비스 <strong>${svcs.length}</strong>개 / 전체 ${o.services.length}개</span><span class="card-actions">${tel?`<a class="card-call" href="tel:${esc(tel)}" aria-label="${esc(o.name)} 전화 ${esc(o.phone)}">전화</a>`:''}<button class="expand-button" data-action="open" data-id="${o.id}" type="button" aria-haspopup="dialog">사업·모집 확인 <span aria-hidden="true">→</span></button></span></div><label class="print-choice pick-chip"><input type="checkbox" data-action="select" data-id="${o.id}" ${selected.has(o.id)?'checked':''}/> <span>연계 시트에 담기</span></label></article>`;
+    const role=roleOf(o,state.dong);
+    return `<article class="org-card${role==='osan-ref'||role==='near-ref'||role==='other'?' res-ref':role==='mine'||role==='local'?' res-mine':''}" id="org-${esc(o.id)}"><div class="org-upper"><div class="org-type">${RES&&state.dong?RES.tagHTML(o,state.dong):''}<span class="region-label ${cls}">${esc((o.scope||(o.level==='민간'?'전국 공공·민간':o.level))+(o.tierCity?' · '+o.tierCity.replace(/시$/,''):''))}</span><span class="type-label">${esc(o.kind)}</span>${allDay(o)?'<span class="allday-label">24시간</span>':''}</div><button class="star-button ${fav?'active':''}" data-action="favorite" data-id="${o.id}" type="button" aria-label="${esc(o.name)} 즐겨찾기 ${fav?'해제':'추가'}" aria-pressed="${fav}"><svg class="ads-icon" viewBox="0 0 24 24" width="20" height="20" fill="${fav?'currentColor':'none'}" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 3.6 2.6 5.3 5.8.8-4.2 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.2-4.1 5.8-.8z"/></svg></button></div><h3 class="org-name"><button type="button" class="org-name-open" data-action="open" data-id="${o.id}" aria-haspopup="dialog">${esc(o.name)}</button></h3><p class="org-summary">${esc(o.summary)}</p><div class="tag-cloud">${svcs.slice(0,4).map(s=>`<span class="service-tag">${esc(s.name)}</span>`).join('')}${svcs.length>4?`<span class="service-tag">+${svcs.length-4}개</span>`:''}</div><div class="card-footer"><span class="service-total">${filtered()?'조건 일치':'등록'} 서비스 <strong>${svcs.length}</strong>개 / 전체 ${o.services.length}개</span><span class="card-actions">${tel?`<a class="card-call" href="tel:${esc(tel)}" aria-label="${esc(o.name)} 전화 ${esc(o.phone)}">전화</a>`:''}<button class="expand-button" data-action="open" data-id="${o.id}" type="button" aria-haspopup="dialog">사업·모집 확인 <span aria-hidden="true">→</span></button></span></div><label class="print-choice pick-chip"><input type="checkbox" data-action="select" data-id="${o.id}" ${selected.has(o.id)?'checked':''}/> <span>연계 시트에 담기</span></label></article>`;
   }
   // 기관 상세는 카드 안에서 펼치지 않고 창(dialog)으로 연다: 목록 자리를 지키고, 휴대폰에서는 화면 전체로 본다.
   function detailHTML(o){const svcs=services(o);return `${contactHTML(o)}<div class="detail-heading">${filtered()?'조건에 일치한':'제공'} 서비스 · ${svcs.length}개${filtered()&&svcs.length<o.services.length?` <small>(전체 ${o.services.length}개 중)</small>`:''}</div>${svcs.map(serviceHTML).join('')}<div class="detail-links"><button type="button" class="share-link" data-action="share" data-id="${o.id}">기관 링크 복사 ↗</button><button type="button" class="share-link rc-open" data-action="correct" data-id="${o.id}" aria-expanded="false">정보 정정 알리기</button></div>`}
@@ -69,7 +78,7 @@
   function showDialog(dlg){if(typeof dlg.showModal==='function'){if(!dlg.open)dlg.showModal()}else dlg.setAttribute('open','');document.documentElement.classList.add('dlg-lock')}
   function closeDialog(dlg){if(dlg.open){if(typeof dlg.close==='function')dlg.close();else dlg.removeAttribute('open')}}
   function render(){const list=visible();$('#statOrgs').textContent=all.filter(o=>live(o)&&o.services.length).length;$('#statServices').textContent=all.reduce((n,o)=>n+o.services.length,0);const tabLevels=[...document.querySelectorAll('#regionTabs [data-level]')].map(b=>b.dataset.level).filter(l=>l!=='전체'&&all.some(o=>!['중단','폐지'].includes(o.status)&&(o.scope||o.level)===l));if($('#statLevels')){$('#statLevels').textContent=String(tabLevels.length).padStart(2,'0');$('#statLevelNames').textContent=tabLevels.map(l=>l.replace(' ','\u00a0')).join(' · ')}$('#resultCount').textContent=list.length;$('#serviceResultCount').textContent=`· ${filtered()?'조건 일치':'등록'} 서비스 ${list.reduce((n,o)=>n+services(o).length,0)}개`;
-    $('#resultGrid').innerHTML=list.slice(0,state.limit).map(card).join('');$('#emptyState').hidden=!!list.length;if(!list.length)emptySuggest();$('#loadMore').hidden=list.length<=state.limit;
+    $('#resultGrid').innerHTML=list.slice(0,state.limit).map(card).join('');dongView(list);$('#emptyState').hidden=!!list.length;if(!list.length)emptySuggest();$('#loadMore').hidden=list.length<=state.limit;
     $('#favoritesOnly').checked=state.onlyFavorites;$('#allDayOnly').checked=state.allDay;$('#sortSelect').value=state.sort;
     for(const [key,id] of Object.entries(filters))$('#'+id).value=state[key];
     document.querySelectorAll('#regionTabs [data-level]').forEach(b=>{const on=b.dataset.level===state.level;b.classList.toggle('selected',on);b.setAttribute('aria-pressed',on)});
@@ -89,16 +98,23 @@
     const nb=$('#needBento');if(nb&&!nb.dataset.ready){nb.dataset.ready='1';nb.innerHTML=['소득·생계','의료·건강','정신건강','교육','주거','돌봄'].filter(t=>data.taxonomy.need.includes(t)).map(t=>`<button type="button" data-bento-need="${esc(t)}"><b>${esc(t)}</b><small>${all.filter(o=>live(o)&&o.services.some(s=>(s.tags?.need||[]).includes(t))).length}곳</small></button>`).join('')}
     const bar=$('#printBar');if(bar)bar.classList.toggle('has-pick',selected.size>0);
   }
-  const LABEL={level:'범주',need:'욕구',audience:'대상',kind:'기관유형',form:'지원형태',intake:'접수경로',operation:'운영형태',local:'오산 접수',application:'모집 상태'};
+  const LABEL={dong:'사는 곳',level:'범주',need:'욕구',audience:'대상',kind:'기관유형',form:'지원형태',intake:'접수경로',operation:'운영형태',local:'오산 접수',application:'모집 상태'};
   function activeList(){const out=[];if(state.keyword)out.push({key:'keyword',label:`검색어 "${state.keyword}"`});
     for(const k of Object.keys(LABEL))if(state[k]&&state[k]!==defaults[k])out.push({key:k,label:`${LABEL[k]}: ${state[k]}`});
     if(state.allDay)out.push({key:'allDay',label:'24시간 창구만'});if(state.onlyFavorites)out.push({key:'onlyFavorites',label:'즐겨찾기만'});return out}
   // 검색 조건을 주소에 남겨, 새로고침·뒤로가기·링크 공유 때 같은 결과가 보이게 한다(#org= 바로가기와는 따로).
-  const URLKEYS={keyword:'q',level:'level',need:'need',audience:'aud',kind:'kind',form:'form',intake:'intake',operation:'op',local:'local',application:'app',allDay:'24h',sort:'sort'};
+  const URLKEYS={dong:'dong',keyword:'q',level:'level',need:'need',audience:'aud',kind:'kind',form:'form',intake:'intake',operation:'op',local:'local',application:'app',allDay:'24h',sort:'sort'};
   function syncURL(){try{const u=new URL(location.href);for(const [k,q] of Object.entries(URLKEYS)){const v=state[k];if(v&&v!==defaults[k])u.searchParams.set(q,v===true?'1':v);else u.searchParams.delete(q)}if(u.href!==location.href)history.replaceState(null,'',u)}catch{}}
-  function readURL(){try{const u=new URL(location.href);for(const [k,q] of Object.entries(URLKEYS)){const v=u.searchParams.get(q);if(v==null)continue;if(k==='allDay')state.allDay=v==='1';else state[k]=String(v).slice(0,60)}
+  function readURL(){try{const u=new URL(location.href);for(const [k,q] of Object.entries(URLKEYS)){const v=u.searchParams.get(q);if(v==null)continue;if(k==='allDay')state.allDay=v==='1';else if(k==='dong')state.dong=RES?RES.valid(v):'';else state[k]=String(v).slice(0,60)}
     if(state.level!=='전체'&&![...document.querySelectorAll('#regionTabs [data-level]')].some(b=>b.dataset.level===state.level))state.level='전체';$('#keyword').value=state.keyword}catch{}}
   const refresh=()=>{state.limit=8;render()};
+  // 사는 동 선택칸·안내 한 줄·다른 화면(자가점검·통합돌봄) 바로가기에 같은 동을 잇는다.
+  const dongSel=$('#dongSelect');
+  if(dongSel&&RES){dongSel.innerHTML=RES.optionsHTML(state.dong,'고르지 않음');dongSel.addEventListener('change',e=>{state.dong=RES.valid(e.target.value);refresh()})}
+  else if(dongSel)dongSel.closest('.dong-pick')?.setAttribute('hidden','');
+  function dongView(list){if(!RES)return;if(dongSel){if(dongSel.value!==state.dong)dongSel.value=state.dong;dongSel.parentNode.classList.toggle('on',!!state.dong)}
+    const box=$('#dongNotice');if(box){const n=RES.notice(state.dong,list);box.hidden=!n;box.innerHTML=n?RES.noticeHTML(n):''}
+    document.querySelectorAll('a[data-dong-link]').forEach(a=>{const base=a.dataset.dongLink;a.setAttribute('href',RES.withDong(base,state.dong))})}
   let toastTimer;function toast(msg){$('#toast').textContent=msg;$('#toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').classList.remove('show'),3000)}
   $('#quickTags').innerHTML=['의료비','위기가정','청소년','장애아동','주거지원','자립','한부모'].map(q=>`<button type="button" class="quick-tag" data-query="${q}"># ${q}</button>`).join('');
   // 0건일 때: 검색어를 자료에 쓰인 말로 바꿔 볼 수 있게 바로 누를 말을 보여 준다(필터는 그대로).
@@ -121,7 +137,7 @@
   $('#favoritesOnly').addEventListener('change',e=>{state.onlyFavorites=e.target.checked;refresh()});
   $('#allDayOnly').addEventListener('change',e=>{state.allDay=e.target.checked;refresh()});
   $('#sortSelect').addEventListener('change',e=>{state.sort=e.target.value;refresh()});
-  function reset(){Object.assign(state,defaults);$('#keyword').value='';refresh()}
+  function reset(){const dong=state.dong;Object.assign(state,defaults,{dong});$('#keyword').value='';refresh()} // 사는 곳은 조건 초기화 뒤에도 그대로 둔다(칩의 ×로만 지움)
   $('#resetFilters').addEventListener('click',reset);$('#emptyReset').addEventListener('click',reset);
   $('#loadMore').addEventListener('click',()=>{state.limit+=8;render()});
   $('#resultGrid').addEventListener('click',async e=>{const b=e.target.closest('[data-action]');if(!b)return;const id=b.dataset.id,o=all.find(o=>o.id===id);if(!o)return;
