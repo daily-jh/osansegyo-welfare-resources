@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta name="theme-color" content="#16324a">
+<meta name="robots" content="noindex">
+<title>세교 사례관리 시스템 시연판 | 오산 복지자원 찾기</title>
+<meta name="description" content="오산세교종합사회복지관 사례관리 7단계(접수·사정·연계 맵·판정·회의·계획·개입·점검·종결·이관)를 가상 사례로 보여 주는 화면 시연판입니다.">
+<link rel="canonical" href="https://daily-jh.github.io/osansegyo-welfare-resources/case-management/">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="preload" href="../youth-risk/fonts/SUIT-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="cm.css?v=20261126-1">
+<script defer src="cm-data.js?v=20261126-1"></script>
+<script defer src="cm-app.js?v=20261126-1"></script>
+</head>
+<body>
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="../"><span class="brand-symbol" aria-hidden="true"><span></span><span></span><span></span></span><span><strong>세교 사례관리 시스템</strong><small>시연판 · 가상 사례</small></span></a>
+    <nav class="top-nav" aria-label="사이트 메뉴"><a href="../">복지자원 찾기</a><a href="../care/">통합돌봄 길잡이</a><a href="../youth-risk/">청소년 지원 연계 ↗</a><a href="./" aria-current="page">사례관리 시스템</a></nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero">
+    <div class="wrap hero-in">
+      <p class="eyebrow">오산세교종합사회복지관 · 사례관리 시스템 시연판 v0.1 · 2026-11-26</p>
+      <h1>사례관리 일곱 단계를<br><em>하나의 사례파일로 잇습니다.</em></h1>
+      <p class="lead">접수부터 종결·이관까지 단계마다 무엇을 기록하고, 어느 서식으로 이어지며, 앞뒤 문서가 서로 맞는지를 한 화면에서 확인하도록 설계했습니다. 지금은 가상 사례 한 건으로 화면 구성만 보여 줍니다.</p>
+      <div class="hero-actions"><a class="btn primary" href="#step-1" data-go="1">가상 사례로 둘러보기 ↓</a><a class="btn ghost" href="#check" data-go="check">문서 일관성 검사 보기</a></div>
+      <p class="hero-note" id="notice"><b>이 화면이 하지 않는 일</b> 실제 대상자 정보를 받지 않고, 위기 수준이나 대상자 선정을 판정하지 않습니다. 위기도척도 문항·판정 기준은 기관 양식 원문이 확인되기 전까지 비워 둡니다. 화면에서 고친 내용은 이 창에만 있고 저장·전송되지 않습니다.</p>
+    </div>
+  </section>
+
+  <div class="safety" role="region" aria-label="안전 확인">
+    <div class="wrap safety-in">
+      <p><b>안전 확인은 단계를 기다리지 않습니다.</b> 생명·신체 위험이 보이면 기록보다 신고·응급 연결이 먼저입니다.</p>
+      <ul class="hot" id="hotlines"></ul>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <nav class="tabs" role="tablist" aria-label="사례관리 단계" id="tabs"></nav>
+    <div id="panels"></div>
+  </div>
+</main>
+
+<footer class="foot"><div class="wrap">
+  <p>근거: 세교 사례관리 시스템 설계 문서(비공개 저장소, 2026-11-26)의 업무 단계·사례파일 문서 체계·디자인 로직. 서식 원본, 내부 매뉴얼, 지식카드 원문, 실제 사례 기록은 이 공개 화면에 싣지 않았습니다. 화면의 사례는 모두 지어낸 가상 사례이며 실존 인물·기관 기록과 관계없습니다.</p>
+  <p>실제 운영판은 대상자 정보를 저장해야 하므로 공개 웹이 아니라 기관 내부 서버(기관 격리·권한·감사기록)로 만들 계획입니다.</p>
+  <p>기획·편집: 오산세교종합사회복지관 김지훈 팀장 · <a href="../usage-terms.html">이용조건</a> · <a href="../">오산 복지자원 찾기</a></p>
+</div></footer>
+</body>
+</html>
