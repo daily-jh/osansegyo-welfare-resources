@@ -1,7 +1,9 @@
 /* © 2026 김지훈. Public program facts remain attributed to their sources. */
 (function(root){'use strict';
 const norm=s=>String(s||'').normalize('NFKC').replace(/\s+/g,'').toLowerCase();
-const today=()=>new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+// 날짜 서식기는 한 번만 만들고 날짜는 1분마다만 다시 계산한다(검색 입력 때 서비스마다 불려 느려지던 문제, 2026-11-26).
+let dayFmt=null,dayAt=0,dayVal='';
+const today=()=>{const now=Date.now();if(dayVal&&now-dayAt<60000)return dayVal;dayFmt=dayFmt||new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'});dayAt=now;dayVal=dayFmt.format(new Date(now));return dayVal};
 const safe=s=>{try{if(typeof s!=='string'||/[\u0000-\u001f\u007f]/.test(s))return false;const u=new URL(s);return /^https?:$/.test(u.protocol)&&!u.username&&!u.password}catch{return false}};
 const dateOf=v=>typeof v==='string'&&/^\d{4}-\d{2}-\d{2}/.test(v)?v.slice(0,10):'';
 // A failed refresh keeps the last good list (never overwritten as a success), so the list is only as fresh as lastSuccessAt.

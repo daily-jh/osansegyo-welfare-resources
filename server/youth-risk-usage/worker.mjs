@@ -1,4 +1,6 @@
 const origin='https://daily-jh.github.io';
+// 쉬운 주소(사용자 지정 도메인)를 붙이면 그 주소에서도 의견·통계가 들어오도록, wrangler.toml [vars] SITE_ORIGINS에 쉼표로 더 적는다(2026-11-26).
+const allowedOrigins=env=>[origin,...String(env?.SITE_ORIGINS||'').split(',').map(x=>x.trim()).filter(x=>{try{const u=new URL(x);return u.protocol==='https:'&&u.origin===x}catch{return false}})];
 // 이용자 의견: report=오류·수정 요청(비공개, 관리자만 열람), review=사용 후기(승인한 글만 공개). 이름·연락처·IP는 저장하지 않는다.
 // 2026-11-25: 화면 메뉴 5단계(01 선별평가·02 결과해석·03 지역자원연계·04 학교/교육지원청/복지관·기관·05 최종보고서·추가자료) 이름을 받고, 옛 이름도 계속 받는다(배포 전 화면·복지자원 정정 창구).
 const AREAS=['01 선별평가','02 결과해석','03 지역자원연계','04 학교','04 교육지원청','04 복지관·기관','05 최종보고서','추가자료 · 척도 자료실','전체·기타',
@@ -62,9 +64,10 @@ async function feedback(request,env,url,reply,day){
  return reply({error:'Not found'},404);
 }
 export default {async fetch(request,env){
-const headers={'Access-Control-Allow-Origin':origin,'Access-Control-Allow-Methods':'GET, POST, OPTIONS','Access-Control-Allow-Headers':'Content-Type, Authorization','Cache-Control':'no-store','Content-Type':'application/json; charset=utf-8','Vary':'Origin'};
+const from=request.headers.get('Origin')||'',okOrigin=allowedOrigins(env).includes(from);
+const headers={'Access-Control-Allow-Origin':okOrigin?from:origin,'Access-Control-Allow-Methods':'GET, POST, OPTIONS','Access-Control-Allow-Headers':'Content-Type, Authorization','Cache-Control':'no-store','Content-Type':'application/json; charset=utf-8','Vary':'Origin'};
 const reply=(body,status=200)=>new Response(JSON.stringify(body),{status,headers});
-if(request.headers.get('Origin')!==origin)return reply({error:'Forbidden'},403);
+if(!okOrigin)return reply({error:'Forbidden'},403);
 if(request.method==='OPTIONS')return new Response(null,{status:204,headers});
 if(!['GET','POST'].includes(request.method))return reply({error:'Method not allowed'},405);
 const day=new Date(Date.now()+9*3600000).toISOString().slice(0,10);
