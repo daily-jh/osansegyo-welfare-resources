@@ -1,4 +1,6 @@
 const ORIGIN='https://daily-jh.github.io';
+// 사용자 지정 도메인을 붙이면 wrangler.toml [vars] SITE_ORIGINS에 쉼표로 더 적는다(2026-11-26).
+const allowedOrigins=env=>[ORIGIN,...String(env?.SITE_ORIGINS||'').split(',').map(x=>x.trim()).filter(x=>{try{const u=new URL(x);return u.protocol==='https:'&&u.origin===x}catch{return false}})];
 const GROUPS=[
  ['아동학대·보호',2],['학교폭력·또래 안전',3],['자해·정서·정신건강',3],
  ['학습·출결',3],['행동·건강 안전',2],['장애·발달 및 접근성',2],
@@ -56,11 +58,15 @@ const SYSTEM=`한국의 학교/종합사회복지관 실무자를 위한 청소�
 ## 5. 첫 면담·회의 결정사항
 반드시 실제 학생·보호자·기관과의 확인·합의를 거치는 검토용 초안임을 끝에 표시한다.
 원자료를 기반으로 개입 초안을 제안할 뿐 신고·보호 절차는 지연하지 않는다.`;
+// 허용한 주소에서 온 요청이면 응답의 허용 주소를 그 주소로 맞춘다(요청마다 따로, 동시 요청끼리 섞이지 않게).
+async function withOrigin(request,env,res){const from=request.headers.get('Origin')||'';if(from!==ORIGIN&&allowedOrigins(env).includes(from)&&res.headers.get('Access-Control-Allow-Origin')){const h=new Headers(res.headers);h.set('Access-Control-Allow-Origin',from);return new Response(res.body,{status:res.status,headers:h})}return res}
 export default {
- async fetch(request,env){
+ async fetch(request,env){return withOrigin(request,env,await handle(request,env))}
+};
+async function handle(request,env){
   const url=new URL(request.url);
   if(url.pathname!=='/analyze')return reply({error:'not_found'},404);
-  if(request.headers.get('Origin')!==ORIGIN)return reply({error:'origin_forbidden'},403);
+  if(!allowedOrigins(env).includes(request.headers.get('Origin')||''))return reply({error:'origin_forbidden'},403);
   if(request.method==='OPTIONS')return new Response(null,{status:204,headers:{
    'Access-Control-Allow-Origin':ORIGIN,'Access-Control-Allow-Headers':'Authorization, Content-Type',
    'Access-Control-Allow-Methods':'POST, OPTIONS','Access-Control-Max-Age':'300','Vary':'Origin'}});
@@ -84,6 +90,5 @@ export default {
    if(output.length<40||output.length>9000)return reply({error:'invalid_ai_output'},502);
    return reply({draft:output,provider:'Cloudflare Workers AI',verified:false});
   }catch{return reply({error:'ai_unavailable'},502)}
- }
-};
+}
 // 주의: 전송 내용·결과를 코드에서 기록하지 않습니다. Cloudflare/모델 공급자의 로그·보관정책은 별도 확인해야 합니다.

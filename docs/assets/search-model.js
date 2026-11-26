@@ -38,16 +38,29 @@
   /* 한 글자 말(술·빚·밥·굶·쌀)은 낱말 첫머리에서만 찾는다. '수술비·미술·기술'이 '술'로 잡혀 중독 기관이 섞이던 문제(2026-11-12). */
   const keyHit=(q,k)=>{const key=norm(k);if(key.length>1)return q.includes(key);return q.split(/[^가-힣a-z0-9]+/).some(t=>t.startsWith(key))};
   // 검색어(전체 또는 낱말)에 해당하는 자료 쪽 말 목록. 0건일 때 '이런 말로 찾아보세요'에도 쓴다.
-  function suggestWords(keyword){const q=norm(keyword);if(!q)return [];const out=[];
+  /* 입력 속도(2026-11-26): 글자 하나 칠 때마다 '필터 옆 숫자'까지 다시 세느라 기관·서비스 설명을 수만 번 다시 정규화해
+     PC 약 0.9초, 휴대폰 4초씩 멈췄다. 같은 검색어의 해석과 서비스별 검색 대상 글은 한 번만 만들어 두고 다시 쓴다(결과는 같음). */
+  const swCache=new Map(),qCache=new Map(),hayCache=new Map();
+  const remember=(map,key,make)=>{if(map.has(key))return map.get(key);const v=make();if(map.size>400)map.clear();map.set(key,v);return v};
+  function suggestWords(keyword){const q=norm(keyword);if(!q)return [];return remember(swCache,q,()=>{const out=[];
     fieldWords.forEach(([keys,targets])=>{if(keys.some(k=>keyHit(q,k)))targets.forEach(t=>{if(!out.includes(t))out.push(t)})});
-    return out;
+    return out}).slice();
   }
-  function queryMatch(text,keyword){const hay=norm(text),q=String(keyword||'').trim();if(!q)return true;
-    if(hay.includes(norm(q)))return true;
-    if(suggestWords(q).some(x=>hay.includes(norm(x))))return true;
-    return q.split(/\s+/).every(token=>{const group=aliases.find(g=>g.includes(token));return (group||[token]).concat(suggestWords(token)).some(x=>hay.includes(norm(x)))});
-  }
-  const today=()=>new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+  // 검색어를 한 번만 풀어 둔다: 전체 말, 넓혀 찾을 말, 낱말별(동의어·넓힌 말 포함) 후보.
+  function compile(keyword){const q=String(keyword||'').trim();return remember(qCache,q,()=>({
+    whole:norm(q),wide:suggestWords(q).map(norm),
+    tokens:q.split(/\s+/).map(token=>{const group=aliases.find(g=>g.includes(token));return (group||[token]).concat(suggestWords(token)).map(norm)})}))}
+  function hit(hay,c){if(hay.includes(c.whole))return true;if(c.wide.some(x=>hay.includes(x)))return true;return c.tokens.every(alts=>alts.some(x=>hay.includes(x)))}
+  function queryMatch(text,keyword){if(!String(keyword||'').trim())return true;return hit(remember(hayCache,String(text??''),()=>norm(text)),compile(keyword))}
+  // 서비스마다 검색 대상 글(기관 이름·유형·서비스 설명·꼬리표)을 한 번만 정규화해 둔다.
+  const svcHay=new WeakMap(),svcHit=new WeakMap();
+  function serviceKeywordMatch(o,s,keyword){const q=String(keyword||'').trim();if(!q)return true;if(!s||typeof s!=='object')return queryMatch('',q);
+    const last=svcHit.get(s);if(last&&last.o===o&&last.q===q)return last.ok;
+    let h=svcHay.get(s);if(!h||h.o!==o){const tags=s.tags||{};h={o,text:norm([o.name,o.kind,s.name,s.category,s.target,s.description,s.method,...Object.values(tags).flat()].join(' '))};svcHay.set(s,h)}
+    const ok=hit(h.text,compile(q));svcHit.set(s,{o,q,ok});return ok}
+  // 서비스마다 오늘 날짜를 새로 만들던 것이 입력 지연의 가장 큰 원인이었다(날짜 서식기 생성이 무거움). 서식기는 한 번만, 날짜는 1분마다만 다시 계산한다.
+  let dayFmt=null,dayAt=0,dayVal='';
+  const today=()=>{const now=Date.now();if(dayVal&&now-dayAt<60000)return dayVal;dayFmt=dayFmt||new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'});dayAt=now;dayVal=dayFmt.format(new Date(now));return dayVal};
   function roundState(r,day=today()){
     if(r.closes_on&&day>r.closes_on)return '마감';
     if(r.opens_on&&day<r.opens_on)return '예정';
@@ -73,7 +86,7 @@
     if(state.verified&&s.verification.status!==state.verified)return false;
     if(state.application&&applicationState(s,day)!==state.application)return false;
     // Institution identity is shared; eligibility filters always apply to this service.
-    return queryMatch([o.name,o.kind,s.name,s.category,s.target,s.description,s.method,...Object.values(tags).flat()].join(' '),state.keyword);
+    return serviceKeywordMatch(o,s,state.keyword);
   }
   // 다음 확인 예정일(next_check_on)이 지났는지. 예정일이 없으면 판단하지 않는다.
   function recheckDue(s,day=today()){const next=s&&s.verification&&s.verification.next;return !!next&&day>next}

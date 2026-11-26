@@ -8,6 +8,8 @@ binding = "AI"
 
 [vars]
 AI_MODEL = "@cf/meta/llama-3.1-8b-instruct-fast"
+# 사용자 지정 도메인을 붙이면 쉼표로 적는다(scripts/set-custom-domain.py가 자동으로 채움). github.io는 항상 허용.
+SITE_ORIGINS = ""
 
 [[ratelimits]]
 name = "AI_RATE_LIMIT"

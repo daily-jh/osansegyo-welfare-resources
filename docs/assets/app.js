@@ -109,8 +109,12 @@
     box.innerHTML='<span>이런 말로 찾아보세요</span>'+words.map(w=>`<button type="button" class="quick-tag" data-query="${w}"># ${w}</button>`).join('');}
   document.addEventListener('click',e=>{const b=e.target.closest('#emptySuggest [data-query]');if(b){state.keyword=b.dataset.query;$('#keyword').value=state.keyword;refresh()}});
   $('#quickTags').addEventListener('click',e=>{const b=e.target.closest('[data-query]');if(b){state.keyword=b.dataset.query;$('#keyword').value=state.keyword;refresh()}});
-  $('#searchForm').addEventListener('submit',e=>{e.preventDefault();state.keyword=$('#keyword').value.trim();refresh()});
-  $('#keyword').addEventListener('input',e=>{state.keyword=e.target.value.trim();refresh()});
+  $('#searchForm').addEventListener('submit',e=>{e.preventDefault();clearTimeout(typeTimer);state.keyword=$('#keyword').value.trim();refresh()});
+  // 글자를 치는 동안에는 잠깐(0.12초) 멈췄을 때 한 번만 다시 찾는다. 한글 조합 중(ㅈ→저→정)에는 조합이 끝난 뒤 찾는다(2026-11-26 입력 지연).
+  let typeTimer=0,composing=false;const runKeyword=()=>{clearTimeout(typeTimer);const v=$('#keyword').value.trim();if(v!==state.keyword){state.keyword=v;refresh()}};
+  $('#keyword').addEventListener('compositionstart',()=>{composing=true});
+  $('#keyword').addEventListener('compositionend',()=>{composing=false;clearTimeout(typeTimer);typeTimer=setTimeout(runKeyword,120)});
+  $('#keyword').addEventListener('input',()=>{clearTimeout(typeTimer);typeTimer=setTimeout(runKeyword,composing?400:120)});
   $('#regionTabs').addEventListener('click',e=>{const b=e.target.closest('[data-level]');if(b){state.level=b.dataset.level;refresh()}});
   $('#categoryFilters').addEventListener('click',e=>{const b=e.target.closest('[data-need]');if(b){state.need=b.dataset.need;refresh()}});
   for(const [key,id] of Object.entries(filters))$('#'+id).addEventListener('change',e=>{state[key]=e.target.value;refresh()});
