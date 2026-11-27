@@ -106,14 +106,20 @@ def _strip(tag):
     return tag.rsplit('}', 1)[-1]
 
 
+class ApiResponseError(ValueError):
+    def __init__(self, code, message):
+        self.code = code
+        super().__init__(f'API 오류 코드 {code} {message}'.strip())
+
+
 def parse(raw, fmt, item_path):
     """Return (items, total_count). Raises ValueError on API error payloads."""
     if fmt == 'xml':
         root = ET.fromstring(raw)
         code = root.findtext('.//resultCode') or root.findtext('.//returnReasonCode')
         if code not in (None, '', '0', '00', '000', 'INFO-000'):
-            msg = root.findtext('.//resultMessage') or root.findtext('.//returnAuthMsg') or ''
-            raise ValueError(f'API 오류 코드 {code} {msg}'.strip())
+            msg = root.findtext('.//resultMsg') or root.findtext('.//resultMessage') or root.findtext('.//returnAuthMsg') or ''
+            raise ApiResponseError(code, msg)
         items = []
         for el in root.iter():
             if _strip(el.tag) == item_path:
@@ -348,10 +354,22 @@ def run(config, root, now, fixtures=None, env=os.environ, fetcher=None, odcloud_
                     params.update(regionrun.get('params', {}))
                     params[source['pageParam']] = page
                     params[source['sizeParam']] = source['pageSize']
-                    raw = fetch_fixture(fixtures, source, regionrun.get('key', regionrun['region']), page) if fixtures else (fetcher or fetch_live)(source, params, key)
-                    if raw is None:
-                        break
-                    batch, total = parse(raw, source['format'], source['itemPath'])
+                    if fixtures:
+                        raw = fetch_fixture(fixtures, source, regionrun.get('key', regionrun['region']), page)
+                        if raw is None:
+                            break
+                        batch, total = parse(raw, source['format'], source['itemPath'])
+                    else:
+                        for attempt in range(2):
+                            raw = (fetcher or fetch_live)(source, params, key)
+                            try:
+                                batch, total = parse(raw, source['format'], source['itemPath'])
+                                break
+                            except ApiResponseError as exc:
+                                if source['id'] != 'hira-mental-clinic' or exc.code != '99' or attempt:
+                                    raise
+                                import time
+                                time.sleep(1)
                     items.extend(batch)
                     if len(batch) < source['pageSize'] or (total is not None and len(items) >= total):
                         break
