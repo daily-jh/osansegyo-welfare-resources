@@ -22,7 +22,7 @@ function details(entry){
  const fields=[['연령',requirements.age],['거주지',requirements.residence],['추가조건',requirements.other],['비용',requirements.fee],['증빙서류',requirements.documents]].filter(x=>x[1]);
  const extra=fields.length?fields.map(x=>'<p><b>'+esc(x[0])+'</b> '+esc(x[1])+'</p>').join(''):'<p><b>이용조건</b> 개별 모집·등록 기준 미대조 — 연령·거주지·소득·비용·서류 확인 필요</p>';
  const alts=M.alternatives(entry,entries,filters(),2);
- const altsHtml=alts.length?alts.map(a=>'<li><strong>'+esc(a.entry.o.name)+'</strong> — '+esc(a.entry.s.name)+'<br/><small>'+esc(a.reason)+' · 적합성·접수 여부 직접 확인</small></li>').join(''):'<li>현재 동일 지원영역·대상 기준 대체 후보 없음 — 해당 기관에 대기·타기관 의뢰 경로 문의</li>';
+ const altsHtml=alts.length?alts.map(a=>'<li><strong>'+esc(a.entry.o.name)+'</strong> — '+'<a href="?service='+encodeURIComponent(a.entry.s.id)+'" target="_blank" rel="noopener noreferrer">'+esc(a.entry.s.name)+' 상세 ↗</a><br/><small>'+esc(a.reason)+' · 적합성·접수 여부 직접 확인</small></li>').join(''):'<li>현재 동일 지원영역·대상 기준 대체 후보 없음 — 해당 기관에 대기·타기관 의뢰 경로 문의</li>';
  return '<div class="detail-panel"><p><b>기관</b> '+esc(o.name)+' / '+esc(o.level)+'</p>'+
  '<p><b>지원내용</b> '+esc(s.description||'서비스 내용 미등록')+'</p>'+
  '<p><b>공식 확인 범위</b> '+esc(verifyText)+'</p>'+
@@ -73,6 +73,7 @@ $('printSelected').addEventListener('click',()=>{
  '<dt>지원대상·이용조건</dt><dd>'+esc(e?.eligibility?.age||s.target||'확인 필요')+' / '+esc(e?.eligibility?.residence||'거주·소득·비용 등 확인 필요')+'</dd>'+
  '<dt>담당 창구</dt><dd>'+esc(c.dept||c.level)+' '+esc(c.phone)+(c.extension?' 내선 '+esc(c.extension):'')+'</dd>'+
  '<dt>초기 문의사항</dt><dd>'+esc(e?.ask||'대상·서류·비용·접수방식·대기·예산 확인')+'</dd>'+
+ '<dt>공개 안내 확인일</dt><dd>'+esc(e?.checkedOn||s.verification?.date||'미확인')+'</dd>'+
  '<dt>서비스 안내 근거</dt><dd>'+esc(M.sourceState(s,e))+' / '+esc(e?.sourceUrl||s.source||'미기록')+'</dd>'+
  '<dt>현재 접수 가능성</dt><dd>미확인 — 공식 기관의 개별 확인 필요</dd>'+
  '<dt>부적합·대기 시 대안</dt><dd>'+esc(alts.map(x=>x.entry.o.name+' '+x.entry.s.name).join(' / ')||'담당기관에 타기관·대기경로 문의')+'</dd>'+
