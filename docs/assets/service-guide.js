@@ -81,5 +81,19 @@ $('printSelected').addEventListener('click',()=>{
  $('sheet').innerHTML='<h1>복지서비스 의뢰 준비·비교 시트</h1><p>오산 복지자원 찾기 · 공개기관 정보만 포함 · 출력일 '+new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date())+'</p><p>서비스 안내와 실제 접수 가능 여부는 다릅니다. 기관에 확인 후 의뢰합니다. 사례대상자 개인정보를 기입하지 마세요.</p>'+rows+'<small>© 2026 김지훈 · 담당자 확인 및 사례별 동의·법정 절차는 별도로 진행하십시오.</small>';
  document.body.classList.add('printing');const cleanup=()=>document.body.classList.remove('printing');window.addEventListener('afterprint',cleanup,{once:true});try{window.print()}catch(err){cleanup();throw err}setTimeout(cleanup,60000)
 });
+const linkedId=new URLSearchParams(location.search).get('service');
 search();
+if(linkedId){
+ const index=matches.findIndex(entry=>entry.s.id===linkedId);
+ if(index>=0){
+  const linked=matches.splice(index,1)[0];
+  matches.unshift(linked);
+  draw();
+  const button=$('service-'+linkedId).querySelector('[data-detail]');
+  button.click();
+  button.focus();
+ }else{
+  $('status').prepend('연결한 서비스를 현재 목록에서 찾을 수 없습니다. ');
+ }
+}
 })();
