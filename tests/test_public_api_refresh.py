@@ -157,6 +157,26 @@ class PublicApiRefresh(unittest.TestCase):
         self.assertIn('ssis-local:osan', failures)
         self.assertIn('SERVICE_KEY_IS_NOT_REGISTERED', status['runs']['ssis-local:osan']['lastError'])
 
+    def test_hira_retries_same_page_once_and_reports_provider_message(self):
+        from unittest.mock import Mock, patch
+        source = next(s for s in self.config['sources'] if s['id'] == 'hira-mental-clinic')
+        cfg = dict(self.config, sources=[source])
+        error = b'<response><header><resultCode>99</resultCode><resultMsg>provider unavailable</resultMsg></header></response>'
+        ok = '<response><body><item><yadmNm>시험의원</yadmNm><addr>경기도 오산시</addr></item></body></response>'.encode()
+        for second in (ok, error):
+            fetch = Mock(side_effect=[error, second])
+            with patch('time.sleep'):
+                status, _, _ = p.run(cfg, self.tmp, NOW, env={'DATA_GO_KR_KEY':'test'}, fetcher=fetch)
+            self.assertEqual(fetch.call_count, 2)
+            self.assertEqual(*fetch.call_args_list)
+            state = status['runs']['hira-mental-clinic:osan']
+            if second == ok:
+                self.assertEqual(state['received'], 1)
+                self.assertEqual(state['lastError'], '')
+            else:
+                self.assertIn('99 provider unavailable', state['lastError'])
+                self.assertNotIn('lastSuccessAt', state)
+
     def test_facility_source_flags_phone_difference_and_filters_address(self):
         cfg = copy.deepcopy(self.config)
         src = next(s for s in cfg['sources'] if s['id'] == 'mogef-youth-counsel')
